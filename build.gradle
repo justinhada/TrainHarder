@@ -35,4 +35,5 @@ dependencies {
     
     providedCompile group: 'javax', name: 'javaee-api', version: '8.0'
     providedCompile group: 'javax.faces', name: 'jsf-api', version: '2.1'
+    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 }
