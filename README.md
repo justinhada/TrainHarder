@@ -1,4 +1,4 @@
-Powerlifting 2019/2020
+Lift Fast Die Young
 
 * by Justin Harder
 * Java EE / Jakarta EE Project
