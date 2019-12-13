@@ -727,6 +727,7 @@ Cargo.lock
 .buildpath
 .classpath
 .project
+\bin
 
 
 # End of https://www.gitignore.io/api/go,c++,java,rust,cmake,fsharp,csharp,kotlin,clojure,intellij+all,visualstudio,visualstudiocode
