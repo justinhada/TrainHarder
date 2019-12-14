@@ -9,6 +9,7 @@ import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
 import de.justinharder.powerlifting.model.domain.enums.Geschlecht;
+import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
@@ -22,7 +23,7 @@ public class Benutzer
 	private String id;
 	private String vorname;
 	private String nachname;
-	private double koerpergewicht;
+	private int koerpergewicht;
 	private int koerpergroesse;
 	private int alter;
 	@Enumerated(EnumType.STRING)
@@ -39,4 +40,7 @@ public class Benutzer
 	private Doping doping;
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
+	@Enumerated(EnumType.STRING)
+	private Kraftlevel kraftlevel;
+	private Kraftwerte kraftwerte;
 }
