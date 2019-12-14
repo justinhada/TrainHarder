@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public class Belastungsfaktor
 {
+	private double squat;
+	private double benchpress;
+	private double deadlift;
 	private double triceps;
 	private double chest;
 	private double core;
