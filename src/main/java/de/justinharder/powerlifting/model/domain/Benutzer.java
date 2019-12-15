@@ -13,9 +13,15 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 @Entity
 public class Benutzer
 {
@@ -26,6 +32,9 @@ public class Benutzer
 	private int koerpergewicht;
 	private int koerpergroesse;
 	private int alter;
+	private Kraftwerte kraftwerte;
+	@Enumerated(EnumType.STRING)
+	private Kraftlevel kraftlevel;
 	@Enumerated(EnumType.STRING)
 	private Geschlecht geschlecht;
 	@Enumerated(EnumType.STRING)
@@ -40,7 +49,9 @@ public class Benutzer
 	private Doping doping;
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
-	@Enumerated(EnumType.STRING)
-	private Kraftlevel kraftlevel;
-	private Kraftwerte kraftwerte;
+
+	public Benutzer()
+	{
+		kraftwerte = new Kraftwerte();
+	}
 }

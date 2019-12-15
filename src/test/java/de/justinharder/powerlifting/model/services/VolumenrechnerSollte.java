@@ -38,7 +38,7 @@ public class VolumenrechnerSollte
 	}
 
 	@Test
-	@DisplayName("den richtigen Anpassungsfaktor berechnen")
+	@DisplayName("den richtigen Anpassungsfaktor für Justin berechnen")
 	public void test02()
 	{
 		final var benutzer = new Benutzer();
@@ -57,5 +57,27 @@ public class VolumenrechnerSollte
 		benutzer.setKraftlevel(Kraftlevel.CLASS_5);
 
 		assertThat(sut.berechneAnpassungsfaktor(benutzer)).isEqualTo(9);
+	}
+
+	@Test
+	@DisplayName("den richtigen Anpassungsfaktor für eine Frau berechnen")
+	public void test03()
+	{
+		final var benutzer = new Benutzer();
+		benutzer.setVorname("M.");
+		benutzer.setNachname("Musterfrau");
+		benutzer.setKoerpergewicht(90);
+		benutzer.setKoerpergroesse(180);
+		benutzer.setAlter(43);
+		benutzer.setGeschlecht(Geschlecht.WEIBLICH);
+		benutzer.setErfahrung(Erfahrung.BEGINNER);
+		benutzer.setErnaehrung(Ernaehrung.GUT);
+		benutzer.setSchlafqualitaet(Schlafqualitaet.GUT);
+		benutzer.setStress(Stress.MITTELMAESSIG);
+		benutzer.setDoping(Doping.NEIN);
+		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		benutzer.setKraftlevel(Kraftlevel.CLASS_3);
+
+		assertThat(sut.berechneAnpassungsfaktor(benutzer)).isEqualTo(1);
 	}
 }
