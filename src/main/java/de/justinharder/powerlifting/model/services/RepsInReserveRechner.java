@@ -6,6 +6,10 @@ import de.justinharder.powerlifting.model.domain.exceptions.UngueltigesMaximumEx
 
 public class RepsInReserveRechner
 {
+	private static final int MINIMUM = 0;
+	private static final int MAXIMUM_RIR = 4;
+	private static final int MAXIMUM_WIEDERHOLUNGEN = 12;
+
 	// Zeilen entsprechen den RIR (0-4), Spalten den Reps (1-12)
 	private static final double[][] PROZENTE = new double[][]
 	{
@@ -19,17 +23,17 @@ public class RepsInReserveRechner
 	public int berechneRichtwert(final int maximum, final int wiederholungen, final int rir)
 		throws Exception
 	{
-		if (maximum <= 0)
+		if (maximum <= MINIMUM)
 		{
 			throw new UngueltigesMaximumException(
 				"Du bist leider zu schwach, um überhaupt mit dem Training zu beginnen!");
 		}
-		if (wiederholungen <= 0 || wiederholungen > 12)
+		if (wiederholungen <= MINIMUM || wiederholungen > MAXIMUM_WIEDERHOLUNGEN)
 		{
 			throw new UngueltigeWiederholungenException(
 				"Die Wiederholungszahl (" + wiederholungen + ") ist leider ungültig!");
 		}
-		if (rir < 0 || rir > 4)
+		if (rir < MINIMUM || rir > MAXIMUM_RIR)
 		{
 			throw new UngueltigeRepsInReserveException("Die RIR-Zahl " + rir + " ist ungültig!");
 		}
