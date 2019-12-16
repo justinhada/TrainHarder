@@ -5,13 +5,13 @@
  * For more details take a look at the Java Libraries chapter in the Gradle
  * User Manual available at https://docs.gradle.org/5.6.1/userguide/java_library_plugin.html
  */
-
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'eclipse'
     id 'eclipse-wtp'
     id 'war'
+    id "org.sonarqube" version "2.7"
 }
 
 repositories {
@@ -38,4 +38,16 @@ dependencies {
     providedCompile group: 'javax', name: 'javaee-api', version: '8.0'
     providedCompile group: 'javax.faces', name: 'jsf-api', version: '2.1'
     providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
+
+sonarqube {
+  properties {
+    property "sonar.projectName", "Powerlifting"
+    property "sonar.projectKey", "powerlifting"
+  }
+}
+
+version= '0.0.1'

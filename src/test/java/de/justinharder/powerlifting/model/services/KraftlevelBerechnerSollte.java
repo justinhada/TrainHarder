@@ -39,7 +39,7 @@ public class KraftlevelBerechnerSollte
 		benutzer.setNachname("Harder");
 		benutzer.setKoerpergewicht(90);
 		benutzer.setKoerpergroesse(178);
-		benutzer.setAlter(20);
+		benutzer.setLebensalter(20);
 		benutzer.setGeschlecht(Geschlecht.MAENNLICH);
 		benutzer.setErfahrung(Erfahrung.BEGINNER);
 		benutzer.setErnaehrung(Ernaehrung.GUT);
@@ -71,7 +71,7 @@ public class KraftlevelBerechnerSollte
 		benutzer.setNachname("Musterfrau");
 		benutzer.setKoerpergewicht(90);
 		benutzer.setKoerpergroesse(180);
-		benutzer.setAlter(43);
+		benutzer.setLebensalter(43);
 		benutzer.setGeschlecht(Geschlecht.WEIBLICH);
 		benutzer.setErfahrung(Erfahrung.BEGINNER);
 		benutzer.setErnaehrung(Ernaehrung.GUT);

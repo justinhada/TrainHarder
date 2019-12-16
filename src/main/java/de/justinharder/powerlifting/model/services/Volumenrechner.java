@@ -34,7 +34,7 @@ public class Volumenrechner
 		berechneKoerpergewichtAnpassungsfaktor(benutzer.getKoerpergewicht(), geschlecht);
 		berechneKoerpergroesseAnpassungsfaktor(benutzer.getKoerpergroesse(), geschlecht);
 		berechneErfahrungAnpassungsfaktor(benutzer.getErfahrung());
-		berechneAlterAnpassungsfaktor(benutzer.getAlter());
+		berechneAlterAnpassungsfaktor(benutzer.getLebensalter());
 		berechneErnaehrungAnpassungsfaktor(benutzer.getErnaehrung());
 		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getSchlafqualitaet());
 		berechneStressAnpassungsfaktor(benutzer.getStress());

@@ -3,8 +3,8 @@ package de.justinharder.powerlifting.model.domain;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 
+import de.justinharder.powerlifting.model.Entitaet;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
@@ -13,25 +13,23 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
-public class Benutzer
+public class Benutzer extends Entitaet
 {
-	@Id
-	private String id;
+	private static final long serialVersionUID = 2411974948424821755L;
+
 	private String vorname;
 	private String nachname;
 	private int koerpergewicht;
 	private int koerpergroesse;
-	private int alter;
+	private int lebensalter;
 	private Kraftwerte kraftwerte;
 	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel;
