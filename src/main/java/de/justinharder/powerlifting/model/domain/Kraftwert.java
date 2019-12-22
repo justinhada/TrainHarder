@@ -5,10 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import de.justinharder.powerlifting.model.domain.uebungen.Uebung;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +30,4 @@ public class Kraftwert extends Entitaet
 	@JoinColumn(nullable = false)
 	private Uebung uebung;
 	private int maximum;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
-	private Benutzer benutzer;
 }

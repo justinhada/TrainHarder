@@ -44,7 +44,7 @@ public class Benutzer extends Entitaet
 	private int koerpergewicht;
 	private int koerpergroesse;
 	private int lebensalter;
-	@OneToMany(mappedBy = "benutzer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Map<Integer, Kraftwert> kraftwerte = new HashMap<>();
 	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel;

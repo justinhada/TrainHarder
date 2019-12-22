@@ -5,8 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
+import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
@@ -15,12 +17,27 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
-import de.justinharder.powerlifting.model.domain.uebungen.WettkampfBankdruecken;
-import de.justinharder.powerlifting.model.domain.uebungen.WettkampfKniebeuge;
-import de.justinharder.powerlifting.model.domain.uebungen.WettkampfKreuzheben;
+import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
+import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
 
 public class KraftlevelBerechnerSollte
 {
+	private static final Uebung WETTKAMPF_KNIEBEUGE = new Uebung(
+		"WettkampfKniebeuge",
+		Uebungsart.GRUNDUEBUNG,
+		Uebungskategorie.WETTKAMPF_KNIEBEUGE,
+		new Belastungsfaktor());
+	private static final Uebung WETTKAMPF_BANKDRUECKEN = new Uebung(
+		"WettkampfBankdruecken",
+		Uebungsart.GRUNDUEBUNG,
+		Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
+		new Belastungsfaktor());
+	private static final Uebung WETTKAMPF_KREUZHEBEN = new Uebung(
+		"WettkampfKreuzheben",
+		Uebungsart.GRUNDUEBUNG,
+		Uebungskategorie.WETTKAMPF_KREUZHEBEN,
+		new Belastungsfaktor());
+
 	private KraftlevelBerechner sut;
 
 	@Test
@@ -28,11 +45,11 @@ public class KraftlevelBerechnerSollte
 	public void test01()
 	{
 		final var benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(1, new WettkampfKniebeuge(), 110, benutzer);
+		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		final var bankdrueckenKraftwert = new Kraftwert(2, new WettkampfBankdruecken(), 95, benutzer);
+		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		final var kreuzhebenKraftwert = new Kraftwert(3, new WettkampfKreuzheben(), 140, benutzer);
+		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		benutzer.setVorname("Justin");
 		benutzer.setNachname("Harder");
@@ -58,13 +75,12 @@ public class KraftlevelBerechnerSollte
 	public void test02()
 	{
 		final var benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(1, new WettkampfKniebeuge(), 110, benutzer);
+		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		final var bankdrueckenKraftwert = new Kraftwert(2, new WettkampfBankdruecken(), 95, benutzer);
+		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		final var kreuzhebenKraftwert = new Kraftwert(3, new WettkampfKreuzheben(), 140, benutzer);
+		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
-		final var kraftwerte = benutzer.getKraftwerte();
 		benutzer.setVorname("M.");
 		benutzer.setNachname("Musterfrau");
 		benutzer.setKoerpergewicht(90);
@@ -77,7 +93,6 @@ public class KraftlevelBerechnerSollte
 		benutzer.setStress(Stress.MITTELMAESSIG);
 		benutzer.setDoping(Doping.NEIN);
 		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
-		benutzer.setKraftwerte(kraftwerte);
 
 		sut = new KraftlevelBerechner(benutzer);
 		sut.setzeKraftlevel();
