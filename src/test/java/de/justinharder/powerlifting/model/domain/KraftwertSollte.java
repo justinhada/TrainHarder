@@ -11,13 +11,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class UebungSollte
+public class KraftwertSollte
 {
 	@Test
 	@DisplayName("ein Bean sein")
 	public void test01()
 	{
-		assertThat(Uebung.class, allOf(
+		assertThat(Kraftwert.class, allOf(
 			hasValidBeanConstructor(),
 			hasValidGettersAndSetters(),
 			hasValidBeanEquals(),
