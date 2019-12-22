@@ -12,6 +12,7 @@ plugins {
     id 'eclipse-wtp'
     id 'war'
     id "org.sonarqube" version "2.7"
+    id 'jacoco'
 }
 
 repositories {
@@ -36,25 +37,38 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     
     providedCompile group: 'javax', name: 'javaee-api', version: '8.0'
-    providedCompile group: 'javax.faces', name: 'jsf-api', version: '2.1'
     providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 
+eclipse {
+	wtp {
+		facet {
+			facet name:'jpt.jpa', version:'2.1'
+			facet name:'jst.web', version:'3.1'
+			facet name:'jst.jaxrs', version:'2.1'
+			facet name:'jst.jsf', version:'2.3'
+		}
+		component {
+			contextPath = 'Powerlifting'
+		}
+	}
+}
+
 sonarqube {
   properties {
     property "sonar.projectName", "Powerlifting"
     property "sonar.projectKey", "powerlifting"
-    sonar.projectVersion=1.0
-    sonar.sources=src
-    sonar.language=java
-    sonar.binaries=build/classes
-    sonar.tests=junit
-    sonar.junit.reportsPath=build/test-reports
-    sonar.java.coveragePlugin=jacoco
-    sonar.jacoco.reportPath=build/test-reports/jacoco.exec
+    property "sonar.projectVersion", "1.0"
+    property "sonar.sources", "src/main/java"
+    property "sonar.language", "java"
+    property "sonar.binaries", "build/classes"
+    property "sonar.tests", "src/test/java"
+    property "sonar.junit.reportsPath", "build/test-reports"
+    property "sonar.java.coveragePlugin", "jacoco"
+    property "sonar.jacoco.reportPath", "build/test-reports/jacoco.exec"
   }
 }
 

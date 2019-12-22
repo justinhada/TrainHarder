@@ -1,10 +1,30 @@
 package de.justinharder.powerlifting.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import de.justinharder.powerlifting.model.domain.uebungen.Uebung;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
-public class Belastungsfaktor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Entity
+public class Belastungsfaktor extends Entitaet
 {
+	private static final long serialVersionUID = 5251603922467033680L;
+
+	@Id
+	@GeneratedValue
+	private int id;
+	@OneToOne
+	@JoinColumn(nullable = false)
+	private Uebung uebung;
 	private double squat;
 	private double benchpress;
 	private double deadlift;

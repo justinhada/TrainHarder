@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>Mitarbeiterzuschuesse - ALTE OLDENBURGER</title>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="language" content="DE" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="mobile-web-app-capable" content="yes" />
+
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<ui:insert name="css"></ui:insert>
+	<h:outputStylesheet name="css/main.css" />
+
+	<ui:insert name="js"></ui:insert>
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/jquery-hotkeys.js" />
+	<h:outputScript name="js/shortcuts.js" />
+	<h:outputScript name="js/jquery-2.4.4.min.js" />
+	<h:outputScript name="js/jquery-ui.min.js" />
+
+	<link rel="icon" type="image/png" href="#{resource['img/favicon.png']}" />
+</h:head>
+<h:body>
+
+	<ui:include src="/WEB-INF/vorlagen/header.xhtml" />
+
+	<div id="wrapper">
+
+		<h2>
+			<ui:insert name="titel" />
+		</h2>
+
+		<div id="inhalt">
+			<ui:insert name="inhalt" />
+		</div>
+
+	</div>
+
+	<ui:include src="/WEB-INF/vorlagen/footer.xhtml" />
+
+</h:body>
+</html>

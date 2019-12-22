@@ -1,7 +1,7 @@
 package de.justinharder.powerlifting.model.domain.uebungen;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
+import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEqualsExcluding;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanHashCode;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanToString;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;
@@ -20,7 +20,7 @@ public class AssistenzSchulterSollte
 		assertThat(AssistenzSchulter.class, allOf(
 			hasValidBeanConstructor(),
 			hasValidGettersAndSetters(),
-			hasValidBeanEquals(),
+			hasValidBeanEqualsExcluding("belastungsfaktor"),
 			hasValidBeanHashCode(),
 			hasValidBeanToString()));
 	}

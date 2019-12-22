@@ -1,10 +1,17 @@
 package de.justinharder.powerlifting.model.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import de.justinharder.powerlifting.model.Entitaet;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
@@ -13,24 +20,32 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Benutzer extends Entitaet
 {
 	private static final long serialVersionUID = 2411974948424821755L;
 
+	@Id
+	@GeneratedValue
+	private int id;
 	private String vorname;
 	private String nachname;
 	private int koerpergewicht;
 	private int koerpergroesse;
 	private int lebensalter;
-	private Kraftwerte kraftwerte;
+	@OneToMany(mappedBy = "benutzer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Map<Integer, Kraftwert> kraftwerte = new HashMap<>();
 	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel;
 	@Enumerated(EnumType.STRING)
@@ -48,8 +63,8 @@ public class Benutzer extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 
-	public Benutzer()
+	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
-		kraftwerte = new Kraftwerte();
+		kraftwerte.put(kraftwert.getId(), kraftwert);
 	}
 }

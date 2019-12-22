@@ -1,7 +1,9 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.util.Map;
+
 import de.justinharder.powerlifting.model.domain.Benutzer;
-import de.justinharder.powerlifting.model.domain.Kraftwerte;
+import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.enums.Geschlecht;
 import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 
@@ -48,7 +50,7 @@ public class KraftlevelBerechner
 	private final Benutzer benutzer;
 	private final Geschlecht geschlecht;
 	private final int koerpergewicht;
-	private final Kraftwerte kraftwerte;
+	private final Map<Integer, Kraftwert> kraftwerte;
 
 	public KraftlevelBerechner(final Benutzer benutzer)
 	{
@@ -64,7 +66,7 @@ public class KraftlevelBerechner
 			geschlecht.equals(Geschlecht.WEIBLICH) ? KLASSIFIKATION_FRAUEN : KLASSIFIKATION_MAENNER;
 
 		var total = 0;
-		for (final var kraftwert : kraftwerte)
+		for (final var kraftwert : kraftwerte.values())
 		{
 			total += kraftwert.getMaximum();
 		}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Powerlifting">
+		<class>de.justinharder.powerlifting.model.domain.Benutzer</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzBrust</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzCore</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzGluteus</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzRuecken</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzSchulter</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzTrizeps</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.AssistenzUnterarm</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.BankdrueckenVariation</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.KniebeugeVariation</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.KreuzhebenVariation</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.Ueberkopfdruecken</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.WettkampfBankdruecken</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.WettkampfKniebeuge</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.WettkampfKreuzheben</class>
+		<class>de.justinharder.powerlifting.model.domain.Kraftwert</class>
+		<class>de.justinharder.powerlifting.model.domain.uebungen.Uebung</class>
+		<class>de.justinharder.powerlifting.model.domain.Belastungsfaktor</class>
+	</persistence-unit>
+</persistence>

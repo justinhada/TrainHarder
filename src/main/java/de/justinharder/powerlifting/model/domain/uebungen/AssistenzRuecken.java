@@ -1,21 +1,16 @@
 package de.justinharder.powerlifting.model.domain.uebungen;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
 
-import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
 public class AssistenzRuecken extends Uebung
 {
-	@Id
-	private String id;
-	@Enumerated(EnumType.STRING)
-	private Uebungsart uebungsart;
+	private static final long serialVersionUID = -8964739320160063249L;
 }

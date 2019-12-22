@@ -1,0 +1,219 @@
+@import url("#{resource['css/header.css']}");
+
+@import url("#{resource['css/footer.css']}");
+
+/*
+	Common
+*/
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-color: white;
+}
+
+/*
+	Wrapper
+*/
+#wrapper {
+	padding: 20px 0;
+}
+
+#wrapper h2 {
+	text-align: center;
+}
+
+#tabellen-wrapper {
+	display: flex;
+}
+
+#inhalt {
+	padding: 20px 2.5%;
+	background-color: #DAEAFB;
+	border: 1px solid rgb(206, 206, 206);
+	text-align: center;
+	box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3), 0px 5px 5px -2px
+		rgba(0, 0, 0, 0.3) inset;
+}
+
+/*
+	Allgemeines
+*/
+.order-table-even-row {
+	background-color: #D4D4D4;
+}
+
+.order-table-odd-row {
+	background-color: white;
+}
+
+.nicht-sichtbar {
+	display: none;
+}
+
+.jsf-nachrichten-info, .jsf-nachrichten-warn, .jsf-nachrichten-error,
+	.jsf-nachrichten-fatal {
+	width: 100%;
+	max-width: 650px;
+	padding: 5px 15px;
+	color: white;
+	list-style: none;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.jsf-nachrichten-info {
+	background-color: #27A329;
+}
+
+.jsf-nachrichten-warn {
+	background-color: #FFAA20;
+	color: black;
+}
+
+.jsf-nachrichten-error {
+	background-color: #ff5954;
+}
+
+.jsf-nachrichten-fatal {
+	background-color: #631919;
+}
+
+.warnung {
+	background-color: #ff5954 !important;
+	color: white !important;
+	boder: 2px solid darkred;
+}
+
+.aktionsbuttonleiste {
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.auswahl-button {
+	color: white;
+	background-color: #17356C;
+	text-align: center;
+	vertical-align: middle;
+	white-space: normal !important;
+	word-wrap: break-word;
+}
+
+.ao-button {
+	height: 40px;
+	box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.4);
+	padding: 10px 50px;
+	border: 2px solid #F17D00;
+	color: white;
+	background-color: #F17D00;
+	margin: 20px 20px;
+}
+
+.auswahlbutton {
+	margin-top: 10px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 4px !important;
+	font-size: 18px;
+}
+
+.policen-tabelle {
+	width: 100%;
+	text-align: left;
+	border: 1px solid grey;
+}
+
+.policen-tabelle .ungerade-reihe {
+	background-color: white;
+}
+
+.policen-tabelle th, td {
+	padding: 0.2em;
+	border: 1px solid grey;
+}
+
+.policen-tabelle th {
+	background-color: #17356c;
+	color: white;
+}
+
+.ausbildungsinhalte-tabelle t2 {
+	background-color: #17356c;
+	color: white;
+}
+
+.policen-tabelle .order-table-odd-row,
+.policen-tabelle .order-table-even-row {
+	text-align: left;
+	cursor: pointer;
+}
+
+.btn {
+	white-space: normal !important;
+	word-wrap: break-word;
+}
+
+.btn-success, .btn-danger {
+	background-color: #17356C !important;
+	border-color: #17356C !important;
+}
+
+.ao-button-kleiner {
+	margin: 0;
+	height: 30px;
+	padding: 0 20px;
+}
+
+hr {
+	border-top: 2px solid grey;
+}
+
+/*
+	Startseite
+*/
+.start-navigation {
+	color: #DAEAFB;
+	background-color: #17356C;
+	border: 2px solid #DAEAFB;
+	width: 45%;
+	display: inline-block;
+	margin: 10px 2%;
+	padding: 20px;
+	text-align: center;
+	font-size: large;
+}
+
+.start-navigation:hover {
+	color: #17356C;
+	text-decoration: none;
+	background-color: #DAEAFB;
+	border-color: #17356C;
+}
+
+/*
+	Login
+*/
+#angabenfooter .ao-button {
+	padding: 0 50px;
+}
+
+.dropdown {
+}
+
+.dropcontent {
+}
+
+.eingabefelder {
+	width: 100%;
+	background-color: white;
+}
+
+.beruf-ueberschrift {
+	text-align: left !important;
+	
+}
+
+@media print {
+	body {
+		display: none;
+	}
+}

@@ -27,14 +27,13 @@ public class KraftlevelBerechnerSollte
 	@DisplayName("das Kraftlevel für Justin setzen")
 	public void test01()
 	{
-		final Benutzer benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(new WettkampfKniebeuge(), 110);
-		final var bankdrueckenKraftwert = new Kraftwert(new WettkampfBankdruecken(), 95);
-		final var kreuzhebenKraftwert = new Kraftwert(new WettkampfKreuzheben(), 140);
-		final var kraftwerte = benutzer.getKraftwerte();
-		kraftwerte.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		kraftwerte.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		kraftwerte.fuegeKraftwertHinzu(kreuzhebenKraftwert);
+		final var benutzer = new Benutzer();
+		final var kniebeugeKraftwert = new Kraftwert(1, new WettkampfKniebeuge(), 110, benutzer);
+		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
+		final var bankdrueckenKraftwert = new Kraftwert(2, new WettkampfBankdruecken(), 95, benutzer);
+		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
+		final var kreuzhebenKraftwert = new Kraftwert(3, new WettkampfKreuzheben(), 140, benutzer);
+		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		benutzer.setVorname("Justin");
 		benutzer.setNachname("Harder");
 		benutzer.setKoerpergewicht(90);
@@ -47,7 +46,6 @@ public class KraftlevelBerechnerSollte
 		benutzer.setStress(Stress.MITTELMAESSIG);
 		benutzer.setDoping(Doping.NEIN);
 		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
-		benutzer.setKraftwerte(kraftwerte);
 
 		sut = new KraftlevelBerechner(benutzer);
 		sut.setzeKraftlevel();
@@ -59,14 +57,14 @@ public class KraftlevelBerechnerSollte
 	@DisplayName("das Kraftlevel für eine Frau setzen")
 	public void test02()
 	{
-		final Benutzer benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(new WettkampfKniebeuge(), 110);
-		final var bankdrueckenKraftwert = new Kraftwert(new WettkampfBankdruecken(), 95);
-		final var kreuzhebenKraftwert = new Kraftwert(new WettkampfKreuzheben(), 140);
+		final var benutzer = new Benutzer();
+		final var kniebeugeKraftwert = new Kraftwert(1, new WettkampfKniebeuge(), 110, benutzer);
+		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
+		final var bankdrueckenKraftwert = new Kraftwert(2, new WettkampfBankdruecken(), 95, benutzer);
+		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
+		final var kreuzhebenKraftwert = new Kraftwert(3, new WettkampfKreuzheben(), 140, benutzer);
+		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		final var kraftwerte = benutzer.getKraftwerte();
-		kraftwerte.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		kraftwerte.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		kraftwerte.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		benutzer.setVorname("M.");
 		benutzer.setNachname("Musterfrau");
 		benutzer.setKoerpergewicht(90);

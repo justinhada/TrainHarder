@@ -1,0 +1,27 @@
+footer {
+	padding: 20px 5% 0;
+	margin-bottom: 40px;
+}
+
+footer a, footer a:hover {
+	color: grey;
+	margin-right: 20px;
+}
+
+footer input {
+	background: none;
+	color: grey;
+	border: none;
+}
+
+footer input:hover {
+	text-decoration: underline;
+}
+
+#footer-nav {
+	float: left;
+}
+
+#copyright {
+	float: right;
+}

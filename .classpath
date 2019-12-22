@@ -59,12 +59,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/derch/.gradle/caches/modules-2/files-2.1/javax.faces/jsf-api/2.1/1dbea7e89d5762096a4fb67633b1a4e8aafc2493/jsf-api-2.1-sources.jar" kind="lib" path="C:/Users/derch/.gradle/caches/modules-2/files-2.1/javax.faces/jsf-api/2.1/a149b1805842467e0d7a5269a8fec6a2a03d11ac/jsf-api-2.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="C:/Users/derch/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1d064e61aad6c51cc77f9b59dc2cccc78e792f5a/failureaccess-1.0.1-sources.jar" kind="lib" path="C:/Users/derch/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>

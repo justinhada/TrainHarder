@@ -1,0 +1,95 @@
+
+
+header img {
+	float: left;
+	margin-left: 2.5%;
+}
+
+header li {
+	list-style-type: none;
+	color: white;
+}
+
+nav {
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+#navbarCollapse {
+	padding: 0 5%;
+}
+
+.navbar {
+	border: none !important;
+	margin-bottom: 0;
+}
+
+.navbar-nav {
+	float: right;
+}
+
+.nav li a, .nav li input {
+	padding: 20px !important;
+}
+
+.nav li:first-child {
+	border-left: 1px solid white;
+}
+
+.nav li {
+	border-right: 1px solid white;
+}
+
+.navbar-collapse {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.navbar-header {
+	background-color: #17356C;
+}
+
+.navbar-toggle {
+	background-color: #FFFFFF;
+}
+
+#navbarCollapse, #navbarCollapse li input {
+	background-color: #17356C;
+}
+
+#navbarCollapse li[class="active"] a, #navbarCollapse li[class="active"] input
+	{
+	background: #DAEAFB !important;
+	color: rgb(74, 74, 74) !important;
+}
+
+#navbarCollapse li:hover a, #navbarCollapse li:hover input {
+	color: white;
+}
+
+#navbarCollapse li a, #navbarCollapse li input {
+	color: #DAEAFB;
+}
+
+#navbarCollapse li input {
+	border: none;
+}
+
+#navbarCollapse img {
+	margin: auto 0;
+}
+
+#angemeldeterBenutzer {
+	color: white;
+	float: left;
+	margin-left: 30px;
+	padding: 0;
+	margin-top: 20px;
+}
+
+#angemeldeterBenutzer .benutzername {
+	margin-right: 20px;
+}
+
+#angemeldeterBenutzer .rolle {
+	margin-left: 20px;
+}
