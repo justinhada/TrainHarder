@@ -21,7 +21,7 @@ public class RepsInReserveRechner
 	};
 
 	public int berechneRichtwert(final int maximum, final int wiederholungen, final int rir)
-		throws Exception
+		throws UngueltigesMaximumException, UngueltigeWiederholungenException, UngueltigeRepsInReserveException
 	{
 		if (maximum <= MINIMUM)
 		{

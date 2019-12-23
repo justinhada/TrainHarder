@@ -24,6 +24,24 @@ Regenerationsfaehigkeit VARCHAR(128) NOT NULL,
 PRIMARY KEY(ID)
 );
 
+INSERT INTO Benutzer VALUES
+(
+1,
+"Justin",
+"Harder",
+90,
+178,
+21,
+"CLASS_5",
+"MAENNLICH",
+"BEGINNER",
+"GUT",
+"GUT",
+"MITTELMAESSIG",
+"NEIN",
+"GUT"
+);
+
 CREATE TABLE Uebung
 (
 ID INT NOT NULL,

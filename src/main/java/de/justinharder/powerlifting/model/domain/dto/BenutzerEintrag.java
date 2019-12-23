@@ -3,9 +3,6 @@ package de.justinharder.powerlifting.model.domain.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
@@ -24,26 +21,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BenutzerEintrag
 {
+	private int id;
 	private String vorname;
 	private String nachname;
 	private int koerpergewicht;
 	private int koerpergroesse;
 	private int lebensalter;
 	private final Map<Integer, Kraftwert> kraftwerte = new HashMap<>();
-	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel;
-	@Enumerated(EnumType.STRING)
 	private Geschlecht geschlecht;
-	@Enumerated(EnumType.STRING)
 	private Erfahrung erfahrung;
-	@Enumerated(EnumType.STRING)
 	private Ernaehrung ernaehrung;
-	@Enumerated(EnumType.STRING)
 	private Schlafqualitaet schlafqualitaet;
-	@Enumerated(EnumType.STRING)
 	private Stress stress;
-	@Enumerated(EnumType.STRING)
 	private Doping doping;
-	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 }

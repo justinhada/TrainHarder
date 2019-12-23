@@ -28,6 +28,7 @@ public class BenutzerService
 	{
 		return alleBenutzer.stream()
 			.map(benutzer -> new BenutzerEintrag(
+				benutzer.getId(),
 				benutzer.getVorname(),
 				benutzer.getNachname(),
 				benutzer.getKoerpergewicht(),

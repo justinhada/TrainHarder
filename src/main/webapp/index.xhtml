@@ -6,6 +6,45 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/WEB-INF/vorlagen/seite.xhtml">
-	<ui:define name="titel">Powerlifting</ui:define>
-	<div>asdkpaskldaslk</div>
+	<ui:define name="titel">Powerlifting 🏋️</ui:define>
+	<ui:define name="inhalt">
+		<a href="rir/rechner.xhtml" title="RIR-Rechner">RIR-Rechner</a>
+		<table class="policen-tabelle">
+			<tr>
+				<th>ID</th>
+				<th>Vorname</th>
+				<th>Nachname</th>
+				<th>Körpergewicht</th>
+				<th>Körpergröße</th>
+				<th>Alter</th>
+				<th>Kraftlevel</th>
+				<th>Geschlecht</th>
+				<th>Erfahrung</th>
+				<th>Ernährung</th>
+				<th>Schlafqualität</th>
+				<th>Stress</th>
+				<th>Doping</th>
+				<th>Regenerationsfähigkeit</th>
+			</tr>
+			<ui:repeat id="policen_tabelle" var="benutzereintrag"
+				value="#{benutzerController.benutzer}">
+				<tr>
+					<td>#{benutzereintrag.id}</td>
+					<td>#{benutzereintrag.vorname}</td>
+					<td>#{benutzereintrag.nachname}</td>
+					<td>#{benutzereintrag.koerpergewicht}</td>
+					<td>#{benutzereintrag.koerpergroesse}</td>
+					<td>#{benutzereintrag.lebensalter}</td>
+					<td>#{benutzereintrag.kraftlevel}</td>
+					<td>#{benutzereintrag.geschlecht}</td>
+					<td>#{benutzereintrag.erfahrung}</td>
+					<td>#{benutzereintrag.ernaehrung}</td>
+					<td>#{benutzereintrag.schlafqualitaet}</td>
+					<td>#{benutzereintrag.stress}</td>
+					<td>#{benutzereintrag.doping}</td>
+					<td>#{benutzereintrag.regenerationsfaehigkeit}</td>
+				</tr>
+			</ui:repeat>
+		</table>
+	</ui:define>
 </ui:composition>
