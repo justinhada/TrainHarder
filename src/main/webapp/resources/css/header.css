@@ -1,5 +1,3 @@
-
-
 header img {
 	float: left;
 	margin-left: 2.5%;
@@ -45,7 +43,7 @@ nav {
 }
 
 .navbar-header {
-	background-color: #17356C;
+	background-color: #bf0005;
 }
 
 .navbar-toggle {
@@ -56,8 +54,7 @@ nav {
 	background-color: #17356C;
 }
 
-#navbarCollapse li[class="active"] a, #navbarCollapse li[class="active"] input
-	{
+#navbarCollapse li[class="active"] a, #navbarCollapse li[class="active"] input {
 	background: #DAEAFB !important;
 	color: rgb(74, 74, 74) !important;
 }

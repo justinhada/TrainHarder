@@ -116,22 +116,22 @@ body {
 	font-size: 18px;
 }
 
-.policen-tabelle {
+.benutzer-tabelle {
 	width: 100%;
 	text-align: left;
-	border: 1px solid grey;
+	border: 2px solid grey;
 }
 
-.policen-tabelle .ungerade-reihe {
+.benutzer-tabelle .ungerade-reihe {
 	background-color: white;
 }
 
-.policen-tabelle th, td {
+.benutzer-tabelle th, td {
 	padding: 0.2em;
 	border: 1px solid grey;
 }
 
-.policen-tabelle th {
+.benutzer-tabelle th {
 	background-color: #17356c;
 	color: white;
 }
@@ -141,8 +141,8 @@ body {
 	color: white;
 }
 
-.policen-tabelle .order-table-odd-row,
-.policen-tabelle .order-table-even-row {
+.benutzer-tabelle .order-table-odd-row,
+.benutzer-tabelle .order-table-even-row {
 	text-align: left;
 	cursor: pointer;
 }
@@ -209,7 +209,6 @@ hr {
 
 .beruf-ueberschrift {
 	text-align: left !important;
-	
 }
 
 @media print {

@@ -45,11 +45,11 @@ public class KraftlevelBerechnerSollte
 	public void test01()
 	{
 		final var benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110);
+		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110, benutzer);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95);
+		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95, benutzer);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140);
+		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140, benutzer);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		benutzer.setVorname("Justin");
 		benutzer.setNachname("Harder");
@@ -75,11 +75,11 @@ public class KraftlevelBerechnerSollte
 	public void test02()
 	{
 		final var benutzer = new Benutzer();
-		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110);
+		final var kniebeugeKraftwert = new Kraftwert(1, WETTKAMPF_KNIEBEUGE, 110, benutzer);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
-		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95);
+		final var bankdrueckenKraftwert = new Kraftwert(2, WETTKAMPF_BANKDRUECKEN, 95, benutzer);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
-		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140);
+		final var kreuzhebenKraftwert = new Kraftwert(3, WETTKAMPF_KREUZHEBEN, 140, benutzer);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 		benutzer.setVorname("M.");
 		benutzer.setNachname("Musterfrau");

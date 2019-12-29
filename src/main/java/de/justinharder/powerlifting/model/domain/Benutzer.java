@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,7 +41,7 @@ public class Benutzer extends Entitaet
 	private static final long serialVersionUID = 2411974948424821755L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String vorname;
 	private String nachname;
@@ -66,8 +67,29 @@ public class Benutzer extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 
+	public Benutzer(final String vorname, final String nachname, final int koerpergewicht, final int koerpergroesse,
+		final int lebensalter, final Kraftlevel kraftlevel, final Geschlecht geschlecht, final Erfahrung erfahrung,
+		final Ernaehrung ernaehrung, final Schlafqualitaet schlafqualitaet, final Stress stress, final Doping doping,
+		final Regenerationsfaehigkeit regenerationsfaehigkeit)
+	{
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.koerpergewicht = koerpergewicht;
+		this.koerpergroesse = koerpergroesse;
+		this.lebensalter = lebensalter;
+		this.kraftlevel = kraftlevel;
+		this.geschlecht = geschlecht;
+		this.erfahrung = erfahrung;
+		this.ernaehrung = ernaehrung;
+		this.schlafqualitaet = schlafqualitaet;
+		this.stress = stress;
+		this.doping = doping;
+		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+	}
+
 	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
 		kraftwerte.put(kraftwert.getId(), kraftwert);
 	}
+
 }

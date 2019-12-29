@@ -3,8 +3,10 @@ package de.justinharder.powerlifting.model.domain;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import de.justinharder.powerlifting.model.Entitaet;
@@ -25,10 +27,13 @@ public class Kraftwert extends Entitaet
 	private static final long serialVersionUID = -1203157961547955006L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private Uebung uebung;
 	private int maximum;
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Benutzer benutzer;
 }

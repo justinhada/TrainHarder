@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
@@ -30,5 +31,12 @@ public class JpaBenutzerRepository implements BenutzerRepository
 	public Benutzer ermittleZuId(final int id)
 	{
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void erstelleBenutzer(final Benutzer benutzer)
+	{
+		entityManager.persist(benutzer);
 	}
 }

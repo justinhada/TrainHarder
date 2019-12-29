@@ -2,6 +2,7 @@ package de.justinharder.powerlifting.model.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import de.justinharder.powerlifting.model.Entitaet;
@@ -18,7 +19,7 @@ public class Belastungsfaktor extends Entitaet
 	private static final long serialVersionUID = 5251603922467033680L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private double squat;
 	private double benchpress;

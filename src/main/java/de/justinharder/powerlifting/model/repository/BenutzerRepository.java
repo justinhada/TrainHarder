@@ -9,4 +9,6 @@ public interface BenutzerRepository
 	List<Benutzer> ermittleAlle();
 
 	Benutzer ermittleZuId(final int id);
+
+	void erstelleBenutzer(final Benutzer benutzer);
 }

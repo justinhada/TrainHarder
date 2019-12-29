@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/vorlagen/seite.xhtml">
+	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
+	<ui:define name="titel">Powerlifting 🏋️ - Einen Benutzer erstellen</ui:define>
+	<ui:define name="inhalt">
+		<h:form>
+			<h:outputLabel for="vorname" value="Vorname: " />
+			<h:inputText id="vorname" value="#{benutzerController.vorname}" />
+			<br />
+			<h:outputLabel for="nachname" value="Nachname: " />
+			<h:inputText id="nachname" value="#{benutzerController.nachname}" />
+			<br />
+			<h:outputLabel for="koerpergewicht" value="Gewicht: " />
+			<h:inputText id="koerpergewicht"
+				value="#{benutzerController.koerpergewicht}" />
+			<br />
+			<h:outputLabel for="koerpergroesse" value="Größe: " />
+			<h:inputText id="koerpergroesse"
+				value="#{benutzerController.koerpergroesse}" />
+			<br />
+			<h:outputLabel for="lebensalter" value="Alter: " />
+			<h:inputText id="lebensalter"
+				value="#{benutzerController.lebensalter}" />
+			<br />
+			<h:outputLabel for="geschlecht" value="Geschlecht: " />
+			<h:selectOneMenu value="#{benutzerController.geschlecht}">
+				<f:selectItem itemValue="MAENNLICH" itemLabel="Männlich" />
+				<f:selectItem itemValue="WEIBLICH" itemLabel="Weiblich" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="erfahrung" value="Erfahrung: " />
+			<h:selectOneMenu value="#{benutzerController.erfahrung}">
+				<f:selectItem itemValue="BEGINNER"
+					itemLabel="Beginner (weniger als 4 Jahre)" />
+				<f:selectItem itemValue="FORTGESCHRITTEN"
+					itemLabel="Fortgeschritten (4 bis 8 Jahre)" />
+				<f:selectItem itemValue="SEHR_FORTGESCHRITTEN"
+					itemLabel="Sehr fortgeschritten (8 bis 12 Jahre)" />
+				<f:selectItem itemValue="EXPERTE"
+					itemLabel="Experte (mehr als 12 Jahre)" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="ernaehrung" value="Ernährung: " />
+			<h:selectOneMenu value="#{benutzerController.ernaehrung}">
+				<f:selectItem itemValue="SCHLECHT"
+					itemLabel="Schlecht (zu wenig und unregelmäßige Kalorien)" />
+				<f:selectItem itemValue="DURCHSCHNITT"
+					itemLabel="Durchschnittlich (ausreichend Kalorien und Protein)" />
+				<f:selectItem itemValue="GUT"
+					itemLabel="Gut (optimale Ernährung, Makros und Timing)" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="schlafqualitaet" value="Schlaf: " />
+			<h:selectOneMenu value="#{benutzerController.schlafqualitaet}">
+				<f:selectItem itemValue="SCHLECHT"
+					itemLabel="Schlecht (weniger als 5 Stunden)" />
+				<f:selectItem itemValue="DURCHSCHNITT"
+					itemLabel="Durchschnittlich (5 bis 7 Stunden)" />
+				<f:selectItem itemValue="GUT" itemLabel="Gut (mehr als 7 Stunden)" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="stress" value="Stress: " />
+			<h:selectOneMenu value="#{benutzerController.stress}">
+				<f:selectItem itemValue="NIEDRIG" itemLabel="Niedrig (wenig Stress)" />
+				<f:selectItem itemValue="MITTELMAESSIG"
+					itemLabel="Mittelmäßig (ausgeglichen zwischen Stress und Erholung)" />
+				<f:selectItem itemValue="HOCH" itemLabel="Hoch (sehr stressig)" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="doping" value="Doping: " />
+			<h:selectOneMenu value="#{benutzerController.doping}">
+				<f:selectItem itemValue="JA" itemLabel="Ja" />
+				<f:selectItem itemValue="NEIN" itemLabel="Nein" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="regenerationsfaehigkeit" value="Regeneration: " />
+			<h:selectOneMenu
+				value="#{benutzerController.regenerationsfaehigkeit}">
+				<f:selectItem itemValue="SCHLECHT" itemLabel="Schlecht" />
+				<f:selectItem itemValue="UNTERDURCHSCHNITTLICH"
+					itemLabel="Unterdurchschnitt" />
+				<f:selectItem itemValue="DURCHSCHNITTLICH" itemLabel="Durchschnitt" />
+				<f:selectItem itemValue="GUT" itemLabel="Gut" />
+				<f:selectItem itemValue="PERFEKT" itemLabel="Perfekt" />
+			</h:selectOneMenu>
+			<br />
+			<h:commandButton class="ao-button"
+				action="#{benutzerController.erstelleBenutzer}"
+				value="Erstelle deinen Benutzer" />
+			<br />
+			<h:outputLabel value="Zur Liste aller Benutzer hier klicken: " />
+			<a href="liste.xhtml" title="Liste der Benutzer">Liste aller
+				Benutzer</a>
+		</h:form>
+	</ui:define>
+</ui:composition>

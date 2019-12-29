@@ -1,9 +1,5 @@
 package de.justinharder.powerlifting.model.domain.dto;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
@@ -21,13 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BenutzerEintrag
 {
-	private int id;
 	private String vorname;
 	private String nachname;
 	private int koerpergewicht;
 	private int koerpergroesse;
 	private int lebensalter;
-	private final Map<Integer, Kraftwert> kraftwerte = new HashMap<>();
 	private Kraftlevel kraftlevel;
 	private Geschlecht geschlecht;
 	private Erfahrung erfahrung;

@@ -1,7 +1,10 @@
 package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -24,11 +27,11 @@ import de.justinharder.powerlifting.model.services.BenutzerService;
 public class BenutzerControllerSollte
 {
 	private static final BenutzerEintrag JUSTIN_BENUTZEREINTRAG =
-		new BenutzerEintrag(1, "Justin", "Harder", 90, 178, 21, Kraftlevel.CLASS_5, Geschlecht.MAENNLICH,
+		new BenutzerEintrag("Justin", "Harder", 90, 178, 21, Kraftlevel.CLASS_5, Geschlecht.MAENNLICH,
 			Erfahrung.BEGINNER, Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN,
 			Regenerationsfaehigkeit.GUT);
 	private static final BenutzerEintrag FRAU_BENUTZEREINTRAG =
-		new BenutzerEintrag(2, "M.", "Musterfrau", 90, 180, 43, Kraftlevel.CLASS_3, Geschlecht.WEIBLICH,
+		new BenutzerEintrag("M.", "Musterfrau", 90, 180, 43, Kraftlevel.CLASS_3, Geschlecht.WEIBLICH,
 			Erfahrung.BEGINNER, Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN,
 			Regenerationsfaehigkeit.GUT);
 
@@ -47,6 +50,12 @@ public class BenutzerControllerSollte
 		when(benutzerService.ermittleAlle()).thenReturn(erwartet);
 	}
 
+	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(final BenutzerEintrag erwartet)
+	{
+		when(benutzerService.erstelleBenutzer(anyString(), anyString(), anyInt(), anyInt(), anyInt(), anyString(),
+			anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(erwartet);
+	}
+
 	@Test
 	@DisplayName("eine Liste aller BenutzerEinträge zurückgeben")
 	public void test01()
@@ -59,4 +68,29 @@ public class BenutzerControllerSollte
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 
+	@Test
+	@DisplayName("einen Benutzer weiter an den BenutzerService geben")
+	public void test02()
+	{
+		final var erwartet = JUSTIN_BENUTZEREINTRAG;
+		angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(erwartet);
+
+		sut.setVorname("Justin");
+		sut.setNachname("Harder");
+		sut.setKoerpergewicht(90);
+		sut.setKoerpergroesse(178);
+		sut.setLebensalter(21);
+		sut.setGeschlecht("MAENNLICH");
+		sut.setErfahrung("BEGINNER");
+		sut.setErnaehrung("GUT");
+		sut.setSchlafqualitaet("GUT");
+		sut.setStress("MITTELMAESSIG");
+		sut.setDoping("NEIN");
+		sut.setRegenerationsfaehigkeit("GUT");
+		final var ergebnis = sut.erstelleBenutzer();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(benutzerService).erstelleBenutzer("Justin", "Harder", 90, 178, 21, "MAENNLICH", "BEGINNER", "GUT", "GUT",
+			"MITTELMAESSIG", "NEIN", "GUT");
+	}
 }

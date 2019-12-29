@@ -6,8 +6,71 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/WEB-INF/vorlagen/seite.xhtml">
+	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
 	<ui:define name="titel">Powerlifting 🏋️ - RIR-Rechner</ui:define>
 	<ui:define name="inhalt">
-		Ich funktioniere auch!
+		<h:form>
+			<h:outputLabel for="maximum" value="1RM: " />
+			<h:inputText id="maximum" value="#{repsInReserveController.maximum}" />
+			<br />
+			<h:outputLabel for="wiederholungen" value="Wiederholungen: " />
+			<h:inputText id="wiederholungen"
+				value="#{repsInReserveController.wiederholungen}" />
+			<br />
+			<h:outputLabel for="rir" value="RIR: " />
+			<h:inputText id="rir" value="#{repsInReserveController.rir}" />
+			<br />
+			<h:commandButton class="ao-button"
+				action="#{repsInReserveController.ermittleRichtwert}"
+				value="Berechne Richtwert" />
+			<br />
+			<h:outputLabel value="Dein Richtwert: " />
+			<h:outputText id="richtwert"
+				value="#{repsInReserveController.richtwert}" />
+		</h:form>
+
+		<!--<h:dataTable class="benutzer-tabelle"
+			value="#{repsInReserveController.prozente}" var="row">
+			<h:column>
+				<h:dataTable id="col" value="#{row}" var="col">
+					<h:column>
+						<h:outputText id="value" value="#{col}" />
+					</h:column>
+				</h:dataTable>
+			</h:column>
+		</h:dataTable> -->
+		<table class="benutzer-tabelle">
+			<tr><th>REPS</th></tr>
+			<tr>
+				<th></th>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>4</th>
+				<th>5</th>
+				<th>6</th>
+				<th>7</th>
+				<th>8</th>
+				<th>9</th>
+				<th>10</th>
+				<th>11</th>
+				<th>12</th>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>100,00%</td>
+				<td>97,00%</td>
+				<td>94,00%</td>
+				<td>90,00%</td>
+				<td>87,00%</td>
+				<td>84,00%</td>
+				<td>81,00%</td>
+				<td>78,00%</td>
+				<td>77,00%</td>
+				<td>75,00%</td>
+				<td>74,00%</td>
+				<td>72,00%</td>
+			</tr>
+		</table>
 	</ui:define>
 </ui:composition>
