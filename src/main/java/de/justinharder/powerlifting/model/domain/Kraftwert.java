@@ -36,4 +36,11 @@ public class Kraftwert extends Entitaet
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Benutzer benutzer;
+
+	public Kraftwert(final Uebung uebung, final int maximum, final Benutzer benutzer)
+	{
+		this.uebung = uebung;
+		this.maximum = maximum;
+		this.benutzer = benutzer;
+	}
 }

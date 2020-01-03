@@ -4,6 +4,12 @@ import de.justinharder.powerlifting.model.domain.Konstanten;
 
 public class Volumenrechner
 {
+	/*
+	 * 				Kniebeuge	Bankdrücken		Kreuzheben
+	 * Hypertrophie	0,0			0,1				0,2
+	 * Kraft		1,0			1,1				1,2
+	 * Peaking		2,0			2,1				2,2
+	 */
 	private final double[][] empfehlungen = new double[3][3];
 
 	public Volumenrechner(final int anpassungsfaktor)
@@ -22,21 +28,26 @@ public class Volumenrechner
 	public int[] getVolumenHypertrophiePhase()
 	{
 		return new int[]
-		{ (int) Math.round(empfehlungen[0][0]), (int) Math.round(empfehlungen[0][1]),
-			(int) Math.round(empfehlungen[0][2]) };
+		{ konvertiereZuInt(empfehlungen[0][0]), konvertiereZuInt(empfehlungen[0][1]),
+			konvertiereZuInt(empfehlungen[0][2]) };
 	}
 
 	public int[] getVolumenKraftPhase()
 	{
 		return new int[]
-		{ (int) Math.round(empfehlungen[1][0]), (int) Math.round(empfehlungen[1][1]),
-			(int) Math.round(empfehlungen[1][2]) };
+		{ konvertiereZuInt(empfehlungen[1][0]), konvertiereZuInt(empfehlungen[1][1]),
+			konvertiereZuInt(empfehlungen[1][2]) };
 	}
 
 	public int[] getVolumenPeakingPhase()
 	{
 		return new int[]
-		{ (int) Math.round(empfehlungen[2][0]), (int) Math.round(empfehlungen[2][1]),
-			(int) Math.round(empfehlungen[2][2]) };
+		{ konvertiereZuInt(empfehlungen[2][0]), konvertiereZuInt(empfehlungen[2][1]),
+			konvertiereZuInt(empfehlungen[2][2]) };
+	}
+
+	private int konvertiereZuInt(final double zahl)
+	{
+		return (int) Math.round(zahl);
 	}
 }

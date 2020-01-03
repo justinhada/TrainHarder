@@ -33,7 +33,7 @@ public class AnpassungsfaktorBerechnerSollte
 	@DisplayName("den richtigen Anpassungsfaktor für Justin berechnen")
 	public void test02()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.JUSTIN)).isEqualTo(9);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.JUSTIN_BENUTZER)).isEqualTo(9);
 	}
 
 	@Test

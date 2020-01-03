@@ -47,7 +47,6 @@ public class BenutzerService
 			Doping.fromDopingOption(doping),
 			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(regenerationsfaehigkeit));
 		benutzerRepository.erstelleBenutzer(benutzer);
-
 		return konvertiere(benutzer);
 	}
 
@@ -59,7 +58,7 @@ public class BenutzerService
 	private List<BenutzerEintrag> konvertiereAlle(final List<Benutzer> alleBenutzer)
 	{
 		return alleBenutzer.stream()
-			.map(benutzer -> konvertiere(benutzer))
+			.map(this::konvertiere)
 			.collect(Collectors.toList());
 	}
 

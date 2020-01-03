@@ -14,27 +14,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
-import de.justinharder.powerlifting.model.domain.enums.Doping;
-import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
-import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
-import de.justinharder.powerlifting.model.domain.enums.Geschlecht;
-import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
-import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
-import de.justinharder.powerlifting.model.domain.enums.Stress;
 import de.justinharder.powerlifting.model.services.BenutzerService;
+import de.justinharder.powerlifting.setup.Testdaten;
 
 public class BenutzerControllerSollte
 {
-	private static final BenutzerEintrag JUSTIN_BENUTZEREINTRAG =
-		new BenutzerEintrag("Justin", "Harder", 90, 178, 21, Kraftlevel.CLASS_5, Geschlecht.MAENNLICH,
-			Erfahrung.BEGINNER, Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN,
-			Regenerationsfaehigkeit.GUT);
-	private static final BenutzerEintrag FRAU_BENUTZEREINTRAG =
-		new BenutzerEintrag("M.", "Musterfrau", 90, 180, 43, Kraftlevel.CLASS_3, Geschlecht.WEIBLICH,
-			Erfahrung.BEGINNER, Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN,
-			Regenerationsfaehigkeit.GUT);
-
 	private BenutzerController sut;
 	private BenutzerService benutzerService;
 
@@ -60,7 +44,7 @@ public class BenutzerControllerSollte
 	@DisplayName("eine Liste aller BenutzerEinträge zurückgeben")
 	public void test01()
 	{
-		final var erwartet = List.of(JUSTIN_BENUTZEREINTRAG, FRAU_BENUTZEREINTRAG);
+		final var erwartet = List.of(Testdaten.JUSTIN_BENUTZEREINTRAG, Testdaten.ANETTE_BENUTZEREINTRAG);
 		angenommenDerBenutzerServiceGibtAlleBenutzerZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzer();
@@ -72,7 +56,7 @@ public class BenutzerControllerSollte
 	@DisplayName("einen Benutzer weiter an den BenutzerService geben")
 	public void test02()
 	{
-		final var erwartet = JUSTIN_BENUTZEREINTRAG;
+		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
 		angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(erwartet);
 
 		sut.setVorname("Justin");

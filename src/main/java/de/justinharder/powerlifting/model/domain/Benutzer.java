@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import de.justinharder.powerlifting.model.Entitaet;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
@@ -35,7 +34,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "benutzer")
 public class Benutzer extends Entitaet
 {
 	private static final long serialVersionUID = 2411974948424821755L;
