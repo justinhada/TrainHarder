@@ -114,7 +114,8 @@ public class BenutzerControllerSollte
 		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(erwartet);
 
 		sut.setNachname("Harder");
-		final var ergebnis = sut.getBenutzerZuNachname();
+		sut.getBenutzerZuNachname();
+		final var ergebnis = sut.getAlleBenutzer();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

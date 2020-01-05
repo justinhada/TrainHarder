@@ -35,7 +35,7 @@ public class JpaBenutzerRepository extends JpaRepository implements BenutzerRepo
 	{
 		return super.ermittleAlle(Benutzer.class)
 			.stream()
-			.filter(benutzer -> benutzer.getNachname().equals(nachname))
+			.filter(benutzer -> benutzer.getNachname().equalsIgnoreCase(nachname))
 			.collect(Collectors.toList());
 	}
 }
