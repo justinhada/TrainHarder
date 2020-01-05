@@ -11,5 +11,7 @@ public interface KraftwertRepository
 
 	List<Kraftwert> ermittleAlleZuBenutzer(final Benutzer benutzer);
 
+	Kraftwert ermittleZuId(final int id);
+
 	void erstelleKraftwert(final Kraftwert kraftwert);
 }

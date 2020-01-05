@@ -11,4 +11,6 @@ public interface BenutzerRepository
 	Benutzer ermittleZuId(final int id);
 
 	void erstelleBenutzer(final Benutzer benutzer);
+
+	List<Benutzer> ermittleAlleZuNachname(final String nachname);
 }

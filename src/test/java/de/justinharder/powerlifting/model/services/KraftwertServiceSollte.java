@@ -2,6 +2,7 @@ package de.justinharder.powerlifting.model.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
+import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 import de.justinharder.powerlifting.setup.Testdaten;
 
@@ -37,6 +39,11 @@ public class KraftwertServiceSollte
 	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(final List<Kraftwert> kraftwerte)
 	{
 		when(kraftwertRepository.ermittleAlleZuBenutzer(any(Benutzer.class))).thenReturn(kraftwerte);
+	}
+
+	private void angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(final Kraftwert kraftwert)
+	{
+		when(kraftwertRepository.ermittleZuId(anyInt())).thenReturn(kraftwert);
 	}
 
 	@Test
@@ -88,5 +95,18 @@ public class KraftwertServiceSollte
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(kraftwertRepository).erstelleKraftwert(eingabe);
+	}
+
+	@Test
+	@DisplayName("einen Kraftwert zu ID ermitteln")
+	public void test04() throws KraftwertNichtGefundenException
+	{
+		final var erwartet = Testdaten.KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE;
+		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
+		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(kraftwert);
+
+		final var ergebnis = sut.ermittleZuId(0);
+
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 }

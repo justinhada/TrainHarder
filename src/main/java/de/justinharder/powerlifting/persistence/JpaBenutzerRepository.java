@@ -1,42 +1,41 @@
 package de.justinharder.powerlifting.persistence;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 
+import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
-public class JpaBenutzerRepository implements BenutzerRepository
+public class JpaBenutzerRepository extends JpaRepository implements BenutzerRepository
 {
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	@Override
 	public List<Benutzer> ermittleAlle()
 	{
-		final CriteriaQuery<Benutzer> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Benutzer.class);
-		criteriaQuery.select(criteriaQuery.from(Benutzer.class));
-		return entityManager.createQuery(criteriaQuery).getResultList();
+		return super.ermittleAlle(Benutzer.class);
 	}
 
 	@Override
 	public Benutzer ermittleZuId(final int id)
 	{
-		return null;
+		return super.ermittleZuId(Benutzer.class, id);
 	}
 
 	@Override
 	@Transactional
 	public void erstelleBenutzer(final Benutzer benutzer)
 	{
-		entityManager.persist(benutzer);
+		super.erstelleEntitaet(benutzer);
+	}
+
+	@Override
+	public List<Benutzer> ermittleAlleZuNachname(final String nachname)
+	{
+		return super.ermittleAlle(Benutzer.class)
+			.stream()
+			.filter(benutzer -> benutzer.getNachname().equals(nachname))
+			.collect(Collectors.toList());
 	}
 }

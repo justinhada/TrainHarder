@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BenutzerEintrag
 {
+	private int id;
 	private String vorname;
 	private String nachname;
 	private int koerpergewicht;

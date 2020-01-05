@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class KraftwertEintrag
 {
+	private int id;
 	private String benutzerVorname;
 	private String benutzerNachname;
 	private String uebungName;

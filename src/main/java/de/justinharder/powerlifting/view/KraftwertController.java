@@ -9,6 +9,7 @@ import javax.inject.Named;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
+import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class KraftwertController
 {
 	private KraftwertService kraftwertService;
 
+	private int id;
 	private Uebung uebung;
 	private int maximum;
 	private Benutzer benutzer;
@@ -36,9 +38,14 @@ public class KraftwertController
 		return kraftwertService.ermittleAlle();
 	}
 
-	public List<KraftwertEintrag> getKraftwertZuBenutzer(final Benutzer benutzer)
+	public List<KraftwertEintrag> getKraftwerteZuBenutzer(final Benutzer benutzer)
 	{
 		return kraftwertService.ermittleAlleZuBenutzer(benutzer);
+	}
+
+	public KraftwertEintrag getKraftwertZuId() throws KraftwertNichtGefundenException
+	{
+		return kraftwertService.ermittleZuId(id);
 	}
 
 	public KraftwertEintrag erstelleKraftwert()

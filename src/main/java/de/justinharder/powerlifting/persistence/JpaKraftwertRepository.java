@@ -3,26 +3,19 @@ package de.justinharder.powerlifting.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 
+import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 
-public class JpaKraftwertRepository implements KraftwertRepository
+public class JpaKraftwertRepository extends JpaRepository implements KraftwertRepository
 {
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	@Override
 	public List<Kraftwert> ermittleAlle()
 	{
-		final CriteriaQuery<Kraftwert> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Kraftwert.class);
-		criteriaQuery.select(criteriaQuery.from(Kraftwert.class));
-		return entityManager.createQuery(criteriaQuery).getResultList();
+		return super.ermittleAlle(Kraftwert.class);
 	}
 
 	@Override
@@ -35,9 +28,15 @@ public class JpaKraftwertRepository implements KraftwertRepository
 	}
 
 	@Override
+	public Kraftwert ermittleZuId(final int id)
+	{
+		return super.ermittleZuId(Kraftwert.class, id);
+	}
+
+	@Override
 	@Transactional
 	public void erstelleKraftwert(final Kraftwert kraftwert)
 	{
-		entityManager.persist(kraftwert);
+		super.erstelleEntitaet(kraftwert);
 	}
 }

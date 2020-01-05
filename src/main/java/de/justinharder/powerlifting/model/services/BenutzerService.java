@@ -15,6 +15,7 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 
 public class BenutzerService
@@ -55,6 +56,27 @@ public class BenutzerService
 		return konvertiereAlle(benutzerRepository.ermittleAlle());
 	}
 
+	public BenutzerEintrag ermittleZuId(final int id) throws BenutzerNichtGefundenException
+	{
+		final var benutzer = benutzerRepository.ermittleZuId(id);
+		if (benutzer == null)
+		{
+			throw new BenutzerNichtGefundenException("Der Benutzer mit der ID " + id + " existiert nicht!");
+		}
+		return konvertiere(benutzer);
+	}
+
+	public List<BenutzerEintrag> ermittleZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	{
+		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);
+		if (alleBenutzer == null)
+		{
+			throw new BenutzerNichtGefundenException(
+				"Es wurde kein Benutzer mit dem Nachnamen \"" + nachname + "\" gefunden!");
+		}
+		return konvertiereAlle(alleBenutzer);
+	}
+
 	private List<BenutzerEintrag> konvertiereAlle(final List<Benutzer> alleBenutzer)
 	{
 		return alleBenutzer.stream()
@@ -65,6 +87,7 @@ public class BenutzerService
 	private BenutzerEintrag konvertiere(final Benutzer benutzer)
 	{
 		return new BenutzerEintrag(
+			benutzer.getId(),
 			benutzer.getVorname(),
 			benutzer.getNachname(),
 			benutzer.getKoerpergewicht(),

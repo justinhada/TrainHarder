@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum Erfahrung
 {
 	BEGINNER("BEGINNER"), // < 4 Jahre
-	FORTGESCHRITTEN("FORTSCHRITTEN"), // 4-8 Jahre
+	FORTGESCHRITTEN("FORTGESCHRITTEN"), // 4-8 Jahre
 	SEHR_FORTGESCHRITTEN("SEHR_FORTGESCHRITTEN"), // 8-12 Jahre
 	EXPERTE("EXPERTE"); // > 12 Jahre
 

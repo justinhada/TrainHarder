@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.services.BenutzerService;
 import de.justinharder.powerlifting.setup.Testdaten;
 
@@ -29,7 +30,7 @@ public class BenutzerControllerSollte
 		sut = new BenutzerController(benutzerService);
 	}
 
-	private void angenommenDerBenutzerServiceGibtAlleBenutzerZurueck(final List<BenutzerEintrag> erwartet)
+	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(final List<BenutzerEintrag> erwartet)
 	{
 		when(benutzerService.ermittleAlle()).thenReturn(erwartet);
 	}
@@ -40,12 +41,24 @@ public class BenutzerControllerSollte
 			anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(erwartet);
 	}
 
+	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(
+		final BenutzerEintrag erwartet) throws BenutzerNichtGefundenException
+	{
+		when(benutzerService.ermittleZuId(anyInt())).thenReturn(erwartet);
+	}
+
+	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(
+		final List<BenutzerEintrag> erwartet) throws BenutzerNichtGefundenException
+	{
+		when(benutzerService.ermittleZuNachname(anyString())).thenReturn(erwartet);
+	}
+
 	@Test
 	@DisplayName("eine Liste aller BenutzerEinträge zurückgeben")
 	public void test01()
 	{
 		final var erwartet = List.of(Testdaten.JUSTIN_BENUTZEREINTRAG, Testdaten.ANETTE_BENUTZEREINTRAG);
-		angenommenDerBenutzerServiceGibtAlleBenutzerZurueck(erwartet);
+		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzer();
 
@@ -59,6 +72,7 @@ public class BenutzerControllerSollte
 		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
 		angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(erwartet);
 
+		sut.setId(0);
 		sut.setVorname("Justin");
 		sut.setNachname("Harder");
 		sut.setKoerpergewicht(90);
@@ -76,5 +90,32 @@ public class BenutzerControllerSollte
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(benutzerService).erstelleBenutzer("Justin", "Harder", 90, 178, 21, "MAENNLICH", "BEGINNER", "GUT", "GUT",
 			"MITTELMAESSIG", "NEIN", "GUT");
+	}
+
+	@Test
+	@DisplayName("einen Benutzer mit der übergebenen ID zurückgeben")
+	public void test03() throws BenutzerNichtGefundenException
+	{
+		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
+		angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(erwartet);
+
+		final var ergebnis = sut.getBenutzerZuId();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("eine Liste aller BenutzerEinträge mit dem übergebenem Nachnamen zurückgeben")
+	public void test04() throws BenutzerNichtGefundenException
+	{
+		final var erwartet = List.of(
+			Testdaten.JUSTIN_BENUTZEREINTRAG,
+			Testdaten.GOTT_BENUTZEREINTRAG);
+		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(erwartet);
+
+		sut.setNachname("Harder");
+		final var ergebnis = sut.getBenutzerZuNachname();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 }
