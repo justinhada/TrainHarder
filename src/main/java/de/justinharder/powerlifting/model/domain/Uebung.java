@@ -37,7 +37,10 @@ public class Uebung extends Entitaet
 	@OneToOne(fetch = FetchType.LAZY)
 	private Belastungsfaktor belastungsfaktor;
 
-	public Uebung(final String name, final Uebungsart uebungsart, final Uebungskategorie uebungskategorie,
+	public Uebung(
+		final String name,
+		final Uebungsart uebungsart,
+		final Uebungskategorie uebungskategorie,
 		final Belastungsfaktor belastungsfaktor)
 	{
 		this.name = name;

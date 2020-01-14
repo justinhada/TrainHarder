@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Geschlecht
 {
@@ -16,21 +16,16 @@ public enum Geschlecht
 
 	public static Geschlecht fromGeschlechtOption(final String geschlechtOption)
 	{
-		for (final Geschlecht g : Geschlecht.values())
-		{
-			if (g.geschlecht.equalsIgnoreCase(geschlechtOption))
-			{
-				return g;
-			}
-		}
-
-		throw new IllegalArgumentException("Die Geschlecht-Option \"" + geschlechtOption + "\" existiert nicht!");
+		return Stream.of(Geschlecht.values())
+			.filter(g -> g.geschlecht.equalsIgnoreCase(geschlechtOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Geschlecht-Option \"" + geschlechtOption + "\" existiert nicht!"));
 	}
 
 	public static Geschlecht fromName(final String name)
 	{
-		return Arrays.asList(Geschlecht.values())
-			.stream()
+		return Stream.of(Geschlecht.values())
 			.filter(g -> g.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

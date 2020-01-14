@@ -8,6 +8,8 @@ import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeRepsInRese
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigesMaximumException;
 import de.justinharder.powerlifting.model.services.RepsInReserveRechner;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +17,7 @@ import lombok.Setter;
 @RequestScoped
 @Getter
 @Setter
-public class RepsInReserveController
+public class RepsInReserveController extends Controller
 {
 	private final RepsInReserveRechner repsInReserveRechner;
 	private int maximum;
@@ -25,8 +27,12 @@ public class RepsInReserveController
 	private double[][] prozente;
 
 	@Inject
-	public RepsInReserveController(final RepsInReserveRechner repsInReserveRechner)
+	public RepsInReserveController(
+		final ExternerWebContext externerWebContext,
+		final Navigator navigator,
+		final RepsInReserveRechner repsInReserveRechner)
 	{
+		super(externerWebContext, navigator);
 		this.repsInReserveRechner = repsInReserveRechner;
 	}
 

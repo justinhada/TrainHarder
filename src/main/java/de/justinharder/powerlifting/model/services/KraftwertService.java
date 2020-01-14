@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
+import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 
@@ -37,14 +39,15 @@ public class KraftwertService
 		final var kraftwert = kraftwertRepository.ermittleZuId(id);
 		if (kraftwert == null)
 		{
-			throw new KraftwertNichtGefundenException("Der Kraftwert mit der ID " + id + " existiert nicht!");
+			throw new KraftwertNichtGefundenException("Der Kraftwert mit der ID \"" + id + "\" existiert nicht!");
 		}
 		return konvertiere(kraftwert);
 	}
 
 	public KraftwertEintrag erstelleKraftwert(final Uebung uebung, final int maximum, final Benutzer benutzer)
 	{
-		final var kraftwert = new Kraftwert(uebung, maximum, benutzer);
+		final var kraftwert = new Kraftwert(uebung, benutzer, maximum, benutzer.getKoerpergewicht(), LocalDate.now(),
+			Wiederholungen.ONE_REP_MAX);
 		kraftwertRepository.erstelleKraftwert(kraftwert);
 		return konvertiere(kraftwert);
 	}

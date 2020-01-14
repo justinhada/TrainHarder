@@ -1,5 +1,7 @@
 package de.justinharder.powerlifting.model.domain;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import de.justinharder.powerlifting.model.Entitaet;
+import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,15 +35,27 @@ public class Kraftwert extends Entitaet
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private Uebung uebung;
-	private int maximum;
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Benutzer benutzer;
+	private int maximum;
+	private int gewichtBenutzer;
+	private LocalDate datum;
+	private Wiederholungen wiederholungen;
 
-	public Kraftwert(final Uebung uebung, final int maximum, final Benutzer benutzer)
+	public Kraftwert(
+		final Uebung uebung,
+		final Benutzer benutzer,
+		final int maximum,
+		final int gewichtBenutzer,
+		final LocalDate datum,
+		final Wiederholungen kraftwertOption)
 	{
 		this.uebung = uebung;
-		this.maximum = maximum;
 		this.benutzer = benutzer;
+		this.maximum = maximum;
+		this.gewichtBenutzer = gewichtBenutzer;
+		this.datum = datum;
+		this.wiederholungen = kraftwertOption;
 	}
 }

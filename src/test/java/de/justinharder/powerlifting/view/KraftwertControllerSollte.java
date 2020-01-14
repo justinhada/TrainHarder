@@ -18,17 +18,23 @@ import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
 import de.justinharder.powerlifting.setup.Testdaten;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 
 public class KraftwertControllerSollte
 {
 	private KraftwertController sut;
+	private ExternerWebContext externerWebContext;
+	private Navigator navigator;
 	private KraftwertService kraftwertService;
 
 	@BeforeEach
 	public void setup()
 	{
+		externerWebContext = mock(ExternerWebContext.class);
+		navigator = mock(Navigator.class);
 		kraftwertService = mock(KraftwertService.class);
-		sut = new KraftwertController(kraftwertService);
+		sut = new KraftwertController(externerWebContext, navigator, kraftwertService);
 	}
 
 	private void angenommenDerKraftwertServiceGibtAlleKraftwertEintraegeZurueck(final List<KraftwertEintrag> erwartet)
@@ -75,7 +81,6 @@ public class KraftwertControllerSollte
 		final var erwartet = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
 		angenommenDerKraftwertServiceGibtEinenKraftwertEintragZurueck(erwartet);
 
-		sut.setId(0);
 		sut.setBenutzer(Testdaten.JUSTIN_BENUTZER);
 		sut.setMaximum(100);
 		sut.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
@@ -91,6 +96,7 @@ public class KraftwertControllerSollte
 		final var erwartet = Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN;
 		angenommenDerKraftwertServiceGibtEinenKraftwertMithilfeDerIdZurueck(erwartet);
 
+		sut.setId(0);
 		final var ergebnis = sut.getKraftwertZuId();
 
 		assertThat(ergebnis).isEqualTo(erwartet);

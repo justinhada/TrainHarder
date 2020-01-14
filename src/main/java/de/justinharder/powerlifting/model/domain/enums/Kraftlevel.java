@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Kraftlevel
 {
@@ -21,21 +21,16 @@ public enum Kraftlevel
 
 	public static Kraftlevel fromKraftlevelOption(final String kraftlevelOption)
 	{
-		for (final Kraftlevel k : Kraftlevel.values())
-		{
-			if (k.kraftlevel.equalsIgnoreCase(kraftlevelOption))
-			{
-				return k;
-			}
-		}
-
-		throw new IllegalArgumentException("Die Kraftlevel-Option \"" + kraftlevelOption + "\" existiert nicht!");
+		return Stream.of(Kraftlevel.values())
+			.filter(k -> k.kraftlevel.equalsIgnoreCase(kraftlevelOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Kraftlevel-Option \"" + kraftlevelOption + "\" existiert nicht!"));
 	}
 
 	public static Kraftlevel fromName(final String name)
 	{
-		return Arrays.asList(Kraftlevel.values())
-			.stream()
+		return Stream.of(Kraftlevel.values())
 			.filter(k -> k.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

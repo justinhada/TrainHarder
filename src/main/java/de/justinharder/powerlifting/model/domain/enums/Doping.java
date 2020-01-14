@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Doping
 {
@@ -16,21 +16,16 @@ public enum Doping
 
 	public static Doping fromDopingOption(final String dopingOption)
 	{
-		for (final Doping d : Doping.values())
-		{
-			if (d.doping.equalsIgnoreCase(dopingOption))
-			{
-				return d;
-			}
-		}
-
-		throw new IllegalArgumentException("Die Doping-Option \"" + dopingOption + "\" existiert nicht!");
+		return Stream.of(Doping.values())
+			.filter(d -> d.doping.equalsIgnoreCase(dopingOption))
+			.findAny()
+			.orElseThrow(
+				() -> new IllegalArgumentException("Die Doping-Option \"" + dopingOption + "\" existiert nicht!"));
 	}
 
 	public static Doping fromName(final String name)
 	{
-		return Arrays.asList(Doping.values())
-			.stream()
+		return Stream.of(Doping.values())
 			.filter(d -> d.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

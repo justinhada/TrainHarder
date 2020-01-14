@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/vorlagen/seite.xhtml">
+	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
+	<ui:define name="titel">Powerlifting 🏋️ - Eine Übung erstellen</ui:define>
+	<ui:define name="inhalt">
+		<h:form>
+			<h:outputLabel for="name" value="Übung: " />
+			<h:inputText id="name" value="#{uebungController.name}" />
+			<br />
+			<h:outputLabel for="uebungsart" value="Übungsart: " />
+			<h:selectOneMenu value="#{uebungController.uebungsart}">
+				<f:selectItem itemValue="GRUNDUEBUNG" itemLabel="Grundübung" />
+				<f:selectItem itemValue="GRUNDUEBUNG_VARIATION"
+					itemLabel="Grundübung-Variation" />
+				<f:selectItem itemValue="ASSISTENZ" itemLabel="Assistenz" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel for="uebungskategorie" value="Übungskategorie: " />
+			<h:selectOneMenu value="#{uebungController.uebungskategorie}">
+				<f:selectItem itemValue="ASSISTENZ_BRUST"
+					itemLabel="Assistenz-Brust" />
+				<f:selectItem itemValue="ASSISTENZ_CORE" itemLabel="Assistenz-Core" />
+				<f:selectItem itemValue="ASSISTENZ_GLUTEUS"
+					itemLabel="Assistenz-Gluteus" />
+				<f:selectItem itemValue="ASSISTENZ_RUECKEN"
+					itemLabel="Assistenz-Rücken" />
+				<f:selectItem itemValue="ASSISTENZ_SCHULTER"
+					itemLabel="Assistenz-Schulter" />
+				<f:selectItem itemValue="ASSISTENZ_TRIZEPS"
+					itemLabel="Assistenz-Trizeps" />
+				<f:selectItem itemValue="ASSISTENZ_UNTERARM"
+					itemLabel="Assistenz-Unterarm" />
+				<f:selectItem itemValue="BANKDRUECKEN_VARIATION"
+					itemLabel="Bankdrücken-Variation" />
+				<f:selectItem itemValue="KNIEBEUGE_VARIATION"
+					itemLabel="Kniebeuge-Variation" />
+				<f:selectItem itemValue=">KREUZHEBEN_VARIATION"
+					itemLabel="Kreuzheben-Variation" />
+				<f:selectItem itemValue="UEBERKOPFDRUECKEN"
+					itemLabel="Überkopfdrücken" />
+				<f:selectItem itemValue="WETTKAMPF_BANKDRUECKEN"
+					itemLabel="Wettkampf-Bankdrücken" />
+				<f:selectItem itemValue="WETTKAMPF_KNIEBEUGE"
+					itemLabel="Wettkampf-Kniebeuge" />
+				<f:selectItem itemValue="WETTKAMPF_KREUZHEBEN"
+					itemLabel="Wettkampf-Kreuzheben" />
+			</h:selectOneMenu>
+			<br />
+			<h:commandButton class="ao-button"
+				action="#{uebungController.erstelleUebung}"
+				value="Erstelle neue Übung" />
+			<br />
+			<h:outputLabel value="Zur Liste aller Übungen hier klicken: " />
+			<a href="liste.xhtml" title="Liste der Übungen">Liste aller
+				Übungen</a>
+		</h:form>
+	</ui:define>
+</ui:composition>

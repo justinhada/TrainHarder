@@ -10,7 +10,7 @@ import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 
-public class JpaKraftwertRepository extends JpaRepository implements KraftwertRepository
+public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
 	@Override
 	public List<Kraftwert> ermittleAlle()

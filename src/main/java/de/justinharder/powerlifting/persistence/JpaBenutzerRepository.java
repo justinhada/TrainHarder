@@ -9,7 +9,7 @@ import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 
-public class JpaBenutzerRepository extends JpaRepository implements BenutzerRepository
+public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
 	@Override
 	public List<Benutzer> ermittleAlle()

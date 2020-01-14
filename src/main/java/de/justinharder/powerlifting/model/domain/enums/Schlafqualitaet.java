@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Schlafqualitaet
 {
@@ -17,22 +17,16 @@ public enum Schlafqualitaet
 
 	public static Schlafqualitaet fromSchlafqualitaetOption(final String schlafqualitaetOption)
 	{
-		for (final Schlafqualitaet s : Schlafqualitaet.values())
-		{
-			if (s.schlafqualitaet.equalsIgnoreCase(schlafqualitaetOption))
-			{
-				return s;
-			}
-		}
-
-		throw new IllegalArgumentException(
-			"Die Schlafqualitaet-Option \"" + schlafqualitaetOption + "\" existiert nicht!");
+		return Stream.of(Schlafqualitaet.values())
+			.filter(s -> s.schlafqualitaet.equalsIgnoreCase(schlafqualitaetOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Schlafqualitaet-Option \"" + schlafqualitaetOption + "\" existiert nicht!"));
 	}
 
 	public static Schlafqualitaet fromName(final String name)
 	{
-		return Arrays.asList(Schlafqualitaet.values())
-			.stream()
+		return Stream.of(Schlafqualitaet.values())
 			.filter(s -> s.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

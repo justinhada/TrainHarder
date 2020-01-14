@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Erfahrung
 {
@@ -18,21 +18,16 @@ public enum Erfahrung
 
 	public static Erfahrung fromErfahrungOption(final String erfahrungOption)
 	{
-		for (final Erfahrung e : Erfahrung.values())
-		{
-			if (e.erfahrung.equalsIgnoreCase(erfahrungOption))
-			{
-				return e;
-			}
-		}
-
-		throw new IllegalArgumentException("Die Erfahrung-Option \"" + erfahrungOption + "\" existiert nicht!");
+		return Stream.of(Erfahrung.values())
+			.filter(e -> e.erfahrung.equalsIgnoreCase(erfahrungOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Erfahrung-Option \"" + erfahrungOption + "\" existiert nicht!"));
 	}
 
 	public static Erfahrung fromName(final String name)
 	{
-		return Arrays.asList(Erfahrung.values())
-			.stream()
+		return Stream.of(Erfahrung.values())
 			.filter(e -> e.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Ernaehrung
 {
@@ -17,21 +17,16 @@ public enum Ernaehrung
 
 	public static Ernaehrung fromErnaehrungOption(final String ernaehrungOption)
 	{
-		for (final Ernaehrung e : Ernaehrung.values())
-		{
-			if (e.ernaehrung.equalsIgnoreCase(ernaehrungOption))
-			{
-				return e;
-			}
-		}
-
-		throw new IllegalArgumentException("Die Ernaehrung-Option \"" + ernaehrungOption + "\" existiert nicht!");
+		return Stream.of(Ernaehrung.values())
+			.filter(e -> e.ernaehrung.equalsIgnoreCase(ernaehrungOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Ernaehrung-Option \"" + ernaehrungOption + "\" existiert nicht!"));
 	}
 
 	public static Ernaehrung fromName(final String name)
 	{
-		return Arrays.asList(Ernaehrung.values())
-			.stream()
+		return Stream.of(Ernaehrung.values())
 			.filter(e -> e.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

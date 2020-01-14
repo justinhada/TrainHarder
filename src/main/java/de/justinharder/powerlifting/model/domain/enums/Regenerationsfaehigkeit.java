@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Regenerationsfaehigkeit
 {
@@ -19,22 +19,16 @@ public enum Regenerationsfaehigkeit
 
 	public static Regenerationsfaehigkeit fromRegenerationsfaehigkeitOption(final String regenerationsfaehigkeitOption)
 	{
-		for (final Regenerationsfaehigkeit r : Regenerationsfaehigkeit.values())
-		{
-			if (r.regenerationsfaehigkeit.equalsIgnoreCase(regenerationsfaehigkeitOption))
-			{
-				return r;
-			}
-		}
-
-		throw new IllegalArgumentException(
-			"Die Regenerationsfaehigkeit-Option \"" + regenerationsfaehigkeitOption + "\" existiert nicht!");
+		return Stream.of(Regenerationsfaehigkeit.values())
+			.filter(r -> r.regenerationsfaehigkeit.equalsIgnoreCase(regenerationsfaehigkeitOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Regenerationsfaehigkeit-Option \"" + regenerationsfaehigkeitOption + "\" existiert nicht!"));
 	}
 
 	public static Regenerationsfaehigkeit fromName(final String name)
 	{
-		return Arrays.asList(Regenerationsfaehigkeit.values())
-			.stream()
+		return Stream.of(Regenerationsfaehigkeit.values())
 			.filter(r -> r.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

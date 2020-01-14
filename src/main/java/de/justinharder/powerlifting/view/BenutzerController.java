@@ -10,6 +10,8 @@ import javax.inject.Named;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.services.BenutzerService;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +19,7 @@ import lombok.Setter;
 @RequestScoped
 @Getter
 @Setter
-public class BenutzerController
+public class BenutzerController extends Controller
 {
 	private final BenutzerService benutzerService;
 
@@ -38,8 +40,12 @@ public class BenutzerController
 	private List<BenutzerEintrag> alleBenutzer = new ArrayList<>();
 
 	@Inject
-	public BenutzerController(final BenutzerService benutzerService)
+	public BenutzerController(
+		final ExternerWebContext externerWebContext,
+		final Navigator navigator,
+		final BenutzerService benutzerService)
 	{
+		super(externerWebContext, navigator);
 		this.benutzerService = benutzerService;
 	}
 

@@ -8,8 +8,13 @@ import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetter
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.time.LocalDate;
+import java.util.Random;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.google.code.beanmatchers.BeanMatchers;
 
 public class KraftwertSollte
 {
@@ -17,6 +22,8 @@ public class KraftwertSollte
 	@DisplayName("ein Bean sein")
 	public void test01()
 	{
+		BeanMatchers.registerValueGenerator(() -> LocalDate.of(2019, 1, new Random().nextInt(28) + 1),
+			LocalDate.class);
 		assertThat(Kraftwert.class, allOf(
 			hasValidBeanConstructor(),
 			hasValidGettersAndSetters(),

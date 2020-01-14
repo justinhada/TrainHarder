@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.domain.enums;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum Stress
 {
@@ -17,22 +17,16 @@ public enum Stress
 
 	public static Stress fromStressOption(final String stressOption)
 	{
-		for (final Stress s : Stress.values())
-		{
-			if (s.stress.equalsIgnoreCase(stressOption))
-			{
-				return s;
-			}
-		}
-
-		throw new IllegalArgumentException(
-			"Die Stress-Option \"" + stressOption + "\" existiert nicht!");
+		return Stream.of(Stress.values())
+			.filter(s -> s.stress.equalsIgnoreCase(stressOption))
+			.findAny()
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Stress-Option \"" + stressOption + "\" existiert nicht!"));
 	}
 
 	public static Stress fromName(final String name)
 	{
-		return Arrays.asList(Stress.values())
-			.stream()
+		return Stream.of(Stress.values())
 			.filter(s -> s.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));

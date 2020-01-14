@@ -11,6 +11,8 @@ import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +20,7 @@ import lombok.Setter;
 @RequestScoped
 @Getter
 @Setter
-public class KraftwertController
+public class KraftwertController extends Controller
 {
 	private KraftwertService kraftwertService;
 
@@ -28,8 +30,12 @@ public class KraftwertController
 	private Benutzer benutzer;
 
 	@Inject
-	public KraftwertController(final KraftwertService kraftwertService)
+	public KraftwertController(
+		final ExternerWebContext externerWebContext,
+		final Navigator navigator,
+		final KraftwertService kraftwertService)
 	{
+		super(externerWebContext, navigator);
 		this.kraftwertService = kraftwertService;
 	}
 

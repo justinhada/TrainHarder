@@ -1,11 +1,14 @@
 package de.justinharder.powerlifting.setup;
 
+import java.time.LocalDate;
+
 import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
+import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
@@ -16,6 +19,7 @@ import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
+import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
 
 public class Testdaten
 {
@@ -37,6 +41,10 @@ public class Testdaten
 	public static final Uebung WETTKAMPFBANKDRUECKEN = new Uebung();
 	public static final Uebung LOWBAR_KNIEBEUGE = new Uebung();
 	public static final Uebung KONVENTIONELLES_KREUZHEBEN = new Uebung();
+
+	public static final UebungEintrag UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN = new UebungEintrag();
+	public static final UebungEintrag UEBUNGEINTRAG_LOWBAR_KNIEBEUGE = new UebungEintrag();
+	public static final UebungEintrag UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN = new UebungEintrag();
 
 	public static final Kraftwert KRAFTWERT_WETTKAMPFBANKDRUECKEN = new Kraftwert();
 	public static final Kraftwert KRAFTWERT_LOWBAR_KNIEBEUGE = new Kraftwert();
@@ -203,10 +211,18 @@ public class Testdaten
 		WETTKAMPFBANKDRUECKEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
 		WETTKAMPFBANKDRUECKEN.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setId(WETTKAMPFBANKDRUECKEN.getId());
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setName(WETTKAMPFBANKDRUECKEN.getName());
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setUebungsart(WETTKAMPFBANKDRUECKEN.getUebungsart());
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setUebungskategorie(WETTKAMPFBANKDRUECKEN.getUebungskategorie());
+
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setId(0);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setUebung(WETTKAMPFBANKDRUECKEN);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(JUSTIN_BENUTZER);
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setGewichtBenutzer(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setDatum(LocalDate.now());
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN.setId(0);
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN.setBenutzerVorname(JUSTIN_BENUTZER.getVorname());
@@ -234,10 +250,18 @@ public class Testdaten
 		LOWBAR_KNIEBEUGE.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE);
 		LOWBAR_KNIEBEUGE.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
 
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setId(LOWBAR_KNIEBEUGE.getId());
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setName(LOWBAR_KNIEBEUGE.getName());
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setUebungsart(LOWBAR_KNIEBEUGE.getUebungsart());
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setUebungskategorie(LOWBAR_KNIEBEUGE.getUebungskategorie());
+
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setId(0);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setUebung(LOWBAR_KNIEBEUGE);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setMaximum(150);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(JUSTIN_BENUTZER);
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setGewichtBenutzer(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setDatum(LocalDate.now());
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setId(0);
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setBenutzerVorname(JUSTIN_BENUTZER.getVorname());
@@ -265,10 +289,18 @@ public class Testdaten
 		KONVENTIONELLES_KREUZHEBEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN);
 		KONVENTIONELLES_KREUZHEBEN.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
 
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setId(KONVENTIONELLES_KREUZHEBEN.getId());
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setName(KONVENTIONELLES_KREUZHEBEN.getName());
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setUebungsart(KONVENTIONELLES_KREUZHEBEN.getUebungsart());
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setUebungskategorie(KONVENTIONELLES_KREUZHEBEN.getUebungskategorie());
+
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setId(0);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setUebung(KONVENTIONELLES_KREUZHEBEN);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setMaximum(200);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(JUSTIN_BENUTZER);
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setGewichtBenutzer(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setDatum(LocalDate.now());
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
 		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN.setId(0);
 		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN.setBenutzerVorname(JUSTIN_BENUTZER.getVorname());

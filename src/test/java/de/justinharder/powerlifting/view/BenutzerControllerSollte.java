@@ -17,17 +17,23 @@ import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.services.BenutzerService;
 import de.justinharder.powerlifting.setup.Testdaten;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 
 public class BenutzerControllerSollte
 {
 	private BenutzerController sut;
+	private ExternerWebContext externerWebContext;
+	private Navigator navigator;
 	private BenutzerService benutzerService;
 
 	@BeforeEach
 	public void setup()
 	{
+		externerWebContext = mock(ExternerWebContext.class);
+		navigator = mock(Navigator.class);
 		benutzerService = mock(BenutzerService.class);
-		sut = new BenutzerController(benutzerService);
+		sut = new BenutzerController(externerWebContext, navigator, benutzerService);
 	}
 
 	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(final List<BenutzerEintrag> erwartet)

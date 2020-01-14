@@ -1,6 +1,7 @@
 package de.justinharder.powerlifting.model.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -44,6 +45,11 @@ public class KraftwertServiceSollte
 	private void angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(final Kraftwert kraftwert)
 	{
 		when(kraftwertRepository.ermittleZuId(anyInt())).thenReturn(kraftwert);
+	}
+
+	private void angenommenDasKraftwertRepositoryGibtNullZurueck()
+	{
+		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(null);
 	}
 
 	@Test
@@ -98,8 +104,19 @@ public class KraftwertServiceSollte
 	}
 
 	@Test
-	@DisplayName("einen Kraftwert zu ID ermitteln")
-	public void test04() throws KraftwertNichtGefundenException
+	@DisplayName("KraftwertNichtGefundenException werfen, wenn ID zu keinem Kraftwert gehört")
+	public void test04()
+	{
+		angenommenDasKraftwertRepositoryGibtNullZurueck();
+
+		final var exception = assertThrows(KraftwertNichtGefundenException.class, () -> sut.ermittleZuId(10000));
+
+		assertThat(exception.getMessage()).isEqualTo("Der Kraftwert mit der ID \"10000\" existiert nicht!");
+	}
+
+	@Test
+	@DisplayName("einen Kraftwert zur ID ermitteln")
+	public void test05() throws KraftwertNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE;
 		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;

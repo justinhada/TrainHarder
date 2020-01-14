@@ -12,6 +12,8 @@ import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeRepsInRese
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigesMaximumException;
 import de.justinharder.powerlifting.model.services.RepsInReserveRechner;
+import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
+import de.justinharder.powerlifting.view.navigation.Navigator;
 
 public class RepsInReserveControllerSollte
 {
@@ -20,13 +22,17 @@ public class RepsInReserveControllerSollte
 	private static final int RIR = 2;
 
 	private RepsInReserveController sut;
+	private ExternerWebContext externerWebContext;
+	private Navigator navigator;
 	private RepsInReserveRechner repsInReserveRechner;
 
 	@BeforeEach
 	public void setup()
 	{
+		externerWebContext = mock(ExternerWebContext.class);
+		navigator = mock(Navigator.class);
 		repsInReserveRechner = mock(RepsInReserveRechner.class);
-		sut = new RepsInReserveController(repsInReserveRechner);
+		sut = new RepsInReserveController(externerWebContext, navigator, repsInReserveRechner);
 	}
 
 	private void angenommenDerRepsInReserveRechnerGibtRichtwertZurueck(final int maximum, final int wiederholungen,
