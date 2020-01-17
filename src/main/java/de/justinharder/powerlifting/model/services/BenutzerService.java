@@ -28,29 +28,6 @@ public class BenutzerService
 		this.benutzerRepository = benutzerRepository;
 	}
 
-	public BenutzerEintrag erstelleBenutzer(final String vorname, final String nachname, final int koerpergewicht,
-		final int koerpergroesse, final int lebensalter, final String geschlecht, final String erfahrung,
-		final String ernaehrung, final String schlafqualitaet, final String stress, final String doping,
-		final String regenerationsfaehigkeit)
-	{
-		final var benutzer = new Benutzer(
-			vorname,
-			nachname,
-			koerpergewicht,
-			koerpergroesse,
-			lebensalter,
-			Kraftlevel.CLASS_5,
-			Geschlecht.fromGeschlechtOption(geschlecht),
-			Erfahrung.fromErfahrungOption(erfahrung),
-			Ernaehrung.fromErnaehrungOption(ernaehrung),
-			Schlafqualitaet.fromSchlafqualitaetOption(schlafqualitaet),
-			Stress.fromStressOption(stress),
-			Doping.fromDopingOption(doping),
-			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(regenerationsfaehigkeit));
-		benutzerRepository.erstelleBenutzer(benutzer);
-		return konvertiere(benutzer);
-	}
-
 	public List<BenutzerEintrag> ermittleAlle()
 	{
 		return konvertiereAlle(benutzerRepository.ermittleAlle());
@@ -77,6 +54,25 @@ public class BenutzerService
 		return konvertiereAlle(alleBenutzer);
 	}
 
+	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag)
+	{
+		final var benutzer = new Benutzer(
+			benutzerEintrag.getVorname(),
+			benutzerEintrag.getNachname(),
+			benutzerEintrag.getKoerpergewicht(),
+			benutzerEintrag.getKoerpergroesse(),
+			benutzerEintrag.getLebensalter(),
+			Kraftlevel.CLASS_5,
+			Geschlecht.fromGeschlechtOption(benutzerEintrag.getGeschlecht()),
+			Erfahrung.fromErfahrungOption(benutzerEintrag.getErfahrung()),
+			Ernaehrung.fromErnaehrungOption(benutzerEintrag.getErnaehrung()),
+			Schlafqualitaet.fromSchlafqualitaetOption(benutzerEintrag.getSchlafqualitaet()),
+			Stress.fromStressOption(benutzerEintrag.getStress()),
+			Doping.fromDopingOption(benutzerEintrag.getDoping()),
+			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()));
+		benutzerRepository.erstelleBenutzer(benutzer);
+	}
+
 	private List<BenutzerEintrag> konvertiereAlle(final List<Benutzer> alleBenutzer)
 	{
 		return alleBenutzer.stream()
@@ -93,13 +89,13 @@ public class BenutzerService
 			benutzer.getKoerpergewicht(),
 			benutzer.getKoerpergroesse(),
 			benutzer.getLebensalter(),
-			benutzer.getKraftlevel(),
-			benutzer.getGeschlecht(),
-			benutzer.getErfahrung(),
-			benutzer.getErnaehrung(),
-			benutzer.getSchlafqualitaet(),
-			benutzer.getStress(),
-			benutzer.getDoping(),
-			benutzer.getRegenerationsfaehigkeit());
+			benutzer.getKraftlevel().name(),
+			benutzer.getGeschlecht().name(),
+			benutzer.getErfahrung().name(),
+			benutzer.getErnaehrung().name(),
+			benutzer.getSchlafqualitaet().name(),
+			benutzer.getStress().name(),
+			benutzer.getDoping().name(),
+			benutzer.getRegenerationsfaehigkeit().name());
 	}
 }

@@ -6,28 +6,21 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
+import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.powerlifting.model.services.UebungService;
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
-import lombok.Setter;
 
 @Named
 @RequestScoped
 @Getter
-@Setter
 public class UebungController extends Controller
 {
 	private final UebungService uebungService;
-
-	private int id;
-	private String name;
-	private String uebungsart;
-	private String uebungskategorie;
-	private Belastungsfaktor belastungsfaktor;
+	private final UebungEintrag uebungEintrag = new UebungEintrag();
 
 	@Inject
 	public UebungController(
@@ -44,23 +37,23 @@ public class UebungController extends Controller
 		return uebungService.ermittleAlle();
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungsart()
+	public List<UebungEintrag> getUebungenZuUebungsart(final String uebungsart)
 	{
 		return uebungService.ermittleZuUebungsart(uebungsart);
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungskategorie()
+	public List<UebungEintrag> getUebungenZuUebungskategorie(final String uebungskategorie)
 	{
 		return uebungService.ermittleZuUebungskategorie(uebungskategorie);
 	}
 
 	public UebungEintrag getUebungZuId() throws UebungNichtGefundenException
 	{
-		return uebungService.ermittleZuId(id);
+		return uebungService.ermittleZuId(uebungEintrag.getId());
 	}
 
-	public UebungEintrag erstelleUebung()
+	public void erstelleUebung(final BelastungsfaktorEintrag belastungsfaktorEintrag)
 	{
-		return uebungService.erstelleUebung(name, uebungsart, uebungskategorie, belastungsfaktor);
+		uebungService.erstelleUebung(uebungEintrag, belastungsfaktorEintrag);
 	}
 }

@@ -1,12 +1,11 @@
 package de.justinharder.powerlifting.model.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.Uebung;
+import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
@@ -25,17 +24,18 @@ public class UebungService
 
 	public List<UebungEintrag> ermittleAlle()
 	{
-		return konvertiereAlle(uebungRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuUebungEintrag(uebungRepository.ermittleAlle());
 	}
 
 	public List<UebungEintrag> ermittleZuUebungsart(final String uebungsart)
 	{
-		return konvertiereAlle(uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
+		return Konvertierer.konvertiereAlleZuUebungEintrag(
+			uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
 	}
 
 	public List<UebungEintrag> ermittleZuUebungskategorie(final String uebungskategorie)
 	{
-		return konvertiereAlle(
+		return Konvertierer.konvertiereAlleZuUebungEintrag(
 			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
@@ -46,35 +46,16 @@ public class UebungService
 		{
 			throw new UebungNichtGefundenException("Die Uebung mit der ID \"" + id + "\" existiert nicht!");
 		}
-		return konvertiere(uebung);
+		return Konvertierer.konvertiereZuUebungEintrag(uebung);
 	}
 
-	public UebungEintrag erstelleUebung(final String name, final String uebungsart, final String uebungskategorie,
-		final Belastungsfaktor belastungsfaktor)
+	public void erstelleUebung(final UebungEintrag uebungEintrag, final BelastungsfaktorEintrag belastungsfaktorEintrag)
 	{
 		final var uebung = new Uebung(
-			name,
-			Uebungsart.fromUebungsartOption(uebungsart),
-			Uebungskategorie.fromUebungskategorieOption(uebungskategorie),
-			belastungsfaktor);
+			uebungEintrag.getName(),
+			Uebungsart.fromUebungsartOption(uebungEintrag.getUebungsart()),
+			Uebungskategorie.fromUebungskategorieOption(uebungEintrag.getUebungskategorie()),
+			Konvertierer.konvertiereZuBelastungsfaktor(belastungsfaktorEintrag));
 		uebungRepository.erstelleUebung(uebung);
-		return konvertiere(uebung);
-	}
-
-	private List<UebungEintrag> konvertiereAlle(final List<Uebung> uebungen)
-	{
-		return uebungen
-			.stream()
-			.map(this::konvertiere)
-			.collect(Collectors.toList());
-	}
-
-	private UebungEintrag konvertiere(final Uebung uebung)
-	{
-		return new UebungEintrag(
-			uebung.getId(),
-			uebung.getName(),
-			uebung.getUebungsart(),
-			uebung.getUebungskategorie());
 	}
 }

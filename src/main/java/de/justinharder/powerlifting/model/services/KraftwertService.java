@@ -44,9 +44,15 @@ public class KraftwertService
 		return konvertiere(kraftwert);
 	}
 
+	// TODO: überarbeiten
 	public KraftwertEintrag erstelleKraftwert(final Uebung uebung, final int maximum, final Benutzer benutzer)
 	{
-		final var kraftwert = new Kraftwert(uebung, benutzer, maximum, benutzer.getKoerpergewicht(), LocalDate.now(),
+		final var kraftwert = new Kraftwert(
+			uebung,
+			benutzer,
+			maximum,
+			benutzer.getKoerpergewicht(),
+			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX);
 		kraftwertRepository.erstelleKraftwert(kraftwert);
 		return konvertiere(kraftwert);

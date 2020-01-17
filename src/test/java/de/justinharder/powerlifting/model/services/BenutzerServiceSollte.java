@@ -73,14 +73,12 @@ public class BenutzerServiceSollte
 	@DisplayName("einen Benutzer erstellen")
 	public void test02()
 	{
-		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
-		final var eingabe = Testdaten.JUSTIN_BENUTZER;
+		final var benutzerEintrag = Testdaten.JUSTIN_BENUTZEREINTRAG;
+		final var benutzer = Testdaten.JUSTIN_BENUTZER;
 
-		final var ergebnis = sut.erstelleBenutzer("Justin", "Harder", 90, 178, 21, "MAENNLICH", "BEGINNER", "GUT",
-			"GUT", "MITTELMAESSIG", "NEIN", "GUT");
+		sut.erstelleBenutzer(benutzerEintrag);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(benutzerRepository).erstelleBenutzer(eingabe);
+		verify(benutzerRepository).erstelleBenutzer(benutzer);
 	}
 
 	@Test

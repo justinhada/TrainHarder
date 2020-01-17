@@ -137,11 +137,11 @@ public class UebungServiceSollte
 	@DisplayName("eine Uebung erstellen")
 	public void test06()
 	{
-		final var erwartet = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
-		final var eingabe = Testdaten.LOWBAR_KNIEBEUGE;
+		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
+		final var uebung = Testdaten.LOWBAR_KNIEBEUGE;
 
-		final var ergebnis = sut.erstelleUebung("Lowbar-Kniebeuge", "GRUNDUEBUNG", "WETTKAMPF_KNIEBEUGE",
-			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
-		verify(uebungRepository).erstelleUebung(eingabe);
+		sut.erstelleUebung(uebungEintrag, Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE);
+
+		verify(uebungRepository).erstelleUebung(uebung);
 	}
 }

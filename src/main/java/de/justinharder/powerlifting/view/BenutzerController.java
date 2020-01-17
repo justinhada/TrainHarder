@@ -13,31 +13,15 @@ import de.justinharder.powerlifting.model.services.BenutzerService;
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
-import lombok.Setter;
 
 @Named
 @RequestScoped
 @Getter
-@Setter
 public class BenutzerController extends Controller
 {
 	private final BenutzerService benutzerService;
-
-	private int id;
-	private String vorname;
-	private String nachname = "";
-	private int koerpergewicht;
-	private int koerpergroesse;
-	private int lebensalter;
-	private String geschlecht;
-	private String erfahrung;
-	private String ernaehrung;
-	private String schlafqualitaet;
-	private String stress;
-	private String doping;
-	private String regenerationsfaehigkeit;
-
-	private List<BenutzerEintrag> alleBenutzer = new ArrayList<>();
+	private final BenutzerEintrag benutzerEintrag = new BenutzerEintrag();
+	private List<BenutzerEintrag> benutzerEintraege = new ArrayList<>();
 
 	@Inject
 	public BenutzerController(
@@ -56,17 +40,16 @@ public class BenutzerController extends Controller
 
 	public BenutzerEintrag getBenutzerZuId() throws BenutzerNichtGefundenException
 	{
-		return benutzerService.ermittleZuId(id);
+		return benutzerService.ermittleZuId(benutzerEintrag.getId());
 	}
 
-	public BenutzerEintrag erstelleBenutzer()
+	public void erstelleBenutzer()
 	{
-		return benutzerService.erstelleBenutzer(vorname, nachname, koerpergewicht, koerpergroesse, lebensalter,
-			geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit);
+		benutzerService.erstelleBenutzer(benutzerEintrag);
 	}
 
-	public void getBenutzerZuNachname() throws BenutzerNichtGefundenException
+	public void getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
-		alleBenutzer = benutzerService.ermittleZuNachname(nachname);
+		benutzerEintraege = benutzerService.ermittleZuNachname(nachname);
 	}
 }

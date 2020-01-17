@@ -20,7 +20,7 @@ public enum Wiederholungen
 	public static Wiederholungen fromWiederholungenOption(final String wiederholungenOption)
 	{
 		return Stream.of(Wiederholungen.values())
-			.filter(u -> u.wiederholungen.equalsIgnoreCase(wiederholungenOption))
+			.filter(w -> w.wiederholungen.equalsIgnoreCase(wiederholungenOption))
 			.findAny()
 			.orElseThrow(
 				() -> new IllegalArgumentException(
@@ -30,7 +30,7 @@ public enum Wiederholungen
 	public static Wiederholungen fromName(final String name)
 	{
 		return Stream.of(Wiederholungen.values())
-			.filter(u -> u.name().equals(name))
+			.filter(w -> w.name().equals(name))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
 	}

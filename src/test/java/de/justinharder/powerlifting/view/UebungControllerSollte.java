@@ -1,10 +1,10 @@
 package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.powerlifting.model.services.UebungService;
@@ -60,12 +59,6 @@ public class UebungControllerSollte
 		when(uebungService.ermittleZuId(anyInt())).thenReturn(erwartet);
 	}
 
-	private void angenommenDerUebungServiceGibtEinenUebungEintragZurueck(final UebungEintrag erwartet)
-	{
-		when(uebungService.erstelleUebung(anyString(), anyString(), anyString(), any(Belastungsfaktor.class)))
-			.thenReturn(erwartet);
-	}
-
 	@Test
 	@DisplayName("eine Liste aller UebungEinträge zurückgeben")
 	public void test01()
@@ -91,8 +84,7 @@ public class UebungControllerSollte
 			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(erwartet);
 
-		sut.setUebungsart("GRUNDUEBUNG");
-		final var ergebnis = sut.getUebungenZuUebungsart();
+		final var ergebnis = sut.getUebungenZuUebungsart("GRUNDUEBUNG");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -104,8 +96,7 @@ public class UebungControllerSollte
 		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN);
 		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(erwartet);
 
-		sut.setUebungskategorie("WETTKAMPF_BANKDRUECKEN");
-		final var ergebnis = sut.getUebungenZuUebungskategorie();
+		final var ergebnis = sut.getUebungenZuUebungskategorie("WETTKAMPF_BANKDRUECKEN");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -117,7 +108,7 @@ public class UebungControllerSollte
 		final var erwartet = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
 		angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(erwartet);
 
-		sut.setId(0);
+		sut.getUebungEintrag().setId(0);
 		final var ergebnis = sut.getUebungZuId();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -127,15 +118,14 @@ public class UebungControllerSollte
 	@DisplayName("eine Uebung weiter an den UebungService geben")
 	public void test05()
 	{
-		final var erwartet = Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN;
-		angenommenDerUebungServiceGibtEinenUebungEintragZurueck(erwartet);
+		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN;
+		final var belastungsfaktorEintrag = Testdaten.BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN;
 
-		sut.setName("Konventionelles Kreuzheben");
-		sut.setUebungsart("GRUNDUEBUNG");
-		sut.setUebungskategorie("WETTKAMPF_KREUZHEBEN");
-		sut.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
-		final var ergebnis = sut.erstelleUebung();
+		sut.getUebungEintrag().setName("Konventionelles Kreuzheben");
+		sut.getUebungEintrag().setUebungsart("GRUNDUEBUNG");
+		sut.getUebungEintrag().setUebungskategorie("WETTKAMPF_KREUZHEBEN");
+		sut.erstelleUebung(belastungsfaktorEintrag);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(uebungService).erstelleUebung(uebungEintrag, belastungsfaktorEintrag);
 	}
 }

@@ -18,9 +18,9 @@ public class Navigator
 		return parametrisiereUrl(FEHLER_URL, Parameter.fromFehlermeldung(fehlermeldung));
 	}
 
-	public String zurUebungsauswahlSeite(final String berufId)
+	public String zurUebungsauswahlSeite(final String benutzerId)
 	{
-		return parametrisiereUrl(UEBUNGSAUSWAHL, Parameter.fromBenutzer(berufId));
+		return parametrisiereUrl(UEBUNGSAUSWAHL, Parameter.fromBenutzer(benutzerId));
 	}
 
 	private String parametrisiereUrl(final String url, final Parameter... parameter)

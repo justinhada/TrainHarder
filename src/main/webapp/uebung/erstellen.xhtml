@@ -10,19 +10,20 @@
 	<ui:define name="titel">Powerlifting 🏋️ - Eine Übung erstellen</ui:define>
 	<ui:define name="inhalt">
 		<h:form>
-			<h:outputLabel for="name" value="Übung: " />
-			<h:inputText id="name" value="#{uebungController.name}" />
+			<h:outputLabel value="Übung: " />
+			<h:inputText value="#{name}" />
 			<br />
-			<h:outputLabel for="uebungsart" value="Übungsart: " />
-			<h:selectOneMenu value="#{uebungController.uebungsart}">
+			<h:outputLabel value="Übungsart: " />
+			<h:selectOneMenu value="#{uebungController.uebungEintrag.uebungsart}">
 				<f:selectItem itemValue="GRUNDUEBUNG" itemLabel="Grundübung" />
 				<f:selectItem itemValue="GRUNDUEBUNG_VARIATION"
 					itemLabel="Grundübung-Variation" />
 				<f:selectItem itemValue="ASSISTENZ" itemLabel="Assistenz" />
 			</h:selectOneMenu>
 			<br />
-			<h:outputLabel for="uebungskategorie" value="Übungskategorie: " />
-			<h:selectOneMenu value="#{uebungController.uebungskategorie}">
+			<h:outputLabel value="Übungskategorie: " />
+			<h:selectOneMenu
+				value="#{uebungController.uebungEintrag.uebungskategorie}">
 				<f:selectItem itemValue="ASSISTENZ_BRUST"
 					itemLabel="Assistenz-Brust" />
 				<f:selectItem itemValue="ASSISTENZ_CORE" itemLabel="Assistenz-Core" />
@@ -52,9 +53,63 @@
 					itemLabel="Wettkampf-Kreuzheben" />
 			</h:selectOneMenu>
 			<br />
+			<h:outputLabel
+				value="Belastungsfaktoren der Übung pro Muskelgruppe: " />
+			<br />
+			<h:outputLabel value="Squat: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.squat}" />
+			<br />
+			<h:outputLabel value="Benchpress: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.benchpress}" />
+			<br />
+			<h:outputLabel value="Deadlift: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.deadlift}" />
+			<br />
+			<h:outputLabel value="Triceps: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.triceps}" />
+			<br />
+			<h:outputLabel value="Chest: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.chest}" />
+			<br />
+			<h:outputLabel value="Core: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.core}" />
+			<br />
+			<h:outputLabel value="Back: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.back}" />
+			<br />
+			<h:outputLabel value="Biceps: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.biceps}" />
+			<br />
+			<h:outputLabel value="Glutes: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.glutes}" />
+			<br />
+			<h:outputLabel value="Quads: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.quads}" />
+			<br />
+			<h:outputLabel value="Hamstrings: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.hamstrings}" />
+			<br />
+			<h:outputLabel value="Shoulder: " />
+			<h:inputText
+				value="#{belastungsfaktorController.belastungsfaktorEintrag.shoulder}" />
+			<br />
 			<h:commandButton class="ao-button"
-				action="#{uebungController.erstelleUebung}"
-				value="Erstelle neue Übung" />
+				action="#{belastungsfaktorController.erstelleBelastungsfaktor()}"
+				value="Erstelle neue Übung">
+				<f:actionListener
+					binding="#{uebungController.erstelleUebung(belastungsfaktorController.belastungsfaktorEintrag)}" />
+			</h:commandButton>
 			<br />
 			<h:outputLabel value="Zur Liste aller Übungen hier klicken: " />
 			<a href="liste.xhtml" title="Liste der Übungen">Liste aller

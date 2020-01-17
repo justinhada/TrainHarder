@@ -1,4 +1,5 @@
-	 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,15 +10,16 @@
 	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
 	<ui:define name="titel">Powerlifting 🏋️</ui:define>
 	<ui:define name="inhalt">
-		<h:form styleClass="form-group">
+		<h:form>
 			<h:outputLabel
 				value="Wählen Sie einen Benutzer aus, um einen neuen Kraftwert hinzuzufügen..."></h:outputLabel>
 			<br />
-			<h:outputLabel for="nachname" value="Suche per Nachname: " />
-			<h:inputText styleClass="form-field" id="nachname" value="#{benutzerController.nachname}" />
+			<h:outputLabel value="Suche per Nachname: " />
+			<h:inputText value="#{nachname}" />
 			<br />
 			<h:commandButton class="ao-button"
-				action="#{benutzerController.getBenutzerZuNachname}" value="Suchen" />
+				action="#{benutzerController.getBenutzerZuNachname(nachname)}"
+				value="Suchen" />
 			<br />
 		</h:form>
 		<h:form>
@@ -29,11 +31,12 @@
 					<th>Diesen Benutzer wählen</th>
 				</tr>
 				<ui:repeat id="benutzer_tabelle" var="benutzereintrag"
-					value="#{benutzerController.alleBenutzer}">
+					value="#{benutzerController.benutzerEintraege}">
 					<tr>
 						<td>#{benutzereintrag.vorname}</td>
 						<td>#{benutzereintrag.nachname}</td>
-						<td><a href="#{navigator.zurUebungsauswahlSeite(benutzereintrag.id)}"
+						<td><a
+							href="#{navigator.zurUebungsauswahlSeite(benutzereintrag.id)}"
 							title="Mit diesem Benutzer fortfahren">➡️</a></td>
 					</tr>
 				</ui:repeat>

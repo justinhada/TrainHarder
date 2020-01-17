@@ -3,6 +3,8 @@ package de.justinharder.powerlifting.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
@@ -42,6 +44,7 @@ public class JpaUebungRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
+	@Transactional
 	public void erstelleUebung(final Uebung uebung)
 	{
 		super.erstelleEntitaet(uebung);

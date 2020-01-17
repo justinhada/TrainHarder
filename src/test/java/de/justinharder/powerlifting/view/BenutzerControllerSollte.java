@@ -41,12 +41,6 @@ public class BenutzerControllerSollte
 		when(benutzerService.ermittleAlle()).thenReturn(erwartet);
 	}
 
-	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(final BenutzerEintrag erwartet)
-	{
-		when(benutzerService.erstelleBenutzer(anyString(), anyString(), anyInt(), anyInt(), anyInt(), anyString(),
-			anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(erwartet);
-	}
-
 	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(
 		final BenutzerEintrag erwartet) throws BenutzerNichtGefundenException
 	{
@@ -75,27 +69,25 @@ public class BenutzerControllerSollte
 	@DisplayName("einen Benutzer weiter an den BenutzerService geben")
 	public void test02()
 	{
-		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
-		angenommenDerBenutzerServiceGibtEinenBenutzerEintragZurueck(erwartet);
+		final var benutzerEintrag = Testdaten.JUSTIN_BENUTZEREINTRAG;
 
-		sut.setId(0);
-		sut.setVorname("Justin");
-		sut.setNachname("Harder");
-		sut.setKoerpergewicht(90);
-		sut.setKoerpergroesse(178);
-		sut.setLebensalter(21);
-		sut.setGeschlecht("MAENNLICH");
-		sut.setErfahrung("BEGINNER");
-		sut.setErnaehrung("GUT");
-		sut.setSchlafqualitaet("GUT");
-		sut.setStress("MITTELMAESSIG");
-		sut.setDoping("NEIN");
-		sut.setRegenerationsfaehigkeit("GUT");
-		final var ergebnis = sut.erstelleBenutzer();
+		sut.getBenutzerEintrag().setId(0);
+		sut.getBenutzerEintrag().setVorname("Justin");
+		sut.getBenutzerEintrag().setNachname("Harder");
+		sut.getBenutzerEintrag().setKoerpergewicht(90);
+		sut.getBenutzerEintrag().setKoerpergroesse(178);
+		sut.getBenutzerEintrag().setLebensalter(21);
+		sut.getBenutzerEintrag().setKraftlevel("CLASS_5");
+		sut.getBenutzerEintrag().setGeschlecht("MAENNLICH");
+		sut.getBenutzerEintrag().setErfahrung("BEGINNER");
+		sut.getBenutzerEintrag().setErnaehrung("GUT");
+		sut.getBenutzerEintrag().setSchlafqualitaet("GUT");
+		sut.getBenutzerEintrag().setStress("MITTELMAESSIG");
+		sut.getBenutzerEintrag().setDoping("NEIN");
+		sut.getBenutzerEintrag().setRegenerationsfaehigkeit("GUT");
+		sut.erstelleBenutzer();
 
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(benutzerService).erstelleBenutzer("Justin", "Harder", 90, 178, 21, "MAENNLICH", "BEGINNER", "GUT", "GUT",
-			"MITTELMAESSIG", "NEIN", "GUT");
+		verify(benutzerService).erstelleBenutzer(benutzerEintrag);
 	}
 
 	@Test
@@ -119,9 +111,8 @@ public class BenutzerControllerSollte
 			Testdaten.GOTT_BENUTZEREINTRAG);
 		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(erwartet);
 
-		sut.setNachname("Harder");
-		sut.getBenutzerZuNachname();
-		final var ergebnis = sut.getAlleBenutzer();
+		sut.getBenutzerZuNachname("Harder");
+		final var ergebnis = sut.getBenutzerEintraege();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
