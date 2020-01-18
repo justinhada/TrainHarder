@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import de.justinharder.powerlifting.model.Entitaet;
+import de.justinharder.powerlifting.model.domain.Entitaet;
 
 public class JpaRepository<T extends Entitaet>
 {

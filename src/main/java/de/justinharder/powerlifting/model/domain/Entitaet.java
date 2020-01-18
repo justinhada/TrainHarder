@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting.model;
+package de.justinharder.powerlifting.model.domain;
 
 import java.io.Serializable;
 
