@@ -115,7 +115,7 @@ public class UebungServiceSollte
 	{
 		angenommenDasUebungRepositoryGibtNullZurueck();
 
-		final var exception = assertThrows(UebungNichtGefundenException.class, () -> sut.ermittleZuId(10000));
+		final var exception = assertThrows(UebungNichtGefundenException.class, () -> sut.ermittleZuId("10000"));
 
 		assertThat(exception.getMessage()).isEqualTo("Die Uebung mit der ID \"10000\" existiert nicht!");
 	}
@@ -128,7 +128,7 @@ public class UebungServiceSollte
 		final var uebung = Testdaten.KONVENTIONELLES_KREUZHEBEN;
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebung);
 
-		final var ergebnis = sut.ermittleZuId(0);
+		final var ergebnis = sut.ermittleZuId("0");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

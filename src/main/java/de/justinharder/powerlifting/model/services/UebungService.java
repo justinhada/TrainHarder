@@ -39,9 +39,9 @@ public class UebungService
 			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
-	public UebungEintrag ermittleZuId(final int id) throws UebungNichtGefundenException
+	public UebungEintrag ermittleZuId(final String id) throws UebungNichtGefundenException
 	{
-		final var uebung = uebungRepository.ermittleZuId(id);
+		final var uebung = uebungRepository.ermittleZuId(Integer.valueOf(id));
 		if (uebung == null)
 		{
 			throw new UebungNichtGefundenException("Die Uebung mit der ID \"" + id + "\" existiert nicht!");

@@ -19,6 +19,7 @@ import lombok.Getter;
 @Getter
 public class BenutzerController extends Controller
 {
+	private static final String BENUTZER_ID = "benutzerId";
 	private final BenutzerService benutzerService;
 	private final BenutzerEintrag benutzerEintrag = new BenutzerEintrag();
 	private List<BenutzerEintrag> benutzerEintraege = new ArrayList<>();
@@ -40,7 +41,7 @@ public class BenutzerController extends Controller
 
 	public BenutzerEintrag getBenutzerZuId() throws BenutzerNichtGefundenException
 	{
-		return benutzerService.ermittleZuId(benutzerEintrag.getId());
+		return benutzerService.ermittleZuId(getRequestParameter(BENUTZER_ID));
 	}
 
 	public void erstelleBenutzer()

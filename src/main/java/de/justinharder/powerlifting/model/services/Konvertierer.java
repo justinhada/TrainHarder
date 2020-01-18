@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
+import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
+import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 
 public class Konvertierer
 {
+	private Konvertierer()
+	{}
+
 	public static List<UebungEintrag> konvertiereAlleZuUebungEintrag(final List<Uebung> uebungen)
 	{
 		return uebungen
@@ -60,5 +65,23 @@ public class Konvertierer
 			belastungsfaktor.getQuads(),
 			belastungsfaktor.getHamstrings(),
 			belastungsfaktor.getShoulder());
+	}
+
+	public static List<KraftwertEintrag> konvertiereAlleZuKraftwertEintrag(final List<Kraftwert> kraftwerte)
+	{
+		return kraftwerte
+			.stream()
+			.map(Konvertierer::konvertiereZuKraftwertEintrag)
+			.collect(Collectors.toList());
+	}
+
+	public static KraftwertEintrag konvertiereZuKraftwertEintrag(final Kraftwert kraftwert)
+	{
+		return new KraftwertEintrag(
+			kraftwert.getId(),
+			kraftwert.getMaximum(),
+			kraftwert.getKoerpergewicht(),
+			kraftwert.getDatum(),
+			kraftwert.getWiederholungen().name());
 	}
 }

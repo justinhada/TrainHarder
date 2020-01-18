@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,7 +35,7 @@ public class Uebung extends Entitaet
 	private Uebungsart uebungsart;
 	@Enumerated(EnumType.STRING)
 	private Uebungskategorie uebungskategorie;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Belastungsfaktor belastungsfaktor;
 
 	public Uebung(

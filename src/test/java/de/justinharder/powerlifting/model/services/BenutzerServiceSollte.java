@@ -87,9 +87,9 @@ public class BenutzerServiceSollte
 	{
 		angenommenDasBenutzerRepositoryGibtNullZurueck();
 
-		final var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuId(20));
+		final var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuId("10000"));
 
-		assertThat(exception.getMessage()).isEqualTo("Der Benutzer mit der ID 20 existiert nicht!");
+		assertThat(exception.getMessage()).isEqualTo("Der Benutzer mit der ID \"10000\" existiert nicht!");
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class BenutzerServiceSollte
 		final var benutzer = Testdaten.JUSTIN_BENUTZER;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);
 
-		final var ergebnis = sut.ermittleZuId(0);
+		final var ergebnis = sut.ermittleZuId("0");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

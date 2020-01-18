@@ -16,20 +16,27 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
+import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
+import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
+import de.justinharder.powerlifting.model.repository.UebungRepository;
 import de.justinharder.powerlifting.setup.Testdaten;
 
 public class KraftwertServiceSollte
 {
 	private KraftwertService sut;
 	private KraftwertRepository kraftwertRepository;
+	private BenutzerRepository benutzerRepository;
+	private UebungRepository uebungRepository;
 
 	@BeforeEach
 	public void setup()
 	{
 		kraftwertRepository = mock(KraftwertRepository.class);
-		sut = new KraftwertService(kraftwertRepository);
+		benutzerRepository = mock(BenutzerRepository.class);
+		uebungRepository = mock(UebungRepository.class);
+		sut = new KraftwertService(kraftwertRepository, benutzerRepository, uebungRepository);
 	}
 
 	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZurueck(final List<Kraftwert> kraftwerte)
@@ -50,6 +57,16 @@ public class KraftwertServiceSollte
 	private void angenommenDasKraftwertRepositoryGibtNullZurueck()
 	{
 		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(null);
+	}
+
+	private void angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(final Benutzer benutzer)
+	{
+		when(benutzerRepository.ermittleZuId(anyInt())).thenReturn(benutzer);
+	}
+
+	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(final Uebung uebung)
+	{
+		when(uebungRepository.ermittleZuId(anyInt())).thenReturn(uebung);
 	}
 
 	@Test
@@ -94,13 +111,16 @@ public class KraftwertServiceSollte
 	@DisplayName("einen Kraftwert erstellen")
 	public void test03()
 	{
-		final var erwartet = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
-		final var eingabe = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
+		final var kraftwertEintrag = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
+		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
+		final var benutzer = Testdaten.JUSTIN_BENUTZER;
+		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
+		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);
+		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebung);
 
-		final var ergebnis = sut.erstelleKraftwert(Testdaten.WETTKAMPFBANKDRUECKEN, 100, Testdaten.JUSTIN_BENUTZER);
+		sut.erstelleKraftwert(kraftwertEintrag, "0", "0");
 
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(kraftwertRepository).erstelleKraftwert(eingabe);
+		verify(kraftwertRepository).erstelleKraftwert(kraftwert);
 	}
 
 	@Test
@@ -109,7 +129,7 @@ public class KraftwertServiceSollte
 	{
 		angenommenDasKraftwertRepositoryGibtNullZurueck();
 
-		final var exception = assertThrows(KraftwertNichtGefundenException.class, () -> sut.ermittleZuId(10000));
+		final var exception = assertThrows(KraftwertNichtGefundenException.class, () -> sut.ermittleZuId("10000"));
 
 		assertThat(exception.getMessage()).isEqualTo("Der Kraftwert mit der ID \"10000\" existiert nicht!");
 	}
@@ -122,7 +142,7 @@ public class KraftwertServiceSollte
 		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
 		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(kraftwert);
 
-		final var ergebnis = sut.ermittleZuId(0);
+		final var ergebnis = sut.ermittleZuId("0");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

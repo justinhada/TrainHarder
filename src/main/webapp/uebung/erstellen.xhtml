@@ -11,7 +11,7 @@
 	<ui:define name="inhalt">
 		<h:form>
 			<h:outputLabel value="Übung: " />
-			<h:inputText value="#{name}" />
+			<h:inputText value="#{uebungController.uebungEintrag.name}" />
 			<br />
 			<h:outputLabel value="Übungsart: " />
 			<h:selectOneMenu value="#{uebungController.uebungEintrag.uebungsart}">
@@ -105,11 +105,8 @@
 				value="#{belastungsfaktorController.belastungsfaktorEintrag.shoulder}" />
 			<br />
 			<h:commandButton class="ao-button"
-				action="#{belastungsfaktorController.erstelleBelastungsfaktor()}"
-				value="Erstelle neue Übung">
-				<f:actionListener
-					binding="#{uebungController.erstelleUebung(belastungsfaktorController.belastungsfaktorEintrag)}" />
-			</h:commandButton>
+				action="#{uebungController.erstelleUebung(belastungsfaktorController.belastungsfaktorEintrag)}"
+				value="Erstelle neue Übung" />
 			<br />
 			<h:outputLabel value="Zur Liste aller Übungen hier klicken: " />
 			<a href="liste.xhtml" title="Liste der Übungen">Liste aller

@@ -7,27 +7,22 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
-import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
-import lombok.Setter;
 
 @Named
 @RequestScoped
 @Getter
-@Setter
 public class KraftwertController extends Controller
 {
-	private KraftwertService kraftwertService;
+	private static final String KRAFTWERT_ID = "kraftwertId";
 
-	private int id;
-	private Uebung uebung;
-	private int maximum;
-	private Benutzer benutzer;
+	private final KraftwertService kraftwertService;
+	private final KraftwertEintrag kraftwertEintrag = new KraftwertEintrag();
 
 	@Inject
 	public KraftwertController(
@@ -51,11 +46,11 @@ public class KraftwertController extends Controller
 
 	public KraftwertEintrag getKraftwertZuId() throws KraftwertNichtGefundenException
 	{
-		return kraftwertService.ermittleZuId(id);
+		return kraftwertService.ermittleZuId(getRequestParameter(KRAFTWERT_ID));
 	}
 
-	public KraftwertEintrag erstelleKraftwert()
+	public void erstelleKraftwert(final String benutzerId, final String uebungId)
 	{
-		return kraftwertService.erstelleKraftwert(uebung, maximum, benutzer);
+		kraftwertService.erstelleKraftwert(kraftwertEintrag, benutzerId, uebungId);
 	}
 }

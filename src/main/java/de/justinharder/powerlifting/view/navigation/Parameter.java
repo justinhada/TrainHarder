@@ -1,17 +1,14 @@
 package de.justinharder.powerlifting.view.navigation;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Parameter
 {
 	private static final String PARAMETER_WERTZUWEISUNG = "=";
 
 	private final String name;
 	private final String wert;
-
-	private Parameter(final String name, final String wert)
-	{
-		this.name = name;
-		this.wert = wert;
-	}
 
 	public static Parameter fromFehlermeldung(final Fehlermeldung fehlermeldung)
 	{
@@ -21,6 +18,11 @@ public class Parameter
 	public static Parameter fromBenutzer(final String id)
 	{
 		return new Parameter("benutzerId", id);
+	}
+
+	public static Parameter fromUebung(final String id)
+	{
+		return new Parameter("uebungId", id);
 	}
 
 	@Override

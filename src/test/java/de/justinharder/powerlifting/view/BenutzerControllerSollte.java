@@ -1,7 +1,6 @@
 package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,25 +12,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.google.common.collect.Maps;
+
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.services.BenutzerService;
 import de.justinharder.powerlifting.setup.Testdaten;
-import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
-import de.justinharder.powerlifting.view.navigation.Navigator;
 
-public class BenutzerControllerSollte
+public class BenutzerControllerSollte extends ControllerSollte
 {
 	private BenutzerController sut;
-	private ExternerWebContext externerWebContext;
-	private Navigator navigator;
 	private BenutzerService benutzerService;
 
 	@BeforeEach
 	public void setup()
 	{
-		externerWebContext = mock(ExternerWebContext.class);
-		navigator = mock(Navigator.class);
 		benutzerService = mock(BenutzerService.class);
 		sut = new BenutzerController(externerWebContext, navigator, benutzerService);
 	}
@@ -44,7 +39,7 @@ public class BenutzerControllerSollte
 	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(
 		final BenutzerEintrag erwartet) throws BenutzerNichtGefundenException
 	{
-		when(benutzerService.ermittleZuId(anyInt())).thenReturn(erwartet);
+		when(benutzerService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
 	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(
@@ -96,6 +91,7 @@ public class BenutzerControllerSollte
 	{
 		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
 		angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(erwartet);
+		angenommenExternerWebContextEnthaeltParameter(Maps.immutableEntry("benutzerId", "1"));
 
 		final var ergebnis = sut.getBenutzerZuId();
 

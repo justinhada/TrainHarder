@@ -11,7 +11,8 @@ import javax.inject.Named;
 public class Navigator
 {
 	private static final String FEHLER_URL = "fehler.xhtml";
-	private static final String UEBUNGSAUSWAHL = "uebungsauswahl.xhtml";
+	private static final String UEBUNGSAUSWAHL_URL = "uebungsauswahl.xhtml";
+	private static final String KRAFTWERT_ERSTELLEN_URL = "erstellen.xhtml";
 
 	public String zurFehlerseite(final Fehlermeldung fehlermeldung)
 	{
@@ -20,15 +21,22 @@ public class Navigator
 
 	public String zurUebungsauswahlSeite(final String benutzerId)
 	{
-		return parametrisiereUrl(UEBUNGSAUSWAHL, Parameter.fromBenutzer(benutzerId));
+		return parametrisiereUrl(UEBUNGSAUSWAHL_URL, Parameter.fromBenutzer(benutzerId));
+	}
+
+	public String zurKraftwertErstellenSeite(final String benutzerId, final String uebungId)
+	{
+		return parametrisiereUrl(KRAFTWERT_ERSTELLEN_URL, new Parameter[]
+		{ Parameter.fromBenutzer(benutzerId), Parameter.fromUebung(uebungId) });
 	}
 
 	private String parametrisiereUrl(final String url, final Parameter... parameter)
 	{
 		final var parameterBeginn = "?";
+		final var mehrereParameterTrenner = "&";
 		final var parameterWertpaare = Stream.of(parameter)
 			.map(Parameter::toString)
-			.collect(Collectors.toList());
+			.collect(Collectors.joining(mehrereParameterTrenner));
 
 		return url + parameterBeginn + String.join(parameterBeginn, parameterWertpaare);
 	}

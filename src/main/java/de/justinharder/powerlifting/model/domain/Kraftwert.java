@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 
 import de.justinharder.powerlifting.model.Entitaet;
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,6 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = false)
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Kraftwert extends Entitaet
@@ -39,7 +37,7 @@ public class Kraftwert extends Entitaet
 	@JoinColumn(nullable = false)
 	private Benutzer benutzer;
 	private int maximum;
-	private int gewichtBenutzer;
+	private int koerpergewicht;
 	private LocalDate datum;
 	private Wiederholungen wiederholungen;
 
@@ -54,8 +52,8 @@ public class Kraftwert extends Entitaet
 		this.uebung = uebung;
 		this.benutzer = benutzer;
 		this.maximum = maximum;
-		this.gewichtBenutzer = gewichtBenutzer;
+		koerpergewicht = gewichtBenutzer;
 		this.datum = datum;
-		this.wiederholungen = kraftwertOption;
+		wiederholungen = kraftwertOption;
 	}
 }

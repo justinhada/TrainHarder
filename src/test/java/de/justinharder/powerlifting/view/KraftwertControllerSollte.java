@@ -2,37 +2,34 @@ package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.google.common.collect.Maps;
+
 import de.justinharder.powerlifting.model.domain.Benutzer;
-import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
 import de.justinharder.powerlifting.setup.Testdaten;
-import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
-import de.justinharder.powerlifting.view.navigation.Navigator;
 
-public class KraftwertControllerSollte
+public class KraftwertControllerSollte extends ControllerSollte
 {
 	private KraftwertController sut;
-	private ExternerWebContext externerWebContext;
-	private Navigator navigator;
 	private KraftwertService kraftwertService;
 
 	@BeforeEach
 	public void setup()
 	{
-		externerWebContext = mock(ExternerWebContext.class);
-		navigator = mock(Navigator.class);
 		kraftwertService = mock(KraftwertService.class);
 		sut = new KraftwertController(externerWebContext, navigator, kraftwertService);
 	}
@@ -48,15 +45,10 @@ public class KraftwertControllerSollte
 		when(kraftwertService.ermittleAlleZuBenutzer(any(Benutzer.class))).thenReturn(erwartet);
 	}
 
-	private void angenommenDerKraftwertServiceGibtEinenKraftwertEintragZurueck(final KraftwertEintrag erwartet)
-	{
-		when(kraftwertService.erstelleKraftwert(any(Uebung.class), anyInt(), any(Benutzer.class))).thenReturn(erwartet);
-	}
-
 	private void angenommenDerKraftwertServiceGibtEinenKraftwertMithilfeDerIdZurueck(final KraftwertEintrag erwartet)
 		throws KraftwertNichtGefundenException
 	{
-		when(kraftwertService.ermittleZuId(anyInt())).thenReturn(erwartet);
+		when(kraftwertService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
 	@Test
@@ -78,15 +70,15 @@ public class KraftwertControllerSollte
 	@DisplayName("einen Kraftwert weiter an den KraftwertService geben")
 	public void test02()
 	{
-		final var erwartet = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
-		angenommenDerKraftwertServiceGibtEinenKraftwertEintragZurueck(erwartet);
+		final var kraftwertEintrag = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
 
-		sut.setBenutzer(Testdaten.JUSTIN_BENUTZER);
-		sut.setMaximum(100);
-		sut.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
-		final var ergebnis = sut.erstelleKraftwert();
+		sut.getKraftwertEintrag().setMaximum(100);
+		sut.getKraftwertEintrag().setKoerpergewicht(90);
+		sut.getKraftwertEintrag().setDatum(LocalDate.now());
+		sut.getKraftwertEintrag().setWiederholungen("ONE_REP_MAX");
+		sut.erstelleKraftwert("0", "0");
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(kraftwertService).erstelleKraftwert(kraftwertEintrag, "0", "0");
 	}
 
 	@Test
@@ -95,8 +87,8 @@ public class KraftwertControllerSollte
 	{
 		final var erwartet = Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN;
 		angenommenDerKraftwertServiceGibtEinenKraftwertMithilfeDerIdZurueck(erwartet);
+		angenommenExternerWebContextEnthaeltParameter(Maps.immutableEntry("kraftwertId", "1"));
 
-		sut.setId(0);
 		final var ergebnis = sut.getKraftwertZuId();
 
 		assertThat(ergebnis).isEqualTo(erwartet);

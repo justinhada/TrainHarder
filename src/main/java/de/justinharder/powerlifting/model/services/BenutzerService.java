@@ -33,12 +33,12 @@ public class BenutzerService
 		return konvertiereAlle(benutzerRepository.ermittleAlle());
 	}
 
-	public BenutzerEintrag ermittleZuId(final int id) throws BenutzerNichtGefundenException
+	public BenutzerEintrag ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
-		final var benutzer = benutzerRepository.ermittleZuId(id);
+		final var benutzer = benutzerRepository.ermittleZuId(Integer.valueOf(id));
 		if (benutzer == null)
 		{
-			throw new BenutzerNichtGefundenException("Der Benutzer mit der ID " + id + " existiert nicht!");
+			throw new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!");
 		}
 		return konvertiere(benutzer);
 	}

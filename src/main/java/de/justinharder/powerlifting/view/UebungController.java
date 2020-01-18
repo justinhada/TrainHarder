@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -19,8 +20,10 @@ import lombok.Getter;
 @Getter
 public class UebungController extends Controller
 {
+	private static final String UEBUNG_ID = "uebungId";
 	private final UebungService uebungService;
 	private final UebungEintrag uebungEintrag = new UebungEintrag();
+	private List<UebungEintrag> uebungEintraege = new ArrayList<>();
 
 	@Inject
 	public UebungController(
@@ -37,19 +40,19 @@ public class UebungController extends Controller
 		return uebungService.ermittleAlle();
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungsart(final String uebungsart)
+	public void getUebungenZuUebungsart(final String uebungsart)
 	{
-		return uebungService.ermittleZuUebungsart(uebungsart);
+		uebungEintraege = uebungService.ermittleZuUebungsart(uebungsart);
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungskategorie(final String uebungskategorie)
+	public void getUebungenZuUebungskategorie(final String uebungskategorie)
 	{
-		return uebungService.ermittleZuUebungskategorie(uebungskategorie);
+		uebungEintraege = uebungService.ermittleZuUebungskategorie(uebungskategorie);
 	}
 
 	public UebungEintrag getUebungZuId() throws UebungNichtGefundenException
 	{
-		return uebungService.ermittleZuId(uebungEintrag.getId());
+		return uebungService.ermittleZuId(getRequestParameter(UEBUNG_ID));
 	}
 
 	public void erstelleUebung(final BelastungsfaktorEintrag belastungsfaktorEintrag)

@@ -1,7 +1,6 @@
 package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,25 +12,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.google.common.collect.Maps;
+
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.powerlifting.model.services.UebungService;
 import de.justinharder.powerlifting.setup.Testdaten;
-import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
-import de.justinharder.powerlifting.view.navigation.Navigator;
 
-public class UebungControllerSollte
+public class UebungControllerSollte extends ControllerSollte
 {
 	private UebungController sut;
-	private ExternerWebContext externerWebContext;
-	private Navigator navigator;
 	private UebungService uebungService;
 
 	@BeforeEach
 	public void setup()
 	{
-		externerWebContext = mock(ExternerWebContext.class);
-		navigator = mock(Navigator.class);
 		uebungService = mock(UebungService.class);
 		sut = new UebungController(externerWebContext, navigator, uebungService);
 	}
@@ -56,7 +51,7 @@ public class UebungControllerSollte
 	private void angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(final UebungEintrag erwartet)
 		throws UebungNichtGefundenException
 	{
-		when(uebungService.ermittleZuId(anyInt())).thenReturn(erwartet);
+		when(uebungService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
 	@Test
@@ -84,7 +79,8 @@ public class UebungControllerSollte
 			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(erwartet);
 
-		final var ergebnis = sut.getUebungenZuUebungsart("GRUNDUEBUNG");
+		sut.getUebungenZuUebungsart("GRUNDUEBUNG");
+		final var ergebnis = sut.getUebungEintraege();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -96,7 +92,8 @@ public class UebungControllerSollte
 		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN);
 		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(erwartet);
 
-		final var ergebnis = sut.getUebungenZuUebungskategorie("WETTKAMPF_BANKDRUECKEN");
+		sut.getUebungenZuUebungskategorie("WETTKAMPF_BANKDRUECKEN");
+		final var ergebnis = sut.getUebungEintraege();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -107,6 +104,7 @@ public class UebungControllerSollte
 	{
 		final var erwartet = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
 		angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(erwartet);
+		angenommenExternerWebContextEnthaeltParameter(Maps.immutableEntry("uebungId", "1"));
 
 		sut.getUebungEintrag().setId(0);
 		final var ergebnis = sut.getUebungZuId();

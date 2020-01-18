@@ -1,78 +1,65 @@
 package de.justinharder.powerlifting.model.services;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
-import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
+import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
+import de.justinharder.powerlifting.model.repository.UebungRepository;
 
 public class KraftwertService
 {
 	private final KraftwertRepository kraftwertRepository;
+	private final BenutzerRepository benutzerRepository;
+	private final UebungRepository uebungRepository;
 
 	@Inject
-	public KraftwertService(final KraftwertRepository kraftwertRepository)
+	public KraftwertService(final KraftwertRepository kraftwertRepository, final BenutzerRepository benutzerRepository,
+		final UebungRepository uebungRepository)
 	{
 		this.kraftwertRepository = kraftwertRepository;
+		this.benutzerRepository = benutzerRepository;
+		this.uebungRepository = uebungRepository;
 	}
 
 	public List<KraftwertEintrag> ermittleAlle()
 	{
-		return konvertiereAlle(kraftwertRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlle());
 	}
 
 	public List<KraftwertEintrag> ermittleAlleZuBenutzer(final Benutzer benutzer)
 	{
-		return konvertiereAlle(kraftwertRepository.ermittleAlleZuBenutzer(benutzer));
+		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlleZuBenutzer(benutzer));
 	}
 
-	public KraftwertEintrag ermittleZuId(final int id) throws KraftwertNichtGefundenException
+	public KraftwertEintrag ermittleZuId(final String id) throws KraftwertNichtGefundenException
 	{
-		final var kraftwert = kraftwertRepository.ermittleZuId(id);
+		final var kraftwert = kraftwertRepository.ermittleZuId(Integer.valueOf(id));
 		if (kraftwert == null)
 		{
 			throw new KraftwertNichtGefundenException("Der Kraftwert mit der ID \"" + id + "\" existiert nicht!");
 		}
-		return konvertiere(kraftwert);
+		return Konvertierer.konvertiereZuKraftwertEintrag(kraftwert);
 	}
 
-	// TODO: überarbeiten
-	public KraftwertEintrag erstelleKraftwert(final Uebung uebung, final int maximum, final Benutzer benutzer)
+	public void erstelleKraftwert(
+		final KraftwertEintrag kraftwertEintrag,
+		final String benutzerId,
+		final String uebungId)
 	{
 		final var kraftwert = new Kraftwert(
-			uebung,
-			benutzer,
-			maximum,
-			benutzer.getKoerpergewicht(),
-			LocalDate.now(),
-			Wiederholungen.ONE_REP_MAX);
+			uebungRepository.ermittleZuId(Integer.valueOf(uebungId)),
+			benutzerRepository.ermittleZuId(Integer.valueOf(benutzerId)),
+			kraftwertEintrag.getMaximum(),
+			kraftwertEintrag.getKoerpergewicht(),
+			kraftwertEintrag.getDatum(),
+			Wiederholungen.fromName(kraftwertEintrag.getWiederholungen()));
 		kraftwertRepository.erstelleKraftwert(kraftwert);
-		return konvertiere(kraftwert);
-	}
-
-	private List<KraftwertEintrag> konvertiereAlle(final List<Kraftwert> kraftwerte)
-	{
-		return kraftwerte
-			.stream()
-			.map(this::konvertiere)
-			.collect(Collectors.toList());
-	}
-
-	private KraftwertEintrag konvertiere(final Kraftwert kraftwert)
-	{
-		return new KraftwertEintrag(
-			kraftwert.getId(),
-			kraftwert.getBenutzer().getVorname(),
-			kraftwert.getBenutzer().getNachname(),
-			kraftwert.getUebung().getName(),
-			kraftwert.getMaximum());
 	}
 }
