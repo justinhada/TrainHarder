@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -71,14 +72,17 @@ public class KraftwertControllerSollte extends ControllerSollte
 	public void test02()
 	{
 		final var kraftwertEintrag = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
+		angenommenExternerWebContextEnthaeltParameter(
+			Maps.immutableEntry("benutzerId", "1"),
+			Maps.immutableEntry("uebungId", "1"));
 
 		sut.getKraftwertEintrag().setMaximum(100);
 		sut.getKraftwertEintrag().setKoerpergewicht(90);
-		sut.getKraftwertEintrag().setDatum(LocalDate.now());
+		sut.getKraftwertEintrag().setDatum(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 		sut.getKraftwertEintrag().setWiederholungen("ONE_REP_MAX");
-		sut.erstelleKraftwert("0", "0");
+		sut.erstelleKraftwert();
 
-		verify(kraftwertService).erstelleKraftwert(kraftwertEintrag, "0", "0");
+		verify(kraftwertService).erstelleKraftwert(kraftwertEintrag, "1", "1");
 	}
 
 	@Test

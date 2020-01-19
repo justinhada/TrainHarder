@@ -1,7 +1,5 @@
 package de.justinharder.powerlifting.model.domain.dto;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +12,6 @@ public class KraftwertEintrag
 	private int id;
 	private int maximum;
 	private int koerpergewicht;
-	private LocalDate datum;
+	private String datum;
 	private String wiederholungen;
 }

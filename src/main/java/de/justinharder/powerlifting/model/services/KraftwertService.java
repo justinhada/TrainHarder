@@ -1,5 +1,7 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,15 +52,15 @@ public class KraftwertService
 
 	public void erstelleKraftwert(
 		final KraftwertEintrag kraftwertEintrag,
-		final String benutzerId,
-		final String uebungId)
+		final String uebungId,
+		final String benutzerId)
 	{
 		final var kraftwert = new Kraftwert(
 			uebungRepository.ermittleZuId(Integer.valueOf(uebungId)),
 			benutzerRepository.ermittleZuId(Integer.valueOf(benutzerId)),
 			kraftwertEintrag.getMaximum(),
 			kraftwertEintrag.getKoerpergewicht(),
-			kraftwertEintrag.getDatum(),
+			LocalDate.parse(kraftwertEintrag.getDatum(), DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			Wiederholungen.fromName(kraftwertEintrag.getWiederholungen()));
 		kraftwertRepository.erstelleKraftwert(kraftwert);
 	}

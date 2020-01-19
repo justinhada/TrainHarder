@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,9 +80,11 @@ public class Konvertierer
 	{
 		return new KraftwertEintrag(
 			kraftwert.getId(),
+			//			String.valueOf(kraftwert.getUebung().getId()),
+			//			String.valueOf(kraftwert.getBenutzer().getId()),
 			kraftwert.getMaximum(),
 			kraftwert.getKoerpergewicht(),
-			kraftwert.getDatum(),
+			kraftwert.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			kraftwert.getWiederholungen().name());
 	}
 }

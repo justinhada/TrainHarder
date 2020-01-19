@@ -10,31 +10,35 @@
 	<ui:define name="titel">Powerlifting 🏋️</ui:define>
 	<ui:define name="inhalt">
 		<h:form>
-			<ui:param name="benutzereintrag"
-				value="#{benutzerController.getBenutzerZuId()}" />
-			<h:outputLabel
-				value="#{benutzereintrag.vorname} wähle jetzt eine Übung aus, um einen neuen Kraftwert hinzuzufügen."></h:outputLabel>
+			<ui:param name="uebungId" value="#{kraftwertController.getRequestParameter('uebungId')}" />
+			<ui:param name="benutzerId" value="#{kraftwertController.getRequestParameter('benutzerId')}" />
+			<h:outputLabel value="Erstelle jetzt deinen Kraftwert:" />
 			<br />
+			<h:outputLabel value="Datum: " />
+			<h:inputText value="#{kraftwertController.kraftwertEintrag.datum}">
+			</h:inputText>
 			<br />
-			<table class="benutzer-tabelle">
-				<tr>
-					<th>Übung</th>
-					<th>Art</th>
-					<th>Kategorie</th>
-					<th>Diesen Übung wählen</th>
-				</tr>
-				<ui:repeat id="benutzer_tabelle" var="uebungeintrag"
-					value="#{uebungController.uebungen}">
-					<tr>
-						<td>#{uebungeintrag.name}</td>
-						<td>#{uebungeintrag.uebungsart}</td>
-						<td>#{uebungeintrag.uebungskategorie}</td>
-						<td><a
-							href="#{navigator.zurKraftwertErstellenSeite(benutzereintrag.id, uebungeintrag.id)}"
-							title="Mit dieser Übung fortfahren">➡️</a></td>
-					</tr>
-				</ui:repeat>
-			</table>
+			<h:outputLabel value="Bewältigtes Gewicht: " />
+			<h:inputText value="#{kraftwertController.kraftwertEintrag.maximum}" />
+			<br />
+			<h:outputLabel value="Wiederholungen: " />
+			<h:selectOneMenu
+				value="#{kraftwertController.kraftwertEintrag.wiederholungen}">
+				<f:selectItem itemValue="ONE_REP_MAX" itemLabel="1RM" />
+				<f:selectItem itemValue="THREE_REP_MAX" itemLabel="3RM" />
+				<f:selectItem itemValue="FIVE_REP_MAX" itemLabel="5RM" />
+				<f:selectItem itemValue="EIGHT_REP_MAX" itemLabel="8RM" />
+				<f:selectItem itemValue="TEN_REP_MAX" itemLabel="10RM" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel value="Mit einem Körpergewicht von (... KG): " />
+			<h:inputText
+				value="#{kraftwertController.kraftwertEintrag.koerpergewicht}" />
+			<br />
+			<h:commandButton class="ao-button"
+				action="#{kraftwertController.erstelleKraftwert(uebungId, benutzerId)}"
+				value="Füge deinen Kraftwert hinzu">
+			</h:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

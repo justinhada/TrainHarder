@@ -49,8 +49,17 @@ public class KraftwertController extends Controller
 		return kraftwertService.ermittleZuId(getRequestParameter(KRAFTWERT_ID));
 	}
 
-	public void erstelleKraftwert(final String benutzerId, final String uebungId)
+	public void erstelleKraftwert(final String uebungId, final String benutzerId)
 	{
-		kraftwertService.erstelleKraftwert(kraftwertEintrag, benutzerId, uebungId);
+		kraftwertService.erstelleKraftwert(
+			kraftwertEintrag,
+			uebungId,
+			benutzerId);
+	}
+
+	@Override
+	public String getRequestParameter(final String parameterBezeichnung)
+	{
+		return super.getRequestParameter(parameterBezeichnung);
 	}
 }
