@@ -63,7 +63,7 @@ public class Konstanten
 		{ 4.5, 6.5, 2.5 } // Peaking
 	};
 
-	// Minimale Richtwerte für Kniebeuge, Bankdrücken & Kreuzheben
+	// Maximale Richtwerte für Kniebeuge, Bankdrücken & Kreuzheben
 	public static final double[][] MAXIMUM_RECOVERABLE_VOLUME = new double[][]
 	{
 		{ 14.0, 17.0, 11.0 }, // Hypertrophie

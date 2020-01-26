@@ -80,7 +80,7 @@ public class KraftwertControllerSollte extends ControllerSollte
 		sut.getKraftwertEintrag().setKoerpergewicht(90);
 		sut.getKraftwertEintrag().setDatum(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 		sut.getKraftwertEintrag().setWiederholungen("ONE_REP_MAX");
-		sut.erstelleKraftwert();
+		sut.erstelleKraftwert("1", "1");
 
 		verify(kraftwertService).erstelleKraftwert(kraftwertEintrag, "1", "1");
 	}

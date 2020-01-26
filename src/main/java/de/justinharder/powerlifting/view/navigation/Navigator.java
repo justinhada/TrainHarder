@@ -26,8 +26,9 @@ public class Navigator
 
 	public String zurKraftwertErstellenSeite(final String benutzerId, final String uebungId)
 	{
-		return parametrisiereUrl(KRAFTWERT_ERSTELLEN_URL, new Parameter[]
-		{ Parameter.fromBenutzer(benutzerId), Parameter.fromUebung(uebungId) });
+		return parametrisiereUrl(KRAFTWERT_ERSTELLEN_URL,
+			Parameter.fromBenutzer(benutzerId),
+			Parameter.fromUebung(uebungId));
 	}
 
 	private String parametrisiereUrl(final String url, final Parameter... parameter)
