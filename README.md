@@ -18,7 +18,7 @@ Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benut
 |**Kraftwert**|Mit Kraftwerten können Steigerungen im Training protokolliert werden.|
 |**Konstanten**|**KLASSIFIKATION_FRAUEN**: Kraftlevel gemessen an *Körpergewicht* und *SBD-Total*. **KLASSIFIKATION_MAENNER**: Kraftlevel gemessen an *Körpergewicht* & *SBD-Total*. **KRAFTLEVEL_EINTEILUNG**: Alle Raw-Kraftlevel nach [USA Powerlifting](https://www.usapowerlifting.com/wp-content/uploads/2014/01/Raw-Classifications-lb.pdf). **MINIMUM_EFFECTIVE_VOLUME**: Minimale Richtwerte für SBD. **MAXIMUM_RECOVERABLE_VOLUME**: Maximale Richtwerte für SBD.|
 
-### USA-Powerlifting Lifter Classification --- Raw Women
+### USA-Powerlifting Lifter Classification -- Raw Women
 ||G|E|W|I|C|H|T|(in KG)|
 |-|-|-|-|-|-|-|-|-|
 |**Kraftlevel**|bis 43|bis 47|bis 52|bis 57|bis 63|bis 72|bis 84|über 84|
@@ -30,7 +30,7 @@ Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benut
 |**CLASS 4** (Top 75%)|178|193|202|214|222|232|246|263|
 |**CLASS 5** (Top 90%)|156|166|172|180|185|192|202|212|
 
-### USA-Powerlifting Lifter Classification --- Raw Men
+### USA-Powerlifting Lifter Classification -- Raw Men
 ||G|E|W|I|C|H|T|(in|KG)|
 |-|-|-|-|-|-|-|-|-|-|
 |**Kraftlevel**|bis 53|bis 59|bis 66|bis 74|bis 83|bis 93|bis 105|bis 120|über 120|
