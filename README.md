@@ -11,7 +11,7 @@ Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benut
 
 |JPA-Entity|Beschreibung|
 |-|-|
-|**LFDY**|Lift-Fast-Die-Young|
+|**LFDY**|**L**ift-**F**ast-**D**ie-**Y**oung|
 |**Benutzer**|Person mit allerlei Attributen, die Auskunft auf sein aktuelles Kraftlevel und das fahrbare Volumen geben.|
 |**Uebung**|Übung, die in den eigenen Trainingsplan implementiert werden kann. Besitzt Attribute, wie bspw. Kategorie oder Art.|
 |**Belastungsfaktor**|Jede Übung hat einen Belastungsfaktor. Es werden die Belastungswerte auf die Muskelgruppen verteilt.|
