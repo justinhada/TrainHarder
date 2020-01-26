@@ -14,6 +14,11 @@ public class Navigator
 	private static final String UEBUNGSAUSWAHL_URL = "uebungsauswahl.xhtml";
 	private static final String KRAFTWERT_ERSTELLEN_URL = "erstellen.xhtml";
 
+	public String zurStartseite()
+	{
+		return "/Powerlifting";
+	}
+
 	public String zurFehlerseite(final Fehlermeldung fehlermeldung)
 	{
 		return parametrisiereUrl(FEHLER_URL, Parameter.fromFehlermeldung(fehlermeldung));

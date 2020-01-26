@@ -38,6 +38,7 @@
 			<h:commandButton class="ao-button"
 				action="#{kraftwertController.erstelleKraftwert(uebungId, benutzerId)}"
 				value="Füge deinen Kraftwert hinzu">
+				<f:actionListener binding="#{navigator.zurStartseite()}" />
 			</h:commandButton>
 		</h:form>
 	</ui:define>
