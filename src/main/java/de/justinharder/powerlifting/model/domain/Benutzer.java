@@ -62,9 +62,19 @@ public class Benutzer extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 
-	public Benutzer(final String vorname, final String nachname, final int koerpergewicht, final int koerpergroesse,
-		final int lebensalter, final Kraftlevel kraftlevel, final Geschlecht geschlecht, final Erfahrung erfahrung,
-		final Ernaehrung ernaehrung, final Schlafqualitaet schlafqualitaet, final Stress stress, final Doping doping,
+	public Benutzer(
+		final String vorname,
+		final String nachname,
+		final int koerpergewicht,
+		final int koerpergroesse,
+		final int lebensalter,
+		final Kraftlevel kraftlevel,
+		final Geschlecht geschlecht,
+		final Erfahrung erfahrung,
+		final Ernaehrung ernaehrung,
+		final Schlafqualitaet schlafqualitaet,
+		final Stress stress,
+		final Doping doping,
 		final Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		this.vorname = vorname;
@@ -86,5 +96,4 @@ public class Benutzer extends Entitaet
 	{
 		kraftwerte.put(kraftwert.getId(), kraftwert);
 	}
-
 }
