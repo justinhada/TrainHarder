@@ -27,5 +27,16 @@
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/error/</location>
-	</error-page> 
+	</error-page>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Powerlifting</web-resource-name>
+			<url-pattern>/powerlifting/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<user-data-constraint>
+    		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>	
+	</security-constraint>
 </web-app>
