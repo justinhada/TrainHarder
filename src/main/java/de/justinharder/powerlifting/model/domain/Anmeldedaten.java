@@ -24,6 +24,7 @@ public class Anmeldedaten extends Entitaet
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String mail;
 	private String benutzername;
 	private String passwort;
 	@OneToOne
