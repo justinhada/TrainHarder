@@ -4570,7 +4570,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 	}
 	.navbar-collapse.collapse {
 		display: block !important;
-		height: auto !important;
+		height: 20% !important;
 		padding-bottom: 0;
 		overflow: visible !important
 	}

@@ -7,7 +7,10 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/WEB-INF/vorlagen/seite.xhtml">
 	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
-	<ui:define name="titel">Powerlifting 🏋️</ui:define>
+	<ui:define name="titel">Powerlifting <h:graphicImage
+			value="resources/img/icon.png" alt="Powerlifting-Logo" height="64"
+			width="64" />
+	</ui:define>
 	<ui:define name="inhalt">
 		<a href="rir/rechner.xhtml" title="RIR-Rechner">RIR-Rechner</a>
 		<br />

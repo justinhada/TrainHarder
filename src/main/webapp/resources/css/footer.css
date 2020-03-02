@@ -1,16 +1,16 @@
 footer {
-	padding: 20px 5% 0;
+	padding: 0 20%;
 	margin-bottom: 40px;
 }
 
 footer a, footer a:hover {
-	color: grey;
+	color: rgb(51, 63, 80);
 	margin-right: 20px;
 }
 
 footer input {
 	background: none;
-	color: grey;
+	color: rgb(51, 63, 80);
 	border: none;
 }
 
@@ -19,9 +19,9 @@ footer input:hover {
 }
 
 #footer-nav {
-	float: left;
+	float: right;
 }
 
 #copyright {
-	float: right;
+	float: left;
 }

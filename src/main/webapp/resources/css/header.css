@@ -1,6 +1,8 @@
 header img {
 	float: left;
 	margin-left: 2.5%;
+	height: 56px;
+	width: 280px;
 }
 
 header li {
@@ -13,7 +15,7 @@ nav {
 }
 
 #navbarCollapse {
-	padding: 0 5%;
+	padding: 0 20%;
 }
 
 .navbar {
@@ -30,11 +32,11 @@ nav {
 }
 
 .nav li:first-child {
-	border-left: 1px solid white;
+	border-left: 5px solid white;
 }
 
 .nav li {
-	border-right: 1px solid white;
+	border-right: 5px solid white;
 }
 
 .navbar-collapse {
@@ -51,7 +53,7 @@ nav {
 }
 
 #navbarCollapse, #navbarCollapse li input {
-	background-color: #17356C;
+	background-color: rgb(51, 63, 80) !important;
 }
 
 #navbarCollapse li[class="active"] a, #navbarCollapse li[class="active"] input {
@@ -85,8 +87,4 @@ nav {
 
 #angemeldeterBenutzer .benutzername {
 	margin-right: 20px;
-}
-
-#angemeldeterBenutzer .rolle {
-	margin-left: 20px;
 }
