@@ -23,14 +23,21 @@ body {
 	font-family: Consolas, monaco, monospace;
 }
 
-#register-wrapper {
+#register-wrapper{
 	background-color: #DAEAFB;
 	border-radius: 0.5em;
 	width: 25em;
-	height: 30px;
+	height: 50px;
 	margin: auto;
 	box-shadow: 5px 5px 5px black;
 	padding-top: 1em;
+	font-weight: bold;
+	font-family: Consolas, monaco, monospace;
+}
+#nav {
+	width: 25em;
+	height: 50px;
+	margin: auto;
 	font-weight: bold;
 	font-family: Consolas, monaco, monospace;
 }
@@ -63,15 +70,12 @@ body {
 	text-decoration: underline;
 }
 
-.login-button {
-	margin-top: 1em;
-	width: 100%;
-	text-align: center;
-	font-family: Consolas, monaco, monospace;
-	background-color: #28A745;
-	border-color: #28A745;
-	background-image: linear-gradient(-180deg, #34D058, #28A745 90%);
-	color: white;
+.btn-secondary {
+	width: 100% !important;
+	text-align: center !important;
+	font-family: Consolas, monaco, monospace !important;
+	border-color: #6c757d;
+    background-image: linear-gradient(-180deg, #6c757d, #adb5bd 90%);
 }
 
 .eingabefelder {
@@ -80,42 +84,27 @@ body {
 	font-family: Consolas, monaco, monospace;
 }
 
-#footer {
-	font-family: Consolas, monaco, monospace;
-	font-size: 10pt;
-	text-align: center;
-	height: auto;
-	width: 25em;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#footer-nav a {
+#nav a {
 	text-decoration: none;
 	color: white;
 	display: block;
-	padding: 1em 1.2em;
+	padding: 1em 1.35em;
 }
 
-#footer-nav a:hover {
+#nav a:hover {
 	background-color: #111;
 }
 
-#footer-nav ul {
+#nav ul {
 	list-style-type: none;
 	margin: 1em;
 	padding: 0;
 }
 
-#footer-nav ul li {
+#nav ul li {
 	float: left;
 }
 
-#footer-nav ul li:last-child {
+#nav ul li:last-child {
 	border-right: none;
-}
-
-.navbar-nav {
-	float: right;
 }
