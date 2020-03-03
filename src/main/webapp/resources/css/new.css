@@ -1,5 +1,6 @@
 body {
 	background-color: rgb(51, 63, 80);
+	font-family: Consolas, monaco, monospace;
 }
 
 #logo {
@@ -9,21 +10,30 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 3em;
+	margin-bottom: 1em;
 }
 
 #login-wrapper {
 	background-color: #DAEAFB;
 	border-radius: 0.5em;
 	width: 25em;
-	height: 300px;
+	height: 350px;
 	margin: auto;
 	box-shadow: 5px 5px 5px black;
 	padding-top: 1em;
 	font-weight: bold;
-	font-family: Consolas, monaco, monospace;
 }
 
-#register-wrapper{
+#login-wrapper a {
+	text-decoration: none;
+	color: rgb(51, 63, 80);
+}
+
+#login-wrapper a:hover {
+	text-decoration: underline;
+}
+
+#register-wrapper {
 	background-color: #DAEAFB;
 	border-radius: 0.5em;
 	width: 25em;
@@ -32,14 +42,25 @@ body {
 	box-shadow: 5px 5px 5px black;
 	padding-top: 1em;
 	font-weight: bold;
-	font-family: Consolas, monaco, monospace;
 }
+
 #nav {
 	width: 25em;
 	height: 50px;
 	margin: auto;
 	font-weight: bold;
-	font-family: Consolas, monaco, monospace;
+}
+
+#attribution {
+	width: 25em;
+	margin: auto;
+	text-align: center;
+	color: white;
+	font-size: 10pt;
+}
+
+#attribution a {
+	color: #DAEAFB;
 }
 
 #title {
@@ -48,7 +69,7 @@ body {
 	text-align: center;
 }
 
-#login {
+.login {
 	line-height: 1.5em;
 	font-size: 12pt;
 	text-align: left;
@@ -71,17 +92,14 @@ body {
 }
 
 .btn-secondary {
-	width: 100% !important;
-	text-align: center !important;
-	font-family: Consolas, monaco, monospace !important;
-	border-color: #6c757d;
-    background-image: linear-gradient(-180deg, #6c757d, #adb5bd 90%);
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
 }
 
-.eingabefelder {
-	width: 100%;
-	height: 1.2em;
-	font-family: Consolas, monaco, monospace;
+#reset {
+	text-align: center;
+	line-height: 1.5em;
 }
 
 #nav a {

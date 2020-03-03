@@ -30,43 +30,52 @@
 </h:head>
 
 <h:body>
-		<h:graphicImage id="logo" value="resources/img/logo.png"
-			alt="Powerlifting-Logo" />
-		<div id="login-wrapper">
-			<div id="title">
-				<span>Sign in</span> <br />
+	<h:graphicImage id="logo" value="resources/img/logo.png"
+		alt="Powerlifting-Logo" />
+	<div id="login-wrapper">
+		<div id="title">
+			<span>Sign in</span> <br />
+		</div>
+		<div class="login">
+			<span>E-Mail-Adresse</span> <br />
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" aria-describedby="button-addon2"></input>
 			</div>
-			<div id="login">
-				<span>E-Mail-Adresse</span> <br />
-				<div class="input-group mb-3">
-					<input type="text" class="form-control"
-						aria-label="Recipient's username" aria-describedby="button-addon2"></input>
-				</div>
-				<span>Passwort</span> <br />
-				<div class="input-group mb-3">
-					<input type="password" class="form-control"
-						aria-label="Recipient's username" aria-describedby="button-addon2"></input>
-				</div>
-				<button class="btn btn-secondary">Sign in</button>
+			<span>Passwort</span> <br />
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" aria-describedby="button-addon2"></input>
 			</div>
+			<button class="btn btn-secondary active">Sign in</button>
 		</div>
 		<br />
-		<div id="register-wrapper">
-			<div id="register">
-				<span>Neu?</span> <span><a id="register-link"
-					href="join.xhtml">Erstelle einen Account</a>.</span>
-			</div>
+		<div id="reset">
+			<span id="mittig"><a href="reset.xhtml"
+				title="Passwort vergessen">Passwort vergessen</a>?</span>
 		</div>
+	</div>
+	<br />
+	<div id="register-wrapper">
+		<div id="register">
+			<span>Neu?</span> <span><a id="register-link"
+				href="join.xhtml" title="Erstelle einen Account">Erstelle einen
+					Account</a>.</span>
+		</div>
+	</div>
 
-		<div id="nav">
-			<ul>
-				<li><a href="impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a href="datenschutz.xhtml"
-					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a href="kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-			</ul>
-		</div>
-		<!--Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>-->
+	<div id="nav">
+		<ul>
+			<li><a href="impressum.xhtml" title="Impressum">Impressum</a></li>
+			<li><a href="datenschutz.xhtml"
+				title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+			<li><a href="kontakt.xhtml" title="Kontakt">Kontakt</a></li>
+		</ul>
+	</div>
+
+	<div id="attribution">
+		<span>Icons made by <a
+			href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
+				Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
+	</div>
 </h:body>
 
 </html>
