@@ -26,17 +26,21 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="resources/css/login.css" />
+	<link rel="stylesheet" href="resources/css/join.css" />
 </h:head>
 
 <h:body>
 	<a href="index.xhtml" title="Startseite"><h:graphicImage id="logo"
 			value="resources/img/logo.png" alt="Powerlifting-Logo" /></a>
-	<div id="login-wrapper">
-		<div id="title">
-			<span>Sign in</span> <br />
-		</div>
-		<div class="login">
+
+	<div id="register-wrapper">
+		<div id="title">Starte mit Powerlifting</div>
+		<div id="register">
+			<span>Benutzername</span> <br />
+			<div class="input-group mb-3">
+				<input type="text" class="form-control"
+					aria-describedby="button-addon2"></input>
+			</div>
 			<span>E-Mail-Adresse</span> <br />
 			<div class="input-group mb-3">
 				<input type="text" class="form-control"
@@ -47,20 +51,15 @@
 				<input type="password" class="form-control"
 					aria-describedby="button-addon2"></input>
 			</div>
-			<button class="btn btn-secondary active">Sign in</button>
+			<span>Passwort wiederholen</span> <br />
+			<div class="input-group mb-3">
+				<input type="password" class="form-control"
+					aria-describedby="button-addon2"></input>
+			</div>
+			<button class="btn btn-secondary active">Weiter ❯</button>
 		</div>
-		<br />
-		<div id="reset">
-			<span><a href="reset.xhtml" title="Passwort vergessen">Passwort
-					vergessen</a>?</span>
-		</div>
-	</div>
-	<br />
-	<div id="register-wrapper">
-		<div id="register">
-			<span>Neu?</span> <span><a id="register-link"
-				href="join.xhtml" title="Erstelle einen Account">Erstelle einen
-					Account</a>.</span>
+		<div id="already-registered">
+			<span><a href="login.xhtml" title="Sign in">Ich habe schon einen Benutzer</a>.</span>
 		</div>
 	</div>
 
