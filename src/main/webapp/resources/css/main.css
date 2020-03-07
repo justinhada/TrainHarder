@@ -80,7 +80,7 @@ body {
 .warnung {
 	background-color: #ff5954 !important;
 	color: white !important;
-	boder: 2px solid darkred;
+	border: 2px solid darkred;
 }
 
 .aktionsbuttonleiste {
@@ -194,12 +194,6 @@ hr {
 */
 #angabenfooter .ao-button {
 	padding: 0 50px;
-}
-
-.dropdown {
-}
-
-.dropcontent {
 }
 
 .eingabefelder {
