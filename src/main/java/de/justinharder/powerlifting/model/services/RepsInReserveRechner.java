@@ -26,7 +26,7 @@ public class RepsInReserveRechner
 		}
 		if (rir < MINIMUM || rir > MAXIMUM_RIR)
 		{
-			throw new UngueltigeRepsInReserveException("Die RIR-Zahl " + rir + " ist ungültig!");
+			throw new UngueltigeRepsInReserveException("Die RIR-Zahl (" + rir + ") ist ungültig!");
 		}
 
 		return (int) Math.round(Konstanten.PROZENTE[rir][wiederholungen - 1] * maximum);
