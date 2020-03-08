@@ -58,7 +58,7 @@ public class RepsInReserveRechnerSollte
 			() -> sut.berechneRichtwert(GUELTIGES_MAXIMUM, GUELTIGE_WIEDERHOLUNGEN, UNGUELTIGE_RIR));
 
 		assertThat(e.getMessage())
-			.isEqualTo("Die RIR-Zahl " + UNGUELTIGE_RIR + " ist ungültig!");
+			.isEqualTo("Die RIR-Zahl (" + UNGUELTIGE_RIR + ") ist ungültig!");
 	}
 
 	@Test
