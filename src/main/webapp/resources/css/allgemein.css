@@ -19,8 +19,17 @@ h3 {
 	line-height: 150%;
 }
 
-.container {
+.center-container {
 	margin: auto;
+	margin-bottom: 0.1%;
+}
+
+.left-container {
+	margin-bottom: 0.1%;
+}
+
+.right-container {
+	margin-bottom: 0.1%;
 }
 
 .big-container {
@@ -36,13 +45,42 @@ h3 {
 }
 
 .logo {
-	height: auto;
-	width: 20%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	width: 25%;
 	margin-top: 1%;
 	margin-bottom: 1%;
+}
+
+.nav {
+	font-weight: bold;
+	display: inline;
+}
+
+.nav ul {
+	float: right;
+	display: inline-block;
+	list-style-type: none;
+	display: inline-block;
+}
+
+.nav ul li {
+	float: left;
+	display: inline;
+}
+
+.nav ul li:first-child {
+	border-left: 0.2em solid #FFF;	
+}
+
+.nav ul li a {
+	text-decoration: none;
+	color: white;
+	display: block;
+	padding: 1em 1.35em;
+	line-height: 400%;
+}
+
+.nav ul li a:hover {
+	background-color: #111;
 }
 
 .wrapper {
@@ -97,7 +135,8 @@ h3 {
 .attribution {
 	width: 100%;
 	color: white;
-	font-size: 10pt;
+	font-size: 0.8em;
+	padding-top: 1%;
 }
 
 .attribution a {
@@ -106,7 +145,7 @@ h3 {
 
 .title {
 	line-height: 2em;
-	font-size: 26pt;
+	font-size: 2em;
 	text-align: center;
 }
 
