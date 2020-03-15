@@ -9,14 +9,37 @@
 
 <h:head>
 	<title>Impressum – Powerlifting</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.png']}" />
 	<link rel="stylesheet" href="resources/css/allgemein.css" />
 </h:head>
 
 <h:body>
-	<a href="/Powerlifting" title="Startseite"><h:graphicImage
-			styleClass="logo" value="resources/img/logo.png"
-			alt="Powerlifting-Logo" /></a>
+	<header>
+		<h:graphicImage styleClass="small-logo" value="resources/img/icon.svg"
+			alt="Powerlifting-Logo" />
+		<nav>
+			<ul class="navigation">
+				<li><a class="without-border" href="/Powerlifting"
+					title="Startseite"><i class="fa fa-home w3-xlarge" /></a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/datenschutz.xhtml"
+					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
+				<li><a class="with-border" href="/Powerlifting/login.xhtml"
+					title="Sign in">Sign in</a></li>
+				<li><a class="with-border" href="/Powerlifting/join.xhtml"
+					title="Sign up">Sign up</a></li>
+			</ul>
+		</nav>
+	</header>
+
 	<div class="center-container big-container">
 		<div class="wrapper">
 			<h1>Impressum</h1>
