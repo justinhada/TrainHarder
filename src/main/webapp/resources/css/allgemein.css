@@ -69,7 +69,6 @@ header {
 	padding-left: 12.5%;
 	padding-right: 12.5%;
 	margin-bottom: 1%;
-	max-height: 50% !important;
 }
 
 .without-border {
@@ -118,6 +117,24 @@ header {
 
 .wrapper a:hover {
 	text-decoration: underline;
+}
+
+.start-link {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: white !important;
+	padding: 12px 30px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	width: 100%;
+	background-color: #1D242E;
+	border-radius: 0.5em;
+	box-shadow: 5px 5px 5px black;
+	text-decoration: none;
+}
+
+.start-link:hover {
+	box-shadow: 7px 7px 7px black;
 }
 
 .footer {

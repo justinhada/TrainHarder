@@ -1,32 +1,81 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	template="/WEB-INF/vorlagen/seite.xhtml">
-	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
-	<ui:define name="titel">Powerlifting 🏋️ - Liste der Benutzer</ui:define>
-	<ui:define name="inhalt">
-		<table class="benutzer-tabelle">
-			<tr>
-				<th>Vorname</th>
-				<th>Nachname</th>
-				<th>Alter</th>
-				<th>Geschlecht</th>
-				<th>Kraftlevel</th>
-			</tr>
-			<ui:repeat id="benutzer_tabelle" var="benutzereintrag"
-				value="#{benutzerController.benutzer}">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Übungsarchiv – Powerlifting</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
+	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
+</h:head>
+
+<h:body>
+	<header>
+		<h:graphicImage styleClass="small-logo"
+			value="#{resource['img/icon.svg']}" alt="Powerlifting-Logo" />
+		<nav>
+			<ul class="navigation">
+				<li><a class="without-border" href="/Powerlifting"
+					title="Startseite"><i class="fa fa-home w3-xlarge"
+						aria-hidden="true" /></a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/datenschutz.xhtml"
+					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+				<li><a class="without-border"
+					href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
+				<li><a class="with-border" href="/Powerlifting/login.xhtml"
+					title="Sign in">Sign in</a></li>
+				<li><a class="with-border" href="/Powerlifting/join.xhtml"
+					title="Sign up">Sign up</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="center-container big-container">
+		<div class="wrapper">
+			<table aria-describedby="Rangliste">
 				<tr>
-					<td>#{benutzereintrag.vorname}</td>
-					<td>#{benutzereintrag.nachname}</td>
-					<td>#{benutzereintrag.lebensalter}</td>
-					<td>#{benutzereintrag.geschlecht}</td>
-					<td>#{benutzereintrag.kraftlevel}</td>
+					<th scope="col">Vorname</th>
+					<th scope="col">Nachname</th>
+					<th scope="col">Alter</th>
+					<th scope="col">Geschlecht</th>
+					<th scope="col">Kraftlevel</th>
 				</tr>
-			</ui:repeat>
-		</table>
-	</ui:define>
-</ui:composition>
+				<ui:repeat id="benutzer_tabelle" var="benutzereintrag"
+					value="#{benutzerController.benutzer}">
+					<tr>
+						<td>#{benutzereintrag.vorname}</td>
+						<td>#{benutzereintrag.nachname}</td>
+						<td>#{benutzereintrag.lebensalter}</td>
+						<td>#{benutzereintrag.geschlecht}</td>
+						<td>#{benutzereintrag.kraftlevel}</td>
+					</tr>
+				</ui:repeat>
+			</table>
+		</div>
+		<div class="footer">
+			<ul>
+				<li><a href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
+				<li><a href="/Powerlifting/datenschutz.xhtml"
+					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+				<li><a href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
+			</ul>
+		</div>
+		<div class="attribution">
+			<span>Icons made by <a
+				href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
+					Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
+		</div>
+	</div>
+</h:body>
+</h:html>
