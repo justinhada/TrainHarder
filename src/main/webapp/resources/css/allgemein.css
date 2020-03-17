@@ -137,6 +137,11 @@ header {
 	box-shadow: 7px 7px 7px black;
 }
 
+.form {
+	width: 50%;
+	margin: auto;
+}
+
 .footer {
 	font-weight: bold;
 }
