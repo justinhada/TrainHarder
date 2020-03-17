@@ -14,13 +14,14 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.png']}" />
+	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
 </h:head>
 
 <h:body>
 	<header>
-		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}"
-			alt="Powerlifting-Logo" />
+		<h:graphicImage styleClass="small-logo"
+			value="#{resource['img/icon.svg']}" alt="Powerlifting-Logo" />
 		<nav>
 			<ul class="navigation">
 				<li><a class="without-border" href="/Powerlifting"
@@ -45,15 +46,17 @@
 
 	<div class="center-container big-container">
 		<div class="wrapper">
-			<h:form>
-				<h:outputLabel for="maximum" value="1RM: " />
-				<h:inputText id="maximum" value="#{repsInReserveController.maximum}" />
+			<h2 class="text-central text-height">Backoff-Rechner</h2>
+			<h:form class="form">
+				<span class="text-left text-bold text-height">1RM</span>
+				<h:inputText styleClass=""
+					value="#{repsInReserveController.maximum}" />
 				<br />
-				<h:outputLabel for="wiederholungen" value="Wiederholungen: " />
-				<h:inputText id="wiederholungen"
-					value="#{repsInReserveController.wiederholungen}" />
-				<br />
-				<h:outputLabel for="rir" value="RIR: " />
+				<span class="text-left text-bold text-height">Wiederholungen</span>
+				<div class="input-group mb-3">
+					<h:inputText styleClass="form-control" value="#{repsInReserveController.wiederholungen}"/>
+				</div>
+				<span class="text-left text-bold text-height">RIR</span>
 				<h:inputText id="rir" value="#{repsInReserveController.rir}" />
 				<br />
 				<h:commandButton class="ao-button"
@@ -65,7 +68,7 @@
 					value="#{repsInReserveController.richtwert}" />
 			</h:form>
 
-			<table class="benutzer-tabelle">
+			<!--<table class="benutzer-tabelle">
 				<tr>
 					<th>REPS</th>
 				</tr>
@@ -99,7 +102,7 @@
 					<td>74,00%</td>
 					<td>72,00%</td>
 				</tr>
-			</table>
+			</table> -->
 		</div>
 	</div>
 
