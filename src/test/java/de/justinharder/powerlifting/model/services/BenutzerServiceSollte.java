@@ -60,8 +60,8 @@ public class BenutzerServiceSollte
 	@DisplayName("alle Benutzer ermitteln")
 	public void test01()
 	{
-		final var erwartet = List.of(Testdaten.JUSTIN_BENUTZEREINTRAG, Testdaten.ANETTE_BENUTZEREINTRAG);
-		final var alleBenutzer = List.of(Testdaten.JUSTIN_BENUTZER, Testdaten.ANETTE_BENUTZER);
+		final var erwartet = List.of(Testdaten.BENUTZEREINTRAG_JUSTIN, Testdaten.BENUTZEREINTRAG_ANETTE);
+		final var alleBenutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_ANETTE);
 		angenommenDasBenutzerRepositoryGibtAlleBenutzerZurueck(alleBenutzer);
 
 		final var ergebnis = sut.ermittleAlle();
@@ -73,10 +73,11 @@ public class BenutzerServiceSollte
 	@DisplayName("einen Benutzer erstellen")
 	public void test02()
 	{
-		final var benutzerEintrag = Testdaten.JUSTIN_BENUTZEREINTRAG;
-		final var benutzer = Testdaten.JUSTIN_BENUTZER;
+		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var anmeldedatenEintrag = Testdaten.ANMELDEDATENEINTRAG_JUSTIN;
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 
-		sut.erstelleBenutzer(benutzerEintrag);
+		sut.erstelleBenutzer(benutzerEintrag, anmeldedatenEintrag);
 
 		verify(benutzerRepository).erstelleBenutzer(benutzer);
 	}
@@ -96,8 +97,8 @@ public class BenutzerServiceSollte
 	@DisplayName("einen Benutzer zu ID ermitteln")
 	public void test04() throws BenutzerNichtGefundenException
 	{
-		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
-		final var benutzer = Testdaten.JUSTIN_BENUTZER;
+		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);
 
 		final var ergebnis = sut.ermittleZuId("0");
@@ -123,11 +124,11 @@ public class BenutzerServiceSollte
 	public void test06() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.JUSTIN_BENUTZEREINTRAG,
-			Testdaten.GOTT_BENUTZEREINTRAG);
+			Testdaten.BENUTZEREINTRAG_JUSTIN,
+			Testdaten.BENUTZEREINTRAG_GOTT);
 		final var alleBenutzer = List.of(
-			Testdaten.JUSTIN_BENUTZER,
-			Testdaten.GOTT_BENUTZER);
+			Testdaten.BENUTZER_JUSTIN,
+			Testdaten.BENUTZER_GOTT);
 		angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(alleBenutzer);
 
 		final var ergebnis = sut.ermittleZuNachname("Harder");

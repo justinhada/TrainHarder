@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
-import java.util.Map;
+import java.util.List;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Konstanten;
@@ -11,14 +11,14 @@ public class KraftlevelBerechner
 {
 	private final Benutzer benutzer;
 	private final Geschlecht geschlecht;
-	private final int koerpergewicht;
-	private final Map<Integer, Kraftwert> kraftwerte;
+	private final double koerpergewicht;
+	private final List<Kraftwert> kraftwerte;
 
 	public KraftlevelBerechner(final Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		geschlecht = benutzer.getGeschlecht();
-		koerpergewicht = benutzer.getKoerpergewicht();
+		koerpergewicht = benutzer.getAktuellesKoerpergewicht();
 		kraftwerte = benutzer.getKraftwerte();
 	}
 
@@ -29,7 +29,7 @@ public class KraftlevelBerechner
 				: Konstanten.KLASSIFIKATION_MAENNER;
 
 		var total = 0;
-		for (final var kraftwert : kraftwerte.values())
+		for (final var kraftwert : kraftwerte)
 		{
 			total += kraftwert.getMaximum();
 		}

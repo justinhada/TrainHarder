@@ -12,8 +12,8 @@ public class BenutzerEintrag
 	private int id;
 	private String vorname;
 	private String nachname;
-	private int koerpergewicht;
 	private int koerpergroesse;
+	private double koerpergewicht;
 	private int lebensalter;
 	private String kraftlevel;
 	private String geschlecht;

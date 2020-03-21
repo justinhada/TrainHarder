@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.repository.BelastungsfaktorRepository;
 

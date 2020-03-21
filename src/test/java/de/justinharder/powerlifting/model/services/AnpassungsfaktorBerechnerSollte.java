@@ -33,41 +33,41 @@ public class AnpassungsfaktorBerechnerSollte
 	@DisplayName("den richtigen Anpassungsfaktor für Justin berechnen")
 	public void test02()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.JUSTIN_BENUTZER)).isEqualTo(9);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_JUSTIN)).isEqualTo(9);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Eduard berechnen")
 	public void test03()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.EDUARD_BENUTZER)).isEqualTo(8);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_EDUARD)).isEqualTo(8);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Anna berechnen")
 	public void test04()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.ANNA_BENUTZER)).isEqualTo(7);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_ANNA)).isEqualTo(7);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Anette berechnen")
 	public void test05()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.ANETTE_BENUTZER)).isEqualTo(-9);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_ANETTE)).isEqualTo(-9);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Gott berechnen")
 	public void test06()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.GOTT_BENUTZER)).isEqualTo(-3);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_GOTT)).isEqualTo(-3);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Baba berechnen")
 	public void test07()
 	{
-		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BABA_BENUTZER)).isEqualTo(-2);
+		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_BABA)).isEqualTo(-2);
 	}
 }

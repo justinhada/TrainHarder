@@ -108,7 +108,7 @@ public class KraftwertControllerSollte extends ControllerSollte
 			Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerKraftwertServiceGibtAlleKraftwertEintraegeZuBenutzerZurueck(erwartet);
 
-		final var ergebnis = sut.getKraftwerteZuBenutzer(Testdaten.JUSTIN_BENUTZER);
+		final var ergebnis = sut.getKraftwerteZuBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

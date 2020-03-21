@@ -1,7 +1,7 @@
 package de.justinharder.powerlifting.model.domain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
@@ -21,15 +23,13 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = false)
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Benutzer extends Entitaet
 {
@@ -40,13 +40,9 @@ public class Benutzer extends Entitaet
 	private int id;
 	private String vorname;
 	private String nachname;
-	private int koerpergewicht;
-	private int koerpergroesse;
 	private int lebensalter;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Map<Integer, Kraftwert> kraftwerte = new HashMap<>();
 	@Enumerated(EnumType.STRING)
-	private Kraftlevel kraftlevel;
+	private Kraftlevel kraftlevel = Kraftlevel.CLASS_5;
 	@Enumerated(EnumType.STRING)
 	private Geschlecht geschlecht;
 	@Enumerated(EnumType.STRING)
@@ -61,28 +57,30 @@ public class Benutzer extends Entitaet
 	private Doping doping;
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
+	private Anmeldedaten anmeldedaten;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
+	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
+	private List<Kraftwert> kraftwerte = new ArrayList<>();
 
 	public Benutzer(
 		final String vorname,
 		final String nachname,
-		final int koerpergewicht,
-		final int koerpergroesse,
 		final int lebensalter,
-		final Kraftlevel kraftlevel,
 		final Geschlecht geschlecht,
 		final Erfahrung erfahrung,
 		final Ernaehrung ernaehrung,
 		final Schlafqualitaet schlafqualitaet,
 		final Stress stress,
 		final Doping doping,
-		final Regenerationsfaehigkeit regenerationsfaehigkeit)
+		final Regenerationsfaehigkeit regenerationsfaehigkeit,
+		final Anmeldedaten anmeldedaten)
 	{
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.koerpergewicht = koerpergewicht;
-		this.koerpergroesse = koerpergroesse;
 		this.lebensalter = lebensalter;
-		this.kraftlevel = kraftlevel;
 		this.geschlecht = geschlecht;
 		this.erfahrung = erfahrung;
 		this.ernaehrung = ernaehrung;
@@ -90,10 +88,42 @@ public class Benutzer extends Entitaet
 		this.stress = stress;
 		this.doping = doping;
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.anmeldedaten = anmeldedaten;
+
+		anmeldedaten.setBenutzer(this);
+	}
+
+	public void setAnmeldedaten(Anmeldedaten anmeldedaten)
+	{
+		this.anmeldedaten = anmeldedaten;
+		anmeldedaten.setBenutzer(this);
 	}
 
 	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
-		kraftwerte.put(kraftwert.getId(), kraftwert);
+		kraftwerte.add(kraftwert);
+	}
+
+	public void fuegeKoerpermessungHinzu(final Koerpermessung koerpermessung)
+	{
+		koerpermessungen.add(koerpermessung);
+	}
+
+	public double getAktuellesKoerpergewicht()
+	{
+		return koerpermessungen
+			.stream()
+			.reduce((first, second) -> second)
+			.map(Koerpermessung::getKoerpergewicht)
+			.orElse(null);
+	}
+
+	public int getAktuelleKoerpergroesse()
+	{
+		return koerpermessungen
+			.stream()
+			.reduce((first, second) -> second)
+			.map(Koerpermessung::getKoerpergroesse)
+			.orElse(null);
 	}
 }

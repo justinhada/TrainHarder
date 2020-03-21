@@ -11,5 +11,6 @@
 		<class>de.justinharder.powerlifting.model.domain.Belastungsfaktor</class>
 		<class>de.justinharder.powerlifting.model.domain.Uebung</class>
 		<class>de.justinharder.powerlifting.model.domain.Anmeldedaten</class>
+		<class>de.justinharder.powerlifting.model.domain.Koerpermessung</class>
 	</persistence-unit>
 </persistence>

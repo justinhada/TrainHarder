@@ -1,19 +1,23 @@
 package de.justinharder.powerlifting.model.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Belastungsfaktor extends Entitaet
 {
@@ -34,6 +38,8 @@ public class Belastungsfaktor extends Entitaet
 	private double quads;
 	private double hamstrings;
 	private double shoulder;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Uebung uebung;
 
 	public Belastungsfaktor(
 		final double squat,

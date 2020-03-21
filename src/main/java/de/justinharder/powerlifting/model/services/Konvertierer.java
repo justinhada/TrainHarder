@@ -10,12 +10,12 @@ import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Konvertierer
 {
-	private Konvertierer()
-	{}
-
 	public static List<UebungEintrag> konvertiereAlleZuUebungEintrag(final List<Uebung> uebungen)
 	{
 		return uebungen
@@ -80,8 +80,6 @@ public class Konvertierer
 	{
 		return new KraftwertEintrag(
 			kraftwert.getId(),
-			//			String.valueOf(kraftwert.getUebung().getId()),
-			//			String.valueOf(kraftwert.getBenutzer().getId()),
 			kraftwert.getMaximum(),
 			kraftwert.getKoerpergewicht(),
 			kraftwert.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),

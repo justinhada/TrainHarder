@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting;
+package de.justinharder.powerlifting.persistence;
 
 import java.util.List;
 

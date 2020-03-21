@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KraftwertEintrag
+public class AnmeldedatenEintrag
 {
 	private int id;
-	private int maximum;
-	private double koerpergewicht;
-	private String datum;
-	private String wiederholungen;
+	private String mail;
+	private String benutzername;
+	private String passwort;
 }

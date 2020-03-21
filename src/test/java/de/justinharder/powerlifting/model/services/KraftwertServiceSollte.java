@@ -102,7 +102,7 @@ public class KraftwertServiceSollte
 			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(kraftwerte);
 
-		final var ergebnis = sut.ermittleAlleZuBenutzer(Testdaten.JUSTIN_BENUTZER);
+		final var ergebnis = sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -113,7 +113,7 @@ public class KraftwertServiceSollte
 	{
 		final var kraftwertEintrag = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
 		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
-		final var benutzer = Testdaten.JUSTIN_BENUTZER;
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebung);

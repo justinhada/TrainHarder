@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.services.BenutzerService;
@@ -22,6 +23,7 @@ public class BenutzerController extends Controller
 	private static final String BENUTZER_ID = "benutzerId";
 	private final BenutzerService benutzerService;
 	private final BenutzerEintrag benutzerEintrag = new BenutzerEintrag();
+	private final AnmeldedatenEintrag anmeldedatenEintrag = new AnmeldedatenEintrag();
 	private List<BenutzerEintrag> benutzerEintraege = new ArrayList<>();
 
 	@Inject
@@ -46,7 +48,7 @@ public class BenutzerController extends Controller
 
 	public void erstelleBenutzer()
 	{
-		benutzerService.erstelleBenutzer(benutzerEintrag);
+		benutzerService.erstelleBenutzer(benutzerEintrag, anmeldedatenEintrag);
 	}
 
 	public void getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException

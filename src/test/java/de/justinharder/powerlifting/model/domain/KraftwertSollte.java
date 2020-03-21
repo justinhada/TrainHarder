@@ -1,34 +1,121 @@
 package de.justinharder.powerlifting.model.domain;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanHashCode;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanToString;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
-import java.util.Random;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.google.code.beanmatchers.BeanMatchers;
+import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
+import de.justinharder.powerlifting.setup.Testdaten;
 
 public class KraftwertSollte
 {
+	private Kraftwert sut;
+
+	@BeforeEach
+	public void setup()
+	{
+		sut = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
+	}
+
 	@Test
-	@DisplayName("ein Bean sein")
+	@DisplayName("einen NoArgsConstructor haben")
 	public void test01()
 	{
-		BeanMatchers.registerValueGenerator(() -> LocalDate.of(2019, 1, new Random().nextInt(28) + 1),
-			LocalDate.class);
-		assertThat(Kraftwert.class, allOf(
-			hasValidBeanConstructor(),
-			hasValidGettersAndSetters(),
-			hasValidBeanEquals(),
-			hasValidBeanHashCode(),
-			hasValidBeanToString()));
+		org.hamcrest.MatcherAssert.assertThat(Kraftwert.class, allOf(hasValidBeanConstructor()));
+	}
+
+	@Test
+	@DisplayName("einen RequiredArgsConstructor haben")
+	public void test02()
+	{
+		final var kraftwert = new Kraftwert(
+			100,
+			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
+			LocalDate.now(),
+			Wiederholungen.ONE_REP_MAX,
+			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.BENUTZER_JUSTIN);
+
+		assertAll(
+			() -> assertThat(kraftwert.getId()).isEqualTo(0),
+			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
+			() -> assertThat(kraftwert.getKoerpergewicht())
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
+			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
+			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+	}
+
+	@Test
+	@DisplayName("Getter besitzen")
+	public void test03()
+	{
+		assertAll(
+			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getMaximum()).isEqualTo(100),
+			() -> assertThat(sut.getKoerpergewicht())
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.now()),
+			() -> assertThat(sut.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
+			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+	}
+
+	@Test
+	@DisplayName("Setter besitzen")
+	public void test04()
+	{
+		final var kraftwert = new Kraftwert();
+		kraftwert.setMaximum(100);
+		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		kraftwert.setDatum(LocalDate.now());
+		kraftwert.setWiederholungen(Wiederholungen.ONE_REP_MAX);
+		kraftwert.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
+		kraftwert.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+
+		assertAll(
+			() -> assertThat(kraftwert.getId()).isEqualTo(0),
+			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
+			() -> assertThat(kraftwert.getKoerpergewicht())
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
+			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
+			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+	}
+
+	@Test
+	@DisplayName("sich vergleichen")
+	@SuppressWarnings("unlikely-arg-type")
+	public void test05()
+	{
+		final var andererKraftwert = new Kraftwert();
+		andererKraftwert.setId(1);
+
+		final var kraftwertMitGleicherId = new Kraftwert();
+		kraftwertMitGleicherId.setId(0);
+
+		assertAll(
+			() -> assertThat(sut.equals(sut)).isEqualTo(true),
+			() -> assertThat(sut.equals(null)).isEqualTo(false),
+			() -> assertThat(sut.equals(Testdaten.ANMELDEDATEN_JUSTIN)).isEqualTo(false),
+			() -> assertThat(sut.equals(andererKraftwert)).isEqualTo(false),
+			() -> assertThat(sut.equals(kraftwertMitGleicherId)).isEqualTo(true),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andererKraftwert));
+	}
+
+	@Test
+	@DisplayName("eine toString()-Methode haben")
+	public void test06()
+	{
+		assertThat(sut.toString()).isEqualTo("Kraftwert{ID=0}");
 	}
 }

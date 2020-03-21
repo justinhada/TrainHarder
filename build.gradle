@@ -3,7 +3,6 @@ plugins {
     id 'eclipse'
     id 'eclipse-wtp'
     id 'war'
-    id "org.sonarqube" version "2.7"
     id 'jacoco'
 }
 
@@ -12,24 +11,25 @@ repositories {
 }
 
 dependencies {
-	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-	compile group: 'org.primefaces', name: 'primefaces', version: '7.0'
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
     api 'org.apache.commons:commons-math3:3.6.1'
 
-    implementation 'com.google.guava:guava:28.0-jre'
-    implementation "javax.xml.bind:jaxb-api:2.3.1"
+    implementation "com.google.guava:guava:28.0-jre",
+    		"javax.xml.bind:jaxb-api:2.3.1",
+    		"org.slf4j:slf4j-api:1.7.25",
+    		"org.primefaces:primefaces:7.0",
+    		"javax.servlet:javax.servlet-api:3.1.0",
+    		"javax:javaee-api:8.0",
+    		"org.projectlombok:lombok:1.18.10",
+    		"javax.servlet:javax.servlet-api:3.1.0"
     
-    testCompile 'org.mockito:mockito-core:2.7.19'
-    testCompile 'org.seleniumhq.selenium:selenium-java:3.3.1'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.14.0'
-    testCompile group: 'com.google.code.bean-matchers', name: 'bean-matchers', version: '0.12'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testImplementation "org.mockito:mockito-core:2.7.19",
+    		"org.seleniumhq.selenium:selenium-java:3.3.1",
+    		"org.assertj:assertj-core:3.14.0",
+    		"com.google.code.bean-matchers:bean-matchers:0.12",
+    		"org.junit.jupiter:junit-jupiter-api:5.5.2"
+    		
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 
-    providedCompile group: 'javax', name: 'javaee-api', version: '8.0'
-    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-    
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
@@ -46,21 +46,6 @@ eclipse {
 			contextPath = 'Powerlifting'
 		}
 	}
-}
-
-sonarqube {
-  properties {
-    property "sonar.projectName", "Powerlifting"
-    property "sonar.projectKey", "powerlifting"
-    property "sonar.projectVersion", "1.0"
-    property "sonar.sources", "src/main/java"
-    property "sonar.language", "java"
-    property "sonar.binaries", "build/classes"
-    property "sonar.tests", "src/test/java"
-    property "sonar.junit.reportsPath", "build/test-reports"
-    property "sonar.java.coveragePlugin", "jacoco"
-    property "sonar.jacoco.reportPath", "build/test-reports/jacoco.exec"
-  }
 }
 
 version= '0.0.2'

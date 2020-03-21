@@ -52,7 +52,7 @@ public class BenutzerControllerSollte extends ControllerSollte
 	@DisplayName("eine Liste aller BenutzerEinträge zurückgeben")
 	public void test01()
 	{
-		final var erwartet = List.of(Testdaten.JUSTIN_BENUTZEREINTRAG, Testdaten.ANETTE_BENUTZEREINTRAG);
+		final var erwartet = List.of(Testdaten.BENUTZEREINTRAG_JUSTIN, Testdaten.BENUTZEREINTRAG_ANETTE);
 		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzer();
@@ -64,12 +64,13 @@ public class BenutzerControllerSollte extends ControllerSollte
 	@DisplayName("einen Benutzer weiter an den BenutzerService geben")
 	public void test02()
 	{
-		final var benutzerEintrag = Testdaten.JUSTIN_BENUTZEREINTRAG;
+		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var anmeldedatenEintrag = Testdaten.ANMELDEDATENEINTRAG_JUSTIN;
 
 		sut.getBenutzerEintrag().setId(0);
 		sut.getBenutzerEintrag().setVorname("Justin");
 		sut.getBenutzerEintrag().setNachname("Harder");
-		sut.getBenutzerEintrag().setKoerpergewicht(90);
+		sut.getBenutzerEintrag().setKoerpergewicht(90.0);
 		sut.getBenutzerEintrag().setKoerpergroesse(178);
 		sut.getBenutzerEintrag().setLebensalter(21);
 		sut.getBenutzerEintrag().setKraftlevel("CLASS_5");
@@ -80,16 +81,20 @@ public class BenutzerControllerSollte extends ControllerSollte
 		sut.getBenutzerEintrag().setStress("MITTELMAESSIG");
 		sut.getBenutzerEintrag().setDoping("NEIN");
 		sut.getBenutzerEintrag().setRegenerationsfaehigkeit("GUT");
+		sut.getAnmeldedatenEintrag().setId(0);
+		sut.getAnmeldedatenEintrag().setMail("mail@justinharder.de");
+		sut.getAnmeldedatenEintrag().setBenutzername("harder");
+		sut.getAnmeldedatenEintrag().setPasswort("JustinHarder98");
 		sut.erstelleBenutzer();
 
-		verify(benutzerService).erstelleBenutzer(benutzerEintrag);
+		verify(benutzerService).erstelleBenutzer(benutzerEintrag, anmeldedatenEintrag);
 	}
 
 	@Test
 	@DisplayName("einen Benutzer mit der übergebenen ID zurückgeben")
 	public void test03() throws BenutzerNichtGefundenException
 	{
-		final var erwartet = Testdaten.JUSTIN_BENUTZEREINTRAG;
+		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
 		angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(erwartet);
 		angenommenExternerWebContextEnthaeltParameter(Maps.immutableEntry("benutzerId", "1"));
 
@@ -103,8 +108,8 @@ public class BenutzerControllerSollte extends ControllerSollte
 	public void test04() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.JUSTIN_BENUTZEREINTRAG,
-			Testdaten.GOTT_BENUTZEREINTRAG);
+			Testdaten.BENUTZEREINTRAG_JUSTIN,
+			Testdaten.BENUTZEREINTRAG_GOTT);
 		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(erwartet);
 
 		sut.getBenutzerZuNachname("Harder");

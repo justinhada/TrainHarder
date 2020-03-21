@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import de.justinharder.powerlifting.JpaRepository;
 import de.justinharder.powerlifting.model.domain.Uebung;
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;

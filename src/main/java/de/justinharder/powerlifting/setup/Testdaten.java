@@ -3,10 +3,13 @@ package de.justinharder.powerlifting.setup;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import de.justinharder.powerlifting.model.domain.Anmeldedaten;
 import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.Benutzer;
+import de.justinharder.powerlifting.model.domain.Koerpermessung;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.Uebung;
+import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
@@ -22,19 +25,33 @@ import de.justinharder.powerlifting.model.domain.enums.Stress;
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
-	public static final Benutzer JUSTIN_BENUTZER = new Benutzer();
-	public static final Benutzer EDUARD_BENUTZER = new Benutzer();
-	public static final Benutzer ANNA_BENUTZER = new Benutzer();
-	public static final Benutzer ANETTE_BENUTZER = new Benutzer();
-	public static final Benutzer GOTT_BENUTZER = new Benutzer();
-	public static final Benutzer BABA_BENUTZER = new Benutzer();
+	public static final Anmeldedaten ANMELDEDATEN_JUSTIN = new Anmeldedaten();
 
-	public static final BenutzerEintrag JUSTIN_BENUTZEREINTRAG = new BenutzerEintrag();
-	public static final BenutzerEintrag ANETTE_BENUTZEREINTRAG = new BenutzerEintrag();
-	public static final BenutzerEintrag GOTT_BENUTZEREINTRAG = new BenutzerEintrag();
+	public static final AnmeldedatenEintrag ANMELDEDATENEINTRAG_JUSTIN = new AnmeldedatenEintrag();
+
+	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
+	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
+	public static final Koerpermessung KOERPERMESSUNG_ANNA = new Koerpermessung();
+	public static final Koerpermessung KOERPERMESSUNG_ANETTE = new Koerpermessung();
+	public static final Koerpermessung KOERPERMESSUNG_GOTT = new Koerpermessung();
+	public static final Koerpermessung KOERPERMESSUNG_BABA = new Koerpermessung();
+
+	public static final Benutzer BENUTZER_JUSTIN = new Benutzer();
+	public static final Benutzer BENUTZER_EDUARD = new Benutzer();
+	public static final Benutzer BENUTZER_ANNA = new Benutzer();
+	public static final Benutzer BENUTZER_ANETTE = new Benutzer();
+	public static final Benutzer BENUTZER_GOTT = new Benutzer();
+	public static final Benutzer BENUTZER_BABA = new Benutzer();
+
+	public static final BenutzerEintrag BENUTZEREINTRAG_JUSTIN = new BenutzerEintrag();
+	public static final BenutzerEintrag BENUTZEREINTRAG_ANETTE = new BenutzerEintrag();
+	public static final BenutzerEintrag BENUTZEREINTRAG_GOTT = new BenutzerEintrag();
 
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN = new Belastungsfaktor();
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE = new Belastungsfaktor();
@@ -65,140 +82,182 @@ public class Testdaten
 
 	static
 	{
-		JUSTIN_BENUTZER.setId(0);
-		JUSTIN_BENUTZER.setVorname("Justin");
-		JUSTIN_BENUTZER.setNachname("Harder");
-		JUSTIN_BENUTZER.setKoerpergewicht(90);
-		JUSTIN_BENUTZER.setKoerpergroesse(178);
-		JUSTIN_BENUTZER.setLebensalter(21);
-		JUSTIN_BENUTZER.setKraftlevel(Kraftlevel.CLASS_5);
-		JUSTIN_BENUTZER.setGeschlecht(Geschlecht.MAENNLICH);
-		JUSTIN_BENUTZER.setErfahrung(Erfahrung.BEGINNER);
-		JUSTIN_BENUTZER.setErnaehrung(Ernaehrung.GUT);
-		JUSTIN_BENUTZER.setSchlafqualitaet(Schlafqualitaet.GUT);
-		JUSTIN_BENUTZER.setStress(Stress.MITTELMAESSIG);
-		JUSTIN_BENUTZER.setDoping(Doping.NEIN);
-		JUSTIN_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		ANMELDEDATEN_JUSTIN.setId(0);
+		ANMELDEDATEN_JUSTIN.setMail("mail@justinharder.de");
+		ANMELDEDATEN_JUSTIN.setBenutzername("harder");
+		ANMELDEDATEN_JUSTIN.setPasswort("JustinHarder98");
+		ANMELDEDATEN_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
-		JUSTIN_BENUTZEREINTRAG.setId(0);
-		JUSTIN_BENUTZEREINTRAG.setVorname("Justin");
-		JUSTIN_BENUTZEREINTRAG.setNachname("Harder");
-		JUSTIN_BENUTZEREINTRAG.setKoerpergewicht(90);
-		JUSTIN_BENUTZEREINTRAG.setKoerpergroesse(178);
-		JUSTIN_BENUTZEREINTRAG.setLebensalter(21);
-		JUSTIN_BENUTZEREINTRAG.setKraftlevel(Kraftlevel.CLASS_5.name());
-		JUSTIN_BENUTZEREINTRAG.setGeschlecht(Geschlecht.MAENNLICH.name());
-		JUSTIN_BENUTZEREINTRAG.setErfahrung(Erfahrung.BEGINNER.name());
-		JUSTIN_BENUTZEREINTRAG.setErnaehrung(Ernaehrung.GUT.name());
-		JUSTIN_BENUTZEREINTRAG.setSchlafqualitaet(Schlafqualitaet.GUT.name());
-		JUSTIN_BENUTZEREINTRAG.setStress(Stress.MITTELMAESSIG.name());
-		JUSTIN_BENUTZEREINTRAG.setDoping(Doping.NEIN.name());
-		JUSTIN_BENUTZEREINTRAG.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT.name());
+		ANMELDEDATENEINTRAG_JUSTIN.setId(ANMELDEDATEN_JUSTIN.getId());
+		ANMELDEDATENEINTRAG_JUSTIN.setMail(ANMELDEDATEN_JUSTIN.getMail());
+		ANMELDEDATENEINTRAG_JUSTIN.setBenutzername(ANMELDEDATEN_JUSTIN.getBenutzername());
+		ANMELDEDATENEINTRAG_JUSTIN.setPasswort(ANMELDEDATEN_JUSTIN.getPasswort());
 
-		EDUARD_BENUTZER.setId(0);
-		EDUARD_BENUTZER.setVorname("Eduard");
-		EDUARD_BENUTZER.setNachname("Stremel");
-		EDUARD_BENUTZER.setKoerpergewicht(64);
-		EDUARD_BENUTZER.setKoerpergroesse(182);
-		EDUARD_BENUTZER.setLebensalter(14);
-		EDUARD_BENUTZER.setKraftlevel(Kraftlevel.CLASS_4);
-		EDUARD_BENUTZER.setGeschlecht(Geschlecht.MAENNLICH);
-		EDUARD_BENUTZER.setErfahrung(Erfahrung.FORTGESCHRITTEN);
-		EDUARD_BENUTZER.setErnaehrung(Ernaehrung.SCHLECHT);
-		EDUARD_BENUTZER.setSchlafqualitaet(Schlafqualitaet.SCHLECHT);
-		EDUARD_BENUTZER.setStress(Stress.NIEDRIG);
-		EDUARD_BENUTZER.setDoping(Doping.JA);
-		EDUARD_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+		KOERPERMESSUNG_JUSTIN.setId(0);
+		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);
+		KOERPERMESSUNG_JUSTIN.setKoerpergewicht(90);
+		KOERPERMESSUNG_JUSTIN.setBodyMassIndex(28.41);
+		KOERPERMESSUNG_JUSTIN.setFatFreeMassIndex(21.43);
+		KOERPERMESSUNG_JUSTIN.setKoerperfettAnteil(25);
+		KOERPERMESSUNG_JUSTIN.setFettfreiesKoerpergewicht(71);
+		KOERPERMESSUNG_JUSTIN.setSubkutanesFett(20);
+		KOERPERMESSUNG_JUSTIN.setViszeralfett(11);
+		KOERPERMESSUNG_JUSTIN.setKoerperwasser(56);
+		KOERPERMESSUNG_JUSTIN.setSkelettmuskel(49);
+		KOERPERMESSUNG_JUSTIN.setMuskelmasse(67);
+		KOERPERMESSUNG_JUSTIN.setKnochenmasse(4);
+		KOERPERMESSUNG_JUSTIN.setProtein(17.5);
+		KOERPERMESSUNG_JUSTIN.setGrundumsatz(1900);
+		KOERPERMESSUNG_JUSTIN.setEingenommeneKalorien(2500);
+		KOERPERMESSUNG_JUSTIN.setVerbrannteKalorien(2900);
+		KOERPERMESSUNG_JUSTIN.setBiologischesAlter(25);
+		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.now());
+		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
-		ANNA_BENUTZER.setId(0);
-		ANNA_BENUTZER.setVorname("Anna");
-		ANNA_BENUTZER.setNachname("Aufbau");
-		ANNA_BENUTZER.setKoerpergewicht(64);
-		ANNA_BENUTZER.setKoerpergroesse(182);
-		ANNA_BENUTZER.setLebensalter(14);
-		ANNA_BENUTZER.setKraftlevel(Kraftlevel.CLASS_2);
-		ANNA_BENUTZER.setGeschlecht(Geschlecht.WEIBLICH);
-		ANNA_BENUTZER.setErfahrung(Erfahrung.FORTGESCHRITTEN);
-		ANNA_BENUTZER.setErnaehrung(Ernaehrung.SCHLECHT);
-		ANNA_BENUTZER.setSchlafqualitaet(Schlafqualitaet.SCHLECHT);
-		ANNA_BENUTZER.setStress(Stress.NIEDRIG);
-		ANNA_BENUTZER.setDoping(Doping.JA);
-		ANNA_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+		KOERPERMESSUNG_EDUARD.setKoerpergroesse(182);
+		KOERPERMESSUNG_EDUARD.setKoerpergewicht(64);
 
-		ANETTE_BENUTZER.setId(0);
-		ANETTE_BENUTZER.setVorname("Anette");
-		ANETTE_BENUTZER.setNachname("Masseschwein");
-		ANETTE_BENUTZER.setKoerpergewicht(120);
-		ANETTE_BENUTZER.setKoerpergroesse(203);
-		ANETTE_BENUTZER.setLebensalter(43);
-		ANETTE_BENUTZER.setKraftlevel(Kraftlevel.CLASS_3);
-		ANETTE_BENUTZER.setGeschlecht(Geschlecht.WEIBLICH);
-		ANETTE_BENUTZER.setErfahrung(Erfahrung.EXPERTE);
-		ANETTE_BENUTZER.setErnaehrung(Ernaehrung.GUT);
-		ANETTE_BENUTZER.setSchlafqualitaet(Schlafqualitaet.DURCHSCHNITT);
-		ANETTE_BENUTZER.setStress(Stress.HOCH);
-		ANETTE_BENUTZER.setDoping(Doping.NEIN);
-		ANETTE_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH);
+		KOERPERMESSUNG_ANNA.setKoerpergroesse(182);
+		KOERPERMESSUNG_ANNA.setKoerpergewicht(64);
 
-		ANETTE_BENUTZEREINTRAG.setId(0);
-		ANETTE_BENUTZEREINTRAG.setVorname("Anette");
-		ANETTE_BENUTZEREINTRAG.setNachname("Masseschwein");
-		ANETTE_BENUTZEREINTRAG.setKoerpergewicht(120);
-		ANETTE_BENUTZEREINTRAG.setKoerpergroesse(203);
-		ANETTE_BENUTZEREINTRAG.setLebensalter(43);
-		ANETTE_BENUTZEREINTRAG.setKraftlevel(Kraftlevel.CLASS_3.name());
-		ANETTE_BENUTZEREINTRAG.setGeschlecht(Geschlecht.WEIBLICH.name());
-		ANETTE_BENUTZEREINTRAG.setErfahrung(Erfahrung.EXPERTE.name());
-		ANETTE_BENUTZEREINTRAG.setErnaehrung(Ernaehrung.GUT.name());
-		ANETTE_BENUTZEREINTRAG.setSchlafqualitaet(Schlafqualitaet.DURCHSCHNITT.name());
-		ANETTE_BENUTZEREINTRAG.setStress(Stress.HOCH.name());
-		ANETTE_BENUTZEREINTRAG.setDoping(Doping.NEIN.name());
-		ANETTE_BENUTZEREINTRAG.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH.name());
+		KOERPERMESSUNG_ANETTE.setKoerpergroesse(203);
+		KOERPERMESSUNG_ANETTE.setKoerpergewicht(125);
 
-		GOTT_BENUTZER.setId(0);
-		GOTT_BENUTZER.setVorname("Gott");
-		GOTT_BENUTZER.setNachname("Harder");
-		GOTT_BENUTZER.setKoerpergewicht(145);
-		GOTT_BENUTZER.setKoerpergroesse(190);
-		GOTT_BENUTZER.setLebensalter(32);
-		GOTT_BENUTZER.setKraftlevel(Kraftlevel.ELITE);
-		GOTT_BENUTZER.setGeschlecht(Geschlecht.MAENNLICH);
-		GOTT_BENUTZER.setErfahrung(Erfahrung.EXPERTE);
-		GOTT_BENUTZER.setErnaehrung(Ernaehrung.GUT);
-		GOTT_BENUTZER.setSchlafqualitaet(Schlafqualitaet.GUT);
-		GOTT_BENUTZER.setStress(Stress.NIEDRIG);
-		GOTT_BENUTZER.setDoping(Doping.JA);
-		GOTT_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+		KOERPERMESSUNG_GOTT.setKoerpergroesse(190);
+		KOERPERMESSUNG_GOTT.setKoerpergewicht(145);
 
-		GOTT_BENUTZEREINTRAG.setId(0);
-		GOTT_BENUTZEREINTRAG.setVorname("Gott");
-		GOTT_BENUTZEREINTRAG.setNachname("Harder");
-		GOTT_BENUTZEREINTRAG.setKoerpergewicht(145);
-		GOTT_BENUTZEREINTRAG.setKoerpergroesse(190);
-		GOTT_BENUTZEREINTRAG.setLebensalter(32);
-		GOTT_BENUTZEREINTRAG.setKraftlevel(Kraftlevel.ELITE.name());
-		GOTT_BENUTZEREINTRAG.setGeschlecht(Geschlecht.MAENNLICH.name());
-		GOTT_BENUTZEREINTRAG.setErfahrung(Erfahrung.EXPERTE.name());
-		GOTT_BENUTZEREINTRAG.setErnaehrung(Ernaehrung.GUT.name());
-		GOTT_BENUTZEREINTRAG.setSchlafqualitaet(Schlafqualitaet.GUT.name());
-		GOTT_BENUTZEREINTRAG.setStress(Stress.NIEDRIG.name());
-		GOTT_BENUTZEREINTRAG.setDoping(Doping.JA.name());
-		GOTT_BENUTZEREINTRAG.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT.name());
+		KOERPERMESSUNG_BABA.setKoerpergroesse(160);
+		KOERPERMESSUNG_BABA.setKoerpergewicht(105);
 
-		BABA_BENUTZER.setId(0);
-		BABA_BENUTZER.setVorname("Baba");
-		BABA_BENUTZER.setNachname("von Gewichten");
-		BABA_BENUTZER.setKoerpergewicht(110);
-		BABA_BENUTZER.setKoerpergroesse(160);
-		BABA_BENUTZER.setLebensalter(55);
-		BABA_BENUTZER.setKraftlevel(Kraftlevel.CLASS_1);
-		BABA_BENUTZER.setGeschlecht(Geschlecht.MAENNLICH);
-		BABA_BENUTZER.setErfahrung(Erfahrung.SEHR_FORTGESCHRITTEN);
-		BABA_BENUTZER.setErnaehrung(Ernaehrung.GUT);
-		BABA_BENUTZER.setSchlafqualitaet(Schlafqualitaet.GUT);
-		BABA_BENUTZER.setStress(Stress.NIEDRIG);
-		BABA_BENUTZER.setDoping(Doping.JA);
-		BABA_BENUTZER.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.SCHLECHT);
+		BENUTZER_JUSTIN.setId(0);
+		BENUTZER_JUSTIN.setVorname("Justin");
+		BENUTZER_JUSTIN.setNachname("Harder");
+		BENUTZER_JUSTIN.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN);
+		BENUTZER_JUSTIN.setLebensalter(21);
+		BENUTZER_JUSTIN.setKraftlevel(Kraftlevel.CLASS_5);
+		BENUTZER_JUSTIN.setGeschlecht(Geschlecht.MAENNLICH);
+		BENUTZER_JUSTIN.setErfahrung(Erfahrung.BEGINNER);
+		BENUTZER_JUSTIN.setErnaehrung(Ernaehrung.GUT);
+		BENUTZER_JUSTIN.setSchlafqualitaet(Schlafqualitaet.GUT);
+		BENUTZER_JUSTIN.setStress(Stress.MITTELMAESSIG);
+		BENUTZER_JUSTIN.setDoping(Doping.NEIN);
+		BENUTZER_JUSTIN.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		BENUTZER_JUSTIN.setAnmeldedaten(ANMELDEDATEN_JUSTIN);
+
+		BENUTZEREINTRAG_JUSTIN.setId(BENUTZER_JUSTIN.getId());
+		BENUTZEREINTRAG_JUSTIN.setVorname(BENUTZER_JUSTIN.getVorname());
+		BENUTZEREINTRAG_JUSTIN.setNachname(BENUTZER_JUSTIN.getNachname());
+		BENUTZEREINTRAG_JUSTIN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		BENUTZEREINTRAG_JUSTIN.setKoerpergroesse(BENUTZER_JUSTIN.getAktuelleKoerpergroesse());
+		BENUTZEREINTRAG_JUSTIN.setLebensalter(BENUTZER_JUSTIN.getLebensalter());
+		BENUTZEREINTRAG_JUSTIN.setKraftlevel(BENUTZER_JUSTIN.getKraftlevel().name());
+		BENUTZEREINTRAG_JUSTIN.setGeschlecht(BENUTZER_JUSTIN.getGeschlecht().name());
+		BENUTZEREINTRAG_JUSTIN.setErfahrung(BENUTZER_JUSTIN.getErfahrung().name());
+		BENUTZEREINTRAG_JUSTIN.setErnaehrung(BENUTZER_JUSTIN.getErnaehrung().name());
+		BENUTZEREINTRAG_JUSTIN.setSchlafqualitaet(BENUTZER_JUSTIN.getSchlafqualitaet().name());
+		BENUTZEREINTRAG_JUSTIN.setStress(BENUTZER_JUSTIN.getStress().name());
+		BENUTZEREINTRAG_JUSTIN.setDoping(BENUTZER_JUSTIN.getDoping().name());
+		BENUTZEREINTRAG_JUSTIN.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getRegenerationsfaehigkeit().name());
+
+		BENUTZER_EDUARD.setId(0);
+		BENUTZER_EDUARD.setVorname("Eduard");
+		BENUTZER_EDUARD.setNachname("Stremel");
+		BENUTZER_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
+		BENUTZER_EDUARD.setLebensalter(14);
+		BENUTZER_EDUARD.setKraftlevel(Kraftlevel.CLASS_4);
+		BENUTZER_EDUARD.setGeschlecht(Geschlecht.MAENNLICH);
+		BENUTZER_EDUARD.setErfahrung(Erfahrung.FORTGESCHRITTEN);
+		BENUTZER_EDUARD.setErnaehrung(Ernaehrung.SCHLECHT);
+		BENUTZER_EDUARD.setSchlafqualitaet(Schlafqualitaet.SCHLECHT);
+		BENUTZER_EDUARD.setStress(Stress.NIEDRIG);
+		BENUTZER_EDUARD.setDoping(Doping.JA);
+		BENUTZER_EDUARD.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+
+		BENUTZER_ANNA.setId(0);
+		BENUTZER_ANNA.setVorname("Anna");
+		BENUTZER_ANNA.setNachname("Aufbau");
+		BENUTZER_ANNA.fuegeKoerpermessungHinzu(KOERPERMESSUNG_ANNA);
+		BENUTZER_ANNA.setLebensalter(14);
+		BENUTZER_ANNA.setKraftlevel(Kraftlevel.CLASS_2);
+		BENUTZER_ANNA.setGeschlecht(Geschlecht.WEIBLICH);
+		BENUTZER_ANNA.setErfahrung(Erfahrung.FORTGESCHRITTEN);
+		BENUTZER_ANNA.setErnaehrung(Ernaehrung.SCHLECHT);
+		BENUTZER_ANNA.setSchlafqualitaet(Schlafqualitaet.SCHLECHT);
+		BENUTZER_ANNA.setStress(Stress.NIEDRIG);
+		BENUTZER_ANNA.setDoping(Doping.JA);
+		BENUTZER_ANNA.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+
+		BENUTZER_ANETTE.setId(0);
+		BENUTZER_ANETTE.setVorname("Anette");
+		BENUTZER_ANETTE.setNachname("Masseschwein");
+		BENUTZER_ANETTE.fuegeKoerpermessungHinzu(KOERPERMESSUNG_ANETTE);
+		BENUTZER_ANETTE.setLebensalter(43);
+		BENUTZER_ANETTE.setKraftlevel(Kraftlevel.CLASS_3);
+		BENUTZER_ANETTE.setGeschlecht(Geschlecht.WEIBLICH);
+		BENUTZER_ANETTE.setErfahrung(Erfahrung.EXPERTE);
+		BENUTZER_ANETTE.setErnaehrung(Ernaehrung.GUT);
+		BENUTZER_ANETTE.setSchlafqualitaet(Schlafqualitaet.DURCHSCHNITT);
+		BENUTZER_ANETTE.setStress(Stress.HOCH);
+		BENUTZER_ANETTE.setDoping(Doping.NEIN);
+		BENUTZER_ANETTE.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH);
+
+		BENUTZEREINTRAG_ANETTE.setId(0);
+		BENUTZEREINTRAG_ANETTE.setVorname("Anette");
+		BENUTZEREINTRAG_ANETTE.setNachname("Masseschwein");
+		BENUTZEREINTRAG_ANETTE.setKoerpergewicht(BENUTZER_ANETTE.getAktuellesKoerpergewicht());
+		BENUTZEREINTRAG_ANETTE.setKoerpergroesse(203);
+		BENUTZEREINTRAG_ANETTE.setLebensalter(43);
+		BENUTZEREINTRAG_ANETTE.setKraftlevel(Kraftlevel.CLASS_3.name());
+		BENUTZEREINTRAG_ANETTE.setGeschlecht(Geschlecht.WEIBLICH.name());
+		BENUTZEREINTRAG_ANETTE.setErfahrung(Erfahrung.EXPERTE.name());
+		BENUTZEREINTRAG_ANETTE.setErnaehrung(Ernaehrung.GUT.name());
+		BENUTZEREINTRAG_ANETTE.setSchlafqualitaet(Schlafqualitaet.DURCHSCHNITT.name());
+		BENUTZEREINTRAG_ANETTE.setStress(Stress.HOCH.name());
+		BENUTZEREINTRAG_ANETTE.setDoping(Doping.NEIN.name());
+		BENUTZEREINTRAG_ANETTE.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH.name());
+
+		BENUTZER_GOTT.setId(0);
+		BENUTZER_GOTT.setVorname("Gott");
+		BENUTZER_GOTT.setNachname("Harder");
+		BENUTZER_GOTT.fuegeKoerpermessungHinzu(KOERPERMESSUNG_GOTT);
+		BENUTZER_GOTT.setLebensalter(32);
+		BENUTZER_GOTT.setKraftlevel(Kraftlevel.ELITE);
+		BENUTZER_GOTT.setGeschlecht(Geschlecht.MAENNLICH);
+		BENUTZER_GOTT.setErfahrung(Erfahrung.EXPERTE);
+		BENUTZER_GOTT.setErnaehrung(Ernaehrung.GUT);
+		BENUTZER_GOTT.setSchlafqualitaet(Schlafqualitaet.GUT);
+		BENUTZER_GOTT.setStress(Stress.NIEDRIG);
+		BENUTZER_GOTT.setDoping(Doping.JA);
+		BENUTZER_GOTT.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+
+		BENUTZEREINTRAG_GOTT.setId(0);
+		BENUTZEREINTRAG_GOTT.setVorname("Gott");
+		BENUTZEREINTRAG_GOTT.setNachname("Harder");
+		BENUTZEREINTRAG_GOTT.setKoerpergewicht(BENUTZER_GOTT.getAktuellesKoerpergewicht());
+		BENUTZEREINTRAG_GOTT.setKoerpergroesse(BENUTZER_GOTT.getAktuelleKoerpergroesse());
+		BENUTZEREINTRAG_GOTT.setLebensalter(32);
+		BENUTZEREINTRAG_GOTT.setKraftlevel(Kraftlevel.ELITE.name());
+		BENUTZEREINTRAG_GOTT.setGeschlecht(Geschlecht.MAENNLICH.name());
+		BENUTZEREINTRAG_GOTT.setErfahrung(Erfahrung.EXPERTE.name());
+		BENUTZEREINTRAG_GOTT.setErnaehrung(Ernaehrung.GUT.name());
+		BENUTZEREINTRAG_GOTT.setSchlafqualitaet(Schlafqualitaet.GUT.name());
+		BENUTZEREINTRAG_GOTT.setStress(Stress.NIEDRIG.name());
+		BENUTZEREINTRAG_GOTT.setDoping(Doping.JA.name());
+		BENUTZEREINTRAG_GOTT.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT.name());
+
+		BENUTZER_BABA.setId(0);
+		BENUTZER_BABA.setVorname("Baba");
+		BENUTZER_BABA.setNachname("von Gewichten");
+		BENUTZER_BABA.fuegeKoerpermessungHinzu(KOERPERMESSUNG_BABA);
+		BENUTZER_BABA.setLebensalter(55);
+		BENUTZER_BABA.setKraftlevel(Kraftlevel.CLASS_1);
+		BENUTZER_BABA.setGeschlecht(Geschlecht.MAENNLICH);
+		BENUTZER_BABA.setErfahrung(Erfahrung.SEHR_FORTGESCHRITTEN);
+		BENUTZER_BABA.setErnaehrung(Ernaehrung.GUT);
+		BENUTZER_BABA.setSchlafqualitaet(Schlafqualitaet.GUT);
+		BENUTZER_BABA.setStress(Stress.NIEDRIG);
+		BENUTZER_BABA.setDoping(Doping.JA);
+		BENUTZER_BABA.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.SCHLECHT);
 
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setId(0);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBack(0.0);
@@ -241,9 +300,9 @@ public class Testdaten
 
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setId(0);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setUebung(WETTKAMPFBANKDRUECKEN);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(JUSTIN_BENUTZER);
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(BENUTZER_JUSTIN);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setDatum(LocalDate.now());
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
@@ -301,8 +360,8 @@ public class Testdaten
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setId(0);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setUebung(LOWBAR_KNIEBEUGE);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setMaximum(150);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(JUSTIN_BENUTZER);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(BENUTZER_JUSTIN);
+		//		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(JUSTIN_BENUTZER.getKoerpergewicht());
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setDatum(LocalDate.now());
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
@@ -359,8 +418,8 @@ public class Testdaten
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setId(0);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setUebung(KONVENTIONELLES_KREUZHEBEN);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setMaximum(200);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(JUSTIN_BENUTZER);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(JUSTIN_BENUTZER.getKoerpergewicht());
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(BENUTZER_JUSTIN);
+		//		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(JUSTIN_BENUTZER.getKoerpergewicht());
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setDatum(LocalDate.now());
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 
@@ -377,7 +436,4 @@ public class Testdaten
 		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().name());
 	}
-
-	private Testdaten()
-	{}
 }

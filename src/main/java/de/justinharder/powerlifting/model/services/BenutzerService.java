@@ -5,13 +5,15 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import de.justinharder.powerlifting.model.domain.Anmeldedaten;
 import de.justinharder.powerlifting.model.domain.Benutzer;
+import de.justinharder.powerlifting.model.domain.Koerpermessung;
+import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
 import de.justinharder.powerlifting.model.domain.enums.Ernaehrung;
 import de.justinharder.powerlifting.model.domain.enums.Geschlecht;
-import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
@@ -54,22 +56,26 @@ public class BenutzerService
 		return konvertiereAlle(alleBenutzer);
 	}
 
-	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag)
+	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag, final AnmeldedatenEintrag anmeldedatenEintrag)
 	{
 		final var benutzer = new Benutzer(
 			benutzerEintrag.getVorname(),
 			benutzerEintrag.getNachname(),
-			benutzerEintrag.getKoerpergewicht(),
-			benutzerEintrag.getKoerpergroesse(),
 			benutzerEintrag.getLebensalter(),
-			Kraftlevel.CLASS_5,
 			Geschlecht.fromGeschlechtOption(benutzerEintrag.getGeschlecht()),
 			Erfahrung.fromErfahrungOption(benutzerEintrag.getErfahrung()),
 			Ernaehrung.fromErnaehrungOption(benutzerEintrag.getErnaehrung()),
 			Schlafqualitaet.fromSchlafqualitaetOption(benutzerEintrag.getSchlafqualitaet()),
 			Stress.fromStressOption(benutzerEintrag.getStress()),
 			Doping.fromDopingOption(benutzerEintrag.getDoping()),
-			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()));
+			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()),
+			new Anmeldedaten(
+				anmeldedatenEintrag.getMail(),
+				anmeldedatenEintrag.getBenutzername(),
+				anmeldedatenEintrag.getPasswort()));
+		final var koerperdaten = new Koerpermessung();
+		koerperdaten.setKoerpergewicht(benutzerEintrag.getKoerpergewicht());
+		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
 		benutzerRepository.erstelleBenutzer(benutzer);
 	}
 
@@ -86,8 +92,8 @@ public class BenutzerService
 			benutzer.getId(),
 			benutzer.getVorname(),
 			benutzer.getNachname(),
-			benutzer.getKoerpergewicht(),
-			benutzer.getKoerpergroesse(),
+			benutzer.getAktuelleKoerpergroesse(),
+			benutzer.getAktuellesKoerpergewicht(),
 			benutzer.getLebensalter(),
 			benutzer.getKraftlevel().name(),
 			benutzer.getGeschlecht().name(),

@@ -56,12 +56,12 @@ public class KraftwertService
 		final String benutzerId)
 	{
 		final var kraftwert = new Kraftwert(
-			uebungRepository.ermittleZuId(Integer.valueOf(uebungId)),
-			benutzerRepository.ermittleZuId(Integer.valueOf(benutzerId)),
 			kraftwertEintrag.getMaximum(),
 			kraftwertEintrag.getKoerpergewicht(),
 			LocalDate.parse(kraftwertEintrag.getDatum(), DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			Wiederholungen.fromName(kraftwertEintrag.getWiederholungen()));
+			Wiederholungen.fromName(kraftwertEintrag.getWiederholungen()),
+			uebungRepository.ermittleZuId(Integer.valueOf(uebungId)),
+			benutzerRepository.ermittleZuId(Integer.valueOf(benutzerId)));
 		kraftwertRepository.erstelleKraftwert(kraftwert);
 	}
 }

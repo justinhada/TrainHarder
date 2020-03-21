@@ -31,8 +31,8 @@ public class AnpassungsfaktorBerechner
 			anpassungsfaktor += 5;
 		}
 
-		berechneKoerpergewichtAnpassungsfaktor(benutzer.getKoerpergewicht(), geschlecht);
-		berechneKoerpergroesseAnpassungsfaktor(benutzer.getKoerpergroesse(), geschlecht);
+		berechneKoerpergewichtAnpassungsfaktor(benutzer.getAktuellesKoerpergewicht(), geschlecht);
+		berechneKoerpergroesseAnpassungsfaktor(benutzer.getAktuelleKoerpergroesse(), geschlecht);
 		berechneErfahrungAnpassungsfaktor(benutzer.getErfahrung());
 		berechneLebensalterAnpassungsfaktor(benutzer.getLebensalter());
 		berechneErnaehrungAnpassungsfaktor(benutzer.getErnaehrung());
@@ -201,7 +201,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneKoerpergewichtAnpassungsfaktor(final int koerpergewicht, final Geschlecht geschlecht)
+	private void berechneKoerpergewichtAnpassungsfaktor(final double koerpergewicht, final Geschlecht geschlecht)
 	{
 		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 57 ||
 			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 74)
