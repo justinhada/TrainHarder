@@ -1,6 +1,6 @@
 package de.justinharder.powerlifting.view;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,10 +13,10 @@ import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
 import lombok.Setter;
 
-@Named
-@RequestScoped
 @Getter
 @Setter
+@Named
+@SessionScoped
 public class RepsInReserveController extends Controller
 {
 	private final RepsInReserveRechner repsInReserveRechner;

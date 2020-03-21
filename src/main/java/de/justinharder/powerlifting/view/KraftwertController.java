@@ -2,7 +2,7 @@ package de.justinharder.powerlifting.view;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,9 +14,9 @@ import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
 
-@Named
-@RequestScoped
 @Getter
+@Named
+@SessionScoped
 public class KraftwertController extends Controller
 {
 	private static final String KRAFTWERT_ID = "kraftwertId";
