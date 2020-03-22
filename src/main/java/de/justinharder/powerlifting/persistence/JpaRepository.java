@@ -6,7 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.justinharder.powerlifting.model.domain.Entitaet;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class JpaRepository<T extends Entitaet>
 {
 	@PersistenceContext

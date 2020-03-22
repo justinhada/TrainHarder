@@ -1,12 +1,16 @@
-package de.justinharder.powerlifting.model.services;
+package de.justinharder.powerlifting.model.services.berechner;
+
+import java.io.Serializable;
 
 import de.justinharder.powerlifting.model.domain.Konstanten;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeRepsInReserveException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigesMaximumException;
 
-public class RepsInReserveRechner
+public class RepsInReserveRechner implements Serializable
 {
+	private static final long serialVersionUID = 1616003028454876849L;
+
 	private static final int MINIMUM = 0;
 	private static final int MAXIMUM_RIR = 4;
 	private static final int MAXIMUM_WIEDERHOLUNGEN = 12;

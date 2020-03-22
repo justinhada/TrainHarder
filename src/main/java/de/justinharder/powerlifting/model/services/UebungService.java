@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,8 +13,10 @@ import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
 import de.justinharder.powerlifting.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.UebungRepository;
 
-public class UebungService
+public class UebungService implements Serializable
 {
+	private static final long serialVersionUID = -8572879657920804422L;
+
 	private final UebungRepository uebungRepository;
 
 	@Inject

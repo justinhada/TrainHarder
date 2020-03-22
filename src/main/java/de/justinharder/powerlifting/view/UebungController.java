@@ -20,6 +20,8 @@ import lombok.Getter;
 @SessionScoped
 public class UebungController extends Controller
 {
+	private static final long serialVersionUID = -3551181310640925257L;
+
 	private static final String UEBUNG_ID = "uebungId";
 	private final UebungService uebungService;
 	private final UebungEintrag uebungEintrag = new UebungEintrag();

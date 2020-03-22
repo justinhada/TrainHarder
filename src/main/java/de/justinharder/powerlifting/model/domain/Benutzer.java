@@ -23,6 +23,7 @@ import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
 import de.justinharder.powerlifting.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.powerlifting.model.domain.enums.Schlafqualitaet;
 import de.justinharder.powerlifting.model.domain.enums.Stress;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -60,8 +61,10 @@ public class Benutzer extends Entitaet
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Anmeldedaten anmeldedaten;
+	@Setter(AccessLevel.NONE) 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
+	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Kraftwert> kraftwerte = new ArrayList<>();
 

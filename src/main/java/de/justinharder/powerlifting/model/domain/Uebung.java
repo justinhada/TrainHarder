@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class Uebung extends Entitaet
 	private Uebungskategorie uebungskategorie;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
 	private Belastungsfaktor belastungsfaktor;
+	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
 	private List<Kraftwert> kraftwerte = new ArrayList<>();
 

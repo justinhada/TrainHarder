@@ -20,6 +20,8 @@ import lombok.Getter;
 @SessionScoped
 public class BenutzerController extends Controller
 {
+	private static final long serialVersionUID = -6981486797529025609L;
+
 	private static final String BENUTZER_ID = "benutzerId";
 	private final BenutzerService benutzerService;
 	private final BenutzerEintrag benutzerEintrag = new BenutzerEintrag();

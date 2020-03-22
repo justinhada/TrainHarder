@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting.model.services;
+package de.justinharder.powerlifting.model.services.berechner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

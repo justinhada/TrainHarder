@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +21,10 @@ import de.justinharder.powerlifting.model.domain.enums.Stress;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 
-public class BenutzerService
+public class BenutzerService implements Serializable
 {
+	private static final long serialVersionUID = 4793689097189495259L;
+
 	private final BenutzerRepository benutzerRepository;
 
 	@Inject
@@ -73,9 +76,9 @@ public class BenutzerService
 				anmeldedatenEintrag.getMail(),
 				anmeldedatenEintrag.getBenutzername(),
 				anmeldedatenEintrag.getPasswort()));
-		final var koerperdaten = new Koerpermessung();
-		koerperdaten.setKoerpergewicht(benutzerEintrag.getKoerpergewicht());
-		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
+		final var koerpermessung = new Koerpermessung();
+		koerpermessung.setKoerpergewicht(benutzerEintrag.getKoerpergewicht());
+		benutzer.fuegeKoerpermessungHinzu(koerpermessung);
 		benutzerRepository.erstelleBenutzer(benutzer);
 	}
 

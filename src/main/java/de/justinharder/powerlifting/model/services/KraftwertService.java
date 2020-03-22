@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -15,8 +16,10 @@ import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 import de.justinharder.powerlifting.model.repository.UebungRepository;
 
-public class KraftwertService
+public class KraftwertService implements Serializable
 {
+	private static final long serialVersionUID = -5443953675613638545L;
+
 	private final KraftwertRepository kraftwertRepository;
 	private final BenutzerRepository benutzerRepository;
 	private final UebungRepository uebungRepository;

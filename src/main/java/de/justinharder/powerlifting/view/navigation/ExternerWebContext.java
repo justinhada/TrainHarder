@@ -1,14 +1,17 @@
 package de.justinharder.powerlifting.view.navigation;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-public class ExternerWebContext
+public class ExternerWebContext implements Serializable
 {
+	private static final long serialVersionUID = -2909680198408667144L;
+
 	private final ExternalContext externalContext;
 
 	@Inject

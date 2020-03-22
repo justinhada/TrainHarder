@@ -7,14 +7,27 @@ Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benut
 
 * Nachdem das Projekt geklont wurde: `.\gradlew clean cleaneclipse eclipse build`
 
+## Passwortrichtlinien
+
+Bei der Registrierung eines neuen Benutzers, muss ein Passwort vergeben werden.
+Dieses muss sich an folgende Richtlinien halten:
+* Mindestlänge von 12 Zeichen
+* Mindestens ein Großbuchstabe, ein Kleinbuchstabe, eine Zahl von 0-9
+* und eines der folgenden Zeichen: $, %, &, ?, #, _
+
+# Wie wird das Passwort in der Datenbank gespeichert?
+
+folgt...
+
 ## Glossar
 
 |JPA-Entity|Beschreibung|
 |-|-|
-|**LFDY**|**L**ift-**F**ast-**D**ie-**Y**oung|
 |**Benutzer**|Person mit allerlei Attributen, die Auskunft auf sein aktuelles Kraftlevel und das fahrbare Volumen geben.|
+|**Anmeldedaten**|Anmeldedaten gehören zu einem Benutzer. Hier werden Mail, Benutzername und Passwort gespeichert.|
+|**Koerpermessung**|Benutzer können Körpermessungen anlegen. Hier werden viele Werte zum Körper gespeichert.|
 |**Uebung**|Übung, die in den eigenen Trainingsplan implementiert werden kann. Besitzt Attribute, wie bspw. Kategorie oder Art.|
-|**Belastungsfaktor**|Jede Übung hat einen Belastungsfaktor. Es werden die Belastungswerte auf die Muskelgruppen verteilt.|
+|**Belastungsfaktor**|Belastungsfaktor gehört zu einer Übung. Es werden die Belastungswerte auf die Muskelgruppen verteilt.|
 |**Kraftwert**|Mit Kraftwerten können Steigerungen im Training protokolliert werden.|
 |**Konstanten**|**KLASSIFIKATION_FRAUEN**: Kraftlevel gemessen an *Körpergewicht* und *SBD-Total*. **KLASSIFIKATION_MAENNER**: Kraftlevel gemessen an *Körpergewicht* & *SBD-Total*. **KRAFTLEVEL_EINTEILUNG**: Alle Raw-Kraftlevel nach [USA Powerlifting](https://www.usapowerlifting.com/wp-content/uploads/2014/01/Raw-Classifications-lb.pdf). **MINIMUM_EFFECTIVE_VOLUME**: Minimale Richtwerte für SBD. **MAXIMUM_RECOVERABLE_VOLUME**: Maximale Richtwerte für SBD.|
 

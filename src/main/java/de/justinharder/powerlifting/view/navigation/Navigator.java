@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.view.navigation;
 
+import java.io.Serializable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -8,20 +9,29 @@ import javax.inject.Named;
 
 @Named
 @ApplicationScoped
-public class Navigator
+public class Navigator implements Serializable
 {
+	private static final long serialVersionUID = -5900551477725997768L;
+
+	private static final String STARTSEITE_URL = "/Powerlifting";
 	private static final String FEHLER_URL = "fehler.xhtml";
+	private static final String LOGIN_URL = "login.xhtml";
 	private static final String UEBUNGSAUSWAHL_URL = "uebungsauswahl.xhtml";
 	private static final String KRAFTWERT_ERSTELLEN_URL = "erstellen.xhtml";
 
 	public String zurStartseite()
 	{
-		return "/Powerlifting";
+		return STARTSEITE_URL;
 	}
 
 	public String zurFehlerseite(final Fehlermeldung fehlermeldung)
 	{
 		return parametrisiereUrl(FEHLER_URL, Parameter.fromFehlermeldung(fehlermeldung));
+	}
+
+	public String zurLoginSeite(final Fehlermeldung fehlermeldung)
+	{
+		return parametrisiereUrl(LOGIN_URL, Parameter.fromFehlermeldung(fehlermeldung));
 	}
 
 	public String zurUebungsauswahlSeite(final String benutzerId)

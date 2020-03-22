@@ -1,5 +1,6 @@
 package de.justinharder.powerlifting.model.services;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,8 +11,10 @@ import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.BelastungsfaktorRepository;
 
-public class BelastungsfaktorService
+public class BelastungsfaktorService implements Serializable
 {
+	private static final long serialVersionUID = 1798559648180042690L;
+
 	private final BelastungsfaktorRepository belastungsfaktorRepository;
 
 	@Inject

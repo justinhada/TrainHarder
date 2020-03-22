@@ -19,6 +19,8 @@ import lombok.Getter;
 @SessionScoped
 public class KraftwertController extends Controller
 {
+	private static final long serialVersionUID = -2503601527239164789L;
+
 	private static final String KRAFTWERT_ID = "kraftwertId";
 
 	private final KraftwertService kraftwertService;
@@ -39,6 +41,7 @@ public class KraftwertController extends Controller
 		return kraftwertService.ermittleAlle();
 	}
 
+	// TODO: Benutzer rausnehmen, keine Businesslogik in Controller
 	public List<KraftwertEintrag> getKraftwerteZuBenutzer(final Benutzer benutzer)
 	{
 		return kraftwertService.ermittleAlleZuBenutzer(benutzer);

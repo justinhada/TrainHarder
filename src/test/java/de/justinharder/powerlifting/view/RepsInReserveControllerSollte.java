@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeRepsInReserveException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.powerlifting.model.domain.exceptions.UngueltigesMaximumException;
-import de.justinharder.powerlifting.model.services.RepsInReserveRechner;
+import de.justinharder.powerlifting.model.services.berechner.RepsInReserveRechner;
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 

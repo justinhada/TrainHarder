@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting.model.services;
+package de.justinharder.powerlifting.model.services.berechner;
 
 import de.justinharder.powerlifting.model.domain.Konstanten;
 

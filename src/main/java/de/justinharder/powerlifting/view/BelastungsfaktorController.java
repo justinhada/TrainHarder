@@ -18,6 +18,8 @@ import lombok.Getter;
 @SessionScoped
 public class BelastungsfaktorController extends Controller
 {
+	private static final long serialVersionUID = -2772258673635658073L;
+
 	private final BelastungsfaktorService belastungsfaktorService;
 	private final BelastungsfaktorEintrag belastungsfaktorEintrag = new BelastungsfaktorEintrag();
 

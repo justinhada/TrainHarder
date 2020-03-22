@@ -32,8 +32,10 @@ import lombok.NoArgsConstructor;
 public class Testdaten
 {
 	public static final Anmeldedaten ANMELDEDATEN_JUSTIN = new Anmeldedaten();
+	public static final Anmeldedaten ANMELDEDATEN_EDUARD = new Anmeldedaten();
 
 	public static final AnmeldedatenEintrag ANMELDEDATENEINTRAG_JUSTIN = new AnmeldedatenEintrag();
+	public static final AnmeldedatenEintrag ANMELDEDATENEINTRAG_EDUARD = new AnmeldedatenEintrag();
 
 	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
@@ -88,10 +90,21 @@ public class Testdaten
 		ANMELDEDATEN_JUSTIN.setPasswort("JustinHarder98");
 		ANMELDEDATEN_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
+		ANMELDEDATEN_EDUARD.setId(0);
+		ANMELDEDATEN_EDUARD.setMail("mail@eduard.de");
+		ANMELDEDATEN_EDUARD.setBenutzername("eduard");
+		ANMELDEDATEN_EDUARD.setPasswort("Eduard98");
+		ANMELDEDATEN_EDUARD.setBenutzer(BENUTZER_EDUARD);
+
 		ANMELDEDATENEINTRAG_JUSTIN.setId(ANMELDEDATEN_JUSTIN.getId());
 		ANMELDEDATENEINTRAG_JUSTIN.setMail(ANMELDEDATEN_JUSTIN.getMail());
 		ANMELDEDATENEINTRAG_JUSTIN.setBenutzername(ANMELDEDATEN_JUSTIN.getBenutzername());
 		ANMELDEDATENEINTRAG_JUSTIN.setPasswort(ANMELDEDATEN_JUSTIN.getPasswort());
+
+		ANMELDEDATENEINTRAG_EDUARD.setId(ANMELDEDATEN_EDUARD.getId());
+		ANMELDEDATENEINTRAG_EDUARD.setMail(ANMELDEDATEN_EDUARD.getMail());
+		ANMELDEDATENEINTRAG_EDUARD.setBenutzername(ANMELDEDATEN_EDUARD.getBenutzername());
+		ANMELDEDATENEINTRAG_EDUARD.setPasswort(ANMELDEDATEN_EDUARD.getPasswort());
 
 		KOERPERMESSUNG_JUSTIN.setId(0);
 		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);

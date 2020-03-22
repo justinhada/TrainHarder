@@ -3,13 +3,21 @@ package de.justinharder.powerlifting.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
+	public JpaBenutzerRepository(final EntityManager entityManager)
+	{
+		super(entityManager);
+	}
+
 	@Override
 	public List<Benutzer> ermittleAlle()
 	{
