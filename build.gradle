@@ -19,7 +19,7 @@ dependencies {
     		"org.primefaces:primefaces:7.0",
     		"javax.servlet:javax.servlet-api:3.1.0",
     		"javax:javaee-api:8.0",
-    		"org.projectlombok:lombok:1.18.10",
+    		"org.projectlombok:lombok:1.18.12",
     		"javax.servlet:javax.servlet-api:3.1.0",
     		"org.hibernate:hibernate-core:5.4.12.Final",
     		"org.mariadb.jdbc:mariadb-java-client:2.6.0"
