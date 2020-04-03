@@ -97,7 +97,7 @@ public class AnmeldedatenControllerSollte extends ControllerSollte
 
 		sut.getAnmeldedatenEintrag().setMail("mail@eduard.de");
 		sut.getAnmeldedatenEintrag().setBenutzername("eduard");
-		sut.getAnmeldedatenEintrag().setPasswort("Eduard98");
+		sut.getAnmeldedatenEintrag().setPasswort("EduardEduardEduard_98");
 		sut.erstelleAnmeldedaten();
 
 		verify(anmeldedatenService).erstelleAnmeldedaten(anmeldedatenEintrag);

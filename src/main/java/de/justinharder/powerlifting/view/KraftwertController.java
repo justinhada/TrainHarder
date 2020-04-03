@@ -6,7 +6,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
@@ -41,10 +40,9 @@ public class KraftwertController extends Controller
 		return kraftwertService.ermittleAlle();
 	}
 
-	// TODO: Benutzer rausnehmen, keine Businesslogik in Controller
-	public List<KraftwertEintrag> getKraftwerteZuBenutzer(final Benutzer benutzer)
+	public List<KraftwertEintrag> getKraftwerteZuBenutzer(final String benutzerId)
 	{
-		return kraftwertService.ermittleAlleZuBenutzer(benutzer);
+		return kraftwertService.ermittleAlleZuBenutzer(benutzerId);
 	}
 
 	public KraftwertEintrag getKraftwertZuId() throws KraftwertNichtGefundenException

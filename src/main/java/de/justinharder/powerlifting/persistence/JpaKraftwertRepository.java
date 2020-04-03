@@ -1,11 +1,9 @@
 package de.justinharder.powerlifting.persistence;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.repository.KraftwertRepository;
 
@@ -18,12 +16,14 @@ public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
-	public List<Kraftwert> ermittleAlleZuBenutzer(final Benutzer benutzer)
+	public List<Kraftwert> ermittleAlleZuBenutzer(final int benutzerId)
 	{
-		return ermittleAlle()
-			.stream()
-			.filter(kraftwert -> kraftwert.getBenutzer().equals(benutzer))
-			.collect(Collectors.toList());
+		final var criteriaBuilder = entityManager.getCriteriaBuilder();
+		final var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
+		final var root = criteriaQuery.from(Kraftwert.class);
+		final var joinBenutzer = root.join("Benutzer");
+		criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("ID"), benutzerId));
+		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override

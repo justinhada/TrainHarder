@@ -3,6 +3,7 @@ package de.justinharder.powerlifting.model.repository;
 import java.util.List;
 
 import de.justinharder.powerlifting.model.domain.Anmeldedaten;
+import de.justinharder.powerlifting.model.domain.exceptions.AnmeldedatenNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
 
 public interface AnmeldedatenRepository
@@ -11,11 +12,13 @@ public interface AnmeldedatenRepository
 
 	Anmeldedaten ermittleZuId(final int id);
 
-	Anmeldedaten ermittleZuBenutzer(final int benutzerId);
+	Anmeldedaten ermittleZuBenutzer(final int benutzerId) throws AnmeldedatenNichtGefundenException;
 
 	void erstelleAnmeldedaten(Anmeldedaten anmeldedaten);
 
 	Anmeldedaten checkLogin(String mail, String passwort) throws LoginException;
 
 	boolean checkMail(String mail);
+
+	boolean checkBenutzername(String benutzername);
 }

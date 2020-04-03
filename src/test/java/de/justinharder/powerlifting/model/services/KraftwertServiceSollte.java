@@ -2,7 +2,6 @@ package de.justinharder.powerlifting.model.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -46,7 +45,7 @@ public class KraftwertServiceSollte
 
 	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(final List<Kraftwert> kraftwerte)
 	{
-		when(kraftwertRepository.ermittleAlleZuBenutzer(any(Benutzer.class))).thenReturn(kraftwerte);
+		when(kraftwertRepository.ermittleAlleZuBenutzer(anyInt())).thenReturn(kraftwerte);
 	}
 
 	private void angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(final Kraftwert kraftwert)
@@ -102,7 +101,7 @@ public class KraftwertServiceSollte
 			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(kraftwerte);
 
-		final var ergebnis = sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN);
+		final var ergebnis = sut.ermittleAlleZuBenutzer("0");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

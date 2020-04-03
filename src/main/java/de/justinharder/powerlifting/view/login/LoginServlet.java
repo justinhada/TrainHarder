@@ -46,7 +46,6 @@ public class LoginServlet extends HttpServlet
 		catch (final LoginException e)
 		{
 			final var fehlermeldung = Fehlermeldung.LOGIN_FEHLGESCHLAGEN.getNachricht();
-			System.out.println(fehlermeldung);
 			request.setAttribute("fehlermeldung", fehlermeldung);
 		}
 

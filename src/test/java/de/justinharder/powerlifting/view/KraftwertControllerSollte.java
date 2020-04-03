@@ -1,7 +1,6 @@
 package de.justinharder.powerlifting.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.Maps;
 
-import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.powerlifting.model.services.KraftwertService;
@@ -43,7 +41,7 @@ public class KraftwertControllerSollte extends ControllerSollte
 	private void angenommenDerKraftwertServiceGibtAlleKraftwertEintraegeZuBenutzerZurueck(
 		final List<KraftwertEintrag> erwartet)
 	{
-		when(kraftwertService.ermittleAlleZuBenutzer(any(Benutzer.class))).thenReturn(erwartet);
+		when(kraftwertService.ermittleAlleZuBenutzer(anyString())).thenReturn(erwartet);
 	}
 
 	private void angenommenDerKraftwertServiceGibtEinenKraftwertMithilfeDerIdZurueck(final KraftwertEintrag erwartet)
@@ -108,7 +106,7 @@ public class KraftwertControllerSollte extends ControllerSollte
 			Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerKraftwertServiceGibtAlleKraftwertEintraegeZuBenutzerZurueck(erwartet);
 
-		final var ergebnis = sut.getKraftwerteZuBenutzer(Testdaten.BENUTZER_JUSTIN);
+		final var ergebnis = sut.getKraftwerteZuBenutzer("0");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

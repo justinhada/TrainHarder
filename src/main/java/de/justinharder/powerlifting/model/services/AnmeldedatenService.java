@@ -9,9 +9,12 @@ import javax.inject.Inject;
 import de.justinharder.powerlifting.model.domain.Anmeldedaten;
 import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.AnmeldedatenNichtGefundenException;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
 import de.justinharder.powerlifting.model.domain.exceptions.MailBereitsRegistriertException;
+import de.justinharder.powerlifting.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.powerlifting.model.repository.AnmeldedatenRepository;
+import de.justinharder.powerlifting.model.services.registrierung.PasswortChecker;
 
 public class AnmeldedatenService implements Serializable
 {
@@ -62,15 +65,25 @@ public class AnmeldedatenService implements Serializable
 	}
 
 	public void registriereBenutzer(final AnmeldedatenEintrag anmeldedatenEintrag)
-		throws MailBereitsRegistriertException
+		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
 	{
 		if (anmeldedatenRepository.checkMail(anmeldedatenEintrag.getMail()))
 		{
 			throw new MailBereitsRegistriertException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!");
 		}
 
-		// -> Benutzername checken, ob schon vorhanden (Fehler: Benutzername ist leider schon vergeben!)
+		if (anmeldedatenRepository.checkBenutzername(anmeldedatenEintrag.getBenutzername()))
+		{
+			throw new BenutzernameVergebenException("Dieser Benutzername ist leider schon vergeben!");
+		}
+
 		//    -> Passwortcheck soll "live" sein mithilfe von JavaScript (Passwortrichtlinien festlegen, in ReadME festhalten)
+		if (!new PasswortChecker().check(anmeldedatenEintrag.getPasswort()))
+		{
+			throw new PasswortNichtSicherException("Das Passwort ist nicht sicher genug!");
+		}
+
+		erstelleAnmeldedaten(anmeldedatenEintrag);
 	}
 
 	public AnmeldedatenEintrag checkLogin(final String mail, final String passwort) throws LoginException

@@ -42,12 +42,12 @@ public class UebungController extends Controller
 		return uebungService.ermittleAlle();
 	}
 
-	public void getUebungenZuUebungsart(final String uebungsart)
+	public void getUebungenZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
 		uebungEintraege = uebungService.ermittleZuUebungsart(uebungsart);
 	}
 
-	public void getUebungenZuUebungskategorie(final String uebungskategorie)
+	public void getUebungenZuUebungskategorie(final String uebungskategorie) throws UebungNichtGefundenException
 	{
 		uebungEintraege = uebungService.ermittleZuUebungskategorie(uebungskategorie);
 	}

@@ -1,9 +1,11 @@
 package de.justinharder.powerlifting.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import de.justinharder.powerlifting.model.domain.Entitaet;
 import lombok.AllArgsConstructor;
@@ -31,5 +33,15 @@ public class JpaRepository<T extends Entitaet>
 	protected void erstelleEntitaet(final T entitaet)
 	{
 		entityManager.persist(entitaet);
+	}
+
+	protected TypedQuery<T> erstelleQuery(final Class<T> clazz, final Map<String, Object> bedingungen)
+	{
+		final var criteriaBuilder = entityManager.getCriteriaBuilder();
+		final var criteriaQuery = criteriaBuilder.createQuery(clazz);
+		final var root = criteriaQuery.from(clazz);
+		bedingungen.forEach((spalte, wert) -> criteriaQuery.select(root)
+			.where(criteriaBuilder.equal(root.get(spalte), wert)));
+		return entityManager.createQuery(criteriaQuery);
 	}
 }

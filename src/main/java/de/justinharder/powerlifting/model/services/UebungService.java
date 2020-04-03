@@ -30,13 +30,14 @@ public class UebungService implements Serializable
 		return Konvertierer.konvertiereAlleZuUebungEintrag(uebungRepository.ermittleAlle());
 	}
 
-	public List<UebungEintrag> ermittleZuUebungsart(final String uebungsart)
+	public List<UebungEintrag> ermittleZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
 		return Konvertierer.konvertiereAlleZuUebungEintrag(
 			uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
 	}
 
 	public List<UebungEintrag> ermittleZuUebungskategorie(final String uebungskategorie)
+		throws UebungNichtGefundenException
 	{
 		return Konvertierer.konvertiereAlleZuUebungEintrag(
 			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));

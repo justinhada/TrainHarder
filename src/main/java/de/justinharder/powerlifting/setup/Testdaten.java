@@ -87,13 +87,13 @@ public class Testdaten
 		ANMELDEDATEN_JUSTIN.setId(0);
 		ANMELDEDATEN_JUSTIN.setMail("mail@justinharder.de");
 		ANMELDEDATEN_JUSTIN.setBenutzername("harder");
-		ANMELDEDATEN_JUSTIN.setPasswort("JustinHarder98");
+		ANMELDEDATEN_JUSTIN.setPasswort("JustinHarder#98");
 		ANMELDEDATEN_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
 		ANMELDEDATEN_EDUARD.setId(0);
 		ANMELDEDATEN_EDUARD.setMail("mail@eduard.de");
 		ANMELDEDATEN_EDUARD.setBenutzername("eduard");
-		ANMELDEDATEN_EDUARD.setPasswort("Eduard98");
+		ANMELDEDATEN_EDUARD.setPasswort("EduardEduardEduard_98");
 		ANMELDEDATEN_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
 		ANMELDEDATENEINTRAG_JUSTIN.setId(ANMELDEDATEN_JUSTIN.getId());

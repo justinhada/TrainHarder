@@ -39,11 +39,13 @@ public class UebungServiceSollte
 	}
 
 	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(final List<Uebung> uebungen)
+		throws UebungNichtGefundenException
 	{
 		when(uebungRepository.ermittleZuUebungsart(any(Uebungsart.class))).thenReturn(uebungen);
 	}
 
 	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(final List<Uebung> uebungen)
+		throws UebungNichtGefundenException
 	{
 		when(uebungRepository.ermittleZuUebungskategorie(any(Uebungskategorie.class))).thenReturn(uebungen);
 	}
@@ -79,7 +81,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
-	public void test02()
+	public void test02() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
@@ -98,7 +100,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
-	public void test03()
+	public void test03() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE);
 		final var uebungen = List.of(Testdaten.LOWBAR_KNIEBEUGE);

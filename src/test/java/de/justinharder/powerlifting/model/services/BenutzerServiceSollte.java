@@ -47,11 +47,12 @@ public class BenutzerServiceSollte
 	}
 
 	private void angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(final List<Benutzer> alleBenutzer)
+		throws BenutzerNichtGefundenException
 	{
 		when(benutzerRepository.ermittleAlleZuNachname(anyString())).thenReturn(alleBenutzer);
 	}
 
-	private void angenommenDasBenutzerRepositoryGibtNullZuNachnamenZurueck()
+	private void angenommenDasBenutzerRepositoryGibtNullZuNachnamenZurueck() throws BenutzerNichtGefundenException
 	{
 		angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(null);
 	}
@@ -108,7 +109,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn List von Benutzern zu Nachname ermittelt wird, aber keine existieren")
-	public void test05()
+	public void test05() throws BenutzerNichtGefundenException
 	{
 		angenommenDasBenutzerRepositoryGibtNullZuNachnamenZurueck();
 

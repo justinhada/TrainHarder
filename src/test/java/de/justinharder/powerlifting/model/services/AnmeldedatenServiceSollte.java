@@ -3,6 +3,7 @@ package de.justinharder.powerlifting.model.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,7 +15,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.Anmeldedaten;
+import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
 import de.justinharder.powerlifting.model.domain.exceptions.AnmeldedatenNichtGefundenException;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
+import de.justinharder.powerlifting.model.domain.exceptions.MailBereitsRegistriertException;
+import de.justinharder.powerlifting.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.powerlifting.model.repository.AnmeldedatenRepository;
 import de.justinharder.powerlifting.setup.Testdaten;
 
@@ -47,13 +52,25 @@ public class AnmeldedatenServiceSollte
 	}
 
 	private void angenommenDasAnmeldedatenRepositoryGibtAnmeldedatenZuBenutzerZurueck(final Anmeldedaten anmeldedaten)
+		throws AnmeldedatenNichtGefundenException
 	{
 		when(anmeldedatenRepository.ermittleZuBenutzer(anyInt())).thenReturn(anmeldedaten);
 	}
 
 	private void angenommenDasAnmeldedatenRepositoryGibtNullZuBenutzerIdZurueck()
+		throws AnmeldedatenNichtGefundenException
 	{
 		angenommenDasAnmeldedatenRepositoryGibtAnmeldedatenZuBenutzerZurueck(null);
+	}
+
+	private void angenommenDasAnmeldedatenRepositoryChecktMail(final boolean erwartet)
+	{
+		when(anmeldedatenRepository.checkMail(anyString())).thenReturn(erwartet);
+	}
+
+	private void angenommenDasAnmeldedatenRepositoryChecktBenutzername(final boolean erwartet)
+	{
+		when(anmeldedatenRepository.checkBenutzername(anyString())).thenReturn(erwartet);
 	}
 
 	@Test
@@ -95,7 +112,7 @@ public class AnmeldedatenServiceSollte
 
 	@Test
 	@DisplayName("AnmeldedatenNichtGefundenException werfen, wenn BenutzerID zu keinen Anmeldedaten gehört")
-	public void test04()
+	public void test04() throws AnmeldedatenNichtGefundenException
 	{
 		angenommenDasAnmeldedatenRepositoryGibtNullZuBenutzerIdZurueck();
 
@@ -128,5 +145,60 @@ public class AnmeldedatenServiceSollte
 		sut.erstelleAnmeldedaten(anmeldedatenEintrag);
 
 		verify(anmeldedatenRepository).erstelleAnmeldedaten(anmeldedaten);
+	}
+
+	@Test
+	@DisplayName("MailBereitsRegistriertException werfen, wenn eine E-Mail-Adresse sich registriert")
+	public void test07()
+	{
+		final var erwartet = "Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!";
+		angenommenDasAnmeldedatenRepositoryChecktMail(true);
+
+		final var exception = assertThrows(MailBereitsRegistriertException.class,
+			() -> sut.registriereBenutzer(Testdaten.ANMELDEDATENEINTRAG_JUSTIN));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("BenutzernameBereitsVergebenException werfen, wenn ein Benutzername schon vergeben ist")
+	public void test08()
+	{
+		final var erwartet = "Dieser Benutzername ist leider schon vergeben!";
+		angenommenDasAnmeldedatenRepositoryChecktMail(false);
+		angenommenDasAnmeldedatenRepositoryChecktBenutzername(true);
+
+		final var exception = assertThrows(BenutzernameVergebenException.class,
+			() -> sut.registriereBenutzer(Testdaten.ANMELDEDATENEINTRAG_JUSTIN));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("PasswortNichtSicherException werfen, wenn das Passwort nicht sicher ist")
+	public void test09()
+	{
+		final var erwartet = "Das Passwort ist nicht sicher genug!";
+		angenommenDasAnmeldedatenRepositoryChecktMail(false);
+		angenommenDasAnmeldedatenRepositoryChecktBenutzername(false);
+
+		final var exception = assertThrows(PasswortNichtSicherException.class,
+			() -> sut.registriereBenutzer(
+				new AnmeldedatenEintrag(1, "mail@unsicherespasswort.de", "IchHabeEinUnsicheresPasswort", "unsicher")));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("einen Benutzer registrieren")
+	public void test10()
+		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+	{
+		angenommenDasAnmeldedatenRepositoryChecktMail(false);
+		angenommenDasAnmeldedatenRepositoryChecktBenutzername(false);
+
+		sut.registriereBenutzer(Testdaten.ANMELDEDATENEINTRAG_JUSTIN);
+
+		verify(anmeldedatenRepository).erstelleAnmeldedaten(Testdaten.ANMELDEDATEN_JUSTIN);
 	}
 }

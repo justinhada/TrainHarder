@@ -52,7 +52,7 @@ public class AnmeldedatenSollte
 			() -> assertThat(sut.getId()).isEqualTo(0),
 			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(sut.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(sut.getPasswort()).isEqualTo("JustinHarder#98"),
 			() -> assertThat(sut.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 

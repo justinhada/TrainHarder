@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
@@ -38,9 +37,10 @@ public class KraftwertService implements Serializable
 		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlle());
 	}
 
-	public List<KraftwertEintrag> ermittleAlleZuBenutzer(final Benutzer benutzer)
+	public List<KraftwertEintrag> ermittleAlleZuBenutzer(final String benutzerId)
 	{
-		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlleZuBenutzer(benutzer));
+		return Konvertierer
+			.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlleZuBenutzer(Integer.valueOf(benutzerId)));
 	}
 
 	public KraftwertEintrag ermittleZuId(final String id) throws KraftwertNichtGefundenException

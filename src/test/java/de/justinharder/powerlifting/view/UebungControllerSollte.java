@@ -37,13 +37,13 @@ public class UebungControllerSollte extends ControllerSollte
 	}
 
 	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(
-		final List<UebungEintrag> erwartet)
+		final List<UebungEintrag> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungsart(anyString())).thenReturn(erwartet);
 	}
 
 	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(
-		final List<UebungEintrag> erwartet)
+		final List<UebungEintrag> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungskategorie(anyString())).thenReturn(erwartet);
 	}
@@ -71,7 +71,7 @@ public class UebungControllerSollte extends ControllerSollte
 
 	@Test
 	@DisplayName("eine Liste aller UebungEinträge einer Uebungsart zurückgeben")
-	public void test02()
+	public void test02() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
@@ -87,7 +87,7 @@ public class UebungControllerSollte extends ControllerSollte
 
 	@Test
 	@DisplayName("eine Liste aller UebungEinträge einer Uebungskategorie zurückgeben")
-	public void test03()
+	public void test03() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN);
 		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(erwartet);

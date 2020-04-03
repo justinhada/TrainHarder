@@ -1,12 +1,14 @@
 package de.justinharder.powerlifting.persistence;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.powerlifting.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
 
@@ -38,11 +40,17 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	public List<Benutzer> ermittleAlleZuNachname(final String nachname)
+	public List<Benutzer> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
-		return super.ermittleAlle(Benutzer.class)
-			.stream()
-			.filter(benutzer -> benutzer.getNachname().equalsIgnoreCase(nachname))
-			.collect(Collectors.toList());
+		try
+		{
+			return super.erstelleQuery(Benutzer.class, Map.of("nachname", nachname))
+				.getResultList();
+		}
+		catch (final NoResultException e)
+		{
+			throw new BenutzerNichtGefundenException(
+				"Es existiert kein Benutzer mit dem Nachnamen \"" + nachname + "\"!");
+		}
 	}
 }

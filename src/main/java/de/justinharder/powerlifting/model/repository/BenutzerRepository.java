@@ -3,6 +3,7 @@ package de.justinharder.powerlifting.model.repository;
 import java.util.List;
 
 import de.justinharder.powerlifting.model.domain.Benutzer;
+import de.justinharder.powerlifting.model.domain.exceptions.BenutzerNichtGefundenException;
 
 public interface BenutzerRepository
 {
@@ -12,5 +13,5 @@ public interface BenutzerRepository
 
 	void erstelleBenutzer(final Benutzer benutzer);
 
-	List<Benutzer> ermittleAlleZuNachname(final String nachname);
+	List<Benutzer> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException;
 }
