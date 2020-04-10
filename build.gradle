@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.apache.commons:commons-math3:3.6.1'
+    api "org.apache.commons:commons-math3:3.6.1"
 
     implementation "com.google.guava:guava:28.0-jre",
     		"javax.xml.bind:jaxb-api:2.3.1",
@@ -22,7 +22,8 @@ dependencies {
     		"org.projectlombok:lombok:1.18.12",
     		"javax.servlet:javax.servlet-api:3.1.0",
     		"org.hibernate:hibernate-core:5.4.12.Final",
-    		"org.mariadb.jdbc:mariadb-java-client:2.6.0"
+    		"org.mariadb.jdbc:mariadb-java-client:2.6.0",
+    		"javax.mail:javax.mail-api:1.6.2"
     
     testImplementation "org.mockito:mockito-core:2.7.19",
     		"org.seleniumhq.selenium:selenium-java:3.3.1",
@@ -30,10 +31,10 @@ dependencies {
     		"com.google.code.bean-matchers:bean-matchers:0.12",
     		"org.junit.jupiter:junit-jupiter-api:5.5.2"
     		
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.2"
 
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compileOnly "org.projectlombok:lombok:1.18.12"
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
 }
 
 eclipse {
