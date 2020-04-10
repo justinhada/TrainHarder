@@ -8,12 +8,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Powerlifting</title>
+	<title>Diätrechner – Powerlifting</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
+	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
 </h:head>
 
@@ -44,12 +45,36 @@
 	</header>
 
 	<div class="center-container big-container">
-		<a class="start-link" href="/Powerlifting/rir/rechner.xhtml"
-			title="RIR-Rechner">RIR-Rechner</a> <br /> <a class="start-link"
-			href="/Powerlifting/benutzer/liste.xhtml" title="Rangliste">Rangliste</a>
-		<br /> <a class="start-link" href="/Powerlifting/uebung/liste.xhtml"
-			title="Übungsarchiv">Übungsarchiv</a> <br /> <a class="start-link"
-			href="/Powerlifting/diaet/rechner.xhtml" title="Diätrechner">Diätrechner</a>
+		<div class="wrapper">
+			<h1>Diätrechner</h1>
+			<h:form class="form">
+				<span class="text-central text-height">Dein aktuelles
+					Körpergewicht</span>
+				<h:panelGrid columns="1">
+					<p:outputLabel id="koerpergewichtIst"
+						value="#{diaetController.koerpergewichtIst} kg" />
+					<p:slider for="koerpergewichtIst" />
+				</h:panelGrid>
+				<br />
+				<span class="text-central text-height">Dein aktueller
+					Körperfettanteil</span>
+				<h:panelGrid columns="1">
+					<p:outputLabel id="koerperfettAnteilIst"
+						value="#{diaetController.koerperfettAnteilIst} %" />
+					<p:slider for="koerperfettAnteilIst" />
+				</h:panelGrid>
+				<br />
+				<span class="text-central text-height">Das Körperfettziel</span>
+				<h:panelGrid columns="1">
+					<p:outputLabel id="koerperfettAnteilSoll"
+						value="#{diaetController.koerperfettAnteilSoll} %" />
+					<p:slider for="koerperfettAnteilSoll" />
+				</h:panelGrid>
+				<br />
+				<h:commandButton styleClass="btn btn-secondary active"
+					action="#{diaetController.getDiaetInWochen()}" value="Berechne" />
+			</h:form>
+		</div>
 	</div>
 
 	<div class="center-container big-container">
