@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Anmeldedaten extends Entitaet
+public class Authentifizierung extends Entitaet
 {
 	private static final long serialVersionUID = 1607570632256351984L;
 
@@ -29,7 +29,7 @@ public class Anmeldedaten extends Entitaet
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Benutzer benutzer;
 
-	public Anmeldedaten(
+	public Authentifizierung(
 		String mail, 
 		String benutzername,
 		String passwort)

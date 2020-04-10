@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import de.justinharder.powerlifting.model.domain.Anmeldedaten;
+import de.justinharder.powerlifting.model.domain.Authentifizierung;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Koerpermessung;
-import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
+import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
@@ -59,7 +59,7 @@ public class BenutzerService implements Serializable
 		return konvertiereAlle(alleBenutzer);
 	}
 
-	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag, final AnmeldedatenEintrag anmeldedatenEintrag)
+	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag, final AuthentifizierungEintrag authentifizierungEintrag)
 	{
 		final var benutzer = new Benutzer(
 			benutzerEintrag.getVorname(),
@@ -72,10 +72,10 @@ public class BenutzerService implements Serializable
 			Stress.fromStressOption(benutzerEintrag.getStress()),
 			Doping.fromDopingOption(benutzerEintrag.getDoping()),
 			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()),
-			new Anmeldedaten(
-				anmeldedatenEintrag.getMail(),
-				anmeldedatenEintrag.getBenutzername(),
-				anmeldedatenEintrag.getPasswort()));
+			new Authentifizierung(
+				authentifizierungEintrag.getMail(),
+				authentifizierungEintrag.getBenutzername(),
+				authentifizierungEintrag.getPasswort()));
 		final var koerpermessung = new Koerpermessung();
 		koerpermessung.setKoerpergewicht(benutzerEintrag.getKoerpergewicht());
 		benutzer.fuegeKoerpermessungHinzu(koerpermessung);

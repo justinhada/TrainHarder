@@ -24,7 +24,7 @@ folgt...
 |JPA-Entity|Beschreibung|
 |-|-|
 |**Benutzer**|Person mit allerlei Attributen, die Auskunft auf sein aktuelles Kraftlevel und das fahrbare Volumen geben.|
-|**Anmeldedaten**|Anmeldedaten gehören zu einem Benutzer. Hier werden Mail, Benutzername und Passwort gespeichert.|
+|**Authentifizierung**|Eine Authentifizierung gehört zu einem Benutzer. Hier werden Mail, Benutzername und Passwort gespeichert.|
 |**Koerpermessung**|Benutzer können Körpermessungen anlegen. Hier werden viele Werte zum Körper gespeichert.|
 |**Uebung**|Übung, die in den eigenen Trainingsplan implementiert werden kann. Besitzt Attribute, wie bspw. Kategorie oder Art.|
 |**Belastungsfaktor**|Belastungsfaktor gehört zu einer Übung. Es werden die Belastungswerte auf die Muskelgruppen verteilt.|

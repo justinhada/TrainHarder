@@ -6,57 +6,58 @@ import java.util.Map;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
-import de.justinharder.powerlifting.model.domain.Anmeldedaten;
-import de.justinharder.powerlifting.model.domain.exceptions.AnmeldedatenNichtGefundenException;
+import de.justinharder.powerlifting.model.domain.Authentifizierung;
+import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
-import de.justinharder.powerlifting.model.repository.AnmeldedatenRepository;
+import de.justinharder.powerlifting.model.repository.AuthentifizierungRepository;
 
-public class JpaAnmeldedatenRepository extends JpaRepository<Anmeldedaten> implements AnmeldedatenRepository
+public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizierung>
+	implements AuthentifizierungRepository
 {
 	@Override
-	public List<Anmeldedaten> ermittleAlle()
+	public List<Authentifizierung> ermittleAlle()
 	{
-		return super.ermittleAlle(Anmeldedaten.class);
+		return super.ermittleAlle(Authentifizierung.class);
 	}
 
 	@Override
-	public Anmeldedaten ermittleZuId(final int id)
+	public Authentifizierung ermittleZuId(final int id)
 	{
-		return super.ermittleZuId(Anmeldedaten.class, id);
+		return super.ermittleZuId(Authentifizierung.class, id);
 	}
 
 	@Override
-	public Anmeldedaten ermittleZuBenutzer(final int benutzerId) throws AnmeldedatenNichtGefundenException
+	public Authentifizierung ermittleZuBenutzer(final int benutzerId) throws AuthentifizierungNichtGefundenException
 	{
 		try
 		{
 			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Anmeldedaten.class);
-			final var root = criteriaQuery.from(Anmeldedaten.class);
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
 			final var joinBenutzer = root.join("Benutzer");
 			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("ID"), benutzerId));
 			return entityManager.createQuery(criteriaQuery).getSingleResult();
 		}
 		catch (final NoResultException e)
 		{
-			throw new AnmeldedatenNichtGefundenException(
-				"Die Anmeldedaten zur BenutzerID \"" + benutzerId + "\" existieren nicht!");
+			throw new AuthentifizierungNichtGefundenException(
+				"Die Authentifizierung zur BenutzerID \"" + benutzerId + "\" existiert nicht!");
 		}
 	}
 
 	@Override
 	@Transactional
-	public void erstelleAnmeldedaten(final Anmeldedaten anmeldedaten)
+	public void erstelleAuthentifizierung(final Authentifizierung authentifizierung)
 	{
-		super.erstelleEntitaet(anmeldedaten);
+		super.erstelleEntitaet(authentifizierung);
 	}
 
 	@Override
-	public Anmeldedaten checkLogin(final String mail, final String passwort) throws LoginException
+	public Authentifizierung checkLogin(final String mail, final String passwort) throws LoginException
 	{
 		try
 		{
-			return super.erstelleQuery(Anmeldedaten.class, Map.of("mail", mail, "passwort", passwort))
+			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail, "passwort", passwort))
 				.getSingleResult();
 		}
 		catch (final NoResultException e)
@@ -70,7 +71,7 @@ public class JpaAnmeldedatenRepository extends JpaRepository<Anmeldedaten> imple
 	{
 		try
 		{
-			return super.erstelleQuery(Anmeldedaten.class, Map.of("mail", mail))
+			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
 				.getSingleResult()
 				.getMail()
 				.equals(mail);
@@ -86,7 +87,7 @@ public class JpaAnmeldedatenRepository extends JpaRepository<Anmeldedaten> imple
 	{
 		try
 		{
-			return super.erstelleQuery(Anmeldedaten.class, Map.of("benutzername", benutzername))
+			return super.erstelleQuery(Authentifizierung.class, Map.of("benutzername", benutzername))
 				.getSingleResult()
 				.getMail()
 				.equals(benutzername);

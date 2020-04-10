@@ -60,7 +60,7 @@ public class Benutzer extends Entitaet
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
-	private Anmeldedaten anmeldedaten;
+	private Authentifizierung authentifizierung;
 	@Setter(AccessLevel.NONE) 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
@@ -79,7 +79,7 @@ public class Benutzer extends Entitaet
 		final Stress stress,
 		final Doping doping,
 		final Regenerationsfaehigkeit regenerationsfaehigkeit,
-		final Anmeldedaten anmeldedaten)
+		final Authentifizierung authentifizierung)
 	{
 		this.vorname = vorname;
 		this.nachname = nachname;
@@ -91,15 +91,15 @@ public class Benutzer extends Entitaet
 		this.stress = stress;
 		this.doping = doping;
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
-		this.anmeldedaten = anmeldedaten;
+		this.authentifizierung = authentifizierung;
 
-		anmeldedaten.setBenutzer(this);
+		authentifizierung.setBenutzer(this);
 	}
 
-	public void setAnmeldedaten(Anmeldedaten anmeldedaten)
+	public void setAuthentifizierung(Authentifizierung authentifizierung)
 	{
-		this.anmeldedaten = anmeldedaten;
-		anmeldedaten.setBenutzer(this);
+		this.authentifizierung = authentifizierung;
+		authentifizierung.setBenutzer(this);
 	}
 
 	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)

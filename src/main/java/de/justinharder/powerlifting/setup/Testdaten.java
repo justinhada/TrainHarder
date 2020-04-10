@@ -3,13 +3,13 @@ package de.justinharder.powerlifting.setup;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import de.justinharder.powerlifting.model.domain.Anmeldedaten;
+import de.justinharder.powerlifting.model.domain.Authentifizierung;
 import de.justinharder.powerlifting.model.domain.Belastungsfaktor;
 import de.justinharder.powerlifting.model.domain.Benutzer;
 import de.justinharder.powerlifting.model.domain.Koerpermessung;
 import de.justinharder.powerlifting.model.domain.Kraftwert;
 import de.justinharder.powerlifting.model.domain.Uebung;
-import de.justinharder.powerlifting.model.domain.dto.AnmeldedatenEintrag;
+import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
@@ -31,11 +31,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
-	public static final Anmeldedaten ANMELDEDATEN_JUSTIN = new Anmeldedaten();
-	public static final Anmeldedaten ANMELDEDATEN_EDUARD = new Anmeldedaten();
+	public static final Authentifizierung AUTHENTIFIZIERUNG_JUSTIN = new Authentifizierung();
+	public static final Authentifizierung AUTHENTIFIZIERUNG_EDUARD = new Authentifizierung();
 
-	public static final AnmeldedatenEintrag ANMELDEDATENEINTRAG_JUSTIN = new AnmeldedatenEintrag();
-	public static final AnmeldedatenEintrag ANMELDEDATENEINTRAG_EDUARD = new AnmeldedatenEintrag();
+	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_JUSTIN = new AuthentifizierungEintrag();
+	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_EDUARD = new AuthentifizierungEintrag();
 
 	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
@@ -84,27 +84,29 @@ public class Testdaten
 
 	static
 	{
-		ANMELDEDATEN_JUSTIN.setId(0);
-		ANMELDEDATEN_JUSTIN.setMail("mail@justinharder.de");
-		ANMELDEDATEN_JUSTIN.setBenutzername("harder");
-		ANMELDEDATEN_JUSTIN.setPasswort("JustinHarder#98");
-		ANMELDEDATEN_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
+		AUTHENTIFIZIERUNG_JUSTIN.setId(0);
+		AUTHENTIFIZIERUNG_JUSTIN.setMail("mail@justinharder.de");
+		AUTHENTIFIZIERUNG_JUSTIN.setBenutzername("harder");
+		AUTHENTIFIZIERUNG_JUSTIN.setPasswort("JustinHarder#98");
+		AUTHENTIFIZIERUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
-		ANMELDEDATEN_EDUARD.setId(0);
-		ANMELDEDATEN_EDUARD.setMail("mail@eduard.de");
-		ANMELDEDATEN_EDUARD.setBenutzername("eduard");
-		ANMELDEDATEN_EDUARD.setPasswort("EduardEduardEduard_98");
-		ANMELDEDATEN_EDUARD.setBenutzer(BENUTZER_EDUARD);
+		AUTHENTIFIZIERUNG_EDUARD.setId(0);
+		AUTHENTIFIZIERUNG_EDUARD.setMail("mail@eduard.de");
+		AUTHENTIFIZIERUNG_EDUARD.setBenutzername("eduard");
+		AUTHENTIFIZIERUNG_EDUARD.setPasswort("EduardEduardEduard_98");
+		AUTHENTIFIZIERUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
-		ANMELDEDATENEINTRAG_JUSTIN.setId(ANMELDEDATEN_JUSTIN.getId());
-		ANMELDEDATENEINTRAG_JUSTIN.setMail(ANMELDEDATEN_JUSTIN.getMail());
-		ANMELDEDATENEINTRAG_JUSTIN.setBenutzername(ANMELDEDATEN_JUSTIN.getBenutzername());
-		ANMELDEDATENEINTRAG_JUSTIN.setPasswort(ANMELDEDATEN_JUSTIN.getPasswort());
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setId(AUTHENTIFIZIERUNG_JUSTIN.getId());
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setMail(AUTHENTIFIZIERUNG_JUSTIN.getMail());
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setBenutzername(AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setPasswort(AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setPasswortWiederholen(AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
 
-		ANMELDEDATENEINTRAG_EDUARD.setId(ANMELDEDATEN_EDUARD.getId());
-		ANMELDEDATENEINTRAG_EDUARD.setMail(ANMELDEDATEN_EDUARD.getMail());
-		ANMELDEDATENEINTRAG_EDUARD.setBenutzername(ANMELDEDATEN_EDUARD.getBenutzername());
-		ANMELDEDATENEINTRAG_EDUARD.setPasswort(ANMELDEDATEN_EDUARD.getPasswort());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setId(AUTHENTIFIZIERUNG_EDUARD.getId());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setPasswort(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setPasswortWiederholen(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
 
 		KOERPERMESSUNG_JUSTIN.setId(0);
 		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);
@@ -155,7 +157,7 @@ public class Testdaten
 		BENUTZER_JUSTIN.setStress(Stress.MITTELMAESSIG);
 		BENUTZER_JUSTIN.setDoping(Doping.NEIN);
 		BENUTZER_JUSTIN.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
-		BENUTZER_JUSTIN.setAnmeldedaten(ANMELDEDATEN_JUSTIN);
+		BENUTZER_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN);
 
 		BENUTZEREINTRAG_JUSTIN.setId(BENUTZER_JUSTIN.getId());
 		BENUTZEREINTRAG_JUSTIN.setVorname(BENUTZER_JUSTIN.getVorname());

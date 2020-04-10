@@ -11,37 +11,37 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.setup.Testdaten;
 
-public class AnmeldedatenSollte
+public class AuthentifizierungSollte
 {
-	private Anmeldedaten sut;
+	private Authentifizierung sut;
 
 	@BeforeEach
 	public void setup()
 	{
-		sut = Testdaten.ANMELDEDATEN_JUSTIN;
+		sut = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor haben")
 	public void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Anmeldedaten.class, allOf(hasValidBeanConstructor()));
+		org.hamcrest.MatcherAssert.assertThat(Authentifizierung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
 	@DisplayName("einen RequiredArgsCounstructor haben")
 	public void test02()
 	{
-		final var anmeldedaten = new Anmeldedaten(
+		final var authentifizierung = new Authentifizierung(
 			"mail@justinharder.de",
 			"harder",
 			"JustinHarder98");
 
 		assertAll(
-			() -> assertThat(anmeldedaten.getId()).isEqualTo(0),
-			() -> assertThat(anmeldedaten.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(anmeldedaten.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(anmeldedaten.getPasswort()).isEqualTo("JustinHarder98"));
+			() -> assertThat(authentifizierung.getId()).isEqualTo(0),
+			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
+			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"));
 	}
 
 	@Test
@@ -60,19 +60,19 @@ public class AnmeldedatenSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
-		final var anmeldedaten = new Anmeldedaten();
-		anmeldedaten.setId(0);
-		anmeldedaten.setMail("mail@justinharder.de");
-		anmeldedaten.setBenutzername("harder");
-		anmeldedaten.setPasswort("JustinHarder98");
-		anmeldedaten.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+		final var authentifizierung = new Authentifizierung();
+		authentifizierung.setId(0);
+		authentifizierung.setMail("mail@justinharder.de");
+		authentifizierung.setBenutzername("harder");
+		authentifizierung.setPasswort("JustinHarder98");
+		authentifizierung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(anmeldedaten.getId()).isEqualTo(0),
-			() -> assertThat(anmeldedaten.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(anmeldedaten.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(anmeldedaten.getPasswort()).isEqualTo("JustinHarder98"),
-			() -> assertThat(anmeldedaten.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+			() -> assertThat(authentifizierung.getId()).isEqualTo(0),
+			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
+			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(authentifizierung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 
 	@Test
@@ -80,25 +80,25 @@ public class AnmeldedatenSollte
 	@SuppressWarnings("unlikely-arg-type")
 	public void test05()
 	{
-		final var andereAnmeldedaten = new Anmeldedaten();
-		andereAnmeldedaten.setId(1);
+		final var andereAuthentifizierung = new Authentifizierung();
+		andereAuthentifizierung.setId(1);
 
-		final var anmeldedatenMitGleicherId = new Anmeldedaten();
-		anmeldedatenMitGleicherId.setId(0);
+		final var authentifizierungMitGleicherId = new Authentifizierung();
+		authentifizierungMitGleicherId.setId(0);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
 			() -> assertThat(sut.equals(null)).isEqualTo(false),
 			() -> assertThat(sut.equals(Testdaten.BENUTZER_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereAnmeldedaten)).isEqualTo(false),
-			() -> assertThat(sut.equals(anmeldedatenMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAnmeldedaten));
+			() -> assertThat(sut.equals(andereAuthentifizierung)).isEqualTo(false),
+			() -> assertThat(sut.equals(authentifizierungMitGleicherId)).isEqualTo(true),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung));
 	}
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Anmeldedaten{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Authentifizierung{ID=0}");
 	}
 }

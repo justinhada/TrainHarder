@@ -2,21 +2,21 @@ package de.justinharder.powerlifting.model.repository;
 
 import java.util.List;
 
-import de.justinharder.powerlifting.model.domain.Anmeldedaten;
-import de.justinharder.powerlifting.model.domain.exceptions.AnmeldedatenNichtGefundenException;
+import de.justinharder.powerlifting.model.domain.Authentifizierung;
+import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
 
-public interface AnmeldedatenRepository
+public interface AuthentifizierungRepository
 {
-	List<Anmeldedaten> ermittleAlle();
+	List<Authentifizierung> ermittleAlle();
 
-	Anmeldedaten ermittleZuId(final int id);
+	Authentifizierung ermittleZuId(final int id);
 
-	Anmeldedaten ermittleZuBenutzer(final int benutzerId) throws AnmeldedatenNichtGefundenException;
+	Authentifizierung ermittleZuBenutzer(final int benutzerId) throws AuthentifizierungNichtGefundenException;
 
-	void erstelleAnmeldedaten(Anmeldedaten anmeldedaten);
+	void erstelleAuthentifizierung(Authentifizierung authentifizierung);
 
-	Anmeldedaten checkLogin(String mail, String passwort) throws LoginException;
+	Authentifizierung checkLogin(String mail, String passwort) throws LoginException;
 
 	boolean checkMail(String mail);
 

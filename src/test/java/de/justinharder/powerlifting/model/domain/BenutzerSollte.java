@@ -55,7 +55,7 @@ public class BenutzerSollte
 			Stress.MITTELMAESSIG,
 			Doping.NEIN,
 			Regenerationsfaehigkeit.GUT,
-			new Anmeldedaten(
+			new Authentifizierung(
 				"mail@justinharder.de",
 				"harder",
 				"JustinHarder98"));
@@ -73,11 +73,11 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
 			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
 			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAnmeldedaten().getId()).isEqualTo(0),
-			() -> assertThat(benutzer.getAnmeldedaten().getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(benutzer.getAnmeldedaten().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAnmeldedaten().getPasswort()).isEqualTo("JustinHarder98"),
-			() -> assertThat(benutzer.getAnmeldedaten().getBenutzer()).isEqualTo(benutzer));
+			() -> assertThat(benutzer.getAuthentifizierung().getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
+			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
+			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class BenutzerSollte
 			() -> assertThat(sut.getAktuelleKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getAktuellesKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
-			() -> assertThat(sut.getAnmeldedaten()).isEqualTo(Testdaten.ANMELDEDATEN_JUSTIN));
+			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 	}
 
 	@Test
@@ -120,8 +120,8 @@ public class BenutzerSollte
 		benutzer.setStress(Stress.MITTELMAESSIG);
 		benutzer.setDoping(Doping.NEIN);
 		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
-		benutzer.setAnmeldedaten(
-			new Anmeldedaten(
+		benutzer.setAuthentifizierung(
+			new Authentifizierung(
 				"mail@justinharder.de",
 				"harder",
 				"JustinHarder98"));
@@ -139,11 +139,11 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
 			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
 			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAnmeldedaten().getId()).isEqualTo(0),
-			() -> assertThat(benutzer.getAnmeldedaten().getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(benutzer.getAnmeldedaten().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAnmeldedaten().getPasswort()).isEqualTo("JustinHarder98"),
-			() -> assertThat(benutzer.getAnmeldedaten().getBenutzer()).isEqualTo(benutzer));
+			() -> assertThat(benutzer.getAuthentifizierung().getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
+			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
+			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
 	}
 
 	@Test
@@ -160,7 +160,7 @@ public class BenutzerSollte
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
 			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.ANMELDEDATEN_JUSTIN)).isEqualTo(false),
+			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andererBenutzer)).isEqualTo(false),
 			() -> assertThat(sut.equals(benutzerMitGleicherId)).isEqualTo(true),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer));

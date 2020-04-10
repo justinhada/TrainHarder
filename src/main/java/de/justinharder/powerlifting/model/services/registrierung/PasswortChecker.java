@@ -1,5 +1,8 @@
 package de.justinharder.powerlifting.model.services.registrierung;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class PasswortChecker
 {
 	private static final int MINDESTLAENGE = 12;

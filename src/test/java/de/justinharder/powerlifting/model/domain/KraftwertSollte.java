@@ -106,7 +106,7 @@ public class KraftwertSollte
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
 			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.ANMELDEDATEN_JUSTIN)).isEqualTo(false),
+			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andererKraftwert)).isEqualTo(false),
 			() -> assertThat(sut.equals(kraftwertMitGleicherId)).isEqualTo(true),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererKraftwert));

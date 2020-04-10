@@ -25,6 +25,11 @@ public class Parameter
 		return new Parameter("uebungId", id);
 	}
 
+	public static Parameter fromAuthentifizierung(final String id)
+	{
+		return new Parameter("authentifizierungId", id);
+	}
+
 	@Override
 	public String toString()
 	{

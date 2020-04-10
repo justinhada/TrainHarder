@@ -24,31 +24,33 @@
 		<div class="wrapper text-left text-bold text-height">
 			<form method="post">
 				<div class="title">Starte mit Powerlifting</div>
-				<span>Benutzername</span>
-				<br />
+				<span>Benutzername</span> <br />
 				<div class="input-group mb-3">
-					<input type="text" class="form-control"
-						aria-describedby="button-addon2"></input>
+					<h:inputText styleClass="form-control"
+						value="#{authentifizierungController.authentifizierungEintrag.benutzername}"
+						aria-describedby="button-addon2"></h:inputText>
 				</div>
-				<span>E-Mail-Adresse</span>
-				<br />
+				<span>E-Mail-Adresse</span> <br />
 				<div class="input-group mb-3">
-					<input type="text" class="form-control"
-						aria-describedby="button-addon2"></input>
+					<h:inputText styleClass="form-control"
+						value="#{authentifizierungController.authentifizierungEintrag.mail}"
+						aria-describedby="button-addon2">
+						</h:inputText>
 				</div>
-				<span>Passwort</span>
-				<br />
+				<span>Passwort</span> <br />
 				<div class="input-group mb-3">
-					<input type="password" class="form-control"
-						aria-describedby="button-addon2"></input>
+					<h:inputSecret styleClass="form-control"
+						value="#{authentifizierungController.authentifizierungEintrag.passwort}"
+						aria-describedby="button-addon2"></h:inputSecret>
 				</div>
-				<span>Passwort wiederholen</span>
-				<br />
+				<span>Passwort wiederholen</span> <br />
 				<div class="input-group mb-3">
-					<input type="password" class="form-control"
-						aria-describedby="button-addon2"></input>
+					<h:inputSecret styleClass="form-control"
+						value="#{authentifizierungController.authentifizierungEintrag.passwortWiederholen}"
+						aria-describedby="button-addon2"></h:inputSecret>
 				</div>
-				<button class="btn btn-secondary active">Weiter ❯</button>
+				<h:commandButton styleClass="btn btn-secondary active"
+					action="#{authentifizierungController.registriere()}" value="Weiter ❯"/>
 			</form>
 		</div>
 		<br />

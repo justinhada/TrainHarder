@@ -166,7 +166,7 @@ public class KoerpermessungSollte
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
 			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.ANMELDEDATEN_JUSTIN)).isEqualTo(false),
+			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andereKoerpermessung)).isEqualTo(false),
 			() -> assertThat(sut.equals(koerpermessungMitGleicherId)).isEqualTo(true),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessung));

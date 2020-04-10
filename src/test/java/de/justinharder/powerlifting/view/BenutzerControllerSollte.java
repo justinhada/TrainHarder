@@ -65,7 +65,7 @@ public class BenutzerControllerSollte extends ControllerSollte
 	public void test02()
 	{
 		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
-		final var anmeldedatenEintrag = Testdaten.ANMELDEDATENEINTRAG_JUSTIN;
+		final var authentifizierungEintrag = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
 
 		sut.getBenutzerEintrag().setId(0);
 		sut.getBenutzerEintrag().setVorname("Justin");
@@ -81,13 +81,14 @@ public class BenutzerControllerSollte extends ControllerSollte
 		sut.getBenutzerEintrag().setStress("MITTELMAESSIG");
 		sut.getBenutzerEintrag().setDoping("NEIN");
 		sut.getBenutzerEintrag().setRegenerationsfaehigkeit("GUT");
-		sut.getAnmeldedatenEintrag().setId(0);
-		sut.getAnmeldedatenEintrag().setMail("mail@justinharder.de");
-		sut.getAnmeldedatenEintrag().setBenutzername("harder");
-		sut.getAnmeldedatenEintrag().setPasswort("JustinHarder#98");
+		sut.getAuthentifizierungEintrag().setId(0);
+		sut.getAuthentifizierungEintrag().setMail("mail@justinharder.de");
+		sut.getAuthentifizierungEintrag().setBenutzername("harder");
+		sut.getAuthentifizierungEintrag().setPasswort("JustinHarder#98");
+		sut.getAuthentifizierungEintrag().setPasswortWiederholen("JustinHarder#98");
 		sut.erstelleBenutzer();
 
-		verify(benutzerService).erstelleBenutzer(benutzerEintrag, anmeldedatenEintrag);
+		verify(benutzerService).erstelleBenutzer(benutzerEintrag, authentifizierungEintrag);
 	}
 
 	@Test

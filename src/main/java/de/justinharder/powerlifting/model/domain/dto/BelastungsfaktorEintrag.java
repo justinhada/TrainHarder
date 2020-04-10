@@ -1,5 +1,7 @@
 package de.justinharder.powerlifting.model.domain.dto;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BelastungsfaktorEintrag
+public class BelastungsfaktorEintrag implements Serializable
 {
+	private static final long serialVersionUID = -2050880743329267381L;
+
 	private int id;
 	private double squat;
 	private double benchpress;

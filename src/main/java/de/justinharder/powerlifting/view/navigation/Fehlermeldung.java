@@ -12,7 +12,8 @@ public enum Fehlermeldung
 		"Ein URL-Parameter konnte nicht ermittelt werden. Das kann z.B. durch einen Fehler beim "
 			+ "Kopieren der URL passieren. Bitte versuchen Sie es nochmal "
 			+ "oder wenden Sie sich an den Administrator, falls der Fehler erneut auftritt."),
-	LOGIN_FEHLGESCHLAGEN(2, "E-Mail-Adresse oder Passwort falsch!");
+	LOGIN_FEHLGESCHLAGEN(2, "E-Mail-Adresse oder Passwort falsch!"),
+	REGISTRIERUNG_FEHLGESCHLAGEN(3, "Ein oder mehrere angegebene Werte waren nicht gültig!");
 
 	private final int id;
 	private final String nachricht;

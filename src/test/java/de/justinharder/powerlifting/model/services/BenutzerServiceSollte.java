@@ -75,10 +75,10 @@ public class BenutzerServiceSollte
 	public void test02()
 	{
 		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
-		final var anmeldedatenEintrag = Testdaten.ANMELDEDATENEINTRAG_JUSTIN;
+		final var authentifizierungEintrag = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 
-		sut.erstelleBenutzer(benutzerEintrag, anmeldedatenEintrag);
+		sut.erstelleBenutzer(benutzerEintrag, authentifizierungEintrag);
 
 		verify(benutzerRepository).erstelleBenutzer(benutzer);
 	}
