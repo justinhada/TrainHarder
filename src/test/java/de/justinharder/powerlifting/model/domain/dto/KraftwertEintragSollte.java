@@ -31,5 +31,4 @@ public class KraftwertEintragSollte
 			hasValidBeanHashCode(),
 			hasValidBeanToString()));
 	}
-
 }
