@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting.model.services.registrierung;
+package de.justinharder.powerlifting.model.services.authentifizierung;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import de.justinharder.powerlifting.model.services.authentifizierung.MailSender;
 
 public class MailSenderSollte
 {

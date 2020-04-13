@@ -22,36 +22,28 @@
 	</div>
 	<div class="center-container medium-container">
 		<div class="wrapper text-left text-bold text-height">
-			<form method="post">
+			<h:form method="post">
 				<div class="title">Starte mit Powerlifting</div>
-				<span>Benutzername</span> <br />
+				<label for="benutzername">Benutzername</label> <br />
 				<div class="input-group mb-3">
-					<h:inputText styleClass="form-control"
-						value="#{authentifizierungController.authentifizierungEintrag.benutzername}"
-						aria-describedby="button-addon2"></h:inputText>
+					<h:inputText
+						value="#{registrierungController.registrierung.benutzername}"
+						styleClass="form-control" />
 				</div>
-				<span>E-Mail-Adresse</span> <br />
+				<label for="mail">E-Mail-Adresse</label> <br />
 				<div class="input-group mb-3">
-					<h:inputText styleClass="form-control"
-						value="#{authentifizierungController.authentifizierungEintrag.mail}"
-						aria-describedby="button-addon2">
-						</h:inputText>
+					<h:inputText value="#{registrierungController.registrierung.mail}"
+						styleClass="form-control" />
 				</div>
-				<span>Passwort</span> <br />
+				<label for="passwort">Passwort</label> <br />
 				<div class="input-group mb-3">
-					<h:inputSecret styleClass="form-control"
-						value="#{authentifizierungController.authentifizierungEintrag.passwort}"
-						aria-describedby="button-addon2"></h:inputSecret>
+					<h:inputSecret
+						value="#{registrierungController.registrierung.passwort}"
+						styleClass="form-control" />
 				</div>
-				<span>Passwort wiederholen</span> <br />
-				<div class="input-group mb-3">
-					<h:inputSecret styleClass="form-control"
-						value="#{authentifizierungController.authentifizierungEintrag.passwortWiederholen}"
-						aria-describedby="button-addon2"></h:inputSecret>
-				</div>
-				<h:commandButton styleClass="btn btn-secondary active"
-					action="#{authentifizierungController.registriere()}" value="Weiter ❯"/>
-			</form>
+				<h:commandButton styleClass="btn btn-secondary active" type="submit"
+					value="Weiter ❯" action="#{registrierungController.registriere()}" />
+			</h:form>
 		</div>
 		<br />
 		<div class="wrapper text-central text-bold text-height">

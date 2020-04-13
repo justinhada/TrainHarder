@@ -18,8 +18,7 @@ public class Navigator implements Serializable
 	private static final String LOGIN_URL = "login.xhtml";
 	private static final String UEBUNGSAUSWAHL_URL = "uebungsauswahl.xhtml";
 	private static final String KRAFTWERT_ERSTELLEN_URL = "erstellen.xhtml";
-	private static final String REGISTRIERUNG_URL = "join.xhtml";
-	private static final String ERFOLGREICH_URL = "erfolgreich.xhtml";
+	private static final String ERFOLGREICH_URL = "success.xhtml";
 
 	public String zurStartseite()
 	{
@@ -29,11 +28,6 @@ public class Navigator implements Serializable
 	public String zurFehlerseite(final Fehlermeldung fehlermeldung)
 	{
 		return parametrisiereUrl(FEHLER_URL, Parameter.fromFehlermeldung(fehlermeldung));
-	}
-
-	public String zurRegistrierungSeiteFehlerhaft(final Fehlermeldung fehlermeldung)
-	{
-		return parametrisiereUrl(REGISTRIERUNG_URL, Parameter.fromFehlermeldung(fehlermeldung));
 	}
 
 	public String zurRegistrierungErfolgreichMailBestaetigung(final String authentifizierungId)
@@ -64,7 +58,8 @@ public class Navigator implements Serializable
 		final var mehrereParameterTrenner = "&";
 		final var parameterWertpaare = Stream.of(parameter)
 			.map(Parameter::toString)
-			.collect(Collectors.joining(mehrereParameterTrenner));
+			.collect(Collectors.joining(mehrereParameterTrenner))
+			.concat("&faces-redirect=true");
 
 		return url + parameterBeginn + String.join(parameterBeginn, parameterWertpaare);
 	}

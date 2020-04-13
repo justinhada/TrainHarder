@@ -8,14 +8,14 @@ import javax.inject.Inject;
 
 import de.justinharder.powerlifting.model.domain.Authentifizierung;
 import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
+import de.justinharder.powerlifting.model.domain.dto.Registrierung;
 import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
 import de.justinharder.powerlifting.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.powerlifting.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.powerlifting.model.repository.AuthentifizierungRepository;
-import de.justinharder.powerlifting.model.services.registrierung.MailSender;
-import de.justinharder.powerlifting.model.services.registrierung.PasswortChecker;
+import de.justinharder.powerlifting.model.services.authentifizierung.PasswortChecker;
 
 public class AuthentifizierungService implements Serializable
 {
@@ -57,36 +57,37 @@ public class AuthentifizierungService implements Serializable
 		return konvertiere(authentifizierung);
 	}
 
-	public void erstelleAuthentifizierung(final AuthentifizierungEintrag authentifizierungEintrag)
+	public Authentifizierung erstelleAuthentifizierung(final Registrierung registrierung)
+		throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = new Authentifizierung(
-			authentifizierungEintrag.getMail(),
-			authentifizierungEintrag.getBenutzername(),
-			authentifizierungEintrag.getPasswort());
+			registrierung.getMail(),
+			registrierung.getBenutzername(),
+			registrierung.getPasswort());
 		authentifizierungRepository.erstelleAuthentifizierung(authentifizierung);
+		return authentifizierungRepository.ermittleZuMail(registrierung.getMail());
 	}
 
-	public void registriereBenutzer(final AuthentifizierungEintrag authentifizierungEintrag)
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+	public Authentifizierung registriere(final Registrierung registrierung)
+		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException,
+		AuthentifizierungNichtGefundenException
 	{
-		if (authentifizierungRepository.checkMail(authentifizierungEintrag.getMail()))
+		if (authentifizierungRepository.checkMail(registrierung.getMail()))
 		{
 			throw new MailBereitsRegistriertException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!");
 		}
 
-		if (authentifizierungRepository.checkBenutzername(authentifizierungEintrag.getBenutzername()))
+		if (authentifizierungRepository.checkBenutzername(registrierung.getBenutzername()))
 		{
 			throw new BenutzernameVergebenException("Dieser Benutzername ist leider schon vergeben!");
 		}
 
-		if (!new PasswortChecker().check(authentifizierungEintrag.getPasswort()))
+		if (!new PasswortChecker().check(registrierung.getPasswort()))
 		{
 			throw new PasswortNichtSicherException("Das Passwort ist nicht sicher genug!");
 		}
 
-		new MailSender().sendeRegistrierungMail(authentifizierungEintrag);
-
-		erstelleAuthentifizierung(authentifizierungEintrag);
+		return erstelleAuthentifizierung(registrierung);
 	}
 
 	public AuthentifizierungEintrag checkLogin(final String mail, final String passwort) throws LoginException
@@ -108,7 +109,6 @@ public class AuthentifizierungService implements Serializable
 			authentifizierung.getId(),
 			authentifizierung.getMail(),
 			authentifizierung.getBenutzername(),
-			authentifizierung.getPasswort(),
 			authentifizierung.getPasswort());
 	}
 }

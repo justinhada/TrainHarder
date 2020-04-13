@@ -46,6 +46,21 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
+	public Authentifizierung ermittleZuMail(final String mail) throws AuthentifizierungNichtGefundenException
+	{
+		try
+		{
+			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
+				.getSingleResult();
+		}
+		catch (final NoResultException e)
+		{
+			throw new AuthentifizierungNichtGefundenException(
+				"Die Authentifizierung zur Mail \"" + mail + "\" existiert nicht!");
+		}
+	}
+
+	@Override
 	@Transactional
 	public void erstelleAuthentifizierung(final Authentifizierung authentifizierung)
 	{

@@ -85,7 +85,6 @@ public class BenutzerControllerSollte extends ControllerSollte
 		sut.getAuthentifizierungEintrag().setMail("mail@justinharder.de");
 		sut.getAuthentifizierungEintrag().setBenutzername("harder");
 		sut.getAuthentifizierungEintrag().setPasswort("JustinHarder#98");
-		sut.getAuthentifizierungEintrag().setPasswortWiederholen("JustinHarder#98");
 		sut.erstelleBenutzer();
 
 		verify(benutzerService).erstelleBenutzer(benutzerEintrag, authentifizierungEintrag);

@@ -160,7 +160,7 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktMail(true);
 
 		final var exception = assertThrows(MailBereitsRegistriertException.class,
-			() -> sut.registriereBenutzer(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
+			() -> sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -174,7 +174,7 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(true);
 
 		final var exception = assertThrows(BenutzernameVergebenException.class,
-			() -> sut.registriereBenutzer(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
+			() -> sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -188,9 +188,9 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
 
 		final var exception = assertThrows(PasswortNichtSicherException.class,
-			() -> sut.registriereBenutzer(
+			() -> sut.registriere(
 				new AuthentifizierungEintrag(1, "mail@unsicherespasswort.de", "IchHabeEinUnsicheresPasswort",
-					"unsicher", "unsicher")));
+					"unsicher")));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -203,7 +203,7 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktMail(false);
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
 
-		sut.registriereBenutzer(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN);
+		sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN);
 
 		verify(authentifizierungRepository).erstelleAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
 	}

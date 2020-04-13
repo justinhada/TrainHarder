@@ -14,6 +14,8 @@ public interface AuthentifizierungRepository
 
 	Authentifizierung ermittleZuBenutzer(final int benutzerId) throws AuthentifizierungNichtGefundenException;
 
+	Authentifizierung ermittleZuMail(final String mail) throws AuthentifizierungNichtGefundenException;
+
 	void erstelleAuthentifizierung(Authentifizierung authentifizierung);
 
 	Authentifizierung checkLogin(String mail, String passwort) throws LoginException;

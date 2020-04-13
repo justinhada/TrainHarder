@@ -59,7 +59,7 @@ public class Benutzer extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
 	private Authentifizierung authentifizierung;
 	@Setter(AccessLevel.NONE) 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
@@ -96,7 +96,7 @@ public class Benutzer extends Entitaet
 		authentifizierung.setBenutzer(this);
 	}
 
-	public void setAuthentifizierung(Authentifizierung authentifizierung)
+	public void setAuthentifizierung(final Authentifizierung authentifizierung)
 	{
 		this.authentifizierung = authentifizierung;
 		authentifizierung.setBenutzer(this);

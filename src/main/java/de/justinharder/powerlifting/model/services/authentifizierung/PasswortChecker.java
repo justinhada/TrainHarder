@@ -1,4 +1,4 @@
-package de.justinharder.powerlifting.model.services.registrierung;
+package de.justinharder.powerlifting.model.services.authentifizierung;
 
 import lombok.NoArgsConstructor;
 

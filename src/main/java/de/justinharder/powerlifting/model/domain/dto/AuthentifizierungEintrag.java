@@ -17,5 +17,4 @@ public class AuthentifizierungEintrag implements Serializable
 	private String mail;
 	private String benutzername;
 	private String passwort;
-	private String passwortWiederholen;
 }
