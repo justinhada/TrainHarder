@@ -3,10 +3,11 @@ package de.justinharder.powerlifting.view.authentifizierung;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.Registrierung;
 import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Named
 @Getter
 @Setter
-@ApplicationScoped
+@SessionScoped
 public class RegistrierungController extends Controller
 {
 	private static final long serialVersionUID = 2133789122383485814L;
@@ -30,6 +31,7 @@ public class RegistrierungController extends Controller
 	private final AuthentifizierungService authentifizierungService;
 	private final Map<String, String> fehlermeldungen = new HashMap<>();
 	private final Registrierung registrierung = new Registrierung();
+	private AuthentifizierungEintrag authentifizierungEintrag = new AuthentifizierungEintrag();
 
 	@Inject
 	public RegistrierungController(
@@ -45,9 +47,8 @@ public class RegistrierungController extends Controller
 	{
 		try
 		{
-			final var authentifizierung = authentifizierungService.registriere(registrierung);
-			return navigator.zurRegistrierungErfolgreichMailBestaetigung(String.valueOf(authentifizierung.getId()))
-				.concat("&faces-redirect=true");
+			authentifizierungEintrag = authentifizierungService.registriere(registrierung);
+			return navigator.zurRegistrierungErfolgreichMailBestaetigung().concat("&faces-redirect=true");
 		}
 		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException
 			| AuthentifizierungNichtGefundenException e)
@@ -59,15 +60,6 @@ public class RegistrierungController extends Controller
 
 	public String erfolgreich()
 	{
-		try
-		{
-			System.out.println(getRequestParameter("AuthentifizierungID"));
-			return authentifizierungService.ermittleZuId(getRequestParameter("AuthentifizierungID"))
-				.getBenutzername();
-		}
-		catch (final AuthentifizierungNichtGefundenException e)
-		{
-			return "";
-		}
+		return authentifizierungEintrag.getBenutzername();
 	}
 }

@@ -3,9 +3,7 @@ package de.justinharder.powerlifting.view;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Fehlermeldung;
@@ -13,8 +11,6 @@ import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Named
-@SessionScoped
 public class Controller implements Serializable
 {
 	private static final long serialVersionUID = -6049359953046927355L;

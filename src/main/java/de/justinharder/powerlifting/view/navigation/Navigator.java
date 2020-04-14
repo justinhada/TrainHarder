@@ -13,7 +13,7 @@ public class Navigator implements Serializable
 {
 	private static final long serialVersionUID = -5900551477725997768L;
 
-	private static final String STARTSEITE_URL = "/Powerlifting";
+	private static final String STARTSEITE_URL = "/Powerlifting?faces-redirect=true";
 	private static final String FEHLER_URL = "fehler.xhtml";
 	private static final String LOGIN_URL = "login.xhtml";
 	private static final String UEBUNGSAUSWAHL_URL = "uebungsauswahl.xhtml";
@@ -30,9 +30,9 @@ public class Navigator implements Serializable
 		return parametrisiereUrl(FEHLER_URL, Parameter.fromFehlermeldung(fehlermeldung));
 	}
 
-	public String zurRegistrierungErfolgreichMailBestaetigung(final String authentifizierungId)
+	public String zurRegistrierungErfolgreichMailBestaetigung()
 	{
-		return parametrisiereUrl(ERFOLGREICH_URL, Parameter.fromAuthentifizierung(authentifizierungId));
+		return ERFOLGREICH_URL;
 	}
 
 	public String zurLoginSeite(final Fehlermeldung fehlermeldung)

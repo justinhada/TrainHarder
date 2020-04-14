@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Preconditions;
+
 import de.justinharder.powerlifting.model.domain.Authentifizierung;
 import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.Registrierung;
@@ -36,6 +38,7 @@ public class AuthentifizierungService implements Serializable
 
 	public AuthentifizierungEintrag ermittleZuId(final String id) throws AuthentifizierungNichtGefundenException
 	{
+		Preconditions.checkNotNull(id, "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!");
 		final var authentifizierung = authentifizierungRepository.ermittleZuId(Integer.valueOf(id));
 		if (authentifizierung == null)
 		{
@@ -57,7 +60,7 @@ public class AuthentifizierungService implements Serializable
 		return konvertiere(authentifizierung);
 	}
 
-	public Authentifizierung erstelleAuthentifizierung(final Registrierung registrierung)
+	public AuthentifizierungEintrag erstelleAuthentifizierung(final Registrierung registrierung)
 		throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = new Authentifizierung(
@@ -65,10 +68,10 @@ public class AuthentifizierungService implements Serializable
 			registrierung.getBenutzername(),
 			registrierung.getPasswort());
 		authentifizierungRepository.erstelleAuthentifizierung(authentifizierung);
-		return authentifizierungRepository.ermittleZuMail(registrierung.getMail());
+		return konvertiere(authentifizierungRepository.ermittleZuMail(registrierung.getMail()));
 	}
 
-	public Authentifizierung registriere(final Registrierung registrierung)
+	public AuthentifizierungEintrag registriere(final Registrierung registrierung)
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException,
 		AuthentifizierungNichtGefundenException
 	{
