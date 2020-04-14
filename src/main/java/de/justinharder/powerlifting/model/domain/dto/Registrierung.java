@@ -3,7 +3,6 @@ package de.justinharder.powerlifting.model.domain.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.Size;
-import javax.ws.rs.FormParam;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

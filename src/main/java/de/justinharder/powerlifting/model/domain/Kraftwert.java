@@ -12,12 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
