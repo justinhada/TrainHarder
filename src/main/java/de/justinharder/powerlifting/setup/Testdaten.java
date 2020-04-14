@@ -13,6 +13,7 @@ import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.powerlifting.model.domain.dto.BenutzerEintrag;
 import de.justinharder.powerlifting.model.domain.dto.KraftwertEintrag;
+import de.justinharder.powerlifting.model.domain.dto.Registrierung;
 import de.justinharder.powerlifting.model.domain.dto.UebungEintrag;
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
@@ -36,6 +37,8 @@ public class Testdaten
 
 	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_JUSTIN = new AuthentifizierungEintrag();
 	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_EDUARD = new AuthentifizierungEintrag();
+
+	public static final Registrierung REGISTRIERUNG = new Registrierung();
 
 	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
@@ -105,6 +108,10 @@ public class Testdaten
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail());
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setPasswort(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
+
+		REGISTRIERUNG.setBenutzername("harder");
+		REGISTRIERUNG.setMail("mail@justinharder.de");
+		REGISTRIERUNG.setPasswort("Justinharder#98");
 
 		KOERPERMESSUNG_JUSTIN.setId(0);
 		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);

@@ -24,25 +24,35 @@
 		<div class="wrapper text-left text-bold text-height">
 			<h:form method="post">
 				<div class="title">Starte mit Powerlifting</div>
-				<label for="benutzername">Benutzername</label> <br />
+				<label for="mail">E-Mail-Adresse</label>
+				<br />
+				<c:if
+					test="#{fehlermeldungen.get('MailBereitsRegistriertException') != null}">
+					<h:outputText styleClass="fehler"
+						value="#{fehlermeldungen.get('MailBereitsRegistriertException').getMessage()}" />
+					<br />
+				</c:if>
+				<div class="input-group mb-3">
+					<h:inputText value="#{registrierungController.registrierung.mail}"
+						styleClass="form-control" />
+				</div>
+				<label for="benutzername">Benutzername</label>
+				<br />
 				<div class="input-group mb-3">
 					<h:inputText
 						value="#{registrierungController.registrierung.benutzername}"
 						styleClass="form-control" />
 				</div>
-				<label for="mail">E-Mail-Adresse</label> <br />
-				<div class="input-group mb-3">
-					<h:inputText value="#{registrierungController.registrierung.mail}"
-						styleClass="form-control" />
-				</div>
-				<label for="passwort">Passwort</label> <br />
+				<label for="passwort">Passwort</label>
+				<br />
 				<div class="input-group mb-3">
 					<h:inputSecret
 						value="#{registrierungController.registrierung.passwort}"
 						styleClass="form-control" />
 				</div>
-				<h:commandButton styleClass="btn btn-secondary active" type="submit"
-					value="Weiter ❯" action="#{registrierungController.registriere()}" />
+				<h:commandButton styleClass="btn btn-secondary active"
+					value="Join Powerlifting ❯"
+					action="#{registrierungController.registriere()}" />
 			</h:form>
 		</div>
 		<br />
@@ -61,9 +71,9 @@
 		</div>
 
 		<div class="attribution">
-			<span>Icons made by <a
+			<label>Icons made by <a
 				href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
-					Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
+					Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></label>
 		</div>
 	</div>
 </h:body>

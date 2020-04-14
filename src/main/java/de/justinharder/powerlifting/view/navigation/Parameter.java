@@ -27,7 +27,7 @@ public class Parameter
 
 	public static Parameter fromAuthentifizierung(final String id)
 	{
-		return new Parameter("authentifizierungId", id);
+		return new Parameter("AuthentifizierungID", id);
 	}
 
 	@Override

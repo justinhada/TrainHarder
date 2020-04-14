@@ -46,13 +46,28 @@ public class RegistrierungController extends Controller
 		try
 		{
 			final var authentifizierung = authentifizierungService.registriere(registrierung);
-			return navigator.zurRegistrierungErfolgreichMailBestaetigung(String.valueOf(authentifizierung.getId()));
+			return navigator.zurRegistrierungErfolgreichMailBestaetigung(String.valueOf(authentifizierung.getId()))
+				.concat("&faces-redirect=true");
 		}
 		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException
 			| AuthentifizierungNichtGefundenException e)
 		{
 			fehlermeldungen.put(e.getClass().getSimpleName(), e.getMessage());
-			return "join.xhtml";
+			return "join.xhtml?faces-redirect=true";
+		}
+	}
+
+	public String erfolgreich()
+	{
+		try
+		{
+			System.out.println(getRequestParameter("AuthentifizierungID"));
+			return authentifizierungService.ermittleZuId(getRequestParameter("AuthentifizierungID"))
+				.getBenutzername();
+		}
+		catch (final AuthentifizierungNichtGefundenException e)
+		{
+			return "";
 		}
 	}
 }

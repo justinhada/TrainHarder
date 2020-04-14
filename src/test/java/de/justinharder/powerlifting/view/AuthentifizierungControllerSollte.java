@@ -3,7 +3,6 @@ package de.justinharder.powerlifting.view;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -87,19 +86,5 @@ public class AuthentifizierungControllerSollte extends ControllerSollte
 		final var ergebnis = sut.getAuthentifierungZuBenutzer();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("Authentifizierung weiter an den AuthentifizierungService geben")
-	public void test04()
-	{
-		final var authentifizierungEintrag = Testdaten.AUTHENTIFIZIERUNGEINTRAG_EDUARD;
-
-		sut.getAuthentifizierungEintrag().setMail("mail@eduard.de");
-		sut.getAuthentifizierungEintrag().setBenutzername("eduard");
-		sut.getAuthentifizierungEintrag().setPasswort("EduardEduardEduard_98");
-		sut.erstelleAuthentifizierung();
-
-		verify(authentifizierungService).erstelleAuthentifizierung(authentifizierungEintrag);
 	}
 }

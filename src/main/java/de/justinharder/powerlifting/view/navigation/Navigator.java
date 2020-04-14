@@ -58,8 +58,7 @@ public class Navigator implements Serializable
 		final var mehrereParameterTrenner = "&";
 		final var parameterWertpaare = Stream.of(parameter)
 			.map(Parameter::toString)
-			.collect(Collectors.joining(mehrereParameterTrenner))
-			.concat("&faces-redirect=true");
+			.collect(Collectors.joining(mehrereParameterTrenner));
 
 		return url + parameterBeginn + String.join(parameterBeginn, parameterWertpaare);
 	}

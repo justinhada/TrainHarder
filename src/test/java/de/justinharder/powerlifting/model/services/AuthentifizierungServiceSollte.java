@@ -15,7 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.powerlifting.model.domain.Authentifizierung;
-import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
+import de.justinharder.powerlifting.model.domain.dto.Registrierung;
 import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.powerlifting.model.domain.exceptions.MailBereitsRegistriertException;
@@ -142,12 +142,12 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("Authentifizierung erstellen")
-	public void test06()
+	public void test06() throws AuthentifizierungNichtGefundenException
 	{
-		final var authentifizierungEintrag = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var registrierung = Testdaten.REGISTRIERUNG;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-		sut.erstelleAuthentifizierung(authentifizierungEintrag);
+		sut.erstelleAuthentifizierung(registrierung);
 
 		verify(authentifizierungRepository).erstelleAuthentifizierung(authentifizierung);
 	}
@@ -160,7 +160,7 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktMail(true);
 
 		final var exception = assertThrows(MailBereitsRegistriertException.class,
-			() -> sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
+			() -> sut.registriere(Testdaten.REGISTRIERUNG));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -174,7 +174,7 @@ public class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(true);
 
 		final var exception = assertThrows(BenutzernameVergebenException.class,
-			() -> sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN));
+			() -> sut.registriere(Testdaten.REGISTRIERUNG));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -189,8 +189,7 @@ public class AuthentifizierungServiceSollte
 
 		final var exception = assertThrows(PasswortNichtSicherException.class,
 			() -> sut.registriere(
-				new AuthentifizierungEintrag(1, "mail@unsicherespasswort.de", "IchHabeEinUnsicheresPasswort",
-					"unsicher")));
+				new Registrierung("IchHabeEinUnsicheresPasswort", "mail@unsicherespasswort.de", "unsicher")));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -198,12 +197,13 @@ public class AuthentifizierungServiceSollte
 	@Test
 	@DisplayName("einen Benutzer registrieren")
 	public void test10()
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException,
+		AuthentifizierungNichtGefundenException
 	{
 		angenommenDasAuthentifizierungRepositoryChecktMail(false);
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
 
-		sut.registriere(Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN);
+		sut.registriere(Testdaten.REGISTRIERUNG);
 
 		verify(authentifizierungRepository).erstelleAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
 	}
