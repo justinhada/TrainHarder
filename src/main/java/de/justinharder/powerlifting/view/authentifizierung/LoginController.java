@@ -1,8 +1,6 @@
 package de.justinharder.powerlifting.view.authentifizierung;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -28,6 +26,8 @@ import de.justinharder.powerlifting.model.domain.dto.Login;
 @Controller
 public class LoginController
 {
+	private static final String REDIRECT = "redirect:";
+
 	@Context
 	private HttpServletRequest request;
 	@Context
@@ -39,20 +39,15 @@ public class LoginController
 	@Inject
 	private SecurityContext securityContext;
 
-	private final Map<String, String> fehlermeldungen = new HashMap<>();
-
 	@GET
 	public String index()
 	{
-		System.out.println("LoginController.index() aufgerufen");
 		return "/login.xhtml";
 	}
 
 	@POST
 	public String login(@BeanParam final Login login)
 	{
-		System.out.println("LoginController.login() wird ausgeführt");
-
 		if (bindingResult.isFailed())
 		{
 			final List<String> errors = bindingResult.getAllErrors().stream()
@@ -71,16 +66,16 @@ public class LoginController
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
-			return "redirect:benutzer";
+			return REDIRECT + "start";
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))
 		{
-			fehlermeldungen.put("AuthentifizierungFehlgeschlagen", "Benutzername oder Passwort falsch!");
+			models.put("AuthentifizierungFehlgeschlagen", "Benutzername oder Passwort falsch!");
 			return index();
 		}
 		else
 		{
-			fehlermeldungen.put("UnerwarteteException",
+			models.put("UnerwarteteException",
 				"Unerwarteter Fehler während des Logins: " + authenticationStatus.name());
 			return index();
 		}

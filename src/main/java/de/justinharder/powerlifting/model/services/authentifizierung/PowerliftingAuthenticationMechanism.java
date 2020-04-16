@@ -28,7 +28,6 @@ public class PowerliftingAuthenticationMechanism implements HttpAuthenticationMe
 		final HttpServletResponse response,
 		final HttpMessageContext httpMessageContext) throws AuthenticationException
 	{
-		System.out.println("PowerliftingAuthenticationMechanism.validateRequest() wird ausgeführt");
 		final var credential = httpMessageContext.getAuthParameters().getCredential();
 
 		if (credential != null)

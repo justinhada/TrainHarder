@@ -20,7 +20,6 @@ public class PowerliftingIdentityStore implements IdentityStore
 	@Override
 	public CredentialValidationResult validate(final Credential credential)
 	{
-		System.out.println("PowerliftingIdentityStore.validate() wird ausgeführt");
 		try
 		{
 			if (credential instanceof UsernamePasswordCredential)
