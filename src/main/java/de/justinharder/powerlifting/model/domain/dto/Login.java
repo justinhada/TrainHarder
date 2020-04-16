@@ -1,17 +1,13 @@
 package de.justinharder.powerlifting.model.domain.dto;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 
 import lombok.Data;
 
 @Data
-public class Login implements Serializable
+public class Login
 {
-	private static final long serialVersionUID = 8990142454573371036L;
-
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")
 	@FormParam("benutzername")
 	private String benutzername;

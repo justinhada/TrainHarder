@@ -1,63 +1,79 @@
 package de.justinharder.powerlifting.view.authentifizierung;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.mvc.Controller;
+import javax.mvc.Models;
+import javax.mvc.binding.BindingResult;
+import javax.mvc.binding.ParamError;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
 
-import de.justinharder.powerlifting.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.powerlifting.model.domain.dto.Registrierung;
 import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.powerlifting.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.powerlifting.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.powerlifting.model.services.AuthentifizierungService;
-import de.justinharder.powerlifting.view.Controller;
-import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
-import de.justinharder.powerlifting.view.navigation.Navigator;
-import lombok.Getter;
 
-@Named
-@Getter
-@SessionScoped
-public class RegistrierungController extends Controller
+@Path("/join")
+@Controller
+public class RegistrierungController
 {
-	private static final long serialVersionUID = 2133789122383485814L;
-
-	private final AuthentifizierungService authentifizierungService;
-	private final Map<String, String> fehlermeldungen = new HashMap<>();
-	private final Registrierung registrierung = new Registrierung();
-	private AuthentifizierungEintrag authentifizierungEintrag = new AuthentifizierungEintrag();
-
+	@Context
+	private HttpServletRequest request;
+	@Context
+	private HttpServletResponse response;
 	@Inject
-	public RegistrierungController(
-		final ExternerWebContext externerWebContext,
-		final Navigator navigator,
-		final AuthentifizierungService authentifizierungService)
+	private Models models;
+	@Inject
+	private BindingResult bindingResult;
+	@Inject
+	private AuthentifizierungService authentifizierungService;
+
+	@GET
+	public String index()
 	{
-		super(externerWebContext, navigator);
-		this.authentifizierungService = authentifizierungService;
+		return "/join.xhtml";
 	}
 
-	public String registriere()
+	@POST
+	public String registriere(@BeanParam final Registrierung registrierung)
 	{
+		if (bindingResult.isFailed())
+		{
+			final List<String> errors = bindingResult.getAllErrors().stream()
+				.map(ParamError::getMessage)
+				.collect(Collectors.toList());
+			models.put("errors", errors);
+			return index();
+		}
+
 		try
 		{
-			authentifizierungEintrag = authentifizierungService.registriere(registrierung);
-			return navigator.zurRegistrierungErfolgreichMailBestaetigung().concat("&faces-redirect=true");
+			final var authentifizierungEintrag = authentifizierungService.registriere(registrierung);
+			models.put("authentifizierung", authentifizierungEintrag);
+			return erfolgreich();
 		}
 		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException
 			| AuthentifizierungNichtGefundenException e)
 		{
-			fehlermeldungen.put(e.getClass().getSimpleName(), e.getMessage());
-			return "join.xhtml?faces-redirect=true";
+			models.put("errors", e.getMessage());
+			return index();
 		}
 	}
 
+	@GET
+	@Path("/success")
 	public String erfolgreich()
 	{
-		return authentifizierungEintrag.getBenutzername();
+		return "/success.xhtml";
 	}
 }
