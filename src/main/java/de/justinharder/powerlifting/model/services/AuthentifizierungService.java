@@ -112,7 +112,6 @@ public class AuthentifizierungService implements Serializable
 			authentifizierung.getId(),
 			authentifizierung.getMail(),
 			authentifizierung.getBenutzername(),
-			authentifizierung.getPasswort(),
-			authentifizierung.getGruppen());
+			authentifizierung.getPasswort());
 	}
 }

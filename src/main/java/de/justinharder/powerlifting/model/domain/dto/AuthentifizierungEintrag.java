@@ -1,8 +1,6 @@
 package de.justinharder.powerlifting.model.domain.dto;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +17,4 @@ public class AuthentifizierungEintrag implements Serializable
 	private String mail;
 	private String benutzername;
 	private String passwort;
-	private Set<String> gruppen;
 }
