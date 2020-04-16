@@ -18,7 +18,7 @@ public interface AuthentifizierungRepository
 
 	void erstelleAuthentifizierung(Authentifizierung authentifizierung);
 
-	Authentifizierung checkLogin(String mail, String passwort) throws LoginException;
+	Authentifizierung checkLogin(String benutzername, String passwort) throws LoginException;
 
 	boolean checkMail(String mail);
 

@@ -68,16 +68,17 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Authentifizierung checkLogin(final String mail, final String passwort) throws LoginException
+	public Authentifizierung checkLogin(final String benutzername, final String passwort) throws LoginException
 	{
 		try
 		{
-			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail, "passwort", passwort))
-				.getSingleResult();
+			return super.erstelleQuery(Authentifizierung.class,
+				Map.of("benutzername", benutzername, "passwort", passwort))
+					.getSingleResult();
 		}
 		catch (final NoResultException e)
 		{
-			throw new LoginException("E-Mail-Adresse oder Passwort falsch!");
+			throw new LoginException("Benutzername oder Passwort falsch!");
 		}
 	}
 

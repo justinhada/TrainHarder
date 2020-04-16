@@ -18,11 +18,9 @@ import de.justinharder.powerlifting.view.Controller;
 import de.justinharder.powerlifting.view.navigation.ExternerWebContext;
 import de.justinharder.powerlifting.view.navigation.Navigator;
 import lombok.Getter;
-import lombok.Setter;
 
 @Named
 @Getter
-@Setter
 @SessionScoped
 public class RegistrierungController extends Controller
 {

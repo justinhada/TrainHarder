@@ -1,7 +1,11 @@
 package de.justinharder.powerlifting.model.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,6 +35,8 @@ public class Authentifizierung extends Entitaet
 	private String benutzername;
 	@Column(name = "Passwort", nullable = false)
 	private String passwort;
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> gruppen = new HashSet<>();
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Benutzer benutzer;
 

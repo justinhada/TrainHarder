@@ -93,9 +93,9 @@ public class AuthentifizierungService implements Serializable
 		return erstelleAuthentifizierung(registrierung);
 	}
 
-	public AuthentifizierungEintrag checkLogin(final String mail, final String passwort) throws LoginException
+	public AuthentifizierungEintrag checkLogin(final String benutzername, final String passwort) throws LoginException
 	{
-		return konvertiere(authentifizierungRepository.checkLogin(mail, passwort));
+		return konvertiere(authentifizierungRepository.checkLogin(benutzername, passwort));
 	}
 
 	private List<AuthentifizierungEintrag> konvertiereAlle(final List<Authentifizierung> authentifizierungen)
@@ -112,6 +112,7 @@ public class AuthentifizierungService implements Serializable
 			authentifizierung.getId(),
 			authentifizierung.getMail(),
 			authentifizierung.getBenutzername(),
-			authentifizierung.getPasswort());
+			authentifizierung.getPasswort(),
+			authentifizierung.getGruppen());
 	}
 }

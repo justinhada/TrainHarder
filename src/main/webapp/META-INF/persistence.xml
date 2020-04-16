@@ -8,7 +8,9 @@
 		<jta-data-source>java:jboss/jdbc/powerlifting</jta-data-source>
 		<class>de.justinharder.powerlifting.model.domain.Benutzer</class>
 		<class>de.justinharder.powerlifting.model.domain.Kraftwert</class>
-		<class>de.justinharder.powerlifting.model.domain.Uebung</class>
 		<class>de.justinharder.powerlifting.model.domain.Belastungsfaktor</class>
+		<class>de.justinharder.powerlifting.model.domain.Uebung</class>
+		<class>de.justinharder.powerlifting.model.domain.Authentifizierung</class>
+		<class>de.justinharder.powerlifting.model.domain.Koerpermessung</class>
 	</persistence-unit>
 </persistence>
