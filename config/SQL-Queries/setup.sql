@@ -77,6 +77,7 @@ CREATE TABLE Authentifizierung
   Mail VARCHAR(255) NOT NULL,
   Benutzername VARCHAR(255) NOT NULL,
   Passwort VARCHAR(255) NOT NULL,
+  Aktiv BOOLEAN NOT NULL,
   Benutzer_ID INT(11) NOT NULL,
   PRIMARY KEY(ID),
   FOREIGN KEY(Benutzer_ID) REFERENCES Benutzer(ID) 

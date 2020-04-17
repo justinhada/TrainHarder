@@ -31,6 +31,8 @@ public class Authentifizierung extends Entitaet
 	private String benutzername;
 	@Column(name = "Passwort", nullable = false)
 	private String passwort;
+	@Column(name = "Aktiv", nullable = false)
+	private boolean aktiv;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Benutzer benutzer;
 
@@ -42,5 +44,11 @@ public class Authentifizierung extends Entitaet
 		this.mail = mail;
 		this.benutzername = benutzername;
 		this.passwort = passwort;
+		this.aktiv = false;
+	}
+
+	public void aktiviere()
+	{
+		this.aktiv = true;
 	}
 }
