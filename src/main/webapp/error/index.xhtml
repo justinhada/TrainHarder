@@ -43,10 +43,12 @@
 
 	<div class="center-container big-container">
 		<div class="wrapper">
-			<h2 class="text-center">Es scheint so, als wäre ein Fehler aufgetreten!</h2>
-			<h:form class="form" method="post">
-				<h:commandButton styleClass="btn btn-secondary active" value="Zurück zur Startseite" action="/Powerlifting?faces-redirect=true" />
-			</h:form>
+			<h2 class="text-center">Es scheint so, als wäre ein Fehler
+				aufgetreten!</h2>
+			<form class="form" method="get" action="/Powerlifting/start">
+				<button class="btn btn-secondary active" type="submit">Zurück
+					zur Startseite</button>
+			</form>
 		</div>
 
 		<div class="footer">
