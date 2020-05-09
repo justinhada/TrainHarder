@@ -6,7 +6,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Belastungsfaktor")
 public class Belastungsfaktor extends Entitaet
 {
 	private static final long serialVersionUID = 5251603922467033680L;
@@ -36,6 +39,7 @@ public class Belastungsfaktor extends Entitaet
 	private double hamstrings;
 	private double shoulder;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
 
 	public Belastungsfaktor(

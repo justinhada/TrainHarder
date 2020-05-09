@@ -80,6 +80,7 @@ public class BelastungsfaktorControllerSollte
 	public void test03()
 	{
 		final var belastungsfaktorEintrag = Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN;
+		belastungsfaktorEintrag.setId(0);
 
 		sut.getBelastungsfaktorEintrag().setBack(0.0);
 		sut.getBelastungsfaktorEintrag().setBenchpress(1.0);

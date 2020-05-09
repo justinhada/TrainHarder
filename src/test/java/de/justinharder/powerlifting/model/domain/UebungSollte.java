@@ -56,7 +56,7 @@ public class UebungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
 			() -> assertThat(sut.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(sut.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
@@ -88,10 +88,10 @@ public class UebungSollte
 	public void test05()
 	{
 		final var andereUebung = new Uebung();
-		andereUebung.setId(1);
+		andereUebung.setId(2);
 
 		final var uebungMitGleicherId = new Uebung();
-		uebungMitGleicherId.setId(0);
+		uebungMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -106,7 +106,7 @@ public class UebungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Uebung{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Uebung{ID=1}");
 	}
 
 	@Test

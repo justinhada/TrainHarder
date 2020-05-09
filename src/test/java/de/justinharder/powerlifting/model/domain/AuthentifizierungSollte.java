@@ -49,7 +49,7 @@ public class AuthentifizierungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(sut.getPasswort()).isEqualTo("JustinHarder#98"),
@@ -81,10 +81,10 @@ public class AuthentifizierungSollte
 	public void test05()
 	{
 		final var andereAuthentifizierung = new Authentifizierung();
-		andereAuthentifizierung.setId(1);
+		andereAuthentifizierung.setId(2);
 
 		final var authentifizierungMitGleicherId = new Authentifizierung();
-		authentifizierungMitGleicherId.setId(0);
+		authentifizierungMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -99,6 +99,6 @@ public class AuthentifizierungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Authentifizierung{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Authentifizierung{ID=1}");
 	}
 }

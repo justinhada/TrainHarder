@@ -73,6 +73,7 @@ public class KraftwertControllerSollte extends ControllerSollte
 		angenommenExternerWebContextEnthaeltParameter(
 			Maps.immutableEntry("benutzerId", "1"),
 			Maps.immutableEntry("uebungId", "1"));
+		kraftwertEintrag.setId(0);
 
 		sut.getKraftwertEintrag().setMaximum(100);
 		sut.getKraftwertEintrag().setKoerpergewicht(90);

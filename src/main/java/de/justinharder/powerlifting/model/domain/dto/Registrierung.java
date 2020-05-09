@@ -3,9 +3,13 @@ package de.justinharder.powerlifting.model.domain.dto;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Registrierung
 {
 	@Size(min = 6, max = 255, message = "Ungültige E-Mail-Adresse!")

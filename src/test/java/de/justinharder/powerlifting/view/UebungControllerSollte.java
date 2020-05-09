@@ -118,6 +118,8 @@ public class UebungControllerSollte extends ControllerSollte
 	{
 		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN;
 		final var belastungsfaktorEintrag = Testdaten.BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN;
+		uebungEintrag.setId(0);
+		belastungsfaktorEintrag.setId(0);
 
 		sut.getUebungEintrag().setName("Konventionelles Kreuzheben");
 		sut.getUebungEintrag().setUebungsart("GRUNDUEBUNG");

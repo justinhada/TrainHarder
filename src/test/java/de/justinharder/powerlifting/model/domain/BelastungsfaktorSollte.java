@@ -55,7 +55,7 @@ public class BelastungsfaktorSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getSquat()).isEqualTo(0),
 			() -> assertThat(sut.getBenchpress()).isEqualTo(1),
 			() -> assertThat(sut.getDeadlift()).isEqualTo(0),
@@ -113,10 +113,10 @@ public class BelastungsfaktorSollte
 	public void test05()
 	{
 		final var andererBelastungsfaktor = new Belastungsfaktor();
-		andererBelastungsfaktor.setId(1);
+		andererBelastungsfaktor.setId(2);
 
 		final var belastungsfaktorMitGleicherId = new Belastungsfaktor();
-		belastungsfaktorMitGleicherId.setId(0);
+		belastungsfaktorMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -131,6 +131,6 @@ public class BelastungsfaktorSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Belastungsfaktor{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Belastungsfaktor{ID=1}");
 	}
 }

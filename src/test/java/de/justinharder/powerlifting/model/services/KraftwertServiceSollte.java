@@ -112,6 +112,7 @@ public class KraftwertServiceSollte
 	{
 		final var kraftwertEintrag = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
 		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
+		kraftwert.setId(0);
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);

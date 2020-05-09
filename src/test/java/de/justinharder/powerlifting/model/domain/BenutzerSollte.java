@@ -85,7 +85,7 @@ public class BenutzerSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
 			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
 			() -> assertThat(sut.getLebensalter()).isEqualTo(21),
@@ -152,10 +152,10 @@ public class BenutzerSollte
 	public void test05()
 	{
 		final var andererBenutzer = new Benutzer();
-		andererBenutzer.setId(1);
+		andererBenutzer.setId(2);
 
 		final var benutzerMitGleicherId = new Benutzer();
-		benutzerMitGleicherId.setId(0);
+		benutzerMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -170,7 +170,7 @@ public class BenutzerSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Benutzer{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Benutzer{ID=1}");
 	}
 
 	@Test

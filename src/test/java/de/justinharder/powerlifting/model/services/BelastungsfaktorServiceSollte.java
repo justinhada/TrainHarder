@@ -96,6 +96,7 @@ public class BelastungsfaktorServiceSollte
 	{
 		final var belastungsfaktorEintrag = Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		belastungsfaktor.setId(0);
 
 		sut.erstelleBelastungsfaktor(belastungsfaktorEintrag);
 

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import de.justinharder.powerlifting.model.domain.enums.Wiederholungen;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Kraftwert")
 public class Kraftwert extends Entitaet
 {
 	private static final long serialVersionUID = -1203157961547955006L;

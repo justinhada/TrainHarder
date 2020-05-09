@@ -81,7 +81,7 @@ public class KoerpermessungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getBodyMassIndex()).isEqualTo(28.41),
@@ -158,10 +158,10 @@ public class KoerpermessungSollte
 	public void test05()
 	{
 		final var andereKoerpermessung = new Koerpermessung();
-		andereKoerpermessung.setId(1);
+		andereKoerpermessung.setId(2);
 
 		final var koerpermessungMitGleicherId = new Koerpermessung();
-		koerpermessungMitGleicherId.setId(0);
+		koerpermessungMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -176,6 +176,6 @@ public class KoerpermessungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Koerpermessung{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Koerpermessung{ID=1}");
 	}
 }

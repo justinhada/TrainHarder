@@ -75,6 +75,12 @@ public class AuthentifizierungServiceSollte
 		when(authentifizierungRepository.checkBenutzername(anyString())).thenReturn(erwartet);
 	}
 
+	private void angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuMailZurueck(
+		final Authentifizierung authentifizierung) throws AuthentifizierungNichtGefundenException
+	{
+		when(authentifizierungRepository.ermittleZuMail(anyString())).thenReturn(authentifizierung);
+	}
+
 	@Test
 	@DisplayName("alle Authentifizierungen ermitteln")
 	public void test01()
@@ -144,12 +150,15 @@ public class AuthentifizierungServiceSollte
 	@DisplayName("Authentifizierung erstellen")
 	public void test06() throws AuthentifizierungNichtGefundenException
 	{
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
 		final var registrierung = Testdaten.REGISTRIERUNG;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuMailZurueck(authentifizierung);
 
-		sut.erstelleAuthentifizierung(registrierung);
+		final var ergebnis = sut.erstelleAuthentifizierung(registrierung);
 
 		verify(authentifizierungRepository).erstelleAuthentifizierung(authentifizierung);
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -200,11 +209,15 @@ public class AuthentifizierungServiceSollte
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException,
 		AuthentifizierungNichtGefundenException
 	{
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryChecktMail(false);
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
+		angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuMailZurueck(authentifizierung);
 
-		sut.registriere(Testdaten.REGISTRIERUNG);
+		final var ergebnis = sut.registriere(Testdaten.REGISTRIERUNG);
 
 		verify(authentifizierungRepository).erstelleAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 }

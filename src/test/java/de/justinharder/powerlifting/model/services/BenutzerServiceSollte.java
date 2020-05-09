@@ -77,6 +77,7 @@ public class BenutzerServiceSollte
 		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
 		final var authentifizierungEintrag = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
+		benutzer.setId(0);
 
 		sut.erstelleBenutzer(benutzerEintrag, authentifizierungEintrag);
 
@@ -100,6 +101,7 @@ public class BenutzerServiceSollte
 	{
 		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
+		erwartet.setId(0);
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzer);
 
 		final var ergebnis = sut.ermittleZuId("0");
@@ -130,6 +132,8 @@ public class BenutzerServiceSollte
 		final var alleBenutzer = List.of(
 			Testdaten.BENUTZER_JUSTIN,
 			Testdaten.BENUTZER_GOTT);
+		alleBenutzer.stream().forEach(benutzerEintrag -> benutzerEintrag.setId(0));
+		erwartet.stream().forEach(benutzerEintrag -> benutzerEintrag.setId(0));
 		angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(alleBenutzer);
 
 		final var ergebnis = sut.ermittleZuNachname("Harder");

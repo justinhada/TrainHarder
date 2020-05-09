@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.justinharder.powerlifting.model.domain.enums.Doping;
 import de.justinharder.powerlifting.model.domain.enums.Erfahrung;
@@ -32,6 +33,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Benutzer")
 public class Benutzer extends Entitaet
 {
 	private static final long serialVersionUID = 2411974948424821755L;
@@ -59,9 +61,9 @@ public class Benutzer extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = true)
+	@JoinColumn(nullable = false)
 	private Authentifizierung authentifizierung;
-	@Setter(AccessLevel.NONE) 
+	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
 	@Setter(AccessLevel.NONE)

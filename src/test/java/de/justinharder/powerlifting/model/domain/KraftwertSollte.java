@@ -59,7 +59,7 @@ public class KraftwertSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(0),
+			() -> assertThat(sut.getId()).isEqualTo(1),
 			() -> assertThat(sut.getMaximum()).isEqualTo(100),
 			() -> assertThat(sut.getKoerpergewicht())
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
@@ -98,10 +98,10 @@ public class KraftwertSollte
 	public void test05()
 	{
 		final var andererKraftwert = new Kraftwert();
-		andererKraftwert.setId(1);
+		andererKraftwert.setId(2);
 
 		final var kraftwertMitGleicherId = new Kraftwert();
-		kraftwertMitGleicherId.setId(0);
+		kraftwertMitGleicherId.setId(1);
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -116,6 +116,6 @@ public class KraftwertSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Kraftwert{ID=0}");
+		assertThat(sut.toString()).isEqualTo("Kraftwert{ID=1}");
 	}
 }

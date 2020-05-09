@@ -11,8 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.justinharder.powerlifting.model.domain.enums.Uebungsart;
 import de.justinharder.powerlifting.model.domain.enums.Uebungskategorie;
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Uebung")
 public class Uebung extends Entitaet
 {
 	private static final long serialVersionUID = -452069613203642245L;
@@ -38,6 +41,7 @@ public class Uebung extends Entitaet
 	@Enumerated(EnumType.STRING)
 	private Uebungskategorie uebungskategorie;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
 	private Belastungsfaktor belastungsfaktor;
 	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
@@ -56,7 +60,7 @@ public class Uebung extends Entitaet
 
 		belastungsfaktor.setUebung(this);
 	}
-	
+
 	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);

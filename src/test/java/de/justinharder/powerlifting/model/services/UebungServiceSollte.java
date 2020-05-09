@@ -141,6 +141,7 @@ public class UebungServiceSollte
 	{
 		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
 		final var uebung = Testdaten.LOWBAR_KNIEBEUGE;
+		uebung.setId(0);
 
 		sut.erstelleUebung(uebungEintrag, Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE);
 
