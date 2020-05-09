@@ -3,6 +3,7 @@ package de.justinharder.powerlifting.persistence;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
@@ -10,10 +11,17 @@ import de.justinharder.powerlifting.model.domain.Authentifizierung;
 import de.justinharder.powerlifting.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.powerlifting.model.domain.exceptions.LoginException;
 import de.justinharder.powerlifting.model.repository.AuthentifizierungRepository;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizierung>
 	implements AuthentifizierungRepository
 {
+	public JpaAuthentifizierungRepository(final EntityManager entityManager)
+	{
+		super(entityManager);
+	}
+
 	@Override
 	public List<Authentifizierung> ermittleAlle()
 	{
@@ -34,8 +42,8 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			final var criteriaBuilder = entityManager.getCriteriaBuilder();
 			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
 			final var root = criteriaQuery.from(Authentifizierung.class);
-			final var joinBenutzer = root.join("Benutzer");
-			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("ID"), benutzerId));
+			final var joinBenutzer = root.join("benutzer");
+			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("id"), benutzerId));
 			return entityManager.createQuery(criteriaQuery).getSingleResult();
 		}
 		catch (final NoResultException e)
@@ -72,9 +80,13 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	{
 		try
 		{
-			return super.erstelleQuery(Authentifizierung.class,
-				Map.of("benutzername", benutzername, "passwort", passwort))
-					.getSingleResult();
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
+			criteriaQuery.select(root).where(
+				criteriaBuilder.equal(root.get("benutzername"), benutzername),
+				criteriaBuilder.equal(root.get("passwort"), passwort));
+			return entityManager.createQuery(criteriaQuery).getSingleResult();
 		}
 		catch (final NoResultException e)
 		{
@@ -87,12 +99,11 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	{
 		try
 		{
-			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
-				.getSingleResult()
+			return ermittleZuMail(mail)
 				.getMail()
-				.equals(mail);
+				.equalsIgnoreCase(mail);
 		}
-		catch (final NoResultException e)
+		catch (final NoResultException | AuthentifizierungNichtGefundenException e)
 		{
 			return false;
 		}
@@ -105,8 +116,8 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 		{
 			return super.erstelleQuery(Authentifizierung.class, Map.of("benutzername", benutzername))
 				.getSingleResult()
-				.getMail()
-				.equals(benutzername);
+				.getBenutzername()
+				.equalsIgnoreCase(benutzername);
 		}
 		catch (final NoResultException e)
 		{

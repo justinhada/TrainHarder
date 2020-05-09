@@ -1,0 +1,16 @@
+dependencies {
+	testImplementation "org.hamcrest:hamcrest-library:2.2", 
+    	"org.junit.jupiter:junit-jupiter-api:5.5.2",
+    	"org.assertj:assertj-core:3.14.0",
+		"org.mockito:mockito-core:2.7.19",
+    	"com.google.code.bean-matchers:bean-matchers:0.12"
+}
+
+test {
+	testLogging {
+		exceptionFormat = 'full'
+		showStandardStreams = true
+	}
+    useJUnitPlatform()
+    maxParallelForks = 1
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="TestRepoPU" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>de.justinharder.powerlifting.model.domain.Benutzer</class>
+		<class>de.justinharder.powerlifting.model.domain.Kraftwert</class>
+		<class>de.justinharder.powerlifting.model.domain.Belastungsfaktor</class>
+		<class>de.justinharder.powerlifting.model.domain.Uebung</class>
+		<class>de.justinharder.powerlifting.model.domain.Authentifizierung</class>
+		<class>de.justinharder.powerlifting.model.domain.Koerpermessung</class>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
+			<property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/powerliftingTest" />
+			<property name="javax.persistence.jdbc.user" value="powerlifter" />
+			<property name="javax.persistence.jdbc.password" value="passwort" />
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import de.justinharder.powerlifting.model.domain.Entitaet;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class JpaRepository<T extends Entitaet>
 		return entityManager.find(clazz, id);
 	}
 
+	@Transactional
 	protected void erstelleEntitaet(final T entitaet)
 	{
 		entityManager.persist(entitaet);
