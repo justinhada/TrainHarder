@@ -1,6 +1,7 @@
 package de.justinharder.powerlifting.model.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-  
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,19 +25,32 @@ public class Belastungsfaktor extends Entitaet
 	private static final long serialVersionUID = 5251603922467033680L;
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Squat", nullable = false)
 	private double squat;
+	@Column(name = "Benchpress", nullable = false)
 	private double benchpress;
+	@Column(name = "Deadlift", nullable = false)
 	private double deadlift;
+	@Column(name = "Triceps", nullable = false)
 	private double triceps;
+	@Column(name = "Chest", nullable = false)
 	private double chest;
+	@Column(name = "Core", nullable = false)
 	private double core;
+	@Column(name = "Back", nullable = false)
 	private double back;
+	@Column(name = "Biceps", nullable = false)
 	private double biceps;
+	@Column(name = "Glutes", nullable = false)
 	private double glutes;
+	@Column(name = "Quads", nullable = false)
 	private double quads;
+	@Column(name = "Hamstrings", nullable = false)
 	private double hamstrings;
+	@Column(name = "Shoulder", nullable = false)
 	private double shoulder;
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "UebungID", nullable = false)

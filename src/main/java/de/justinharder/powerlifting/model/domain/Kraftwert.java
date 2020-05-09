@@ -3,7 +3,10 @@ package de.justinharder.powerlifting.model.domain;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,17 +30,23 @@ public class Kraftwert extends Entitaet
 	private static final long serialVersionUID = -1203157961547955006L;
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Maximum")
 	private int maximum;
+	@Column(name = "Koerpergewicht")
 	private double koerpergewicht;
+	@Column(name = "Datum")
 	private LocalDate datum;
+	@Column(name = "Wiederholungen")
+	@Enumerated(EnumType.STRING)
 	private Wiederholungen wiederholungen;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
 	public Kraftwert(

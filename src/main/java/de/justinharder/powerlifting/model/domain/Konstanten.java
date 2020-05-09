@@ -1,7 +1,10 @@
 package de.justinharder.powerlifting.model.domain;
 
 import de.justinharder.powerlifting.model.domain.enums.Kraftlevel;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Konstanten
 {
 	public static final int MAX = Integer.MAX_VALUE;

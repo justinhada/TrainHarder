@@ -3,6 +3,7 @@ package de.justinharder.powerlifting.model.domain;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,28 +27,47 @@ public class Koerpermessung extends Entitaet
 	private static final long serialVersionUID = -6355583837778945437L;
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Koerpergroesse")
 	private int koerpergroesse;
+	@Column(name = "Koerpergewicht")
 	private double koerpergewicht;
+	@Column(name = "BodyMassIndex")
 	private double bodyMassIndex;
+	@Column(name = "FatFreeMassIndex")
 	private double fatFreeMassIndex;
+	@Column(name = "KoerperfettAnteil")
 	private double koerperfettAnteil;
+	@Column(name = "FettfreiesKoerpergewicht")
 	private double fettfreiesKoerpergewicht;
+	@Column(name = "SubkutanesFett")
 	private double subkutanesFett;
+	@Column(name = "Viszeralfett")
 	private double viszeralfett;
+	@Column(name = "Koerperwasser")
 	private double koerperwasser;
+	@Column(name = "Skelettmuskel")
 	private double skelettmuskel;
+	@Column(name = "Muskelmasse")
 	private double muskelmasse;
+	@Column(name = "Knochenmasse")
 	private double knochenmasse;
+	@Column(name = "Protein")
 	private double protein;
+	@Column(name = "Grundumsatz")
 	private int grundumsatz;
+	@Column(name = "EingenommeneKalorien")
 	private int eingenommeneKalorien;
+	@Column(name = "VerbrannteKalorien")
 	private int verbrannteKalorien;
+	@Column(name = "BiologischesAlter")
 	private int biologischesAlter;
+	@Column(name = "Datum")
 	private LocalDate datum;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
 	public Koerpermessung(

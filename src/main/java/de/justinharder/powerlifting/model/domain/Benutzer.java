@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,29 +40,41 @@ public class Benutzer extends Entitaet
 	private static final long serialVersionUID = 2411974948424821755L;
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Vorname")
 	private String vorname;
+	@Column(name = "Nachname")
 	private String nachname;
+	@Column(name = "Lebensalter")
 	private int lebensalter;
+	@Column(name = "Kraftlevel")
 	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel = Kraftlevel.CLASS_5;
+	@Column(name = "Geschlecht")
 	@Enumerated(EnumType.STRING)
 	private Geschlecht geschlecht;
+	@Column(name = "Erfahrung")
 	@Enumerated(EnumType.STRING)
 	private Erfahrung erfahrung;
+	@Column(name = "Ernaehrung")
 	@Enumerated(EnumType.STRING)
 	private Ernaehrung ernaehrung;
+	@Column(name = "Schlafqualitaet")
 	@Enumerated(EnumType.STRING)
 	private Schlafqualitaet schlafqualitaet;
+	@Column(name = "Stress")
 	@Enumerated(EnumType.STRING)
 	private Stress stress;
+	@Column(name = "Doping")
 	@Enumerated(EnumType.STRING)
 	private Doping doping;
+	@Column(name = "Regenerationsfaehigkeit")
 	@Enumerated(EnumType.STRING)
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
 	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)

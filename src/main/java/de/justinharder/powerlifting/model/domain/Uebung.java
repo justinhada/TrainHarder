@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,15 +34,19 @@ public class Uebung extends Entitaet
 	private static final long serialVersionUID = -452069613203642245L;
 
 	@Id
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Name", unique = true)
 	private String name;
+	@Column(name = "Uebungsart")
 	@Enumerated(EnumType.STRING)
 	private Uebungsart uebungsart;
+	@Column(name = "Uebungskategorie")
 	@Enumerated(EnumType.STRING)
 	private Uebungskategorie uebungskategorie;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "BelastungsfaktorID", nullable = false)
 	private Belastungsfaktor belastungsfaktor;
 	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
