@@ -1,5 +1,5 @@
 # Powerlifting
-> by Justin Harder & Eduard Stremel
+> by Justin Harder
 
 Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benutzer.
 
@@ -15,7 +15,7 @@ Dieses muss sich an folgende Richtlinien halten:
 * Mindestens ein Großbuchstabe, ein Kleinbuchstabe, eine Zahl von 0-9
 * und eines der folgenden Zeichen: $, %, &, ?, #, _
 
-# Wie wird das Passwort in der Datenbank gespeichert?
+## Wie wird das Passwort in der Datenbank gespeichert?
 
 folgt...
 
