@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui">
+<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Sign up – Powerlifting</title>
+	<title>Sign up – TrainHarder</title>
 	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
 	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
@@ -16,50 +12,46 @@
 
 <h:body>
 	<div class="center-container small-container">
-		<a href="start" title="Startseite"><h:graphicImage
-				styleClass="logo" value="#{resource['img/logo.png']}"
-				alt="Powerlifting-Logo" /></a>
+		<a href="start" title="Startseite"><h:graphicImage styleClass="logo" value="#{resource['img/logo.png']}" alt="TrainHarder-Logo" /></a>
 	</div>
 	<div class="center-container medium-container">
 		<div class="wrapper text-left text-bold text-height">
-			<form method="post" action="/Powerlifting/join">
-				<div class="title">Starte mit Powerlifting</div>
-				<label for="mail">E-Mail-Adresse</label> <br />
+			<form method="post" action="/TrainHarder/join">
+				<div class="title">Starte mit TrainHarder</div>
+				<label for="mail">E-Mail-Adresse</label>
+				<br />
 				<div class="input-group mb-3">
 					<input id="mail" name="mail" class="form-control" />
 				</div>
-				<label for="benutzername">Benutzername</label> <br />
+				<label for="benutzername">Benutzername</label>
+				<br />
 				<div class="input-group mb-3">
 					<input id="benutzername" name="benutzername" class="form-control" />
 				</div>
-				<label for="passwort">Passwort</label> <br />
+				<label for="passwort">Passwort</label>
+				<br />
 				<div class="input-group mb-3">
-					<input type="password" id="passwort" name="passwort"
-						class="form-control" />
+					<input type="password" id="passwort" name="passwort" class="form-control" />
 				</div>
-				<button class="btn btn-secondary active" type="submit">Join
-					Powerlifting ❯</button>
+				<button class="btn btn-secondary active" type="submit">Join TrainHarder ❯</button>
 			</form>
 		</div>
 		<br />
 		<div class="wrapper text-central text-bold text-height">
-			<span><a href="login" title="Sign in">Ich habe schon einen
-					Benutzer</a>.</span>
+			<span><a href="login" title="Sign in">Ich habe schon einen Benutzer</a>.</span>
 		</div>
 
 		<div class="footer">
 			<ul>
 				<li><a href="impressum" title="Impressum">Impressum</a></li>
-				<li><a href="datenschutz"
-					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+				<li><a href="datenschutz" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
 				<li><a href="kontakt" title="Kontakt">Kontakt</a></li>
 			</ul>
 		</div>
 
 		<div class="attribution">
-			<label>Icons made by <a
-				href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
-					Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></label>
+			<label>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a
+				href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></label>
 		</div>
 	</div>
 </h:body>

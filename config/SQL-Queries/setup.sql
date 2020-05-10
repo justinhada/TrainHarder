@@ -1,8 +1,8 @@
-CREATE SCHEMA `powerlifting` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+CREATE SCHEMA `trainharder` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER 'powerlifter'@'%' IDENTIFIED BY 'passwort';
-GRANT ALL PRIVILEGES ON `powerlifting`.* TO 'powerlifter'@'%' IDENTIFIED BY 'passwort';
+GRANT ALL PRIVILEGES ON `trainharder`.* TO 'powerlifter'@'%' IDENTIFIED BY 'passwort';
 CREATE USER 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
-GRANT ALL PRIVILEGES ON `powerlifting`.* TO 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
+GRANT ALL PRIVILEGES ON `trainharder`.* TO 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
 FLUSH privileges;
 
 CREATE TABLE Benutzer

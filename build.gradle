@@ -23,7 +23,8 @@ repositories {
 dependencies {
     api "org.apache.commons:commons-math3:3.6.1"
 
-    implementation "com.google.guava:guava:28.0-jre",
+    implementation "org.projectlombok:lombok:1.18.12",
+    		"com.google.guava:guava:28.0-jre",
     		"javax.xml.bind:jaxb-api:2.3.1",
     		"org.slf4j:slf4j-api:1.7.25",
     		"org.primefaces:primefaces:7.0",
@@ -41,7 +42,6 @@ dependencies {
     integrationTestRuntimeOnly "org.hibernate:hibernate-core:5.4.12.Final",
     	"org.mariadb.jdbc:mariadb-java-client:2.6.0" 
 
-    compileOnly "org.projectlombok:lombok:1.18.12"
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 }
 
@@ -54,7 +54,7 @@ eclipse {
 			facet name:'jst.jsf', version:'2.3'
 		}
 		component {
-			contextPath = 'Powerlifting'
+			contextPath = 'TrainHarder'
 		}
 	}
 }
