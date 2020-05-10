@@ -56,9 +56,9 @@ public class Authentifizierung extends Entitaet
 		this.aktiv = true;
 	}
 
-//	public void setBenutzer(final Benutzer benutzer)
-//	{
-//		this.benutzer = benutzer;
-//		benutzer.setAuthentifizierung(this);
-//	}
+	public void setBenutzer(final Benutzer benutzer)
+	{
+		this.benutzer = benutzer;
+		benutzer.setAuthentifizierung(this);
+	}
 }
