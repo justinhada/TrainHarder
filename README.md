@@ -1,4 +1,4 @@
-# Powerlifting
+# TrainHarder
 > by Justin Harder
 
 Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benutzer.
