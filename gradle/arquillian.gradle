@@ -1,0 +1,13 @@
+dependencies {
+    implementation "javax.xml.bind:jaxb-api:2.3.1"
+    
+	integrationTestImplementation "org.jboss.arquillian:arquillian-bom:1.6.0.Final",
+		"org.jboss.arquillian.junit:arquillian-junit-container:1.6.0.Final"//,
+		//"org.wildfly.arquillian:wildfly-arquillian-container-managed:2.2.0.Final",
+		//"org.jboss.arquillian.extension:arquillian-rest-client-impl-jersey:1.0.0.Alpha4",
+		//"org.jboss.arquillian.extension:arquillian-persistence-dbunit:1.0.0.Alpha7",
+		//"org.jboss.arquillian.extension:arquillian-drone-bom:2.5.1",
+		//"org.jboss.arquillian.selenium:selenium-bom:3.13.0",
+		//"org.jboss.arquillian.graphene:graphene-webdriver:2.3.2",
+		//"org.jboss.arquillian.graphene:arquillian-browser-screenshooter:2.3.2"
+}

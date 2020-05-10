@@ -1,61 +1,43 @@
-CREATE SCHEMA `powerlifting` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+CREATE SCHEMA `trainharder` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER 'powerlifter'@'%' IDENTIFIED BY 'passwort';
-GRANT ALL PRIVILEGES ON `powerlifting`.* TO 'powerlifter'@'%' IDENTIFIED BY 'passwort';
+GRANT ALL PRIVILEGES ON `trainharder`.* TO 'powerlifter'@'%' IDENTIFIED BY 'passwort';
 CREATE USER 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
-GRANT ALL PRIVILEGES ON `powerlifting`.* TO 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
+GRANT ALL PRIVILEGES ON `trainharder`.* TO 'powerlifter'@'localhost' IDENTIFIED BY 'passwort';
 FLUSH privileges;
 
 CREATE TABLE Benutzer
 (
-ID INT NOT NULL,
-Vorname VARCHAR(128) NOT NULL,
-Nachname VARCHAR(128) NOT NULL,
-Koerpergewicht INT,
-Koerpergroesse INT,
-Lebensalter INT,
-Kraftlevel VARCHAR(128) NOT NULL,
-Geschlecht VARCHAR(128) NOT NULL,
-Erfahrung VARCHAR(128) NOT NULL,
-Ernaehrung VARCHAR(128) NOT NULL,
-Schlafqualitaet VARCHAR(128) NOT NULL,
-Stress VARCHAR(128) NOT NULL,
-Doping VARCHAR(128) NOT NULL,
-Regenerationsfaehigkeit VARCHAR(128) NOT NULL,
-PRIMARY KEY(ID)
-);
-
-INSERT INTO Benutzer VALUES
-(
-1,
-"Justin",
-"Harder",
-90,
-178,
-21,
-"CLASS_5",
-"MAENNLICH",
-"BEGINNER",
-"GUT",
-"GUT",
-"MITTELMAESSIG",
-"NEIN",
-"GUT"
-);
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  Vorname VARCHAR(255) DEFAULT NULL,
+  Nachname VARCHAR(255) DEFAULT NULL,
+  Koerpergewicht INT(11) NOT NULL,
+  Koerpergroesse INT(11) NOT NULL,
+  Lebensalter INT(11) NOT NULL,
+  Kraftlevel VARCHAR(255) DEFAULT NULL,
+  Geschlecht VARCHAR(255) DEFAULT NULL,
+  Erfahrung VARCHAR(255) DEFAULT NULL,
+  Ernaehrung VARCHAR(255) DEFAULT NULL,
+  Schlafqualitaet VARCHAR(255) DEFAULT NULL,
+  Stress VARCHAR(255) DEFAULT NULL,
+  Doping VARCHAR(255) DEFAULT NULL,
+  Regenerationsfaehigkeit VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY(ID)
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE Uebung
 (
-ID INT NOT NULL,
+ID INT(11) NOT NULL AUTO_INCREMENT,
 Name VARCHAR(128) NOT NULL,
 Uebungsart VARCHAR(128) NOT NULL,
 Uebungskategorie VARCHAR(128) NOT NULL,
-Belastungsfaktor_ID INT NOT NULL,
-PRIMARY KEY(ID),
-FOREIGN KEY(Belastungsfaktor_ID) REFERENCES Belastungsfaktor(ID) ON UPDATE CASCADE ON DELETE RESTRICT
-);
+PRIMARY KEY(ID)
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE Belastungsfaktor
 (
-ID INT NOT NULL,
+ID INT(11) NOT NULL AUTO_INCREMENT,
 Squat DECIMAL NOT NULL,
 Benchpress DECIMAL NOT NULL,
 Deadlift DECIMAL NOT NULL,
@@ -68,14 +50,63 @@ Glutes DECIMAL NOT NULL,
 Quads DECIMAL NOT NULL,
 Hamstrings DECIMAL NOT NULL,
 Shoulder DECIMAL NOT NULL,
-PRIMARY KEY(ID)
-);
+Uebung_ID INT(11) NOT NULL,
+PRIMARY KEY(ID),
+FOREIGN KEY(Uebung_ID) REFERENCES Uebung(ID)
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE Kraftwert
 (
-ID INT NOT NULL,
-Maximum INT NOT NULL,
-Uebung_ID INT NOT NULL,
-PRIMARY KEY(ID),
-FOREIGN KEY(Uebung_ID) REFERENCES Uebung(ID) ON UPDATE CASCADE ON DELETE RESTRICT
-);
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  Maximum INT(11) NOT NULL,
+  Koerpergewicht INT(11) NOT NULL,
+  Datum DATE NOT NULL,
+  Wiederholungen VARCHAR(255) NOT NULL,
+  Uebung_ID INT(11) NOT NULL,
+  Benutzer_ID INT(11) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(Uebung_ID) REFERENCES Uebung(ID),
+  FOREIGN KEY(Benutzer_ID) REFERENCES Benutzer(ID)
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE Authentifizierung
+(
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  Mail VARCHAR(255) NOT NULL,
+  Benutzername VARCHAR(255) NOT NULL,
+  Passwort VARCHAR(255) NOT NULL,
+  Aktiv BOOLEAN NOT NULL,
+  Benutzer_ID INT(11) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(Benutzer_ID) REFERENCES Benutzer(ID) 
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE Koerpermessung
+(
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  Koerpergroesse INT(11) NOT NULL,
+  Koerpergewicht DECIMAL NOT NULL,
+  BodyMassIndex DECIMAL NOT NULL,
+  FatFreeMassIndex DECIMAL NOT NULL,
+  KoerperfettAnteil DECIMAL NOT NULL,
+  FettfreiesKoerpergewicht DECIMAL NOT NULL,
+  SubkutanesFett DECIMAL NOT NULL,
+  Viszeralfett DECIMAL NOT NULL,
+  Koerperwasser DECIMAL NOT NULL,
+  Skelettmuskel DECIMAL NOT NULL,
+  Muskelmasse DECIMAL NOT NULL,
+  Knochenmasse DECIMAL NOT NULL,
+  Protein DECIMAL NOT NULL,
+  Grundumsatz INT(11) NOT NULL,
+  EingenommeneKalorien INT(11) NOT NULL,
+  VerbrannteKalorien INT(11) NOT NULL,
+  BiologischesAlter INT(11) NOT NULL,
+  Datum DATE NOT NULL,
+  Benutzer_ID INT(11) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY(Benutzer_ID) REFERENCES Benutzer(ID)
+)
+AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
