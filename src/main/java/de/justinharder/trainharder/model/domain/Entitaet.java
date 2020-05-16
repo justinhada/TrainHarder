@@ -3,8 +3,11 @@ package de.justinharder.trainharder.model.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.MappedSuperclass;
+
 import com.google.common.base.MoreObjects;
 
+@MappedSuperclass
 public abstract class Entitaet implements Serializable
 {
 	private static final long serialVersionUID = 790786817201854580L;
