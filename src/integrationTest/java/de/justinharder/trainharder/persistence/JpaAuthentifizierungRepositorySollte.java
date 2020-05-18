@@ -2,9 +2,9 @@ package de.justinharder.trainharder.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
@@ -63,28 +64,17 @@ public class JpaAuthentifizierungRepositorySollte
 		{
 			final var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuId(1);
+			final var ergebnis = sut.ermittleZuId(erwartet.getPrimaerschluessel());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		}, () ->
 		{
 			final var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuId(2);
+			final var ergebnis = sut.ermittleZuId(erwartet.getPrimaerschluessel());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		});
-	}
-
-	@Test
-	public void authentifizierungNichtGefundenExceptionWerfenWennBenutzerNichtExistiert()
-	{
-		final var erwartet = "Die Authentifizierung zur BenutzerID \"100\" existiert nicht!";
-
-		final var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzer(100));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -94,28 +84,17 @@ public class JpaAuthentifizierungRepositorySollte
 		{
 			final var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN.getId());
+			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN.getPrimaerschluessel());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		}, () ->
 		{
 			final var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD.getId());
+			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD.getPrimaerschluessel());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		});
-	}
-
-	@Test
-	public void authentifizierungNichtGefundenExceptionWerfenWennMailNichtExistiert()
-	{
-		final var erwartet = "Die Authentifizierung zur Mail \"nicht@existent.de\" existiert nicht!";
-
-		final var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuMail("nicht@existent.de"));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -127,42 +106,31 @@ public class JpaAuthentifizierungRepositorySollte
 
 			final var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		}, () ->
 		{
 			final var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
 			final var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getMail());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 		});
 	}
 
 	@Test
 	public void authentifizierungErstellen() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = new Authentifizierung("justinharder@t-online.de", "lololol", "DerBossDerBosse#123");
-		erwartet.setId(1000);
-		erwartet.setBenutzer(new Benutzer("Justin", "Harder", 21, Geschlecht.MAENNLICH, Erfahrung.BEGINNER,
+		final var authentifizierungId = new Primaerschluessel();
+		final var benutzerId = new Primaerschluessel();
+		final var erwartet =
+			new Authentifizierung(authentifizierungId, "justinharder@t-online.de", "lololol", "DerBossDerBosse#123");
+		erwartet.setBenutzer(new Benutzer(benutzerId, "Justin", "Harder", 21, Geschlecht.MAENNLICH, Erfahrung.BEGINNER,
 			Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN,
 			Regenerationsfaehigkeit.DURCHSCHNITTLICH, erwartet));
 
-		sut.erstelleAuthentifizierung(erwartet);
-		final var ergebnis = sut.ermittleZuId(1000);
+		final var ergebnis = sut.speichereAuthentifizierung(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	public void loginExceptionWerfen()
-	{
-		final var erwartet = "Benutzername oder Passwort falsch!";
-
-		final var exception = assertThrows(LoginException.class, () -> sut.checkLogin(
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
-			Testdaten.AUTHENTIFIZIERUNG_EDUARD.getPasswort()));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -170,9 +138,9 @@ public class JpaAuthentifizierungRepositorySollte
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-		final var ergebnis = sut.checkLogin(erwartet.getBenutzername(), erwartet.getPasswort());
+		final var ergebnis = sut.login(erwartet.getBenutzername(), erwartet.getPasswort());
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
 	}
 
 	@Test

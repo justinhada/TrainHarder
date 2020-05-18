@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class KoerpermessungSollte
@@ -35,7 +34,9 @@ public class KoerpermessungSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	public void test02()
 	{
+		final var id = new Primaerschluessel();
 		final var koerpermessung = new Koerpermessung(
+			id,
 			178,
 			90,
 			25,
@@ -55,7 +56,7 @@ public class KoerpermessungSollte
 			Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(koerpermessung.getId()).isEqualTo(0),
+			() -> assertThat(koerpermessung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(koerpermessung.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(koerpermessung.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(koerpermessung.getBodyMassIndex()).isEqualTo(28.41),
@@ -82,7 +83,7 @@ public class KoerpermessungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KOERPERMESSUNG_JUSTIN_ID),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getBodyMassIndex()).isEqualTo(28.41),
@@ -108,8 +109,9 @@ public class KoerpermessungSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var id = new Primaerschluessel();
 		final var koerpermessung = new Koerpermessung();
-		koerpermessung.setId(0);
+		koerpermessung.setPrimaerschluessel(id);
 		koerpermessung.setKoerpergroesse(178);
 		koerpermessung.setKoerpergewicht(90);
 		koerpermessung.setBodyMassIndex(28.41);
@@ -131,7 +133,7 @@ public class KoerpermessungSollte
 		koerpermessung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(koerpermessung.getId()).isEqualTo(0),
+			() -> assertThat(koerpermessung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(koerpermessung.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(koerpermessung.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(koerpermessung.getBodyMassIndex()).isEqualTo(28.41),
@@ -159,10 +161,10 @@ public class KoerpermessungSollte
 	public void test05()
 	{
 		final var andereKoerpermessung = new Koerpermessung();
-		andereKoerpermessung.setId(2);
+		andereKoerpermessung.setPrimaerschluessel(new Primaerschluessel());
 
 		final var koerpermessungMitGleicherId = new Koerpermessung();
-		koerpermessungMitGleicherId.setId(1);
+		koerpermessungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -177,6 +179,8 @@ public class KoerpermessungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Koerpermessung{ID=1}");
+		final var erwartet = "Koerpermessung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 }

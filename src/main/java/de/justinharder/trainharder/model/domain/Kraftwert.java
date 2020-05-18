@@ -4,13 +4,11 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,10 +27,9 @@ public class Kraftwert extends Entitaet
 {
 	private static final long serialVersionUID = -1203157961547955006L;
 
-	@Id
+	@EmbeddedId
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Primaerschluessel primaerschluessel;
 	@Column(name = "Maximum")
 	private int maximum;
 	@Column(name = "Koerpergewicht")
@@ -50,6 +47,7 @@ public class Kraftwert extends Entitaet
 	private Benutzer benutzer;
 
 	public Kraftwert(
+		final Primaerschluessel primaerschluessel,
 		final int maximum,
 		final double koerpergewicht,
 		final LocalDate datum,
@@ -57,6 +55,7 @@ public class Kraftwert extends Entitaet
 		final Uebung uebung,
 		final Benutzer benutzer)
 	{
+		this.primaerschluessel = primaerschluessel;
 		this.maximum = maximum;
 		this.koerpergewicht = koerpergewicht;
 		this.datum = datum;
@@ -64,7 +63,7 @@ public class Kraftwert extends Entitaet
 		this.uebung = uebung;
 		this.benutzer = benutzer;
 
-		benutzer.fuegeKraftwertHinzu(this);
 		uebung.fuegeKraftwertHinzu(this);
+		benutzer.fuegeKraftwertHinzu(this);
 	}
 }

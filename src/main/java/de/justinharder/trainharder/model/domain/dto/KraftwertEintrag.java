@@ -13,7 +13,7 @@ public class KraftwertEintrag implements Serializable
 {
 	private static final long serialVersionUID = -5177169492291346152L;
 
-	private int id;
+	private String id;
 	private int maximum;
 	private double koerpergewicht;
 	private String datum;

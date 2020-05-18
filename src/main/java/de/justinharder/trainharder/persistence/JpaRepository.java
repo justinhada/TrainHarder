@@ -2,6 +2,7 @@ package de.justinharder.trainharder.persistence;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,6 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -26,15 +28,20 @@ public class JpaRepository<T extends Entitaet>
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	protected T ermittleZuId(final Class<T> clazz, final int id)
+	protected Optional<T> ermittleZuId(final Class<T> clazz, final Primaerschluessel id)
 	{
-		return entityManager.find(clazz, id);
+		return Optional.ofNullable(entityManager.find(clazz, id));
 	}
 
 	@Transactional
-	protected void erstelleEntitaet(final T entitaet)
+	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
 	{
+		if (ermittleZuId(clazz, entitaet.getPrimaerschluessel()).isPresent())
+		{
+			return entityManager.merge(entitaet);
+		}
 		entityManager.persist(entitaet);
+		return entitaet;
 	}
 
 	protected TypedQuery<T> erstelleQuery(final Class<T> clazz, final Map<String, Object> bedingungen)

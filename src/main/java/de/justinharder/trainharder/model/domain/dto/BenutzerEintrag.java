@@ -13,11 +13,9 @@ public class BenutzerEintrag implements Serializable
 {
 	private static final long serialVersionUID = 2341943957236551490L;
 
-	private int id;
+	private String id;
 	private String vorname;
 	private String nachname;
-	private int koerpergroesse;
-	private double koerpergewicht;
 	private int lebensalter;
 	private String kraftlevel;
 	private String geschlecht;
@@ -27,4 +25,5 @@ public class BenutzerEintrag implements Serializable
 	private String stress;
 	private String doping;
 	private String regenerationsfaehigkeit;
+	private AuthentifizierungEintrag authentifizierung;
 }

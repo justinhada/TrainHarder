@@ -4,11 +4,9 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -26,10 +24,9 @@ public class Koerpermessung extends Entitaet
 {
 	private static final long serialVersionUID = -6355583837778945437L;
 
-	@Id
+	@EmbeddedId
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Primaerschluessel primaerschluessel;
 	@Column(name = "Koerpergroesse")
 	private int koerpergroesse;
 	@Column(name = "Koerpergewicht")
@@ -71,6 +68,7 @@ public class Koerpermessung extends Entitaet
 	private Benutzer benutzer;
 
 	public Koerpermessung(
+		final Primaerschluessel primaerschluessel,
 		final int koerpergroesse,
 		final double koerpergewicht,
 		final double koerperfettAnteil,
@@ -89,6 +87,7 @@ public class Koerpermessung extends Entitaet
 		final LocalDate datum,
 		final Benutzer benutzer)
 	{
+		this.primaerschluessel = primaerschluessel;
 		this.koerpergroesse = koerpergroesse;
 		this.koerpergewicht = koerpergewicht;
 		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);

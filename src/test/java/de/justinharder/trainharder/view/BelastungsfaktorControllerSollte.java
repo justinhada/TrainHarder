@@ -1,9 +1,8 @@
 package de.justinharder.trainharder.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -16,23 +15,17 @@ import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.services.BelastungsfaktorService;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.navigation.ExternerWebContext;
-import de.justinharder.trainharder.view.navigation.Navigator;
 
 public class BelastungsfaktorControllerSollte
 {
 	private BelastungsfaktorController sut;
-	private ExternerWebContext externerWebContext;
-	private Navigator navigator;
 	private BelastungsfaktorService belastungsfaktorService;
 
 	@BeforeEach
 	public void setup()
 	{
-		externerWebContext = mock(ExternerWebContext.class);
-		navigator = mock(Navigator.class);
 		belastungsfaktorService = mock(BelastungsfaktorService.class);
-		sut = new BelastungsfaktorController(externerWebContext, navigator, belastungsfaktorService);
+		sut = new BelastungsfaktorController(belastungsfaktorService);
 	}
 
 	private void angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorEintraegeZurueck(
@@ -44,7 +37,7 @@ public class BelastungsfaktorControllerSollte
 	private void angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(
 		final BelastungsfaktorEintrag erwartet) throws BelastungsfaktorNichtGefundenException
 	{
-		when(belastungsfaktorService.ermittleZuId(anyInt())).thenReturn(erwartet);
+		when(belastungsfaktorService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
 	@Test
@@ -69,34 +62,8 @@ public class BelastungsfaktorControllerSollte
 		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE;
 		angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(erwartet);
 
-		sut.getBelastungsfaktorEintrag().setId(0);
-		final var ergebnis = sut.getBelastungsfaktorZuId();
+		final var ergebnis = sut.getBelastungsfaktorZuId(erwartet.getId());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
-
-	@Test
-	@DisplayName("einen Belastungsfaktor weiter an den BelastungsfaktorService geben")
-	public void test03()
-	{
-		final var belastungsfaktorEintrag = Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN;
-		belastungsfaktorEintrag.setId(0);
-
-		sut.getBelastungsfaktorEintrag().setBack(0.0);
-		sut.getBelastungsfaktorEintrag().setBenchpress(1.0);
-		sut.getBelastungsfaktorEintrag().setBiceps(0.0);
-		sut.getBelastungsfaktorEintrag().setChest(1.0);
-		sut.getBelastungsfaktorEintrag().setCore(0.0);
-		sut.getBelastungsfaktorEintrag().setDeadlift(0.0);
-		sut.getBelastungsfaktorEintrag().setGlutes(0.0);
-		sut.getBelastungsfaktorEintrag().setHamstrings(0.0);
-		sut.getBelastungsfaktorEintrag().setQuads(0.0);
-		sut.getBelastungsfaktorEintrag().setShoulder(0.1);
-		sut.getBelastungsfaktorEintrag().setSquat(0.0);
-		sut.getBelastungsfaktorEintrag().setTriceps(0.7);
-		sut.erstelleBelastungsfaktor();
-
-		verify(belastungsfaktorService).erstelleBelastungsfaktor(belastungsfaktorEintrag);
-	}
-
 }

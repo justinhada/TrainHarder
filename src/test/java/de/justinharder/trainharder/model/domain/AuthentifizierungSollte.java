@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class AuthentifizierungSollte
@@ -33,13 +32,15 @@ public class AuthentifizierungSollte
 	@DisplayName("einen RequiredArgsCounstructor haben")
 	public void test02()
 	{
+		final var id = new Primaerschluessel();
 		final var authentifizierung = new Authentifizierung(
+			id,
 			"mail@justinharder.de",
 			"harder",
 			"JustinHarder98");
 
 		assertAll(
-			() -> assertThat(authentifizierung.getId()).isEqualTo(0),
+			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"));
@@ -50,7 +51,7 @@ public class AuthentifizierungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID),
 			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(sut.getPasswort()).isEqualTo("JustinHarder#98"),
@@ -61,15 +62,16 @@ public class AuthentifizierungSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var id = new Primaerschluessel();
 		final var authentifizierung = new Authentifizierung();
-		authentifizierung.setId(0);
+		authentifizierung.setPrimaerschluessel(id);
 		authentifizierung.setMail("mail@justinharder.de");
 		authentifizierung.setBenutzername("harder");
 		authentifizierung.setPasswort("JustinHarder98");
 		authentifizierung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(authentifizierung.getId()).isEqualTo(0),
+			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
@@ -82,10 +84,10 @@ public class AuthentifizierungSollte
 	public void test05()
 	{
 		final var andereAuthentifizierung = new Authentifizierung();
-		andereAuthentifizierung.setId(2);
+		andereAuthentifizierung.setPrimaerschluessel(new Primaerschluessel());
 
 		final var authentifizierungMitGleicherId = new Authentifizierung();
-		authentifizierungMitGleicherId.setId(1);
+		authentifizierungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -100,6 +102,8 @@ public class AuthentifizierungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Authentifizierung{ID=1}");
+		final var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 }

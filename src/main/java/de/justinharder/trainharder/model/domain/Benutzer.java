@@ -5,13 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,10 +37,9 @@ public class Benutzer extends Entitaet
 {
 	private static final long serialVersionUID = 2411974948424821755L;
 
-	@Id
+	@EmbeddedId
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Primaerschluessel primaerschluessel;
 	@Column(name = "Vorname")
 	private String vorname;
 	@Column(name = "Nachname")
@@ -84,6 +81,7 @@ public class Benutzer extends Entitaet
 	private List<Kraftwert> kraftwerte = new ArrayList<>();
 
 	public Benutzer(
+		final Primaerschluessel primaerschluessel,
 		final String vorname,
 		final String nachname,
 		final int lebensalter,
@@ -96,6 +94,7 @@ public class Benutzer extends Entitaet
 		final Regenerationsfaehigkeit regenerationsfaehigkeit,
 		final Authentifizierung authentifizierung)
 	{
+		this.primaerschluessel = primaerschluessel;
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.lebensalter = lebensalter;

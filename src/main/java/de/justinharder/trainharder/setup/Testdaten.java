@@ -8,12 +8,12 @@ import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
 import de.justinharder.trainharder.model.domain.dto.KraftwertEintrag;
-import de.justinharder.trainharder.model.domain.dto.Registrierung;
 import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -32,14 +32,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
+	public static final Primaerschluessel AUTHENTIFIZIERUNG_JUSTIN_ID = new Primaerschluessel();
+	public static final Primaerschluessel AUTHENTIFIZIERUNG_EDUARD_ID = new Primaerschluessel();
+	public static final Primaerschluessel AUTHENTIFIZIERUNG_ANETTE_ID = new Primaerschluessel();
+	public static final Primaerschluessel AUTHENTIFIZIERUNG_GOTT_ID = new Primaerschluessel();
+
 	public static final Authentifizierung AUTHENTIFIZIERUNG_JUSTIN = new Authentifizierung();
 	public static final Authentifizierung AUTHENTIFIZIERUNG_EDUARD = new Authentifizierung();
+	public static final Authentifizierung AUTHENTIFIZIERUNG_ANETTE = new Authentifizierung();
+	public static final Authentifizierung AUTHENTIFIZIERUNG_GOTT = new Authentifizierung();
 
 	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_JUSTIN = new AuthentifizierungEintrag();
 	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_EDUARD = new AuthentifizierungEintrag();
+	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_ANETTE = new AuthentifizierungEintrag();
+	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_GOTT = new AuthentifizierungEintrag();
 
-	public static final Registrierung REGISTRIERUNG = new Registrierung();
-	public static final Registrierung REGISTRIERUNG_2 = new Registrierung();
+	public static final Primaerschluessel KOERPERMESSUNG_JUSTIN_ID = new Primaerschluessel();
+	public static final Primaerschluessel KOERPERMESSUNG_EDUARD_ID = new Primaerschluessel();
+	public static final Primaerschluessel KOERPERMESSUNG_ANNA_ID = new Primaerschluessel();
+	public static final Primaerschluessel KOERPERMESSUNG_ANETTE_ID = new Primaerschluessel();
+	public static final Primaerschluessel KOERPERMESSUNG_GOTT_ID = new Primaerschluessel();
+	public static final Primaerschluessel KOERPERMESSUNG_BABA_ID = new Primaerschluessel();
 
 	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
@@ -47,6 +60,13 @@ public class Testdaten
 	public static final Koerpermessung KOERPERMESSUNG_ANETTE = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_GOTT = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_BABA = new Koerpermessung();
+
+	public static final Primaerschluessel BENUTZER_JUSTIN_ID = new Primaerschluessel();
+	public static final Primaerschluessel BENUTZER_EDUARD_ID = new Primaerschluessel();
+	public static final Primaerschluessel BENUTZER_ANNA_ID = new Primaerschluessel();
+	public static final Primaerschluessel BENUTZER_ANETTE_ID = new Primaerschluessel();
+	public static final Primaerschluessel BENUTZER_GOTT_ID = new Primaerschluessel();
+	public static final Primaerschluessel BENUTZER_BABA_ID = new Primaerschluessel();
 
 	public static final Benutzer BENUTZER_JUSTIN = new Benutzer();
 	public static final Benutzer BENUTZER_EDUARD = new Benutzer();
@@ -59,6 +79,10 @@ public class Testdaten
 	public static final BenutzerEintrag BENUTZEREINTRAG_ANETTE = new BenutzerEintrag();
 	public static final BenutzerEintrag BENUTZEREINTRAG_GOTT = new BenutzerEintrag();
 
+	public static final Primaerschluessel BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
+	public static final Primaerschluessel BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
+	public static final Primaerschluessel BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID = new Primaerschluessel();
+
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN = new Belastungsfaktor();
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE = new Belastungsfaktor();
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN = new Belastungsfaktor();
@@ -70,6 +94,10 @@ public class Testdaten
 	public static final BelastungsfaktorEintrag BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN =
 		new BelastungsfaktorEintrag();
 
+	public static final Primaerschluessel WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
+	public static final Primaerschluessel LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
+	public static final Primaerschluessel KONVENTIONELLES_KREUZHEBEN_ID = new Primaerschluessel();
+
 	public static final Uebung WETTKAMPFBANKDRUECKEN = new Uebung();
 	public static final Uebung LOWBAR_KNIEBEUGE = new Uebung();
 	public static final Uebung KONVENTIONELLES_KREUZHEBEN = new Uebung();
@@ -77,6 +105,10 @@ public class Testdaten
 	public static final UebungEintrag UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN = new UebungEintrag();
 	public static final UebungEintrag UEBUNGEINTRAG_LOWBAR_KNIEBEUGE = new UebungEintrag();
 	public static final UebungEintrag UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN = new UebungEintrag();
+
+	public static final Primaerschluessel KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
+	public static final Primaerschluessel KRAFTWERT_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
+	public static final Primaerschluessel KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID = new Primaerschluessel();
 
 	public static final Kraftwert KRAFTWERT_WETTKAMPFBANKDRUECKEN = new Kraftwert();
 	public static final Kraftwert KRAFTWERT_LOWBAR_KNIEBEUGE = new Kraftwert();
@@ -88,33 +120,51 @@ public class Testdaten
 
 	static
 	{
-		AUTHENTIFIZIERUNG_JUSTIN.setId(1);
+		AUTHENTIFIZIERUNG_JUSTIN.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN_ID);
 		AUTHENTIFIZIERUNG_JUSTIN.setMail("mail@justinharder.de");
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzername("harder");
 		AUTHENTIFIZIERUNG_JUSTIN.setPasswort("JustinHarder#98");
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
-		AUTHENTIFIZIERUNG_EDUARD.setId(2);
+		AUTHENTIFIZIERUNG_EDUARD.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID);
 		AUTHENTIFIZIERUNG_EDUARD.setMail("mail@eduard.de");
 		AUTHENTIFIZIERUNG_EDUARD.setBenutzername("eduard");
 		AUTHENTIFIZIERUNG_EDUARD.setPasswort("EduardEduardEduard_98");
 		AUTHENTIFIZIERUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
-		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setId(AUTHENTIFIZIERUNG_JUSTIN.getId());
+		AUTHENTIFIZIERUNG_ANETTE.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID);
+		AUTHENTIFIZIERUNG_ANETTE.setMail("mail@anette.de");
+		AUTHENTIFIZIERUNG_ANETTE.setBenutzername("anette");
+		AUTHENTIFIZIERUNG_ANETTE.setPasswort("AnetteAnette_98");
+		AUTHENTIFIZIERUNG_ANETTE.setBenutzer(BENUTZER_ANETTE);
+
+		AUTHENTIFIZIERUNG_GOTT.setPrimaerschluessel(AUTHENTIFIZIERUNG_GOTT_ID);
+		AUTHENTIFIZIERUNG_GOTT.setMail("mail@gott.de");
+		AUTHENTIFIZIERUNG_GOTT.setBenutzername("gott");
+		AUTHENTIFIZIERUNG_GOTT.setPasswort("GottHarder_98");
+		AUTHENTIFIZIERUNG_GOTT.setBenutzer(BENUTZER_GOTT);
+
+		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setId(AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel().getId().toString());
 		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setMail(AUTHENTIFIZIERUNG_JUSTIN.getMail());
 		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setBenutzername(AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 		AUTHENTIFIZIERUNGEINTRAG_JUSTIN.setPasswort(AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
 
-		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setId(AUTHENTIFIZIERUNG_EDUARD.getId());
+		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setId(AUTHENTIFIZIERUNG_EDUARD.getPrimaerschluessel().getId().toString());
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail());
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 		AUTHENTIFIZIERUNGEINTRAG_EDUARD.setPasswort(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
 
-		REGISTRIERUNG.setBenutzername("harder");
-		REGISTRIERUNG.setMail("mail@justinharder.de");
-		REGISTRIERUNG.setPasswort("Justinharder#98");
+		AUTHENTIFIZIERUNGEINTRAG_ANETTE.setId(AUTHENTIFIZIERUNG_ANETTE.getPrimaerschluessel().getId().toString());
+		AUTHENTIFIZIERUNGEINTRAG_ANETTE.setMail(AUTHENTIFIZIERUNG_ANETTE.getMail());
+		AUTHENTIFIZIERUNGEINTRAG_ANETTE.setBenutzername(AUTHENTIFIZIERUNG_ANETTE.getBenutzername());
+		AUTHENTIFIZIERUNGEINTRAG_ANETTE.setPasswort(AUTHENTIFIZIERUNG_ANETTE.getPasswort());
 
-		KOERPERMESSUNG_JUSTIN.setId(1);
+		AUTHENTIFIZIERUNGEINTRAG_GOTT.setId(AUTHENTIFIZIERUNG_GOTT.getPrimaerschluessel().getId().toString());
+		AUTHENTIFIZIERUNGEINTRAG_GOTT.setMail(AUTHENTIFIZIERUNG_GOTT.getMail());
+		AUTHENTIFIZIERUNGEINTRAG_GOTT.setBenutzername(AUTHENTIFIZIERUNG_GOTT.getBenutzername());
+		AUTHENTIFIZIERUNGEINTRAG_GOTT.setPasswort(AUTHENTIFIZIERUNG_GOTT.getPasswort());
+
+		KOERPERMESSUNG_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID);
 		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);
 		KOERPERMESSUNG_JUSTIN.setKoerpergewicht(90);
 		KOERPERMESSUNG_JUSTIN.setBodyMassIndex(28.41);
@@ -135,24 +185,28 @@ public class Testdaten
 		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.now());
 		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
-		KOERPERMESSUNG_EDUARD.setId(2);
+		KOERPERMESSUNG_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID);
 		KOERPERMESSUNG_EDUARD.setKoerpergroesse(182);
 		KOERPERMESSUNG_EDUARD.setKoerpergewicht(64);
 		KOERPERMESSUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
+		KOERPERMESSUNG_ANNA.setPrimaerschluessel(KOERPERMESSUNG_ANNA_ID);
 		KOERPERMESSUNG_ANNA.setKoerpergroesse(182);
 		KOERPERMESSUNG_ANNA.setKoerpergewicht(64);
 
+		KOERPERMESSUNG_ANETTE.setPrimaerschluessel(KOERPERMESSUNG_ANETTE_ID);
 		KOERPERMESSUNG_ANETTE.setKoerpergroesse(203);
 		KOERPERMESSUNG_ANETTE.setKoerpergewicht(125);
 
+		KOERPERMESSUNG_GOTT.setPrimaerschluessel(KOERPERMESSUNG_GOTT_ID);
 		KOERPERMESSUNG_GOTT.setKoerpergroesse(190);
 		KOERPERMESSUNG_GOTT.setKoerpergewicht(145);
 
+		KOERPERMESSUNG_BABA.setPrimaerschluessel(KOERPERMESSUNG_BABA_ID);
 		KOERPERMESSUNG_BABA.setKoerpergroesse(160);
 		KOERPERMESSUNG_BABA.setKoerpergewicht(105);
 
-		BENUTZER_JUSTIN.setId(1);
+		BENUTZER_JUSTIN.setPrimaerschluessel(BENUTZER_JUSTIN_ID);
 		BENUTZER_JUSTIN.setVorname("Justin");
 		BENUTZER_JUSTIN.setNachname("Harder");
 		BENUTZER_JUSTIN.setLebensalter(21);
@@ -170,11 +224,9 @@ public class Testdaten
 		//		BENUTZER_JUSTIN.fuegeKraftwertHinzu(KRAFTWERT_LOWBAR_KNIEBEUGE);
 		//		BENUTZER_JUSTIN.fuegeKraftwertHinzu(KRAFTWERT_WETTKAMPFBANKDRUECKEN);
 
-		BENUTZEREINTRAG_JUSTIN.setId(BENUTZER_JUSTIN.getId());
+		BENUTZEREINTRAG_JUSTIN.setId(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString());
 		BENUTZEREINTRAG_JUSTIN.setVorname(BENUTZER_JUSTIN.getVorname());
 		BENUTZEREINTRAG_JUSTIN.setNachname(BENUTZER_JUSTIN.getNachname());
-		BENUTZEREINTRAG_JUSTIN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
-		BENUTZEREINTRAG_JUSTIN.setKoerpergroesse(BENUTZER_JUSTIN.getAktuelleKoerpergroesse());
 		BENUTZEREINTRAG_JUSTIN.setLebensalter(BENUTZER_JUSTIN.getLebensalter());
 		BENUTZEREINTRAG_JUSTIN.setKraftlevel(BENUTZER_JUSTIN.getKraftlevel().name());
 		BENUTZEREINTRAG_JUSTIN.setGeschlecht(BENUTZER_JUSTIN.getGeschlecht().name());
@@ -184,8 +236,9 @@ public class Testdaten
 		BENUTZEREINTRAG_JUSTIN.setStress(BENUTZER_JUSTIN.getStress().name());
 		BENUTZEREINTRAG_JUSTIN.setDoping(BENUTZER_JUSTIN.getDoping().name());
 		BENUTZEREINTRAG_JUSTIN.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getRegenerationsfaehigkeit().name());
+		BENUTZEREINTRAG_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNGEINTRAG_JUSTIN);
 
-		BENUTZER_EDUARD.setId(2);
+		BENUTZER_EDUARD.setPrimaerschluessel(BENUTZER_EDUARD_ID);
 		BENUTZER_EDUARD.setVorname("Eduard");
 		BENUTZER_EDUARD.setNachname("Stremel");
 		BENUTZER_EDUARD.setLebensalter(14);
@@ -200,7 +253,7 @@ public class Testdaten
 		BENUTZER_EDUARD.setAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD);
 		BENUTZER_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
 
-		BENUTZER_ANNA.setId(3);
+		BENUTZER_ANNA.setPrimaerschluessel(BENUTZER_ANNA_ID);
 		BENUTZER_ANNA.setVorname("Anna");
 		BENUTZER_ANNA.setNachname("Aufbau");
 		BENUTZER_ANNA.setLebensalter(14);
@@ -214,7 +267,7 @@ public class Testdaten
 		BENUTZER_ANNA.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
 		BENUTZER_ANNA.fuegeKoerpermessungHinzu(KOERPERMESSUNG_ANNA);
 
-		BENUTZER_ANETTE.setId(4);
+		BENUTZER_ANETTE.setPrimaerschluessel(BENUTZER_ANETTE_ID);
 		BENUTZER_ANETTE.setVorname("Anette");
 		BENUTZER_ANETTE.setNachname("Masseschwein");
 		BENUTZER_ANETTE.setLebensalter(43);
@@ -226,13 +279,12 @@ public class Testdaten
 		BENUTZER_ANETTE.setStress(Stress.HOCH);
 		BENUTZER_ANETTE.setDoping(Doping.NEIN);
 		BENUTZER_ANETTE.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH);
+		BENUTZER_ANETTE.setAuthentifizierung(AUTHENTIFIZIERUNG_ANETTE);
 		BENUTZER_ANETTE.fuegeKoerpermessungHinzu(KOERPERMESSUNG_ANETTE);
 
-		BENUTZEREINTRAG_ANETTE.setId(BENUTZER_ANETTE.getId());
+		BENUTZEREINTRAG_ANETTE.setId(BENUTZER_ANETTE.getPrimaerschluessel().getId().toString());
 		BENUTZEREINTRAG_ANETTE.setVorname("Anette");
 		BENUTZEREINTRAG_ANETTE.setNachname("Masseschwein");
-		BENUTZEREINTRAG_ANETTE.setKoerpergewicht(BENUTZER_ANETTE.getAktuellesKoerpergewicht());
-		BENUTZEREINTRAG_ANETTE.setKoerpergroesse(203);
 		BENUTZEREINTRAG_ANETTE.setLebensalter(43);
 		BENUTZEREINTRAG_ANETTE.setKraftlevel(Kraftlevel.CLASS_3.name());
 		BENUTZEREINTRAG_ANETTE.setGeschlecht(Geschlecht.WEIBLICH.name());
@@ -242,8 +294,9 @@ public class Testdaten
 		BENUTZEREINTRAG_ANETTE.setStress(Stress.HOCH.name());
 		BENUTZEREINTRAG_ANETTE.setDoping(Doping.NEIN.name());
 		BENUTZEREINTRAG_ANETTE.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH.name());
+		BENUTZEREINTRAG_ANETTE.setAuthentifizierung(AUTHENTIFIZIERUNGEINTRAG_ANETTE);
 
-		BENUTZER_GOTT.setId(5);
+		BENUTZER_GOTT.setPrimaerschluessel(BENUTZER_GOTT_ID);
 		BENUTZER_GOTT.setVorname("Gott");
 		BENUTZER_GOTT.setNachname("Harder");
 		BENUTZER_GOTT.setLebensalter(32);
@@ -255,13 +308,12 @@ public class Testdaten
 		BENUTZER_GOTT.setStress(Stress.NIEDRIG);
 		BENUTZER_GOTT.setDoping(Doping.JA);
 		BENUTZER_GOTT.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+		BENUTZER_GOTT.setAuthentifizierung(AUTHENTIFIZIERUNG_GOTT);
 		BENUTZER_GOTT.fuegeKoerpermessungHinzu(KOERPERMESSUNG_GOTT);
 
-		BENUTZEREINTRAG_GOTT.setId(0);
+		BENUTZEREINTRAG_GOTT.setId(BENUTZER_GOTT.getPrimaerschluessel().getId().toString());
 		BENUTZEREINTRAG_GOTT.setVorname("Gott");
 		BENUTZEREINTRAG_GOTT.setNachname("Harder");
-		BENUTZEREINTRAG_GOTT.setKoerpergewicht(BENUTZER_GOTT.getAktuellesKoerpergewicht());
-		BENUTZEREINTRAG_GOTT.setKoerpergroesse(BENUTZER_GOTT.getAktuelleKoerpergroesse());
 		BENUTZEREINTRAG_GOTT.setLebensalter(32);
 		BENUTZEREINTRAG_GOTT.setKraftlevel(Kraftlevel.ELITE.name());
 		BENUTZEREINTRAG_GOTT.setGeschlecht(Geschlecht.MAENNLICH.name());
@@ -271,8 +323,9 @@ public class Testdaten
 		BENUTZEREINTRAG_GOTT.setStress(Stress.NIEDRIG.name());
 		BENUTZEREINTRAG_GOTT.setDoping(Doping.JA.name());
 		BENUTZEREINTRAG_GOTT.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT.name());
+		BENUTZEREINTRAG_GOTT.setAuthentifizierung(AUTHENTIFIZIERUNGEINTRAG_GOTT);
 
-		BENUTZER_BABA.setId(6);
+		BENUTZER_BABA.setPrimaerschluessel(BENUTZER_BABA_ID);
 		BENUTZER_BABA.setVorname("Baba");
 		BENUTZER_BABA.setNachname("von Gewichten");
 		BENUTZER_BABA.setLebensalter(55);
@@ -286,7 +339,7 @@ public class Testdaten
 		BENUTZER_BABA.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.SCHLECHT);
 		BENUTZER_BABA.fuegeKoerpermessungHinzu(KOERPERMESSUNG_BABA);
 
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setId(1);
+		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBack(0.0);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBenchpress(1.0);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBiceps(0.0);
@@ -301,7 +354,8 @@ public class Testdaten
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setTriceps(0.7);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setUebung(WETTKAMPFBANKDRUECKEN);
 
-		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN.setId(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getId());
+		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN
+			.setId(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
 		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN.setBack(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBack());
 		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN
 			.setBenchpress(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBenchpress());
@@ -317,18 +371,19 @@ public class Testdaten
 		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN.setSquat(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getSquat());
 		BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN.setTriceps(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getTriceps());
 
-		WETTKAMPFBANKDRUECKEN.setId(1);
+		WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(WETTKAMPFBANKDRUECKEN_ID);
 		WETTKAMPFBANKDRUECKEN.setName("Wettkampfbankdrücken (pausiert)");
 		WETTKAMPFBANKDRUECKEN.setUebungsart(Uebungsart.GRUNDUEBUNG);
 		WETTKAMPFBANKDRUECKEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
 		WETTKAMPFBANKDRUECKEN.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
-		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setId(WETTKAMPFBANKDRUECKEN.getId());
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setId(WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
 		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setName(WETTKAMPFBANKDRUECKEN.getName());
 		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setUebungsart(WETTKAMPFBANKDRUECKEN.getUebungsart().name());
 		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setUebungskategorie(WETTKAMPFBANKDRUECKEN.getUebungskategorie().name());
+		UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN.setBelastungsfaktor(BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN);
 
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setId(1);
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setUebung(WETTKAMPFBANKDRUECKEN);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
@@ -336,7 +391,8 @@ public class Testdaten
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(BENUTZER_JUSTIN);
 
-		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN.setId(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getId());
+		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN
+			.setId(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN.setMaximum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getMaximum());
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht());
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN
@@ -344,7 +400,7 @@ public class Testdaten
 		KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().name());
 
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setId(2);
+		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID);
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBack(0.2);
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBenchpress(0.0);
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBiceps(0.0);
@@ -359,7 +415,8 @@ public class Testdaten
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setTriceps(0.0);
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setUebung(LOWBAR_KNIEBEUGE);
 
-		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setId(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getId());
+		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE
+			.setId(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
 		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setBack(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBack());
 		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setBenchpress(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBenchpress());
 		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setBiceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBiceps());
@@ -373,18 +430,19 @@ public class Testdaten
 		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setSquat(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getSquat());
 		BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE.setTriceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getTriceps());
 
-		LOWBAR_KNIEBEUGE.setId(2);
+		LOWBAR_KNIEBEUGE.setPrimaerschluessel(LOWBAR_KNIEBEUGE_ID);
 		LOWBAR_KNIEBEUGE.setName("Lowbar-Kniebeuge");
 		LOWBAR_KNIEBEUGE.setUebungsart(Uebungsart.GRUNDUEBUNG);
 		LOWBAR_KNIEBEUGE.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE);
 		LOWBAR_KNIEBEUGE.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
 
-		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setId(LOWBAR_KNIEBEUGE.getId());
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setId(LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
 		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setName(LOWBAR_KNIEBEUGE.getName());
 		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setUebungsart(LOWBAR_KNIEBEUGE.getUebungsart().name());
 		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setUebungskategorie(LOWBAR_KNIEBEUGE.getUebungskategorie().name());
+		UEBUNGEINTRAG_LOWBAR_KNIEBEUGE.setBelastungsfaktor(BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE);
 
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setId(2);
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setUebung(LOWBAR_KNIEBEUGE);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setMaximum(150);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
@@ -392,14 +450,15 @@ public class Testdaten
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(BENUTZER_JUSTIN);
 
-		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setId(KRAFTWERT_LOWBAR_KNIEBEUGE.getId());
+		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setId(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setMaximum(KRAFTWERT_LOWBAR_KNIEBEUGE.getMaximum());
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht());
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE
 			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 		KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().name());
 
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setId(3);
+		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID);
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBack(0.5);
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBenchpress(0.0);
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBiceps(0.0);
@@ -414,7 +473,8 @@ public class Testdaten
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setTriceps(0.0);
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setUebung(KONVENTIONELLES_KREUZHEBEN);
 
-		BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN.setId(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getId());
+		BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN
+			.setId(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
 		BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN
 			.setBack(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBack());
 		BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN
@@ -440,19 +500,22 @@ public class Testdaten
 		BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN
 			.setTriceps(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getTriceps());
 
-		KONVENTIONELLES_KREUZHEBEN.setId(3);
+		KONVENTIONELLES_KREUZHEBEN.setPrimaerschluessel(KONVENTIONELLES_KREUZHEBEN_ID);
 		KONVENTIONELLES_KREUZHEBEN.setName("Konventionelles Kreuzheben");
 		KONVENTIONELLES_KREUZHEBEN.setUebungsart(Uebungsart.GRUNDUEBUNG);
 		KONVENTIONELLES_KREUZHEBEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN);
 		KONVENTIONELLES_KREUZHEBEN.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
 
-		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setId(KONVENTIONELLES_KREUZHEBEN.getId());
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN
+			.setId(KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
 		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setName(KONVENTIONELLES_KREUZHEBEN.getName());
 		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN.setUebungsart(KONVENTIONELLES_KREUZHEBEN.getUebungsart().name());
 		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN
 			.setUebungskategorie(KONVENTIONELLES_KREUZHEBEN.getUebungskategorie().name());
+		UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN
+			.setBelastungsfaktor(BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN);
 
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setId(3);
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setUebung(KONVENTIONELLES_KREUZHEBEN);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setMaximum(200);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
@@ -460,7 +523,8 @@ public class Testdaten
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(BENUTZER_JUSTIN);
 
-		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN.setId(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getId());
+		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN
+			.setId(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
 		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN.setMaximum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getMaximum());
 		KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN
 			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht());

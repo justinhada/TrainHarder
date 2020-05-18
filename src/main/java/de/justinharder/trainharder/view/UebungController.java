@@ -1,39 +1,29 @@
 package de.justinharder.trainharder.view;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.services.UebungService;
-import de.justinharder.trainharder.view.navigation.ExternerWebContext;
-import de.justinharder.trainharder.view.navigation.Navigator;
 import lombok.Getter;
 
 @Getter
 @Named
 @SessionScoped
-public class UebungController extends Controller
+public class UebungController implements Serializable
 {
 	private static final long serialVersionUID = -3551181310640925257L;
 
-	private static final String UEBUNG_ID = "uebungId";
 	private final UebungService uebungService;
-	private final UebungEintrag uebungEintrag = new UebungEintrag();
-	private List<UebungEintrag> uebungEintraege = new ArrayList<>();
 
 	@Inject
-	public UebungController(
-		final ExternerWebContext externerWebContext,
-		final Navigator navigator,
-		final UebungService uebungService)
+	public UebungController(final UebungService uebungService)
 	{
-		super(externerWebContext, navigator);
 		this.uebungService = uebungService;
 	}
 
@@ -42,23 +32,19 @@ public class UebungController extends Controller
 		return uebungService.ermittleAlle();
 	}
 
-	public void getUebungenZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
+	public List<UebungEintrag> getUebungenZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
-		uebungEintraege = uebungService.ermittleZuUebungsart(uebungsart);
+		return uebungService.ermittleZuUebungsart(uebungsart);
 	}
 
-	public void getUebungenZuUebungskategorie(final String uebungskategorie) throws UebungNichtGefundenException
+	public List<UebungEintrag> getUebungenZuUebungskategorie(final String uebungskategorie)
+		throws UebungNichtGefundenException
 	{
-		uebungEintraege = uebungService.ermittleZuUebungskategorie(uebungskategorie);
+		return uebungService.ermittleZuUebungskategorie(uebungskategorie);
 	}
 
-	public UebungEintrag getUebungZuId() throws UebungNichtGefundenException
+	public UebungEintrag getUebungZuId(final String id) throws UebungNichtGefundenException
 	{
-		return uebungService.ermittleZuId(getRequestParameter(UEBUNG_ID));
-	}
-
-	public void erstelleUebung(final BelastungsfaktorEintrag belastungsfaktorEintrag)
-	{
-		uebungService.erstelleUebung(uebungEintrag, belastungsfaktorEintrag);
+		return uebungService.ermittleZuId(id);
 	}
 }

@@ -1,14 +1,17 @@
 package de.justinharder.trainharder.model.repository;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 
-public interface BelastungsfaktorRepository
+public interface BelastungsfaktorRepository extends Serializable
 {
 	List<Belastungsfaktor> ermittleAlle();
 
-	Belastungsfaktor ermittleZuId(final int id);
+	Optional<Belastungsfaktor> ermittleZuId(final Primaerschluessel id);
 
-	void erstelleBelastungsfaktor(final Belastungsfaktor belastungsfaktor);
+	Belastungsfaktor speichereBelastungsfaktor(final Belastungsfaktor belastungsfaktor);
 }

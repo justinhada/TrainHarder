@@ -2,14 +2,13 @@ package de.justinharder.trainharder.model.services;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import de.justinharder.trainharder.model.domain.Authentifizierung;
+import com.google.common.base.Preconditions;
+
 import de.justinharder.trainharder.model.domain.Benutzer;
-import de.justinharder.trainharder.model.domain.Koerpermessung;
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -18,7 +17,9 @@ import de.justinharder.trainharder.model.domain.enums.Geschlecht;
 import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 
 public class BenutzerService implements Serializable
@@ -26,29 +27,33 @@ public class BenutzerService implements Serializable
 	private static final long serialVersionUID = 4793689097189495259L;
 
 	private final BenutzerRepository benutzerRepository;
+	private final AuthentifizierungRepository authentfizierungRepository;
 
 	@Inject
-	public BenutzerService(final BenutzerRepository benutzerRepository)
+	public BenutzerService(
+		final BenutzerRepository benutzerRepository,
+		final AuthentifizierungRepository authentifizierungRepository)
 	{
 		this.benutzerRepository = benutzerRepository;
+		authentfizierungRepository = authentifizierungRepository;
 	}
 
 	public List<BenutzerEintrag> ermittleAlle()
 	{
-		return konvertiereAlle(benutzerRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuBenutzerEintrag(benutzerRepository.ermittleAlle());
 	}
 
 	public BenutzerEintrag ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
-		final var benutzer = benutzerRepository.ermittleZuId(Integer.valueOf(id));
-		if (benutzer == null)
-		{
-			throw new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!");
-		}
-		return konvertiere(benutzer);
+		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
+
+		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository
+			.ermittleZuId(new Primaerschluessel(id))
+			.orElseThrow(
+				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public List<BenutzerEintrag> ermittleZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	public List<BenutzerEintrag> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
 		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);
 		if (alleBenutzer == null)
@@ -56,12 +61,19 @@ public class BenutzerService implements Serializable
 			throw new BenutzerNichtGefundenException(
 				"Es wurde kein Benutzer mit dem Nachnamen \"" + nachname + "\" gefunden!");
 		}
-		return konvertiereAlle(alleBenutzer);
+		return Konvertierer.konvertiereAlleZuBenutzerEintrag(alleBenutzer);
 	}
 
-	public void erstelleBenutzer(final BenutzerEintrag benutzerEintrag, final AuthentifizierungEintrag authentifizierungEintrag)
+	public BenutzerEintrag speichereBenutzer(final BenutzerEintrag benutzerEintrag, final String authentifizierungId)
+		throws AuthentifizierungNichtGefundenException
 	{
-		final var benutzer = new Benutzer(
+		final var authentifizierung = authentfizierungRepository
+			.ermittleZuId(new Primaerschluessel(authentifizierungId))
+			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
+				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));
+
+		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository.speichereBenutzer(new Benutzer(
+			new Primaerschluessel(),
 			benutzerEintrag.getVorname(),
 			benutzerEintrag.getNachname(),
 			benutzerEintrag.getLebensalter(),
@@ -72,39 +84,6 @@ public class BenutzerService implements Serializable
 			Stress.fromStressOption(benutzerEintrag.getStress()),
 			Doping.fromDopingOption(benutzerEintrag.getDoping()),
 			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()),
-			new Authentifizierung(
-				authentifizierungEintrag.getMail(),
-				authentifizierungEintrag.getBenutzername(),
-				authentifizierungEintrag.getPasswort()));
-		final var koerpermessung = new Koerpermessung();
-		koerpermessung.setKoerpergewicht(benutzerEintrag.getKoerpergewicht());
-		benutzer.fuegeKoerpermessungHinzu(koerpermessung);
-		benutzerRepository.erstelleBenutzer(benutzer);
-	}
-
-	private List<BenutzerEintrag> konvertiereAlle(final List<Benutzer> alleBenutzer)
-	{
-		return alleBenutzer.stream()
-			.map(this::konvertiere)
-			.collect(Collectors.toList());
-	}
-
-	private BenutzerEintrag konvertiere(final Benutzer benutzer)
-	{
-		return new BenutzerEintrag(
-			benutzer.getId(),
-			benutzer.getVorname(),
-			benutzer.getNachname(),
-			benutzer.getAktuelleKoerpergroesse(),
-			benutzer.getAktuellesKoerpergewicht(),
-			benutzer.getLebensalter(),
-			benutzer.getKraftlevel().name(),
-			benutzer.getGeschlecht().name(),
-			benutzer.getErfahrung().name(),
-			benutzer.getErnaehrung().name(),
-			benutzer.getSchlafqualitaet().name(),
-			benutzer.getStress().name(),
-			benutzer.getDoping().name(),
-			benutzer.getRegenerationsfaehigkeit().name());
+			authentifizierung)));
 	}
 }
