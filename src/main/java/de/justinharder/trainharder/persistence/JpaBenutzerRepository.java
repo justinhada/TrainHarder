@@ -2,12 +2,14 @@ package de.justinharder.trainharder.persistence;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
+	private static final long serialVersionUID = 3832865610872106637L;
+
 	public JpaBenutzerRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
@@ -27,16 +31,16 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	public Benutzer ermittleZuId(final int id)
+	public Optional<Benutzer> ermittleZuId(final Primaerschluessel id)
 	{
 		return super.ermittleZuId(Benutzer.class, id);
 	}
 
 	@Override
 	@Transactional
-	public void erstelleBenutzer(final Benutzer benutzer)
+	public Benutzer speichereBenutzer(final Benutzer benutzer)
 	{
-		super.erstelleEntitaet(benutzer);
+		return super.speichereEntitaet(Benutzer.class, benutzer);
 	}
 
 	@Override

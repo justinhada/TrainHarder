@@ -81,7 +81,7 @@ public class TestdatenAnleger
 		final Consumer<String> logger,
 		final T entitaet)
 	{
-		final var datensatz = entityManager.find(entitaet.getClass(), entitaet.getId());
+		final var datensatz = entityManager.find(entitaet.getClass(), entitaet.getPrimaerschluessel());
 		if (datensatz == null)
 		{
 			logger.accept("Lege Datensatz an: " + entitaet);

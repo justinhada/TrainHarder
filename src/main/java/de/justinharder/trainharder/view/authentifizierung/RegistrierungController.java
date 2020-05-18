@@ -17,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
 import de.justinharder.trainharder.model.domain.dto.Registrierung;
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
@@ -62,8 +61,7 @@ public class RegistrierungController
 			models.put("authentifizierung", authentifizierungEintrag);
 			return erfolgreich();
 		}
-		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException
-			| AuthentifizierungNichtGefundenException e)
+		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException e)
 		{
 			models.put("errors", e.getMessage());
 			return index();

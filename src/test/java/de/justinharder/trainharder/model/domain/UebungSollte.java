@@ -11,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Kraftwert;
-import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
@@ -39,14 +37,16 @@ public class UebungSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	public void test02()
 	{
+		final var id = new Primaerschluessel();
 		final var uebung = new Uebung(
+			id,
 			"Wettkampfbankdrücken (pausiert)",
 			Uebungsart.GRUNDUEBUNG,
 			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
 			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(uebung.getId()).isEqualTo(0),
+			() -> assertThat(uebung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(uebung.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
 			() -> assertThat(uebung.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(uebung.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
@@ -58,7 +58,7 @@ public class UebungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN_ID),
 			() -> assertThat(sut.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
 			() -> assertThat(sut.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(sut.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
@@ -69,15 +69,16 @@ public class UebungSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var id = new Primaerschluessel();
 		final var uebung = new Uebung();
-		uebung.setId(0);
+		uebung.setPrimaerschluessel(id);
 		uebung.setName("Wettkampfbankdrücken (pausiert)");
 		uebung.setUebungsart(Uebungsart.GRUNDUEBUNG);
 		uebung.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
 		uebung.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(uebung.getId()).isEqualTo(0),
+			() -> assertThat(uebung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(uebung.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
 			() -> assertThat(uebung.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(uebung.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
@@ -90,10 +91,10 @@ public class UebungSollte
 	public void test05()
 	{
 		final var andereUebung = new Uebung();
-		andereUebung.setId(2);
+		andereUebung.setPrimaerschluessel(new Primaerschluessel());
 
 		final var uebungMitGleicherId = new Uebung();
-		uebungMitGleicherId.setId(1);
+		uebungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -108,7 +109,9 @@ public class UebungSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Uebung{ID=1}");
+		final var erwartet = "Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -116,6 +119,7 @@ public class UebungSollte
 	public void test07()
 	{
 		final var kraftwert = new Kraftwert(
+			new Primaerschluessel(),
 			100,
 			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
@@ -123,6 +127,6 @@ public class UebungSollte
 			sut,
 			Testdaten.BENUTZER_JUSTIN);
 
-		assertThat(sut.getKraftwerte().get(0)).isEqualTo(kraftwert);
+		assertThat(sut.getKraftwerte()).contains(kraftwert);
 	}
 }

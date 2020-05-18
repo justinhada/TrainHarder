@@ -2,14 +2,14 @@ package de.justinharder.trainharder.persistence;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.LoginException;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizierung>
 	implements AuthentifizierungRepository
 {
+	private static final long serialVersionUID = -5882682850110144178L;
+
 	public JpaAuthentifizierungRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
@@ -29,13 +31,13 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Authentifizierung ermittleZuId(final int id)
+	public Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id)
 	{
 		return super.ermittleZuId(Authentifizierung.class, id);
 	}
 
 	@Override
-	public Authentifizierung ermittleZuBenutzer(final int benutzerId) throws AuthentifizierungNichtGefundenException
+	public Optional<Authentifizierung> ermittleZuBenutzer(final Primaerschluessel benutzerId)
 	{
 		try
 		{
@@ -43,40 +45,38 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
 			final var root = criteriaQuery.from(Authentifizierung.class);
 			final var joinBenutzer = root.join("benutzer");
-			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("id"), benutzerId));
-			return entityManager.createQuery(criteriaQuery).getSingleResult();
+			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
+			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
-			throw new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung zur BenutzerID \"" + benutzerId + "\" existiert nicht!");
+			return Optional.empty();
 		}
 	}
 
 	@Override
-	public Authentifizierung ermittleZuMail(final String mail) throws AuthentifizierungNichtGefundenException
+	public Optional<Authentifizierung> ermittleZuMail(final String mail)
 	{
 		try
 		{
-			return super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
-				.getSingleResult();
+			return Optional.ofNullable(super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
+				.getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
-			throw new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung zur Mail \"" + mail + "\" existiert nicht!");
+			return Optional.empty();
 		}
 	}
 
 	@Override
 	@Transactional
-	public void erstelleAuthentifizierung(final Authentifizierung authentifizierung)
+	public Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung)
 	{
-		super.erstelleEntitaet(authentifizierung);
+		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
 	}
 
 	@Override
-	public Authentifizierung checkLogin(final String benutzername, final String passwort) throws LoginException
+	public Optional<Authentifizierung> login(final String benutzername, final String passwort)
 	{
 		try
 		{
@@ -86,27 +86,18 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			criteriaQuery.select(root).where(
 				criteriaBuilder.equal(root.get("benutzername"), benutzername),
 				criteriaBuilder.equal(root.get("passwort"), passwort));
-			return entityManager.createQuery(criteriaQuery).getSingleResult();
+			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
-			throw new LoginException("Benutzername oder Passwort falsch!");
+			return Optional.empty();
 		}
 	}
 
 	@Override
 	public boolean checkMail(final String mail)
 	{
-		try
-		{
-			return ermittleZuMail(mail)
-				.getMail()
-				.equalsIgnoreCase(mail);
-		}
-		catch (final NoResultException | AuthentifizierungNichtGefundenException e)
-		{
-			return false;
-		}
+		return ermittleZuMail(mail).isPresent();
 	}
 
 	@Override
@@ -114,10 +105,10 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	{
 		try
 		{
-			return super.erstelleQuery(Authentifizierung.class, Map.of("benutzername", benutzername))
-				.getSingleResult()
-				.getBenutzername()
-				.equalsIgnoreCase(benutzername);
+			return Optional
+				.ofNullable(super.erstelleQuery(Authentifizierung.class, Map.of("benutzername", benutzername))
+					.getSingleResult())
+				.isPresent();
 		}
 		catch (final NoResultException e)
 		{

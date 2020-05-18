@@ -2,11 +2,9 @@ package de.justinharder.trainharder.model.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,10 +22,9 @@ public class Belastungsfaktor extends Entitaet
 {
 	private static final long serialVersionUID = 5251603922467033680L;
 
-	@Id
+	@EmbeddedId
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Primaerschluessel primaerschluessel;
 	@Column(name = "Squat", nullable = false)
 	private double squat;
 	@Column(name = "Benchpress", nullable = false)
@@ -57,6 +54,7 @@ public class Belastungsfaktor extends Entitaet
 	private Uebung uebung;
 
 	public Belastungsfaktor(
+		final Primaerschluessel primaerschluessel,
 		final double squat,
 		final double benchpress,
 		final double deadlift,
@@ -70,6 +68,7 @@ public class Belastungsfaktor extends Entitaet
 		final double hamstrings,
 		final double shoulder)
 	{
+		this.primaerschluessel = primaerschluessel;
 		this.squat = squat;
 		this.benchpress = benchpress;
 		this.deadlift = deadlift;

@@ -26,7 +26,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 			{
 				final var benutzername = ((UsernamePasswordCredential) credential).getCaller();
 				final var passwort = ((UsernamePasswordCredential) credential).getPasswordAsString();
-				return validate(authentifizierungService.checkLogin(benutzername, passwort));
+				return validate(authentifizierungService.login(benutzername, passwort));
 			}
 		}
 		catch (final LoginException e)

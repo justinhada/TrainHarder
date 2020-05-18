@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class BelastungsfaktorSollte
@@ -33,10 +32,11 @@ public class BelastungsfaktorSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	public void test02()
 	{
-		final var belastungsfaktor = new Belastungsfaktor(0, 1, 0, 0.7, 1, 0, 0, 0, 0, 0, 0, 0.1);
+		final var id = new Primaerschluessel();
+		final var belastungsfaktor = new Belastungsfaktor(id, 0, 1, 0, 0.7, 1, 0, 0, 0, 0, 0, 0, 0.1);
 
 		assertAll(
-			() -> assertThat(belastungsfaktor.getId()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(belastungsfaktor.getSquat()).isEqualTo(0),
 			() -> assertThat(belastungsfaktor.getBenchpress()).isEqualTo(1),
 			() -> assertThat(belastungsfaktor.getDeadlift()).isEqualTo(0),
@@ -56,7 +56,7 @@ public class BelastungsfaktorSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID),
 			() -> assertThat(sut.getSquat()).isEqualTo(0),
 			() -> assertThat(sut.getBenchpress()).isEqualTo(1),
 			() -> assertThat(sut.getDeadlift()).isEqualTo(0),
@@ -75,8 +75,9 @@ public class BelastungsfaktorSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var id = new Primaerschluessel();
 		final var belastungsfaktor = new Belastungsfaktor();
-		belastungsfaktor.setId(0);
+		belastungsfaktor.setPrimaerschluessel(id);
 		belastungsfaktor.setSquat(0);
 		belastungsfaktor.setBenchpress(1);
 		belastungsfaktor.setDeadlift(0);
@@ -92,7 +93,7 @@ public class BelastungsfaktorSollte
 		belastungsfaktor.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(belastungsfaktor.getId()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(belastungsfaktor.getSquat()).isEqualTo(0),
 			() -> assertThat(belastungsfaktor.getBenchpress()).isEqualTo(1),
 			() -> assertThat(belastungsfaktor.getDeadlift()).isEqualTo(0),
@@ -114,10 +115,10 @@ public class BelastungsfaktorSollte
 	public void test05()
 	{
 		final var andererBelastungsfaktor = new Belastungsfaktor();
-		andererBelastungsfaktor.setId(2);
+		andererBelastungsfaktor.setPrimaerschluessel(new Primaerschluessel());
 
 		final var belastungsfaktorMitGleicherId = new Belastungsfaktor();
-		belastungsfaktorMitGleicherId.setId(1);
+		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -132,6 +133,8 @@ public class BelastungsfaktorSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Belastungsfaktor{ID=1}");
+		final var erwartet = "Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 }

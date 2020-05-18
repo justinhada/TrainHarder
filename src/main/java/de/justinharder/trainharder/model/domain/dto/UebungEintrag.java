@@ -13,8 +13,9 @@ public class UebungEintrag implements Serializable
 {
 	private static final long serialVersionUID = -7055200842034977331L;
 
-	private int id;
+	private String id;
 	private String name;
 	private String uebungsart;
 	private String uebungskategorie;
+	private BelastungsfaktorEintrag belastungsfaktor;
 }

@@ -1,26 +1,27 @@
 package de.justinharder.trainharder.model.repository;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.LoginException;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 
-public interface AuthentifizierungRepository
+public interface AuthentifizierungRepository extends Serializable
 {
 	List<Authentifizierung> ermittleAlle();
 
-	Authentifizierung ermittleZuId(final int id);
+	Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id);
 
-	Authentifizierung ermittleZuBenutzer(final int benutzerId) throws AuthentifizierungNichtGefundenException;
+	Optional<Authentifizierung> ermittleZuBenutzer(final Primaerschluessel benutzerId);
 
-	Authentifizierung ermittleZuMail(final String mail) throws AuthentifizierungNichtGefundenException;
+	Optional<Authentifizierung> ermittleZuMail(final String mail);
 
-	void erstelleAuthentifizierung(Authentifizierung authentifizierung);
+	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
 
-	Authentifizierung checkLogin(String benutzername, String passwort) throws LoginException;
+	Optional<Authentifizierung> login(final String benutzername, final String passwort);
 
-	boolean checkMail(String mail);
+	boolean checkMail(final String mail);
 
-	boolean checkBenutzername(String benutzername);
+	boolean checkBenutzername(final String benutzername);
 }

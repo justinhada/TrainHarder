@@ -1,16 +1,19 @@
 package de.justinharder.trainharder.model.repository;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 
-public interface KraftwertRepository
+public interface KraftwertRepository extends Serializable
 {
 	List<Kraftwert> ermittleAlle();
 
-	List<Kraftwert> ermittleAlleZuBenutzer(final int benutzerId);
+	List<Kraftwert> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId);
 
-	Kraftwert ermittleZuId(final int id);
+	Optional<Kraftwert> ermittleZuId(final Primaerschluessel id);
 
-	void erstelleKraftwert(final Kraftwert kraftwert);
+	Kraftwert speichereKraftwert(final Kraftwert kraftwert);
 }

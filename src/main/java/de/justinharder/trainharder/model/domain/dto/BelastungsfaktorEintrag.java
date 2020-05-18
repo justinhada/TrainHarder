@@ -13,7 +13,7 @@ public class BelastungsfaktorEintrag implements Serializable
 {
 	private static final long serialVersionUID = -2050880743329267381L;
 
-	private int id;
+	private String id;
 	private double squat;
 	private double benchpress;
 	private double deadlift;

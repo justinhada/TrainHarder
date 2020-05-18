@@ -2,10 +2,12 @@ package de.justinharder.trainharder.persistence;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
@@ -14,6 +16,8 @@ import de.justinharder.trainharder.model.repository.UebungRepository;
 
 public class JpaUebungRepository extends JpaRepository<Uebung> implements UebungRepository
 {
+	private static final long serialVersionUID = 2289966297381182933L;
+
 	@Override
 	public List<Uebung> ermittleAlle()
 	{
@@ -52,15 +56,15 @@ public class JpaUebungRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
-	public Uebung ermittleZuId(final int id)
+	public Optional<Uebung> ermittleZuId(final Primaerschluessel id)
 	{
 		return super.ermittleZuId(Uebung.class, id);
 	}
 
 	@Override
 	@Transactional
-	public void erstelleUebung(final Uebung uebung)
+	public Uebung speichereUebung(final Uebung uebung)
 	{
-		super.erstelleEntitaet(uebung);
+		return super.speichereEntitaet(Uebung.class, uebung);
 	}
 }

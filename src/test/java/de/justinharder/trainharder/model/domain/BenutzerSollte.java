@@ -12,9 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Authentifizierung;
-import de.justinharder.trainharder.model.domain.Benutzer;
-import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
@@ -47,7 +44,10 @@ public class BenutzerSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	public void test02()
 	{
+		final var benutzerId = new Primaerschluessel();
+		final var authentifizierungId = new Primaerschluessel();
 		final var benutzer = new Benutzer(
+			benutzerId,
 			"Justin",
 			"Harder",
 			21,
@@ -59,12 +59,13 @@ public class BenutzerSollte
 			Doping.NEIN,
 			Regenerationsfaehigkeit.GUT,
 			new Authentifizierung(
+				authentifizierungId,
 				"mail@justinharder.de",
 				"harder",
 				"JustinHarder98"));
 
 		assertAll(
-			() -> assertThat(benutzer.getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
 			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
 			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
 			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
@@ -76,7 +77,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
 			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
 			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAuthentifizierung().getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
@@ -88,7 +89,7 @@ public class BenutzerSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID),
 			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
 			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
 			() -> assertThat(sut.getLebensalter()).isEqualTo(21),
@@ -110,8 +111,15 @@ public class BenutzerSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var benutzerId = new Primaerschluessel();
+		final var authentifizierungId = new Primaerschluessel();
+		final var authentifizierung = new Authentifizierung(
+			authentifizierungId,
+			"mail@justinharder.de",
+			"harder",
+			"JustinHarder98");
 		final var benutzer = new Benutzer();
-		benutzer.setId(0);
+		benutzer.setPrimaerschluessel(benutzerId);
 		benutzer.setVorname("Justin");
 		benutzer.setNachname("Harder");
 		benutzer.setLebensalter(21);
@@ -123,14 +131,11 @@ public class BenutzerSollte
 		benutzer.setStress(Stress.MITTELMAESSIG);
 		benutzer.setDoping(Doping.NEIN);
 		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
-		benutzer.setAuthentifizierung(
-			new Authentifizierung(
-				"mail@justinharder.de",
-				"harder",
-				"JustinHarder98"));
+		benutzer.setAuthentifizierung(authentifizierung);
+		authentifizierung.setBenutzer(benutzer);
 
 		assertAll(
-			() -> assertThat(benutzer.getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
 			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
 			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
 			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
@@ -142,7 +147,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
 			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
 			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAuthentifizierung().getId()).isEqualTo(0),
+			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
@@ -155,10 +160,10 @@ public class BenutzerSollte
 	public void test05()
 	{
 		final var andererBenutzer = new Benutzer();
-		andererBenutzer.setId(2);
+		andererBenutzer.setPrimaerschluessel(new Primaerschluessel());
 
 		final var benutzerMitGleicherId = new Benutzer();
-		benutzerMitGleicherId.setId(1);
+		benutzerMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -173,7 +178,9 @@ public class BenutzerSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Benutzer{ID=1}");
+		final var erwartet = "Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -181,6 +188,7 @@ public class BenutzerSollte
 	public void test07()
 	{
 		final var kraftwert = new Kraftwert(
+			new Primaerschluessel(),
 			100,
 			sut.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
@@ -188,6 +196,6 @@ public class BenutzerSollte
 			Testdaten.WETTKAMPFBANKDRUECKEN,
 			sut);
 
-		assertThat(sut.getKraftwerte().get(0)).isEqualTo(kraftwert);
+		assertThat(sut.getKraftwerte()).contains(kraftwert);
 	}
 }

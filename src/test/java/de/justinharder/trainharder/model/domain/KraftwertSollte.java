@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
 
@@ -36,7 +35,9 @@ public class KraftwertSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	public void test02()
 	{
+		final var id = new Primaerschluessel();
 		final var kraftwert = new Kraftwert(
+			id,
 			100,
 			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
@@ -45,7 +46,7 @@ public class KraftwertSollte
 			Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(kraftwert.getId()).isEqualTo(0),
+			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
 			() -> assertThat(kraftwert.getKoerpergewicht())
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
@@ -60,7 +61,7 @@ public class KraftwertSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getId()).isEqualTo(1),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID),
 			() -> assertThat(sut.getMaximum()).isEqualTo(100),
 			() -> assertThat(sut.getKoerpergewicht())
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
@@ -74,7 +75,9 @@ public class KraftwertSollte
 	@DisplayName("Setter besitzen")
 	public void test04()
 	{
+		final var id = new Primaerschluessel();
 		final var kraftwert = new Kraftwert();
+		kraftwert.setPrimaerschluessel(id);
 		kraftwert.setMaximum(100);
 		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
 		kraftwert.setDatum(LocalDate.now());
@@ -83,7 +86,7 @@ public class KraftwertSollte
 		kraftwert.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(kraftwert.getId()).isEqualTo(0),
+			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
 			() -> assertThat(kraftwert.getKoerpergewicht())
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
@@ -99,10 +102,10 @@ public class KraftwertSollte
 	public void test05()
 	{
 		final var andererKraftwert = new Kraftwert();
-		andererKraftwert.setId(2);
+		andererKraftwert.setPrimaerschluessel(new Primaerschluessel());
 
 		final var kraftwertMitGleicherId = new Kraftwert();
-		kraftwertMitGleicherId.setId(1);
+		kraftwertMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -117,6 +120,8 @@ public class KraftwertSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		assertThat(sut.toString()).isEqualTo("Kraftwert{ID=1}");
+		final var erwartet = "Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+
+		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
 }

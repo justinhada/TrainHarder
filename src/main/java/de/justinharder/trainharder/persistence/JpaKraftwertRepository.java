@@ -1,14 +1,18 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
+import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 
 public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
+	private static final long serialVersionUID = -2536153169316038712L;
+
 	@Override
 	public List<Kraftwert> ermittleAlle()
 	{
@@ -16,7 +20,7 @@ public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
-	public List<Kraftwert> ermittleAlleZuBenutzer(final int benutzerId)
+	public List<Kraftwert> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId)
 	{
 		final var criteriaBuilder = entityManager.getCriteriaBuilder();
 		final var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
@@ -27,15 +31,15 @@ public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
-	public Kraftwert ermittleZuId(final int id)
+	public Optional<Kraftwert> ermittleZuId(final Primaerschluessel id)
 	{
 		return super.ermittleZuId(Kraftwert.class, id);
 	}
 
 	@Override
 	@Transactional
-	public void erstelleKraftwert(final Kraftwert kraftwert)
+	public Kraftwert speichereKraftwert(final Kraftwert kraftwert)
 	{
-		super.erstelleEntitaet(kraftwert);
+		return super.speichereEntitaet(Kraftwert.class, kraftwert);
 	}
 }
