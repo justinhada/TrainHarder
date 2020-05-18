@@ -26,8 +26,6 @@ import de.justinharder.trainharder.model.domain.dto.Login;
 @Controller
 public class LoginController
 {
-	private static final String REDIRECT = "redirect:";
-
 	@Context
 	private HttpServletRequest request;
 	@Context
@@ -66,18 +64,16 @@ public class LoginController
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
-			return REDIRECT + "start";
+			return "redirect:start";
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))
 		{
-			models.put("AuthentifizierungFehlgeschlagen", "Benutzername oder Passwort falsch!");
-			return index();
+			models.put("fehler", "Der Benutzername oder das Passwort ist leider falsch!");
 		}
 		else
 		{
-			models.put("UnerwarteteException",
-				"Unerwarteter Fehler während des Logins: " + authenticationStatus.name());
-			return index();
+			models.put("unerwartet", "Unerwarteter Fehler während des Logins: " + authenticationStatus.toString());
 		}
+		return index();
 	}
 }
