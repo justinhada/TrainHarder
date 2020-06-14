@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UebungEintrag implements Serializable
+public class UebungDto implements Serializable
 {
 	private static final long serialVersionUID = -7055200842034977331L;
 
@@ -17,5 +17,5 @@ public class UebungEintrag implements Serializable
 	private String name;
 	private String uebungsart;
 	private String uebungskategorie;
-	private BelastungsfaktorEintrag belastungsfaktor;
+	private BelastungsfaktorDto belastungsfaktor;
 }

@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.services.BelastungsfaktorService;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
 @Named
 @SessionScoped
@@ -25,12 +25,12 @@ public class BelastungsfaktorController implements Serializable
 		this.belastungsfaktorService = belastungsfaktorService;
 	}
 
-	public List<BelastungsfaktorEintrag> getBelastungsfaktoren()
+	public List<BelastungsfaktorDto> getBelastungsfaktoren()
 	{
 		return belastungsfaktorService.ermittleAlle();
 	}
 
-	public BelastungsfaktorEintrag getBelastungsfaktorZuId(final String id)
+	public BelastungsfaktorDto getBelastungsfaktorZuId(final String id)
 		throws BelastungsfaktorNichtGefundenException
 	{
 		return belastungsfaktorService.ermittleZuId(id);

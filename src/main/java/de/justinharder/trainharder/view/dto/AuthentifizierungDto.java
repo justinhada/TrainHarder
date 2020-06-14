@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KraftwertEintrag implements Serializable
+public class AuthentifizierungDto implements Serializable
 {
-	private static final long serialVersionUID = -5177169492291346152L;
+	private static final long serialVersionUID = -2585152739995047225L;
 
 	private String id;
-	private int maximum;
-	private double koerpergewicht;
-	private String datum;
-	private String wiederholungen;
+	private String mail;
+	private String benutzername;
+	private String passwort;
 }

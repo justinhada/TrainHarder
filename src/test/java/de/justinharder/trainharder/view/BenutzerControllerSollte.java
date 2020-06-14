@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.BenutzerEintrag;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
 
 public class BenutzerControllerSollte
 {
@@ -28,19 +28,19 @@ public class BenutzerControllerSollte
 		sut = new BenutzerController(benutzerService);
 	}
 
-	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(final List<BenutzerEintrag> erwartet)
+	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(final List<BenutzerDto> erwartet)
 	{
 		when(benutzerService.ermittleAlle()).thenReturn(erwartet);
 	}
 
 	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(
-		final BenutzerEintrag erwartet) throws BenutzerNichtGefundenException
+		final BenutzerDto erwartet) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
 	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(
-		final List<BenutzerEintrag> erwartet) throws BenutzerNichtGefundenException
+		final List<BenutzerDto> erwartet) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleAlleZuNachname(anyString())).thenReturn(erwartet);
 	}

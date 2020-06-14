@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.services.BelastungsfaktorService;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
 public class BelastungsfaktorControllerSollte
 {
@@ -29,13 +29,13 @@ public class BelastungsfaktorControllerSollte
 	}
 
 	private void angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorEintraegeZurueck(
-		final List<BelastungsfaktorEintrag> erwartet)
+		final List<BelastungsfaktorDto> erwartet)
 	{
 		when(belastungsfaktorService.ermittleAlle()).thenReturn(erwartet);
 	}
 
 	private void angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(
-		final BelastungsfaktorEintrag erwartet) throws BelastungsfaktorNichtGefundenException
+		final BelastungsfaktorDto erwartet) throws BelastungsfaktorNichtGefundenException
 	{
 		when(belastungsfaktorService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}

@@ -11,15 +11,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
-public class AuthentifizierungEintragSollte
+public class BelastungsfaktorDtoSollte
 {
 	@Test
 	@DisplayName("ein Bean sein")
 	public void test01()
 	{
-		assertThat(AuthentifizierungEintrag.class, allOf(
+		assertThat(BelastungsfaktorDto.class, allOf(
 			hasValidBeanConstructor(),
 			hasValidGettersAndSetters(),
 			hasValidBeanEquals(),

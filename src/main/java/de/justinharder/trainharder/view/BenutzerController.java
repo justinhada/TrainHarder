@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.BenutzerService;
-import de.justinharder.trainharder.view.dto.BenutzerEintrag;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
 
 @Named
 @SessionScoped
@@ -25,17 +25,17 @@ public class BenutzerController implements Serializable
 		this.benutzerService = benutzerService;
 	}
 
-	public List<BenutzerEintrag> getBenutzer()
+	public List<BenutzerDto> getBenutzer()
 	{
 		return benutzerService.ermittleAlle();
 	}
 
-	public BenutzerEintrag getBenutzerZuId(final String id) throws BenutzerNichtGefundenException
+	public BenutzerDto getBenutzerZuId(final String id) throws BenutzerNichtGefundenException
 	{
 		return benutzerService.ermittleZuId(id);
 	}
 
-	public List<BenutzerEintrag> getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	public List<BenutzerDto> getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
 		return benutzerService.ermittleAlleZuNachname(nachname);
 	}

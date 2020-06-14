@@ -21,11 +21,11 @@ import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
-import de.justinharder.trainharder.view.dto.BenutzerEintrag;
-import de.justinharder.trainharder.view.dto.KraftwertEintrag;
-import de.justinharder.trainharder.view.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.KraftwertDto;
+import de.justinharder.trainharder.view.dto.UebungDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -42,10 +42,10 @@ public class Testdaten
 	public static final Authentifizierung AUTHENTIFIZIERUNG_ANETTE = new Authentifizierung();
 	public static final Authentifizierung AUTHENTIFIZIERUNG_GOTT = new Authentifizierung();
 
-	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_JUSTIN = new AuthentifizierungEintrag();
-	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_EDUARD = new AuthentifizierungEintrag();
-	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_ANETTE = new AuthentifizierungEintrag();
-	public static final AuthentifizierungEintrag AUTHENTIFIZIERUNGEINTRAG_GOTT = new AuthentifizierungEintrag();
+	public static final AuthentifizierungDto AUTHENTIFIZIERUNGEINTRAG_JUSTIN = new AuthentifizierungDto();
+	public static final AuthentifizierungDto AUTHENTIFIZIERUNGEINTRAG_EDUARD = new AuthentifizierungDto();
+	public static final AuthentifizierungDto AUTHENTIFIZIERUNGEINTRAG_ANETTE = new AuthentifizierungDto();
+	public static final AuthentifizierungDto AUTHENTIFIZIERUNGEINTRAG_GOTT = new AuthentifizierungDto();
 
 	public static final Primaerschluessel KOERPERMESSUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel KOERPERMESSUNG_EDUARD_ID = new Primaerschluessel();
@@ -75,9 +75,9 @@ public class Testdaten
 	public static final Benutzer BENUTZER_GOTT = new Benutzer();
 	public static final Benutzer BENUTZER_BABA = new Benutzer();
 
-	public static final BenutzerEintrag BENUTZEREINTRAG_JUSTIN = new BenutzerEintrag();
-	public static final BenutzerEintrag BENUTZEREINTRAG_ANETTE = new BenutzerEintrag();
-	public static final BenutzerEintrag BENUTZEREINTRAG_GOTT = new BenutzerEintrag();
+	public static final BenutzerDto BENUTZEREINTRAG_JUSTIN = new BenutzerDto();
+	public static final BenutzerDto BENUTZEREINTRAG_ANETTE = new BenutzerDto();
+	public static final BenutzerDto BENUTZEREINTRAG_GOTT = new BenutzerDto();
 
 	public static final Primaerschluessel BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -87,12 +87,12 @@ public class Testdaten
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE = new Belastungsfaktor();
 	public static final Belastungsfaktor BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN = new Belastungsfaktor();
 
-	public static final BelastungsfaktorEintrag BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN =
-		new BelastungsfaktorEintrag();
-	public static final BelastungsfaktorEintrag BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE =
-		new BelastungsfaktorEintrag();
-	public static final BelastungsfaktorEintrag BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN =
-		new BelastungsfaktorEintrag();
+	public static final BelastungsfaktorDto BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN =
+		new BelastungsfaktorDto();
+	public static final BelastungsfaktorDto BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE =
+		new BelastungsfaktorDto();
+	public static final BelastungsfaktorDto BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN =
+		new BelastungsfaktorDto();
 
 	public static final Primaerschluessel WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -102,9 +102,9 @@ public class Testdaten
 	public static final Uebung LOWBAR_KNIEBEUGE = new Uebung();
 	public static final Uebung KONVENTIONELLES_KREUZHEBEN = new Uebung();
 
-	public static final UebungEintrag UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN = new UebungEintrag();
-	public static final UebungEintrag UEBUNGEINTRAG_LOWBAR_KNIEBEUGE = new UebungEintrag();
-	public static final UebungEintrag UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN = new UebungEintrag();
+	public static final UebungDto UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN = new UebungDto();
+	public static final UebungDto UEBUNGEINTRAG_LOWBAR_KNIEBEUGE = new UebungDto();
+	public static final UebungDto UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN = new UebungDto();
 
 	public static final Primaerschluessel KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel KRAFTWERT_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -114,9 +114,9 @@ public class Testdaten
 	public static final Kraftwert KRAFTWERT_LOWBAR_KNIEBEUGE = new Kraftwert();
 	public static final Kraftwert KRAFTWERT_KONVENTIONELLES_KREUZHEBEN = new Kraftwert();
 
-	public static final KraftwertEintrag KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN = new KraftwertEintrag();
-	public static final KraftwertEintrag KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE = new KraftwertEintrag();
-	public static final KraftwertEintrag KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN = new KraftwertEintrag();
+	public static final KraftwertDto KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN = new KraftwertDto();
+	public static final KraftwertDto KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE = new KraftwertDto();
+	public static final KraftwertDto KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN = new KraftwertDto();
 
 	static
 	{

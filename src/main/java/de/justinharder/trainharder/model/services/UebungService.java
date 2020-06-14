@@ -15,7 +15,7 @@ import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNicht
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
-import de.justinharder.trainharder.view.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.UebungDto;
 
 public class UebungService implements Serializable
 {
@@ -33,25 +33,25 @@ public class UebungService implements Serializable
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
 	}
 
-	public List<UebungEintrag> ermittleAlle()
+	public List<UebungDto> ermittleAlle()
 	{
 		return Konvertierer.konvertiereAlleZuUebungEintrag(uebungRepository.ermittleAlle());
 	}
 
-	public List<UebungEintrag> ermittleZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
+	public List<UebungDto> ermittleZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
 		return Konvertierer.konvertiereAlleZuUebungEintrag(
 			uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
 	}
 
-	public List<UebungEintrag> ermittleZuUebungskategorie(final String uebungskategorie)
+	public List<UebungDto> ermittleZuUebungskategorie(final String uebungskategorie)
 		throws UebungNichtGefundenException
 	{
 		return Konvertierer.konvertiereAlleZuUebungEintrag(
 			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
-	public UebungEintrag ermittleZuId(final String id) throws UebungNichtGefundenException
+	public UebungDto ermittleZuId(final String id) throws UebungNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung der Uebung benötigt eine gültige UebungID!");
 
@@ -61,7 +61,7 @@ public class UebungService implements Serializable
 				() -> new UebungNichtGefundenException("Die Uebung mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public UebungEintrag speichereUebung(final UebungEintrag uebungEintrag, final String belastungsfaktorId)
+	public UebungDto speichereUebung(final UebungDto uebungEintrag, final String belastungsfaktorId)
 		throws BelastungsfaktorNichtGefundenException
 	{
 		final var belastungsfaktor = belastungsfaktorRepository

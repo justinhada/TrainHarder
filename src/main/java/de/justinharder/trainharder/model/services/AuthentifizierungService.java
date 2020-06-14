@@ -15,7 +15,7 @@ import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistrier
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.authentifizierung.PasswortChecker;
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
 
 public class AuthentifizierungService implements Serializable
@@ -30,7 +30,7 @@ public class AuthentifizierungService implements Serializable
 		this.authentifizierungRepository = authentifizierungRepository;
 	}
 
-	public AuthentifizierungEintrag ermittleZuId(final String id) throws AuthentifizierungNichtGefundenException
+	public AuthentifizierungDto ermittleZuId(final String id) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!");
 
@@ -40,7 +40,7 @@ public class AuthentifizierungService implements Serializable
 				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public AuthentifizierungEintrag ermittleZuBenutzer(final String benutzerId)
+	public AuthentifizierungDto ermittleZuBenutzer(final String benutzerId)
 		throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(benutzerId, "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!");
@@ -51,7 +51,7 @@ public class AuthentifizierungService implements Serializable
 				"Die Authentifizierung mit der BenutzerID \"" + benutzerId + "\" existiert nicht!")));
 	}
 
-	public AuthentifizierungEintrag registriere(final Registrierung registrierung)
+	public AuthentifizierungDto registriere(final Registrierung registrierung)
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
 	{
 		if (authentifizierungRepository.checkMail(registrierung.getMail()))
@@ -77,7 +77,7 @@ public class AuthentifizierungService implements Serializable
 				registrierung.getPasswort())));
 	}
 
-	public AuthentifizierungEintrag login(final String benutzername, final String passwort) throws LoginException
+	public AuthentifizierungDto login(final String benutzername, final String passwort) throws LoginException
 	{
 		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
 			.login(benutzername, passwort)

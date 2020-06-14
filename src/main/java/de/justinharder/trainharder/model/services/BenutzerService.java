@@ -20,7 +20,7 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
-import de.justinharder.trainharder.view.dto.BenutzerEintrag;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
 
 public class BenutzerService implements Serializable
 {
@@ -38,12 +38,12 @@ public class BenutzerService implements Serializable
 		authentfizierungRepository = authentifizierungRepository;
 	}
 
-	public List<BenutzerEintrag> ermittleAlle()
+	public List<BenutzerDto> ermittleAlle()
 	{
 		return Konvertierer.konvertiereAlleZuBenutzerEintrag(benutzerRepository.ermittleAlle());
 	}
 
-	public BenutzerEintrag ermittleZuId(final String id) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
@@ -53,7 +53,7 @@ public class BenutzerService implements Serializable
 				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public List<BenutzerEintrag> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	public List<BenutzerDto> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
 		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);
 		if (alleBenutzer == null)
@@ -64,7 +64,7 @@ public class BenutzerService implements Serializable
 		return Konvertierer.konvertiereAlleZuBenutzerEintrag(alleBenutzer);
 	}
 
-	public BenutzerEintrag speichereBenutzer(final BenutzerEintrag benutzerEintrag, final String authentifizierungId)
+	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerEintrag, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = authentfizierungRepository

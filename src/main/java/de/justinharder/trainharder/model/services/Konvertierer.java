@@ -10,11 +10,11 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
-import de.justinharder.trainharder.view.dto.BenutzerEintrag;
-import de.justinharder.trainharder.view.dto.KraftwertEintrag;
-import de.justinharder.trainharder.view.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.KraftwertDto;
+import de.justinharder.trainharder.view.dto.UebungDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +23,7 @@ public class Konvertierer
 {
 	private static final String DATUMSFORMAT = "dd.MM.yyyy";
 
-	public static List<AuthentifizierungEintrag> konvertiereAlleZuAuthentifizierungEintrag(
+	public static List<AuthentifizierungDto> konvertiereAlleZuAuthentifizierungEintrag(
 		final List<Authentifizierung> authentifizierungen)
 	{
 		return authentifizierungen
@@ -32,26 +32,26 @@ public class Konvertierer
 			.collect(Collectors.toList());
 	}
 
-	public static AuthentifizierungEintrag konvertiereZuAuthentifizierungEintrag(
+	public static AuthentifizierungDto konvertiereZuAuthentifizierungEintrag(
 		final Authentifizierung authentifizierung)
 	{
-		return new AuthentifizierungEintrag(
+		return new AuthentifizierungDto(
 			authentifizierung.getPrimaerschluessel().getId().toString(),
 			authentifizierung.getMail(),
 			authentifizierung.getBenutzername(),
 			authentifizierung.getPasswort());
 	}
 
-	public static List<BenutzerEintrag> konvertiereAlleZuBenutzerEintrag(final List<Benutzer> alleBenutzer)
+	public static List<BenutzerDto> konvertiereAlleZuBenutzerEintrag(final List<Benutzer> alleBenutzer)
 	{
 		return alleBenutzer.stream()
 			.map(Konvertierer::konvertiereZuBenutzerEintrag)
 			.collect(Collectors.toList());
 	}
 
-	public static BenutzerEintrag konvertiereZuBenutzerEintrag(final Benutzer benutzer)
+	public static BenutzerDto konvertiereZuBenutzerEintrag(final Benutzer benutzer)
 	{
-		return new BenutzerEintrag(
+		return new BenutzerDto(
 			benutzer.getPrimaerschluessel().getId().toString(),
 			benutzer.getVorname(),
 			benutzer.getNachname(),
@@ -67,7 +67,7 @@ public class Konvertierer
 			konvertiereZuAuthentifizierungEintrag(benutzer.getAuthentifizierung()));
 	}
 
-	public static List<UebungEintrag> konvertiereAlleZuUebungEintrag(final List<Uebung> uebungen)
+	public static List<UebungDto> konvertiereAlleZuUebungEintrag(final List<Uebung> uebungen)
 	{
 		return uebungen
 			.stream()
@@ -75,9 +75,9 @@ public class Konvertierer
 			.collect(Collectors.toList());
 	}
 
-	public static UebungEintrag konvertiereZuUebungEintrag(final Uebung uebung)
+	public static UebungDto konvertiereZuUebungEintrag(final Uebung uebung)
 	{
-		return new UebungEintrag(
+		return new UebungDto(
 			uebung.getPrimaerschluessel().getId().toString(),
 			uebung.getName(),
 			uebung.getUebungsart().name(),
@@ -85,7 +85,7 @@ public class Konvertierer
 			konvertiereZuBelastungsfaktorEintrag(uebung.getBelastungsfaktor()));
 	}
 
-	public static List<BelastungsfaktorEintrag> konvertiereAlleZuBelastungsfaktorEintrag(
+	public static List<BelastungsfaktorDto> konvertiereAlleZuBelastungsfaktorEintrag(
 		final List<Belastungsfaktor> belastungsfaktoren)
 	{
 		return belastungsfaktoren
@@ -94,9 +94,9 @@ public class Konvertierer
 			.collect(Collectors.toList());
 	}
 
-	public static BelastungsfaktorEintrag konvertiereZuBelastungsfaktorEintrag(final Belastungsfaktor belastungsfaktor)
+	public static BelastungsfaktorDto konvertiereZuBelastungsfaktorEintrag(final Belastungsfaktor belastungsfaktor)
 	{
-		return new BelastungsfaktorEintrag(
+		return new BelastungsfaktorDto(
 			belastungsfaktor.getPrimaerschluessel().getId().toString(),
 			belastungsfaktor.getSquat(),
 			belastungsfaktor.getBenchpress(),
@@ -112,7 +112,7 @@ public class Konvertierer
 			belastungsfaktor.getShoulder());
 	}
 
-	public static List<KraftwertEintrag> konvertiereAlleZuKraftwertEintrag(final List<Kraftwert> kraftwerte)
+	public static List<KraftwertDto> konvertiereAlleZuKraftwertEintrag(final List<Kraftwert> kraftwerte)
 	{
 		return kraftwerte
 			.stream()
@@ -120,9 +120,9 @@ public class Konvertierer
 			.collect(Collectors.toList());
 	}
 
-	public static KraftwertEintrag konvertiereZuKraftwertEintrag(final Kraftwert kraftwert)
+	public static KraftwertDto konvertiereZuKraftwertEintrag(final Kraftwert kraftwert)
 	{
-		return new KraftwertEintrag(
+		return new KraftwertDto(
 			kraftwert.getPrimaerschluessel().getId().toString(),
 			kraftwert.getMaximum(),
 			kraftwert.getKoerpergewicht(),
@@ -130,7 +130,7 @@ public class Konvertierer
 			kraftwert.getWiederholungen().name());
 	}
 
-	public static Belastungsfaktor konvertiereZuBelastungsfaktor(final BelastungsfaktorEintrag belastungsfaktorEintrag)
+	public static Belastungsfaktor konvertiereZuBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorEintrag)
 	{
 		return new Belastungsfaktor(
 			new Primaerschluessel(belastungsfaktorEintrag.getId()),

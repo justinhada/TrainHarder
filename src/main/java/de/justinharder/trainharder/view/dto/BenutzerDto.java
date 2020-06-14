@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BenutzerEintrag implements Serializable
+public class BenutzerDto implements Serializable
 {
 	private static final long serialVersionUID = 2341943957236551490L;
 
@@ -25,5 +25,5 @@ public class BenutzerEintrag implements Serializable
 	private String stress;
 	private String doping;
 	private String regenerationsfaehigkeit;
-	private AuthentifizierungEintrag authentifizierung;
+	private AuthentifizierungDto authentifizierung;
 }

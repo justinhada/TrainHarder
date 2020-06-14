@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BelastungsfaktorEintrag implements Serializable
+public class BelastungsfaktorDto implements Serializable
 {
 	private static final long serialVersionUID = -2050880743329267381L;
 

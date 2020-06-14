@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.services.UebungService;
-import de.justinharder.trainharder.view.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.UebungDto;
 import lombok.Getter;
 
 @Getter
@@ -27,23 +27,23 @@ public class UebungController implements Serializable
 		this.uebungService = uebungService;
 	}
 
-	public List<UebungEintrag> getUebungen()
+	public List<UebungDto> getUebungen()
 	{
 		return uebungService.ermittleAlle();
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
+	public List<UebungDto> getUebungenZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
 		return uebungService.ermittleZuUebungsart(uebungsart);
 	}
 
-	public List<UebungEintrag> getUebungenZuUebungskategorie(final String uebungskategorie)
+	public List<UebungDto> getUebungenZuUebungskategorie(final String uebungskategorie)
 		throws UebungNichtGefundenException
 	{
 		return uebungService.ermittleZuUebungskategorie(uebungskategorie);
 	}
 
-	public UebungEintrag getUebungZuId(final String id) throws UebungNichtGefundenException
+	public UebungDto getUebungZuId(final String id) throws UebungNichtGefundenException
 	{
 		return uebungService.ermittleZuId(id);
 	}

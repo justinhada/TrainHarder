@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.google.common.base.Preconditions;
 
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class MailSender
 	private static final String MAIL_PROPERTY = "mail.smtp.host";
 	private static final String LOCALHOST = "localhost";
 
-	public boolean sendeRegistrierungMail(final AuthentifizierungEintrag authentifizierungEintrag)
+	public boolean sendeRegistrierungMail(final AuthentifizierungDto authentifizierungEintrag)
 	{
 		Preconditions.checkNotNull(authentifizierungEintrag,
 			"Es konnte keine Registierung-Mail gesendet werden, weil die Authentifizierung nicht gültig sind!");
@@ -50,7 +50,7 @@ public class MailSender
 		}
 	}
 
-	private String erstelleMailInhalt(final AuthentifizierungEintrag authentifizierungEintrag)
+	private String erstelleMailInhalt(final AuthentifizierungDto authentifizierungEintrag)
 	{
 		final var link = "<a href=\"localhost:8080/TrainHarder/create.xhtml?id=" + authentifizierungEintrag.getId()
 			+ "\">Bestätige E-Mail-Adresse und erstelle Benutzer</a>";

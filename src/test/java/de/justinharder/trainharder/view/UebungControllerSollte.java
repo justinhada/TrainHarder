@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.services.UebungService;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.UebungDto;
 
 public class UebungControllerSollte
 {
@@ -28,24 +28,24 @@ public class UebungControllerSollte
 		sut = new UebungController(uebungService);
 	}
 
-	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZurueck(final List<UebungEintrag> erwartet)
+	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZurueck(final List<UebungDto> erwartet)
 	{
 		when(uebungService.ermittleAlle()).thenReturn(erwartet);
 	}
 
 	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(
-		final List<UebungEintrag> erwartet) throws UebungNichtGefundenException
+		final List<UebungDto> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungsart(anyString())).thenReturn(erwartet);
 	}
 
 	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(
-		final List<UebungEintrag> erwartet) throws UebungNichtGefundenException
+		final List<UebungDto> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungskategorie(anyString())).thenReturn(erwartet);
 	}
 
-	private void angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(final UebungEintrag erwartet)
+	private void angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(final UebungDto erwartet)
 		throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuId(anyString())).thenReturn(erwartet);

@@ -9,7 +9,7 @@ import javax.security.enterprise.identitystore.IdentityStore;
 
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
-import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
 @ApplicationScoped
 public class TrainHarderIdentityStore implements IdentityStore
@@ -37,7 +37,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 		return CredentialValidationResult.NOT_VALIDATED_RESULT;
 	}
 
-	private CredentialValidationResult validate(final AuthentifizierungEintrag authentifizierungEintrag)
+	private CredentialValidationResult validate(final AuthentifizierungDto authentifizierungEintrag)
 	{
 		return new CredentialValidationResult(authentifizierungEintrag.getBenutzername());
 	}

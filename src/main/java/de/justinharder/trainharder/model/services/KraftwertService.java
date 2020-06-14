@@ -18,7 +18,7 @@ import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenEx
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
-import de.justinharder.trainharder.view.dto.KraftwertEintrag;
+import de.justinharder.trainharder.view.dto.KraftwertDto;
 
 public class KraftwertService implements Serializable
 {
@@ -41,18 +41,18 @@ public class KraftwertService implements Serializable
 		this.uebungRepository = uebungRepository;
 	}
 
-	public List<KraftwertEintrag> ermittleAlle()
+	public List<KraftwertDto> ermittleAlle()
 	{
 		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlle());
 	}
 
-	public List<KraftwertEintrag> ermittleAlleZuBenutzer(final String benutzerId)
+	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
 	{
 		return Konvertierer.konvertiereAlleZuKraftwertEintrag(
 			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
-	public KraftwertEintrag ermittleZuId(final String id) throws KraftwertNichtGefundenException
+	public KraftwertDto ermittleZuId(final String id) throws KraftwertNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!");
 
@@ -62,8 +62,8 @@ public class KraftwertService implements Serializable
 				"Der Kraftwert mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public KraftwertEintrag speichereKraftwert(
-		final KraftwertEintrag kraftwertEintrag,
+	public KraftwertDto speichereKraftwert(
+		final KraftwertDto kraftwertEintrag,
 		final String uebungId,
 		final String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{

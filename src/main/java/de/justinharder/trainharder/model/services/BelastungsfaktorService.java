@@ -11,7 +11,7 @@ import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
 public class BelastungsfaktorService implements Serializable
 {
@@ -25,12 +25,12 @@ public class BelastungsfaktorService implements Serializable
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
 	}
 
-	public List<BelastungsfaktorEintrag> ermittleAlle()
+	public List<BelastungsfaktorDto> ermittleAlle()
 	{
 		return Konvertierer.konvertiereAlleZuBelastungsfaktorEintrag(belastungsfaktorRepository.ermittleAlle());
 	}
 
-	public BelastungsfaktorEintrag ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
+	public BelastungsfaktorDto ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!");
 
@@ -40,7 +40,7 @@ public class BelastungsfaktorService implements Serializable
 				"Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public BelastungsfaktorEintrag speichereBelastungsfaktor(final BelastungsfaktorEintrag belastungsfaktorEintrag)
+	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorEintrag)
 	{
 		return Konvertierer.konvertiereZuBelastungsfaktorEintrag(belastungsfaktorRepository
 			.speichereBelastungsfaktor(new Belastungsfaktor(
