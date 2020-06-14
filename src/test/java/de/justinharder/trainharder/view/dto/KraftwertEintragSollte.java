@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.domain.dto;
+package de.justinharder.trainharder.view.dto;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.code.beanmatchers.BeanMatchers;
 
-import de.justinharder.trainharder.model.domain.dto.KraftwertEintrag;
+import de.justinharder.trainharder.view.dto.KraftwertEintrag;
 
 public class KraftwertEintragSollte
 {

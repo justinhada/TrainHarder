@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.domain.dto;
+package de.justinharder.trainharder.view.dto;
 
 import java.io.Serializable;
 

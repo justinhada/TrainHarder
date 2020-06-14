@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.domain.dto;
+package de.justinharder.trainharder.view.dto;
 
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;

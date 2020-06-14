@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.domain.dto;
+package de.justinharder.trainharder.view.dto;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
 
 public class AuthentifizierungEintragSollte
 {
