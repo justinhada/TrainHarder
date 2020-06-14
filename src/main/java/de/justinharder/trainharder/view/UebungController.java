@@ -7,9 +7,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.services.UebungService;
+import de.justinharder.trainharder.view.dto.UebungEintrag;
 import lombok.Getter;
 
 @Getter

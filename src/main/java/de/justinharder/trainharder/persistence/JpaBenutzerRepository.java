@@ -1,16 +1,13 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
 
@@ -44,17 +41,12 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	public List<Benutzer> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	public List<Benutzer> ermittleAlleZuNachname(final String nachname)
 	{
-		try
-		{
-			return super.erstelleQuery(Benutzer.class, Map.of("nachname", nachname))
-				.getResultList();
-		}
-		catch (final NoResultException e)
-		{
-			throw new BenutzerNichtGefundenException(
-				"Es existiert kein Benutzer mit dem Nachnamen \"" + nachname + "\"!");
-		}
+		final var criteriaBuilder = entityManager.getCriteriaBuilder();
+		final var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
+		final var root = criteriaQuery.from(Benutzer.class);
+		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("nachname"), nachname));
+		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 }

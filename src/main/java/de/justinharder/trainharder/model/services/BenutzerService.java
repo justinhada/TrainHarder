@@ -9,7 +9,6 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
@@ -21,6 +20,7 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
+import de.justinharder.trainharder.view.dto.BenutzerEintrag;
 
 public class BenutzerService implements Serializable
 {

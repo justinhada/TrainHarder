@@ -10,11 +10,11 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
-import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
-import de.justinharder.trainharder.model.domain.dto.KraftwertEintrag;
-import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
+import de.justinharder.trainharder.view.dto.BenutzerEintrag;
+import de.justinharder.trainharder.view.dto.KraftwertEintrag;
+import de.justinharder.trainharder.view.dto.UebungEintrag;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

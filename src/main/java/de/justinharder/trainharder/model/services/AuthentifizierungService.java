@@ -8,8 +8,6 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
-import de.justinharder.trainharder.model.domain.dto.Registrierung;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
@@ -17,6 +15,8 @@ import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistrier
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.authentifizierung.PasswortChecker;
+import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.Registrierung;
 
 public class AuthentifizierungService implements Serializable
 {

@@ -40,7 +40,7 @@ public class TestdatenAnleger
 			entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
 		final var tabellen = Arrays.asList(
-			"Authentifizierung",
+			"Authentifizierung", 
 			"Belastungsfaktor",
 			"Koerpermessung",
 			"Kraftwert",

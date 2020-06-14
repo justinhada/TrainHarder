@@ -11,20 +11,19 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
-import de.justinharder.trainharder.model.domain.dto.Registrierung;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
+import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.Registrierung;
 
 public class AuthentifizierungServiceSollte
 {
@@ -72,10 +71,21 @@ public class AuthentifizierungServiceSollte
 		when(authentifizierungRepository.checkBenutzername(anyString())).thenReturn(erwartet);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuMailZurueck(
-		final Optional<Authentifizierung> authentifizierung) throws AuthentifizierungNichtGefundenException
+	private void angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(
+		final Authentifizierung authentifizierung)
 	{
-		when(authentifizierungRepository.ermittleZuMail(anyString())).thenReturn(authentifizierung);
+		when(authentifizierungRepository.speichereAuthentifizierung(any(Authentifizierung.class)))
+			.thenReturn(authentifizierung);
+	}
+
+	private void angenommenDasAuthentifizierungRepositoryLoggtEin(final Optional<Authentifizierung> authentifizierung)
+	{
+		when(authentifizierungRepository.login(anyString(), anyString())).thenReturn(authentifizierung);
+	}
+
+	private void angenommenDasAuthentifizierungRepositoryWirftLoginException()
+	{
+		angenommenDasAuthentifizierungRepositoryLoggtEin(Optional.empty());
 	}
 
 	@Test
@@ -175,25 +185,48 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer registrieren")
-	@Disabled("unerklärliche NullPointerException beim Konvertieren der UUID")
 	public void test08() throws MailBereitsRegistriertException, BenutzernameVergebenException,
 		PasswortNichtSicherException, AuthentifizierungNichtGefundenException
 	{
-		final var id = new Primaerschluessel();
-		final var erwartet = new AuthentifizierungEintrag(id.getId().toString(), "justin@justin.de", "justinzumharder",
-			"Justinharder#98");
-		final var authentifizierung =
-			new Authentifizierung(id, "justin@justin.de", "justinzumharder", "Justinharder#98");
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryChecktMail(false);
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
-		angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuMailZurueck(Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
 
-		final var ergebnis =
-			sut.registriere(new Registrierung("justin@justin.de", "justinzumharder", "Justinharder#98"));
+		final var ergebnis = sut.registriere(new Registrierung(
+			"mail@justinharder.de",
+			"harder",
+			"Justinharder#98"));
 
 		assertAll(
 			() -> assertThat(ergebnis.getMail()).isEqualTo(erwartet.getMail()),
 			() -> assertThat(ergebnis.getBenutzername()).isEqualTo(erwartet.getBenutzername()),
 			() -> assertThat(ergebnis.getPasswort()).isEqualTo(erwartet.getPasswort()));
+	}
+
+	@Test
+	@DisplayName("LoginException werfen, wenn keine Authentifizierung existiert")
+	public void test09()
+	{
+		final var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
+		angenommenDasAuthentifizierungRepositoryWirftLoginException();
+
+		final var exception = assertThrows(LoginException.class, () -> sut.login("nichtexistent", "Lololollololl#98"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("einen Benutzer einloggen")
+	public void test10() throws LoginException
+	{
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		angenommenDasAuthentifizierungRepositoryLoggtEin(Optional.of(authentifizierung));
+
+		final var ergebnis = sut.login("harder", "Justinharder#98");
+
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 }

@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -16,14 +15,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
-import de.justinharder.trainharder.model.domain.dto.Registrierung;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
+import de.justinharder.trainharder.view.dto.Registrierung;
 
-@Path("/join")
 @Controller
+@Path("/join")
 public class RegistrierungController
 {
 	@Context
@@ -48,7 +47,7 @@ public class RegistrierungController
 	{
 		if (bindingResult.isFailed())
 		{
-			final List<String> errors = bindingResult.getAllErrors().stream()
+			final var errors = bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
 				.collect(Collectors.toList());
 			models.put("errors", errors);

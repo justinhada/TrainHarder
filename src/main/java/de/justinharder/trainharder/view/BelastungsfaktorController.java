@@ -7,9 +7,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.services.BelastungsfaktorService;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
 
 @Named
 @SessionScoped

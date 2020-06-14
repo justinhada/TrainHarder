@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -20,10 +19,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
-import de.justinharder.trainharder.model.domain.dto.Login;
+import de.justinharder.trainharder.view.dto.Login;
 
-@Path("/login")
 @Controller
+@Path("/login")
 public class LoginController
 {
 	@Context
@@ -48,7 +47,7 @@ public class LoginController
 	{
 		if (bindingResult.isFailed())
 		{
-			final List<String> errors = bindingResult.getAllErrors().stream()
+			final var errors = bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
 				.collect(Collectors.toList());
 			models.put("errors", errors);
@@ -64,6 +63,7 @@ public class LoginController
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
+
 			return "redirect:start";
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))

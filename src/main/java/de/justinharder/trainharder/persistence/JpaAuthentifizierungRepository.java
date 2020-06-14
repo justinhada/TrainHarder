@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -59,8 +58,11 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	{
 		try
 		{
-			return Optional.ofNullable(super.erstelleQuery(Authentifizierung.class, Map.of("mail", mail))
-				.getSingleResult());
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("mail"), mail));
+			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
@@ -105,10 +107,11 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	{
 		try
 		{
-			return Optional
-				.ofNullable(super.erstelleQuery(Authentifizierung.class, Map.of("benutzername", benutzername))
-					.getSingleResult())
-				.isPresent();
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("benutzername"), benutzername));
+			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult()).isPresent();
 		}
 		catch (final NoResultException e)
 		{

@@ -11,10 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.BenutzerEintrag;
 
 public class BenutzerControllerSollte
 {

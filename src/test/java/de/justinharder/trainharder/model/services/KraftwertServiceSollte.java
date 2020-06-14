@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -63,14 +62,29 @@ public class KraftwertServiceSollte
 		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(Optional.empty());
 	}
 
+	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(final Optional<Uebung> uebung)
+	{
+		when(uebungRepository.ermittleZuId(any(Primaerschluessel.class))).thenReturn(uebung);
+	}
+
 	private void angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(final Optional<Benutzer> benutzer)
 	{
 		when(benutzerRepository.ermittleZuId(any(Primaerschluessel.class))).thenReturn(benutzer);
 	}
 
-	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(final Optional<Uebung> uebung)
+	private void angenommenDasUebungRepositoryErmitteltKeineUebung()
 	{
-		when(uebungRepository.ermittleZuId(any(Primaerschluessel.class))).thenReturn(uebung);
+		angenommenDasUebungRepositoryGibtEineUebungZurueck(Optional.empty());
+	}
+
+	private void angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer()
+	{
+		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.empty());
+	}
+
+	private void angenommenDasKraftwertRepositorySpeichertKraftwert(final Kraftwert kraftwert)
+	{
+		when(kraftwertRepository.speichereKraftwert(any(Kraftwert.class))).thenReturn(kraftwert);
 	}
 
 	@Test
@@ -112,15 +126,47 @@ public class KraftwertServiceSollte
 	}
 
 	@Test
+	@DisplayName("UebungNichtGefundenException werfen, wenn die Uebung nicht gefunden werden kann")
+	public void test031()
+	{
+		final var id = new Primaerschluessel().getId().toString();
+		final var erwartet = "Die Uebung mit der ID \"" + id + "\" existiert nicht!";
+		angenommenDasUebungRepositoryErmitteltKeineUebung();
+
+		final var exception = assertThrows(UebungNichtGefundenException.class, () -> sut
+			.speichereKraftwert(Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN, id,
+				Testdaten.BENUTZER_JUSTIN_ID.getId().toString()));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("BenutzerNichtGefundenException werfen, wenn der Benutzer nicht gefunden werden kann")
+	public void test032()
+	{
+		final var id = new Primaerschluessel().getId().toString();
+		final var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
+		angenommenDasUebungRepositoryGibtEineUebungZurueck(Optional.of(Testdaten.KONVENTIONELLES_KREUZHEBEN));
+		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer();
+
+		final var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut
+			.speichereKraftwert(Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN,
+				Testdaten.WETTKAMPFBANKDRUECKEN_ID.getId().toString(), id));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
 	@DisplayName("einen Kraftwert erstellen")
-	@Disabled("unerklärliche NullPointerException beim Konvertieren der UUID")
 	public void test03() throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
-		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.of(benutzer));
+		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(Optional.of(uebung));
+		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.of(benutzer));
+		angenommenDasKraftwertRepositorySpeichertKraftwert(kraftwert);
 
 		final var ergebnis = sut.speichereKraftwert(
 			erwartet,

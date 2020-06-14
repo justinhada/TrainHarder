@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +47,13 @@ public class BelastungsfaktorServiceSollte
 	private void angenommenDasBelastungsfaktorRepositoryGibtNullZurueck()
 	{
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(Optional.empty());
+	}
+
+	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(
+		final Belastungsfaktor belastungsfaktor)
+	{
+		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastungsfaktor.class)))
+			.thenReturn(belastungsfaktor);
 	}
 
 	@Test
@@ -97,10 +103,11 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("einen Belastungsfaktor erstellen")
-	@Disabled("unerklärliche NullPointerException beim Konvertieren der UUID")
 	public void test04()
 	{
 		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN;
+		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
 
 		final var ergebnis = sut.speichereBelastungsfaktor(erwartet);
 

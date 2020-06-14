@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +70,16 @@ public class UebungServiceSollte
 		final Optional<Belastungsfaktor> belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.ermittleZuId(any(Primaerschluessel.class))).thenReturn(belastungsfaktor);
+	}
+
+	private void angenommenDasBelastungsfaktorRepositoryErmitteltKeinenBelastungsfaktor()
+	{
+		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(Optional.empty());
+	}
+
+	private void angenommenDasUebungRepositorySpeichertUebung(final Uebung uebung)
+	{
+		when(uebungRepository.speichereUebung(any(Uebung.class))).thenReturn(uebung);
 	}
 
 	@Test
@@ -150,13 +159,28 @@ public class UebungServiceSollte
 	}
 
 	@Test
+	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn kein Belastungsfaktor gefunden werden kann")
+	public void test06()
+	{
+		final var id = new Primaerschluessel().getId().toString();
+		final var erwartet = "Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!";
+		angenommenDasBelastungsfaktorRepositoryErmitteltKeinenBelastungsfaktor();
+
+		final var exception = assertThrows(BelastungsfaktorNichtGefundenException.class,
+			() -> sut.speichereUebung(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN, id));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
 	@DisplayName("eine Uebung erstellen")
-	@Disabled("unerklärliche NullPointerException beim Konvertieren der UUID")
-	public void test06() throws BelastungsfaktorNichtGefundenException
+	public void test07() throws BelastungsfaktorNichtGefundenException
 	{
 		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
+		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(Optional.of(belastungsfaktor));
+		angenommenDasUebungRepositorySpeichertUebung(uebung);
 
 		final var ergebnis =
 			sut.speichereUebung(uebungEintrag, belastungsfaktor.getPrimaerschluessel().getId().toString());

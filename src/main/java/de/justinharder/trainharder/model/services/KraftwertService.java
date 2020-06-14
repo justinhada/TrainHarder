@@ -11,7 +11,6 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.KraftwertEintrag;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.KraftwertNichtGefundenException;
@@ -19,6 +18,7 @@ import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenEx
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
+import de.justinharder.trainharder.view.dto.KraftwertEintrag;
 
 public class KraftwertService implements Serializable
 {

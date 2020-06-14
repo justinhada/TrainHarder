@@ -9,13 +9,13 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
-import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
+import de.justinharder.trainharder.view.dto.UebungEintrag;
 
 public class UebungService implements Serializable
 {

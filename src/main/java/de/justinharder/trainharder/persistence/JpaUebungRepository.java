@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.NoResultException;
@@ -29,8 +28,11 @@ public class JpaUebungRepository extends JpaRepository<Uebung> implements Uebung
 	{
 		try
 		{
-			return super.erstelleQuery(Uebung.class, Map.of("uebungsart", uebungsart))
-				.getResultList();
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
+			final var root = criteriaQuery.from(Uebung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungsart"), uebungsart));
+			return entityManager.createQuery(criteriaQuery).getResultList();
 		}
 		catch (final NoResultException e)
 		{
@@ -45,8 +47,11 @@ public class JpaUebungRepository extends JpaRepository<Uebung> implements Uebung
 	{
 		try
 		{
-			return super.erstelleQuery(Uebung.class, Map.of("uebungskategorie", uebungskategorie))
-				.getResultList();
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
+			final var root = criteriaQuery.from(Uebung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungskategorie"), uebungskategorie));
+			return entityManager.createQuery(criteriaQuery).getResultList();
 		}
 		catch (final NoResultException e)
 		{

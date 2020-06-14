@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 
 public interface BenutzerRepository extends Serializable
 {
@@ -16,5 +15,5 @@ public interface BenutzerRepository extends Serializable
 
 	Benutzer speichereBenutzer(final Benutzer benutzer);
 
-	List<Benutzer> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException;
+	List<Benutzer> ermittleAlleZuNachname(final String nachname);
 }

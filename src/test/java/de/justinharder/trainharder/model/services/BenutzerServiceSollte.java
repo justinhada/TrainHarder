@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +70,16 @@ public class BenutzerServiceSollte
 		when(authentifizierungRepository.ermittleZuId(any(Primaerschluessel.class))).thenReturn(authentifizierung);
 	}
 
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung()
+	{
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(Optional.empty());
+	}
+
+	private void angenommenDasBenutzerRepositorySpeichertBenutzer(final Benutzer benutzer)
+	{
+		when(benutzerRepository.speichereBenutzer(any(Benutzer.class))).thenReturn(benutzer);
+	}
+
 	@Test
 	@DisplayName("alle Benutzer ermitteln")
 	public void test01()
@@ -85,13 +94,28 @@ public class BenutzerServiceSollte
 	}
 
 	@Test
+	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn Authentifizierung nicht gefunden werden kann")
+	public void test021()
+	{
+		final var id = new Primaerschluessel().getId().toString();
+		final var erwartet = "Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!";
+		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung();
+
+		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
+			() -> sut.speichereBenutzer(Testdaten.BENUTZEREINTRAG_JUSTIN, id));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
 	@DisplayName("einen Benutzer erstellen")
-	@Disabled("unerklärliche NullPointerException beim Konvertieren der UUID")
 	public void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(Optional.of(authentifizierung));
+		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
 
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		final var ergebnis = sut.speichereBenutzer(benutzerEintrag, authentifizierungId);
@@ -105,7 +129,7 @@ public class BenutzerServiceSollte
 			() -> assertThat(ergebnis.getErfahrung()).isEqualTo(benutzerEintrag.getErfahrung()),
 			() -> assertThat(ergebnis.getErnaehrung()).isEqualTo(benutzerEintrag.getErnaehrung()),
 			() -> assertThat(ergebnis.getSchlafqualitaet()).isEqualTo(benutzerEintrag.getSchlafqualitaet()),
-			() -> assertThat(ergebnis.getStress()).isEqualTo(benutzerEintrag.getSchlafqualitaet()),
+			() -> assertThat(ergebnis.getStress()).isEqualTo(benutzerEintrag.getStress()),
 			() -> assertThat(ergebnis.getDoping()).isEqualTo(benutzerEintrag.getDoping()),
 			() -> assertThat(ergebnis.getRegenerationsfaehigkeit())
 				.isEqualTo(benutzerEintrag.getRegenerationsfaehigkeit()),

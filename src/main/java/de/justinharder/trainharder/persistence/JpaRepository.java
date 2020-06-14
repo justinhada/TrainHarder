@@ -1,12 +1,10 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
@@ -42,15 +40,5 @@ public class JpaRepository<T extends Entitaet>
 		}
 		entityManager.persist(entitaet);
 		return entitaet;
-	}
-
-	protected TypedQuery<T> erstelleQuery(final Class<T> clazz, final Map<String, Object> bedingungen)
-	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(clazz);
-		final var root = criteriaQuery.from(clazz);
-		bedingungen.forEach((spalte, wert) -> criteriaQuery.select(root)
-			.where(criteriaBuilder.equal(root.get(spalte), wert)));
-		return entityManager.createQuery(criteriaQuery);
 	}
 }

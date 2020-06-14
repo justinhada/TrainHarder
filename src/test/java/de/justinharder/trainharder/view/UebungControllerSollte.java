@@ -11,10 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.dto.UebungEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 import de.justinharder.trainharder.model.services.UebungService;
 import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.UebungEintrag;
 
 public class UebungControllerSollte
 {

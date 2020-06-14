@@ -7,9 +7,9 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
 
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
+import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
 
 @ApplicationScoped
 public class TrainHarderIdentityStore implements IdentityStore

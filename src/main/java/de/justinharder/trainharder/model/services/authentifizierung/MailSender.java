@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.google.common.base.Preconditions;
 
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
+import de.justinharder.trainharder.view.dto.AuthentifizierungEintrag;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

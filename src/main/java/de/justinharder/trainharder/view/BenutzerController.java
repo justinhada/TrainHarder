@@ -7,9 +7,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.BenutzerService;
+import de.justinharder.trainharder.view.dto.BenutzerEintrag;
 
 @Named
 @SessionScoped

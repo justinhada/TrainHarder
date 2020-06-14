@@ -9,9 +9,9 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorEintrag;
 
 public class BelastungsfaktorService implements Serializable
 {
