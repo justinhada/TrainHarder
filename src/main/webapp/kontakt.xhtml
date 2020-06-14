@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
+	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
 </h:head>
 
@@ -17,12 +18,14 @@
 		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}" alt="TrainHarder-Logo" />
 		<nav>
 			<ul class="navigation">
-				<li><a class="without-border" href="/Powerlifting" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
-				<li><a class="without-border" href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a class="without-border" href="/Powerlifting/datenschutz.xhtml" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a class="without-border" href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-				<li><a class="with-border" href="/Powerlifting/login.xhtml" title="Sign in">Sign in</a></li>
-				<li><a class="with-border" href="/Powerlifting/join.xhtml" title="Sign up">Sign up</a></li>
+				<li><a class="without-border" href="start" title="Startseite"> <i class="fa fa-home w3-xlarge" aria-hidden="true" />
+				</a></li>
+				<li><a class="without-border" href="impressum" title="Impressum">Impressum</a></li>
+				<li><a class="without-border" href="datenschutz" title="Datenschutz">Datenschutz</a></li>
+				<li><a class="without-border" href="offer" title="Unser Angebot">Unser Angebot</a></li>
+				<li><a class="without-border" href="kontakt" title="Kontakt">Kontakt</a></li>
+				<li><a class="with-border" href="login" title="Sign in">Sign in</a></li>
+				<li><a class="with-border" href="join" title="Sign up">Sign up</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -30,16 +33,39 @@
 	<div class="center-container big-container">
 		<div class="wrapper">
 			<h1>Kontakt</h1>
-			<p class="text-central text-bold">Schreibe mir eine Nachricht!</p>
+			<form class="form" method="post" action="/TrainHarder/kontakt">
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="mail" class="text-bold">E-Mail-Adresse</label>
+							<input type="email" class="form-control" id="mail" />
+						</div>
+						<div class="col">
+							<label for="benutzername" class="text-bold">Benutzername</label>
+							<input type="text" class="form-control" id="benutzername" />
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="vorname" class="text-bold">Vorname</label>
+							<input type="text" class="form-control" />
+						</div>
+						<div class="col">
+							<label for="nachname" class="text-bold">Nachname</label>
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="nachricht" class="text-bold">Wie können wir helfen?</label>
+					<textarea class="form-control" id="nachricht" rows="8" />
+				</div>
+				<button class="btn btn-secondary active" type="submit">Absenden</button>
+			</form>
 		</div>
 
-		<div class="footer">
-			<ul>
-				<li><a href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a href="/Powerlifting/datenschutz.xhtml" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-			</ul>
-		</div>
 		<div class="attribution">
 			<span>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a
 				href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>

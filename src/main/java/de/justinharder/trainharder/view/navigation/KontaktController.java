@@ -3,7 +3,6 @@ package de.justinharder.trainharder.view.navigation;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-import javax.mail.MessagingException;
 import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.mvc.binding.BindingResult;
@@ -61,15 +60,9 @@ public class KontaktController
 			return index();
 		}
 
-		try
-		{
-			kontaktService.kontaktiere(kontaktformular);
-			return erfolgreich();
-		}
-		catch (final MessagingException e)
-		{
-			return index();
-		}
+		kontaktService.kontaktiere(kontaktformular);
+		models.put("kontaktformular", kontaktformular);
+		return erfolgreich();
 	}
 
 	@GET

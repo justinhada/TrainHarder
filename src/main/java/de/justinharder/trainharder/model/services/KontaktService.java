@@ -1,48 +1,45 @@
 package de.justinharder.trainharder.model.services;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
+import com.google.common.base.Preconditions;
+
+import de.justinharder.trainharder.model.services.mail.Mail;
+import de.justinharder.trainharder.model.services.mail.MailAdresse;
+import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
 
 public class KontaktService
 {
-	private static final String UTF8 = StandardCharsets.UTF_8.toString();
-	private static final String E_MAIL_ADRESSE = "mail@justinharder.de";
-	private static final String MAIL_PROPERTY = "mail.smtp.host";
-	private static final String LOCALHOST = "localhost";
-
-	private final MimeMessage nachricht;
+	private final MailServer mailServer;
 
 	@Inject
-	public KontaktService()
+	public KontaktService(final MailServer mailServer)
 	{
-		final var properties = System.getProperties();
-		properties.setProperty(MAIL_PROPERTY, LOCALHOST);
-		final var session = Session.getDefaultInstance(properties);
-		nachricht = new MimeMessage(session);
+		this.mailServer = mailServer;
 	}
 
-	public void kontaktiere(final Kontaktformular kontaktformular) throws MessagingException
+	public void kontaktiere(final Kontaktformular kontaktformular)
 	{
-		nachricht.setFrom(new InternetAddress(E_MAIL_ADRESSE));
-		nachricht.addRecipient(Message.RecipientType.TO, new InternetAddress(E_MAIL_ADRESSE));
-		nachricht.setSubject("Support-Anfrage von " + kontaktformular.getBenutzername(), UTF8);
-		nachricht.setText("Eine Support-Anfrage von " + kontaktformular.getBenutzername()
-			+ "Benutzer:\n"
-			+ "\tBenutzername: " + kontaktformular.getBenutzername()
-			+ "\tE-Mail-Adresse: " + kontaktformular.getMail()
-			+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
-			+ "Nachricht:\n"
-			+ "\t" + kontaktformular.getNachricht(), UTF8);
+		Preconditions.checkNotNull(kontaktformular, "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!");
 
-		Transport.send(nachricht);
+		mailServer.sendeMail(
+			new Mail(
+				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+				List.of(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
+				List.of(),
+				List.of(),
+				"Support-Anfrage von " + kontaktformular.getBenutzername(),
+				"Eine Support-Anfrage von " + kontaktformular.getBenutzername()
+					+ "Benutzer:\n"
+					+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
+					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
+					+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
+					+ "Nachricht:\n"
+					+ "\t" + kontaktformular.getNachricht()),
+			StandardCharsets.UTF_8);
 	}
 }
