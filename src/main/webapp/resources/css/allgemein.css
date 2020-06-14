@@ -35,14 +35,15 @@ h3 {
 
 .center-container {
 	margin: auto;
+	margin-bottom: 1%;
 }
 
 .left-container {
-	margin-bottom: 0.1%;
+	margin-bottom: 1%;
 }
 
 .right-container {
-	margin-bottom: 0.1%;
+	margin-bottom: 1%;
 }
 
 .logo {
