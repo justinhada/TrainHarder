@@ -55,7 +55,7 @@ public class MailServer
 		final RecipientType recipientType,
 		final MimeMessage mimeMessage)
 	{
-		mailAdressen.stream()
+		mailAdressen
 			.forEach(mailAdresse ->
 			{
 				try

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.services.berechner.Diaetrechner;
-
 public class DiaetrechnerSollte
 {
 	private Diaetrechner sut;
