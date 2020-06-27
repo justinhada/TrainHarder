@@ -10,7 +10,9 @@ import javax.security.enterprise.identitystore.IdentityStore;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import lombok.Setter;
 
+@Setter
 @ApplicationScoped
 public class TrainHarderIdentityStore implements IdentityStore
 {

@@ -18,10 +18,4 @@ public class Login
 	@Size(min = 12, max = 64, message = "Ungültiges Passwort!")
 	@FormParam("passwort")
 	private String passwort;
-	private String rememberMe;
-
-	public boolean isRememberMe()
-	{
-		return rememberMe != null && rememberMe.equals("rememberMe");
-	}
 }
