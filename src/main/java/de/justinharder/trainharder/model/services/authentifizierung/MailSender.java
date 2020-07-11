@@ -21,9 +21,9 @@ public class MailSender
 	private static final String MAIL_PROPERTY = "mail.smtp.host";
 	private static final String LOCALHOST = "localhost";
 
-	public boolean sendeRegistrierungMail(final AuthentifizierungDto authentifizierungEintrag)
+	public boolean sendeRegistrierungMail(final AuthentifizierungDto authentifizierungDto)
 	{
-		Preconditions.checkNotNull(authentifizierungEintrag,
+		Preconditions.checkNotNull(authentifizierungDto,
 			"Es konnte keine Registierung-Mail gesendet werden, weil die Authentifizierung nicht gültig sind!");
 
 		try
@@ -35,12 +35,12 @@ public class MailSender
 
 			final var message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(E_MAIL_ADRESSE));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(authentifizierungEintrag.getMail()));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(authentifizierungDto.getMail()));
 			message.setSubject("Ihre Registrierung bei TrainHarder", StandardCharsets.UTF_8.name());
-			message.setText(erstelleMailInhalt(authentifizierungEintrag));
+			message.setText(erstelleMailInhalt(authentifizierungDto));
 			Transport.send(message);
 
-			System.out.println("Mail wurde erfolgreich an " + authentifizierungEintrag.getMail() + " gesendet!");
+			System.out.println("Mail wurde erfolgreich an " + authentifizierungDto.getMail() + " gesendet!");
 
 			return true;
 		}
@@ -50,12 +50,13 @@ public class MailSender
 		}
 	}
 
-	private String erstelleMailInhalt(final AuthentifizierungDto authentifizierungEintrag)
+	private String erstelleMailInhalt(final AuthentifizierungDto authentifizierungDto)
 	{
-		final var link = "<a href=\"localhost:8080/TrainHarder/create.xhtml?id=" + authentifizierungEintrag.getId()
-			+ "\">Bestätige E-Mail-Adresse und erstelle Benutzer</a>";
+		final var link =
+			"<a href=\"localhost:8080/TrainHarder/create.xhtml?id=" + authentifizierungDto.getPrimaerschluessel()
+				+ "\">Bestätige E-Mail-Adresse und erstelle Benutzer</a>";
 
-		return new StringBuilder("Hallo " + authentifizierungEintrag.getBenutzername() + ",\n")
+		return new StringBuilder("Hallo " + authentifizierungDto.getBenutzername() + ",\n")
 			.append("deine Registrierung bei TrainHarder war erfolgreich! ")
 			.append("Wir freuen uns sehr, dass du für uns entschieden hast.\n")
 			.append(
