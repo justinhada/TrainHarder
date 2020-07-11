@@ -17,7 +17,7 @@ public class StartControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Startseite per GET navigieren")
+	@DisplayName("zur Start-Seite per GET navigieren")
 	public void test01()
 	{
 		final var erwartet = "/index.xhtml";
