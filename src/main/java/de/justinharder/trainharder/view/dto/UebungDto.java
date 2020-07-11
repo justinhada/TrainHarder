@@ -13,7 +13,7 @@ public class UebungDto implements Serializable
 {
 	private static final long serialVersionUID = -7055200842034977331L;
 
-	private String id;
+	private String primaerschluessel;
 	private String name;
 	private String uebungsart;
 	private String uebungskategorie;

@@ -13,8 +13,8 @@ public class AuthentifizierungDto implements Serializable
 {
 	private static final long serialVersionUID = -2585152739995047225L;
 
-	private String id;
+	private String primaerschluessel; 
 	private String mail;
 	private String benutzername;
-	private String passwort;
+	private String passwort; 
 }

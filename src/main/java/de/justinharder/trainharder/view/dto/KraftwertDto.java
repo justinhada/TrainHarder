@@ -13,7 +13,7 @@ public class KraftwertDto implements Serializable
 {
 	private static final long serialVersionUID = -5177169492291346152L;
 
-	private String id;
+	private String primaerschluessel;
 	private int maximum;
 	private double koerpergewicht;
 	private String datum;

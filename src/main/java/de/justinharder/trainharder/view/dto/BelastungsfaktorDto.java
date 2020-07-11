@@ -13,7 +13,7 @@ public class BelastungsfaktorDto implements Serializable
 {
 	private static final long serialVersionUID = -2050880743329267381L;
 
-	private String id;
+	private String primaerschluessel;
 	private double squat;
 	private double benchpress;
 	private double deadlift;
