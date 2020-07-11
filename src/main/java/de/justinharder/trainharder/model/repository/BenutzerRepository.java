@@ -13,6 +13,8 @@ public interface BenutzerRepository extends Serializable
 
 	Optional<Benutzer> ermittleZuId(final Primaerschluessel id);
 
+	Optional<Benutzer> ermittleZuAuthentifizierung(final Primaerschluessel authentifizierungId);
+
 	Benutzer speichereBenutzer(final Benutzer benutzer);
 
 	List<Benutzer> ermittleAlleZuNachname(final String nachname);

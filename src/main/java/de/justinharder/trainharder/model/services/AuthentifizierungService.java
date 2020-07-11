@@ -40,6 +40,18 @@ public class AuthentifizierungService implements Serializable
 				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
+	public AuthentifizierungDto ermittleZuBenutzername(final String benutzername)
+		throws AuthentifizierungNichtGefundenException
+	{
+		Preconditions.checkNotNull(benutzername,
+			"Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!");
+
+		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+			.ermittleZuBenutzername(benutzername)
+			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
+				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!")));
+	}
+
 	public AuthentifizierungDto ermittleZuBenutzer(final String benutzerId)
 		throws AuthentifizierungNichtGefundenException
 	{

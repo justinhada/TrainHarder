@@ -53,6 +53,15 @@ public class BenutzerService implements Serializable
 				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
+	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
+		throws BenutzerNichtGefundenException
+	{
+		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository
+			.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!")));
+	}
+
 	public List<BenutzerDto> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
 	{
 		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);

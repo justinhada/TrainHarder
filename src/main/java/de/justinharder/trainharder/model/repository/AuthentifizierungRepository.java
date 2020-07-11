@@ -17,6 +17,8 @@ public interface AuthentifizierungRepository extends Serializable
 
 	Optional<Authentifizierung> ermittleZuMail(final String mail);
 
+	Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername);
+
 	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
 
 	Optional<Authentifizierung> login(final String benutzername, final String passwort);
@@ -24,4 +26,5 @@ public interface AuthentifizierungRepository extends Serializable
 	boolean checkMail(final String mail);
 
 	boolean checkBenutzername(final String benutzername);
+
 }

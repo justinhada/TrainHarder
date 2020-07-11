@@ -36,26 +36,50 @@
 			<form class="form" method="post" action="/TrainHarder/kontakt">
 				<div class="form-group">
 					<div class="row">
-						<div class="col">
-							<label for="mail" class="text-bold">E-Mail-Adresse</label>
-							<input type="email" class="form-control" id="mail" />
-						</div>
-						<div class="col">
-							<label for="benutzername" class="text-bold">Benutzername</label>
-							<input type="text" class="form-control" id="benutzername" />
-						</div>
+						<h:panelGroup rendered="#{authentifizierung != null}">
+							<div class="col">
+								<label for="mail" class="text-bold">E-Mail-Adresse</label>
+								<input type="email" class="form-control" id="mail" value="#{authentifizierung.mail}" disabled="disabled" />
+							</div>
+							<div class="col">
+								<label for="benutzername" class="text-bold">Benutzername</label>
+								<input type="text" class="form-control" id="benutzername" value="#{authentifizierung.benutzername}" disabled="disabled" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{authentifizierung == null}">
+							<div class="col">
+								<label for="mail" class="text-bold">E-Mail-Adresse</label>
+								<input type="email" class="form-control" id="mail" />
+							</div>
+							<div class="col">
+								<label for="benutzername" class="text-bold">Benutzername</label>
+								<input type="text" class="form-control" id="benutzername" />
+							</div>
+						</h:panelGroup>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="row">
-						<div class="col">
-							<label for="vorname" class="text-bold">Vorname</label>
-							<input type="text" class="form-control" />
-						</div>
-						<div class="col">
-							<label for="nachname" class="text-bold">Nachname</label>
-							<input type="text" class="form-control" />
-						</div>
+						<h:panelGroup rendered="#{benutzer != null}">
+							<div class="col">
+								<label for="vorname" class="text-bold">Vorname</label>
+								<input type="text" class="form-control" value="#{benutzer.vorname}" disabled="disabled" />
+							</div>
+							<div class="col">
+								<label for="nachname" class="text-bold">Nachname</label>
+								<input type="text" class="form-control" value="#{benutzer.nachname}" disabled="disabled" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{benutzer == null}">
+							<div class="col">
+								<label for="vorname" class="text-bold">Vorname</label>
+								<input type="text" class="form-control" />
+							</div>
+							<div class="col">
+								<label for="nachname" class="text-bold">Nachname</label>
+								<input type="text" class="form-control" />
+							</div>
+						</h:panelGroup>
 					</div>
 				</div>
 				<div class="form-group">

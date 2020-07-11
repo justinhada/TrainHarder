@@ -45,7 +45,7 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			final var root = criteriaQuery.from(Authentifizierung.class);
 			final var joinBenutzer = root.join("benutzer");
 			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
-			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
@@ -62,7 +62,24 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
 			final var root = criteriaQuery.from(Authentifizierung.class);
 			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("mail"), mail));
-			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+		}
+		catch (final NoResultException e)
+		{
+			return Optional.empty();
+		}
+	}
+
+	@Override
+	public Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername)
+	{
+		try
+		{
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("benutzername"), benutzername));
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
@@ -88,7 +105,7 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			criteriaQuery.select(root).where(
 				criteriaBuilder.equal(root.get("benutzername"), benutzername),
 				criteriaBuilder.equal(root.get("passwort"), passwort));
-			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
@@ -105,17 +122,6 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	@Override
 	public boolean checkBenutzername(final String benutzername)
 	{
-		try
-		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
-			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("benutzername"), benutzername));
-			return Optional.ofNullable(entityManager.createQuery(criteriaQuery).getSingleResult()).isPresent();
-		}
-		catch (final NoResultException e)
-		{
-			return false;
-		}
+		return ermittleZuBenutzername(benutzername).isPresent();
 	}
 }
