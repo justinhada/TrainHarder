@@ -84,7 +84,7 @@ public class BenutzerServiceSollte
 	@DisplayName("alle Benutzer ermitteln")
 	public void test01()
 	{
-		final var erwartet = List.of(Testdaten.BENUTZEREINTRAG_JUSTIN, Testdaten.BENUTZEREINTRAG_ANETTE);
+		final var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_ANETTE);
 		final var alleBenutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_ANETTE);
 		angenommenDasBenutzerRepositoryGibtAlleBenutzerZurueck(alleBenutzer);
 
@@ -102,7 +102,7 @@ public class BenutzerServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung();
 
 		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
-			() -> sut.speichereBenutzer(Testdaten.BENUTZEREINTRAG_JUSTIN, id));
+			() -> sut.speichereBenutzer(Testdaten.BENUTZER_DTO_JUSTIN, id));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -111,34 +111,34 @@ public class BenutzerServiceSollte
 	@DisplayName("einen Benutzer erstellen")
 	public void test02() throws AuthentifizierungNichtGefundenException
 	{
-		final var benutzerEintrag = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(Optional.of(authentifizierung));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
 
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
-		final var ergebnis = sut.speichereBenutzer(benutzerEintrag, authentifizierungId);
+		final var ergebnis = sut.speichereBenutzer(benutzerDto, authentifizierungId);
 
 		assertAll(
-			() -> assertThat(ergebnis.getVorname()).isEqualTo(benutzerEintrag.getVorname()),
-			() -> assertThat(ergebnis.getNachname()).isEqualTo(benutzerEintrag.getNachname()),
-			() -> assertThat(ergebnis.getLebensalter()).isEqualTo(benutzerEintrag.getLebensalter()),
-			() -> assertThat(ergebnis.getKraftlevel()).isEqualTo(benutzerEintrag.getKraftlevel()),
-			() -> assertThat(ergebnis.getGeschlecht()).isEqualTo(benutzerEintrag.getGeschlecht()),
-			() -> assertThat(ergebnis.getErfahrung()).isEqualTo(benutzerEintrag.getErfahrung()),
-			() -> assertThat(ergebnis.getErnaehrung()).isEqualTo(benutzerEintrag.getErnaehrung()),
-			() -> assertThat(ergebnis.getSchlafqualitaet()).isEqualTo(benutzerEintrag.getSchlafqualitaet()),
-			() -> assertThat(ergebnis.getStress()).isEqualTo(benutzerEintrag.getStress()),
-			() -> assertThat(ergebnis.getDoping()).isEqualTo(benutzerEintrag.getDoping()),
+			() -> assertThat(ergebnis.getVorname()).isEqualTo(benutzerDto.getVorname()),
+			() -> assertThat(ergebnis.getNachname()).isEqualTo(benutzerDto.getNachname()),
+			() -> assertThat(ergebnis.getLebensalter()).isEqualTo(benutzerDto.getLebensalter()),
+			() -> assertThat(ergebnis.getKraftlevel()).isEqualTo(benutzerDto.getKraftlevel()),
+			() -> assertThat(ergebnis.getGeschlecht()).isEqualTo(benutzerDto.getGeschlecht()),
+			() -> assertThat(ergebnis.getErfahrung()).isEqualTo(benutzerDto.getErfahrung()),
+			() -> assertThat(ergebnis.getErnaehrung()).isEqualTo(benutzerDto.getErnaehrung()),
+			() -> assertThat(ergebnis.getSchlafqualitaet()).isEqualTo(benutzerDto.getSchlafqualitaet()),
+			() -> assertThat(ergebnis.getStress()).isEqualTo(benutzerDto.getStress()),
+			() -> assertThat(ergebnis.getDoping()).isEqualTo(benutzerDto.getDoping()),
 			() -> assertThat(ergebnis.getRegenerationsfaehigkeit())
-				.isEqualTo(benutzerEintrag.getRegenerationsfaehigkeit()),
+				.isEqualTo(benutzerDto.getRegenerationsfaehigkeit()),
 			() -> assertThat(ergebnis.getAuthentifizierung().getMail())
-				.isEqualTo(benutzerEintrag.getAuthentifizierung().getMail()),
+				.isEqualTo(benutzerDto.getAuthentifizierung().getMail()),
 			() -> assertThat(ergebnis.getAuthentifizierung().getBenutzername())
-				.isEqualTo(benutzerEintrag.getAuthentifizierung().getBenutzername()),
+				.isEqualTo(benutzerDto.getAuthentifizierung().getBenutzername()),
 			() -> assertThat(ergebnis.getAuthentifizierung().getPasswort())
-				.isEqualTo(benutzerEintrag.getAuthentifizierung().getPasswort()));
+				.isEqualTo(benutzerDto.getAuthentifizierung().getPasswort()));
 	}
 
 	@Test
@@ -157,7 +157,7 @@ public class BenutzerServiceSollte
 	@DisplayName("einen Benutzer zu ID ermitteln")
 	public void test04() throws BenutzerNichtGefundenException
 	{
-		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.of(benutzer));
 
@@ -185,8 +185,8 @@ public class BenutzerServiceSollte
 	public void test06() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.BENUTZEREINTRAG_JUSTIN,
-			Testdaten.BENUTZEREINTRAG_GOTT);
+			Testdaten.BENUTZER_DTO_JUSTIN,
+			Testdaten.BENUTZER_DTO_GOTT);
 		final var alleBenutzer = List.of(
 			Testdaten.BENUTZER_JUSTIN,
 			Testdaten.BENUTZER_GOTT);

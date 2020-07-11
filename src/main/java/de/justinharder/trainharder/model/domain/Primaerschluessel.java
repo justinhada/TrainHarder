@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 
 import com.google.common.base.MoreObjects;
 
-import de.justinharder.trainharder.model.UuidKonvertierer;
+import de.justinharder.trainharder.model.UuidMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class Primaerschluessel implements Serializable
 	private static final long serialVersionUID = -7279995861374733781L;
 
 	@Column(columnDefinition = "VARCHAR(36)")
-	@Convert(converter = UuidKonvertierer.class)
+	@Convert(converter = UuidMapper.class)
 	private UUID id;
 
 	public Primaerschluessel()

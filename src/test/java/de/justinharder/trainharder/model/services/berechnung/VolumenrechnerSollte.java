@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechner;
+package de.justinharder.trainharder.model.services.berechnung;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.services.berechner.Volumenrechner;
+import de.justinharder.trainharder.model.services.berechnung.Volumenrechner;
 
 public class VolumenrechnerSollte
 {

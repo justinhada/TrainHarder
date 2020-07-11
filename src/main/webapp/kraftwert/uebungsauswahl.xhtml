@@ -10,10 +10,10 @@
 	<ui:define name="titel">Powerlifting 🏋️</ui:define>
 	<ui:define name="inhalt">
 		<h:form>
-			<ui:param name="benutzereintrag"
+			<ui:param name="benutzer"
 				value="#{benutzerController.getBenutzerZuId()}" />
 			<h:outputLabel
-				value="#{benutzereintrag.vorname} wähle jetzt eine Übung aus, um einen neuen Kraftwert hinzuzufügen." />
+				value="#{benutzer.vorname} wähle jetzt eine Übung aus, um einen neuen Kraftwert hinzuzufügen." />
 			<br />
 			<br />
 			<table class="benutzer-tabelle">
@@ -23,14 +23,14 @@
 					<th>Kategorie</th>
 					<th>Diesen Übung wählen</th>
 				</tr>
-				<ui:repeat id="benutzer_tabelle" var="uebungeintrag"
+				<ui:repeat id="benutzer_tabelle" var="uebung"
 					value="#{uebungController.uebungen}">
 					<tr>
-						<td>#{uebungeintrag.name}</td>
-						<td>#{uebungeintrag.uebungsart}</td>
-						<td>#{uebungeintrag.uebungskategorie}</td>
+						<td>#{uebung.name}</td>
+						<td>#{uebung.uebungsart}</td>
+						<td>#{uebung.uebungskategorie}</td>
 						<td><a
-							href="#{navigator.zurKraftwertErstellenSeite(benutzereintrag.id, uebungeintrag.id)}"
+							href="#{navigator.zurKraftwertErstellenSeite(benutzer.id, uebung.id)}"
 							title="Mit dieser Übung fortfahren">➡️</a></td>
 					</tr>
 				</ui:repeat>

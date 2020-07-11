@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui">
+<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>RIR-Rechner – Powerlifting</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.png']}" />
 	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
@@ -20,26 +15,16 @@
 
 <h:body>
 	<header>
-		<h:graphicImage styleClass="small-logo"
-			value="#{resource['img/icon.svg']}" alt="Powerlifting-Logo" />
+		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}" alt="Powerlifting-Logo" />
 		<nav>
 			<ul class="navigation">
-				<li><a class="without-border" href="/Powerlifting"
-					title="Startseite"><i class="fa fa-home w3-xlarge"
-						aria-hidden="true" /></a></li>
-				<li><a class="without-border"
-					href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a class="without-border"
-					href="/Powerlifting/datenschutz.xhtml"
-					title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a class="without-border" href="" title="Unser Angebot">Learn
-						more</a></li>
-				<li><a class="without-border"
-					href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-				<li><a class="with-border" href="/Powerlifting/login.xhtml"
-					title="Sign in">Sign in</a></li>
-				<li><a class="with-border" href="/Powerlifting/join.xhtml"
-					title="Sign up">Sign up</a></li>
+				<li><a class="without-border" href="/Powerlifting" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
+				<li><a class="without-border" href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
+				<li><a class="without-border" href="/Powerlifting/datenschutz.xhtml" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
+				<li><a class="without-border" href="" title="Unser Angebot">Learn more</a></li>
+				<li><a class="without-border" href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
+				<li><a class="with-border" href="/Powerlifting/login.xhtml" title="Sign in">Sign in</a></li>
+				<li><a class="with-border" href="/Powerlifting/join.xhtml" title="Sign up">Sign up</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -49,68 +34,27 @@
 			<h2 class="text-central text-height">Backoff-Rechner</h2>
 			<h:form class="form">
 				<span class="text-left text-bold text-height">1RM</span>
-				<h:inputText styleClass=""
-					value="#{repsInReserveController.maximum}" />
+				<h:inputText styleClass="" value="#{repsInReserveController.maximum}" />
 				<br />
 				<span class="text-left text-bold text-height">Wiederholungen</span>
 				<div class="input-group mb-3">
-					<h:inputText styleClass="form-control" value="#{repsInReserveController.wiederholungen}"/>
+					<h:inputText styleClass="form-control" value="#{repsInReserveController.wiederholungen}" />
 				</div>
 				<span class="text-left text-bold text-height">RIR</span>
 				<h:inputText id="rir" value="#{repsInReserveController.rir}" />
 				<br />
-				<h:commandButton class="ao-button"
-					action="#{repsInReserveController.ermittleRichtwert}"
-					value="Berechne Richtwert" />
+				<h:commandButton class="ao-button" action="#{repsInReserveController.ermittleRichtwert}" value="Berechne Richtwert" />
 				<br />
 				<h:outputLabel value="Dein Richtwert: " />
-				<h:outputText id="richtwert"
-					value="#{repsInReserveController.richtwert}" />
+				<h:outputText id="richtwert" value="#{repsInReserveController.richtwert}" />
 			</h:form>
-
-			<!--<table class="benutzer-tabelle">
-				<tr>
-					<th>REPS</th>
-				</tr>
-				<tr>
-					<th></th>
-					<th>1</th>
-					<th>2</th>
-					<th>3</th>
-					<th>4</th>
-					<th>5</th>
-					<th>6</th>
-					<th>7</th>
-					<th>8</th>
-					<th>9</th>
-					<th>10</th>
-					<th>11</th>
-					<th>12</th>
-				</tr>
-				<tr>
-					<td>0</td>
-					<td>100,00%</td>
-					<td>97,00%</td>
-					<td>94,00%</td>
-					<td>90,00%</td>
-					<td>87,00%</td>
-					<td>84,00%</td>
-					<td>81,00%</td>
-					<td>78,00%</td>
-					<td>77,00%</td>
-					<td>75,00%</td>
-					<td>74,00%</td>
-					<td>72,00%</td>
-				</tr>
-			</table> -->
 		</div>
 	</div>
 
 	<div class="center-container big-container">
 		<div class="attribution">
-			<span>Icons made by <a
-				href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
-					Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
+			<span>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a
+				href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
 		</div>
 	</div>
 </h:body>

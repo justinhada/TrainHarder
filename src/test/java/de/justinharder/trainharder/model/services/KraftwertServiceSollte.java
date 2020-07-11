@@ -92,9 +92,9 @@ public class KraftwertServiceSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var kraftwerte = List.of(
 			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
 			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
@@ -111,9 +111,9 @@ public class KraftwertServiceSollte
 	public void test02()
 	{
 		final var erwartet = List.of(
-			Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var kraftwerte = List.of(
 			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
 			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
@@ -134,7 +134,7 @@ public class KraftwertServiceSollte
 		angenommenDasUebungRepositoryErmitteltKeineUebung();
 
 		final var exception = assertThrows(UebungNichtGefundenException.class, () -> sut
-			.speichereKraftwert(Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN, id,
+			.speichereKraftwert(Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN, id,
 				Testdaten.BENUTZER_JUSTIN_ID.getId().toString()));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
@@ -150,7 +150,7 @@ public class KraftwertServiceSollte
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer();
 
 		final var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut
-			.speichereKraftwert(Testdaten.KRAFTWERTEINTRAG_KONVENTIONELLES_KREUZHEBEN,
+			.speichereKraftwert(Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN,
 				Testdaten.WETTKAMPFBANKDRUECKEN_ID.getId().toString(), id));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
@@ -160,7 +160,7 @@ public class KraftwertServiceSollte
 	@DisplayName("einen Kraftwert erstellen")
 	public void test03() throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = Testdaten.KRAFTWERTEINTRAG_WETTKAMPFBANKDRUECKEN;
+		final var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
 		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
@@ -196,7 +196,7 @@ public class KraftwertServiceSollte
 	@DisplayName("einen Kraftwert zur ID ermitteln")
 	public void test05() throws KraftwertNichtGefundenException
 	{
-		final var erwartet = Testdaten.KRAFTWERTEINTRAG_LOWBAR_KNIEBEUGE;
+		final var erwartet = Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
 		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
 		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(Optional.of(kraftwert));
 

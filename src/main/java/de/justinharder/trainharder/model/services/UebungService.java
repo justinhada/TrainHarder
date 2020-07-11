@@ -35,19 +35,19 @@ public class UebungService implements Serializable
 
 	public List<UebungDto> ermittleAlle()
 	{
-		return Konvertierer.konvertiereAlleZuUebungEintrag(uebungRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuUebungDto(uebungRepository.ermittleAlle());
 	}
 
 	public List<UebungDto> ermittleZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
 	{
-		return Konvertierer.konvertiereAlleZuUebungEintrag(
+		return Konvertierer.konvertiereAlleZuUebungDto(
 			uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
 	}
 
 	public List<UebungDto> ermittleZuUebungskategorie(final String uebungskategorie)
 		throws UebungNichtGefundenException
 	{
-		return Konvertierer.konvertiereAlleZuUebungEintrag(
+		return Konvertierer.konvertiereAlleZuUebungDto(
 			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
@@ -55,13 +55,13 @@ public class UebungService implements Serializable
 	{
 		Preconditions.checkNotNull(id, "Ermittlung der Uebung benötigt eine gültige UebungID!");
 
-		return Konvertierer.konvertiereZuUebungEintrag(uebungRepository
+		return Konvertierer.konvertiereZuUebungDto(uebungRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(
 				() -> new UebungNichtGefundenException("Die Uebung mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public UebungDto speichereUebung(final UebungDto uebungEintrag, final String belastungsfaktorId)
+	public UebungDto speichereUebung(final UebungDto uebungDto, final String belastungsfaktorId)
 		throws BelastungsfaktorNichtGefundenException
 	{
 		final var belastungsfaktor = belastungsfaktorRepository
@@ -69,12 +69,12 @@ public class UebungService implements Serializable
 			.orElseThrow(() -> new BelastungsfaktorNichtGefundenException(
 				"Der Belastungsfaktor mit der ID \"" + belastungsfaktorId + "\" existiert nicht!"));
 
-		return Konvertierer.konvertiereZuUebungEintrag(uebungRepository
+		return Konvertierer.konvertiereZuUebungDto(uebungRepository
 			.speichereUebung(new Uebung(
 				new Primaerschluessel(),
-				uebungEintrag.getName(),
-				Uebungsart.fromUebungsartOption(uebungEintrag.getUebungsart()),
-				Uebungskategorie.fromUebungskategorieOption(uebungEintrag.getUebungskategorie()),
+				uebungDto.getName(),
+				Uebungsart.fromUebungsartOption(uebungDto.getUebungsart()),
+				Uebungskategorie.fromUebungskategorieOption(uebungDto.getUebungskategorie()),
 				belastungsfaktor)));
 	}
 }

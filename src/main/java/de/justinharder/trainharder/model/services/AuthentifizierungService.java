@@ -34,7 +34,7 @@ public class AuthentifizierungService implements Serializable
 	{
 		Preconditions.checkNotNull(id, "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!");
 
-		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+		return Konvertierer.konvertiereZuAuthentifizierungDto(authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!")));
@@ -46,7 +46,7 @@ public class AuthentifizierungService implements Serializable
 		Preconditions.checkNotNull(benutzername,
 			"Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!");
 
-		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+		return Konvertierer.konvertiereZuAuthentifizierungDto(authentifizierungRepository
 			.ermittleZuBenutzername(benutzername)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!")));
@@ -57,7 +57,7 @@ public class AuthentifizierungService implements Serializable
 	{
 		Preconditions.checkNotNull(benutzerId, "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!");
 
-		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+		return Konvertierer.konvertiereZuAuthentifizierungDto(authentifizierungRepository
 			.ermittleZuBenutzer(new Primaerschluessel(benutzerId))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der BenutzerID \"" + benutzerId + "\" existiert nicht!")));
@@ -81,7 +81,7 @@ public class AuthentifizierungService implements Serializable
 			throw new PasswortNichtSicherException("Das Passwort ist nicht sicher genug!");
 		}
 
-		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+		return Konvertierer.konvertiereZuAuthentifizierungDto(authentifizierungRepository
 			.speichereAuthentifizierung(new Authentifizierung(
 				new Primaerschluessel(),
 				registrierung.getMail(),
@@ -91,7 +91,7 @@ public class AuthentifizierungService implements Serializable
 
 	public AuthentifizierungDto login(final String benutzername, final String passwort) throws LoginException
 	{
-		return Konvertierer.konvertiereZuAuthentifizierungEintrag(authentifizierungRepository
+		return Konvertierer.konvertiereZuAuthentifizierungDto(authentifizierungRepository
 			.login(benutzername, passwort)
 			.orElseThrow(() -> new LoginException("Der Benutzername oder das Passwort ist leider falsch!")));
 	}

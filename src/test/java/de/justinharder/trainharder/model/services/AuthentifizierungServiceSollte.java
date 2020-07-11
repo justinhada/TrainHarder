@@ -105,7 +105,7 @@ public class AuthentifizierungServiceSollte
 	@DisplayName("Authentifizierung zur ID ermitteln")
 	public void test02() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_EDUARD;
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 		angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZurueck(Optional.of(authentifizierung));
 
@@ -132,7 +132,7 @@ public class AuthentifizierungServiceSollte
 	@DisplayName("Authentifizierung zu Benutzer ermitteln")
 	public void test04() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryGibtAuthentifizierungZuBenutzerZurueck(Optional.of(authentifizierung));
 
@@ -188,7 +188,7 @@ public class AuthentifizierungServiceSollte
 	public void test08() throws MailBereitsRegistriertException, BenutzernameVergebenException,
 		PasswortNichtSicherException, AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryChecktMail(false);
 		angenommenDasAuthentifizierungRepositoryChecktBenutzername(false);
@@ -221,7 +221,7 @@ public class AuthentifizierungServiceSollte
 	@DisplayName("einen Benutzer einloggen")
 	public void test10() throws LoginException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryLoggtEin(Optional.of(authentifizierung));
 

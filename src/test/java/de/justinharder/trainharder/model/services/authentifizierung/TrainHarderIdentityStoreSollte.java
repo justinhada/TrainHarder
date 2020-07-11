@@ -72,7 +72,7 @@ public class TrainHarderIdentityStoreSollte
 	@DisplayName("eine Authentifizierung erfolgreich validieren")
 	public void test03() throws LoginException
 	{
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var erwartet = new CredentialValidationResult(authentifizierungDto.getBenutzername());
 		angenommenDerAuthentifizierungServiceLoggtEin(authentifizierungDto);
 

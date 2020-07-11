@@ -87,9 +87,9 @@ public class UebungServiceSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungen = List.of(
 			Testdaten.WETTKAMPFBANKDRUECKEN,
 			Testdaten.LOWBAR_KNIEBEUGE,
@@ -106,9 +106,9 @@ public class UebungServiceSollte
 	public void test02() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungen = List.of(
 			Testdaten.WETTKAMPFBANKDRUECKEN,
 			Testdaten.LOWBAR_KNIEBEUGE,
@@ -124,7 +124,7 @@ public class UebungServiceSollte
 	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
 	public void test03() throws UebungNichtGefundenException
 	{
-		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE);
+		final var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
 		final var uebungen = List.of(Testdaten.LOWBAR_KNIEBEUGE);
 		angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(uebungen);
 
@@ -149,7 +149,7 @@ public class UebungServiceSollte
 	@DisplayName("eine Uebung zur ID ermitteln")
 	public void test05() throws UebungNichtGefundenException
 	{
-		final var erwartet = Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN;
+		final var erwartet = Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN;
 		final var uebung = Testdaten.KONVENTIONELLES_KREUZHEBEN;
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(Optional.of(uebung));
 
@@ -167,7 +167,7 @@ public class UebungServiceSollte
 		angenommenDasBelastungsfaktorRepositoryErmitteltKeinenBelastungsfaktor();
 
 		final var exception = assertThrows(BelastungsfaktorNichtGefundenException.class,
-			() -> sut.speichereUebung(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN, id));
+			() -> sut.speichereUebung(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, id));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -176,14 +176,14 @@ public class UebungServiceSollte
 	@DisplayName("eine Uebung erstellen")
 	public void test07() throws BelastungsfaktorNichtGefundenException
 	{
-		final var uebungEintrag = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
+		final var uebungDto = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
 		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(Optional.of(belastungsfaktor));
 		angenommenDasUebungRepositorySpeichertUebung(uebung);
 
 		final var ergebnis =
-			sut.speichereUebung(uebungEintrag, belastungsfaktor.getPrimaerschluessel().getId().toString());
+			sut.speichereUebung(uebungDto, belastungsfaktor.getPrimaerschluessel().getId().toString());
 
 		assertAll(() -> assertThat(ergebnis));
 	}

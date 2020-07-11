@@ -11,33 +11,33 @@
 	<ui:define name="inhalt">
 		<h:form>
 			<h:outputLabel value="Vorname: " />
-			<h:inputText value="#{benutzerController.benutzerEintrag.vorname}" />
+			<h:inputText value="#{benutzerController.benutzer.vorname}" />
 			<br />
 			<h:outputLabel value="Nachname: " />
-			<h:inputText value="#{benutzerController.benutzerEintrag.nachname}" />
+			<h:inputText value="#{benutzerController.benutzer.nachname}" />
 			<br />
 			<h:outputLabel value="Gewicht: " />
 			<h:inputText
-				value="#{benutzerController.benutzerEintrag.koerpergewicht}" />
+				value="#{benutzerController.benutzer.koerpergewicht}" />
 			<br />
 			<h:outputLabel value="Größe: " />
 			<h:inputText
-				value="#{benutzerController.benutzerEintrag.koerpergroesse}" />
+				value="#{benutzerController.benutzer.koerpergroesse}" />
 			<br />
 			<h:outputLabel value="Alter: " />
 			<h:inputText
-				value="#{benutzerController.benutzerEintrag.lebensalter}" />
+				value="#{benutzerController.benutzer.lebensalter}" />
 			<br />
 			<h:outputLabel value="Geschlecht: " />
 			<h:selectOneMenu
-				value="#{benutzerController.benutzerEintrag.geschlecht}">
+				value="#{benutzerController.benutzer.geschlecht}">
 				<f:selectItem itemValue="MAENNLICH" itemLabel="Männlich" />
 				<f:selectItem itemValue="WEIBLICH" itemLabel="Weiblich" />
 			</h:selectOneMenu>
 			<br />
 			<h:outputLabel value="Erfahrung: " />
 			<h:selectOneMenu
-				value="#{benutzerController.benutzerEintrag.erfahrung}">
+				value="#{benutzerController.benutzer.erfahrung}">
 				<f:selectItem itemValue="BEGINNER"
 					itemLabel="Beginner (weniger als 4 Jahre)" />
 				<f:selectItem itemValue="FORTGESCHRITTEN"
@@ -50,7 +50,7 @@
 			<br />
 			<h:outputLabel value="Ernährung: " />
 			<h:selectOneMenu
-				value="#{benutzerController.benutzerEintrag.ernaehrung}">
+				value="#{benutzerController.benutzer.ernaehrung}">
 				<f:selectItem itemValue="SCHLECHT"
 					itemLabel="Schlecht (zu wenig und unregelmäßige Kalorien)" />
 				<f:selectItem itemValue="DURCHSCHNITT"
@@ -61,7 +61,7 @@
 			<br />
 			<h:outputLabel value="Schlaf: " />
 			<h:selectOneMenu
-				value="#{benutzerController.benutzerEintrag.schlafqualitaet}">
+				value="#{benutzerController.benutzer.schlafqualitaet}">
 				<f:selectItem itemValue="SCHLECHT"
 					itemLabel="Schlecht (weniger als 5 Stunden)" />
 				<f:selectItem itemValue="DURCHSCHNITT"
@@ -70,7 +70,7 @@
 			</h:selectOneMenu>
 			<br />
 			<h:outputLabel value="Stress: " />
-			<h:selectOneMenu value="#{benutzerController.benutzerEintrag.stress}">
+			<h:selectOneMenu value="#{benutzerController.benutzer.stress}">
 				<f:selectItem itemValue="NIEDRIG" itemLabel="Niedrig (wenig Stress)" />
 				<f:selectItem itemValue="MITTELMAESSIG"
 					itemLabel="Mittelmäßig (ausgeglichen zwischen Stress und Erholung)" />
@@ -78,14 +78,14 @@
 			</h:selectOneMenu>
 			<br />
 			<h:outputLabel value="Doping: " />
-			<h:selectOneMenu value="#{benutzerController.benutzerEintrag.doping}">
+			<h:selectOneMenu value="#{benutzerController.benutzer.doping}">
 				<f:selectItem itemValue="JA" itemLabel="Ja" />
 				<f:selectItem itemValue="NEIN" itemLabel="Nein" />
 			</h:selectOneMenu>
 			<br />
 			<h:outputLabel value="Regeneration: " />
 			<h:selectOneMenu
-				value="#{benutzerController.benutzerEintrag.regenerationsfaehigkeit}">
+				value="#{benutzerController.benutzer.regenerationsfaehigkeit}">
 				<f:selectItem itemValue="SCHLECHT" itemLabel="Schlecht" />
 				<f:selectItem itemValue="UNTERDURCHSCHNITTLICH"
 					itemLabel="Unterdurchschnitt" />

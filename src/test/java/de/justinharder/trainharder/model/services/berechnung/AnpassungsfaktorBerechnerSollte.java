@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechner;
+package de.justinharder.trainharder.model.services.berechnung;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.services.berechner.AnpassungsfaktorBerechner;
+import de.justinharder.trainharder.model.services.berechnung.AnpassungsfaktorBerechner;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class AnpassungsfaktorBerechnerSollte

@@ -40,14 +40,14 @@ public class BenutzerService implements Serializable
 
 	public List<BenutzerDto> ermittleAlle()
 	{
-		return Konvertierer.konvertiereAlleZuBenutzerEintrag(benutzerRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuBenutzerDto(benutzerRepository.ermittleAlle());
 	}
 
 	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
-		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository
+		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(
 				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
@@ -56,7 +56,7 @@ public class BenutzerService implements Serializable
 	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
 		throws BenutzerNichtGefundenException
 	{
-		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository
+		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository
 			.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(() -> new BenutzerNichtGefundenException(
 				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!")));
@@ -70,10 +70,10 @@ public class BenutzerService implements Serializable
 			throw new BenutzerNichtGefundenException(
 				"Es wurde kein Benutzer mit dem Nachnamen \"" + nachname + "\" gefunden!");
 		}
-		return Konvertierer.konvertiereAlleZuBenutzerEintrag(alleBenutzer);
+		return Konvertierer.konvertiereAlleZuBenutzerDto(alleBenutzer);
 	}
 
-	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerEintrag, final String authentifizierungId)
+	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerDto, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = authentfizierungRepository
@@ -81,18 +81,18 @@ public class BenutzerService implements Serializable
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));
 
-		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository.speichereBenutzer(new Benutzer(
+		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
-			benutzerEintrag.getVorname(),
-			benutzerEintrag.getNachname(),
-			benutzerEintrag.getLebensalter(),
-			Geschlecht.fromGeschlechtOption(benutzerEintrag.getGeschlecht()),
-			Erfahrung.fromErfahrungOption(benutzerEintrag.getErfahrung()),
-			Ernaehrung.fromErnaehrungOption(benutzerEintrag.getErnaehrung()),
-			Schlafqualitaet.fromSchlafqualitaetOption(benutzerEintrag.getSchlafqualitaet()),
-			Stress.fromStressOption(benutzerEintrag.getStress()),
-			Doping.fromDopingOption(benutzerEintrag.getDoping()),
-			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()),
+			benutzerDto.getVorname(),
+			benutzerDto.getNachname(),
+			benutzerDto.getLebensalter(),
+			Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
+			Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),
+			Ernaehrung.fromErnaehrungOption(benutzerDto.getErnaehrung()),
+			Schlafqualitaet.fromSchlafqualitaetOption(benutzerDto.getSchlafqualitaet()),
+			Stress.fromStressOption(benutzerDto.getStress()),
+			Doping.fromDopingOption(benutzerDto.getDoping()),
+			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerDto.getRegenerationsfaehigkeit()),
 			authentifizierung)));
 	}
 }

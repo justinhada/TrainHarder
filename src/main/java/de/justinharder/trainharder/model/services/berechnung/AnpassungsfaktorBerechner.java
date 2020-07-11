@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechner;
+package de.justinharder.trainharder.model.services.berechnung;
 
 import com.google.common.base.Preconditions;
 

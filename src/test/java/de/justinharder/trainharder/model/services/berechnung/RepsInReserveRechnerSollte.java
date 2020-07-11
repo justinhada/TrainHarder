@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechner;
+package de.justinharder.trainharder.model.services.berechnung;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigeRepsInReserveException;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigesMaximumException;
-import de.justinharder.trainharder.model.services.berechner.RepsInReserveRechner;
+import de.justinharder.trainharder.model.services.berechnung.RepsInReserveRechner;
 
 public class RepsInReserveRechnerSollte
 {

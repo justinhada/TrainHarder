@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechner;
+package de.justinharder.trainharder.model.services.berechnung;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +21,7 @@ import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
+import de.justinharder.trainharder.model.services.berechnung.KraftlevelBerechner;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class KraftlevelBerechnerSollte

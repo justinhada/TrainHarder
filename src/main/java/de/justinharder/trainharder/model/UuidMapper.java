@@ -6,7 +6,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class UuidKonvertierer implements AttributeConverter<UUID, String>
+public class UuidMapper implements AttributeConverter<UUID, String>
 {
 	@Override
 	public String convertToDatabaseColumn(final UUID uuid)

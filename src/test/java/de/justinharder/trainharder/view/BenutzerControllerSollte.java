@@ -28,18 +28,18 @@ public class BenutzerControllerSollte
 		sut = new BenutzerController(benutzerService);
 	}
 
-	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(final List<BenutzerDto> erwartet)
+	private void angenommenDerBenutzerServiceGibtAlleBenutzerDtosZurueck(final List<BenutzerDto> erwartet)
 	{
 		when(benutzerService.ermittleAlle()).thenReturn(erwartet);
 	}
 
-	private void angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(
+	private void angenommenDerBenutzerServiceGibtEinenBenutzerDtoMithilfeDerIdZurueck(
 		final BenutzerDto erwartet) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuId(anyString())).thenReturn(erwartet);
 	}
 
-	private void angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(
+	private void angenommenDerBenutzerServiceGibtAlleBenutzerDtosMithilfeDesNachnamensZurueck(
 		final List<BenutzerDto> erwartet) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleAlleZuNachname(anyString())).thenReturn(erwartet);
@@ -49,8 +49,8 @@ public class BenutzerControllerSollte
 	@DisplayName("eine Liste aller BenutzerEinträge zurückgeben")
 	public void test01()
 	{
-		final var erwartet = List.of(Testdaten.BENUTZEREINTRAG_JUSTIN, Testdaten.BENUTZEREINTRAG_ANETTE);
-		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeZurueck(erwartet);
+		final var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_ANETTE);
+		angenommenDerBenutzerServiceGibtAlleBenutzerDtosZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzer();
 
@@ -61,8 +61,8 @@ public class BenutzerControllerSollte
 	@DisplayName("einen Benutzer mit der übergebenen ID zurückgeben")
 	public void test02() throws BenutzerNichtGefundenException
 	{
-		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
-		angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(erwartet);
+		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
+		angenommenDerBenutzerServiceGibtEinenBenutzerDtoMithilfeDerIdZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzerZuId(erwartet.getPrimaerschluessel());
 
@@ -74,9 +74,9 @@ public class BenutzerControllerSollte
 	public void test03() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.BENUTZEREINTRAG_JUSTIN,
-			Testdaten.BENUTZEREINTRAG_GOTT);
-		angenommenDerBenutzerServiceGibtAlleBenutzerEintraegeMithilfeDesNachnamensZurueck(erwartet);
+			Testdaten.BENUTZER_DTO_JUSTIN,
+			Testdaten.BENUTZER_DTO_GOTT);
+		angenommenDerBenutzerServiceGibtAlleBenutzerDtosMithilfeDesNachnamensZurueck(erwartet);
 
 		final var ergebnis = sut.getBenutzerZuNachname("Harder");
 

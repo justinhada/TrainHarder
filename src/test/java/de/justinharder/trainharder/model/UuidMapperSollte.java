@@ -9,14 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class UuidKonvertiererSollte
+public class UuidMapperSollte
 {
-	private UuidKonvertierer sut;
+	private UuidMapper sut;
 
 	@BeforeEach
 	public void setup()
 	{
-		sut = new UuidKonvertierer();
+		sut = new UuidMapper();
 	}
 
 	@Test

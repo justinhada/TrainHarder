@@ -43,12 +43,12 @@ public class KraftwertService implements Serializable
 
 	public List<KraftwertDto> ermittleAlle()
 	{
-		return Konvertierer.konvertiereAlleZuKraftwertEintrag(kraftwertRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuKraftwertDto(kraftwertRepository.ermittleAlle());
 	}
 
 	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
 	{
-		return Konvertierer.konvertiereAlleZuKraftwertEintrag(
+		return Konvertierer.konvertiereAlleZuKraftwertDto(
 			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
@@ -56,14 +56,14 @@ public class KraftwertService implements Serializable
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!");
 
-		return Konvertierer.konvertiereZuKraftwertEintrag(kraftwertRepository
+		return Konvertierer.konvertiereZuKraftwertDto(kraftwertRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new KraftwertNichtGefundenException(
 				"Der Kraftwert mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
 	public KraftwertDto speichereKraftwert(
-		final KraftwertDto kraftwertEintrag,
+		final KraftwertDto kraftwertDto,
 		final String uebungId,
 		final String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
@@ -76,12 +76,12 @@ public class KraftwertService implements Serializable
 			.orElseThrow(() -> new BenutzerNichtGefundenException(
 				"Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!"));
 
-		return Konvertierer.konvertiereZuKraftwertEintrag(kraftwertRepository.speichereKraftwert(new Kraftwert(
+		return Konvertierer.konvertiereZuKraftwertDto(kraftwertRepository.speichereKraftwert(new Kraftwert(
 			new Primaerschluessel(),
-			kraftwertEintrag.getMaximum(),
-			kraftwertEintrag.getKoerpergewicht(),
-			LocalDate.parse(kraftwertEintrag.getDatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
-			Wiederholungen.fromName(kraftwertEintrag.getWiederholungen()),
+			kraftwertDto.getMaximum(),
+			kraftwertDto.getKoerpergewicht(),
+			LocalDate.parse(kraftwertDto.getDatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
+			Wiederholungen.fromName(kraftwertDto.getWiederholungen()),
 			uebung,
 			benutzer)));
 	}

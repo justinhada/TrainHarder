@@ -39,8 +39,8 @@ public class TrainHarderIdentityStore implements IdentityStore
 		return CredentialValidationResult.NOT_VALIDATED_RESULT;
 	}
 
-	private CredentialValidationResult validate(final AuthentifizierungDto authentifizierungEintrag)
+	private CredentialValidationResult validate(final AuthentifizierungDto authentifizierungDto)
 	{
-		return new CredentialValidationResult(authentifizierungEintrag.getBenutzername());
+		return new CredentialValidationResult(authentifizierungDto.getBenutzername());
 	}
 }

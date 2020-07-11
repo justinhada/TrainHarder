@@ -28,18 +28,18 @@ public class UebungControllerSollte
 		sut = new UebungController(uebungService);
 	}
 
-	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZurueck(final List<UebungDto> erwartet)
+	private void angenommenDerUebungServiceGibtAlleUebungDtosZurueck(final List<UebungDto> erwartet)
 	{
 		when(uebungService.ermittleAlle()).thenReturn(erwartet);
 	}
 
-	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(
+	private void angenommenDerUebungServiceGibtAlleUebungDtosZuUebungsartZurueck(
 		final List<UebungDto> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungsart(anyString())).thenReturn(erwartet);
 	}
 
-	private void angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(
+	private void angenommenDerUebungServiceGibtAlleUebungDtosZuUebungskategorieZurueck(
 		final List<UebungDto> erwartet) throws UebungNichtGefundenException
 	{
 		when(uebungService.ermittleZuUebungskategorie(anyString())).thenReturn(erwartet);
@@ -56,10 +56,10 @@ public class UebungControllerSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDerUebungServiceGibtAlleUebungEintraegeZurueck(erwartet);
+			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		angenommenDerUebungServiceGibtAlleUebungDtosZurueck(erwartet);
 
 		final var ergebnis = sut.getUebungen();
 
@@ -71,10 +71,10 @@ public class UebungControllerSollte
 	public void test02() throws UebungNichtGefundenException
 	{
 		final var erwartet = List.of(
-			Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNGEINTRAG_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungsartZurueck(erwartet);
+			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		angenommenDerUebungServiceGibtAlleUebungDtosZuUebungsartZurueck(erwartet);
 
 		final var ergebnis = sut.getUebungenZuUebungsart("GRUNDUEBUNG");
 
@@ -85,8 +85,8 @@ public class UebungControllerSollte
 	@DisplayName("eine Liste aller UebungEinträge einer Uebungskategorie zurückgeben")
 	public void test03() throws UebungNichtGefundenException
 	{
-		final var erwartet = List.of(Testdaten.UEBUNGEINTRAG_WETTKAMPFBANKDRUECKEN);
-		angenommenDerUebungServiceGibtAlleUebungEintraegeZuUebungskategorieZurueck(erwartet);
+		final var erwartet = List.of(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN);
+		angenommenDerUebungServiceGibtAlleUebungDtosZuUebungskategorieZurueck(erwartet);
 
 		final var ergebnis = sut.getUebungenZuUebungskategorie("WETTKAMPF_BANKDRUECKEN");
 
@@ -97,7 +97,7 @@ public class UebungControllerSollte
 	@DisplayName("eine Uebung mit der übergebenen ID ermitteln")
 	public void test04() throws UebungNichtGefundenException
 	{
-		final var erwartet = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
+		final var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
 		angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(erwartet);
 
 		final var ergebnis = sut.getUebungZuId(erwartet.getPrimaerschluessel());

@@ -120,7 +120,7 @@ public class RegistrierungControllerSollte
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
 	{
 		final var erwartet = "/success.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
+		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		angenommenDerAuthentifizierungServiceGibtAuthentifizierungDtoZurueck(authentifizierungDto);
 
 		final var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));

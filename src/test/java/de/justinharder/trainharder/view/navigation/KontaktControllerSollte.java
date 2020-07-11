@@ -131,8 +131,8 @@ public class KontaktControllerSollte
 	{
 		final var erwartet = "/kontakt.xhtml";
 		final var benutzername = "harder";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNGEINTRAG_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZEREINTRAG_JUSTIN;
+		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck();
 		angenommenDasCallerPrincipalGibtNamenZurueck(benutzername);
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(

@@ -28,13 +28,13 @@ public class BelastungsfaktorControllerSollte
 		sut = new BelastungsfaktorController(belastungsfaktorService);
 	}
 
-	private void angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorEintraegeZurueck(
+	private void angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorDtosZurueck(
 		final List<BelastungsfaktorDto> erwartet)
 	{
 		when(belastungsfaktorService.ermittleAlle()).thenReturn(erwartet);
 	}
 
-	private void angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(
+	private void angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorDtoMithilfeDerIdZurueck(
 		final BelastungsfaktorDto erwartet) throws BelastungsfaktorNichtGefundenException
 	{
 		when(belastungsfaktorService.ermittleZuId(anyString())).thenReturn(erwartet);
@@ -45,10 +45,10 @@ public class BelastungsfaktorControllerSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorEintraegeZurueck(erwartet);
+			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
+		angenommenDerBelastungsfaktorServiceGibtAlleBelastungsfaktorDtosZurueck(erwartet);
 
 		final var ergebnis = sut.getBelastungsfaktoren();
 
@@ -59,8 +59,8 @@ public class BelastungsfaktorControllerSollte
 	@DisplayName("einen Belastungsfaktor mit der übergebenen ID ermitteln")
 	public void test02() throws BelastungsfaktorNichtGefundenException
 	{
-		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE;
-		angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(erwartet);
+		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE;
+		angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorDtoMithilfeDerIdZurueck(erwartet);
 
 		final var ergebnis = sut.getBelastungsfaktorZuId(erwartet.getPrimaerschluessel());
 

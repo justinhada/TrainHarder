@@ -27,35 +27,35 @@ public class BelastungsfaktorService implements Serializable
 
 	public List<BelastungsfaktorDto> ermittleAlle()
 	{
-		return Konvertierer.konvertiereAlleZuBelastungsfaktorEintrag(belastungsfaktorRepository.ermittleAlle());
+		return Konvertierer.konvertiereAlleZuBelastungsfaktorDto(belastungsfaktorRepository.ermittleAlle());
 	}
 
 	public BelastungsfaktorDto ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!");
 
-		return Konvertierer.konvertiereZuBelastungsfaktorEintrag(belastungsfaktorRepository
+		return Konvertierer.konvertiereZuBelastungsfaktorDto(belastungsfaktorRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new BelastungsfaktorNichtGefundenException(
 				"Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!")));
 	}
 
-	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorEintrag)
+	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorDto)
 	{
-		return Konvertierer.konvertiereZuBelastungsfaktorEintrag(belastungsfaktorRepository
+		return Konvertierer.konvertiereZuBelastungsfaktorDto(belastungsfaktorRepository
 			.speichereBelastungsfaktor(new Belastungsfaktor(
 				new Primaerschluessel(),
-				belastungsfaktorEintrag.getSquat(),
-				belastungsfaktorEintrag.getBenchpress(),
-				belastungsfaktorEintrag.getDeadlift(),
-				belastungsfaktorEintrag.getTriceps(),
-				belastungsfaktorEintrag.getChest(),
-				belastungsfaktorEintrag.getCore(),
-				belastungsfaktorEintrag.getBack(),
-				belastungsfaktorEintrag.getBiceps(),
-				belastungsfaktorEintrag.getGlutes(),
-				belastungsfaktorEintrag.getQuads(),
-				belastungsfaktorEintrag.getHamstrings(),
-				belastungsfaktorEintrag.getShoulder())));
+				belastungsfaktorDto.getSquat(),
+				belastungsfaktorDto.getBenchpress(),
+				belastungsfaktorDto.getDeadlift(),
+				belastungsfaktorDto.getTriceps(),
+				belastungsfaktorDto.getChest(),
+				belastungsfaktorDto.getCore(),
+				belastungsfaktorDto.getBack(),
+				belastungsfaktorDto.getBiceps(),
+				belastungsfaktorDto.getGlutes(),
+				belastungsfaktorDto.getQuads(),
+				belastungsfaktorDto.getHamstrings(),
+				belastungsfaktorDto.getShoulder())));
 	}
 }

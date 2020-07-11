@@ -61,9 +61,9 @@ public class BelastungsfaktorServiceSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN,
+			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE,
+			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var belastungsfaktoren = List.of(
 			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
@@ -91,7 +91,7 @@ public class BelastungsfaktorServiceSollte
 	@DisplayName("einen Belastungsfaktor zur ID ermitteln")
 	public void test03() throws BelastungsfaktorNichtGefundenException
 	{
-		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_KONVENTIONELLES_KREUZHEBEN;
+		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(Optional.of(belastungsfaktor));
 
@@ -105,7 +105,7 @@ public class BelastungsfaktorServiceSollte
 	@DisplayName("einen Belastungsfaktor erstellen")
 	public void test04()
 	{
-		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_WETTKAMPFBANKDRUECKEN;
+		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
 		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
 
