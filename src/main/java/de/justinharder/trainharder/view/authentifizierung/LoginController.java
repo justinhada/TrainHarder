@@ -19,8 +19,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
-import de.justinharder.trainharder.view.dto.Login;
+import com.google.common.base.Preconditions;
 
+import de.justinharder.trainharder.view.dto.Login;
+import lombok.Setter;
+
+@Setter
 @Controller
 @Path("/login")
 public class LoginController
@@ -45,12 +49,13 @@ public class LoginController
 	@POST
 	public String login(@BeanParam final Login login)
 	{
+		Preconditions.checkNotNull(login, "Zur Authentifizierung wird ein gültiger Login benötigt!");
+
 		if (bindingResult.isFailed())
 		{
-			final var errors = bindingResult.getAllErrors().stream()
+			models.put("fehler", bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
-				.collect(Collectors.toList());
-			models.put("errors", errors);
+				.collect(Collectors.toList()));
 			return index();
 		}
 
@@ -63,7 +68,7 @@ public class LoginController
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
-
+			models.put("benutzername", login.getBenutzername());
 			return "redirect:start";
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))

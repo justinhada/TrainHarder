@@ -15,19 +15,26 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
+import com.google.common.base.Preconditions;
+
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.view.dto.Registrierung;
+import lombok.AccessLevel;
+import lombok.Setter;
 
+@Setter
 @Controller
 @Path("/join")
 public class RegistrierungController
 {
 	@Context
+	@Setter(AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
+	@Setter(AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private Models models;
@@ -45,24 +52,24 @@ public class RegistrierungController
 	@POST
 	public String registriere(@BeanParam final Registrierung registrierung)
 	{
+		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
+
 		if (bindingResult.isFailed())
 		{
-			final var errors = bindingResult.getAllErrors().stream()
+			models.put("fehler", bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
-				.collect(Collectors.toList());
-			models.put("errors", errors);
+				.collect(Collectors.toList()));
 			return index();
 		}
 
 		try
 		{
-			final var authentifizierungEintrag = authentifizierungService.registriere(registrierung);
-			models.put("authentifizierung", authentifizierungEintrag);
+			models.put("authentifizierung", authentifizierungService.registriere(registrierung));
 			return erfolgreich();
 		}
 		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException e)
 		{
-			models.put("errors", e.getMessage());
+			models.put("fehler", e.getMessage());
 			return index();
 		}
 	}
