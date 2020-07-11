@@ -34,7 +34,6 @@ h3 {
 }
 
 .center-container {
-	margin: auto;
 	margin-bottom: 1%;
 }
 
@@ -219,9 +218,11 @@ header {
 	.big-container {
 		width: 95%;
 	}
+	
 	.medium-container {
 		width: 95%;
 	}
+	
 	.small-container {
 		width: 95%;
 	}
@@ -232,9 +233,11 @@ header {
 	.big-container {
 		width: 75%;
 	}
+	
 	.medium-container {
 		width: 35%;
 	}
+	
 	.small-container {
 		width: 25%;
 	}

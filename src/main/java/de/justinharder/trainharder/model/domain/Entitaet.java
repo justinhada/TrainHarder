@@ -41,7 +41,7 @@ public abstract class Entitaet implements Serializable
 			return false;
 		}
 		final var other = (Entitaet) obj;
-		return getPrimaerschluessel().getId() == other.getPrimaerschluessel().getId();
+		return Objects.equals(getPrimaerschluessel().getId(), other.getPrimaerschluessel().getId());
 	}
 
 	@Override

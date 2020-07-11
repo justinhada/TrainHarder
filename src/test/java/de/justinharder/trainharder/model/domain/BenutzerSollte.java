@@ -171,7 +171,7 @@ public class BenutzerSollte
 			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andererBenutzer)).isEqualTo(false),
 			() -> assertThat(sut.equals(benutzerMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer));
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer.hashCode()));
 	}
 
 	@Test
