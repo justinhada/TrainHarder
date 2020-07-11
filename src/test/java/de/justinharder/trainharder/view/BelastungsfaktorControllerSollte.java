@@ -62,7 +62,7 @@ public class BelastungsfaktorControllerSollte
 		final var erwartet = Testdaten.BELASTUNGSFAKTOREINTRAG_LOWBAR_KNIEBEUGE;
 		angenommenDerBelastungsfaktorServiceGibtEinenBelastungsfaktorEintragMithilfeDerIdZurueck(erwartet);
 
-		final var ergebnis = sut.getBelastungsfaktorZuId(erwartet.getId());
+		final var ergebnis = sut.getBelastungsfaktorZuId(erwartet.getPrimaerschluessel());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

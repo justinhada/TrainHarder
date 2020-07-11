@@ -100,7 +100,7 @@ public class UebungControllerSollte
 		final var erwartet = Testdaten.UEBUNGEINTRAG_LOWBAR_KNIEBEUGE;
 		angenommenDerUebungServiceGibtEineUebungMithilfeDerIdZurueck(erwartet);
 
-		final var ergebnis = sut.getUebungZuId(erwartet.getId());
+		final var ergebnis = sut.getUebungZuId(erwartet.getPrimaerschluessel());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

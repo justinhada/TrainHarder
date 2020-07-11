@@ -64,7 +64,7 @@ public class BenutzerControllerSollte
 		final var erwartet = Testdaten.BENUTZEREINTRAG_JUSTIN;
 		angenommenDerBenutzerServiceGibtEinenBenutzerEintragMithilfeDerIdZurueck(erwartet);
 
-		final var ergebnis = sut.getBenutzerZuId(erwartet.getId());
+		final var ergebnis = sut.getBenutzerZuId(erwartet.getPrimaerschluessel());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
