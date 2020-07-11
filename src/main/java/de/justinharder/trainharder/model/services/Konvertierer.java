@@ -133,7 +133,7 @@ public class Konvertierer
 	public static Belastungsfaktor konvertiereZuBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorEintrag)
 	{
 		return new Belastungsfaktor(
-			new Primaerschluessel(belastungsfaktorEintrag.getId()),
+			new Primaerschluessel(belastungsfaktorEintrag.getPrimaerschluessel()),
 			belastungsfaktorEintrag.getSquat(),
 			belastungsfaktorEintrag.getBenchpress(),
 			belastungsfaktorEintrag.getDeadlift(),
