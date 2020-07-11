@@ -2,6 +2,7 @@ package de.justinharder.trainharder.persistence;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,11 +35,22 @@ public class JpaRepository<T extends Entitaet>
 	@Transactional
 	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
 	{
-		if (ermittleZuId(clazz, entitaet.getPrimaerschluessel()).isPresent())
+		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())
+			.map(this::aktualisiereEntitaet)
+			.orElseGet(erstelleEntitaet(entitaet));
+	}
+
+	private T aktualisiereEntitaet(final T entitaet)
+	{
+		return entityManager.merge(entitaet);
+	}
+
+	private Supplier<? extends T> erstelleEntitaet(final T entitaet)
+	{
+		return () ->
 		{
-			return entityManager.merge(entitaet);
-		}
-		entityManager.persist(entitaet);
-		return entitaet;
+			entityManager.persist(entitaet);
+			return entitaet;
+		};
 	}
 }
