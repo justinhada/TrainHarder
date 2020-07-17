@@ -24,7 +24,6 @@ import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.model.services.KontaktService;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
-import lombok.AccessLevel;
 import lombok.Setter;
 
 @Setter
@@ -33,25 +32,32 @@ import lombok.Setter;
 public class KontaktController
 {
 	@Context
-	@Setter(AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
-	@Setter(AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private Models models;
 	@Inject
-	private BindingResult bindingResult;
-	@Inject
 	private SecurityContext securityContext;
 	@Inject
-	private KontaktService kontaktService;
+	private BindingResult bindingResult;
+
 	@Inject
 	private AuthentifizierungService authentifizierungService;
 	@Inject
 	private BenutzerService benutzerService;
+	@Inject
+	private KontaktService kontaktService;
 
-	private void initialisiereKontaktformular()
+	@GET
+	public String index()
+	{
+		initialisiere();
+
+		return "/kontakt.xhtml";
+	}
+
+	private void initialisiere()
 	{
 		try
 		{
@@ -68,14 +74,6 @@ public class KontaktController
 		{
 			models.put("fehler", e.getMessage());
 		}
-	}
-
-	@GET
-	public String index()
-	{
-		initialisiereKontaktformular();
-
-		return "/kontakt.xhtml";
 	}
 
 	@POST

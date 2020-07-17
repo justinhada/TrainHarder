@@ -68,7 +68,6 @@ public class LoginController
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
-			models.put("benutzername", login.getBenutzername());
 			return "redirect:start";
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))

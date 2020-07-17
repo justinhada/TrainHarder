@@ -1,42 +1,77 @@
 package de.justinharder.trainharder.view;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.mvc.Controller;
+import javax.mvc.Models;
+import javax.mvc.binding.BindingResult;
+import javax.security.enterprise.SecurityContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
-import de.justinharder.trainharder.view.dto.BenutzerDto;
+import lombok.AccessLevel;
+import lombok.Setter;
 
-@Named
-@SessionScoped
-public class BenutzerController implements Serializable
+@Controller
+@Path("/benutzer")
+public class BenutzerController
 {
-	private static final long serialVersionUID = -6981486797529025609L;
-
-	private final BenutzerService benutzerService;
+	@Context
+	@Setter(AccessLevel.NONE)
+	private HttpServletRequest request;
+	@Context
+	@Setter(AccessLevel.NONE)
+	private HttpServletResponse response;
+	@Inject
+	private Models models;
+	@Inject
+	private BindingResult bindingResult;
+	@Inject
+	private SecurityContext securityContext;
 
 	@Inject
-	public BenutzerController(final BenutzerService benutzerService)
+	private AuthentifizierungService authentifizierungService;
+	@Inject
+	private BenutzerService benutzerService;
+
+	@GET
+	public String index()
 	{
-		this.benutzerService = benutzerService;
+		return "/benutzer/index.xhtml";
 	}
 
-	public List<BenutzerDto> getBenutzer()
+	@GET
+	@Path("/{benutzername}")
+	public String benutzerdaten(@PathParam("benutzername") final String benutzername)
 	{
-		return benutzerService.ermittleAlle();
+		initialisiereAuthentifizierung();
+
+		return "/benutzer/benutzer.xhtml";
 	}
 
-	public BenutzerDto getBenutzerZuId(final String id) throws BenutzerNichtGefundenException
+	private void initialisiereAuthentifizierung()
 	{
-		return benutzerService.ermittleZuId(id);
-	}
-
-	public List<BenutzerDto> getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException
-	{
-		return benutzerService.ermittleAlleZuNachname(nachname);
+		try
+		{
+			if (securityContext.getCallerPrincipal() != null)
+			{
+				final var authentifizierungDto =
+					authentifizierungService.ermittleZuBenutzername(securityContext.getCallerPrincipal().getName());
+				models.put("authentifizierung", authentifizierungDto);
+				models.put("benutzer",
+					benutzerService.ermittleZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel()));
+			}
+		}
+		catch (final AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
+		{
+			models.put("fehler", e.getMessage());
+		}
 	}
 }
