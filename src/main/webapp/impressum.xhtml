@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
+	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
 </h:head>
 
@@ -22,8 +23,13 @@
 				<li><a class="without-border" href="datenschutz" title="Datenschutz">Datenschutz</a></li>
 				<li><a class="without-border" href="" title="Unser Angebot">Unser Angebot</a></li>
 				<li><a class="without-border" href="kontakt" title="Kontakt">Kontakt</a></li>
-				<li><a class="with-border" href="login" title="Sign in">Sign in</a></li>
-				<li><a class="with-border" href="join" title="Sign up">Sign up</a></li>
+				<h:panelGroup rendered="#{authentifizierung != null}">
+					<li><a class="with-border" href="benutzer/#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{authentifizierung == null}">
+					<li><a class="with-border" href="login" title="Sign in">Sign in</a></li>
+					<li><a class="with-border" href="join" title="Sign up">Sign up</a></li>
+				</h:panelGroup>
 			</ul>
 		</nav>
 	</header>
