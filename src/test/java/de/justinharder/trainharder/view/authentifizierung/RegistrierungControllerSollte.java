@@ -17,8 +17,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
-import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
-import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
+import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.services.authentifizierung.RegistrierungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
@@ -52,15 +52,15 @@ public class RegistrierungControllerSollte
 	}
 
 	private void angenommenDerAuthentifizierungServiceWirftMailBereitsRegistriertException()
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
 		when(registrierungService.registriere(any(Registrierung.class))).thenThrow(
-			new MailBereitsRegistriertException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!"));
+			new MailVergebenException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!"));
 	}
 
 	private void angenommenDerAuthentifizierungServiceGibtAuthentifizierungDtoZurueck(
 		final AuthentifizierungDto authentifizierungDto)
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
 		when(registrierungService.registriere(any(Registrierung.class))).thenReturn(authentifizierungDto);
 	}
@@ -103,7 +103,7 @@ public class RegistrierungControllerSollte
 	@Test
 	@DisplayName("bei fehlerhafter Registrierung zurück zur Registrierung-Seite navigieren")
 	public void test04()
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
 		final var erwartet = "/join.xhtml";
 		angenommenDerAuthentifizierungServiceWirftMailBereitsRegistriertException();
@@ -117,7 +117,7 @@ public class RegistrierungControllerSollte
 	@Test
 	@DisplayName("bei erfolgreicher Registrierung zur Success-Seite navigieren")
 	public void test05()
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
 		final var erwartet = "/success.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;

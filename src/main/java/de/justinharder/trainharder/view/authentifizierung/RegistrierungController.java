@@ -18,8 +18,8 @@ import javax.ws.rs.core.Context;
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
-import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
-import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
+import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.services.authentifizierung.RegistrierungService;
 import de.justinharder.trainharder.view.dto.Registrierung;
 import lombok.AccessLevel;
@@ -68,7 +68,7 @@ public class RegistrierungController
 			models.put("authentifizierung", registrierungService.registriere(registrierung));
 			return erfolgreich();
 		}
-		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException e)
+		catch (final MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException e)
 		{
 			models.put("fehler", e.getMessage());
 			return index();

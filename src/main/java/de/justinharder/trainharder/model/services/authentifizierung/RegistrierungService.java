@@ -2,11 +2,13 @@ package de.justinharder.trainharder.model.services.authentifizierung;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Preconditions;
+
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
-import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
-import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
+import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
@@ -16,32 +18,39 @@ public class RegistrierungService
 {
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
+	private final PasswortCheck passwortCheck;
 
 	@Inject
 	public RegistrierungService(
 		final AuthentifizierungRepository authentifizierungRepository,
-		final AuthentifizierungDtoMapper authentifizierungDtoMapper)
+		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
+		final PasswortCheck passwortCheck)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
+		this.passwortCheck = passwortCheck;
 	}
 
 	public AuthentifizierungDto registriere(final Registrierung registrierung)
-		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
+		Preconditions.checkNotNull(registrierung, "Es wird eine gültige Registrierung benötigt!");
+
 		if (authentifizierungRepository.checkMail(registrierung.getMail()))
 		{
-			throw new MailBereitsRegistriertException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!");
+			throw new MailVergebenException(
+				"Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!");
 		}
 
 		if (authentifizierungRepository.checkBenutzername(registrierung.getBenutzername()))
 		{
-			throw new BenutzernameVergebenException("Dieser Benutzername ist leider schon vergeben!");
+			throw new BenutzernameVergebenException(
+				"Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!");
 		}
 
-		if (!new PasswortChecker().check(registrierung.getPasswort()))
+		if (passwortCheck.isUnsicher(registrierung.getPasswort()))
 		{
-			throw new PasswortNichtSicherException("Das Passwort ist nicht sicher genug!");
+			throw new PasswortUnsicherException("Das Passwort ist unsicher!");
 		}
 
 		return authentifizierungDtoMapper.konvertiere(authentifizierungRepository

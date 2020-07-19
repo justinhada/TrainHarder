@@ -3,7 +3,7 @@ package de.justinharder.trainharder.model.services.authentifizierung;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class PasswortChecker
+public class PasswortCheck
 {
 	private static final int MINDESTLAENGE = 12;
 	private static final int KLEINBUCHSTABE_MINDESTCODE = 'a';
@@ -20,11 +20,11 @@ public class PasswortChecker
 	private boolean hatSonderzeichen;
 	private boolean hatZahl;
 
-	public boolean check(final String passwort)
+	public boolean isUnsicher(final String passwort)
 	{
 		if (passwort.length() < MINDESTLAENGE)
 		{
-			return false;
+			return true;
 		}
 
 		for (int i = 0; i < passwort.length(); i++)
@@ -35,7 +35,7 @@ public class PasswortChecker
 			hatZahl = checkZahl(passwort.charAt(i));
 		}
 
-		return hatKleinbuchstabe && hatGrossbuchstabe && hatSonderzeichen && hatZahl;
+		return !(hatKleinbuchstabe && hatGrossbuchstabe && hatSonderzeichen && hatZahl);
 	}
 
 	private boolean checkKleinbuchstabe(final char buchstabe)
