@@ -53,11 +53,7 @@
 						<h:panelGroup rendered="#{authentifizierung == null}">
 							<div class="col">
 								<label for="mail" class="text-bold">E-Mail-Adresse</label>
-								<input type="email" class="form-control" id="mail" />
-							</div>
-							<div class="col">
-								<label for="benutzername" class="text-bold">Benutzername</label>
-								<input type="text" class="form-control" id="benutzername" />
+								<input type="email" class="form-control" id="mail" /> <input type="hidden" class="form-control" id="benutzername" value="ohneAuthentifizierung" />
 							</div>
 						</h:panelGroup>
 					</div>
