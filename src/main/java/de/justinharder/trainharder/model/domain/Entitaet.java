@@ -2,7 +2,6 @@ package de.justinharder.trainharder.model.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 import javax.persistence.MappedSuperclass;
 
@@ -14,16 +13,6 @@ public abstract class Entitaet implements Serializable
 	private static final long serialVersionUID = 790786817201854580L;
 
 	public abstract Primaerschluessel getPrimaerschluessel();
-
-	public UUID getUuid()
-	{
-		return getPrimaerschluessel().getId();
-	}
-
-	public void setUuid(final UUID uuid)
-	{
-		getPrimaerschluessel().setId(uuid);
-	}
 
 	@Override
 	public boolean equals(final Object obj)
