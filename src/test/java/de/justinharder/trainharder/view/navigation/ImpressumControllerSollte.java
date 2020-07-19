@@ -29,7 +29,7 @@ public class ImpressumControllerSollte extends AbstractControllerSollte
 	{
 		final var erwartet = "/impressum.xhtml";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut);
+		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -41,7 +41,7 @@ public class ImpressumControllerSollte extends AbstractControllerSollte
 		final var erwartet = "/impressum.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut, authentifizierungDto);
+		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
@@ -56,7 +56,8 @@ public class ImpressumControllerSollte extends AbstractControllerSollte
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut, authentifizierungDto, benutzerDto);
+		final var ergebnis =
+			super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("authentifizierung", authentifizierungDto);

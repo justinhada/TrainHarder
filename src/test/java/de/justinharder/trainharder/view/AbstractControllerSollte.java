@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.function.Supplier;
 
 import javax.mvc.Models;
 import javax.security.enterprise.CallerPrincipal;
@@ -67,26 +68,26 @@ public abstract class AbstractControllerSollte
 		when(benutzerService.ermittleZuAuthentifizierung(authentifizierungId)).thenReturn(benutzerDto);
 	}
 
-	protected String zurSeiteNavigierenOhneAngemeldetenBenutzer(final AbstractController sut)
+	protected String zurSeiteNavigierenOhneAngemeldetenBenutzer(final Supplier<String> methode)
 	{
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		return sut.index();
+		return methode.get();
 	}
 
 	protected String zurSeiteNavigierenMitServicefehler(
-		final AbstractController sut,
+		final Supplier<String> methode,
 		final AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
 	{
 		final var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(callerPrincipal.getName());
 
-		return sut.index();
+		return methode.get();
 	}
 
 	protected String zurSeiteNavigierenMitAngemeldetenBenutzer(
-		final AbstractController sut,
+		final Supplier<String> methode,
 		final AuthentifizierungDto authentifizierungDto,
 		final BenutzerDto benutzerDto) throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
@@ -99,6 +100,6 @@ public abstract class AbstractControllerSollte
 			authentifizierungDto.getPrimaerschluessel(),
 			benutzerDto);
 
-		return sut.index();
+		return methode.get();
 	}
 }

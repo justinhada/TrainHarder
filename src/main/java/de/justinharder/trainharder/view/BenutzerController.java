@@ -23,17 +23,20 @@ public class BenutzerController extends AbstractController
 	private HttpServletResponse response;
 
 	@GET
+	@Override
 	public String index()
 	{
+		initialisiere();
+
 		return "/benutzer/index.xhtml";
 	}
 
 	@GET
 	@Path("/{benutzername}")
-	public String benutzerdaten(@PathParam("benutzername") final String benutzername)
+	public String benutzer(@PathParam("benutzername") final String benutzername)
 	{
 		initialisiere();
 
-		return "/benutzer/benutzer.xhtml";
+		return "/benutzer/benutzerdaten.xhtml";
 	}
 }
