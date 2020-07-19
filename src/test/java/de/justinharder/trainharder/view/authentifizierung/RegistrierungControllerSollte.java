@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
-import de.justinharder.trainharder.model.services.AuthentifizierungService;
+import de.justinharder.trainharder.model.services.authentifizierung.RegistrierungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
@@ -30,7 +30,7 @@ public class RegistrierungControllerSollte
 
 	private Models models;
 	private BindingResult bindingResult;
-	private AuthentifizierungService authentifizierungService;
+	private RegistrierungService registrierungService;
 
 	@BeforeEach
 	public void setup()
@@ -39,11 +39,11 @@ public class RegistrierungControllerSollte
 
 		models = mock(Models.class);
 		bindingResult = mock(BindingResult.class);
-		authentifizierungService = mock(AuthentifizierungService.class);
+		registrierungService = mock(RegistrierungService.class);
 
 		sut.setModels(models);
 		sut.setBindingResult(bindingResult);
-		sut.setAuthentifizierungService(authentifizierungService);
+		sut.setRegistrierungService(registrierungService);
 	}
 
 	private void angenommenDasBindingResultFailed()
@@ -54,7 +54,7 @@ public class RegistrierungControllerSollte
 	private void angenommenDerAuthentifizierungServiceWirftMailBereitsRegistriertException()
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
 	{
-		when(authentifizierungService.registriere(any(Registrierung.class))).thenThrow(
+		when(registrierungService.registriere(any(Registrierung.class))).thenThrow(
 			new MailBereitsRegistriertException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!"));
 	}
 
@@ -62,7 +62,7 @@ public class RegistrierungControllerSollte
 		final AuthentifizierungDto authentifizierungDto)
 		throws MailBereitsRegistriertException, BenutzernameVergebenException, PasswortNichtSicherException
 	{
-		when(authentifizierungService.registriere(any(Registrierung.class))).thenReturn(authentifizierungDto);
+		when(registrierungService.registriere(any(Registrierung.class))).thenReturn(authentifizierungDto);
 	}
 
 	@Test

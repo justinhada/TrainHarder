@@ -20,7 +20,7 @@ import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailBereitsRegistriertException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortNichtSicherException;
-import de.justinharder.trainharder.model.services.AuthentifizierungService;
+import de.justinharder.trainharder.model.services.authentifizierung.RegistrierungService;
 import de.justinharder.trainharder.view.dto.Registrierung;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -31,17 +31,18 @@ import lombok.Setter;
 public class RegistrierungController
 {
 	@Context
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private Models models;
 	@Inject
 	private BindingResult bindingResult;
+
 	@Inject
-	private AuthentifizierungService authentifizierungService;
+	private RegistrierungService registrierungService;
 
 	@GET
 	public String index()
@@ -64,7 +65,7 @@ public class RegistrierungController
 
 		try
 		{
-			models.put("authentifizierung", authentifizierungService.registriere(registrierung));
+			models.put("authentifizierung", registrierungService.registriere(registrierung));
 			return erfolgreich();
 		}
 		catch (final MailBereitsRegistriertException | BenutzernameVergebenException | PasswortNichtSicherException e)

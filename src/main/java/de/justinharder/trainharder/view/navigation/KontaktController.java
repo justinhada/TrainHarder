@@ -24,6 +24,7 @@ import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.model.services.KontaktService;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import lombok.AccessLevel;
 import lombok.Setter;
 
 @Setter
@@ -32,8 +33,10 @@ import lombok.Setter;
 public class KontaktController
 {
 	@Context
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private Models models;

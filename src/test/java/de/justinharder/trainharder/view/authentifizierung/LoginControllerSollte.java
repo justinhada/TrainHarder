@@ -108,7 +108,7 @@ public class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei erfolreichem Login zur Start-Seite navigieren")
+	@DisplayName("bei erfolgreichem Login zur Start-Seite navigieren")
 	public void test05()
 	{
 		final var erwartet = "redirect:start";
@@ -117,7 +117,6 @@ public class LoginControllerSollte
 		final var ergebnis = sut.login(new Login("harder", "Justinharder#98"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put("benutzername", "harder");
 	}
 
 	@Test

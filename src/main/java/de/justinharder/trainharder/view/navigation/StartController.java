@@ -14,14 +14,19 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
+import lombok.AccessLevel;
+import lombok.Setter;
 
+@Setter
 @Controller
 @Path("/start")
 public class StartController
 {
 	@Context
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private Models models;
