@@ -1,8 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
@@ -13,21 +10,14 @@ import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNicht
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
-public class BelastungsfaktorService implements Serializable
+public class BelastungsfaktorService
 {
-	private static final long serialVersionUID = 1798559648180042690L;
-
 	private final BelastungsfaktorRepository belastungsfaktorRepository;
 
 	@Inject
 	public BelastungsfaktorService(final BelastungsfaktorRepository belastungsfaktorRepository)
 	{
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
-	}
-
-	public List<BelastungsfaktorDto> ermittleAlle()
-	{
-		return Konvertierer.konvertiereAlleZuBelastungsfaktorDto(belastungsfaktorRepository.ermittleAlle());
 	}
 
 	public BelastungsfaktorDto ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException

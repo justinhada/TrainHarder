@@ -42,11 +42,6 @@ public class KraftwertServiceSollte
 		sut = new KraftwertService(kraftwertRepository, benutzerRepository, uebungRepository);
 	}
 
-	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZurueck(final List<Kraftwert> kraftwerte)
-	{
-		when(kraftwertRepository.ermittleAlle()).thenReturn(kraftwerte);
-	}
-
 	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(final List<Kraftwert> kraftwerte)
 	{
 		when(kraftwertRepository.ermittleAlleZuBenutzer(any(Primaerschluessel.class))).thenReturn(kraftwerte);
@@ -88,27 +83,8 @@ public class KraftwertServiceSollte
 	}
 
 	@Test
-	@DisplayName("alle Kraftwerte ermitteln")
-	public void test01()
-	{
-		final var erwartet = List.of(
-			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
-		final var kraftwerte = List.of(
-			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDasKraftwertRepositoryGibtAlleKraftwerteZurueck(kraftwerte);
-
-		final var ergebnis = sut.ermittleAlle();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("alle Kraftwerte zu Benutzer ermitteln")
-	public void test02()
+	public void test03()
 	{
 		final var erwartet = List.of(
 			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
@@ -127,7 +103,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("UebungNichtGefundenException werfen, wenn die Uebung nicht gefunden werden kann")
-	public void test031()
+	public void test04()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		final var erwartet = "Die Uebung mit der ID \"" + id + "\" existiert nicht!";
@@ -142,7 +118,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn der Benutzer nicht gefunden werden kann")
-	public void test032()
+	public void test05()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		final var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
@@ -158,7 +134,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert erstellen")
-	public void test03() throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	public void test06() throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
@@ -182,7 +158,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("KraftwertNichtGefundenException werfen, wenn ID zu keinem Kraftwert gehört")
-	public void test04()
+	public void test07()
 	{
 		angenommenDasKraftwertRepositoryGibtNullZurueck();
 
@@ -194,7 +170,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert zur ID ermitteln")
-	public void test05() throws KraftwertNichtGefundenException
+	public void test08() throws KraftwertNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
 		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;

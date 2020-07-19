@@ -8,7 +8,6 @@ import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
 
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
-import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import lombok.Setter;
 
@@ -17,7 +16,7 @@ import lombok.Setter;
 public class TrainHarderIdentityStore implements IdentityStore
 {
 	@Inject
-	private AuthentifizierungService authentifizierungService;
+	private LoginService loginService;
 
 	@Override
 	public CredentialValidationResult validate(final Credential credential)
@@ -28,7 +27,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 			{
 				final var benutzername = ((UsernamePasswordCredential) credential).getCaller();
 				final var passwort = ((UsernamePasswordCredential) credential).getPasswordAsString();
-				return validate(authentifizierungService.login(benutzername, passwort));
+				return validate(loginService.login(benutzername, passwort));
 			}
 		}
 		catch (final LoginException e)

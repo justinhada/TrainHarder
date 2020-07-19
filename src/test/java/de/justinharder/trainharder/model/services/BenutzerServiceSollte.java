@@ -1,14 +1,11 @@
 package de.justinharder.trainharder.model.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,25 +19,25 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
+import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
 
 public class BenutzerServiceSollte
 {
 	private BenutzerService sut;
+
 	private BenutzerRepository benutzerRepository;
 	private AuthentifizierungRepository authentifizierungRepository;
+	private BenutzerDtoMapper benutzerDtoMapper;
 
 	@BeforeEach
 	public void setup()
 	{
 		benutzerRepository = mock(BenutzerRepository.class);
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
-		sut = new BenutzerService(benutzerRepository, authentifizierungRepository);
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtAlleBenutzerZurueck(final List<Benutzer> alleBenutzer)
-	{
-		when(benutzerRepository.ermittleAlle()).thenReturn(alleBenutzer);
+		benutzerDtoMapper = mock(BenutzerDtoMapper.class);
+		sut = new BenutzerService(benutzerRepository, authentifizierungRepository, benutzerDtoMapper);
 	}
 
 	private void angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(final Optional<Benutzer> benutzer)
@@ -51,17 +48,6 @@ public class BenutzerServiceSollte
 	private void angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurueck()
 	{
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.empty());
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(final List<Benutzer> alleBenutzer)
-		throws BenutzerNichtGefundenException
-	{
-		when(benutzerRepository.ermittleAlleZuNachname(anyString())).thenReturn(alleBenutzer);
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtNullZuNachnamenZurueck() throws BenutzerNichtGefundenException
-	{
-		angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(null);
 	}
 
 	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(
@@ -80,70 +66,28 @@ public class BenutzerServiceSollte
 		when(benutzerRepository.speichereBenutzer(any(Benutzer.class))).thenReturn(benutzer);
 	}
 
+	private void angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(final Benutzer benutzer,
+		final BenutzerDto benutzerDto)
+	{
+		when(benutzerDtoMapper.konvertiere(benutzer)).thenReturn(benutzerDto);
+	}
+
+	private void angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(final String authentifizierungId,
+		final Optional<Benutzer> benutzer)
+	{
+		when(benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId)))
+			.thenReturn(benutzer);
+	}
+
+	private void angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(
+		final String authentifizierungId)
+	{
+		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.empty());
+	}
+
 	@Test
-	@DisplayName("alle Benutzer ermitteln")
+	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zu ID ermittelt wird")
 	public void test01()
-	{
-		final var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_ANETTE);
-		final var alleBenutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_ANETTE);
-		angenommenDasBenutzerRepositoryGibtAlleBenutzerZurueck(alleBenutzer);
-
-		final var ergebnis = sut.ermittleAlle();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn Authentifizierung nicht gefunden werden kann")
-	public void test021()
-	{
-		final var id = new Primaerschluessel().getId().toString();
-		final var erwartet = "Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!";
-		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung();
-
-		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
-			() -> sut.speichereBenutzer(Testdaten.BENUTZER_DTO_JUSTIN, id));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("einen Benutzer erstellen")
-	public void test02() throws AuthentifizierungNichtGefundenException
-	{
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
-		final var benutzer = Testdaten.BENUTZER_JUSTIN;
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(Optional.of(authentifizierung));
-		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
-
-		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
-		final var ergebnis = sut.speichereBenutzer(benutzerDto, authentifizierungId);
-
-		assertAll(
-			() -> assertThat(ergebnis.getVorname()).isEqualTo(benutzerDto.getVorname()),
-			() -> assertThat(ergebnis.getNachname()).isEqualTo(benutzerDto.getNachname()),
-			() -> assertThat(ergebnis.getLebensalter()).isEqualTo(benutzerDto.getLebensalter()),
-			() -> assertThat(ergebnis.getKraftlevel()).isEqualTo(benutzerDto.getKraftlevel()),
-			() -> assertThat(ergebnis.getGeschlecht()).isEqualTo(benutzerDto.getGeschlecht()),
-			() -> assertThat(ergebnis.getErfahrung()).isEqualTo(benutzerDto.getErfahrung()),
-			() -> assertThat(ergebnis.getErnaehrung()).isEqualTo(benutzerDto.getErnaehrung()),
-			() -> assertThat(ergebnis.getSchlafqualitaet()).isEqualTo(benutzerDto.getSchlafqualitaet()),
-			() -> assertThat(ergebnis.getStress()).isEqualTo(benutzerDto.getStress()),
-			() -> assertThat(ergebnis.getDoping()).isEqualTo(benutzerDto.getDoping()),
-			() -> assertThat(ergebnis.getRegenerationsfaehigkeit())
-				.isEqualTo(benutzerDto.getRegenerationsfaehigkeit()),
-			() -> assertThat(ergebnis.getAuthentifizierung().getMail())
-				.isEqualTo(benutzerDto.getAuthentifizierung().getMail()),
-			() -> assertThat(ergebnis.getAuthentifizierung().getBenutzername())
-				.isEqualTo(benutzerDto.getAuthentifizierung().getBenutzername()),
-			() -> assertThat(ergebnis.getAuthentifizierung().getPasswort())
-				.isEqualTo(benutzerDto.getAuthentifizierung().getPasswort()));
-	}
-
-	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn Benutzer zu ID ermittelt wird, aber nicht existiert")
-	public void test03()
 	{
 		angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurueck();
 
@@ -155,11 +99,12 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zu ID ermitteln")
-	public void test04() throws BenutzerNichtGefundenException
+	public void test02() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(Optional.of(benutzer));
+		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
 
 		final var id = new Primaerschluessel().getId().toString();
 		final var ergebnis = sut.ermittleZuId(id);
@@ -168,31 +113,63 @@ public class BenutzerServiceSollte
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn List von Benutzern zu Nachname ermittelt wird, aber keine existieren")
-	public void test05() throws BenutzerNichtGefundenException
+	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
+	public void test03() throws BenutzerNichtGefundenException
 	{
-		angenommenDasBenutzerRepositoryGibtNullZuNachnamenZurueck();
+		final var authentifizierungId = new Primaerschluessel().getId().toString();
+		final var erwartet =
+			"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!";
+		angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(authentifizierungId);
 
-		final var exception =
-			assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleAlleZuNachname("NichtGefunden"));
+		final var exception = assertThrows(BenutzerNichtGefundenException.class,
+			() -> sut.ermittleZuAuthentifizierung(authentifizierungId));
 
-		assertThat(exception.getMessage())
-			.isEqualTo("Es wurde kein Benutzer mit dem Nachnamen \"NichtGefunden\" gefunden!");
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("eine List von Benutzern zu Nachnamen ermitteln")
-	public void test06() throws BenutzerNichtGefundenException
+	@DisplayName("einen Benutzer zur AuthentifizierungID ermitteln")
+	public void test04() throws BenutzerNichtGefundenException
 	{
-		final var erwartet = List.of(
-			Testdaten.BENUTZER_DTO_JUSTIN,
-			Testdaten.BENUTZER_DTO_GOTT);
-		final var alleBenutzer = List.of(
-			Testdaten.BENUTZER_JUSTIN,
-			Testdaten.BENUTZER_GOTT);
-		angenommenDasBenutzerRepositoryGibtAlleBenutzerZuNachnameZurueck(alleBenutzer);
+		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
+		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
+		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId,
+			Optional.of(benutzer));
+		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
 
-		final var ergebnis = sut.ermittleAlleZuNachname("Harder");
+		final var ergebnis = sut.ermittleZuAuthentifizierung(authentifizierungId);
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn Authentifizierung nicht gefunden werden kann")
+	public void test05()
+	{
+		final var authentifizierungId = new Primaerschluessel().getId().toString();
+		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
+		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung();
+
+		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
+			() -> sut.speichereBenutzer(Testdaten.BENUTZER_DTO_JUSTIN, authentifizierungId));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("einen Benutzer erstellen")
+	public void test06() throws AuthentifizierungNichtGefundenException
+	{
+		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
+		final var benutzer = Testdaten.BENUTZER_JUSTIN;
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(Optional.of(authentifizierung));
+		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
+		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
+
+		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		final var ergebnis = sut.speichereBenutzer(erwartet, authentifizierungId);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

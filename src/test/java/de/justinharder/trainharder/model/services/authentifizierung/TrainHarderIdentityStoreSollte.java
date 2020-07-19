@@ -14,34 +14,33 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
-import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
 public class TrainHarderIdentityStoreSollte
 {
 	private TrainHarderIdentityStore sut;
-	private AuthentifizierungService authentifizierungService;
+	private LoginService loginService;
 
 	@BeforeEach
 	public void setup()
 	{
 		sut = new TrainHarderIdentityStore();
 
-		authentifizierungService = mock(AuthentifizierungService.class);
+		loginService = mock(LoginService.class);
 
-		sut.setAuthentifizierungService(authentifizierungService);
+		sut.setLoginService(loginService);
 	}
 
 	private void angenommenDerAuthentifizierungServiceWirftLoginExcepion() throws LoginException
 	{
-		when(authentifizierungService.login(anyString(), anyString())).thenThrow(LoginException.class);
+		when(loginService.login(anyString(), anyString())).thenThrow(LoginException.class);
 	}
 
 	private void angenommenDerAuthentifizierungServiceLoggtEin(final AuthentifizierungDto authentifizierungDto)
 		throws LoginException
 	{
-		when(authentifizierungService.login(anyString(), anyString())).thenReturn(authentifizierungDto);
+		when(loginService.login(anyString(), anyString())).thenReturn(authentifizierungDto);
 	}
 
 	@Test

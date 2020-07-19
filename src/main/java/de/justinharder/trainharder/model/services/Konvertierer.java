@@ -4,15 +4,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
-import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
-import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
-import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
 import de.justinharder.trainharder.view.dto.UebungDto;
 import lombok.AccessLevel;
@@ -22,50 +18,6 @@ import lombok.NoArgsConstructor;
 public class Konvertierer
 {
 	private static final String DATUMSFORMAT = "dd.MM.yyyy";
-
-	public static List<AuthentifizierungDto> konvertiereAlleZuAuthentifizierungDto(
-		final List<Authentifizierung> authentifizierungen)
-	{
-		return authentifizierungen
-			.stream()
-			.map(Konvertierer::konvertiereZuAuthentifizierungDto)
-			.collect(Collectors.toList());
-	}
-
-	public static AuthentifizierungDto konvertiereZuAuthentifizierungDto(
-		final Authentifizierung authentifizierung)
-	{
-		return new AuthentifizierungDto(
-			authentifizierung.getPrimaerschluessel().getId().toString(),
-			authentifizierung.getMail(),
-			authentifizierung.getBenutzername(),
-			authentifizierung.getPasswort());
-	}
-
-	public static List<BenutzerDto> konvertiereAlleZuBenutzerDto(final List<Benutzer> alleBenutzer)
-	{
-		return alleBenutzer.stream()
-			.map(Konvertierer::konvertiereZuBenutzerDto)
-			.collect(Collectors.toList());
-	}
-
-	public static BenutzerDto konvertiereZuBenutzerDto(final Benutzer benutzer)
-	{
-		return new BenutzerDto(
-			benutzer.getPrimaerschluessel().getId().toString(),
-			benutzer.getVorname(),
-			benutzer.getNachname(),
-			benutzer.getLebensalter(),
-			benutzer.getKraftlevel().name(),
-			benutzer.getGeschlecht().name(),
-			benutzer.getErfahrung().name(),
-			benutzer.getErnaehrung().name(),
-			benutzer.getSchlafqualitaet().name(),
-			benutzer.getStress().name(),
-			benutzer.getDoping().name(),
-			benutzer.getRegenerationsfaehigkeit().name(),
-			konvertiereZuAuthentifizierungDto(benutzer.getAuthentifizierung()));
-	}
 
 	public static List<UebungDto> konvertiereAlleZuUebungDto(final List<Uebung> uebungen)
 	{

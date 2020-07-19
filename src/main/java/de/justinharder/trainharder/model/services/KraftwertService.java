@@ -41,17 +41,6 @@ public class KraftwertService implements Serializable
 		this.uebungRepository = uebungRepository;
 	}
 
-	public List<KraftwertDto> ermittleAlle()
-	{
-		return Konvertierer.konvertiereAlleZuKraftwertDto(kraftwertRepository.ermittleAlle());
-	}
-
-	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
-	{
-		return Konvertierer.konvertiereAlleZuKraftwertDto(
-			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
-	}
-
 	public KraftwertDto ermittleZuId(final String id) throws KraftwertNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!");
@@ -60,6 +49,12 @@ public class KraftwertService implements Serializable
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new KraftwertNichtGefundenException(
 				"Der Kraftwert mit der ID \"" + id + "\" existiert nicht!")));
+	}
+
+	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
+	{
+		return Konvertierer.konvertiereAlleZuKraftwertDto(
+			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
 	public KraftwertDto speichereKraftwert(

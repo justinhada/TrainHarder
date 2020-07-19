@@ -1,8 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
@@ -20,57 +17,43 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
+import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 
-public class BenutzerService implements Serializable
+public class BenutzerService
 {
-	private static final long serialVersionUID = 4793689097189495259L;
-
 	private final BenutzerRepository benutzerRepository;
 	private final AuthentifizierungRepository authentfizierungRepository;
+	private final BenutzerDtoMapper benutzerDtoMapper;
 
 	@Inject
 	public BenutzerService(
 		final BenutzerRepository benutzerRepository,
-		final AuthentifizierungRepository authentifizierungRepository)
+		final AuthentifizierungRepository authentifizierungRepository,
+		final BenutzerDtoMapper benutzerDtoMapper)
 	{
 		this.benutzerRepository = benutzerRepository;
 		authentfizierungRepository = authentifizierungRepository;
-	}
-
-	public List<BenutzerDto> ermittleAlle()
-	{
-		return Konvertierer.konvertiereAlleZuBenutzerDto(benutzerRepository.ermittleAlle());
+		this.benutzerDtoMapper = benutzerDtoMapper;
 	}
 
 	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
-		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository
-			.ermittleZuId(new Primaerschluessel(id))
+		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
+			.map(benutzerDtoMapper::konvertiere)
 			.orElseThrow(
-				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
+				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
 	}
 
 	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
 		throws BenutzerNichtGefundenException
 	{
-		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository
-			.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
+		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
+			.map(benutzerDtoMapper::konvertiere)
 			.orElseThrow(() -> new BenutzerNichtGefundenException(
-				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!")));
-	}
-
-	public List<BenutzerDto> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
-	{
-		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);
-		if (alleBenutzer == null)
-		{
-			throw new BenutzerNichtGefundenException(
-				"Es wurde kein Benutzer mit dem Nachnamen \"" + nachname + "\" gefunden!");
-		}
-		return Konvertierer.konvertiereAlleZuBenutzerDto(alleBenutzer);
+				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!"));
 	}
 
 	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerDto, final String authentifizierungId)
@@ -81,7 +64,7 @@ public class BenutzerService implements Serializable
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));
 
-		return Konvertierer.konvertiereZuBenutzerDto(benutzerRepository.speichereBenutzer(new Benutzer(
+		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			benutzerDto.getVorname(),
 			benutzerDto.getNachname(),
