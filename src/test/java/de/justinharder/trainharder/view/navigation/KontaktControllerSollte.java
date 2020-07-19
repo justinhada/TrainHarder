@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import javax.mvc.Models;
@@ -35,7 +36,6 @@ public class KontaktControllerSollte
 	private Models models;
 	private BindingResult bindingResult;
 	private SecurityContext securityContext;
-	private CallerPrincipal callerPrincipal;
 	private KontaktService kontaktService;
 	private AuthentifizierungService authentifizierungService;
 	private BenutzerService benutzerService;
@@ -48,7 +48,6 @@ public class KontaktControllerSollte
 		models = mock(Models.class);
 		bindingResult = mock(BindingResult.class);
 		securityContext = mock(SecurityContext.class);
-		callerPrincipal = mock(CallerPrincipal.class);
 		kontaktService = mock(KontaktService.class);
 		authentifizierungService = mock(AuthentifizierungService.class);
 		benutzerService = mock(BenutzerService.class);
@@ -61,14 +60,9 @@ public class KontaktControllerSollte
 		sut.setBenutzerService(benutzerService);
 	}
 
-	private void angenommenDerSecurityContextGibtCallerPrincipalZurueck()
+	private void angenommenDerSecurityContextGibtCallerPrincipalZurueck(final Principal principal)
 	{
-		when(securityContext.getCallerPrincipal()).thenReturn(callerPrincipal);
-	}
-
-	private void angenommenDasCallerPrincipalGibtNamenZurueck(final String name)
-	{
-		when(callerPrincipal.getName()).thenReturn(name);
+		when(securityContext.getCallerPrincipal()).thenReturn(principal);
 	}
 
 	private void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(
@@ -113,30 +107,28 @@ public class KontaktControllerSollte
 	public void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/kontakt.xhtml";
-		final var benutzername = "harder";
-		angenommenDerSecurityContextGibtCallerPrincipalZurueck();
-		angenommenDasCallerPrincipalGibtNamenZurueck(benutzername);
-		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
+		final var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
+		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
+		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(callerPrincipal.getName());
 
 		final var ergebnis = sut.index();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler",
-			"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!");
+			"Die Authentifizierung mit dem Benutzernamen \"" + callerPrincipal.getName() + "\" existiert nicht!");
 	}
 
 	@Test
-	@DisplayName("zur Kontakt-Seite per GET navigieren mit angemeldeten Benutzer")
+	@DisplayName("zur Start-Seite per GET navigieren mit angemeldeten Benutzer")
 	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/kontakt.xhtml";
-		final var benutzername = "harder";
+		final var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
-		angenommenDerSecurityContextGibtCallerPrincipalZurueck();
-		angenommenDasCallerPrincipalGibtNamenZurueck(benutzername);
+		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(
-			benutzername,
+			callerPrincipal.getName(),
 			authentifizierungDto);
 		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(
 			authentifizierungDto.getPrimaerschluessel(),
