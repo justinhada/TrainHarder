@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -66,8 +67,7 @@ public class BenutzerService
 
 		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
-			benutzerDto.getVorname(),
-			benutzerDto.getNachname(),
+			new Name(benutzerDto.getVorname(), benutzerDto.getNachname()),
 			benutzerDto.getLebensalter(),
 			Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
 			Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),

@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -82,8 +83,7 @@ public class JpaBenutzerRepositorySollte
 	{
 		final var erwartet = new Benutzer(
 			new Primaerschluessel(),
-			"Nicole",
-			"Harder",
+			new Name("Nicole", "Harder"),
 			13,
 			Geschlecht.WEIBLICH,
 			Erfahrung.BEGINNER,

@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.MailException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.model.services.KontaktService;
@@ -168,7 +167,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Kontaktieren zur Kontaktiert-Seite navigieren")
-	public void test06() throws MailException
+	public void test06()
 	{
 		final var erwartet = "/kontaktiert.xhtml";
 

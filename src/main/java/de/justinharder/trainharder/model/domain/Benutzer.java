@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -41,10 +43,8 @@ public class Benutzer extends Entitaet
 	@EmbeddedId
 	@Column(name = "ID")
 	private Primaerschluessel primaerschluessel;
-	@Column(name = "Vorname")
-	private String vorname;
-	@Column(name = "Nachname")
-	private String nachname;
+	@Embedded
+	private Name name;
 	@Column(name = "Lebensalter")
 	private int lebensalter;
 	@Column(name = "Kraftlevel")
@@ -74,17 +74,16 @@ public class Benutzer extends Entitaet
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Kraftwert> kraftwerte = new ArrayList<>();
 
 	public Benutzer(
 		final Primaerschluessel primaerschluessel,
-		final String vorname,
-		final String nachname,
+		final Name name,
 		final int lebensalter,
 		final Geschlecht geschlecht,
 		final Erfahrung erfahrung,
@@ -96,8 +95,7 @@ public class Benutzer extends Entitaet
 		final Authentifizierung authentifizierung)
 	{
 		this.primaerschluessel = primaerschluessel;
-		this.vorname = vorname;
-		this.nachname = nachname;
+		this.name = name;
 		this.lebensalter = lebensalter;
 		this.geschlecht = geschlecht;
 		this.erfahrung = erfahrung;

@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -38,7 +40,7 @@ public class BenutzerSollte
 	@DisplayName("einen NoArgsConstructor haben")
 	public void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Benutzer.class, allOf(hasValidBeanConstructor()));
+		assertThat(Benutzer.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
@@ -49,8 +51,7 @@ public class BenutzerSollte
 		final var authentifizierungId = new Primaerschluessel();
 		final var benutzer = new Benutzer(
 			benutzerId,
-			"Justin",
-			"Harder",
+			new Name("Justin", "Harder"),
 			21,
 			Geschlecht.MAENNLICH,
 			Erfahrung.BEGINNER,
@@ -67,8 +68,8 @@ public class BenutzerSollte
 
 		assertAll(
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
+			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
 			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
 			() -> assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(benutzer.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
@@ -91,8 +92,8 @@ public class BenutzerSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID),
-			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
+			() -> assertThat(sut.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(sut.getName().getNachname()).isEqualTo("Harder"),
 			() -> assertThat(sut.getLebensalter()).isEqualTo(21),
 			() -> assertThat(sut.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(sut.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
@@ -121,8 +122,7 @@ public class BenutzerSollte
 			"JustinHarder98");
 		final var benutzer = new Benutzer();
 		benutzer.setPrimaerschluessel(benutzerId);
-		benutzer.setVorname("Justin");
-		benutzer.setNachname("Harder");
+		benutzer.setName(new Name("Justin", "Harder"));
 		benutzer.setLebensalter(21);
 		benutzer.setKraftlevel(Kraftlevel.CLASS_5);
 		benutzer.setGeschlecht(Geschlecht.MAENNLICH);
@@ -137,8 +137,8 @@ public class BenutzerSollte
 
 		assertAll(
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
+			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
 			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
 			() -> assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(benutzer.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),

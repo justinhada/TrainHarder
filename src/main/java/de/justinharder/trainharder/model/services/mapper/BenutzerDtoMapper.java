@@ -29,8 +29,8 @@ public class BenutzerDtoMapper
 	{
 		return new BenutzerDto(
 			benutzer.getPrimaerschluessel().getId().toString(),
-			benutzer.getVorname(),
-			benutzer.getNachname(),
+			benutzer.getName().getVorname(),
+			benutzer.getName().getNachname(),
 			benutzer.getLebensalter(),
 			benutzer.getKraftlevel().name(),
 			benutzer.getGeschlecht().name(),

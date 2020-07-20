@@ -9,6 +9,7 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -210,8 +211,7 @@ public class Testdaten
 		KOERPERMESSUNG_BABA.setKoerpergewicht(105);
 
 		BENUTZER_JUSTIN.setPrimaerschluessel(BENUTZER_JUSTIN_ID);
-		BENUTZER_JUSTIN.setVorname("Justin");
-		BENUTZER_JUSTIN.setNachname("Harder");
+		BENUTZER_JUSTIN.setName(new Name("Justin", "Harder"));
 		BENUTZER_JUSTIN.setLebensalter(21);
 		BENUTZER_JUSTIN.setKraftlevel(Kraftlevel.CLASS_5);
 		BENUTZER_JUSTIN.setGeschlecht(Geschlecht.MAENNLICH);
@@ -225,8 +225,8 @@ public class Testdaten
 		BENUTZER_JUSTIN.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN);
 
 		BENUTZER_DTO_JUSTIN.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString());
-		BENUTZER_DTO_JUSTIN.setVorname(BENUTZER_JUSTIN.getVorname());
-		BENUTZER_DTO_JUSTIN.setNachname(BENUTZER_JUSTIN.getNachname());
+		BENUTZER_DTO_JUSTIN.setVorname(BENUTZER_JUSTIN.getName().getVorname());
+		BENUTZER_DTO_JUSTIN.setNachname(BENUTZER_JUSTIN.getName().getNachname());
 		BENUTZER_DTO_JUSTIN.setLebensalter(BENUTZER_JUSTIN.getLebensalter());
 		BENUTZER_DTO_JUSTIN.setKraftlevel(BENUTZER_JUSTIN.getKraftlevel().name());
 		BENUTZER_DTO_JUSTIN.setGeschlecht(BENUTZER_JUSTIN.getGeschlecht().name());
@@ -239,8 +239,7 @@ public class Testdaten
 		BENUTZER_DTO_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_JUSTIN);
 
 		BENUTZER_EDUARD.setPrimaerschluessel(BENUTZER_EDUARD_ID);
-		BENUTZER_EDUARD.setVorname("Eduard");
-		BENUTZER_EDUARD.setNachname("Stremel");
+		BENUTZER_EDUARD.setName(new Name("Eduard", "Stremel"));
 		BENUTZER_EDUARD.setLebensalter(14);
 		BENUTZER_EDUARD.setKraftlevel(Kraftlevel.CLASS_4);
 		BENUTZER_EDUARD.setGeschlecht(Geschlecht.MAENNLICH);
@@ -254,8 +253,7 @@ public class Testdaten
 		BENUTZER_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
 
 		BENUTZER_ANNA.setPrimaerschluessel(BENUTZER_ANNA_ID);
-		BENUTZER_ANNA.setVorname("Anna");
-		BENUTZER_ANNA.setNachname("Aufbau");
+		BENUTZER_ANNA.setName(new Name("Anna", "Aufbau"));
 		BENUTZER_ANNA.setLebensalter(14);
 		BENUTZER_ANNA.setKraftlevel(Kraftlevel.CLASS_2);
 		BENUTZER_ANNA.setGeschlecht(Geschlecht.WEIBLICH);
@@ -268,8 +266,7 @@ public class Testdaten
 		BENUTZER_ANNA.fuegeKoerpermessungHinzu(KOERPERMESSUNG_ANNA);
 
 		BENUTZER_ANETTE.setPrimaerschluessel(BENUTZER_ANETTE_ID);
-		BENUTZER_ANETTE.setVorname("Anette");
-		BENUTZER_ANETTE.setNachname("Masseschwein");
+		BENUTZER_ANETTE.setName(new Name("Anette", "Masseschwein"));
 		BENUTZER_ANETTE.setLebensalter(43);
 		BENUTZER_ANETTE.setKraftlevel(Kraftlevel.CLASS_3);
 		BENUTZER_ANETTE.setGeschlecht(Geschlecht.WEIBLICH);
@@ -297,8 +294,7 @@ public class Testdaten
 		BENUTZER_DTO_ANETTE.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_ANETTE);
 
 		BENUTZER_GOTT.setPrimaerschluessel(BENUTZER_GOTT_ID);
-		BENUTZER_GOTT.setVorname("Gott");
-		BENUTZER_GOTT.setNachname("Harder");
+		BENUTZER_GOTT.setName(new Name("Gott", "Harder"));
 		BENUTZER_GOTT.setLebensalter(32);
 		BENUTZER_GOTT.setKraftlevel(Kraftlevel.ELITE);
 		BENUTZER_GOTT.setGeschlecht(Geschlecht.MAENNLICH);
@@ -326,8 +322,7 @@ public class Testdaten
 		BENUTZER_DTO_GOTT.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_GOTT);
 
 		BENUTZER_BABA.setPrimaerschluessel(BENUTZER_BABA_ID);
-		BENUTZER_BABA.setVorname("Baba");
-		BENUTZER_BABA.setNachname("von Gewichten");
+		BENUTZER_BABA.setName(new Name("Baba", "von Gewichten"));
 		BENUTZER_BABA.setLebensalter(55);
 		BENUTZER_BABA.setKraftlevel(Kraftlevel.CLASS_1);
 		BENUTZER_BABA.setGeschlecht(Geschlecht.MAENNLICH);

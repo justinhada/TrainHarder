@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -21,7 +22,6 @@ import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
-import de.justinharder.trainharder.model.services.berechnung.KraftlevelBerechner;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class KraftlevelBerechnerSollte
@@ -79,8 +79,7 @@ public class KraftlevelBerechnerSollte
 				LocalDate.now(),
 				benutzer);
 		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
-		benutzer.setVorname("M.");
-		benutzer.setNachname("Musterfrau");
+		benutzer.setName(new Name("M.", "Musterfrau"));
 		benutzer.setLebensalter(43);
 		benutzer.setGeschlecht(Geschlecht.WEIBLICH);
 		benutzer.setErfahrung(Erfahrung.BEGINNER);
