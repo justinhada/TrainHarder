@@ -8,24 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.enums.Doping;
-import de.justinharder.trainharder.model.domain.enums.Erfahrung;
-import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
-import de.justinharder.trainharder.model.domain.enums.Geschlecht;
-import de.justinharder.trainharder.model.domain.enums.Kraftlevel;
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
-import de.justinharder.trainharder.model.domain.enums.Stress;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,36 +32,14 @@ public class Benutzer extends Entitaet
 	private static final long serialVersionUID = 2411974948424821755L;
 
 	@EmbeddedId
-	@Column(name = "ID")
+	@Column(name = "ID") 
 	private Primaerschluessel primaerschluessel;
 	@Embedded
 	private Name name;
 	@Column(name = "Lebensalter")
 	private int lebensalter;
-	@Column(name = "Kraftlevel")
-	@Enumerated(EnumType.STRING)
-	private Kraftlevel kraftlevel = Kraftlevel.CLASS_5;
-	@Column(name = "Geschlecht")
-	@Enumerated(EnumType.STRING)
-	private Geschlecht geschlecht;
-	@Column(name = "Erfahrung")
-	@Enumerated(EnumType.STRING)
-	private Erfahrung erfahrung;
-	@Column(name = "Ernaehrung")
-	@Enumerated(EnumType.STRING)
-	private Ernaehrung ernaehrung;
-	@Column(name = "Schlafqualitaet")
-	@Enumerated(EnumType.STRING)
-	private Schlafqualitaet schlafqualitaet;
-	@Column(name = "Stress")
-	@Enumerated(EnumType.STRING)
-	private Stress stress;
-	@Column(name = "Doping")
-	@Enumerated(EnumType.STRING)
-	private Doping doping;
-	@Column(name = "Regenerationsfaehigkeit")
-	@Enumerated(EnumType.STRING)
-	private Regenerationsfaehigkeit regenerationsfaehigkeit;
+	@Embedded
+	private Benutzerangabe benutzerangabe;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
@@ -85,25 +54,13 @@ public class Benutzer extends Entitaet
 		final Primaerschluessel primaerschluessel,
 		final Name name,
 		final int lebensalter,
-		final Geschlecht geschlecht,
-		final Erfahrung erfahrung,
-		final Ernaehrung ernaehrung,
-		final Schlafqualitaet schlafqualitaet,
-		final Stress stress,
-		final Doping doping,
-		final Regenerationsfaehigkeit regenerationsfaehigkeit,
+		final Benutzerangabe benutzerangabe,
 		final Authentifizierung authentifizierung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
 		this.lebensalter = lebensalter;
-		this.geschlecht = geschlecht;
-		this.erfahrung = erfahrung;
-		this.ernaehrung = ernaehrung;
-		this.schlafqualitaet = schlafqualitaet;
-		this.stress = stress;
-		this.doping = doping;
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.benutzerangabe = benutzerangabe;
 		this.authentifizierung = authentifizierung;
 
 		authentifizierung.setBenutzer(this);

@@ -25,7 +25,7 @@ public class AnpassungsfaktorBerechner
 		anpassungsfaktor = 0;
 
 		var geschlecht = Geschlecht.MAENNLICH;
-		if (benutzer.getGeschlecht().equals(Geschlecht.WEIBLICH))
+		if (benutzer.getBenutzerangabe().getGeschlecht().equals(Geschlecht.WEIBLICH))
 		{
 			geschlecht = Geschlecht.WEIBLICH;
 			anpassungsfaktor += 5;
@@ -33,14 +33,14 @@ public class AnpassungsfaktorBerechner
 
 		berechneKoerpergewichtAnpassungsfaktor(benutzer.getAktuellesKoerpergewicht(), geschlecht);
 		berechneKoerpergroesseAnpassungsfaktor(benutzer.getAktuelleKoerpergroesse(), geschlecht);
-		berechneErfahrungAnpassungsfaktor(benutzer.getErfahrung());
+		berechneErfahrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErfahrung());
 		berechneLebensalterAnpassungsfaktor(benutzer.getLebensalter());
-		berechneErnaehrungAnpassungsfaktor(benutzer.getErnaehrung());
-		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getSchlafqualitaet());
-		berechneStressAnpassungsfaktor(benutzer.getStress());
-		berechneDopingAnpassungsfaktor(benutzer.getDoping());
-		berechneRegenerationsfaehigkeitAnpassungsfaktor(benutzer.getRegenerationsfaehigkeit());
-		berechneKraftlevelAnpassungsfaktor(benutzer.getKraftlevel());
+		berechneErnaehrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErnaehrung());
+		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getBenutzerangabe().getSchlafqualitaet());
+		berechneStressAnpassungsfaktor(benutzer.getBenutzerangabe().getStress());
+		berechneDopingAnpassungsfaktor(benutzer.getBenutzerangabe().getDoping());
+		berechneRegenerationsfaehigkeitAnpassungsfaktor(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit());
+		berechneKraftlevelAnpassungsfaktor(benutzer.getBenutzerangabe().getKraftlevel());
 
 		return anpassungsfaktor;
 	}

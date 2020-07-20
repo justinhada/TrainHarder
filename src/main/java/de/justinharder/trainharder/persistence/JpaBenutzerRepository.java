@@ -66,7 +66,8 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 		final var criteriaBuilder = entityManager.getCriteriaBuilder();
 		final var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
 		final var root = criteriaQuery.from(Benutzer.class);
-		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("nachname"), nachname));
+		criteriaQuery.select(root).where(
+			criteriaBuilder.equal(root.get("name").get("nachname"), nachname));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 }

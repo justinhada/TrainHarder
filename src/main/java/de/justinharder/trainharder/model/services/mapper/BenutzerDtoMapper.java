@@ -32,14 +32,14 @@ public class BenutzerDtoMapper
 			benutzer.getName().getVorname(),
 			benutzer.getName().getNachname(),
 			benutzer.getLebensalter(),
-			benutzer.getKraftlevel().name(),
-			benutzer.getGeschlecht().name(),
-			benutzer.getErfahrung().name(),
-			benutzer.getErnaehrung().name(),
-			benutzer.getSchlafqualitaet().name(),
-			benutzer.getStress().name(),
-			benutzer.getDoping().name(),
-			benutzer.getRegenerationsfaehigkeit().name(),
+			benutzer.getBenutzerangabe().getKraftlevel().name(),
+			benutzer.getBenutzerangabe().getGeschlecht().name(),
+			benutzer.getBenutzerangabe().getErfahrung().name(),
+			benutzer.getBenutzerangabe().getErnaehrung().name(),
+			benutzer.getBenutzerangabe().getSchlafqualitaet().name(),
+			benutzer.getBenutzerangabe().getStress().name(),
+			benutzer.getBenutzerangabe().getDoping().name(),
+			benutzer.getBenutzerangabe().getRegenerationsfaehigkeit().name(),
 			authentifizierungDtoMapper.konvertiere(benutzer.getAuthentifizierung()));
 	}
 }

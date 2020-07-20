@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -69,13 +70,14 @@ public class BenutzerService
 			new Primaerschluessel(),
 			new Name(benutzerDto.getVorname(), benutzerDto.getNachname()),
 			benutzerDto.getLebensalter(),
-			Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
-			Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),
-			Ernaehrung.fromErnaehrungOption(benutzerDto.getErnaehrung()),
-			Schlafqualitaet.fromSchlafqualitaetOption(benutzerDto.getSchlafqualitaet()),
-			Stress.fromStressOption(benutzerDto.getStress()),
-			Doping.fromDopingOption(benutzerDto.getDoping()),
-			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerDto.getRegenerationsfaehigkeit()),
+			new Benutzerangabe(
+				Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
+				Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),
+				Ernaehrung.fromErnaehrungOption(benutzerDto.getErnaehrung()),
+				Schlafqualitaet.fromSchlafqualitaetOption(benutzerDto.getSchlafqualitaet()),
+				Stress.fromStressOption(benutzerDto.getStress()),
+				Doping.fromDopingOption(benutzerDto.getDoping()),
+				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerDto.getRegenerationsfaehigkeit())),
 			authentifizierung)));
 	}
 }

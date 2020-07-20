@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -85,13 +86,14 @@ public class JpaBenutzerRepositorySollte
 			new Primaerschluessel(),
 			new Name("Nicole", "Harder"),
 			13,
-			Geschlecht.WEIBLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.SCHLECHT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.SCHLECHT,
+			new Benutzerangabe(
+				Geschlecht.WEIBLICH,
+				Erfahrung.BEGINNER,
+				Ernaehrung.SCHLECHT,
+				Schlafqualitaet.GUT,
+				Stress.MITTELMAESSIG,
+				Doping.NEIN,
+				Regenerationsfaehigkeit.SCHLECHT),
 			new Authentifizierung(
 				new Primaerschluessel(),
 				"nicoleharder@mail.de",
@@ -104,7 +106,7 @@ public class JpaBenutzerRepositorySollte
 	}
 
 	@Test
-	public void leereListZurueckgebenWennKeinBenutzerZuNachnameErmitteltWurde()
+	public void leereListeZurueckgebenWennKeinBenutzerZuNachnameErmitteltWurde()
 	{
 		final var erwartet = new ArrayList<Benutzer>();
 

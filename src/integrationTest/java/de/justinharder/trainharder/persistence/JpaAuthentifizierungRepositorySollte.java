@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -129,13 +130,14 @@ public class JpaAuthentifizierungRepositorySollte
 			benutzerId,
 			new Name("Justin", "Harder"),
 			21,
-			Geschlecht.MAENNLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.GUT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.DURCHSCHNITTLICH,
+			new Benutzerangabe(
+				Geschlecht.MAENNLICH,
+				Erfahrung.BEGINNER,
+				Ernaehrung.GUT,
+				Schlafqualitaet.GUT,
+				Stress.MITTELMAESSIG,
+				Doping.NEIN,
+				Regenerationsfaehigkeit.DURCHSCHNITTLICH),
 			erwartet));
 
 		final var ergebnis = sut.speichereAuthentifizierung(erwartet);

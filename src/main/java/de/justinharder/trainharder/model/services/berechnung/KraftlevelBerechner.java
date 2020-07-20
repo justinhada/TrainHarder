@@ -17,7 +17,7 @@ public class KraftlevelBerechner
 	public KraftlevelBerechner(final Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
-		geschlecht = benutzer.getGeschlecht();
+		geschlecht = benutzer.getBenutzerangabe().getGeschlecht();
 		koerpergewicht = benutzer.getAktuellesKoerpergewicht();
 		kraftwerte = benutzer.getKraftwerte();
 	}
@@ -60,6 +60,6 @@ public class KraftlevelBerechner
 		}
 
 		final var kraftlevel = Konstanten.KRAFTLEVEL_EINTEILUNG[totalIndex - 1];
-		benutzer.setKraftlevel(kraftlevel);
+		benutzer.getBenutzerangabe().setKraftlevel(kraftlevel);
 	}
 }

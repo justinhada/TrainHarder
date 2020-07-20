@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -65,7 +66,7 @@ public class KraftlevelBerechnerSollte
 		sut = new KraftlevelBerechner(benutzer);
 		sut.setzeKraftlevel();
 
-		assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5);
+		assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5);
 	}
 
 	@Test
@@ -81,13 +82,14 @@ public class KraftlevelBerechnerSollte
 		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
 		benutzer.setName(new Name("M.", "Musterfrau"));
 		benutzer.setLebensalter(43);
-		benutzer.setGeschlecht(Geschlecht.WEIBLICH);
-		benutzer.setErfahrung(Erfahrung.BEGINNER);
-		benutzer.setErnaehrung(Ernaehrung.GUT);
-		benutzer.setSchlafqualitaet(Schlafqualitaet.GUT);
-		benutzer.setStress(Stress.MITTELMAESSIG);
-		benutzer.setDoping(Doping.NEIN);
-		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		benutzer.setBenutzerangabe(new Benutzerangabe(
+			Geschlecht.WEIBLICH,
+			Erfahrung.BEGINNER,
+			Ernaehrung.GUT,
+			Schlafqualitaet.GUT,
+			Stress.MITTELMAESSIG,
+			Doping.NEIN,
+			Regenerationsfaehigkeit.GUT));
 		final var kniebeugeKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			110,
@@ -119,6 +121,6 @@ public class KraftlevelBerechnerSollte
 		sut = new KraftlevelBerechner(benutzer);
 		sut.setzeKraftlevel();
 
-		assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_3);
+		assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_3);
 	}
 }
