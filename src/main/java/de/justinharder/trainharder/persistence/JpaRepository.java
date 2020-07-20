@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 

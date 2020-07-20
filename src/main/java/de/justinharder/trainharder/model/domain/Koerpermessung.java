@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

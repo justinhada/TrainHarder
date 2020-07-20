@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;

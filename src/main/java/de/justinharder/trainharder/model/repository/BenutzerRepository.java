@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 
 public interface BenutzerRepository extends Serializable
 {

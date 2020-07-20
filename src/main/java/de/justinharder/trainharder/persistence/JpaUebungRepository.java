@@ -6,8 +6,8 @@ import java.util.Optional;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;

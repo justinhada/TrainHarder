@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 
 public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements KraftwertRepository

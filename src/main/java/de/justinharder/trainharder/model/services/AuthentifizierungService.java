@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
 
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;

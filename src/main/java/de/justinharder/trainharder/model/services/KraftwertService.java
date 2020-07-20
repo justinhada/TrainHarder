@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.KraftwertNichtGefundenException;

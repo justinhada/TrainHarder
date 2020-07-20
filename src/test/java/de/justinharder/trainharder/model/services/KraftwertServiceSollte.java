@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Kraftwert;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.KraftwertNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
