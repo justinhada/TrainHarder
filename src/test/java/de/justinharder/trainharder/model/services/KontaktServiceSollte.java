@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,9 +52,6 @@ public class KontaktServiceSollte
 
 		verify(mailServer).sendeMail(new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-			List.of(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
-			List.of(),
-			List.of(),
 			"Support-Anfrage von " + kontaktformular.getBenutzername(),
 			"Eine Support-Anfrage von " + kontaktformular.getBenutzername()
 				+ "Benutzer:\n"
@@ -63,7 +59,8 @@ public class KontaktServiceSollte
 				+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
 				+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
 				+ "Nachricht:\n"
-				+ "\t" + kontaktformular.getNachricht()),
+				+ "\t" + kontaktformular.getNachricht())
+					.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
 			StandardCharsets.UTF_8);
 	}
 }

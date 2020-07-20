@@ -25,7 +25,7 @@ import de.justinharder.trainharder.view.dto.BenutzerDto;
 public class BenutzerService
 {
 	private final BenutzerRepository benutzerRepository;
-	private final AuthentifizierungRepository authentfizierungRepository;
+	private final AuthentifizierungRepository authentifizierungRepository;
 	private final BenutzerDtoMapper benutzerDtoMapper;
 
 	@Inject
@@ -35,7 +35,7 @@ public class BenutzerService
 		final BenutzerDtoMapper benutzerDtoMapper)
 	{
 		this.benutzerRepository = benutzerRepository;
-		authentfizierungRepository = authentifizierungRepository;
+		this.authentifizierungRepository = authentifizierungRepository;
 		this.benutzerDtoMapper = benutzerDtoMapper;
 	}
 
@@ -61,7 +61,7 @@ public class BenutzerService
 	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerDto, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
-		final var authentifizierung = authentfizierungRepository
+		final var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));

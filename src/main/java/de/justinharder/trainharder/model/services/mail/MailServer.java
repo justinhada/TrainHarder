@@ -20,6 +20,7 @@ public class MailServer
 	private static final String LOCALHOST = "localhost";
 
 	private final Session session;
+	private final MailSender mailSender;
 
 	@Inject
 	public MailServer()
@@ -27,6 +28,17 @@ public class MailServer
 		final var properties = System.getProperties();
 		properties.setProperty(MAIL_PROPERTY, LOCALHOST);
 		session = Session.getDefaultInstance(properties);
+		mailSender = mimeMessage ->
+		{
+			try
+			{
+				Transport.send(mimeMessage);
+			}
+			catch (final MessagingException e)
+			{
+				throw new MailServerException("Beim Versenden der Mail ist ein Fehler aufgetreten!", e);
+			}
+		};
 	}
 
 	public void sendeMail(final Mail mail, final Charset charset)
@@ -36,13 +48,13 @@ public class MailServer
 			final var mimeMessage = new MimeMessage(session);
 
 			mimeMessage.setFrom(new InternetAddress(mail.getSender().getAdresse(), mail.getSender().getName()));
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getEmpfaenger(), RecipientType.TO, mimeMessage);
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getKopie(), RecipientType.CC, mimeMessage);
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getEmpfaenger(), RecipientType.BCC, mimeMessage);
+			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleEmpfaenger(), RecipientType.TO, mimeMessage);
+			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInKopie(), RecipientType.CC, mimeMessage);
+			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInBlindkopie(), RecipientType.BCC, mimeMessage);
 			mimeMessage.setSubject(mail.getBetreff(), charset.name());
 			mimeMessage.setText(mail.getInhalt(), charset.name());
 
-			Transport.send(mimeMessage);
+			mailSender.sende(mimeMessage);
 		}
 		catch (final MessagingException | UnsupportedEncodingException e)
 		{

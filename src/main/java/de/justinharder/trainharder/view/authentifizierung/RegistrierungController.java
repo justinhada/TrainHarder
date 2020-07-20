@@ -13,10 +13,12 @@ import javax.ws.rs.BeanParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
 import com.google.common.base.Preconditions;
 
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
@@ -80,5 +82,24 @@ public class RegistrierungController
 	public String erfolgreich()
 	{
 		return "/success.xhtml";
+	}
+
+	@GET
+	@Path("/{id}")
+	public String aktiviere(@PathParam("id") final String id)
+	{
+		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
+
+		try
+		{
+			registrierungService.aktiviere(id);
+
+			return "/aktiviert.xhtml";
+		}
+		catch (final AuthentifizierungNichtGefundenException e)
+		{
+			models.put("fehler", e.getMessage());
+			return "/index.xhtml";
+		}
 	}
 }

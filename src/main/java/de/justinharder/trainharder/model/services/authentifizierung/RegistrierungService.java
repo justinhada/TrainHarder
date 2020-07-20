@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
@@ -34,7 +35,7 @@ public class RegistrierungService
 	public AuthentifizierungDto registriere(final Registrierung registrierung)
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
 	{
-		Preconditions.checkNotNull(registrierung, "Es wird eine gültige Registrierung benötigt!");
+		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
 
 		if (authentifizierungRepository.checkMail(registrierung.getMail()))
 		{
@@ -59,5 +60,13 @@ public class RegistrierungService
 				registrierung.getMail(),
 				registrierung.getBenutzername(),
 				registrierung.getPasswort())));
+	}
+
+	public void aktiviere(final String id) throws AuthentifizierungNichtGefundenException
+	{
+		authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
+			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
+				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"))
+			.aktiviere();
 	}
 }

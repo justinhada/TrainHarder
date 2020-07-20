@@ -71,7 +71,7 @@ public class RegistrierungServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
 	public void test01()
 	{
-		final var erwartet = "Es wird eine gültige Registrierung benötigt!";
+		final var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
 
 		final var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
 

@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.model.services;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,9 +28,6 @@ public class KontaktService
 		mailServer.sendeMail(
 			new Mail(
 				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-				List.of(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
-				List.of(),
-				List.of(),
 				"Support-Anfrage von " + kontaktformular.getBenutzername(),
 				"Eine Support-Anfrage von " + kontaktformular.getBenutzername()
 					+ "Benutzer:\n"
@@ -39,7 +35,8 @@ public class KontaktService
 					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
 					+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
 					+ "Nachricht:\n"
-					+ "\t" + kontaktformular.getNachricht()),
+					+ "\t" + kontaktformular.getNachricht())
+						.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
 			StandardCharsets.UTF_8);
 	}
 }
