@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -32,7 +31,6 @@ public class JpaRepository<T extends Entitaet>
 		return Optional.ofNullable(entityManager.find(clazz, id));
 	}
 
-	@Transactional
 	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
 	{
 		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())

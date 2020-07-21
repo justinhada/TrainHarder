@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -36,6 +37,7 @@ public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
+	@Transactional
 	public Kraftwert speichereKraftwert(final Kraftwert kraftwert)
 	{
 		return super.speichereEntitaet(Kraftwert.class, kraftwert);

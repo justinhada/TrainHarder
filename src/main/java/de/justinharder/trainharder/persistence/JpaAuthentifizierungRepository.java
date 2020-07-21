@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -78,6 +79,7 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
+	@Transactional
 	public Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung)
 	{
 		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);

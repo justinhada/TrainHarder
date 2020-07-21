@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -51,6 +52,7 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
+	@Transactional
 	public Benutzer speichereBenutzer(final Benutzer benutzer)
 	{
 		return super.speichereEntitaet(Benutzer.class, benutzer);
