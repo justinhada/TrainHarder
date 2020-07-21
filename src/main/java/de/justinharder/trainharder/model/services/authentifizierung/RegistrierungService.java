@@ -37,13 +37,13 @@ public class RegistrierungService
 	{
 		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
 
-		if (authentifizierungRepository.checkMail(registrierung.getMail()))
+		if (authentifizierungRepository.ermittleZuMail(registrierung.getMail()).isPresent())
 		{
 			throw new MailVergebenException(
 				"Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!");
 		}
 
-		if (authentifizierungRepository.checkBenutzername(registrierung.getBenutzername()))
+		if (authentifizierungRepository.ermittleZuBenutzername(registrierung.getBenutzername()).isPresent())
 		{
 			throw new BenutzernameVergebenException(
 				"Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!");
@@ -64,9 +64,13 @@ public class RegistrierungService
 
 	public void aktiviere(final String id) throws AuthentifizierungNichtGefundenException
 	{
-		authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
+		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
+
+		final var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"))
-			.aktiviere();
+				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"));
+
+		authentifizierung.aktiviere();
+		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
 	}
 }

@@ -14,6 +14,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
@@ -68,6 +70,14 @@ public class RegistrierungServiceSollte
 		final Authentifizierung authentifizierung, final AuthentifizierungDto authentifizierungDto)
 	{
 		when(authentifizierungDtoMapper.konvertiere(authentifizierung)).thenReturn(authentifizierungDto);
+	}
+
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(
+		final String authentifizierungId,
+		final Optional<Authentifizierung> authentifizierung)
+	{
+		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId)))
+			.thenReturn(authentifizierung);
 	}
 
 	@Test
@@ -150,5 +160,45 @@ public class RegistrierungServiceSollte
 		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
 		verify(authentifizierungDtoMapper).konvertiere(authentifizierung);
+	}
+
+	@Test
+	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
+	public void test06()
+	{
+		final var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
+
+		final var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
+	public void test07()
+	{
+		final var authentifizierungId = new Primaerschluessel().getId().toString();
+		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
+
+		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
+			() -> sut.aktiviere(authentifizierungId));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("eine Authentifizierung aktivieren")
+	public void test08() throws AuthentifizierungNichtGefundenException
+	{
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		final var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
+			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
+
+		sut.aktiviere(authentifizierungId);
+
+		verify(authentifizierungRepository).ermittleZuId(authentifizierung.getPrimaerschluessel());
+		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
 	}
 }

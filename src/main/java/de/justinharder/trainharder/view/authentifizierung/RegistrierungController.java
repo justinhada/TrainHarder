@@ -7,6 +7,7 @@ import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.mvc.binding.BindingResult;
 import javax.mvc.binding.ParamError;
+import javax.security.enterprise.SecurityContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.BeanParam;
@@ -42,6 +43,8 @@ public class RegistrierungController
 	private Models models;
 	@Inject
 	private BindingResult bindingResult;
+	@Inject
+	private SecurityContext securityContext;
 
 	@Inject
 	private RegistrierungService registrierungService;
@@ -49,6 +52,11 @@ public class RegistrierungController
 	@GET
 	public String index()
 	{
+		if (securityContext.getCallerPrincipal() != null)
+		{
+			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+		}
+
 		return "/join.xhtml";
 	}
 
@@ -93,13 +101,12 @@ public class RegistrierungController
 		try
 		{
 			registrierungService.aktiviere(id);
-
 			return "/aktiviert.xhtml";
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
-			return "/index.xhtml";
+			return "/error";
 		}
 	}
 }
