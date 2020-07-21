@@ -36,7 +36,7 @@ public class JpaRepository<T extends Entitaet>
 	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
 	{
 		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())
-			.map(this::aktualisiereEntitaet)
+			.map(ungenutzt -> aktualisiereEntitaet(entitaet))
 			.orElseGet(erstelleEntitaet(entitaet));
 	}
 

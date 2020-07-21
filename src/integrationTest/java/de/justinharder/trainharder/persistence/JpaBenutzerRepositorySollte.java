@@ -3,7 +3,6 @@ package de.justinharder.trainharder.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,6 @@ import de.justinharder.trainharder.model.domain.enums.Geschlecht;
 import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
-import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class JpaBenutzerRepositorySollte
@@ -60,22 +58,62 @@ public class JpaBenutzerRepositorySollte
 	}
 
 	@Test
+	public void keinenBenutzerZuIdErmitteln()
+	{
+		final var erwartet = Optional.empty();
+
+		final var ergebnis = sut.ermittleZuId(new Primaerschluessel());
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
 	public void benutzerZuIdErmitteln()
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Testdaten.BENUTZER_JUSTIN;
+			final var erwartet = Optional.of(Testdaten.BENUTZER_JUSTIN);
 
-			final var ergebnis = sut.ermittleZuId(erwartet.getPrimaerschluessel());
+			final var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
+			assertThat(ergebnis).isEqualTo(erwartet);
 		}, () ->
 		{
-			final var erwartet = Testdaten.BENUTZER_EDUARD;
+			final var erwartet = Optional.of(Testdaten.BENUTZER_EDUARD);
 
-			final var ergebnis = sut.ermittleZuId(erwartet.getPrimaerschluessel());
+			final var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(Optional.ofNullable(erwartet));
+			assertThat(ergebnis).isEqualTo(erwartet);
+		});
+	}
+
+	@Test
+	public void keinenBenutzerZuAuthentifizierungErmitteln()
+	{
+		final var erwartet = Optional.empty();
+
+		final var ergebnis = sut.ermittleZuAuthentifizierung(new Primaerschluessel());
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	public void benutzerZuAuthentifizierungErmitteln()
+	{
+		assertAll(() ->
+		{
+			final var erwartet = Optional.of(Testdaten.BENUTZER_JUSTIN);
+
+			final var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
+
+			assertThat(ergebnis).isEqualTo(erwartet);
+		}, () ->
+		{
+			final var erwartet = Optional.of(Testdaten.BENUTZER_EDUARD);
+
+			final var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
+
+			assertThat(ergebnis).isEqualTo(erwartet);
 		});
 	}
 
@@ -106,21 +144,12 @@ public class JpaBenutzerRepositorySollte
 	}
 
 	@Test
-	public void leereListeZurueckgebenWennKeinBenutzerZuNachnameErmitteltWurde()
+	public void benutzerAktualisieren()
 	{
-		final var erwartet = new ArrayList<Benutzer>();
+		final var erwartet = Testdaten.BENUTZER_JUSTIN;
+		erwartet.setLebensalter(22);
 
-		final var ergebnis = sut.ermittleAlleZuNachname("lol");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	public void alleBenutzerZuNachnameErmitteln() throws BenutzerNichtGefundenException
-	{
-		final var erwartet = List.of(Testdaten.BENUTZER_EDUARD);
-
-		final var ergebnis = sut.ermittleAlleZuNachname("Stremel");
+		final var ergebnis = sut.speichereBenutzer(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

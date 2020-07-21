@@ -3,20 +3,19 @@ package de.justinharder.trainharder.persistence;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityManager;
 
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
-	private static final long serialVersionUID = -2536153169316038712L;
-
-	@Override
-	public List<Kraftwert> ermittleAlle()
+	public JpaKraftwertRepository(final EntityManager entityManager)
 	{
-		return super.ermittleAlle(Kraftwert.class);
+		super(entityManager);
 	}
 
 	@Override
@@ -37,7 +36,6 @@ public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
-	@Transactional
 	public Kraftwert speichereKraftwert(final Kraftwert kraftwert)
 	{
 		return super.speichereEntitaet(Kraftwert.class, kraftwert);

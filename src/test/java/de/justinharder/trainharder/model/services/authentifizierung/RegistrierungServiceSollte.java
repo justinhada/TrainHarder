@@ -7,6 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,14 +41,15 @@ public class RegistrierungServiceSollte
 		sut = new RegistrierungService(authentifizierungRepository, authentifizierungDtoMapper, passwortCheck);
 	}
 
-	private void angenommenDieMailIstVergeben(final String mail, final boolean vergeben)
+	private void angenommenDieMailIstVergeben(final String mail, final Optional<Authentifizierung> authentifizierung)
 	{
-		when(authentifizierungRepository.checkMail(mail)).thenReturn(vergeben);
+		when(authentifizierungRepository.ermittleZuMail(mail)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDerBenutzernameIstVergeben(final String benutzername, final boolean vergeben)
+	private void angenommenDerBenutzernameIstVergeben(final String benutzername,
+		final Optional<Authentifizierung> authentifizierung)
 	{
-		when(authentifizierungRepository.checkBenutzername(benutzername)).thenReturn(vergeben);
+		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
 
 	private void angenommenDasPasswortIstUnsicher(final String passwort, final boolean unsicher)
@@ -84,12 +87,12 @@ public class RegistrierungServiceSollte
 	{
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		final var erwartet = "Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!";
-		angenommenDieMailIstVergeben(registrierung.getMail(), true);
+		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
 		final var exception = assertThrows(MailVergebenException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
-		verify(authentifizierungRepository).checkMail(registrierung.getMail());
+		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 	}
 
 	@Test
@@ -98,14 +101,15 @@ public class RegistrierungServiceSollte
 	{
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		final var erwartet = "Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!";
-		angenommenDieMailIstVergeben(registrierung.getMail(), false);
-		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), true);
+		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
+		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(),
+			Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
 		final var exception = assertThrows(BenutzernameVergebenException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
-		verify(authentifizierungRepository).checkMail(registrierung.getMail());
-		verify(authentifizierungRepository).checkBenutzername(registrierung.getBenutzername());
+		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
+		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 	}
 
 	@Test
@@ -114,15 +118,15 @@ public class RegistrierungServiceSollte
 	{
 		final var erwartet = "Das Passwort ist unsicher!";
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		angenommenDieMailIstVergeben(registrierung.getMail(), false);
-		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), false);
+		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
+		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), true);
 
 		final var exception = assertThrows(PasswortUnsicherException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
-		verify(authentifizierungRepository).checkMail(registrierung.getMail());
-		verify(authentifizierungRepository).checkBenutzername(registrierung.getBenutzername());
+		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
+		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
 	}
 
@@ -133,8 +137,8 @@ public class RegistrierungServiceSollte
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDieMailIstVergeben(registrierung.getMail(), false);
-		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), false);
+		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
+		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), false);
 		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
 		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
@@ -142,8 +146,8 @@ public class RegistrierungServiceSollte
 		final var ergebnis = sut.registriere(registrierung);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(authentifizierungRepository).checkMail(registrierung.getMail());
-		verify(authentifizierungRepository).checkBenutzername(registrierung.getBenutzername());
+		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
+		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
 		verify(authentifizierungDtoMapper).konvertiere(authentifizierung);
 	}

@@ -52,17 +52,17 @@ public class UebungServiceSollte
 
 	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(final String uebungsart,
 		final List<Uebung> uebungen)
-		throws UebungNichtGefundenException
 	{
-		when(uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart))).thenReturn(uebungen);
+		when(uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)))
+			.thenReturn(uebungen);
 	}
 
 	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(final String uebungskategorie,
 		final List<Uebung> uebungen)
-		throws UebungNichtGefundenException
 	{
-		when(uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)))
-			.thenReturn(uebungen);
+		when(uebungRepository
+			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)))
+				.thenReturn(uebungen);
 	}
 
 	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(final String id, final Optional<Uebung> uebung)
@@ -139,7 +139,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
-	public void test03() throws UebungNichtGefundenException
+	public void test03()
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
@@ -156,7 +156,7 @@ public class UebungServiceSollte
 		final var ergebnis = sut.ermittleZuUebungsart(uebungsart);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart));
+		verify(uebungRepository).ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart));
 		verify(uebungDtoMapper).konvertiereAlle(uebungen);
 	}
 
@@ -173,7 +173,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
-	public void test05() throws UebungNichtGefundenException
+	public void test05()
 	{
 		final var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
 		final var uebungen = List.of(Testdaten.LOWBAR_KNIEBEUGE);
@@ -185,7 +185,7 @@ public class UebungServiceSollte
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(uebungRepository)
-			.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie));
+			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie));
 		verify(uebungDtoMapper).konvertiereAlle(uebungen);
 	}
 

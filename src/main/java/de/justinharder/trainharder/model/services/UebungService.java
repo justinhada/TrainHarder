@@ -39,22 +39,22 @@ public class UebungService
 		return uebungDtoMapper.konvertiereAlle(uebungRepository.ermittleAlle());
 	}
 
-	public List<UebungDto> ermittleZuUebungsart(final String uebungsart) throws UebungNichtGefundenException
+	public List<UebungDto> ermittleZuUebungsart(final String uebungsart)
 	{
 		Preconditions.checkNotNull(uebungsart, "Die Ermittlung der Uebungen benötigt eine gültige Uebungsart!");
 
 		return uebungDtoMapper.konvertiereAlle(
-			uebungRepository.ermittleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
+			uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
 	}
 
 	public List<UebungDto> ermittleZuUebungskategorie(final String uebungskategorie)
-		throws UebungNichtGefundenException
 	{
 		Preconditions.checkNotNull(uebungskategorie,
 			"Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!");
 
 		return uebungDtoMapper.konvertiereAlle(
-			uebungRepository.ermittleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
+			uebungRepository
+				.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
 	public UebungDto ermittleZuId(final String id) throws UebungNichtGefundenException

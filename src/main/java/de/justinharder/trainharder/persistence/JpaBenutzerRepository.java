@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -15,8 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
-	private static final long serialVersionUID = 3832865610872106637L;
-
 	public JpaBenutzerRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
@@ -54,20 +51,8 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	@Transactional
 	public Benutzer speichereBenutzer(final Benutzer benutzer)
 	{
 		return super.speichereEntitaet(Benutzer.class, benutzer);
-	}
-
-	@Override
-	public List<Benutzer> ermittleAlleZuNachname(final String nachname)
-	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
-		final var root = criteriaQuery.from(Benutzer.class);
-		criteriaQuery.select(root).where(
-			criteriaBuilder.equal(root.get("name").get("nachname"), nachname));
-		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 }

@@ -1,13 +1,12 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 
-public interface BenutzerRepository extends Serializable
+public interface BenutzerRepository
 {
 	List<Benutzer> ermittleAlle();
 
@@ -16,6 +15,4 @@ public interface BenutzerRepository extends Serializable
 	Optional<Benutzer> ermittleZuAuthentifizierung(final Primaerschluessel authentifizierungId);
 
 	Benutzer speichereBenutzer(final Benutzer benutzer);
-
-	List<Benutzer> ermittleAlleZuNachname(final String nachname);
 }

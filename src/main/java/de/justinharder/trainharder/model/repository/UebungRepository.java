@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,16 +7,14 @@ import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
-import de.justinharder.trainharder.model.domain.exceptions.UebungNichtGefundenException;
 
-public interface UebungRepository extends Serializable
+public interface UebungRepository
 {
 	List<Uebung> ermittleAlle();
 
-	List<Uebung> ermittleZuUebungsart(final Uebungsart uebungsart) throws UebungNichtGefundenException;
+	List<Uebung> ermittleAlleZuUebungsart(final Uebungsart uebungsart);
 
-	List<Uebung> ermittleZuUebungskategorie(final Uebungskategorie uebungskategorie)
-		throws UebungNichtGefundenException;
+	List<Uebung> ermittleAlleZuUebungskategorie(final Uebungskategorie uebungskategorie);
 
 	Optional<Uebung> ermittleZuId(final Primaerschluessel id);
 

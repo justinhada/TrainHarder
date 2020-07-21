@@ -1,11 +1,9 @@
 package de.justinharder.trainharder.persistence;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -16,17 +14,9 @@ import lombok.NoArgsConstructor;
 public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizierung>
 	implements AuthentifizierungRepository
 {
-	private static final long serialVersionUID = -5882682850110144178L;
-
 	public JpaAuthentifizierungRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
-	}
-
-	@Override
-	public List<Authentifizierung> ermittleAlle()
-	{
-		return super.ermittleAlle(Authentifizierung.class);
 	}
 
 	@Override
@@ -88,7 +78,6 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	@Transactional
 	public Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung)
 	{
 		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
@@ -104,24 +93,13 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 			final var root = criteriaQuery.from(Authentifizierung.class);
 			criteriaQuery.select(root).where(
 				criteriaBuilder.equal(root.get("benutzername"), benutzername),
-				criteriaBuilder.equal(root.get("passwort"), passwort));
+				criteriaBuilder.equal(root.get("passwort"), passwort),
+				criteriaBuilder.equal(root.get("aktiv"), true));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (final NoResultException e)
 		{
 			return Optional.empty();
 		}
-	}
-
-	@Override
-	public boolean checkMail(final String mail)
-	{
-		return ermittleZuMail(mail).isPresent();
-	}
-
-	@Override
-	public boolean checkBenutzername(final String benutzername)
-	{
-		return ermittleZuBenutzername(benutzername).isPresent();
 	}
 }
