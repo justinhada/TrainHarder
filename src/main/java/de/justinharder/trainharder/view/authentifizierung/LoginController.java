@@ -43,6 +43,11 @@ public class LoginController
 	@GET
 	public String index()
 	{
+		if (securityContext.getCallerPrincipal() != null)
+		{
+			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+		}
+
 		return "/login.xhtml";
 	}
 

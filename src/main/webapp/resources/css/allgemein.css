@@ -208,6 +208,10 @@ header {
 	font-weight: bold;
 }
 
+.text-error {
+	color: red;
+}
+
 .btn-secondary {
 	text-align: center;
 	font-weight: bold;
