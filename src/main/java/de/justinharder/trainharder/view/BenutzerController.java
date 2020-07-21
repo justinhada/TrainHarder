@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view;
 
 import javax.mvc.Controller;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -16,10 +17,10 @@ import lombok.Setter;
 public class BenutzerController extends AbstractController
 {
 	@Context
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.PUBLIC)
 	private HttpServletRequest request;
 	@Context
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 
 	@GET
@@ -38,5 +39,21 @@ public class BenutzerController extends AbstractController
 		initialisiere();
 
 		return "/benutzer/benutzerdaten.xhtml";
+	}
+
+	@GET
+	@Path("/logout")
+	public String logout()
+	{
+		try
+		{
+			request.logout();
+			return "redirect:start";
+		}
+		catch (final ServletException e)
+		{
+			models.put("fehler", e.getMessage());
+			return "/error";
+		}
 	}
 }

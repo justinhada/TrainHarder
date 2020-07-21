@@ -1,7 +1,12 @@
 package de.justinharder.trainharder.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,11 +20,22 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 {
 	private BenutzerController sut;
 
+	private HttpServletRequest request;
+
 	@BeforeEach
 	public void setup()
 	{
 		sut = new BenutzerController();
 		super.setup(sut);
+
+		request = mock(HttpServletRequest.class);
+
+		sut.setRequest(request);
+	}
+
+	private void angenommenDerHttpServletRequestWirftServletException() throws ServletException
+	{
+		doThrow(ServletException.class).when(request).logout();
 	}
 
 	@Test
@@ -105,5 +121,30 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("authentifizierung", authentifizierungDto);
 		verify(models).put("benutzer", benutzerDto);
+	}
+
+	@Test
+	@DisplayName("bei fehlerhaftem Logout zur Fehler-Seite per GET navigieren")
+	public void test07() throws ServletException
+	{
+		final var erwartet = "/error";
+		angenommenDerHttpServletRequestWirftServletException();
+
+		final var ergebnis = sut.logout();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(request).logout();
+	}
+
+	@Test
+	@DisplayName("bei erfolgreichem Logout zur Start-Seite per GET navigieren")
+	public void test08() throws ServletException
+	{
+		final var erwartet = "redirect:start";
+
+		final var ergebnis = sut.logout();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(request).logout();
 	}
 }
