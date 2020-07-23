@@ -15,6 +15,8 @@ public interface AuthentifizierungRepository
 
 	Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername);
 
+	Optional<Authentifizierung> ermittleZuResetUuid(final String resetUuid);
+
 	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
 
 	Optional<Authentifizierung> login(final String benutzername, final String passwort);

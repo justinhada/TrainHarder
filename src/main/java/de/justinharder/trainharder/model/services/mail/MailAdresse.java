@@ -8,5 +8,10 @@ import lombok.Data;
 public class MailAdresse
 {
 	private final String adresse;
-	private final String name;
+	private String name;
+	
+	public MailAdresse(String adresse)
+	{
+		this.adresse=adresse;
+	}
 }

@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -14,13 +15,18 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
 import com.google.common.base.Preconditions;
 
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
+import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
 import de.justinharder.trainharder.view.dto.Login;
 import lombok.Setter;
 
@@ -39,6 +45,9 @@ public class LoginController
 	private BindingResult bindingResult;
 	@Inject
 	private SecurityContext securityContext;
+
+	@Inject
+	private LoginService loginService;
 
 	@GET
 	public String index()
@@ -84,5 +93,69 @@ public class LoginController
 			models.put("unerwartet", "Unerwarteter Fehler während des Logins: " + authenticationStatus.toString());
 		}
 		return index();
+	}
+
+	@GET
+	@Path("/reset")
+	public String resetMailView()
+	{
+		if (securityContext.getCallerPrincipal() != null)
+		{
+			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+		}
+
+		return "/reset.xhtml";
+	}
+
+	@POST
+	@Path("/reset")
+	public String resetMail(@FormParam("mail") final String mail)
+	{
+		Preconditions.checkNotNull(mail, "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!");
+
+		try
+		{
+			loginService.sendeResetMail(mail, UUID.randomUUID().toString());
+			return "/reset-success.xhtml";
+		}
+		catch (final AuthentifizierungNichtGefundenException e)
+		{
+			models.put("fehler", e.getMessage());
+			return resetMailView();
+		}
+	}
+
+	@GET
+	@Path("/reset/{id}")
+	public String resetPasswordView(@PathParam("id") final String resetUuid)
+	{
+		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
+
+		if (securityContext.getCallerPrincipal() != null)
+		{
+			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+		}
+
+		models.put("resetUuid", resetUuid);
+		return "/reset-password.xhtml";
+	}
+
+	@POST
+	@Path("/reset/{id}")
+	public String resetPassword(@PathParam("id") final String resetUuid, @FormParam("passwort") final String passwort)
+	{
+		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
+		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");
+
+		try
+		{
+			loginService.resetPassword(resetUuid, passwort);
+			return "/reset-password-success.xhtml";
+		}
+		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException e)
+		{
+			models.put("fehler", e.getMessage());
+			return resetPasswordView(resetUuid);
+		}
 	}
 }

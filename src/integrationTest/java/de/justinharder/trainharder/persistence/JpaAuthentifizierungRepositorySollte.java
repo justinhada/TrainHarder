@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -144,6 +145,46 @@ public class JpaAuthentifizierungRepositorySollte
 		final var erwartet = Optional.empty();
 
 		final var ergebnis = sut.ermittleZuBenutzername("nichtexistent");
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	public void authentifizierungZuBenutzernameErmitteln()
+	{
+		assertAll(() ->
+		{
+			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+
+			final var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
+
+			assertThat(ergebnis).isEqualTo(erwartet);
+		}, () ->
+		{
+			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
+
+			final var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
+
+			assertThat(ergebnis).isEqualTo(erwartet);
+		});
+	}
+
+	@Test
+	public void keineAuthentifizierungZuResetUuidErmitteln()
+	{
+		final var erwartet = Optional.empty();
+
+		final var ergebnis = sut.ermittleZuResetUuid(UUID.randomUUID().toString());
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	public void authentifizierungZuResetUuidErmitteln()
+	{
+		final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+
+		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

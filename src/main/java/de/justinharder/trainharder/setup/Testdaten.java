@@ -2,6 +2,7 @@ package de.justinharder.trainharder.setup;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
@@ -133,6 +134,7 @@ public class Testdaten
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzername("harder");
 		AUTHENTIFIZIERUNG_JUSTIN.setPasswort("JustinHarder#98");
 		AUTHENTIFIZIERUNG_JUSTIN.setAktiv(false);
+		AUTHENTIFIZIERUNG_JUSTIN.setResetUuid(UUID.randomUUID().toString());
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
 		AUTHENTIFIZIERUNG_EDUARD.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID);

@@ -20,6 +20,7 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenE
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
@@ -32,6 +33,7 @@ public class RegistrierungServiceSollte
 	private AuthentifizierungRepository authentifizierungRepository;
 	private AuthentifizierungDtoMapper authentifizierungDtoMapper;
 	private PasswortCheck passwortCheck;
+	private MailServer mailServer;
 
 	@BeforeEach
 	public void setup()
@@ -39,8 +41,13 @@ public class RegistrierungServiceSollte
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
 		passwortCheck = mock(PasswortCheck.class);
+		mailServer = mock(MailServer.class);
 
-		sut = new RegistrierungService(authentifizierungRepository, authentifizierungDtoMapper, passwortCheck);
+		sut = new RegistrierungService(
+			authentifizierungRepository,
+			authentifizierungDtoMapper,
+			passwortCheck,
+			mailServer);
 	}
 
 	private void angenommenDieMailIstVergeben(final String mail, final Optional<Authentifizierung> authentifizierung)
@@ -159,6 +166,18 @@ public class RegistrierungServiceSollte
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
+		//		verify(mailServer).sendeMail(new Mail(
+		//			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+		//			"Willkommen bei TrainHarder!",
+		//			"Hallo " + authentifizierung.getBenutzername() + ",\n"
+		//				+ "wir heißen dich herzlich Willkommen bei TrainHarder!\n"
+		//				+ "Über folgenden Link kannst du deine E-Mail-Adresse bestätigen: \n"
+		//				+ "\thttps://www.trainharder.de/join/" + authentifizierung.getPrimaerschluessel().getId().toString()
+		//				+ "\n\n"
+		//				+ "Mit den besten Grüßen!\n"
+		//				+ "das TrainHarder-Team")
+		//					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())),
+		//			StandardCharsets.UTF_8);
 		verify(authentifizierungDtoMapper).konvertiere(authentifizierung);
 	}
 

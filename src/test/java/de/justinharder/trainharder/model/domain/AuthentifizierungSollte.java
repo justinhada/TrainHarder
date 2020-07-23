@@ -19,7 +19,11 @@ public class AuthentifizierungSollte
 	@BeforeEach
 	public void setup()
 	{
-		sut = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		sut = new Authentifizierung(
+			new Primaerschluessel(),
+			"mail@justinharder.de",
+			"harder",
+			"Justinharder#98");
 	}
 
 	@Test
@@ -48,20 +52,8 @@ public class AuthentifizierungSollte
 	}
 
 	@Test
-	@DisplayName("Getter besitzen")
-	public void test03()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID),
-			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(sut.getPasswort()).isEqualTo("JustinHarder#98"),
-			() -> assertThat(sut.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
-	}
-
-	@Test
 	@DisplayName("Setter besitzen")
-	public void test04()
+	public void test03()
 	{
 		final var id = new Primaerschluessel();
 		final var authentifizierung = new Authentifizierung();
@@ -82,7 +74,7 @@ public class AuthentifizierungSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	public void test04()
 	{
 		final var andereAuthentifizierung = new Authentifizierung();
 		andereAuthentifizierung.setPrimaerschluessel(new Primaerschluessel());
@@ -101,7 +93,7 @@ public class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	public void test05()
 	{
 		final var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 

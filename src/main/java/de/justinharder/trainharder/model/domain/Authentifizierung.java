@@ -34,6 +34,8 @@ public class Authentifizierung extends Entitaet
 	private String passwort;
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
+	@Column(name = "ResetUuid", nullable = true)
+	private String resetUuid;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "BenutzerID", nullable = true)
 	private Benutzer benutzer;
@@ -50,9 +52,22 @@ public class Authentifizierung extends Entitaet
 		this.passwort = passwort;
 		this.aktiv = false;
 	}
-	
-	public void aktiviere()
+
+	public Authentifizierung setAktiv(boolean aktiv)
 	{
-		this.aktiv = true;
+		this.aktiv = aktiv;
+		return this;
+	}
+
+	public Authentifizierung setPasswort(String passwort)
+	{
+		this.passwort = passwort;
+		return this;
+	}
+
+	public Authentifizierung setResetUuid(String resetUuid)
+	{
+		this.resetUuid = resetUuid;
+		return this;
 	}
 }

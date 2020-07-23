@@ -29,7 +29,7 @@ public class KontaktService
 			new Mail(
 				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 				"Support-Anfrage von " + kontaktformular.getBenutzername(),
-				"Eine Support-Anfrage von " + kontaktformular.getBenutzername()
+				"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
 					+ "Benutzer:\n"
 					+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
 					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"

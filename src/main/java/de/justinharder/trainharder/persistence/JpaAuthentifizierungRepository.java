@@ -79,6 +79,23 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
+	public Optional<Authentifizierung> ermittleZuResetUuid(final String resetUuid)
+	{
+		try
+		{
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			final var root = criteriaQuery.from(Authentifizierung.class);
+			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("resetUuid"), resetUuid));
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+		}
+		catch (final NoResultException e)
+		{
+			return Optional.empty();
+		}
+	}
+
+	@Override
 	@Transactional
 	public Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung)
 	{
