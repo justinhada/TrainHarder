@@ -76,14 +76,14 @@ public class LoginServiceSollte
 		when(passwortCheck.isUnsicher(passwort)).thenReturn(unsicher);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(final String resetUuid,
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(final UUID resetUuid,
 		final Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuResetUuid(resetUuid)).thenReturn(authentifizierung);
 	}
 
 	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(
-		final String resetUuid)
+		final UUID resetUuid)
 	{
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.empty());
 	}
@@ -175,7 +175,7 @@ public class LoginServiceSollte
 		final var erwartet = "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!";
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuMail(mail);
 
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var exception =
 			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.sendeResetMail(mail, resetUuid));
 
@@ -192,7 +192,7 @@ public class LoginServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(mail, Optional.of(authentifizierung));
 
 		final var resetUuid = UUID.randomUUID();
-		sut.sendeResetMail(mail, resetUuid.toString());
+		sut.sendeResetMail(mail, resetUuid);
 
 		assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid);
 		verify(authentifizierungRepository).ermittleZuMail(mail);
@@ -227,7 +227,7 @@ public class LoginServiceSollte
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
 
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(resetUuid, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
@@ -241,7 +241,7 @@ public class LoginServiceSollte
 		final var passwort = "UnsicheresPasswort";
 		angenommenDasPasswortIstUnsicher(passwort, true);
 
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var exception =
 			assertThrows(PasswortUnsicherException.class, () -> sut.resetPassword(resetUuid, passwort));
 
@@ -252,7 +252,7 @@ public class LoginServiceSollte
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die ResetUUID nicht existiert")
 	public void test12()
 	{
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var erwartet = "Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!";
 		final var passwort = "SicheresPasswort";
 		angenommenDasPasswortIstUnsicher(passwort, false);
@@ -273,7 +273,7 @@ public class LoginServiceSollte
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail(),
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var passwort = "SicheresPasswort";
 		angenommenDasPasswortIstUnsicher(passwort, false);
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid,

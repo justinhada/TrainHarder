@@ -174,7 +174,7 @@ public class JpaAuthentifizierungRepositorySollte
 	{
 		final var erwartet = Optional.empty();
 
-		final var ergebnis = sut.ermittleZuResetUuid(UUID.randomUUID().toString());
+		final var ergebnis = sut.ermittleZuResetUuid(UUID.randomUUID());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -184,7 +184,7 @@ public class JpaAuthentifizierungRepositorySollte
 	{
 		final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
 
-		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid().toString());
+		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

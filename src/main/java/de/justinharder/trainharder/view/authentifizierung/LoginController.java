@@ -115,7 +115,7 @@ public class LoginController
 
 		try
 		{
-			loginService.sendeResetMail(mail, UUID.randomUUID().toString());
+			loginService.sendeResetMail(mail, UUID.randomUUID());
 			return "/reset-success.xhtml";
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
@@ -149,7 +149,7 @@ public class LoginController
 
 		try
 		{
-			loginService.resetPassword(resetUuid, passwort);
+			loginService.resetPassword(UUID.fromString(resetUuid), passwort);
 			return "/reset-password-success.xhtml";
 		}
 		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException e)

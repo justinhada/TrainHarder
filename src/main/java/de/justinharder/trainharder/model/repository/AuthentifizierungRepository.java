@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -15,7 +16,7 @@ public interface AuthentifizierungRepository
 
 	Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername);
 
-	Optional<Authentifizierung> ermittleZuResetUuid(final String resetUuid);
+	Optional<Authentifizierung> ermittleZuResetUuid(final UUID resetUuid);
 
 	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
 

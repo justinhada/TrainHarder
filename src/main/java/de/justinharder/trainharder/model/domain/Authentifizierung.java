@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import de.justinharder.trainharder.model.UuidMapper;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +39,7 @@ public class Authentifizierung extends Entitaet
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
 	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
+	@Convert(converter = UuidMapper.class)
 	private UUID resetUuid;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "BenutzerID", nullable = true)

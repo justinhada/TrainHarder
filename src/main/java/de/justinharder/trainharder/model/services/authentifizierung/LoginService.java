@@ -46,7 +46,7 @@ public class LoginService
 			.orElseThrow(() -> new LoginException("Der Benutzername oder das Passwort ist leider falsch!"));
 	}
 
-	public void sendeResetMail(final String mail, final String resetUuid) throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(final String mail, final UUID resetUuid) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(mail, "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!");
 		Preconditions.checkNotNull(resetUuid, "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!");
@@ -55,7 +55,7 @@ public class LoginService
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!"));
 		authentifizierungRepository.speichereAuthentifizierung(
-			authentifizierung.setResetUuid(UUID.fromString(resetUuid)));
+			authentifizierung.setResetUuid(resetUuid));
 
 		final var mail1 = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
@@ -63,7 +63,7 @@ public class LoginService
 			"Hallo " + authentifizierung.getBenutzername() + ",\n"
 				+ "wir haben deine Anfrage der Passwort-Zurücksetzung erhalten.\n"
 				+ "Über folgenden Link kannst du dein Passwort zurücksetzen: \n"
-				+ "\thttps://www.trainharder.de/login/reset/" + resetUuid + "\n\n"
+				+ "\thttps://www.trainharder.de/login/reset/" + resetUuid.toString() + "\n\n"
 				+ "Mit den besten Grüßen!\n"
 				+ "das TrainHarder-Team")
 					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
@@ -74,7 +74,7 @@ public class LoginService
 		//			StandardCharsets.UTF_8);
 	}
 
-	public void resetPassword(final String resetUuid, final String passwort)
+	public void resetPassword(final UUID resetUuid, final String passwort)
 		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
@@ -87,7 +87,7 @@ public class LoginService
 
 		final var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!"));
+				"Die Authentifizierung mit der ResetUUID \"" + resetUuid.toString() + "\" existiert nicht!"));
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung
 			.setPasswort(passwort)
 			.setResetUuid(null));

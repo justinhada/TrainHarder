@@ -88,10 +88,10 @@ public class LoginControllerSollte
 	{
 		doThrow(new AuthentifizierungNichtGefundenException(
 			"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!")).when(loginService)
-				.sendeResetMail(anyString(), anyString());
+				.sendeResetMail(anyString(), any(UUID.class));
 	}
 
-	private void angenommenDerLoginServiceWirftPasswortUnsicherException(final String resetUuid, final String passwort)
+	private void angenommenDerLoginServiceWirftPasswortUnsicherException(final UUID resetUuid, final String passwort)
 		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
 	{
 		doThrow(new PasswortUnsicherException("Das Passwort ist unsicher!")).when(loginService).resetPassword(resetUuid,
@@ -240,7 +240,7 @@ public class LoginControllerSollte
 		final var ergebnis = sut.resetMail(mail);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(loginService).sendeResetMail(eq(mail), anyString());
+		verify(loginService).sendeResetMail(eq(mail), any(UUID.class));
 		verify(models).put("fehler", "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!");
 	}
 
@@ -254,7 +254,7 @@ public class LoginControllerSollte
 		final var ergebnis = sut.resetMail(mail);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(loginService).sendeResetMail(eq(mail), anyString());
+		verify(loginService).sendeResetMail(eq(mail), any(UUID.class));
 	}
 
 	@Test
@@ -324,11 +324,11 @@ public class LoginControllerSollte
 	{
 
 		final var erwartet = "/reset-password.xhtml";
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var passwort = "UnsicheresPasswort";
 		angenommenDerLoginServiceWirftPasswortUnsicherException(resetUuid, passwort);
 
-		final var ergebnis = sut.resetPassword(resetUuid, passwort);
+		final var ergebnis = sut.resetPassword(resetUuid.toString(), passwort);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(loginService).resetPassword(resetUuid, passwort);
@@ -341,9 +341,9 @@ public class LoginControllerSollte
 	{
 		final var erwartet = "/reset-password-success.xhtml";
 
-		final var resetUuid = UUID.randomUUID().toString();
+		final var resetUuid = UUID.randomUUID();
 		final var passwort = "UnsicheresPasswort";
-		final var ergebnis = sut.resetPassword(resetUuid, passwort);
+		final var ergebnis = sut.resetPassword(resetUuid.toString(), passwort);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(loginService).resetPassword(resetUuid, passwort);

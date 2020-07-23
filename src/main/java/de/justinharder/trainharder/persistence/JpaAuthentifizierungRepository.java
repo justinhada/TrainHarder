@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -79,7 +80,7 @@ public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuResetUuid(final String resetUuid)
+	public Optional<Authentifizierung> ermittleZuResetUuid(final UUID resetUuid)
 	{
 		try
 		{
