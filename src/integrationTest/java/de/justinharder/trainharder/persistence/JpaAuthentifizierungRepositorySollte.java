@@ -184,7 +184,7 @@ public class JpaAuthentifizierungRepositorySollte
 	{
 		final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
 
-		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid());
+		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid().toString());
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

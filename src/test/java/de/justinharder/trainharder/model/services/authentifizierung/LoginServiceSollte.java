@@ -191,8 +191,8 @@ public class LoginServiceSollte
 		final var mail = authentifizierung.getMail();
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(mail, Optional.of(authentifizierung));
 
-		final var resetUuid = UUID.randomUUID().toString();
-		sut.sendeResetMail(mail, resetUuid);
+		final var resetUuid = UUID.randomUUID();
+		sut.sendeResetMail(mail, resetUuid.toString());
 
 		assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid);
 		verify(authentifizierungRepository).ermittleZuMail(mail);

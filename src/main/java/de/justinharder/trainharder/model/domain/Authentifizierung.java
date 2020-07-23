@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.model.domain;
 
+import java.util.UUID;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -34,8 +36,8 @@ public class Authentifizierung extends Entitaet
 	private String passwort;
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
-	@Column(name = "ResetUuid", nullable = true)
-	private String resetUuid;
+	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
+	private UUID resetUuid;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "BenutzerID", nullable = true)
 	private Benutzer benutzer;
@@ -65,7 +67,7 @@ public class Authentifizierung extends Entitaet
 		return this;
 	}
 
-	public Authentifizierung setResetUuid(String resetUuid)
+	public Authentifizierung setResetUuid(UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;

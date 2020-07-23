@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
@@ -52,7 +54,8 @@ public class LoginService
 		final var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!"));
-		authentifizierungRepository.speichereAuthentifizierung(authentifizierung.setResetUuid(resetUuid));
+		authentifizierungRepository.speichereAuthentifizierung(
+			authentifizierung.setResetUuid(UUID.fromString(resetUuid)));
 
 		final var mail1 = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
