@@ -37,8 +37,59 @@
 	<div class="center-container big-container">
 		<div class="wrapper">
 			<h:panelGroup rendered="#{authentifizierung != null}">
+				<div class="title">Individuelle Benutzereinstellungen: #{authentifizierung.benutzername}</div>
+				<br />
+				<form class="form" method="post">
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">E-Mail-Adresse</div>
+							<div class="col">
+								<input type="email" class="form-control" id="mail" value="#{authentifizierung.mail}" disabled="disabled" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Benutzername</div>
+							<div class="col">
+								<input type="text" class="form-control" id="benutzername" value="#{authentifizierung.benutzername}" disabled="disabled" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Vorname</div>
+							<div class="col">
+								<input type="text" class="form-control" id="vorname" value="#{benutzer.name.vorname}" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Nachname</div>
+							<div class="col">
+								<input type="text" class="form-control" id="nachname" value="#{benutzer.name.nachname}" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Geburtsdatum</div>
+							<div class="col">
+								<input type="date" class="form-control" id="geburtsdatum" />
+							</div>
+						</div>
+					</div>
+				</form>
+				<br />
 				<form class="form" method="get" action="/TrainHarder/benutzer/logout">
-					<button class="btn btn-secondary active" type="submit">Logout</button>
+					<div class="row">
+						<div class="col" />
+						<div class="col">
+							<button class="btn btn-secondary active" type="submit">Logout</button>
+						</div>
+						<div class="col" />
+					</div>
 				</form>
 			</h:panelGroup>
 		</div>
