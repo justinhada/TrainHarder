@@ -18,17 +18,17 @@
 		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}" alt="TrainHarder-Logo" />
 		<nav>
 			<ul class="navigation">
-				<li><a class="without-border" href="../start" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
-				<li><a class="without-border" href="../impressum" title="Impressum">Impressum</a></li>
-				<li><a class="without-border" href="../datenschutz" title="Datenschutz">Datenschutz</a></li>
-				<li><a class="without-border" href="" title="Unser Angebot">Unser Angebot</a></li>
-				<li><a class="without-border" href="../kontakt" title="Kontakt">Kontakt</a></li>
+				<li><a class="without-border" href="/TrainHarder/start" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
+				<li><a class="without-border" href="/TrainHarder/impressum" title="Impressum">Impressum</a></li>
+				<li><a class="without-border" href="/TrainHarder/datenschutz" title="Datenschutz">Datenschutz</a></li>
+				<li><a class="without-border" href="/TrainHarder/kontakt" title="Kontakt">Kontakt</a></li>
 				<h:panelGroup rendered="#{authentifizierung != null}">
-					<li><a class="with-border" href="../benutzer/#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+					<li><a class="with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+					<li><a class="with-border" href="/TrainHarder/benutzer/logout" title="Logout"><i class="fa fa-sign-out" aria-hidden="true" /></a></li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{authentifizierung == null}">
-					<li><a class="with-border" href="../login" title="Sign in">Sign in</a></li>
-					<li><a class="with-border" href="../join" title="Sign up">Sign up</a></li>
+					<li><a class="with-border" href="/TrainHarder/login" title="Sign in">Sign in</a></li>
+					<li><a class="with-border" href="/TrainHarder/join" title="Sign up">Sign up</a></li>
 				</h:panelGroup>
 			</ul>
 		</nav>
