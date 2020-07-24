@@ -18,17 +18,17 @@
 		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}" alt="TrainHarder-Logo" />
 		<nav>
 			<ul class="navigation">
-				<li><a class="without-border" href="../start" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
-				<li><a class="without-border" href="../impressum" title="Impressum">Impressum</a></li>
-				<li><a class="without-border" href="../datenschutz" title="Datenschutz">Datenschutz</a></li>
-				<li><a class="without-border" href="" title="Unser Angebot">Unser Angebot</a></li>
-				<li><a class="without-border" href="../kontakt" title="Kontakt">Kontakt</a></li>
+				<li><a class="without-border" href="/TrainHarder/start" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
+				<li><a class="without-border" href="/TrainHarder/impressum" title="Impressum">Impressum</a></li>
+				<li><a class="without-border" href="/TrainHarder/datenschutz" title="Datenschutz">Datenschutz</a></li>
+				<li><a class="without-border" href="/TrainHarder/kontakt" title="Kontakt">Kontakt</a></li>
 				<h:panelGroup rendered="#{authentifizierung != null}">
-					<li><a class="with-border" href="#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+					<li><a class="with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+					<li><a class="with-border" href="/TrainHarder/benutzer/logout" title="Logout"><i class="fa fa-sign-out" aria-hidden="true" /></a></li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{authentifizierung == null}">
-					<li><a class="with-border" href="../login" title="Sign in">Sign in</a></li>
-					<li><a class="with-border" href="../join" title="Sign up">Sign up</a></li>
+					<li><a class="with-border" href="/TrainHarder/login" title="Sign in">Sign in</a></li>
+					<li><a class="with-border" href="/TrainHarder/join" title="Sign up">Sign up</a></li>
 				</h:panelGroup>
 			</ul>
 		</nav>
@@ -76,19 +76,118 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Geburtsdatum</div>
 							<div class="col">
-								<input type="date" class="form-control" id="geburtsdatum" />
+								<input type="date" class="form-control" id="geburtsdatum" value="#{benutzer.geburtsdatum}" />
 							</div>
 						</div>
 					</div>
-				</form>
-				<br />
-				<form class="form" method="get" action="/TrainHarder/benutzer/logout">
-					<div class="row">
-						<div class="col" />
-						<div class="col">
-							<button class="btn btn-secondary active" type="submit">Logout</button>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Kraftlevel</div>
+							<div class="col">
+								<input type="text" class="form-control" id="kraftlevel" value="#{benutzer.kraftlevel}" disabled="disabled" />
+							</div>
 						</div>
-						<div class="col" />
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Geschlecht</div>
+							<div class="col">
+								<div class="row">
+									<div class="col align-self-center">
+										<div class="form-check">
+											<input type="radio" class="form-check-input" name="geschlechtRadio" id="maennlich" value="MAENNLICH" checked="checked" />
+											<label class="form-check-label" for="maennlich">Männlich</label>
+										</div>
+									</div>
+									<div class="col align-self-center">
+										<div class="form-check">
+											<input type="radio" class="form-check-input" name="geschlechtRadio" id="weiblich" value="WEIBLICH" />
+											<label class="form-check-label" for="weiblich">Weiblich</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Erfahrung</div>
+							<div class="col">
+								<select id="erfahrung" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="BEGINNER">Beginner (&lt;4 Jahre)</option>
+									<option value="FORTGESCHRITTEN">Fortgeschritten (4-8 Jahre)</option>
+									<option value="SEHR_FORTGESCHRITTEN">Sehr Fortgeschritten (8-12 Jahre)</option>
+									<option value="EXPERTE">Experte (&gt;12 Jahre)</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Ernährung</div>
+							<div class="col">
+								<select id="ernaehrung" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="SCHLECHT">Schlecht</option>
+									<option value="DURCHSCHNITT">Durchschnittlich</option>
+									<option value="GUT">Gut</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Schlafqualität</div>
+							<div class="col">
+								<select id="schlafqualitaet" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="SCHLECHT">Schlecht</option>
+									<option value="DURCHSCHNITT">Durchschnittlich</option>
+									<option value="GUT">Gut</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Stress</div>
+							<div class="col">
+								<select id="stress" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="NIEDRIG">Niedrig</option>
+									<option value="MITTELMAESSIG">Mittelmäßig</option>
+									<option value="HOCH">Hoch</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Doping</div>
+							<div class="col">
+								<select id="doping" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="NEIN">Nein</option>
+									<option value="JA">Ja</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col align-self-center text-right text-bold">Regenerationsfähigkeit</div>
+							<div class="col">
+								<select id="regenerationsfaehigkeit" class="form-control">
+									<option selected="selected">Bitte auswählen...</option>
+									<option value="SCHLECHT">Schlecht</option>
+									<option value="UNTERDURCHSCHNITTLICH">Unterdurchschnittlich</option>
+									<option value="DURCHSCHNITTLICH">Durchschnittlich</option>
+									<option value="GUT">Gut</option>
+									<option value="PERFEKT">Perfekt</option>
+								</select>
+							</div>
+						</div>
 					</div>
 				</form>
 			</h:panelGroup>
