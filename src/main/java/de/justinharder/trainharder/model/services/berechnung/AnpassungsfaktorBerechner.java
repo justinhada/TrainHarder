@@ -34,7 +34,7 @@ public class AnpassungsfaktorBerechner
 		berechneKoerpergewichtAnpassungsfaktor(benutzer.getAktuellesKoerpergewicht(), geschlecht);
 		berechneKoerpergroesseAnpassungsfaktor(benutzer.getAktuelleKoerpergroesse(), geschlecht);
 		berechneErfahrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErfahrung());
-		berechneLebensalterAnpassungsfaktor(benutzer.getLebensalter());
+		berechneLebensalterAnpassungsfaktor(benutzer.getAktuellesAlter());
 		berechneErnaehrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErnaehrung());
 		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getBenutzerangabe().getSchlafqualitaet());
 		berechneStressAnpassungsfaktor(benutzer.getBenutzerangabe().getStress());

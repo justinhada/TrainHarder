@@ -69,7 +69,7 @@ public class BenutzerService
 		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name(benutzerDto.getVorname(), benutzerDto.getNachname()),
-			benutzerDto.getLebensalter(),
+			benutzerDto.getGeburtsdatum(),
 			new Benutzerangabe(
 				Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
 				Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),

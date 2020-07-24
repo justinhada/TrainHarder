@@ -113,9 +113,9 @@ public class UebungServiceSollte
 			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
 			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungen = List.of(
-			Testdaten.WETTKAMPFBANKDRUECKEN,
-			Testdaten.LOWBAR_KNIEBEUGE,
-			Testdaten.KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDasUebungRepositoryGibtAlleUebungenZurueck(uebungen);
 		angenommenDerUebungDtoMapperKonvertiertAlleUebungDtos(uebungen, erwartet);
 
@@ -146,9 +146,9 @@ public class UebungServiceSollte
 			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
 			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungen = List.of(
-			Testdaten.WETTKAMPFBANKDRUECKEN,
-			Testdaten.LOWBAR_KNIEBEUGE,
-			Testdaten.KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungsart = "GRUNDUEBUNG";
 		angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(uebungsart, uebungen);
 		angenommenDerUebungDtoMapperKonvertiertAlleUebungDtos(uebungen, erwartet);
@@ -176,7 +176,7 @@ public class UebungServiceSollte
 	public void test05()
 	{
 		final var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
-		final var uebungen = List.of(Testdaten.LOWBAR_KNIEBEUGE);
+		final var uebungen = List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
 		final var uebungskategorie = "WETTKAMPF_KNIEBEUGE";
 		angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(uebungskategorie, uebungen);
 		angenommenDerUebungDtoMapperKonvertiertAlleUebungDtos(uebungen, erwartet);
@@ -219,8 +219,8 @@ public class UebungServiceSollte
 	public void test08() throws UebungNichtGefundenException
 	{
 		final var erwartet = Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN;
-		final var uebung = Testdaten.KONVENTIONELLES_KREUZHEBEN;
-		final var id = Testdaten.KONVENTIONELLES_KREUZHEBEN_ID.getId().toString();
+		final var uebung = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
+		final var id = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID.getId().toString();
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(id, Optional.of(uebung));
 		angenommenDerUebungDtoMapperKonvertiertUebungDto(uebung, erwartet);
 
@@ -273,7 +273,7 @@ public class UebungServiceSollte
 	public void test12() throws BelastungsfaktorNichtGefundenException
 	{
 		final var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
-		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
+		final var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
 		final var belastungsfaktorId = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID.getId().toString();
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(

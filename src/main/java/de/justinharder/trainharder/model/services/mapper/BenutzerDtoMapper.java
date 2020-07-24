@@ -31,7 +31,7 @@ public class BenutzerDtoMapper
 			benutzer.getPrimaerschluessel().getId().toString(),
 			benutzer.getName().getVorname(),
 			benutzer.getName().getNachname(),
-			benutzer.getLebensalter(),
+			benutzer.getGeburtsdatum(),
 			benutzer.getBenutzerangabe().getKraftlevel().name(),
 			benutzer.getBenutzerangabe().getGeschlecht().name(),
 			benutzer.getBenutzerangabe().getErfahrung().name(),

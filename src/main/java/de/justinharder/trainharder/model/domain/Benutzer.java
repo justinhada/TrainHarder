@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.model.domain;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +34,12 @@ public class Benutzer extends Entitaet
 	private static final long serialVersionUID = 2411974948424821755L;
 
 	@EmbeddedId
-	@Column(name = "ID") 
+	@Column(name = "ID")
 	private Primaerschluessel primaerschluessel;
 	@Embedded
 	private Name name;
-	@Column(name = "Lebensalter")
-	private int lebensalter;
+	@Column(name = "Geburtsdatum")
+	private LocalDate geburtsdatum;
 	@Embedded
 	private Benutzerangabe benutzerangabe;
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
@@ -53,13 +55,13 @@ public class Benutzer extends Entitaet
 	public Benutzer(
 		final Primaerschluessel primaerschluessel,
 		final Name name,
-		final int lebensalter,
+		final LocalDate geburtsdatum,
 		final Benutzerangabe benutzerangabe,
 		final Authentifizierung authentifizierung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
-		this.lebensalter = lebensalter;
+		this.geburtsdatum = geburtsdatum;
 		this.benutzerangabe = benutzerangabe;
 		this.authentifizierung = authentifizierung;
 
@@ -74,6 +76,11 @@ public class Benutzer extends Entitaet
 	public void fuegeKoerpermessungHinzu(final Koerpermessung koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
+	}
+	
+	public int getAktuellesAlter()
+	{
+		return Period.between(geburtsdatum, LocalDate.now()).getYears();
 	}
 
 	public double getAktuellesKoerpergewicht()

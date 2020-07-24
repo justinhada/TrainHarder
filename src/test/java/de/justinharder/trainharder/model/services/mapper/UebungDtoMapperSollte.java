@@ -44,9 +44,9 @@ public class UebungDtoMapperSollte
 			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
 			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 		final var uebungen = List.of(
-			Testdaten.LOWBAR_KNIEBEUGE,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
-			Testdaten.KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerBelastungsfaktorDtoMapperKonvertiertZuBelastungsfaktorDto(
 			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
 			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);

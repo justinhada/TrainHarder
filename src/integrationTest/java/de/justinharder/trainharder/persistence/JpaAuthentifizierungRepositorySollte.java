@@ -3,6 +3,7 @@ package de.justinharder.trainharder.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -200,7 +201,7 @@ public class JpaAuthentifizierungRepositorySollte
 		erwartet.setBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name("Justin", "Harder"),
-			21,
+			LocalDate.of(1998, 12, 6),
 			new Benutzerangabe(
 				Geschlecht.MAENNLICH,
 				Erfahrung.BEGINNER,

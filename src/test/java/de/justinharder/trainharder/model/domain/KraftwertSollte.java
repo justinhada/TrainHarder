@@ -43,7 +43,7 @@ public class KraftwertSollte
 			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
@@ -53,7 +53,7 @@ public class KraftwertSollte
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
-			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
 			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 
@@ -68,7 +68,7 @@ public class KraftwertSollte
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
 			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(sut.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
-			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
 			() -> assertThat(sut.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 
@@ -83,7 +83,7 @@ public class KraftwertSollte
 		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
 		kraftwert.setDatum(LocalDate.now());
 		kraftwert.setWiederholungen(Wiederholungen.ONE_REP_MAX);
-		kraftwert.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
+		kraftwert.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
 		kraftwert.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
@@ -93,7 +93,7 @@ public class KraftwertSollte
 				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
-			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
 			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 

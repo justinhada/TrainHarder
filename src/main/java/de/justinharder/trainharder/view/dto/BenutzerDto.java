@@ -1,14 +1,15 @@
 package de.justinharder.trainharder.view.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class BenutzerDto implements Serializable
 {
 	private static final long serialVersionUID = 2341943957236551490L;
@@ -16,7 +17,7 @@ public class BenutzerDto implements Serializable
 	private String primaerschluessel;
 	private String vorname;
 	private String nachname;
-	private int lebensalter;
+	private LocalDate geburtsdatum;
 	private String kraftlevel;
 	private String geschlecht;
 	private String erfahrung;

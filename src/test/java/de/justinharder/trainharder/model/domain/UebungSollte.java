@@ -24,7 +24,7 @@ public class UebungSollte
 	@BeforeEach
 	public void setup()
 	{
-		sut = Testdaten.WETTKAMPFBANKDRUECKEN;
+		sut = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class UebungSollte
 	public void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN_ID),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID),
 			() -> assertThat(sut.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
 			() -> assertThat(sut.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(sut.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),

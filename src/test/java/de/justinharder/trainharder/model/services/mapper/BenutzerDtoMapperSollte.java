@@ -41,20 +41,15 @@ public class BenutzerDtoMapperSollte
 	public void test01()
 	{
 		final var erwartet = List.of(
-			Testdaten.BENUTZER_DTO_JUSTIN,
-			Testdaten.BENUTZER_DTO_ANETTE);
+			Testdaten.BENUTZER_DTO_JUSTIN);
 		final var benutzer = List.of(
-			Testdaten.BENUTZER_JUSTIN,
-			Testdaten.BENUTZER_ANETTE);
+			Testdaten.BENUTZER_JUSTIN);
 		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_ANETTE,
-			Testdaten.AUTHENTIFIZIERUNG_DTO_ANETTE);
 
 		final var ergebnis = sut.konvertiereAlle(benutzer);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungDtoMapper).konvertiere(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
-		verify(authentifizierungDtoMapper).konvertiere(Testdaten.AUTHENTIFIZIERUNG_ANETTE);
 	}
 }

@@ -41,7 +41,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
 		final var bankdrueckenKraftwert = new Kraftwert(
@@ -50,7 +50,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
 		final var kreuzhebenKraftwert = new Kraftwert(
@@ -59,7 +59,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.KONVENTIONELLES_KREUZHEBEN,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 
@@ -81,7 +81,7 @@ public class KraftlevelBerechnerSollte
 				benutzer);
 		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
 		benutzer.setName(new Name("M.", "Musterfrau"));
-		benutzer.setLebensalter(43);
+		benutzer.setGeburtsdatum(LocalDate.of(1976, 12, 6));
 		benutzer.setBenutzerangabe(new Benutzerangabe(
 			Geschlecht.WEIBLICH,
 			Erfahrung.BEGINNER,
@@ -96,7 +96,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(kniebeugeKraftwert);
 		final var bankdrueckenKraftwert = new Kraftwert(
@@ -105,7 +105,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(bankdrueckenKraftwert);
 		final var kreuzhebenKraftwert = new Kraftwert(
@@ -114,7 +114,7 @@ public class KraftlevelBerechnerSollte
 			benutzer.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.KONVENTIONELLES_KREUZHEBEN,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,
 			benutzer);
 		benutzer.fuegeKraftwertHinzu(kreuzhebenKraftwert);
 

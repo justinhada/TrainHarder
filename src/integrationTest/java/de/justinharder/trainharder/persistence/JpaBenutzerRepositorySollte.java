@@ -3,6 +3,7 @@ package de.justinharder.trainharder.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,7 +124,7 @@ public class JpaBenutzerRepositorySollte
 		final var erwartet = new Benutzer(
 			new Primaerschluessel(),
 			new Name("Nicole", "Harder"),
-			13,
+			LocalDate.of(2007, 2, 26),
 			new Benutzerangabe(
 				Geschlecht.WEIBLICH,
 				Erfahrung.BEGINNER,
@@ -147,7 +148,7 @@ public class JpaBenutzerRepositorySollte
 	public void benutzerAktualisieren()
 	{
 		final var erwartet = Testdaten.BENUTZER_JUSTIN;
-		erwartet.setLebensalter(22);
+		erwartet.setGeburtsdatum(LocalDate.of(1997, 12, 6));
 
 		final var ergebnis = sut.speichereBenutzer(erwartet);
 

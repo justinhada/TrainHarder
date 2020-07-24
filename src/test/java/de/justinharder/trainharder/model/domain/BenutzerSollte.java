@@ -53,7 +53,7 @@ public class BenutzerSollte
 		final var benutzer = new Benutzer(
 			benutzerId,
 			new Name("Justin", "Harder"),
-			21,
+			LocalDate.of(1998, 12, 6),
 			new Benutzerangabe(
 				Geschlecht.MAENNLICH,
 				Erfahrung.BEGINNER,
@@ -72,7 +72,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
 			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
 			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
+			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
 			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
 			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
@@ -97,7 +97,7 @@ public class BenutzerSollte
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID),
 			() -> assertThat(sut.getName().getVorname()).isEqualTo("Justin"),
 			() -> assertThat(sut.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(sut.getLebensalter()).isEqualTo(21),
+			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
 			() -> assertThat(sut.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(sut.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
 			() -> assertThat(sut.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
@@ -127,7 +127,7 @@ public class BenutzerSollte
 		final var benutzer = new Benutzer();
 		benutzer.setPrimaerschluessel(benutzerId);
 		benutzer.setName(new Name("Justin", "Harder"));
-		benutzer.setLebensalter(21);
+		benutzer.setGeburtsdatum(LocalDate.of(1998, 12, 6));
 		benutzer.setBenutzerangabe(new Benutzerangabe(
 			Geschlecht.MAENNLICH,
 			Erfahrung.BEGINNER,
@@ -144,7 +144,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
 			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
 			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
+			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
 			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
 			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
 			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
@@ -200,7 +200,7 @@ public class BenutzerSollte
 			sut.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			sut);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);

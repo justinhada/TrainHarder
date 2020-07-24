@@ -202,10 +202,10 @@ public class KraftwertServiceSollte
 	{
 		final var benutzerId = new Primaerschluessel().getId().toString();
 		final var erwartet = "Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!";
-		final var uebungId = Testdaten.WETTKAMPFBANKDRUECKEN_ID.getId().toString();
+		final var uebungId = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID.getId().toString();
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(
 			uebungId,
-			Optional.of(Testdaten.KONVENTIONELLES_KREUZHEBEN));
+			Optional.of(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer(benutzerId);
 
 		final var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut.speichereKraftwert(
@@ -224,8 +224,8 @@ public class KraftwertServiceSollte
 	{
 		final var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
 		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
-		final var uebung = Testdaten.WETTKAMPFBANKDRUECKEN;
-		final var uebungId = Testdaten.WETTKAMPFBANKDRUECKEN_ID.getId().toString();
+		final var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
+		final var uebungId = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID.getId().toString();
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var benutzerId = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
 		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebungId, Optional.of(uebung));
