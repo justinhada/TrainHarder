@@ -200,6 +200,10 @@ header {
 	text-align: left;
 }
 
+.text-right {
+	text-align: right;
+}
+
 .text-central {
 	text-align: center;
 }
