@@ -144,6 +144,5 @@ public class Koerpermessung extends Entitaet
 		this.koerperfettAnteil = koerperfettAnteil;
 		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
 		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
-
 	}
 }

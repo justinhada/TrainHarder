@@ -111,15 +111,6 @@ header {
 	padding-right: 1%;
 }
 
-.wrapper a {
-	color: #333F50;
-	text-decoration: none;
-}
-
-.wrapper a:hover {
-	text-decoration: underline;
-}
-
 .start-link {
 	font-size: 1.2em;
 	font-weight: bold;
@@ -136,6 +127,32 @@ header {
 
 .start-link:hover {
 	box-shadow: 7px 7px 7px black;
+}
+
+.link-inactive {
+	font-size: 1.2em;
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.link-inactive:hover {
+	color: #000;
+}
+
+.link-active {
+	font-size: 1.2em;
+	color: #FFF;
+	background-color: #6C757D;
+	border-color: #6C757D;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.link-active:hover {
+	color: #FFF;
+	background-color: #5A6268;
+	border-color: #545B62;
 }
 
 .form {
@@ -227,11 +244,9 @@ header {
 	.big-container {
 		width: 95%;
 	}
-	
 	.medium-container {
 		width: 95%;
 	}
-	
 	.small-container {
 		width: 95%;
 	}
@@ -242,11 +257,9 @@ header {
 	.big-container {
 		width: 75%;
 	}
-	
 	.medium-container {
 		width: 35%;
 	}
-	
 	.small-container {
 		width: 25%;
 	}

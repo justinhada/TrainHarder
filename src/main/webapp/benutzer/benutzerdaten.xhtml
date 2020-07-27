@@ -35,8 +35,16 @@
 	</header>
 
 	<div class="center-container big-container">
-		<div class="wrapper">
-			<h:panelGroup rendered="#{authentifizierung != null}">
+		<h:panelGroup rendered="#{authentifizierung != null}">
+			<div class="wrapper">
+				<ul class="nav nav-pills nav-fill">
+					<li class="nav-item"><a class="nav-link link-active" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}">Benutzereinstellungen</a></li>
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}/koerpermessungen">Körpermessungen</a></li>
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}/kraftwerte">Kraftwerte</a></li>
+				</ul>
+			</div>
+			<br />
+			<div class="wrapper">
 				<div class="title">Individuelle Benutzereinstellungen: #{authentifizierung.benutzername}</div>
 				<br />
 				<form class="form" method="post">
@@ -313,8 +321,8 @@
 					</div>
 					<button class="btn btn-secondary active" type="submit">Speichern</button>
 				</form>
-			</h:panelGroup>
-		</div>
+			</div>
+		</h:panelGroup>
 	</div>
 
 	<div class="center-container big-container">
