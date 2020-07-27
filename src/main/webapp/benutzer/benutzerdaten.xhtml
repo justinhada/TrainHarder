@@ -44,7 +44,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">E-Mail-Adresse</div>
 							<div class="col">
-								<input type="email" class="form-control" id="mail" value="#{authentifizierung.mail}" disabled="disabled" />
+								<input type="email" class="form-control" name="mail" value="#{authentifizierung.mail}" disabled="disabled" />
 							</div>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Benutzername</div>
 							<div class="col">
-								<input type="text" class="form-control" id="benutzername" value="#{authentifizierung.benutzername}" disabled="disabled" />
+								<input type="text" class="form-control" name="benutzername" value="#{authentifizierung.benutzername}" disabled="disabled" />
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Vorname</div>
 							<div class="col">
-								<input type="text" class="form-control" id="vorname" value="#{benutzer.name.vorname}" />
+								<input type="text" class="form-control" name="vorname" value="#{benutzer.vorname}" />
 							</div>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Nachname</div>
 							<div class="col">
-								<input type="text" class="form-control" id="nachname" value="#{benutzer.name.nachname}" />
+								<input type="text" class="form-control" name="nachname" value="#{benutzer.nachname}" />
 							</div>
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Geburtsdatum</div>
 							<div class="col">
-								<input type="date" class="form-control" id="geburtsdatum" value="#{benutzer.geburtsdatum}" />
+								<input type="date" class="form-control" name="geburtsdatum" value="#{benutzer.geburtsdatum}" />
 							</div>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Kraftlevel</div>
 							<div class="col">
-								<input type="text" class="form-control" id="kraftlevel" value="#{benutzer.kraftlevel}" disabled="disabled" />
+								<input type="text" class="form-control" name="kraftlevel" value="#{benutzer.kraftlevel}" disabled="disabled" />
 							</div>
 						</div>
 					</div>
@@ -95,14 +95,14 @@
 								<div class="row">
 									<div class="col align-self-center">
 										<div class="form-check">
-											<input type="radio" class="form-check-input" name="geschlechtRadio" id="maennlich" value="MAENNLICH" checked="checked" />
-											<label class="form-check-label" for="maennlich">Männlich</label>
+											<input type="radio" class="form-check-input" name="geschlecht" value="MAENNLICH" checked="checked" />
+											<label class="form-check-label">Männlich</label>
 										</div>
 									</div>
 									<div class="col align-self-center">
 										<div class="form-check">
-											<input type="radio" class="form-check-input" name="geschlechtRadio" id="weiblich" value="WEIBLICH" />
-											<label class="form-check-label" for="weiblich">Weiblich</label>
+											<input type="radio" class="form-check-input" name="geschlecht" value="WEIBLICH" />
+											<label class="form-check-label">Weiblich</label>
 										</div>
 									</div>
 								</div>
@@ -113,7 +113,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Erfahrung</div>
 							<div class="col">
-								<select id="erfahrung" class="form-control">
+								<select class="form-control" name="erfahrung">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="BEGINNER">Beginner (&lt;4 Jahre)</option>
 									<option value="FORTGESCHRITTEN">Fortgeschritten (4-8 Jahre)</option>
@@ -127,7 +127,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Ernährung</div>
 							<div class="col">
-								<select id="ernaehrung" class="form-control">
+								<select class="form-control" name="ernaehrung">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="SCHLECHT">Schlecht</option>
 									<option value="DURCHSCHNITT">Durchschnittlich</option>
@@ -140,7 +140,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Schlafqualität</div>
 							<div class="col">
-								<select id="schlafqualitaet" class="form-control">
+								<select class="form-control" name="schlafqualitaet">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="SCHLECHT">Schlecht</option>
 									<option value="DURCHSCHNITT">Durchschnittlich</option>
@@ -153,7 +153,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Stress</div>
 							<div class="col">
-								<select id="stress" class="form-control">
+								<select class="form-control" name="stress">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="NIEDRIG">Niedrig</option>
 									<option value="MITTELMAESSIG">Mittelmäßig</option>
@@ -166,7 +166,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Doping</div>
 							<div class="col">
-								<select id="doping" class="form-control">
+								<select class="form-control" name="doping">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="NEIN">Nein</option>
 									<option value="JA">Ja</option>
@@ -178,7 +178,7 @@
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Regenerationsfähigkeit</div>
 							<div class="col">
-								<select id="regenerationsfaehigkeit" class="form-control">
+								<select class="form-control" name="regenerationsfaehigkeit">
 									<option selected="selected">Bitte auswählen...</option>
 									<option value="SCHLECHT">Schlecht</option>
 									<option value="UNTERDURCHSCHNITTLICH">Unterdurchschnittlich</option>

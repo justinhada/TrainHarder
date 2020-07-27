@@ -231,7 +231,7 @@ public class BenutzerServiceSollte
 		final var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",
-			"06.12.1998",
+			"1998-12-06",
 			"MAENNLICH",
 			"BEGINNER",
 			"GUT",
@@ -314,7 +314,7 @@ public class BenutzerServiceSollte
 		final var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",
-			"06.12.1998",
+			"1998-12-06",
 			"MAENNLICH",
 			"FORTGESCHRITTEN",
 			"GUT",

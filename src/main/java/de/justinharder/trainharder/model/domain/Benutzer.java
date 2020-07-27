@@ -42,7 +42,7 @@ public class Benutzer extends Entitaet
 	private LocalDate geburtsdatum;
 	@Embedded
 	private Benutzerangabe benutzerangabe;
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.MERGE)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
 	@Setter(value = AccessLevel.NONE)

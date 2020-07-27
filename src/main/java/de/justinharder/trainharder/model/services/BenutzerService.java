@@ -28,8 +28,6 @@ import de.justinharder.trainharder.view.dto.Benutzerdaten;
 
 public class BenutzerService
 {
-	private static final String DATUMSFORMAT = "dd.MM.yyyy";
-
 	private final BenutzerRepository benutzerRepository;
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final BenutzerDtoMapper benutzerDtoMapper;
@@ -79,10 +77,10 @@ public class BenutzerService
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));
 
-		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(new Benutzer(
+		final var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
-			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
+			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE),
 			new Benutzerangabe(
 				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
 				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
@@ -91,7 +89,11 @@ public class BenutzerService
 				Stress.fromStressOption(benutzerdaten.getStress()),
 				Doping.fromDopingOption(benutzerdaten.getDoping()),
 				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())),
-			authentifizierung)));
+			authentifizierung));
+
+		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
+
+		return benutzerDtoMapper.konvertiere(benutzer);
 	}
 
 	public BenutzerDto aktualisiereBenutzer(final String id, final Benutzerdaten benutzerdaten)
@@ -107,9 +109,7 @@ public class BenutzerService
 
 		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(benutzer
 			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
-			.setGeburtsdatum(LocalDate.parse(
-				benutzerdaten.getGeburtsdatum(),
-				DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setGeburtsdatum(LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE))
 			.setBenutzerangabe(new Benutzerangabe(
 				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
 				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
