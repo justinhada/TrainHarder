@@ -1,16 +1,14 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -33,24 +31,24 @@ public class JpaRepository<T extends Entitaet>
 		return Optional.ofNullable(entityManager.find(clazz, id));
 	}
 
-	@Transactional
 	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
 	{
-		if (ermittleZuId(clazz, entitaet.getPrimaerschluessel()).isPresent())
-		{
-			return entityManager.merge(entitaet);
-		}
-		entityManager.persist(entitaet);
-		return entitaet;
+		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())
+			.map(ungenutzt -> aktualisiereEntitaet(entitaet))
+			.orElseGet(erstelleEntitaet(entitaet));
 	}
 
-	protected TypedQuery<T> erstelleQuery(final Class<T> clazz, final Map<String, Object> bedingungen)
+	private T aktualisiereEntitaet(final T entitaet)
 	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(clazz);
-		final var root = criteriaQuery.from(clazz);
-		bedingungen.forEach((spalte, wert) -> criteriaQuery.select(root)
-			.where(criteriaBuilder.equal(root.get(spalte), wert)));
-		return entityManager.createQuery(criteriaQuery);
+		return entityManager.merge(entitaet);
+	}
+
+	private Supplier<? extends T> erstelleEntitaet(final T entitaet)
+	{
+		return () ->
+		{
+			entityManager.persist(entitaet);
+			return entitaet;
+		};
 	}
 }

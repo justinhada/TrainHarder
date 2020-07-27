@@ -34,15 +34,16 @@ h3 {
 }
 
 .center-container {
+	margin-bottom: 1%;
 	margin: auto;
 }
 
 .left-container {
-	margin-bottom: 0.1%;
+	margin-bottom: 1%;
 }
 
 .right-container {
-	margin-bottom: 0.1%;
+	margin-bottom: 1%;
 }
 
 .logo {
@@ -199,12 +200,20 @@ header {
 	text-align: left;
 }
 
+.text-right {
+	text-align: right;
+}
+
 .text-central {
 	text-align: center;
 }
 
 .text-bold {
 	font-weight: bold;
+}
+
+.text-error {
+	color: red;
 }
 
 .btn-secondary {
@@ -218,9 +227,11 @@ header {
 	.big-container {
 		width: 95%;
 	}
+	
 	.medium-container {
 		width: 95%;
 	}
+	
 	.small-container {
 		width: 95%;
 	}
@@ -231,9 +242,11 @@ header {
 	.big-container {
 		width: 75%;
 	}
+	
 	.medium-container {
 		width: 35%;
 	}
+	
 	.small-container {
 		width: 25%;
 	}

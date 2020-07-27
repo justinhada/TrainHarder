@@ -1,61 +1,59 @@
 package de.justinharder.trainharder.model.services;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.BelastungsfaktorEintrag;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
+import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapper;
+import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
-public class BelastungsfaktorService implements Serializable
+public class BelastungsfaktorService
 {
-	private static final long serialVersionUID = 1798559648180042690L;
-
 	private final BelastungsfaktorRepository belastungsfaktorRepository;
+	private final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
 
 	@Inject
-	public BelastungsfaktorService(final BelastungsfaktorRepository belastungsfaktorRepository)
+	public BelastungsfaktorService(
+		final BelastungsfaktorRepository belastungsfaktorRepository,
+		final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
 	{
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
+		this.belastungsfaktorDtoMapper = belastungsfaktorDtoMapper;
 	}
 
-	public List<BelastungsfaktorEintrag> ermittleAlle()
-	{
-		return Konvertierer.konvertiereAlleZuBelastungsfaktorEintrag(belastungsfaktorRepository.ermittleAlle());
-	}
-
-	public BelastungsfaktorEintrag ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
+	public BelastungsfaktorDto ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!");
 
-		return Konvertierer.konvertiereZuBelastungsfaktorEintrag(belastungsfaktorRepository
-			.ermittleZuId(new Primaerschluessel(id))
+		return belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))
+			.map(belastungsfaktorDtoMapper::konvertiere)
 			.orElseThrow(() -> new BelastungsfaktorNichtGefundenException(
-				"Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!")));
+				"Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!"));
 	}
 
-	public BelastungsfaktorEintrag speichereBelastungsfaktor(final BelastungsfaktorEintrag belastungsfaktorEintrag)
+	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorDto)
 	{
-		return Konvertierer.konvertiereZuBelastungsfaktorEintrag(belastungsfaktorRepository
+		Preconditions.checkNotNull(belastungsfaktorDto,
+			"Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!");
+
+		return belastungsfaktorDtoMapper.konvertiere(belastungsfaktorRepository
 			.speichereBelastungsfaktor(new Belastungsfaktor(
 				new Primaerschluessel(),
-				belastungsfaktorEintrag.getSquat(),
-				belastungsfaktorEintrag.getBenchpress(),
-				belastungsfaktorEintrag.getDeadlift(),
-				belastungsfaktorEintrag.getTriceps(),
-				belastungsfaktorEintrag.getChest(),
-				belastungsfaktorEintrag.getCore(),
-				belastungsfaktorEintrag.getBack(),
-				belastungsfaktorEintrag.getBiceps(),
-				belastungsfaktorEintrag.getGlutes(),
-				belastungsfaktorEintrag.getQuads(),
-				belastungsfaktorEintrag.getHamstrings(),
-				belastungsfaktorEintrag.getShoulder())));
+				belastungsfaktorDto.getSquat(),
+				belastungsfaktorDto.getBenchpress(),
+				belastungsfaktorDto.getDeadlift(),
+				belastungsfaktorDto.getTriceps(),
+				belastungsfaktorDto.getChest(),
+				belastungsfaktorDto.getCore(),
+				belastungsfaktorDto.getBack(),
+				belastungsfaktorDto.getBiceps(),
+				belastungsfaktorDto.getGlutes(),
+				belastungsfaktorDto.getQuads(),
+				belastungsfaktorDto.getHamstrings(),
+				belastungsfaktorDto.getShoulder())));
 	}
 }

@@ -1,42 +1,93 @@
 package de.justinharder.trainharder.view;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.mvc.Controller;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.google.common.base.Preconditions;
 
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.model.services.BenutzerService;
+import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import lombok.AccessLevel;
+import lombok.Setter;
 
-@Named
-@SessionScoped
-public class BenutzerController implements Serializable
+@Controller
+@Path("/benutzer")
+public class BenutzerController extends AbstractController
 {
-	private static final long serialVersionUID = -6981486797529025609L;
+	@Context
+	@Setter(value = AccessLevel.PUBLIC)
+	private HttpServletRequest request;
+	@Context
+	@Setter(value = AccessLevel.NONE)
+	private HttpServletResponse response;
 
-	private final BenutzerService benutzerService;
-
-	@Inject
-	public BenutzerController(final BenutzerService benutzerService)
+	@GET
+	@Override
+	public String index()
 	{
-		this.benutzerService = benutzerService;
+		initialisiere();
+
+		return "/benutzer/index.xhtml";
 	}
 
-	public List<BenutzerEintrag> getBenutzer()
+	@GET
+	@Path("/{benutzername}")
+	public String benutzer(@PathParam("benutzername") final String benutzername)
 	{
-		return benutzerService.ermittleAlle();
+		initialisiere();
+
+		return "/benutzer/benutzerdaten.xhtml";
 	}
 
-	public BenutzerEintrag getBenutzerZuId(final String id) throws BenutzerNichtGefundenException
+	@POST
+	@Path("/{benutzername}")
+	public String aendereBenutzer(@BeanParam final Benutzerdaten benutzerdaten)
 	{
-		return benutzerService.ermittleZuId(id);
+		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
+
+		try
+		{
+			final var authentifizierungDto = getAuthentifizierungDto();
+			try
+			{
+				final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
+				benutzerService.aktualisiereBenutzer(benutzerDto.getPrimaerschluessel(), benutzerdaten);
+			}
+			catch (final BenutzerNichtGefundenException e)
+			{
+				benutzerService.erstelleBenutzer(benutzerdaten, authentifizierungDto.getPrimaerschluessel());
+			}
+			return benutzer(authentifizierungDto.getBenutzername());
+		}
+		catch (final AuthentifizierungNichtGefundenException e)
+		{
+			models.put("fehler", e.getMessage());
+			return "/error";
+		}
 	}
 
-	public List<BenutzerEintrag> getBenutzerZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	@GET
+	@Path("/logout")
+	public String logout()
 	{
-		return benutzerService.ermittleAlleZuNachname(nachname);
+		try
+		{
+			request.logout();
+			return "redirect:start";
+		}
+		catch (final ServletException e)
+		{
+			models.put("fehler", e.getMessage());
+			return "/error";
+		}
 	}
 }

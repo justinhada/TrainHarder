@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
@@ -37,7 +41,7 @@ public class BenutzerSollte
 	@DisplayName("einen NoArgsConstructor haben")
 	public void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Benutzer.class, allOf(hasValidBeanConstructor()));
+		assertThat(Benutzer.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
@@ -48,16 +52,16 @@ public class BenutzerSollte
 		final var authentifizierungId = new Primaerschluessel();
 		final var benutzer = new Benutzer(
 			benutzerId,
-			"Justin",
-			"Harder",
-			21,
-			Geschlecht.MAENNLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.GUT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.GUT,
+			new Name("Justin", "Harder"),
+			LocalDate.of(1998, 12, 6),
+			new Benutzerangabe(
+				Geschlecht.MAENNLICH,
+				Erfahrung.BEGINNER,
+				Ernaehrung.GUT,
+				Schlafqualitaet.GUT,
+				Stress.MITTELMAESSIG,
+				Doping.NEIN,
+				Regenerationsfaehigkeit.GUT),
 			new Authentifizierung(
 				authentifizierungId,
 				"mail@justinharder.de",
@@ -66,17 +70,18 @@ public class BenutzerSollte
 
 		assertAll(
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
-			() -> assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(benutzer.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(benutzer.getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(benutzer.getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(benutzer.getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
+			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
+			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
+			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
+			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
+			() -> assertThat(benutzer.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
+			() -> assertThat(benutzer.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
+			() -> assertThat(benutzer.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
+			() -> assertThat(benutzer.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
+			() -> assertThat(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit())
+				.isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
@@ -90,17 +95,18 @@ public class BenutzerSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID),
-			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
-			() -> assertThat(sut.getLebensalter()).isEqualTo(21),
-			() -> assertThat(sut.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(sut.getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(sut.getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(sut.getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(sut.getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(sut.getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
+			() -> assertThat(sut.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(sut.getName().getNachname()).isEqualTo("Harder"),
+			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
+			() -> assertThat(sut.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(sut.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
+			() -> assertThat(sut.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
+			() -> assertThat(sut.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
+			() -> assertThat(sut.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
+			() -> assertThat(sut.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
+			() -> assertThat(sut.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
+			() -> assertThat(sut.getBenutzerangabe().getRegenerationsfaehigkeit())
+				.isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(sut.getAktuelleKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getAktuellesKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
@@ -120,33 +126,34 @@ public class BenutzerSollte
 			"JustinHarder98");
 		final var benutzer = new Benutzer();
 		benutzer.setPrimaerschluessel(benutzerId);
-		benutzer.setVorname("Justin");
-		benutzer.setNachname("Harder");
-		benutzer.setLebensalter(21);
-		benutzer.setKraftlevel(Kraftlevel.CLASS_5);
-		benutzer.setGeschlecht(Geschlecht.MAENNLICH);
-		benutzer.setErfahrung(Erfahrung.BEGINNER);
-		benutzer.setErnaehrung(Ernaehrung.GUT);
-		benutzer.setSchlafqualitaet(Schlafqualitaet.GUT);
-		benutzer.setStress(Stress.MITTELMAESSIG);
-		benutzer.setDoping(Doping.NEIN);
-		benutzer.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		benutzer.setName(new Name("Justin", "Harder"));
+		benutzer.setGeburtsdatum(LocalDate.of(1998, 12, 6));
+		benutzer.setBenutzerangabe(new Benutzerangabe(
+			Geschlecht.MAENNLICH,
+			Erfahrung.BEGINNER,
+			Ernaehrung.GUT,
+			Schlafqualitaet.GUT,
+			Stress.MITTELMAESSIG,
+			Doping.NEIN,
+			Regenerationsfaehigkeit.GUT));
+		benutzer.getBenutzerangabe().setKraftlevel(Kraftlevel.CLASS_5);
 		benutzer.setAuthentifizierung(authentifizierung);
 		authentifizierung.setBenutzer(benutzer);
 
 		assertAll(
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getLebensalter()).isEqualTo(21),
-			() -> assertThat(benutzer.getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(benutzer.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(benutzer.getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(benutzer.getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(benutzer.getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(benutzer.getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(benutzer.getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(benutzer.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT),
+			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
+			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
+			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
+			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
+			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
+			() -> assertThat(benutzer.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
+			() -> assertThat(benutzer.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
+			() -> assertThat(benutzer.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
+			() -> assertThat(benutzer.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
+			() -> assertThat(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit())
+				.isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
@@ -171,7 +178,7 @@ public class BenutzerSollte
 			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andererBenutzer)).isEqualTo(false),
 			() -> assertThat(sut.equals(benutzerMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer));
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer.hashCode()));
 	}
 
 	@Test
@@ -193,7 +200,7 @@ public class BenutzerSollte
 			sut.getAktuellesKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
-			Testdaten.WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			sut);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);

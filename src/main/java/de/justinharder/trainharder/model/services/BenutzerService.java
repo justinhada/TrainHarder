@@ -1,15 +1,16 @@
 package de.justinharder.trainharder.model.services;
 
-import java.io.Serializable;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.dto.BenutzerEintrag;
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
@@ -21,69 +22,102 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
+import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.Benutzerdaten;
 
-public class BenutzerService implements Serializable
+public class BenutzerService
 {
-	private static final long serialVersionUID = 4793689097189495259L;
-
 	private final BenutzerRepository benutzerRepository;
-	private final AuthentifizierungRepository authentfizierungRepository;
+	private final AuthentifizierungRepository authentifizierungRepository;
+	private final BenutzerDtoMapper benutzerDtoMapper;
 
 	@Inject
 	public BenutzerService(
 		final BenutzerRepository benutzerRepository,
-		final AuthentifizierungRepository authentifizierungRepository)
+		final AuthentifizierungRepository authentifizierungRepository,
+		final BenutzerDtoMapper benutzerDtoMapper)
 	{
 		this.benutzerRepository = benutzerRepository;
-		authentfizierungRepository = authentifizierungRepository;
+		this.authentifizierungRepository = authentifizierungRepository;
+		this.benutzerDtoMapper = benutzerDtoMapper;
 	}
 
-	public List<BenutzerEintrag> ermittleAlle()
-	{
-		return Konvertierer.konvertiereAlleZuBenutzerEintrag(benutzerRepository.ermittleAlle());
-	}
-
-	public BenutzerEintrag ermittleZuId(final String id) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
-		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository
-			.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(
-				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!")));
+		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
+			.map(benutzerDtoMapper::konvertiere)
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
 	}
 
-	public List<BenutzerEintrag> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
+		throws BenutzerNichtGefundenException
 	{
-		final var alleBenutzer = benutzerRepository.ermittleAlleZuNachname(nachname);
-		if (alleBenutzer == null)
-		{
-			throw new BenutzerNichtGefundenException(
-				"Es wurde kein Benutzer mit dem Nachnamen \"" + nachname + "\" gefunden!");
-		}
-		return Konvertierer.konvertiereAlleZuBenutzerEintrag(alleBenutzer);
+		Preconditions.checkNotNull(authentifizierungId,
+			"Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
+
+		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
+			.map(benutzerDtoMapper::konvertiere)
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!"));
 	}
 
-	public BenutzerEintrag speichereBenutzer(final BenutzerEintrag benutzerEintrag, final String authentifizierungId)
+	public BenutzerDto erstelleBenutzer(final Benutzerdaten benutzerdaten, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
-		final var authentifizierung = authentfizierungRepository
+		Preconditions.checkNotNull(benutzerdaten, "Erstellung des Benutzers benötigt gültige Benutzerdaten!");
+		Preconditions.checkNotNull(authentifizierungId,
+			"Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
+
+		final var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"));
 
-		return Konvertierer.konvertiereZuBenutzerEintrag(benutzerRepository.speichereBenutzer(new Benutzer(
+		final var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
-			benutzerEintrag.getVorname(),
-			benutzerEintrag.getNachname(),
-			benutzerEintrag.getLebensalter(),
-			Geschlecht.fromGeschlechtOption(benutzerEintrag.getGeschlecht()),
-			Erfahrung.fromErfahrungOption(benutzerEintrag.getErfahrung()),
-			Ernaehrung.fromErnaehrungOption(benutzerEintrag.getErnaehrung()),
-			Schlafqualitaet.fromSchlafqualitaetOption(benutzerEintrag.getSchlafqualitaet()),
-			Stress.fromStressOption(benutzerEintrag.getStress()),
-			Doping.fromDopingOption(benutzerEintrag.getDoping()),
-			Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerEintrag.getRegenerationsfaehigkeit()),
-			authentifizierung)));
+			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
+			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE),
+			new Benutzerangabe(
+				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromStressOption(benutzerdaten.getStress()),
+				Doping.fromDopingOption(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())),
+			authentifizierung));
+
+		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
+
+		return benutzerDtoMapper.konvertiere(benutzer);
+	}
+
+	public BenutzerDto aktualisiereBenutzer(final String id, final Benutzerdaten benutzerdaten)
+		throws BenutzerNichtGefundenException
+	{
+		Preconditions.checkNotNull(id, "Aktualisierung des Benutzers benötigt eine gültige ID!");
+		Preconditions.checkNotNull(benutzerdaten, "Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
+
+		final var benutzer = benutzerRepository
+			.ermittleZuId(new Primaerschluessel(id))
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
+
+		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(benutzer
+			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
+			.setGeburtsdatum(LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE))
+			.setBenutzerangabe(new Benutzerangabe(
+				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromStressOption(benutzerdaten.getStress()),
+				Doping.fromDopingOption(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit
+					.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())))));
 	}
 }

@@ -20,9 +20,8 @@ public enum Uebungsart
 		return Stream.of(Uebungsart.values())
 			.filter(u -> u.uebungsart.equalsIgnoreCase(uebungsartOption))
 			.findAny()
-			.orElseThrow(
-				() -> new IllegalArgumentException(
-					"Die Uebungsart-Option \"" + uebungsartOption + "\" existiert nicht!"));
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Uebungsart-Option \"" + uebungsartOption + "\" existiert nicht!"));
 	}
 
 	public static Uebungsart fromName(final String name)

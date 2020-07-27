@@ -1,27 +1,24 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 
-public interface AuthentifizierungRepository extends Serializable
+public interface AuthentifizierungRepository
 {
-	List<Authentifizierung> ermittleAlle();
-
 	Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id);
 
 	Optional<Authentifizierung> ermittleZuBenutzer(final Primaerschluessel benutzerId);
 
 	Optional<Authentifizierung> ermittleZuMail(final String mail);
 
+	Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername);
+
+	Optional<Authentifizierung> ermittleZuResetUuid(final UUID resetUuid);
+
 	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
 
 	Optional<Authentifizierung> login(final String benutzername, final String passwort);
-
-	boolean checkMail(final String mail);
-
-	boolean checkBenutzername(final String benutzername);
 }

@@ -1,12 +1,13 @@
 package de.justinharder.trainharder.model.domain;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
 
 import javax.persistence.MappedSuperclass;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 
 @MappedSuperclass
 public abstract class Entitaet implements Serializable
@@ -14,16 +15,6 @@ public abstract class Entitaet implements Serializable
 	private static final long serialVersionUID = 790786817201854580L;
 
 	public abstract Primaerschluessel getPrimaerschluessel();
-
-	public UUID getUuid()
-	{
-		return getPrimaerschluessel().getId();
-	}
-
-	public void setUuid(final UUID uuid)
-	{
-		getPrimaerschluessel().setId(uuid);
-	}
 
 	@Override
 	public boolean equals(final Object obj)
@@ -41,7 +32,7 @@ public abstract class Entitaet implements Serializable
 			return false;
 		}
 		final var other = (Entitaet) obj;
-		return getPrimaerschluessel().getId() == other.getPrimaerschluessel().getId();
+		return Objects.equal(getPrimaerschluessel().getId(), other.getPrimaerschluessel().getId());
 	}
 
 	@Override

@@ -7,15 +7,16 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
 
-import de.justinharder.trainharder.model.domain.dto.AuthentifizierungEintrag;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
-import de.justinharder.trainharder.model.services.AuthentifizierungService;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import lombok.Setter;
 
+@Setter
 @ApplicationScoped
 public class TrainHarderIdentityStore implements IdentityStore
 {
 	@Inject
-	private AuthentifizierungService authentifizierungService;
+	private LoginService loginService;
 
 	@Override
 	public CredentialValidationResult validate(final Credential credential)
@@ -26,7 +27,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 			{
 				final var benutzername = ((UsernamePasswordCredential) credential).getCaller();
 				final var passwort = ((UsernamePasswordCredential) credential).getPasswordAsString();
-				return validate(authentifizierungService.login(benutzername, passwort));
+				return validate(loginService.login(benutzername, passwort));
 			}
 		}
 		catch (final LoginException e)
@@ -37,8 +38,8 @@ public class TrainHarderIdentityStore implements IdentityStore
 		return CredentialValidationResult.NOT_VALIDATED_RESULT;
 	}
 
-	private CredentialValidationResult validate(final AuthentifizierungEintrag authentifizierungEintrag)
+	private CredentialValidationResult validate(final AuthentifizierungDto authentifizierungDto)
 	{
-		return new CredentialValidationResult(authentifizierungEintrag.getBenutzername());
+		return new CredentialValidationResult(authentifizierungDto.getBenutzername());
 	}
 }

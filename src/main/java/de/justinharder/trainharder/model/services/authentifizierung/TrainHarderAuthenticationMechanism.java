@@ -12,6 +12,9 @@ import javax.security.enterprise.identitystore.IdentityStore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Setter;
+
+@Setter
 @AutoApplySession
 @LoginToContinue(
 	loginPage = "/trainharder/login",

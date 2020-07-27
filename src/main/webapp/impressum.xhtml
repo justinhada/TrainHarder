@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
+	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
 	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
 </h:head>
 
@@ -17,12 +18,18 @@
 		<h:graphicImage styleClass="small-logo" value="#{resource['img/icon.svg']}" alt="TrainHarder-Logo" />
 		<nav>
 			<ul class="navigation">
-				<li><a class="without-border" href="/Powerlifting" title="Startseite"><i class="fa fa-home w3-xlarge" /></a></li>
-				<li><a class="without-border" href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a class="without-border" href="/Powerlifting/datenschutz.xhtml" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a class="without-border" href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-				<li><a class="with-border" href="/Powerlifting/login.xhtml" title="Sign in">Sign in</a></li>
-				<li><a class="with-border" href="/Powerlifting/join.xhtml" title="Sign up">Sign up</a></li>
+				<li><a class="without-border" href="/TrainHarder/start" title="Startseite"><i class="fa fa-home w3-xlarge" aria-hidden="true" /></a></li>
+				<li><a class="without-border" href="/TrainHarder/impressum" title="Impressum">Impressum</a></li>
+				<li><a class="without-border" href="/TrainHarder/datenschutz" title="Datenschutz">Datenschutz</a></li>
+				<li><a class="without-border" href="/TrainHarder/kontakt" title="Kontakt">Kontakt</a></li>
+				<h:panelGroup rendered="#{authentifizierung != null}">
+					<li><a class="with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="Zu deinen Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" /> #{authentifizierung.benutzername}</a></li>
+					<li><a class="with-border" href="/TrainHarder/benutzer/logout" title="Logout"><i class="fa fa-sign-out" aria-hidden="true" /></a></li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{authentifizierung == null}">
+					<li><a class="with-border" href="/TrainHarder/login" title="Sign in">Sign in</a></li>
+					<li><a class="with-border" href="/TrainHarder/join" title="Sign up">Sign up</a></li>
+				</h:panelGroup>
 			</ul>
 		</nav>
 	</header>
@@ -72,13 +79,6 @@
 			</p>
 		</div>
 
-		<div class="footer">
-			<ul>
-				<li><a href="/Powerlifting/impressum.xhtml" title="Impressum">Impressum</a></li>
-				<li><a href="/Powerlifting/datenschutz.xhtml" title="Lies unsere Datenschutzerklärung">Datenschutz</a></li>
-				<li><a href="/Powerlifting/kontakt.xhtml" title="Kontakt">Kontakt</a></li>
-			</ul>
-		</div>
 		<div class="attribution">
 			<span>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a
 				href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>

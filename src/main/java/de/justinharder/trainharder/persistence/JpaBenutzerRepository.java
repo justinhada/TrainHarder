@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.persistence;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -9,16 +8,13 @@ import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
-import de.justinharder.trainharder.model.domain.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
-	private static final long serialVersionUID = 3832865610872106637L;
-
 	public JpaBenutzerRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
@@ -37,24 +33,28 @@ public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
+	public Optional<Benutzer> ermittleZuAuthentifizierung(final Primaerschluessel authentifizierungId)
+	{
+		try
+		{
+			final var criteriaBuilder = entityManager.getCriteriaBuilder();
+			final var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
+			final var root = criteriaQuery.from(Benutzer.class);
+			final var joinAuthentifizierung = root.join("authentifizierung");
+			criteriaQuery.select(root).where(
+				criteriaBuilder.equal(joinAuthentifizierung.get("primaerschluessel"), authentifizierungId));
+			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+		}
+		catch (final NoResultException e)
+		{
+			return Optional.empty();
+		}
+	}
+
+	@Override
 	@Transactional
 	public Benutzer speichereBenutzer(final Benutzer benutzer)
 	{
 		return super.speichereEntitaet(Benutzer.class, benutzer);
-	}
-
-	@Override
-	public List<Benutzer> ermittleAlleZuNachname(final String nachname) throws BenutzerNichtGefundenException
-	{
-		try
-		{
-			return super.erstelleQuery(Benutzer.class, Map.of("nachname", nachname))
-				.getResultList();
-		}
-		catch (final NoResultException e)
-		{
-			throw new BenutzerNichtGefundenException(
-				"Es existiert kein Benutzer mit dem Nachnamen \"" + nachname + "\"!");
-		}
 	}
 }

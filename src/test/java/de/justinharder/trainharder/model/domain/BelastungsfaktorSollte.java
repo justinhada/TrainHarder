@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class BelastungsfaktorSollte
@@ -90,7 +91,7 @@ public class BelastungsfaktorSollte
 		belastungsfaktor.setQuads(0);
 		belastungsfaktor.setHamstrings(0);
 		belastungsfaktor.setShoulder(0.1);
-		belastungsfaktor.setUebung(Testdaten.WETTKAMPFBANKDRUECKEN);
+		belastungsfaktor.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
 			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
@@ -106,7 +107,7 @@ public class BelastungsfaktorSollte
 			() -> assertThat(belastungsfaktor.getQuads()).isEqualTo(0),
 			() -> assertThat(belastungsfaktor.getHamstrings()).isEqualTo(0),
 			() -> assertThat(belastungsfaktor.getShoulder()).isEqualTo(0.1),
-			() -> assertThat(belastungsfaktor.getUebung()).isEqualTo(Testdaten.WETTKAMPFBANKDRUECKEN));
+			() -> assertThat(belastungsfaktor.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test

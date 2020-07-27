@@ -29,13 +29,13 @@
 					<th>Nachname</th>
 					<th>Diesen Benutzer wählen</th>
 				</tr>
-				<ui:repeat id="benutzer_tabelle" var="benutzereintrag"
-					value="#{benutzerController.benutzerEintraege}">
+				<ui:repeat id="benutzer_tabelle" var="benutzer"
+					value="#{benutzerController.benutzer}">
 					<tr>
-						<td>#{benutzereintrag.vorname}</td>
-						<td>#{benutzereintrag.nachname}</td>
+						<td>#{benutzer.vorname}</td>
+						<td>#{benutzer.nachname}</td>
 						<td><a
-							href="#{navigator.zurUebungsauswahlSeite(benutzereintrag.id)}"
+							href="#{navigator.zurUebungsauswahlSeite(benutzer.id)}"
 							title="Mit diesem Benutzer fortfahren">➡️</a></td>
 					</tr>
 				</ui:repeat>

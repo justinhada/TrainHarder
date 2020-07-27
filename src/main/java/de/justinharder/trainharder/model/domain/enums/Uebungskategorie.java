@@ -31,9 +31,8 @@ public enum Uebungskategorie
 		return Stream.of(Uebungskategorie.values())
 			.filter(u -> u.uebungskategorie.equalsIgnoreCase(uebungskategorieOption))
 			.findAny()
-			.orElseThrow(
-				() -> new IllegalArgumentException(
-					"Die Uebungskategorie-Option \"" + uebungskategorieOption + "\" existiert nicht!"));
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Uebungskategorie-Option \"" + uebungskategorieOption + "\" existiert nicht!"));
 	}
 
 	public static Uebungskategorie fromName(final String name)
