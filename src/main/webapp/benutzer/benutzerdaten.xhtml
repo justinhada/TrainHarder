@@ -95,14 +95,24 @@
 								<div class="row">
 									<div class="col align-self-center">
 										<div class="form-check">
-											<input type="radio" class="form-check-input" name="geschlecht" value="MAENNLICH" checked="checked" />
-											<label class="form-check-label">Männlich</label>
+											<h:panelGroup rendered="#{benutzer == null || benutzer.geschlecht.equals('MAENNLICH')}">
+												<input type="radio" class="form-check-input" id="maennlich" name="geschlecht" value="MAENNLICH" checked="checked" />
+											</h:panelGroup>
+											<h:panelGroup rendered="#{benutzer.geschlecht.equals('WEIBLICH')}">
+												<input type="radio" class="form-check-input" id="maennlich" name="geschlecht" value="MAENNLICH" />
+											</h:panelGroup>
+											<label class="form-check-label" for="maennlich">Männlich</label>
 										</div>
 									</div>
 									<div class="col align-self-center">
 										<div class="form-check">
-											<input type="radio" class="form-check-input" name="geschlecht" value="WEIBLICH" />
-											<label class="form-check-label">Weiblich</label>
+											<h:panelGroup rendered="#{benutzer == null || benutzer.geschlecht.equals('MAENNLICH')}">
+												<input type="radio" class="form-check-input" id="weiblich" name="geschlecht" value="WEIBLICH" />
+											</h:panelGroup>
+											<h:panelGroup rendered="#{benutzer.geschlecht.equals('WEIBLICH')}">
+												<input type="radio" class="form-check-input" id="weiblich" name="geschlecht" value="WEIBLICH" checked="checked" />
+											</h:panelGroup>
+											<label class="form-check-label" for="weiblich">Weiblich</label>
 										</div>
 									</div>
 								</div>
@@ -114,11 +124,33 @@
 							<div class="col align-self-center text-right text-bold">Erfahrung</div>
 							<div class="col">
 								<select class="form-control" name="erfahrung">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="BEGINNER">Beginner (&lt;4 Jahre)</option>
-									<option value="FORTGESCHRITTEN">Fortgeschritten (4-8 Jahre)</option>
-									<option value="SEHR_FORTGESCHRITTEN">Sehr Fortgeschritten (8-12 Jahre)</option>
-									<option value="EXPERTE">Experte (&gt;12 Jahre)</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.erfahrung.equals('BEGINNER')}">
+										<option value="BEGINNER" selected="selected">Beginner (&lt;4 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.erfahrung.equals('BEGINNER')}">
+										<option value="BEGINNER">Beginner (&lt;4 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.erfahrung.equals('FORTGESCHRITTEN')}">
+										<option value="FORTGESCHRITTEN" selected="selected">Fortgeschritten (4-8 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.erfahrung.equals('FORTGESCHRITTEN')}">
+										<option value="FORTGESCHRITTEN">Fortgeschritten (4-8 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
+										<option value="SEHR_FORTGESCHRITTEN" selected="selected">Sehr Fortgeschritten (8-12 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
+										<option value="SEHR_FORTGESCHRITTEN">Sehr Fortgeschritten (8-12 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.erfahrung.equals('EXPERTE')}">
+										<option value="EXPERTE" selected="selected">Experte (&gt;12 Jahre)</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.erfahrung.equals('EXPERTE')}">
+										<option value="EXPERTE">Experte (&gt;12 Jahre)</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
@@ -128,10 +160,27 @@
 							<div class="col align-self-center text-right text-bold">Ernährung</div>
 							<div class="col">
 								<select class="form-control" name="ernaehrung">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="SCHLECHT">Schlecht</option>
-									<option value="DURCHSCHNITT">Durchschnittlich</option>
-									<option value="GUT">Gut</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.ernaehrung.equals('SCHLECHT')}">
+										<option value="SCHLECHT" selected="selected">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('SCHLECHT')}">
+										<option value="SCHLECHT">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.ernaehrung.equals('DURCHSCHNITT')}">
+										<option value="DURCHSCHNITT" selected="selected">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('DURCHSCHNITT')}">
+										<option value="DURCHSCHNITT">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.ernaehrung.equals('GUT')}">
+										<option value="GUT" selected="selected">Gut</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('GUT')}">
+										<option value="GUT">Gut</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
@@ -141,10 +190,27 @@
 							<div class="col align-self-center text-right text-bold">Schlafqualität</div>
 							<div class="col">
 								<select class="form-control" name="schlafqualitaet">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="SCHLECHT">Schlecht</option>
-									<option value="DURCHSCHNITT">Durchschnittlich</option>
-									<option value="GUT">Gut</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('SCHLECHT')}">
+										<option value="SCHLECHT" selected="selected">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('SCHLECHT')}">
+										<option value="SCHLECHT">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('DURCHSCHNITT')}">
+										<option value="DURCHSCHNITT" selected="selected">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('DURCHSCHNITT')}">
+										<option value="DURCHSCHNITT">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('GUT')}">
+										<option value="GUT" selected="selected">Gut</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('GUT')}">
+										<option value="GUT">Gut</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
@@ -154,10 +220,27 @@
 							<div class="col align-self-center text-right text-bold">Stress</div>
 							<div class="col">
 								<select class="form-control" name="stress">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="NIEDRIG">Niedrig</option>
-									<option value="MITTELMAESSIG">Mittelmäßig</option>
-									<option value="HOCH">Hoch</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.stress.equals('NIEDRIG')}">
+										<option value="NIEDRIG" selected="selected">Niedrig</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.stress.equals('NIEDRIG')}">
+										<option value="NIEDRIG">Niedrig</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.stress.equals('MITTELMAESSIG')}">
+										<option value="MITTELMAESSIG">Mittelmäßig</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.stress.equals('MITTELMAESSIG')}">
+										<option value="MITTELMAESSIG" selected="selected">Mittelmäßig</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.stress.equals('HOCH')}">
+										<option value="HOCH">Hoch</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.stress.equals('HOCH')}">
+										<option value="HOCH" selected="selected">Hoch</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
@@ -167,9 +250,21 @@
 							<div class="col align-self-center text-right text-bold">Doping</div>
 							<div class="col">
 								<select class="form-control" name="doping">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="NEIN">Nein</option>
-									<option value="JA">Ja</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.doping.equals('NEIN')}">
+										<option value="NEIN" selected="selected">Nein</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.doping.equals('NEIN')}">
+										<option value="NEIN">Nein</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.doping.equals('JA')}">
+										<option value="JA" selected="selected">Ja</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.doping.equals('JA')}">
+										<option value="JA">Ja</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
@@ -179,12 +274,39 @@
 							<div class="col align-self-center text-right text-bold">Regenerationsfähigkeit</div>
 							<div class="col">
 								<select class="form-control" name="regenerationsfaehigkeit">
-									<option selected="selected">Bitte auswählen...</option>
-									<option value="SCHLECHT">Schlecht</option>
-									<option value="UNTERDURCHSCHNITTLICH">Unterdurchschnittlich</option>
-									<option value="DURCHSCHNITTLICH">Durchschnittlich</option>
-									<option value="GUT">Gut</option>
-									<option value="PERFEKT">Perfekt</option>
+									<h:panelGroup rendered="#{benutzer == null}">
+										<option selected="selected">Bitte auswählen...</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('SCHLECHT')}">
+										<option value="SCHLECHT" selected="selected">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('SCHLECHT')}">
+										<option value="SCHLECHT">Schlecht</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
+										<option value="UNTERDURCHSCHNITTLICH" selected="selected">Unterdurchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
+										<option value="UNTERDURCHSCHNITTLICH">Unterdurchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
+										<option value="DURCHSCHNITTLICH" selected="selected">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
+										<option value="DURCHSCHNITTLICH">Durchschnittlich</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('GUT')}">
+										<option value="GUT" selected="selected">Gut</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('GUT')}">
+										<option value="GUT">Gut</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('PERFEKT')}">
+										<option value="PERFEKT" selected="selected">Perfekt</option>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('PERFEKT')}">
+										<option value="PERFEKT">Perfekt</option>
+									</h:panelGroup>
 								</select>
 							</div>
 						</div>
