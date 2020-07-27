@@ -77,7 +77,7 @@ public class Benutzer extends Entitaet
 	{
 		koerpermessungen.add(koerpermessung);
 	}
-	
+
 	public int getAktuellesAlter()
 	{
 		return Period.between(geburtsdatum, LocalDate.now()).getYears();
@@ -100,4 +100,23 @@ public class Benutzer extends Entitaet
 			.map(Koerpermessung::getKoerpergroesse)
 			.orElse(null);
 	}
+
+	public Benutzer setName(final Name name)
+	{
+		this.name = name;
+		return this;
+	}
+
+	public Benutzer setGeburtsdatum(final LocalDate geburtsdatum)
+	{
+		this.geburtsdatum = geburtsdatum;
+		return this;
+	}
+
+	public Benutzer setBenutzerangabe(final Benutzerangabe benutzerangabe)
+	{
+		this.benutzerangabe = benutzerangabe;
+		return this;
+	}
+
 }

@@ -68,4 +68,51 @@ public class Benutzerangabe implements Serializable
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 	}
 
+	public Benutzerangabe setKraftlevel(final Kraftlevel kraftlevel)
+	{
+		this.kraftlevel = kraftlevel;
+		return this;
+	}
+
+	public Benutzerangabe setGeschlecht(final Geschlecht geschlecht)
+	{
+		this.geschlecht = geschlecht;
+		return this;
+	}
+
+	public Benutzerangabe setErfahrung(final Erfahrung erfahrung)
+	{
+		this.erfahrung = erfahrung;
+		return this;
+	}
+
+	public Benutzerangabe setErnaehrung(final Ernaehrung ernaehrung)
+	{
+		this.ernaehrung = ernaehrung;
+		return this;
+	}
+
+	public Benutzerangabe setSchlafqualitaet(final Schlafqualitaet schlafqualitaet)
+	{
+		this.schlafqualitaet = schlafqualitaet;
+		return this;
+	}
+
+	public Benutzerangabe setStress(final Stress stress)
+	{
+		this.stress = stress;
+		return this;
+	}
+
+	public Benutzerangabe setDoping(final Doping doping)
+	{
+		this.doping = doping;
+		return this;
+	}
+
+	public Benutzerangabe setRegenerationsfaehigkeit(final Regenerationsfaehigkeit regenerationsfaehigkeit)
+	{
+		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		return this;
+	}
 }

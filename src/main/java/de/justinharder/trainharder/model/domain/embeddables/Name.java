@@ -21,4 +21,16 @@ public class Name implements Serializable
 	private String vorname;
 	@Column(name = "Nachname")
 	private String nachname;
+
+	public Name setVorname(final String vorname)
+	{
+		this.vorname = vorname;
+		return this;
+	}
+
+	public Name setNachname(final String nachname)
+	{
+		this.nachname = nachname;
+		return this;
+	}
 }
