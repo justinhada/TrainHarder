@@ -1,5 +1,8 @@
 package de.justinharder.trainharder.model.services;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
@@ -21,9 +24,12 @@ import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.Benutzerdaten;
 
 public class BenutzerService
 {
+	private static final String DATUMSFORMAT = "dd.MM.yyyy";
+
 	private final BenutzerRepository benutzerRepository;
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final BenutzerDtoMapper benutzerDtoMapper;
@@ -45,22 +51,29 @@ public class BenutzerService
 
 		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(benutzerDtoMapper::konvertiere)
-			.orElseThrow(
-				() -> new BenutzerNichtGefundenException("Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
 	}
 
 	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
 		throws BenutzerNichtGefundenException
 	{
+		Preconditions.checkNotNull(authentifizierungId,
+			"Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
+
 		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
 			.map(benutzerDtoMapper::konvertiere)
 			.orElseThrow(() -> new BenutzerNichtGefundenException(
 				"Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!"));
 	}
 
-	public BenutzerDto speichereBenutzer(final BenutzerDto benutzerDto, final String authentifizierungId)
+	public BenutzerDto erstelleBenutzer(final Benutzerdaten benutzerdaten, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
+		Preconditions.checkNotNull(benutzerdaten, "Erstellung des Benutzers benötigt gültige Benutzerdaten!");
+		Preconditions.checkNotNull(authentifizierungId,
+			"Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
+
 		final var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
@@ -68,16 +81,43 @@ public class BenutzerService
 
 		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
-			new Name(benutzerDto.getVorname(), benutzerDto.getNachname()),
-			benutzerDto.getGeburtsdatum(),
+			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
+			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
 			new Benutzerangabe(
-				Geschlecht.fromGeschlechtOption(benutzerDto.getGeschlecht()),
-				Erfahrung.fromErfahrungOption(benutzerDto.getErfahrung()),
-				Ernaehrung.fromErnaehrungOption(benutzerDto.getErnaehrung()),
-				Schlafqualitaet.fromSchlafqualitaetOption(benutzerDto.getSchlafqualitaet()),
-				Stress.fromStressOption(benutzerDto.getStress()),
-				Doping.fromDopingOption(benutzerDto.getDoping()),
-				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerDto.getRegenerationsfaehigkeit())),
+				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromStressOption(benutzerdaten.getStress()),
+				Doping.fromDopingOption(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())),
 			authentifizierung)));
+	}
+
+	public BenutzerDto aktualisiereBenutzer(final String id, final Benutzerdaten benutzerdaten)
+		throws BenutzerNichtGefundenException
+	{
+		Preconditions.checkNotNull(id, "Aktualisierung des Benutzers benötigt eine gültige ID!");
+		Preconditions.checkNotNull(benutzerdaten, "Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
+
+		final var benutzer = benutzerRepository
+			.ermittleZuId(new Primaerschluessel(id))
+			.orElseThrow(() -> new BenutzerNichtGefundenException(
+				"Der Benutzer mit der ID \"" + id + "\" existiert nicht!"));
+
+		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(benutzer
+			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
+			.setGeburtsdatum(LocalDate.parse(
+				benutzerdaten.getGeburtsdatum(),
+				DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setBenutzerangabe(new Benutzerangabe(
+				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromStressOption(benutzerdaten.getStress()),
+				Doping.fromDopingOption(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit
+					.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())))));
 	}
 }

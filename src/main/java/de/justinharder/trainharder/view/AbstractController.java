@@ -8,6 +8,8 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import de.justinharder.trainharder.view.dto.BenutzerDto;
 import lombok.Setter;
 
 @Setter
@@ -29,17 +31,25 @@ public abstract class AbstractController
 		{
 			if (securityContext.getCallerPrincipal() != null)
 			{
-				final var authentifizierungDto =
-					authentifizierungService.ermittleZuBenutzername(securityContext.getCallerPrincipal().getName());
+				final var authentifizierungDto = getAuthentifizierungDto();
 				models.put("authentifizierung", authentifizierungDto);
-				models.put("benutzer",
-					benutzerService.ermittleZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel()));
+				models.put("benutzer", getBenutzerDto(authentifizierungDto.getPrimaerschluessel()));
 			}
 		}
 		catch (final AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
 		}
+	}
+
+	protected AuthentifizierungDto getAuthentifizierungDto() throws AuthentifizierungNichtGefundenException
+	{
+		return authentifizierungService.ermittleZuBenutzername(securityContext.getCallerPrincipal().getName());
+	}
+
+	protected BenutzerDto getBenutzerDto(final String authentifizierungId) throws BenutzerNichtGefundenException
+	{
+		return benutzerService.ermittleZuAuthentifizierung(authentifizierungId);
 	}
 
 	public abstract String index();
