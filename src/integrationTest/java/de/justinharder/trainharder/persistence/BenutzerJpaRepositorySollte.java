@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
@@ -26,26 +24,14 @@ import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class JpaBenutzerRepositorySollte
+public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 {
-	private JpaBenutzerRepository sut;
-
-	@BeforeClass
-	public static void setupClass()
-	{
-		JpaRepositorySollte.erzeugeTestdaten();
-	}
-
-	@AfterClass
-	public static void resetClass()
-	{
-		JpaRepositorySollte.schliesseEntityMananger();
-	}
+	private BenutzerJpaRepository sut;
 
 	@Before
 	public void setup()
 	{
-		sut = new JpaBenutzerRepository(JpaRepositorySollte.erzeugeEntityManager());
+		sut = new BenutzerJpaRepository(erzeugeEntityManager());
 	}
 
 	@Test

@@ -8,7 +8,7 @@ import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 
-public class JpaBelastungsfaktorRepository extends JpaRepository<Belastungsfaktor> implements BelastungsfaktorRepository
+public class BelastungsfaktorJpaRepository extends JpaRepository<Belastungsfaktor> implements BelastungsfaktorRepository
 {
 	@Override
 	public Optional<Belastungsfaktor> ermittleZuId(final Primaerschluessel id)

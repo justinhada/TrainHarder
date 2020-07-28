@@ -4,11 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import de.justinharder.trainharder.setup.TestdatenAnleger;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import de.justinharder.trainharder.setup.TestdatenAnleger;
+
 public class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
@@ -16,7 +16,19 @@ public class JpaRepositorySollte
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
 
-	public static final EntityManager erzeugeEntityManager()
+	@BeforeClass
+	public static void setupClass()
+	{
+		erzeugeTestdaten();
+	}
+
+	@AfterClass
+	public static void resetClass()
+	{
+		schliesseEntityMananger();
+	}
+
+	protected static final EntityManager erzeugeEntityManager()
 	{
 		if (entityManager == null)
 		{
@@ -26,7 +38,7 @@ public class JpaRepositorySollte
 		return entityManager;
 	}
 
-	public static final void schliesseEntityMananger()
+	protected static final void schliesseEntityMananger()
 	{
 		if (entityManager.getTransaction().isActive())
 		{
@@ -38,7 +50,7 @@ public class JpaRepositorySollte
 		entityManagerFactory = null;
 	}
 
-	public static void erzeugeTestdaten()
+	protected static void erzeugeTestdaten()
 	{
 		erzeugeEntityManager();
 

@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
@@ -28,26 +26,14 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class JpaAuthentifizierungRepositorySollte
+public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 {
-	private JpaAuthentifizierungRepository sut;
-
-	@BeforeClass
-	public static void setupClass()
-	{
-		JpaRepositorySollte.erzeugeTestdaten();
-	}
-
-	@AfterClass
-	public static void resetClass()
-	{
-		JpaRepositorySollte.schliesseEntityMananger();
-	}
+	private AuthentifizierungJpaRepository sut;
 
 	@Before
 	public void setup()
 	{
-		sut = new JpaAuthentifizierungRepository(JpaRepositorySollte.erzeugeEntityManager());
+		sut = new AuthentifizierungJpaRepository(JpaRepositorySollte.erzeugeEntityManager());
 	}
 
 	@Test

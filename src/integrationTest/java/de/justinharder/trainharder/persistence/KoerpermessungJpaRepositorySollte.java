@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Koerpermessung;
@@ -16,21 +14,9 @@ import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KoerpermessungJpaRepositorySollte
+public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private KoerpermessungJpaRepository sut;
-
-	@BeforeClass
-	public static void setupClass()
-	{
-		JpaRepositorySollte.erzeugeTestdaten();
-	}
-
-	@AfterClass
-	public static void resetClass()
-	{
-		JpaRepositorySollte.schliesseEntityMananger();
-	}
 
 	@Before
 	public void setup()

@@ -13,10 +13,10 @@ import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class JpaAuthentifizierungRepository extends JpaRepository<Authentifizierung>
+public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>
 	implements AuthentifizierungRepository
 {
-	public JpaAuthentifizierungRepository(final EntityManager entityManager)
+	public AuthentifizierungJpaRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
 	}

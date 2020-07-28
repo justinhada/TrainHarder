@@ -14,9 +14,9 @@ import de.justinharder.trainharder.model.repository.UebungRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class JpaUebungRepository extends JpaRepository<Uebung> implements UebungRepository
+public class UebungJpaRepository extends JpaRepository<Uebung> implements UebungRepository
 {
-	public JpaUebungRepository(final EntityManager entityManager)
+	public UebungJpaRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
 	}

@@ -12,9 +12,9 @@ import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class JpaKraftwertRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
+public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
-	public JpaKraftwertRepository(final EntityManager entityManager)
+	public KraftwertJpaRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
 	}

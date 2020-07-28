@@ -13,9 +13,9 @@ import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class JpaBenutzerRepository extends JpaRepository<Benutzer> implements BenutzerRepository
+public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements BenutzerRepository
 {
-	public JpaBenutzerRepository(final EntityManager entityManager)
+	public BenutzerJpaRepository(final EntityManager entityManager)
 	{
 		super(entityManager);
 	}
