@@ -122,7 +122,7 @@ public class UebungSollte
 		final var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			100,
-			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
+			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			sut,

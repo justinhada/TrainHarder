@@ -18,7 +18,7 @@ public class KraftlevelBerechner
 	{
 		this.benutzer = benutzer;
 		geschlecht = benutzer.getBenutzerangabe().getGeschlecht();
-		koerpergewicht = benutzer.getAktuellesKoerpergewicht();
+		koerpergewicht = benutzer.getKoerpergewicht();
 		kraftwerte = benutzer.getKraftwerte();
 	}
 

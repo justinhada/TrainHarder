@@ -12,6 +12,7 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -38,7 +39,7 @@ public class KraftlevelBerechnerSollte
 		final var kniebeugeKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			110,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
@@ -47,7 +48,7 @@ public class KraftlevelBerechnerSollte
 		final var bankdrueckenKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			95,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
@@ -56,7 +57,7 @@ public class KraftlevelBerechnerSollte
 		final var kreuzhebenKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			140,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,
@@ -79,9 +80,7 @@ public class KraftlevelBerechnerSollte
 			new Koerpermessung(
 				new Primaerschluessel(),
 				LocalDate.now(),
-				178,
-				90,
-				24,
+				new Koerpermasse(178, 90, 24),
 				2500,
 				2900,
 				benutzer);
@@ -99,7 +98,7 @@ public class KraftlevelBerechnerSollte
 		final var kniebeugeKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			110,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
@@ -108,7 +107,7 @@ public class KraftlevelBerechnerSollte
 		final var bankdrueckenKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			95,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
@@ -117,7 +116,7 @@ public class KraftlevelBerechnerSollte
 		final var kreuzhebenKraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			140,
-			benutzer.getAktuellesKoerpergewicht(),
+			benutzer.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,

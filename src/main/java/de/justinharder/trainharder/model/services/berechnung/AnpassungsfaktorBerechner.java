@@ -31,10 +31,10 @@ public class AnpassungsfaktorBerechner
 			anpassungsfaktor += 5;
 		}
 
-		berechneKoerpergewichtAnpassungsfaktor(benutzer.getAktuellesKoerpergewicht(), geschlecht);
-		berechneKoerpergroesseAnpassungsfaktor(benutzer.getAktuelleKoerpergroesse(), geschlecht);
+		berechneKoerpergewichtAnpassungsfaktor(benutzer.getKoerpergewicht(), geschlecht);
+		berechneKoerpergroesseAnpassungsfaktor(benutzer.getKoerpergroesse(), geschlecht);
 		berechneErfahrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErfahrung());
-		berechneLebensalterAnpassungsfaktor(benutzer.getAktuellesAlter());
+		berechneLebensalterAnpassungsfaktor(benutzer.getAlter());
 		berechneErnaehrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErnaehrung());
 		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getBenutzerangabe().getSchlafqualitaet());
 		berechneStressAnpassungsfaktor(benutzer.getBenutzerangabe().getStress());

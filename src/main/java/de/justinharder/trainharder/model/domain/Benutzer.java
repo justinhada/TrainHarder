@@ -78,27 +78,27 @@ public class Benutzer extends Entitaet
 		koerpermessungen.add(koerpermessung);
 	}
 
-	public int getAktuellesAlter()
+	public int getAlter()
 	{
 		return Period.between(geburtsdatum, LocalDate.now()).getYears();
 	}
 
-	public double getAktuellesKoerpergewicht()
+	public double getKoerpergewicht()
 	{
 		return koerpermessungen
 			.stream()
 			.reduce((first, second) -> second)
-			.map(Koerpermessung::getKoerpergewicht)
-			.orElse(null);
+			.map(koerpermessung -> koerpermessung.getKoerpermasse().getKoerpergewicht())
+			.orElseGet(() -> null);
 	}
 
-	public int getAktuelleKoerpergroesse()
+	public int getKoerpergroesse()
 	{
 		return koerpermessungen
 			.stream()
 			.reduce((first, second) -> second)
-			.map(Koerpermessung::getKoerpergroesse)
-			.orElse(null);
+			.map(koerpermessung -> koerpermessung.getKoerpermasse().getKoerpergroesse())
+			.orElseGet(() -> null);
 	}
 
 	public Benutzer setName(final Name name)

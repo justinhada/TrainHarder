@@ -40,7 +40,7 @@ public class KraftwertSollte
 		final var kraftwert = new Kraftwert(
 			id,
 			100,
-			Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht(),
+			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
@@ -50,7 +50,7 @@ public class KraftwertSollte
 			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
 			() -> assertThat(kraftwert.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
@@ -65,7 +65,7 @@ public class KraftwertSollte
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID),
 			() -> assertThat(sut.getMaximum()).isEqualTo(100),
 			() -> assertThat(sut.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(sut.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
@@ -80,7 +80,7 @@ public class KraftwertSollte
 		final var kraftwert = new Kraftwert();
 		kraftwert.setPrimaerschluessel(id);
 		kraftwert.setMaximum(100);
-		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht());
 		kraftwert.setDatum(LocalDate.now());
 		kraftwert.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		kraftwert.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
@@ -90,7 +90,7 @@ public class KraftwertSollte
 			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
 			() -> assertThat(kraftwert.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getAktuellesKoerpergewicht()),
+				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),

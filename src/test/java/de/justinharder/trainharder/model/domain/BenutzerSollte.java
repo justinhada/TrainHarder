@@ -107,8 +107,8 @@ public class BenutzerSollte
 			() -> assertThat(sut.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
 			() -> assertThat(sut.getBenutzerangabe().getRegenerationsfaehigkeit())
 				.isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(sut.getAktuelleKoerpergroesse()).isEqualTo(178),
-			() -> assertThat(sut.getAktuellesKoerpergewicht()).isEqualTo(90),
+			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
 			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 	}
@@ -197,7 +197,7 @@ public class BenutzerSollte
 		final var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			100,
-			sut.getAktuellesKoerpergewicht(),
+			sut.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,

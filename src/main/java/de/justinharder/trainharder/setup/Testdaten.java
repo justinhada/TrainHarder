@@ -11,6 +11,7 @@ import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
@@ -45,6 +46,9 @@ public class Testdaten
 
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_JUSTIN = new AuthentifizierungDto();
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_EDUARD = new AuthentifizierungDto();
+
+	public static final Koerpermasse KOERPERMASSE_JUSTIN = new Koerpermasse();
+	public static final Koerpermasse KOERPERMASSE_EDUARD = new Koerpermasse();
 
 	public static final Primaerschluessel KOERPERMESSUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel KOERPERMESSUNG_EDUARD_ID = new Primaerschluessel();
@@ -128,18 +132,26 @@ public class Testdaten
 		AUTHENTIFIZIERUNG_DTO_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 		AUTHENTIFIZIERUNG_DTO_EDUARD.setPasswort(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
 
+		KOERPERMASSE_JUSTIN.setKoerpergroesse(178);
+		KOERPERMASSE_JUSTIN.setKoerpergewicht(90);
+		KOERPERMASSE_JUSTIN.setKoerperfettAnteil(25);
+
 		KOERPERMESSUNG_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID);
 		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.now());
-		KOERPERMESSUNG_JUSTIN.setKoerpergroesse(178);
-		KOERPERMESSUNG_JUSTIN.setKoerpergewicht(90);
-		KOERPERMESSUNG_JUSTIN.setKoerperfettAnteil(25);
+		KOERPERMESSUNG_JUSTIN.setKoerpermasse(KOERPERMASSE_JUSTIN);
 		KOERPERMESSUNG_JUSTIN.setEingenommeneKalorien(2500);
 		KOERPERMESSUNG_JUSTIN.setVerbrannteKalorien(2900);
 		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
+		KOERPERMASSE_EDUARD.setKoerpergroesse(182);
+		KOERPERMASSE_EDUARD.setKoerpergewicht(64);
+		KOERPERMASSE_EDUARD.setKoerperfettAnteil(9);
+
 		KOERPERMESSUNG_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID);
-		KOERPERMESSUNG_EDUARD.setKoerpergroesse(182);
-		KOERPERMESSUNG_EDUARD.setKoerpergewicht(64);
+		KOERPERMESSUNG_EDUARD.setDatum(LocalDate.now());
+		KOERPERMESSUNG_EDUARD.setKoerpermasse(KOERPERMASSE_EDUARD);
+		KOERPERMESSUNG_EDUARD.setEingenommeneKalorien(2500);
+		KOERPERMESSUNG_EDUARD.setVerbrannteKalorien(2900);
 		KOERPERMESSUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
 		BENUTZERANGABE_JUSTIN.setKraftlevel(Kraftlevel.CLASS_5);
@@ -237,7 +249,7 @@ public class Testdaten
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setDatum(LocalDate.now());
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(BENUTZER_JUSTIN);
@@ -297,7 +309,7 @@ public class Testdaten
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setUebung(UEBUNG_LOWBAR_KNIEBEUGE);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setMaximum(150);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setDatum(LocalDate.now());
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(BENUTZER_JUSTIN);
@@ -372,7 +384,7 @@ public class Testdaten
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setMaximum(200);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(BENUTZER_JUSTIN.getAktuellesKoerpergewicht());
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setDatum(LocalDate.now());
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(BENUTZER_JUSTIN);
