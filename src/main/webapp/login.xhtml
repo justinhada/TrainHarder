@@ -12,17 +12,17 @@
 
 <h:body>
 	<div class="center-container small-container">
-		<a href="start" title="Startseite"><h:graphicImage styleClass="logo" value="#{resource['img/logo.png']}" alt="TrainHarder-Logo" /></a>
+		<a href="/TrainHarder/start" title="Startseite"><h:graphicImage styleClass="logo" value="#{resource['img/logo.png']}" alt="TrainHarder-Logo" /></a>
 	</div>
 	<div class="center-container small-container">
 		<div class="wrapper text-left text-bold text-height">
 			<form method="post" action="/TrainHarder/login">
 				<div class="title">Sign in</div>
 				<h:panelGroup rendered="#{fehler != null}">
-				<div class="text-central text-bold text-height text-error">
-					#{fehler}
-					<br />
-				</div>
+					<div class="text-central text-bold text-height text-error">
+						#{fehler}
+						<br />
+					</div>
 				</h:panelGroup>
 				<label for="benutzername">Benutzername</label>
 				<br />
@@ -39,13 +39,13 @@
 			<div class="text-central">
 				<br />
 				<label>
-					<a href="login/reset" title="Passwort vergessen">Passwort vergessen</a>?
+					<a class="link-inactive" href="/TrainHarder/login/reset" title="Passwort vergessen">Passwort vergessen</a>?
 				</label>
 			</div>
 		</div>
 		<br />
 		<div class="wrapper text-central text-bold text-height">
-			<span>Neu?</span> <span><a id="register-link" href="join" title="Erstelle einen Account">Starte mit TrainHarder</a>.</span>
+			<span>Neu?</span> <span><a class="link-inactive" href="/TrainHarder/join" title="Erstelle einen Account">Starte mit TrainHarder</a>.</span>
 		</div>
 		<br />
 		<div class="attribution text-central">

@@ -1,11 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	template="/WEB-INF/vorlagen/seite.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough" template="/WEB-INF/vorlagen/seite.xhtml">
 	<ui:include src="/WEB-INF/vorlagen/seite.xhtml" />
 	<ui:define name="titel">Powerlifting 🏋️ - Eine Übung erstellen</ui:define>
 	<ui:define name="inhalt">
@@ -16,101 +10,70 @@
 			<h:outputLabel value="Übungsart: " />
 			<h:selectOneMenu value="#{uebungController.uebung.uebungsart}">
 				<f:selectItem itemValue="GRUNDUEBUNG" itemLabel="Grundübung" />
-				<f:selectItem itemValue="GRUNDUEBUNG_VARIATION"
-					itemLabel="Grundübung-Variation" />
+				<f:selectItem itemValue="GRUNDUEBUNG_VARIATION" itemLabel="Grundübung-Variation" />
 				<f:selectItem itemValue="ASSISTENZ" itemLabel="Assistenz" />
 			</h:selectOneMenu>
 			<br />
 			<h:outputLabel value="Übungskategorie: " />
-			<h:selectOneMenu
-				value="#{uebungController.uebung.uebungskategorie}">
-				<f:selectItem itemValue="ASSISTENZ_BRUST"
-					itemLabel="Assistenz-Brust" />
+			<h:selectOneMenu value="#{uebungController.uebung.uebungskategorie}">
+				<f:selectItem itemValue="ASSISTENZ_BRUST" itemLabel="Assistenz-Brust" />
 				<f:selectItem itemValue="ASSISTENZ_CORE" itemLabel="Assistenz-Core" />
-				<f:selectItem itemValue="ASSISTENZ_GLUTEUS"
-					itemLabel="Assistenz-Gluteus" />
-				<f:selectItem itemValue="ASSISTENZ_RUECKEN"
-					itemLabel="Assistenz-Rücken" />
-				<f:selectItem itemValue="ASSISTENZ_SCHULTER"
-					itemLabel="Assistenz-Schulter" />
-				<f:selectItem itemValue="ASSISTENZ_TRIZEPS"
-					itemLabel="Assistenz-Trizeps" />
-				<f:selectItem itemValue="ASSISTENZ_UNTERARM"
-					itemLabel="Assistenz-Unterarm" />
-				<f:selectItem itemValue="BANKDRUECKEN_VARIATION"
-					itemLabel="Bankdrücken-Variation" />
-				<f:selectItem itemValue="KNIEBEUGE_VARIATION"
-					itemLabel="Kniebeuge-Variation" />
-				<f:selectItem itemValue=">KREUZHEBEN_VARIATION"
-					itemLabel="Kreuzheben-Variation" />
-				<f:selectItem itemValue="UEBERKOPFDRUECKEN"
-					itemLabel="Überkopfdrücken" />
-				<f:selectItem itemValue="WETTKAMPF_BANKDRUECKEN"
-					itemLabel="Wettkampf-Bankdrücken" />
-				<f:selectItem itemValue="WETTKAMPF_KNIEBEUGE"
-					itemLabel="Wettkampf-Kniebeuge" />
-				<f:selectItem itemValue="WETTKAMPF_KREUZHEBEN"
-					itemLabel="Wettkampf-Kreuzheben" />
+				<f:selectItem itemValue="ASSISTENZ_GLUTEUS" itemLabel="Assistenz-Gluteus" />
+				<f:selectItem itemValue="ASSISTENZ_RUECKEN" itemLabel="Assistenz-Rücken" />
+				<f:selectItem itemValue="ASSISTENZ_SCHULTER" itemLabel="Assistenz-Schulter" />
+				<f:selectItem itemValue="ASSISTENZ_TRIZEPS" itemLabel="Assistenz-Trizeps" />
+				<f:selectItem itemValue="ASSISTENZ_UNTERARM" itemLabel="Assistenz-Unterarm" />
+				<f:selectItem itemValue="BANKDRUECKEN_VARIATION" itemLabel="Bankdrücken-Variation" />
+				<f:selectItem itemValue="KNIEBEUGE_VARIATION" itemLabel="Kniebeuge-Variation" />
+				<f:selectItem itemValue=">KREUZHEBEN_VARIATION" itemLabel="Kreuzheben-Variation" />
+				<f:selectItem itemValue="UEBERKOPFDRUECKEN" itemLabel="Überkopfdrücken" />
+				<f:selectItem itemValue="WETTKAMPF_BANKDRUECKEN" itemLabel="Wettkampf-Bankdrücken" />
+				<f:selectItem itemValue="WETTKAMPF_KNIEBEUGE" itemLabel="Wettkampf-Kniebeuge" />
+				<f:selectItem itemValue="WETTKAMPF_KREUZHEBEN" itemLabel="Wettkampf-Kreuzheben" />
 			</h:selectOneMenu>
 			<br />
-			<h:outputLabel
-				value="Belastungsfaktoren der Übung pro Muskelgruppe: " />
+			<h:outputLabel value="Belastungsfaktoren der Übung pro Muskelgruppe: " />
 			<br />
 			<h:outputLabel value="Squat: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.squat}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.squat}" />
 			<br />
 			<h:outputLabel value="Benchpress: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.benchpress}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.benchpress}" />
 			<br />
 			<h:outputLabel value="Deadlift: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.deadlift}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.deadlift}" />
 			<br />
 			<h:outputLabel value="Triceps: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.triceps}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.triceps}" />
 			<br />
 			<h:outputLabel value="Chest: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.chest}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.chest}" />
 			<br />
 			<h:outputLabel value="Core: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.core}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.core}" />
 			<br />
 			<h:outputLabel value="Back: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.back}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.back}" />
 			<br />
 			<h:outputLabel value="Biceps: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.biceps}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.biceps}" />
 			<br />
 			<h:outputLabel value="Glutes: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.glutes}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.glutes}" />
 			<br />
 			<h:outputLabel value="Quads: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.quads}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.quads}" />
 			<br />
 			<h:outputLabel value="Hamstrings: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.hamstrings}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.hamstrings}" />
 			<br />
 			<h:outputLabel value="Shoulder: " />
-			<h:inputText
-				value="#{belastungsfaktorController.belastungsfaktor.shoulder}" />
+			<h:inputText value="#{belastungsfaktorController.belastungsfaktor.shoulder}" />
 			<br />
-			<h:commandButton class="ao-button"
-				action="#{uebungController.erstelleUebung(belastungsfaktorController.belastungsfaktor)}"
-				value="Erstelle neue Übung" />
+			<h:commandButton class="ao-button" action="#{uebungController.erstelleUebung(belastungsfaktorController.belastungsfaktor)}" value="Erstelle neue Übung" />
 			<br />
 			<h:outputLabel value="Zur Liste aller Übungen hier klicken: " />
-			<a href="liste.xhtml" title="Liste der Übungen">Liste aller
-				Übungen</a>
+			<a href="liste.xhtml" title="Liste der Übungen">Liste aller Übungen</a>
 		</h:form>
 	</ui:define>
 </ui:composition>

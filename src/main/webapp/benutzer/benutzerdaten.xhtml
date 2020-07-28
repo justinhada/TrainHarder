@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Impressum – TrainHarder</title>
+	<title>#{authentifizierung.benutzername} – TrainHarder</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -39,8 +39,8 @@
 			<div class="wrapper">
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item"><a class="nav-link link-active" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}">Benutzereinstellungen</a></li>
-					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}/koerpermessungen">Körpermessungen</a></li>
-					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}/kraftwerte">Kraftwerte</a></li>
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">Körpermessungen</a></li>
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}">Kraftwerte</a></li>
 				</ul>
 			</div>
 			<br />
@@ -238,16 +238,16 @@
 										<option value="NIEDRIG">Niedrig</option>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{benutzer.stress.equals('MITTELMAESSIG')}">
-										<option value="MITTELMAESSIG">Mittelmäßig</option>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{!benutzer.stress.equals('MITTELMAESSIG')}">
 										<option value="MITTELMAESSIG" selected="selected">Mittelmäßig</option>
 									</h:panelGroup>
+									<h:panelGroup rendered="#{!benutzer.stress.equals('MITTELMAESSIG')}">
+										<option value="MITTELMAESSIG">Mittelmäßig</option>
+									</h:panelGroup>
 									<h:panelGroup rendered="#{benutzer.stress.equals('HOCH')}">
-										<option value="HOCH">Hoch</option>
+										<option value="HOCH" selected="selected">Hoch</option>
 									</h:panelGroup>
 									<h:panelGroup rendered="#{!benutzer.stress.equals('HOCH')}">
-										<option value="HOCH" selected="selected">Hoch</option>
+										<option value="HOCH">Hoch</option>
 									</h:panelGroup>
 								</select>
 							</div>
@@ -323,9 +323,7 @@
 				</form>
 			</div>
 		</h:panelGroup>
-	</div>
-
-	<div class="center-container big-container">
+		
 		<div class="attribution">
 			<span>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
 		</div>
