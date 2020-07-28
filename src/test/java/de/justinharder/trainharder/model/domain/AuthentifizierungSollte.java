@@ -3,7 +3,10 @@ package de.justinharder.trainharder.model.domain;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +33,7 @@ public class AuthentifizierungSollte
 	@DisplayName("einen NoArgsConstructor haben")
 	public void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Authentifizierung.class, allOf(hasValidBeanConstructor()));
+		assertThat(Authentifizierung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
@@ -48,7 +51,9 @@ public class AuthentifizierungSollte
 			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"));
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(false),
+			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(null));
 	}
 
 	@Test
@@ -56,11 +61,14 @@ public class AuthentifizierungSollte
 	public void test03()
 	{
 		final var id = new Primaerschluessel();
+		final var resetUuid = UUID.randomUUID();
 		final var authentifizierung = new Authentifizierung();
 		authentifizierung.setPrimaerschluessel(id);
 		authentifizierung.setMail("mail@justinharder.de");
 		authentifizierung.setBenutzername("harder");
 		authentifizierung.setPasswort("JustinHarder98");
+		authentifizierung.setAktiv(true);
+		authentifizierung.setResetUuid(resetUuid);
 		authentifizierung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
@@ -68,6 +76,8 @@ public class AuthentifizierungSollte
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(true),
+			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid),
 			() -> assertThat(authentifizierung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 

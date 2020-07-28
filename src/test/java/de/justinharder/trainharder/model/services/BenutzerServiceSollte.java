@@ -240,8 +240,9 @@ public class BenutzerServiceSollte
 			"NEIN",
 			"GUT");
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
-			Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
+			Optional.of(authentifizierung));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
 		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
 
@@ -249,6 +250,7 @@ public class BenutzerServiceSollte
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuId(new Primaerschluessel(authentifizierungId));
+		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
 		verify(benutzerDtoMapper).konvertiere(benutzer);
 	}
 

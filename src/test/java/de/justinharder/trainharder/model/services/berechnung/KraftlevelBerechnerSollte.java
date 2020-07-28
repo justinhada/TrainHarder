@@ -76,8 +76,14 @@ public class KraftlevelBerechnerSollte
 	{
 		final var benutzer = new Benutzer();
 		final var koerperdaten =
-			new Koerpermessung(new Primaerschluessel(), 90, 29, 24, 70, 20, 11, 50, 50, 70, 3, 17, 1900, 2500, 2900, 25,
+			new Koerpermessung(
+				new Primaerschluessel(),
 				LocalDate.now(),
+				178,
+				90,
+				24,
+				2500,
+				2900,
 				benutzer);
 		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
 		benutzer.setName(new Name("M.", "Musterfrau"));
