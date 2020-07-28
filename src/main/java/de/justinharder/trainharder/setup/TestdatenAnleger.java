@@ -40,7 +40,7 @@ public class TestdatenAnleger
 			entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
 		final var tabellen = Arrays.asList(
-			"Authentifizierung", 
+			"Authentifizierung",
 			"Belastungsfaktor",
 			"Koerpermessung",
 			"Kraftwert",
@@ -58,21 +58,12 @@ public class TestdatenAnleger
 	{
 		loescheTestdaten(entityManager, logger);
 		final var entitaeten = List.of(
-			//			Testdaten.KONVENTIONELLES_KREUZHEBEN,
-			//			Testdaten.LOWBAR_KNIEBEUGE,
-			//			Testdaten.WETTKAMPFBANKDRUECKEN,
 			Testdaten.BENUTZER_JUSTIN,
+			Testdaten.KOERPERMESSUNG_JUSTIN,
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
 			Testdaten.BENUTZER_EDUARD,
+			Testdaten.KOERPERMESSUNG_EDUARD,
 			Testdaten.AUTHENTIFIZIERUNG_EDUARD);
-		//			Testdaten.KOERPERMESSUNG_JUSTIN,
-		//			Testdaten.KOERPERMESSUNG_EDUARD,
-		//			Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN,
-		//			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
-		//			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
-		//			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN,
-		//			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-		//			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN);
 		entitaeten.forEach(entitaet -> legeDatensatzAn(entityManager, logger, entitaet));
 	}
 
