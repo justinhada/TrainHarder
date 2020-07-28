@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,88 +29,60 @@ public class Koerpermessung extends Entitaet
 	@EmbeddedId
 	@Column(name = "ID")
 	private Primaerschluessel primaerschluessel;
+	@Column(name = "Datum")
+	private LocalDate datum;
 	@Column(name = "Koerpergroesse")
 	private int koerpergroesse;
 	@Column(name = "Koerpergewicht")
 	private double koerpergewicht;
-	@Column(name = "BodyMassIndex")
-	private double bodyMassIndex;
-	@Column(name = "FatFreeMassIndex")
-	private double fatFreeMassIndex;
 	@Column(name = "KoerperfettAnteil")
 	private double koerperfettAnteil;
-	@Column(name = "FettfreiesKoerpergewicht")
-	private double fettfreiesKoerpergewicht;
-	@Column(name = "SubkutanesFett")
-	private double subkutanesFett;
-	@Column(name = "Viszeralfett")
-	private double viszeralfett;
-	@Column(name = "Koerperwasser")
-	private double koerperwasser;
-	@Column(name = "Skelettmuskel")
-	private double skelettmuskel;
-	@Column(name = "Muskelmasse")
-	private double muskelmasse;
-	@Column(name = "Knochenmasse")
-	private double knochenmasse;
-	@Column(name = "Protein")
-	private double protein;
-	@Column(name = "Grundumsatz")
-	private int grundumsatz;
 	@Column(name = "EingenommeneKalorien")
 	private int eingenommeneKalorien;
 	@Column(name = "VerbrannteKalorien")
 	private int verbrannteKalorien;
-	@Column(name = "BiologischesAlter")
-	private int biologischesAlter;
-	@Column(name = "Datum")
-	private LocalDate datum;
+	@Column(name = "FettfreiesKoerpergewicht")
+	@Setter(value = AccessLevel.NONE)
+	private double fettfreiesKoerpergewicht;
+	@Column(name = "BodyMassIndex")
+	@Setter(value = AccessLevel.NONE)
+	private double bodyMassIndex;
+	@Column(name = "FatFreeMassIndex")
+	@Setter(value = AccessLevel.NONE)
+	private double fatFreeMassIndex;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
 	public Koerpermessung(
 		final Primaerschluessel primaerschluessel,
+		final LocalDate datum,
 		final int koerpergroesse,
 		final double koerpergewicht,
 		final double koerperfettAnteil,
-		final double fettfreiesKoerpergewicht,
-		final double subkutanesFett,
-		final double viszeralfett,
-		final double koerperwasser,
-		final double skelettmuskel,
-		final double muskelmasse,
-		final double knochenmasse,
-		final double protein,
-		final int grundumsatz,
 		final int eingenommeneKalorien,
 		final int verbrannteKalorien,
-		final int biologischesAlter,
-		final LocalDate datum,
 		final Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
+		this.datum = datum;
 		this.koerpergroesse = koerpergroesse;
 		this.koerpergewicht = koerpergewicht;
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		this.koerperfettAnteil = koerperfettAnteil;
-		this.fettfreiesKoerpergewicht = fettfreiesKoerpergewicht;
-		this.subkutanesFett = subkutanesFett;
-		this.viszeralfett = viszeralfett;
-		this.koerperwasser = koerperwasser;
-		this.skelettmuskel = skelettmuskel;
-		this.muskelmasse = muskelmasse;
-		this.knochenmasse = knochenmasse;
-		this.protein = protein;
-		this.grundumsatz = grundumsatz;
 		this.eingenommeneKalorien = eingenommeneKalorien;
 		this.verbrannteKalorien = verbrannteKalorien;
-		this.biologischesAlter = biologischesAlter;
-		this.datum = datum;
+		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		this.benutzer = benutzer;
 
 		benutzer.fuegeKoerpermessungHinzu(this);
+	}
+
+	private double berechneFettfreiesKoerpergewicht(final double koerpergewicht, final double koerperfettAnteil)
+	{
+		var fettfreiesKoerpergewicht = koerpergewicht - koerpergewicht * (koerperfettAnteil / 100);
+		return Math.round(fettfreiesKoerpergewicht * 100) / 100.0;
 	}
 
 	private double berechneBmi(final int koerpergroesse, final double koerpergewicht)
@@ -128,21 +101,24 @@ public class Koerpermessung extends Entitaet
 	public void setKoerpergroesse(final int koerpergroesse)
 	{
 		this.koerpergroesse = koerpergroesse;
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 
 	public void setKoerpergewicht(final double koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 
 	public void setKoerperfettAnteil(final double koerperfettAnteil)
 	{
 		this.koerperfettAnteil = koerperfettAnteil;
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 }
