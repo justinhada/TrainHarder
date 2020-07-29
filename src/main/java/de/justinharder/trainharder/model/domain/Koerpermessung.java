@@ -33,10 +33,10 @@ public class Koerpermessung extends Entitaet
 	private LocalDate datum;
 	@Embedded
 	private Koerpermasse koerpermasse;
-	@Column(name = "EingenommeneKalorien")
-	private int eingenommeneKalorien;
-	@Column(name = "VerbrannteKalorien")
-	private int verbrannteKalorien;
+	@Column(name = "Kalorieneinnahme")
+	private int kalorieneinnahme;
+	@Column(name = "Kalorienverbrauch")
+	private int kalorienverbrauch;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
@@ -45,17 +45,41 @@ public class Koerpermessung extends Entitaet
 		final Primaerschluessel primaerschluessel,
 		final LocalDate datum,
 		final Koerpermasse koerpermasse,
-		final int eingenommeneKalorien,
-		final int verbrannteKalorien,
+		final int kalorieneinnahme,
+		final int kalorienverbrauch,
 		final Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.datum = datum;
 		this.koerpermasse = koerpermasse;
-		this.eingenommeneKalorien = eingenommeneKalorien;
-		this.verbrannteKalorien = verbrannteKalorien;
+		this.kalorieneinnahme = kalorieneinnahme;
+		this.kalorienverbrauch = kalorienverbrauch;
 		this.benutzer = benutzer;
 
 		benutzer.fuegeKoerpermessungHinzu(this);
+	}
+
+	public Koerpermessung setDatum(final LocalDate datum)
+	{
+		this.datum = datum;
+		return this;
+	}
+
+	public Koerpermessung setKoerpermasse(final Koerpermasse koerpermasse)
+	{
+		this.koerpermasse = koerpermasse;
+		return this;
+	}
+
+	public Koerpermessung setKalorieneinnahme(final int kalorieneinnahme)
+	{
+		this.kalorieneinnahme = kalorieneinnahme;
+		return this;
+	}
+
+	public Koerpermessung setKalorienverbrauch(final int kalorienverbrauch)
+	{
+		this.kalorienverbrauch = kalorienverbrauch;
+		return this;
 	}
 }
