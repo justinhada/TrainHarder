@@ -2,10 +2,14 @@ package de.justinharder.trainharder.view.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +31,8 @@ public class BenutzerDto implements Serializable
 	private String doping;
 	private String regenerationsfaehigkeit;
 	private AuthentifizierungDto authentifizierung;
+	@Setter(value = AccessLevel.NONE)
+	private List<KoerpermessungDto> koerpermessungen = new ArrayList<>();
 
 	public BenutzerDto setVorname(final String vorname)
 	{
@@ -91,6 +97,12 @@ public class BenutzerDto implements Serializable
 	public BenutzerDto setRegenerationsfaehigkeit(final String regenerationsfaehigkeit)
 	{
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		return this;
+	}
+	
+	public BenutzerDto fuegeKoerpermessungHinzu(final KoerpermessungDto koerpermessung)
+	{
+		koerpermessungen.add(koerpermessung);
 		return this;
 	}
 }

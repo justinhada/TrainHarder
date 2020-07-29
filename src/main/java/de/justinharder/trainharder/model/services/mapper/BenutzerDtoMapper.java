@@ -11,11 +11,15 @@ import de.justinharder.trainharder.view.dto.BenutzerDto;
 public class BenutzerDtoMapper
 {
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
+	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
 
 	@Inject
-	public BenutzerDtoMapper(final AuthentifizierungDtoMapper authentifizierungDtoMapper)
+	public BenutzerDtoMapper(
+		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
+		final KoerpermessungDtoMapper koerpermessungDtoMapper)
 	{
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
+		this.koerpermessungDtoMapper = koerpermessungDtoMapper;
 	}
 
 	public List<BenutzerDto> konvertiereAlle(final List<Benutzer> benutzer)
@@ -40,6 +44,7 @@ public class BenutzerDtoMapper
 			benutzer.getBenutzerangabe().getStress().name(),
 			benutzer.getBenutzerangabe().getDoping().name(),
 			benutzer.getBenutzerangabe().getRegenerationsfaehigkeit().name(),
-			authentifizierungDtoMapper.konvertiere(benutzer.getAuthentifizierung()));
+			authentifizierungDtoMapper.konvertiere(benutzer.getAuthentifizierung()),
+			koerpermessungDtoMapper.konvertiereAlle(benutzer.getKoerpermessungen()));
 	}
 }

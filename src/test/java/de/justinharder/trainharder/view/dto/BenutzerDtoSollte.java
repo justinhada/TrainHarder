@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,8 @@ public class BenutzerDtoSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT",
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
+			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
+			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 	}
 
 	@Test
@@ -103,7 +105,8 @@ public class BenutzerDtoSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT",
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
+			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
+			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -120,7 +123,9 @@ public class BenutzerDtoSollte
 		final var erwartet = "BenutzerDto(primaerschluessel=" + Testdaten.BENUTZER_JUSTIN_ID.getId().toString()
 			+ ", vorname=Justin, nachname=Harder, geburtsdatum=1998-12-06, kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=FORTGESCHRITTEN, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT, authentifizierung=AuthentifizierungDto(primaerschluessel="
 			+ Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString()
-			+ ", mail=mail@justinharder.de, benutzername=harder, passwort=JustinHarder#98))";
+			+ ", mail=mail@justinharder.de, benutzername=harder, passwort=JustinHarder#98), koerpermessungen=[KoerpermessungDto(primaerschluessel="
+			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
+			+ ", datum=2020-07-29, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)])";
 
 		assertThat(sut.toString()).isEqualTo(erwartet);
 	}

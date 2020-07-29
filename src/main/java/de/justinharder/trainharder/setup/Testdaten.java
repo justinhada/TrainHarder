@@ -28,6 +28,7 @@ import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
 import de.justinharder.trainharder.view.dto.UebungDto;
 import lombok.AccessLevel;
@@ -56,6 +57,9 @@ public class Testdaten
 	public static final Koerpermessung KOERPERMESSUNG_JUSTIN = new Koerpermessung();
 	public static final Koerpermessung KOERPERMESSUNG_EDUARD = new Koerpermessung();
 
+	public static final KoerpermessungDto KOERPERMESSUNG_DTO_JUSTIN = new KoerpermessungDto();
+	public static final KoerpermessungDto KOERPERMESSUNG_DTO_EDUARD = new KoerpermessungDto();
+
 	public static final Benutzerangabe BENUTZERANGABE_JUSTIN = new Benutzerangabe();
 	public static final Benutzerangabe BENUTZERANGABE_EDUARD = new Benutzerangabe();
 
@@ -66,6 +70,7 @@ public class Testdaten
 	public static final Benutzer BENUTZER_EDUARD = new Benutzer();
 
 	public static final BenutzerDto BENUTZER_DTO_JUSTIN = new BenutzerDto();
+	public static final BenutzerDto BENUTZER_DTO_EDUARD = new BenutzerDto();
 
 	public static final Primaerschluessel BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -137,22 +142,38 @@ public class Testdaten
 		KOERPERMASSE_JUSTIN.setKoerperfettAnteil(25);
 
 		KOERPERMESSUNG_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID);
-		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.now());
+		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.of(2020, 7, 29));
 		KOERPERMESSUNG_JUSTIN.setKoerpermasse(KOERPERMASSE_JUSTIN);
-		KOERPERMESSUNG_JUSTIN.setEingenommeneKalorien(2500);
-		KOERPERMESSUNG_JUSTIN.setVerbrannteKalorien(2900);
+		KOERPERMESSUNG_JUSTIN.setKalorieneinnahme(2500);
+		KOERPERMESSUNG_JUSTIN.setKalorienverbrauch(2900);
 		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
+
+		KOERPERMESSUNG_DTO_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString());
+		KOERPERMESSUNG_DTO_JUSTIN.setDatum(KOERPERMESSUNG_JUSTIN.getDatum());
+		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse());
+		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht());
+		KOERPERMESSUNG_DTO_JUSTIN.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil());
+		KOERPERMESSUNG_DTO_JUSTIN.setKalorieneinnahme(KOERPERMESSUNG_JUSTIN.getKalorieneinnahme());
+		KOERPERMESSUNG_DTO_JUSTIN.setKalorienverbrauch(KOERPERMESSUNG_JUSTIN.getKalorienverbrauch());
 
 		KOERPERMASSE_EDUARD.setKoerpergroesse(182);
 		KOERPERMASSE_EDUARD.setKoerpergewicht(64);
 		KOERPERMASSE_EDUARD.setKoerperfettAnteil(9);
 
 		KOERPERMESSUNG_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID);
-		KOERPERMESSUNG_EDUARD.setDatum(LocalDate.now());
+		KOERPERMESSUNG_EDUARD.setDatum(LocalDate.of(2020, 7, 29));
 		KOERPERMESSUNG_EDUARD.setKoerpermasse(KOERPERMASSE_EDUARD);
-		KOERPERMESSUNG_EDUARD.setEingenommeneKalorien(2500);
-		KOERPERMESSUNG_EDUARD.setVerbrannteKalorien(2900);
+		KOERPERMESSUNG_EDUARD.setKalorieneinnahme(2500);
+		KOERPERMESSUNG_EDUARD.setKalorienverbrauch(2900);
 		KOERPERMESSUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
+
+		KOERPERMESSUNG_DTO_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString());
+		KOERPERMESSUNG_DTO_EDUARD.setDatum(KOERPERMESSUNG_EDUARD.getDatum());
+		KOERPERMESSUNG_DTO_EDUARD.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse());
+		KOERPERMESSUNG_DTO_EDUARD.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht());
+		KOERPERMESSUNG_DTO_EDUARD.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil());
+		KOERPERMESSUNG_DTO_EDUARD.setKalorieneinnahme(KOERPERMESSUNG_EDUARD.getKalorieneinnahme());
+		KOERPERMESSUNG_DTO_EDUARD.setKalorienverbrauch(KOERPERMESSUNG_EDUARD.getKalorienverbrauch());
 
 		BENUTZERANGABE_JUSTIN.setKraftlevel(Kraftlevel.CLASS_5);
 		BENUTZERANGABE_JUSTIN.setGeschlecht(Geschlecht.MAENNLICH);
@@ -184,6 +205,7 @@ public class Testdaten
 		BENUTZER_DTO_JUSTIN
 			.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getBenutzerangabe().getRegenerationsfaehigkeit().name());
 		BENUTZER_DTO_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_JUSTIN);
+		BENUTZER_DTO_JUSTIN.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_JUSTIN);
 
 		BENUTZERANGABE_EDUARD.setKraftlevel(Kraftlevel.CLASS_4);
 		BENUTZERANGABE_EDUARD.setGeschlecht(Geschlecht.MAENNLICH);
@@ -200,6 +222,22 @@ public class Testdaten
 		BENUTZER_EDUARD.setBenutzerangabe(BENUTZERANGABE_EDUARD);
 		BENUTZER_EDUARD.setAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD);
 		BENUTZER_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
+
+		BENUTZER_DTO_EDUARD.setPrimaerschluessel(BENUTZER_EDUARD.getPrimaerschluessel().getId().toString());
+		BENUTZER_DTO_EDUARD.setVorname(BENUTZER_EDUARD.getName().getVorname());
+		BENUTZER_DTO_EDUARD.setNachname(BENUTZER_EDUARD.getName().getNachname());
+		BENUTZER_DTO_EDUARD.setGeburtsdatum(BENUTZER_EDUARD.getGeburtsdatum());
+		BENUTZER_DTO_EDUARD.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name());
+		BENUTZER_DTO_EDUARD.setGeschlecht(BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name());
+		BENUTZER_DTO_EDUARD.setErfahrung(BENUTZER_EDUARD.getBenutzerangabe().getErfahrung().name());
+		BENUTZER_DTO_EDUARD.setErnaehrung(BENUTZER_EDUARD.getBenutzerangabe().getErnaehrung().name());
+		BENUTZER_DTO_EDUARD.setSchlafqualitaet(BENUTZER_EDUARD.getBenutzerangabe().getSchlafqualitaet().name());
+		BENUTZER_DTO_EDUARD.setStress(BENUTZER_EDUARD.getBenutzerangabe().getStress().name());
+		BENUTZER_DTO_EDUARD.setDoping(BENUTZER_EDUARD.getBenutzerangabe().getDoping().name());
+		BENUTZER_DTO_EDUARD
+			.setRegenerationsfaehigkeit(BENUTZER_EDUARD.getBenutzerangabe().getRegenerationsfaehigkeit().name());
+		BENUTZER_DTO_EDUARD.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_EDUARD);
+		BENUTZER_DTO_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_EDUARD);
 
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID);
 		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBack(0.0);
