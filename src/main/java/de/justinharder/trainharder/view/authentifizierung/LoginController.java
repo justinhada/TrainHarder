@@ -32,7 +32,7 @@ import lombok.Setter;
 
 @Setter
 @Controller
-@Path("/login")
+@Path(value = "/login")
 public class LoginController
 {
 	@Context
@@ -96,7 +96,7 @@ public class LoginController
 	}
 
 	@GET
-	@Path("/reset")
+	@Path(value = "/reset")
 	public String resetMailView()
 	{
 		if (securityContext.getCallerPrincipal() != null)
@@ -108,8 +108,8 @@ public class LoginController
 	}
 
 	@POST
-	@Path("/reset")
-	public String resetMail(@FormParam("mail") final String mail)
+	@Path(value = "/reset")
+	public String resetMail(@FormParam(value = "mail") final String mail)
 	{
 		Preconditions.checkNotNull(mail, "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!");
 
@@ -126,8 +126,8 @@ public class LoginController
 	}
 
 	@GET
-	@Path("/reset/{id}")
-	public String resetPasswordView(@PathParam("id") final String resetUuid)
+	@Path(value = "/reset/{id}")
+	public String resetPasswordView(@PathParam(value = "id") final String resetUuid)
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
 
@@ -141,8 +141,10 @@ public class LoginController
 	}
 
 	@POST
-	@Path("/reset/{id}")
-	public String resetPassword(@PathParam("id") final String resetUuid, @FormParam("passwort") final String passwort)
+	@Path(value = "/reset/{id}")
+	public String resetPassword(
+		@PathParam(value = "id") final String resetUuid,
+		@FormParam("passwort") final String passwort)
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
 		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");

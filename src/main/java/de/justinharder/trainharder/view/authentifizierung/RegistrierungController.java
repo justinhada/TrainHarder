@@ -30,7 +30,7 @@ import lombok.Setter;
 
 @Setter
 @Controller
-@Path("/join")
+@Path(value = "/join")
 public class RegistrierungController
 {
 	@Context
@@ -86,15 +86,15 @@ public class RegistrierungController
 	}
 
 	@GET
-	@Path("/success")
+	@Path(value = "/success")
 	public String erfolgreich()
 	{
 		return "/success.xhtml";
 	}
 
 	@GET
-	@Path("/{id}")
-	public String aktiviere(@PathParam("id") final String id)
+	@Path(value = "/{id}")
+	public String aktiviere(@PathParam(value = "id") final String id)
 	{
 		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
 

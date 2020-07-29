@@ -100,7 +100,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	{
 		final var erwartet = "/benutzer/benutzerdaten.xhtml";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.benutzer("harder"));
+		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.benutzerdaten("harder"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -113,7 +113,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
 		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
-			() -> sut.benutzer(authentifizierungDto.getBenutzername()), authentifizierungDto);
+			() -> sut.benutzerdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
@@ -129,7 +129,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
 		final var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
-			() -> sut.benutzer(authentifizierungDto.getBenutzername()),
+			() -> sut.benutzerdaten(authentifizierungDto.getBenutzername()),
 			authentifizierungDto,
 			benutzerDto);
 
@@ -144,7 +144,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	{
 		final var erwartet = "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.aendereBenutzer(null));
+		final var exception = assertThrows(NullPointerException.class, () -> sut.aendereBenutzerdaten(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -169,7 +169,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzer(benutzerdaten);
+		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put(
@@ -200,7 +200,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzer(benutzerdaten);
+		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);
@@ -232,7 +232,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzer(benutzerdaten);
+		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);

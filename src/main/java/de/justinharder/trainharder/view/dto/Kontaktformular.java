@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Kontaktformular
 {
-	@Size(min = 6, max = 255, message = "Ungültige E-Mail-Adresse!")
+	@Email(message = "Ungültige E-Mail-Adresse!")
 	@FormParam("mail")
 	private String mail;
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")

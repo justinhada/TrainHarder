@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 
 @Controller
-@Path("/start")
+@Path(value = "/start")
 public class StartController extends AbstractController
 {
 	@Context

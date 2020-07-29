@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 
 @Controller
-@Path("/datenschutz")
+@Path(value = "/datenschutz")
 public class DatenschutzController extends AbstractController
 {
 	@Context

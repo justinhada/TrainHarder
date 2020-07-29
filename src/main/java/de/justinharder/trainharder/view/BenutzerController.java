@@ -20,7 +20,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 
 @Controller
-@Path("/benutzer")
+@Path(value = "/benutzer")
 public class BenutzerController extends AbstractController
 {
 	@Context
@@ -40,8 +40,8 @@ public class BenutzerController extends AbstractController
 	}
 
 	@GET
-	@Path("/{benutzername}")
-	public String benutzer(@PathParam("benutzername") final String benutzername)
+	@Path(value = "/{benutzername}")
+	public String benutzerdaten(@PathParam(value = "benutzername") final String benutzername)
 	{
 		initialisiere();
 
@@ -49,8 +49,8 @@ public class BenutzerController extends AbstractController
 	}
 
 	@POST
-	@Path("/{benutzername}")
-	public String aendereBenutzer(@BeanParam final Benutzerdaten benutzerdaten)
+	@Path(value = "/{benutzername}")
+	public String aendereBenutzerdaten(@BeanParam final Benutzerdaten benutzerdaten)
 	{
 		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
 
@@ -66,7 +66,7 @@ public class BenutzerController extends AbstractController
 			{
 				benutzerService.erstelleBenutzer(benutzerdaten, authentifizierungDto.getPrimaerschluessel());
 			}
-			return benutzer(authentifizierungDto.getBenutzername());
+			return benutzerdaten(authentifizierungDto.getBenutzername());
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
 		{
@@ -76,7 +76,7 @@ public class BenutzerController extends AbstractController
 	}
 
 	@GET
-	@Path("/logout")
+	@Path(value = "/logout")
 	public String logout()
 	{
 		try
