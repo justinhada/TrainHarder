@@ -108,7 +108,7 @@ public class KraftwertServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
 	public void test01()
 	{
-		final var erwartet = "Die Ermittlung des Kraftwerts benötigt eine gültige BenutzerID!";
+		final var erwartet = "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!";
 
 		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null));
 

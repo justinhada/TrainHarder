@@ -44,7 +44,7 @@ public class KraftwertService
 
 	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
 	{
-		Preconditions.checkNotNull(benutzerId, "Die Ermittlung des Kraftwerts benötigt eine gültige BenutzerID!");
+		Preconditions.checkNotNull(benutzerId, "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!");
 
 		return kraftwertDtoMapper.konvertiereAlle(
 			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));

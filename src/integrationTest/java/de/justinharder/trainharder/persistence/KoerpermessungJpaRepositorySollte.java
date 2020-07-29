@@ -84,7 +84,7 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	public void koerpermessungAktualisieren()
 	{
 		final var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
-		erwartet.setEingenommeneKalorien(1900);
+		erwartet.setKalorieneinnahme(1900);
 
 		final var ergebnis = sut.speichereKoerpermessung(erwartet);
 
@@ -92,8 +92,8 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
 			() -> assertThat(ergebnis.getDatum()).isEqualTo(erwartet.getDatum()),
 			() -> assertThat(ergebnis.getKoerpermasse()).isEqualTo(erwartet.getKoerpermasse()),
-			() -> assertThat(ergebnis.getEingenommeneKalorien()).isEqualTo(erwartet.getEingenommeneKalorien()),
-			() -> assertThat(ergebnis.getVerbrannteKalorien()).isEqualTo(erwartet.getVerbrannteKalorien()),
+			() -> assertThat(ergebnis.getKalorieneinnahme()).isEqualTo(erwartet.getKalorieneinnahme()),
+			() -> assertThat(ergebnis.getKalorienverbrauch()).isEqualTo(erwartet.getKalorienverbrauch()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(erwartet.getBenutzer()));
 	}
 }

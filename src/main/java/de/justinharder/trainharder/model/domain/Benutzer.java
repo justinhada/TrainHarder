@@ -68,16 +68,6 @@ public class Benutzer extends Entitaet
 		authentifizierung.setBenutzer(this);
 	}
 
-	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
-	{
-		kraftwerte.add(kraftwert);
-	}
-
-	public void fuegeKoerpermessungHinzu(final Koerpermessung koerpermessung)
-	{
-		koerpermessungen.add(koerpermessung);
-	}
-
 	public int getAlter()
 	{
 		return Period.between(geburtsdatum, LocalDate.now()).getYears();
@@ -119,4 +109,15 @@ public class Benutzer extends Entitaet
 		return this;
 	}
 
+	public Benutzer fuegeKraftwertHinzu(final Kraftwert kraftwert)
+	{
+		kraftwerte.add(kraftwert);
+		return this;
+	}
+
+	public Benutzer fuegeKoerpermessungHinzu(final Koerpermessung koerpermessung)
+	{
+		koerpermessungen.add(koerpermessung);
+		return this;
+	}
 }

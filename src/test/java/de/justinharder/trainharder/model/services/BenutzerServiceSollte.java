@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
@@ -102,7 +103,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
 	public void test01()
 	{
-		final var erwartet = "Ermittlung des Benutzers benötigt eine gültige BenutzerID!";
+		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!";
 
 		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
 
@@ -143,7 +144,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
 	public void test04()
 	{
-		final var erwartet = "Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!";
+		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
 		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null));
 
@@ -188,7 +189,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
 	public void test07()
 	{
-		final var erwartet = "Erstellung des Benutzers benötigt gültige Benutzerdaten!";
+		final var erwartet = "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!";
 
 		final var exception = assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(null, null));
 
@@ -199,7 +200,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null sind")
 	public void test08()
 	{
-		final var erwartet = "Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
+		final var erwartet = "Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
 		final var exception =
 			assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), null));
@@ -258,7 +259,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
 	public void test11()
 	{
-		final var erwartet = "Aktualisierung des Benutzers benötigt eine gültige ID!";
+		final var erwartet = "Die Aktualisierung des Benutzers benötigt eine gültige ID!";
 
 		final var exception =
 			assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, null));
@@ -270,7 +271,7 @@ public class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
 	public void test12()
 	{
-		final var erwartet = "Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
+		final var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
 
 		final var exception = assertThrows(NullPointerException.class,
 			() -> sut.aktualisiereBenutzer(Testdaten.BENUTZER_JUSTIN_ID.getId().toString(), null));
@@ -312,7 +313,8 @@ public class BenutzerServiceSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT",
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
+			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
+			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 		final var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",

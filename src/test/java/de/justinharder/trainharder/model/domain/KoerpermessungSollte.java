@@ -40,7 +40,7 @@ public class KoerpermessungSollte
 		final var id = new Primaerschluessel();
 		final var koerpermessung = new Koerpermessung(
 			id,
-			LocalDate.now(),
+			LocalDate.of(2020, 7, 29),
 			new Koerpermasse(178, 90, 25),
 			2500,
 			2900,
@@ -48,10 +48,10 @@ public class KoerpermessungSollte
 
 		assertAll(
 			() -> assertThat(koerpermessung.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(koerpermessung.getDatum()).isEqualTo(LocalDate.now()),
+			() -> assertThat(koerpermessung.getDatum()).isEqualTo(LocalDate.of(2020, 7, 29)),
 			() -> assertThat(koerpermessung.getKoerpermasse()).isEqualTo(new Koerpermasse(178, 90, 25)),
-			() -> assertThat(koerpermessung.getEingenommeneKalorien()).isEqualTo(2500),
-			() -> assertThat(koerpermessung.getVerbrannteKalorien()).isEqualTo(2900),
+			() -> assertThat(koerpermessung.getKalorieneinnahme()).isEqualTo(2500),
+			() -> assertThat(koerpermessung.getKalorienverbrauch()).isEqualTo(2900),
 			() -> assertThat(koerpermessung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 
@@ -61,10 +61,10 @@ public class KoerpermessungSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KOERPERMESSUNG_JUSTIN_ID),
-			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.now()),
+			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.of(2020, 7, 29)),
 			() -> assertThat(sut.getKoerpermasse()).isEqualTo(new Koerpermasse(178, 90, 25)),
-			() -> assertThat(sut.getEingenommeneKalorien()).isEqualTo(2500),
-			() -> assertThat(sut.getVerbrannteKalorien()).isEqualTo(2900),
+			() -> assertThat(sut.getKalorieneinnahme()).isEqualTo(2500),
+			() -> assertThat(sut.getKalorienverbrauch()).isEqualTo(2900),
 			() -> assertThat(sut.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 
@@ -77,16 +77,16 @@ public class KoerpermessungSollte
 		koerpermessung.setPrimaerschluessel(id);
 		koerpermessung.setDatum(LocalDate.now());
 		koerpermessung.setKoerpermasse(new Koerpermasse(178, 90, 25));
-		koerpermessung.setEingenommeneKalorien(2500);
-		koerpermessung.setVerbrannteKalorien(2900);
+		koerpermessung.setKalorieneinnahme(2500);
+		koerpermessung.setKalorienverbrauch(2900);
 		koerpermessung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
 			() -> assertThat(koerpermessung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(koerpermessung.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(koerpermessung.getKoerpermasse()).isEqualTo(new Koerpermasse(178, 90, 25)),
-			() -> assertThat(koerpermessung.getEingenommeneKalorien()).isEqualTo(2500),
-			() -> assertThat(koerpermessung.getVerbrannteKalorien()).isEqualTo(2900),
+			() -> assertThat(koerpermessung.getKalorieneinnahme()).isEqualTo(2500),
+			() -> assertThat(koerpermessung.getKalorienverbrauch()).isEqualTo(2900),
 			() -> assertThat(koerpermessung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
 

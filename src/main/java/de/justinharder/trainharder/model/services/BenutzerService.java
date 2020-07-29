@@ -45,7 +45,7 @@ public class BenutzerService
 
 	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
+		Preconditions.checkNotNull(id, "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
 		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(benutzerDtoMapper::konvertiere)
@@ -57,7 +57,7 @@ public class BenutzerService
 		throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(authentifizierungId,
-			"Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
+			"Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
 
 		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
 			.map(benutzerDtoMapper::konvertiere)
@@ -68,9 +68,9 @@ public class BenutzerService
 	public BenutzerDto erstelleBenutzer(final Benutzerdaten benutzerdaten, final String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
-		Preconditions.checkNotNull(benutzerdaten, "Erstellung des Benutzers benötigt gültige Benutzerdaten!");
+		Preconditions.checkNotNull(benutzerdaten, "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!");
 		Preconditions.checkNotNull(authentifizierungId,
-			"Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
+			"Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
 
 		final var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
@@ -99,8 +99,8 @@ public class BenutzerService
 	public BenutzerDto aktualisiereBenutzer(final String id, final Benutzerdaten benutzerdaten)
 		throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Aktualisierung des Benutzers benötigt eine gültige ID!");
-		Preconditions.checkNotNull(benutzerdaten, "Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
+		Preconditions.checkNotNull(id, "Die Aktualisierung des Benutzers benötigt eine gültige ID!");
+		Preconditions.checkNotNull(benutzerdaten, "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
 
 		final var benutzer = benutzerRepository
 			.ermittleZuId(new Primaerschluessel(id))
