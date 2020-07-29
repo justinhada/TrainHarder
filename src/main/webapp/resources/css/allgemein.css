@@ -104,6 +104,10 @@ header {
 	color: #1D242E;
 }
 
+.link-inactive:hover {
+	text-decoration: none;
+}
+
 .link-active {
 	color: #FFF;
 	background-color: #6C757D;
