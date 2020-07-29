@@ -108,19 +108,12 @@ header {
 
 .link-inactive {
 	color: #1D242E;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.link-inactive:hover {
-	color: #1D242E;
 }
 
 .link-active {
 	color: #FFF;
 	background-color: #6C757D;
 	border-color: #6C757D;
-	font-weight: bold;
 	text-decoration: none;
 }
 
