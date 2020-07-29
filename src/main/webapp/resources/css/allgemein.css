@@ -49,13 +49,7 @@ h3 {
 .logo {
 	cursor: pointer;
 	width: 100%;
-}
-
-.small-logo {
-	cursor: pointer;
-	width: 8%;
-	height: 8%;
-	margin-right: auto;
+	margin: auto;
 }
 
 header {
