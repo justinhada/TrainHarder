@@ -56,19 +56,12 @@ h3 {
 	width: 8%;
 	height: 8%;
 	margin-right: auto;
-	height: 8%;
 }
 
 header {
 	font-size: 1.2em;
-	font-weight: bold;
 	background-color: #1D242E;
 	box-shadow: 5px 5px 5px 0 black;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding-left: 12.5%;
-	padding-right: 12.5%;
 	margin-bottom: 1%;
 }
 
@@ -81,24 +74,8 @@ header {
 	border: 1px solid white;
 }
 
-.navigation {
-	list-style: none;
-}
-
-.navigation li {
-	display: inline-block;
-}
-
-.navigation a {
-	color: white;
-	padding: 12px 30px;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	text-decoration: none;
-}
-
-.navigation a:hover {
-	background-color: #111;
+.with-border:hover {
+	background: #000;
 }
 
 .wrapper {
@@ -234,7 +211,6 @@ header {
 .btn-secondary {
 	text-align: center;
 	font-weight: bold;
-	width: 100%;
 }
 
 /* Small screens */

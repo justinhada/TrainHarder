@@ -4,7 +4,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Reset – TrainHarder</title>
+	<title>#{authentifizierung.benutzername} – TrainHarder</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -36,17 +36,30 @@
 		</ul>
 	</header>
 
-	<div class="center-container medium-container">
-		<div class="wrapper">
-			<div class="title">Reset-Password</div>
+	<div class="center-container big-container">
+		<h:panelGroup rendered="#{authentifizierung != null}">
+			<div class="wrapper">
+				<ul class="nav nav-pills nav-fill">
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}">Benutzereinstellungen</a></li>
+					<li class="nav-item"><a class="nav-link link-active" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">Körpermessungen</a></li>
+					<li class="nav-item"><a class="nav-link link-inactive" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}">Kraftwerte</a></li>
+				</ul>
+			</div>
 			<br />
-			<div class="text-central">
-				<label>Wir haben dir eine Zurücksetzung-Mail an deine angegebene E-Mail-Adresse gesendet.</label>
-				<form class="form" method="get" action="/TrainHarder/start">
-					<button class="btn btn-secondary btn-block active" type="submit">Zurück zur Startseite</button>
+			<div class="wrapper">
+				<div class="title">Körpermessungen – #{authentifizierung.benutzername}</div>
+				<br />
+				<form class="form-inline justify-content-md-center" method="post" action="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">
+					<input type="date" class="form-control mb-2 mr-sm-2" id="datum" />
+					<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergroesse" placeholder="Größe (in cm)" />
+					<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergewicht" step=".05" placeholder="Gewicht (in KG)" />
+					<input type="number" class="form-control mb-2 mr-sm-2" id="koerperfettAnteil" step=".1" placeholder="KFA (in %)" />
+					<input type="number" class="form-control mb-2 mr-sm-2" id="eingenommeneKalorien" placeholder="Kalorieneinnahme" />
+					<input type="number" class="form-control mb-2 mr-sm-2" id="verbrannteKalorien" placeholder="Kalorienverbrauch" />
+					<button type="submit" class="btn btn-secondary active mb-2">✓</button>
 				</form>
 			</div>
-		</div>
+		</h:panelGroup>
 
 		<div class="attribution">
 			<span>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></span>
