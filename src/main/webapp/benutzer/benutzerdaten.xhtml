@@ -53,17 +53,13 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">E-Mail-Adresse</div>
-							<div class="col">
-								<input type="email" class="form-control" name="mail" value="#{authentifizierung.mail}" disabled="disabled" />
-							</div>
+							<div class="col align-self-center">#{authentifizierung.mail}</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Benutzername</div>
-							<div class="col">
-								<input type="text" class="form-control" name="benutzername" value="#{authentifizierung.benutzername}" disabled="disabled" />
-							</div>
+							<div class="col align-self-center">#{authentifizierung.benutzername}</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -93,9 +89,12 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col align-self-center text-right text-bold">Kraftlevel</div>
-							<div class="col">
-								<input type="text" class="form-control" name="kraftlevel" value="#{benutzer.kraftlevel}" disabled="disabled" />
-							</div>
+							<h:panelGroup rendered="#{benutzer == null}">
+								<div class="col align-self-center">CLASS_5</div>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{benutzer != null}">
+								<div class="col align-self-center">#{benutzer.kraftlevel}</div>
+							</h:panelGroup>
 						</div>
 					</div>
 					<div class="form-group">
