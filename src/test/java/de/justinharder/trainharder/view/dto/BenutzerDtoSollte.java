@@ -125,7 +125,7 @@ public class BenutzerDtoSollte
 			+ Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString()
 			+ ", mail=mail@justinharder.de, benutzername=harder, passwort=JustinHarder#98), koerpermessungen=[KoerpermessungDto(primaerschluessel="
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
-			+ ", datum=2020-07-29, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)])";
+			+ ", datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)])";
 
 		assertThat(sut.toString()).isEqualTo(erwartet);
 	}

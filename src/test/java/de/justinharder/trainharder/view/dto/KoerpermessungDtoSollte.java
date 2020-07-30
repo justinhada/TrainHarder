@@ -37,7 +37,8 @@ public class KoerpermessungDtoSollte
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel())
 				.isEqualTo(Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()),
-			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.of(2020, 7, 29)),
+			() -> assertThat(sut.getDatum())
+				.isEqualTo(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getKoerperfettAnteil()).isEqualTo(25),
@@ -62,7 +63,8 @@ public class KoerpermessungDtoSollte
 			.setKalorienverbrauch(2900);
 
 		assertAll(
-			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.of(2020, 7, 29)),
+			() -> assertThat(sut.getDatum())
+				.isEqualTo(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getKoerperfettAnteil()).isEqualTo(25),
@@ -102,7 +104,7 @@ public class KoerpermessungDtoSollte
 	{
 		final var erwartet = "KoerpermessungDto(primaerschluessel="
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
-			+ ", datum=2020-07-29, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
+			+ ", datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
 
 		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
