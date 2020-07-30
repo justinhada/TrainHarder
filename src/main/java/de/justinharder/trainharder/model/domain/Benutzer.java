@@ -46,7 +46,7 @@ public class Benutzer extends Entitaet
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
 	@Setter(value = AccessLevel.NONE)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
 	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
 	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)

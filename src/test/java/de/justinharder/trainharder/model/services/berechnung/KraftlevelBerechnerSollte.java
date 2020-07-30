@@ -76,7 +76,7 @@ public class KraftlevelBerechnerSollte
 	public void test02()
 	{
 		final var benutzer = new Benutzer();
-		final var koerperdaten =
+		final var koerpermessung =
 			new Koerpermessung(
 				new Primaerschluessel(),
 				LocalDate.now(),
@@ -84,7 +84,7 @@ public class KraftlevelBerechnerSollte
 				2500,
 				2900,
 				benutzer);
-		benutzer.fuegeKoerpermessungHinzu(koerperdaten);
+		benutzer.fuegeKoerpermessungHinzu(koerpermessung);
 		benutzer.setName(new Name("M.", "Musterfrau"));
 		benutzer.setGeburtsdatum(LocalDate.of(1976, 12, 6));
 		benutzer.setBenutzerangabe(new Benutzerangabe(

@@ -49,15 +49,65 @@
 			<div class="wrapper">
 				<div class="title">Meine Körpermessungen</div>
 				<br />
-				<form class="form-inline justify-content-md-center" method="post" action="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">
-					<input type="date" class="form-control mb-2 mr-sm-2" id="datum" />
-					<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergroesse" placeholder="Größe (in cm)" />
-					<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergewicht" step=".05" placeholder="Gewicht (in KG)" />
-					<input type="number" class="form-control mb-2 mr-sm-2" id="koerperfettAnteil" step=".1" placeholder="KFA (in %)" />
-					<input type="number" class="form-control mb-2 mr-sm-2" id="eingenommeneKalorien" placeholder="Kalorieneinnahme" />
-					<input type="number" class="form-control mb-2 mr-sm-2" id="verbrannteKalorien" placeholder="Kalorienverbrauch" />
-					<button type="submit" class="btn btn-secondary active mb-2">✓</button>
-				</form>
+				<div class="table-responsive">
+					<form method="post" action="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">
+						<h:dataTable styleClass="table table-borderless" var="koerpermessung" value="#{benutzer.koerpermessungen}">
+							<h:column>
+								<f:facet name="header">Datum</f:facet>
+						#{koerpermessung.datum}
+						<f:facet name="footer">
+									<input type="date" class="form-control mb-2 mr-sm-2" id="datum" name="datum" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Größe</f:facet>
+						#{koerpermessung.koerpergroesse} cm
+						<f:facet name="footer">
+									<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergroesse" name="koerpergroesse" placeholder="Größe (in cm)" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Gewicht</f:facet>
+						#{koerpermessung.koerpergewicht} KG
+						<f:facet name="footer">
+									<input type="number" class="form-control mb-2 mr-sm-2" id="koerpergewicht" name="koerpergewicht" step=".05" placeholder="Gewicht (in KG)" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">KFA</f:facet>
+						#{koerpermessung.koerperfettAnteil} %
+						<f:facet name="footer">
+									<input type="number" class="form-control mb-2 mr-sm-2" id="koerperfettAnteil" name="koerperfettAnteil" step=".1" placeholder="KFA (in %)" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Kalorieneinnahme</f:facet>
+						#{koerpermessung.kalorieneinnahme} kcal
+						<f:facet name="footer">
+									<input type="number" class="form-control mb-2 mr-sm-2" id="kalorieneinnahme" name="kalorieneinnahme" placeholder="Kalorieneinnahme" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Kalorienverbrauch</f:facet>
+						#{koerpermessung.kalorienverbrauch} kcal
+						<f:facet name="footer">
+									<input type="number" class="form-control mb-2 mr-sm-2" id="kalorienverbrauch" name="kalorienverbrauch" placeholder="Kalorienverbrauch" />
+								</f:facet>
+							</h:column>
+							<h:column>
+								<button type="submit" class="btn btn-secondary active mb-2">✓</button>
+								<f:facet name="footer">
+									<button type="submit" class="btn btn-secondary active mb-2">✓</button>
+								</f:facet>
+							</h:column>
+							<h:column>
+								<button type="reset" class="btn btn-secondary active mb-2">
+									<i class="fa fa-trash-o" aria-hidden="true" />
+								</button>
+							</h:column>
+						</h:dataTable>
+					</form>
+				</div>
 			</div>
 		</h:panelGroup>
 

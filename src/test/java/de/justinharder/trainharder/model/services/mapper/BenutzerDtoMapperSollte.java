@@ -57,9 +57,11 @@ public class BenutzerDtoMapperSollte
 		final var benutzer = List.of(
 			Testdaten.BENUTZER_JUSTIN,
 			Testdaten.BENUTZER_EDUARD);
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
+		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(
+			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_EDUARD,
+		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(
+			Testdaten.AUTHENTIFIZIERUNG_EDUARD,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD);
 		angenommenDerKoerpermessungDtoMapperKonvertiertAlleZuKoerpermessungDto(
 			List.of(Testdaten.KOERPERMESSUNG_JUSTIN),

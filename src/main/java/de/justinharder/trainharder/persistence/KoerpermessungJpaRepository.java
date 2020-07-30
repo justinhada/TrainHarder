@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -36,6 +37,7 @@ public class KoerpermessungJpaRepository extends JpaRepository<Koerpermessung> i
 	}
 
 	@Override
+	@Transactional
 	public Koerpermessung speichereKoerpermessung(final Koerpermessung koerpermessung)
 	{
 		return super.speichereEntitaet(Koerpermessung.class, koerpermessung);

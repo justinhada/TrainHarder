@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +22,7 @@ public class KoerpermessungDtoSollte
 	{
 		sut = new KoerpermessungDto(
 			Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString(),
-			LocalDate.of(2020, 7, 29),
+			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			178,
 			90,
 			25,
@@ -53,7 +54,7 @@ public class KoerpermessungDtoSollte
 	public void test02()
 	{
 		sut = new KoerpermessungDto()
-			.setDatum(LocalDate.of(2020, 7, 29))
+			.setDatum(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
 			.setKoerpergroesse(178)
 			.setKoerpergewicht(90)
 			.setKoerperfettAnteil(25)
@@ -80,7 +81,7 @@ public class KoerpermessungDtoSollte
 	{
 		final var andereKoerpermessungDto = new KoerpermessungDto(
 			new Primaerschluessel().getId().toString(),
-			LocalDate.of(2020, 7, 29),
+			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			178,
 			80,
 			20,

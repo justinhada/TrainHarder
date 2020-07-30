@@ -149,7 +149,8 @@ public class Testdaten
 		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
 
 		KOERPERMESSUNG_DTO_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString());
-		KOERPERMESSUNG_DTO_JUSTIN.setDatum(KOERPERMESSUNG_JUSTIN.getDatum());
+		KOERPERMESSUNG_DTO_JUSTIN
+			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
 		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse());
 		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht());
 		KOERPERMESSUNG_DTO_JUSTIN.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil());
@@ -168,7 +169,8 @@ public class Testdaten
 		KOERPERMESSUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
 		KOERPERMESSUNG_DTO_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString());
-		KOERPERMESSUNG_DTO_EDUARD.setDatum(KOERPERMESSUNG_EDUARD.getDatum());
+		KOERPERMESSUNG_DTO_EDUARD
+			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
 		KOERPERMESSUNG_DTO_EDUARD.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse());
 		KOERPERMESSUNG_DTO_EDUARD.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht());
 		KOERPERMESSUNG_DTO_EDUARD.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil());

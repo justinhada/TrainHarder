@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.model.services.mapper;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class KoerpermessungDtoMapper
 	{
 		return new KoerpermessungDto(
 			koerpermessung.getPrimaerschluessel().getId().toString(),
-			koerpermessung.getDatum(),
+			koerpermessung.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			koerpermessung.getKoerpermasse().getKoerpergroesse(),
 			koerpermessung.getKoerpermasse().getKoerpergewicht(),
 			koerpermessung.getKoerpermasse().getKoerperfettAnteil(),

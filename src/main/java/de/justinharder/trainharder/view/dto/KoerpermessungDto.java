@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -15,7 +14,7 @@ public class KoerpermessungDto implements Serializable
 	private static final long serialVersionUID = 46915464001880978L;
 
 	private String primaerschluessel;
-	private LocalDate datum;
+	private String datum;
 	private int koerpergroesse;
 	private double koerpergewicht;
 	private double koerperfettAnteil;
@@ -30,7 +29,7 @@ public class KoerpermessungDto implements Serializable
 
 	public KoerpermessungDto(
 		final String primaerschluessel, 
-		final LocalDate datum, 
+		final String datum,
 		final int koerpergroesse,
 		final double koerpergewicht,
 		final double koerperfettAnteil, 
@@ -67,7 +66,7 @@ public class KoerpermessungDto implements Serializable
 		return Math.round(ffmi * 100) / 100.0;
 	}
 
-	public KoerpermessungDto setDatum(final LocalDate datum)
+	public KoerpermessungDto setDatum(final String datum)
 	{
 		this.datum = datum;
 		return this;
