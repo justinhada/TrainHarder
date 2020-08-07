@@ -25,6 +25,8 @@ import lombok.Setter;
 @Path(value = "/koerpermessungen")
 public class KoerpermessungController extends AbstractController
 {
+	private static final String REDIRECT_TO_LOGIN = "redirect:login";
+
 	@Context
 	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
@@ -39,6 +41,10 @@ public class KoerpermessungController extends AbstractController
 	@Override
 	public String index()
 	{
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
 		initialisiere();
 
 		return "/koerpermessungen/index.xhtml";
@@ -48,6 +54,11 @@ public class KoerpermessungController extends AbstractController
 	@Path(value = "/{benutzername}")
 	public String koerpermessdaten(@PathParam(value = "benutzername") final String benutzername)
 	{
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
+
 		try
 		{
 			final var authentifizierungDto = getAuthentifizierungDto();

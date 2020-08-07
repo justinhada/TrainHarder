@@ -23,6 +23,8 @@ import lombok.Setter;
 @Path(value = "/benutzer")
 public class BenutzerController extends AbstractController
 {
+	private static final String REDIRECT_TO_LOGIN = "redirect:login";
+
 	@Context
 	@Setter(value = AccessLevel.PUBLIC)
 	private HttpServletRequest request;
@@ -34,6 +36,10 @@ public class BenutzerController extends AbstractController
 	@Override
 	public String index()
 	{
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
 		initialisiere();
 
 		return "/benutzer/index.xhtml";
@@ -43,6 +49,10 @@ public class BenutzerController extends AbstractController
 	@Path(value = "/{benutzername}")
 	public String benutzerdaten(@PathParam(value = "benutzername") final String benutzername)
 	{
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
 		initialisiere();
 
 		return "/benutzer/benutzerdaten.xhtml";
@@ -53,6 +63,11 @@ public class BenutzerController extends AbstractController
 	public String aendereBenutzerdaten(@BeanParam final Benutzerdaten benutzerdaten)
 	{
 		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
+
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
 
 		try
 		{
@@ -79,6 +94,11 @@ public class BenutzerController extends AbstractController
 	@Path(value = "/logout")
 	public String logout()
 	{
+		if (securityContext.getCallerPrincipal() == null)
+		{
+			return REDIRECT_TO_LOGIN;
+		}
+
 		try
 		{
 			request.logout();
