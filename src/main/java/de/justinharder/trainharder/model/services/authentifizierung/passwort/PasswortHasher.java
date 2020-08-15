@@ -10,7 +10,6 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.inject.Inject;
 
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
-import lombok.Getter;
 import lombok.Setter;
 
 public class PasswortHasher
@@ -19,7 +18,6 @@ public class PasswortHasher
 	private static final int ITERATIONS = 65536;
 	private static final String ALGORITHMUS = "PBKDF2WithHmacSHA1";
 
-	@Getter
 	@Setter
 	private SecureRandom secureRandom;
 
