@@ -11,7 +11,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -92,7 +94,8 @@ public class LoginControllerSollte
 	}
 
 	private void angenommenDerLoginServiceWirftPasswortUnsicherException(final UUID resetUuid, final String passwort)
-		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
+		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException,
+		NoSuchAlgorithmException
 	{
 		doThrow(new PasswortUnsicherException("Das Passwort ist unsicher!")).when(loginService).resetPassword(resetUuid,
 			passwort);
@@ -320,7 +323,8 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei fehlerhaftem Passwort zurück zur Reset-Password-Seite navigieren")
-	public void test18() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
+	public void test18() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 
 		final var erwartet = "/reset-password.xhtml";
@@ -337,7 +341,8 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Password-Reset zur Reset-Password-Success-Seite navigieren")
-	public void test19() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
+	public void test19() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = "/reset-password-success.xhtml";
 

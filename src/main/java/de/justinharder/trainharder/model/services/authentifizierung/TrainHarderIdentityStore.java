@@ -1,5 +1,8 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.security.enterprise.credential.Credential;
@@ -30,7 +33,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 				return validate(loginService.login(benutzername, passwort));
 			}
 		}
-		catch (final LoginException e)
+		catch (final LoginException | InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			return CredentialValidationResult.INVALID_RESULT;
 		}

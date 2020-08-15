@@ -21,7 +21,6 @@ public class AuthentifizierungDtoMapper
 		return new AuthentifizierungDto(
 			authentifizierung.getPrimaerschluessel().getId().toString(),
 			authentifizierung.getMail(),
-			authentifizierung.getBenutzername(),
-			authentifizierung.getPasswort());
+			authentifizierung.getBenutzername());
 	}
 }

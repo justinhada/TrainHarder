@@ -102,24 +102,4 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	{
 		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
 	}
-
-	@Override
-	public Optional<Authentifizierung> login(final String benutzername, final String passwort)
-	{
-		try
-		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
-			criteriaQuery.select(root).where(
-				criteriaBuilder.equal(root.get("benutzername"), benutzername),
-				criteriaBuilder.equal(root.get("passwort"), passwort),
-				criteriaBuilder.equal(root.get("aktiv"), true));
-			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
-		}
-		catch (final NoResultException e)
-		{
-			return Optional.empty();
-		}
-	}
 }

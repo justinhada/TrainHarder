@@ -7,6 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,8 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenE
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -32,6 +36,7 @@ public class RegistrierungServiceSollte
 
 	private AuthentifizierungRepository authentifizierungRepository;
 	private AuthentifizierungDtoMapper authentifizierungDtoMapper;
+	private PasswortHasher passwortHasher;
 	private PasswortCheck passwortCheck;
 	private MailServer mailServer;
 
@@ -40,12 +45,14 @@ public class RegistrierungServiceSollte
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
+		passwortHasher = mock(PasswortHasher.class);
 		passwortCheck = mock(PasswortCheck.class);
 		mailServer = mock(MailServer.class);
 
 		sut = new RegistrierungService(
 			authentifizierungRepository,
 			authentifizierungDtoMapper,
+			passwortHasher,
 			passwortCheck,
 			mailServer);
 	}
@@ -149,7 +156,8 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer registrieren")
-	public void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
+	public void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException,
+		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");

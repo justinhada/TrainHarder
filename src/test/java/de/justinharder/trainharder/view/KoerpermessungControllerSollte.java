@@ -38,10 +38,10 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Benutzer-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
 	public void test01()
 	{
-		final var erwartet = "/koerpermessungen/index.xhtml";
+		final var erwartet = "redirect:login";
 
 		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 

@@ -66,7 +66,7 @@ public class BenutzerSollte
 				authentifizierungId,
 				"mail@justinharder.de",
 				"harder",
-				"JustinHarder98"));
+				Testdaten.PASSWORT));
 
 		assertAll(
 			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
@@ -85,7 +85,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
 	}
 
@@ -123,7 +123,7 @@ public class BenutzerSollte
 			authentifizierungId,
 			"mail@justinharder.de",
 			"harder",
-			"JustinHarder98");
+			Testdaten.PASSWORT);
 		final var benutzer = new Benutzer();
 		benutzer.setPrimaerschluessel(benutzerId);
 		benutzer.setName(new Name("Justin", "Harder"));
@@ -157,7 +157,7 @@ public class BenutzerSollte
 			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
 			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
 	}
 

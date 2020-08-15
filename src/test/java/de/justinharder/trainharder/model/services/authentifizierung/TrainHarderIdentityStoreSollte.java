@@ -5,6 +5,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
@@ -32,20 +35,21 @@ public class TrainHarderIdentityStoreSollte
 		sut.setLoginService(loginService);
 	}
 
-	private void angenommenDerAuthentifizierungServiceWirftLoginExcepion() throws LoginException
+	private void angenommenDerAuthentifizierungServiceWirftLoginExcepion()
+		throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(loginService.login(anyString(), anyString())).thenThrow(LoginException.class);
 	}
 
 	private void angenommenDerAuthentifizierungServiceLoggtEin(final AuthentifizierungDto authentifizierungDto)
-		throws LoginException
+		throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(loginService.login(anyString(), anyString())).thenReturn(authentifizierungDto);
 	}
 
 	@Test
 	@DisplayName("eine Authentifizierung validieren und ein invalides Ergebnis zurückgeben")
-	public void test01() throws LoginException
+	public void test01() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = CredentialValidationResult.INVALID_RESULT;
 		angenommenDerAuthentifizierungServiceWirftLoginExcepion();
@@ -69,7 +73,7 @@ public class TrainHarderIdentityStoreSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung erfolgreich validieren")
-	public void test03() throws LoginException
+	public void test03() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var erwartet = new CredentialValidationResult(authentifizierungDto.getBenutzername());

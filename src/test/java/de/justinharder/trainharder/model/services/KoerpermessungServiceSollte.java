@@ -247,7 +247,7 @@ public class KoerpermessungServiceSollte
 				Stress.MITTELMAESSIG,
 				Doping.NEIN,
 				Regenerationsfaehigkeit.PERFEKT),
-			new Authentifizierung(new Primaerschluessel(), "mail@justinharder.de", "harder", "Justinharder#98"));
+			new Authentifizierung(new Primaerschluessel(), "mail@justinharder.de", "harder", Testdaten.PASSWORT));
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(benutzerId.getId().toString(), Optional.of(benutzer));
 		angenommenDasKoerpermessungRepositorySpeichertKoerpermessung(koerpermessung);
 		angenommenDerKoerpermessungDtoMapperKonvertiertZuKoerpermessungDto(koerpermessung, erwartet);

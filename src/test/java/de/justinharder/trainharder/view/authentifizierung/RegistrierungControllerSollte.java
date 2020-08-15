@@ -9,7 +9,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
 import javax.mvc.Models;
@@ -72,7 +74,8 @@ public class RegistrierungControllerSollte
 	}
 
 	private void angenommenDerRegistrierungServiceWirftMailBereitsRegistriertException()
-		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
+		NoSuchAlgorithmException
 	{
 		when(registrierungService.registriere(any(Registrierung.class))).thenThrow(
 			new MailVergebenException("Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!"));
@@ -80,7 +83,8 @@ public class RegistrierungControllerSollte
 
 	private void angenommenDerRegistrierungServiceGibtAuthentifizierungDtoZurueck(
 		final AuthentifizierungDto authentifizierungDto)
-		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
+		NoSuchAlgorithmException
 	{
 		when(registrierungService.registriere(any(Registrierung.class))).thenReturn(authentifizierungDto);
 	}
@@ -147,7 +151,8 @@ public class RegistrierungControllerSollte
 	@Test
 	@DisplayName("bei fehlerhafter Registrierung zurück zur Registrierung-Seite navigieren")
 	public void test05()
-		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
+		NoSuchAlgorithmException
 	{
 		final var erwartet = "/join.xhtml";
 		angenommenDerRegistrierungServiceWirftMailBereitsRegistriertException();
@@ -161,7 +166,8 @@ public class RegistrierungControllerSollte
 	@Test
 	@DisplayName("bei erfolgreicher Registrierung zur Success-Seite navigieren")
 	public void test06()
-		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
+		NoSuchAlgorithmException
 	{
 		final var erwartet = "/success.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;

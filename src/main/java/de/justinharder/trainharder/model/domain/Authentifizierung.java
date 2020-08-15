@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.justinharder.trainharder.model.UuidMapper;
+import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +36,8 @@ public class Authentifizierung extends Entitaet
 	private String mail;
 	@Column(name = "Benutzername", unique = true, nullable = false)
 	private String benutzername;
-	@Column(name = "Passwort", nullable = false)
-	private String passwort;
+	@Embedded
+	private Passwort passwort;
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
 	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
@@ -49,7 +51,7 @@ public class Authentifizierung extends Entitaet
 		final Primaerschluessel primaerschluessel,
 		final String mail,
 		final String benutzername,
-		final String passwort)
+		final Passwort passwort)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.mail = mail;
@@ -58,19 +60,19 @@ public class Authentifizierung extends Entitaet
 		this.aktiv = false;
 	}
 
-	public Authentifizierung setAktiv(boolean aktiv)
+	public Authentifizierung setAktiv(final boolean aktiv)
 	{
 		this.aktiv = aktiv;
 		return this;
 	}
 
-	public Authentifizierung setPasswort(String passwort)
+	public Authentifizierung setPasswort(final Passwort passwort)
 	{
 		this.passwort = passwort;
 		return this;
 	}
 
-	public Authentifizierung setResetUuid(UUID resetUuid)
+	public Authentifizierung setResetUuid(final UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;

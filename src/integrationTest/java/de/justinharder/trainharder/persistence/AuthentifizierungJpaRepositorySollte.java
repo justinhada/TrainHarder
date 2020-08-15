@@ -23,7 +23,6 @@ import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.setup.Testdaten;
 
 public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
@@ -183,7 +182,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 			new Primaerschluessel(),
 			"justinharder@t-online.de",
 			"lololol",
-			"DerBossDerBosse#123");
+			Testdaten.PASSWORT);
 		erwartet.setBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name("Justin", "Harder"),
@@ -218,29 +217,5 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getPasswort()).isEqualTo(erwartet.getPasswort()),
 			() -> assertThat(ergebnis.isAktiv()).isEqualTo(erwartet.isAktiv()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(erwartet.getBenutzer()));
-	}
-
-	@Test
-	public void loginErfolglosChecken()
-	{
-		final var erwartet = Optional.empty();
-
-		final var ergebnis = sut.login(
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	public void loginErfolgreichChecken() throws LoginException
-	{
-		final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
-
-		final var ergebnis = sut.login(
-			Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername(),
-			Testdaten.AUTHENTIFIZIERUNG_EDUARD.getPasswort());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 }

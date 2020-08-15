@@ -26,7 +26,7 @@ public class AuthentifizierungSollte
 			new Primaerschluessel(),
 			"mail@justinharder.de",
 			"harder",
-			"Justinharder#98");
+			Testdaten.PASSWORT);
 	}
 
 	@Test
@@ -45,13 +45,13 @@ public class AuthentifizierungSollte
 			id,
 			"mail@justinharder.de",
 			"harder",
-			"JustinHarder98");
+			Testdaten.PASSWORT);
 
 		assertAll(
 			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(false),
 			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(null));
 	}
@@ -66,7 +66,7 @@ public class AuthentifizierungSollte
 		authentifizierung.setPrimaerschluessel(id);
 		authentifizierung.setMail("mail@justinharder.de");
 		authentifizierung.setBenutzername("harder");
-		authentifizierung.setPasswort("JustinHarder98");
+		authentifizierung.setPasswort(Testdaten.PASSWORT);
 		authentifizierung.setAktiv(true);
 		authentifizierung.setResetUuid(resetUuid);
 		authentifizierung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
@@ -75,7 +75,7 @@ public class AuthentifizierungSollte
 			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(authentifizierung.getPasswort()).isEqualTo("JustinHarder98"),
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(true),
 			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid),
 			() -> assertThat(authentifizierung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));

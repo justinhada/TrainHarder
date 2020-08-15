@@ -1,15 +1,20 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
 
+import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
 import de.justinharder.trainharder.model.services.mail.Mail;
 import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
@@ -18,32 +23,44 @@ import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
 public class LoginService
 {
+	private static final String LOGIN_EXCEPTION = "Der Benutzername oder das Passwort ist leider falsch!";
+
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
-	private final MailServer mailServer;
+	private final PasswortHasher passwortHasher;
 	private final PasswortCheck passwortCheck;
+	private final MailServer mailServer;
 
 	@Inject
 	public LoginService(
 		final AuthentifizierungRepository authentifizierungRepository,
 		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		final MailServer mailServer,
-		final PasswortCheck passwortCheck)
+		final PasswortHasher passwortHasher,
+		final PasswortCheck passwortCheck,
+		final MailServer mailServer)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
-		this.mailServer = mailServer;
+		this.passwortHasher = passwortHasher;
 		this.passwortCheck = passwortCheck;
+		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto login(final String benutzername, final String passwort) throws LoginException
+	public AuthentifizierungDto login(final String benutzername, final String passwort)
+		throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
 	{
 		Preconditions.checkNotNull(benutzername, "Zum Login wird ein gültiger Benutzername benötigt!");
 		Preconditions.checkNotNull(passwort, "Zum Login wird ein gültiges Passwort benötigt!");
 
-		return authentifizierungRepository.login(benutzername, passwort)
-			.map(authentifizierungDtoMapper::konvertiere)
-			.orElseThrow(() -> new LoginException("Der Benutzername oder das Passwort ist leider falsch!"));
+		final var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
+			.orElseThrow(() -> new LoginException(LOGIN_EXCEPTION));
+
+		if (!passwortHasher.check(authentifizierung.getPasswort(), passwort))
+		{
+			throw new LoginException(LOGIN_EXCEPTION);
+		}
+
+		return authentifizierungDtoMapper.konvertiere(authentifizierung);
 	}
 
 	public void sendeResetMail(final String mail, final UUID resetUuid) throws AuthentifizierungNichtGefundenException
@@ -74,8 +91,8 @@ public class LoginService
 		//			StandardCharsets.UTF_8);
 	}
 
-	public void resetPassword(final UUID resetUuid, final String passwort)
-		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
+	public void resetPassword(final UUID resetUuid, final String passwort) throws PasswortUnsicherException,
+		AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
 		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");
@@ -88,8 +105,10 @@ public class LoginService
 		final var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ResetUUID \"" + resetUuid.toString() + "\" existiert nicht!"));
+
+		final var salt = authentifizierung.getPasswort().getSalt();
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung
-			.setPasswort(passwort)
+			.setPasswort(new Passwort(salt, passwortHasher.hash(passwort, salt)))
 			.setResetUuid(null));
 	}
 }

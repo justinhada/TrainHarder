@@ -123,7 +123,7 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 				new Primaerschluessel(),
 				"nicoleharder@mail.de",
 				"nicoleee",
-				"NicoleHarder#2007"));
+				Testdaten.PASSWORT));
 
 		final var ergebnis = sut.speichereBenutzer(erwartet);
 

@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -154,7 +156,8 @@ public class LoginController
 			loginService.resetPassword(UUID.fromString(resetUuid), passwort);
 			return "/reset-password-success.xhtml";
 		}
-		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException e)
+		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException | InvalidKeySpecException
+			| NoSuchAlgorithmException e)
 		{
 			models.put("fehler", e.getMessage());
 			return resetPasswordView(resetUuid);

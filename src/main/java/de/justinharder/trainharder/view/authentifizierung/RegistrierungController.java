@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -78,7 +80,8 @@ public class RegistrierungController
 			models.put("authentifizierung", registrierungService.registriere(registrierung));
 			return erfolgreich();
 		}
-		catch (final MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException e)
+		catch (final MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException
+			| InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			models.put("fehler", e.getMessage());
 			return index();

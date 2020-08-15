@@ -52,10 +52,10 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Benutzer-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
 	public void test01()
 	{
-		final var erwartet = "/benutzer/index.xhtml";
+		final var erwartet = "redirect:login";
 
 		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 
@@ -95,10 +95,10 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Benutzerdaten-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
 	public void test04()
 	{
-		final var erwartet = "/benutzer/benutzerdaten.xhtml";
+		final var erwartet = "redirect:login";
 
 		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.benutzerdaten("harder"));
 
@@ -241,16 +241,15 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei fehlerhaftem Logout zur Fehler-Seite per GET navigieren")
+	@DisplayName("bei Logout ohne angemeldeten Benutzer zur Login-Seite per GET navigieren")
 	public void test11() throws ServletException
 	{
-		final var erwartet = "/error";
+		final var erwartet = "redirect:login";
 		angenommenDerHttpServletRequestWirftServletException();
 
 		final var ergebnis = sut.logout();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(request).logout();
 	}
 
 	@Test
@@ -258,6 +257,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	public void test12() throws ServletException
 	{
 		final var erwartet = "redirect:start";
+		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
 
 		final var ergebnis = sut.logout();
 

@@ -16,5 +16,4 @@ public class AuthentifizierungDto implements Serializable
 	private String primaerschluessel; 
 	private String mail;
 	private String benutzername;
-	private String passwort; 
 }

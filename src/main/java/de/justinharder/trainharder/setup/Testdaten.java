@@ -13,6 +13,7 @@ import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
+import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Doping;
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
@@ -41,6 +42,8 @@ public class Testdaten
 
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_EDUARD_ID = new Primaerschluessel();
+
+	public static final Passwort PASSWORT = new Passwort();
 
 	public static final Authentifizierung AUTHENTIFIZIERUNG_JUSTIN = new Authentifizierung();
 	public static final Authentifizierung AUTHENTIFIZIERUNG_EDUARD = new Authentifizierung();
@@ -110,10 +113,16 @@ public class Testdaten
 
 	static
 	{
+		PASSWORT // aus Justinharder#98 und salt
+			.setSalt(new byte[]
+			{ -92, 56, -96, 113, -49, 24, 56, -94, -125, 43, 99, 45, 84, 52, 72, 19 })
+			.setPasswortHash(new byte[]
+			{ -35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107 });
+
 		AUTHENTIFIZIERUNG_JUSTIN.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN_ID);
 		AUTHENTIFIZIERUNG_JUSTIN.setMail("mail@justinharder.de");
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzername("harder");
-		AUTHENTIFIZIERUNG_JUSTIN.setPasswort("JustinHarder#98");
+		AUTHENTIFIZIERUNG_JUSTIN.setPasswort(PASSWORT);
 		AUTHENTIFIZIERUNG_JUSTIN.setAktiv(false);
 		AUTHENTIFIZIERUNG_JUSTIN.setResetUuid(UUID.randomUUID());
 		AUTHENTIFIZIERUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
@@ -121,7 +130,7 @@ public class Testdaten
 		AUTHENTIFIZIERUNG_EDUARD.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID);
 		AUTHENTIFIZIERUNG_EDUARD.setMail("mail@eduard.de");
 		AUTHENTIFIZIERUNG_EDUARD.setBenutzername("eduard");
-		AUTHENTIFIZIERUNG_EDUARD.setPasswort("EduardEduardEduard_98");
+		AUTHENTIFIZIERUNG_EDUARD.setPasswort(PASSWORT);
 		AUTHENTIFIZIERUNG_EDUARD.setAktiv(true);
 		AUTHENTIFIZIERUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
 
@@ -129,13 +138,11 @@ public class Testdaten
 			.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel().getId().toString());
 		AUTHENTIFIZIERUNG_DTO_JUSTIN.setMail(AUTHENTIFIZIERUNG_JUSTIN.getMail());
 		AUTHENTIFIZIERUNG_DTO_JUSTIN.setBenutzername(AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
-		AUTHENTIFIZIERUNG_DTO_JUSTIN.setPasswort(AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
 
 		AUTHENTIFIZIERUNG_DTO_EDUARD
 			.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD.getPrimaerschluessel().getId().toString());
 		AUTHENTIFIZIERUNG_DTO_EDUARD.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail());
 		AUTHENTIFIZIERUNG_DTO_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
-		AUTHENTIFIZIERUNG_DTO_EDUARD.setPasswort(AUTHENTIFIZIERUNG_EDUARD.getPasswort());
 
 		KOERPERMASSE_JUSTIN.setKoerpergroesse(178);
 		KOERPERMASSE_JUSTIN.setKoerpergewicht(90);

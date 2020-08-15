@@ -6,6 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,10 +16,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
+import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
+import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -29,29 +34,21 @@ public class LoginServiceSollte
 
 	private AuthentifizierungRepository authentifizierungRepository;
 	private AuthentifizierungDtoMapper authentifizierungDtoMapper;
-	private MailServer mailServer;
+	private PasswortHasher passwortHasher;
 	private PasswortCheck passwortCheck;
+	private MailServer mailServer;
 
 	@BeforeEach
 	public void setup()
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
-		mailServer = mock(MailServer.class);
+		passwortHasher = mock(PasswortHasher.class);
 		passwortCheck = mock(PasswortCheck.class);
+		mailServer = mock(MailServer.class);
 
-		sut = new LoginService(authentifizierungRepository, authentifizierungDtoMapper, mailServer, passwortCheck);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryLoggtEin(final String benutzername, final String passwort,
-		final Optional<Authentifizierung> authentifizierung)
-	{
-		when(authentifizierungRepository.login(benutzername, passwort)).thenReturn(authentifizierung);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryLoggtNichtEin(final String benutzername, final String passwort)
-	{
-		angenommenDasAuthentifizierungRepositoryLoggtEin(benutzername, passwort, Optional.empty());
+		sut = new LoginService(authentifizierungRepository, authentifizierungDtoMapper, passwortHasher, passwortCheck,
+			mailServer);
 	}
 
 	private void angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(
@@ -88,6 +85,32 @@ public class LoginServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.empty());
 	}
 
+	private void angenommenDerPasswortHasherChecktPasswort(final Passwort aktuellesPasswort, final String passwort,
+		final boolean check) throws InvalidKeySpecException, NoSuchAlgorithmException
+	{
+		when(passwortHasher.check(aktuellesPasswort, passwort)).thenReturn(check);
+	}
+
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(
+		final String benutzername,
+		final Optional<Authentifizierung> authentifizierung)
+	{
+		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
+	}
+
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(
+		final String benutzername)
+	{
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
+			Optional.empty());
+	}
+
+	private void angenommenDerPasswortHasherHashtPasswort(final String passwort, final byte[] salt, final byte[] hash)
+		throws InvalidKeySpecException, NoSuchAlgorithmException
+	{
+		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);
+	}
+
 	@Test
 	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
 	public void test01()
@@ -111,42 +134,63 @@ public class LoginServiceSollte
 	}
 
 	@Test
-	@DisplayName("LoginException werfen, wenn der Benutzername oder das Passwort falsch ist")
+	@DisplayName("LoginException werfen, wenn der Benutzername nicht existiert")
 	public void test03()
 	{
 		final var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		final var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
-		final var passwort = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort();
-		angenommenDasAuthentifizierungRepositoryLoggtNichtEin(benutzername, passwort);
+		final var passwort = "Justinharder#98";
+		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(benutzername);
 
 		final var exception = assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
-		verify(authentifizierungRepository).login(benutzername, passwort);
+		verify(authentifizierungRepository).ermittleZuBenutzername(benutzername);
+	}
+
+	@Test
+	@DisplayName("LoginException werfen, wenn das Passwort falsch ist")
+	public void test04() throws InvalidKeySpecException, NoSuchAlgorithmException
+	{
+		final var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
+		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		final var benutzername = authentifizierung.getBenutzername();
+		final var passwort = "Justinharder#98";
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
+			Optional.of(authentifizierung));
+		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, false);
+
+		final var exception = assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		verify(authentifizierungRepository).ermittleZuBenutzername(benutzername);
+		verify(passwortHasher).check(authentifizierung.getPasswort(), passwort);
 	}
 
 	@Test
 	@DisplayName("einen Benutzer einloggen")
-	public void test04() throws LoginException
+	public void test05() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		final var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
-		final var passwort = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort();
-		angenommenDasAuthentifizierungRepositoryLoggtEin(benutzername, passwort,
+		final var passwort = "Justinharder#98";
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
 			Optional.of(authentifizierung));
+		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, true);
 		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
 
 		final var ergebnis = sut.login(benutzername, passwort);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(authentifizierungRepository).login(benutzername, passwort);
+		verify(authentifizierungRepository).ermittleZuBenutzername(benutzername);
+		verify(passwortHasher).check(authentifizierung.getPasswort(), passwort);
 		verify(authentifizierungDtoMapper).konvertiere(authentifizierung);
 	}
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Mail null ist")
-	public void test05()
+	public void test06()
 	{
 		final var erwartet = "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!";
 
@@ -157,7 +201,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test06()
+	public void test07()
 	{
 		final var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		final var erwartet = "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!";
@@ -169,7 +213,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die Mail nicht existiert")
-	public void test07()
+	public void test08()
 	{
 		final var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		final var erwartet = "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!";
@@ -185,7 +229,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("die Reset-Mail senden")
-	public void test08() throws AuthentifizierungNichtGefundenException
+	public void test09() throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		final var mail = authentifizierung.getMail();
@@ -212,7 +256,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test09()
+	public void test10()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
 
@@ -223,7 +267,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	public void test10()
+	public void test11()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
 
@@ -235,7 +279,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
-	public void test11()
+	public void test12()
 	{
 		final var erwartet = "Das Passwort ist unsicher!";
 		final var passwort = "UnsicheresPasswort";
@@ -250,7 +294,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die ResetUUID nicht existiert")
-	public void test12()
+	public void test13()
 	{
 		final var resetUuid = UUID.randomUUID();
 		final var erwartet = "Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!";
@@ -266,7 +310,8 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("das Passwort zurücksetzen")
-	public void test13() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException
+	public void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var authentifizierung = new Authentifizierung(
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel(),
@@ -274,16 +319,19 @@ public class LoginServiceSollte
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
 		final var resetUuid = UUID.randomUUID();
-		final var passwort = "SicheresPasswort";
+		final var passwort = "Justinharder#98";
 		angenommenDasPasswortIstUnsicher(passwort, false);
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid,
 			Optional.of(authentifizierung));
+		angenommenDerPasswortHasherHashtPasswort(passwort, authentifizierung.getPasswort().getSalt(),
+			Testdaten.PASSWORT.getPasswortHash());
 
 		sut.resetPassword(resetUuid, passwort);
 
-		assertThat(authentifizierung.getPasswort()).isEqualTo(passwort);
+		assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT);
 		verify(passwortCheck).isUnsicher(passwort);
 		verify(authentifizierungRepository).ermittleZuResetUuid(resetUuid);
+		verify(passwortHasher).hash(passwort, authentifizierung.getPasswort().getSalt());
 		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
 	}
 }

@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.authentifizierung;
+package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
 import lombok.NoArgsConstructor;
 
