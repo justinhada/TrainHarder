@@ -73,7 +73,7 @@ public class KoerpermessungController extends AbstractController
 		catch (AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
-			return "/error";
+			return REDIRECT_TO_LOGIN;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class KoerpermessungController extends AbstractController
 		catch (AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
-			return "/error";
+			return REDIRECT_TO_LOGIN;
 		}
 	}
 }

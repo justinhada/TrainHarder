@@ -38,7 +38,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	public void test01()
 	{
 		final var erwartet = "redirect:login";
@@ -81,10 +81,22 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Fehler-Seite per GET navigieren, wenn der Benutzer nicht existiert")
-	public void test04() throws AuthentifizierungNichtGefundenException
+	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
+	public void test04()
 	{
-		final var erwartet = "/error";
+		final var erwartet = "redirect:login";
+
+		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.koerpermessdaten("harder"));
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+		verify(securityContext).getCallerPrincipal();
+	}
+
+	@Test
+	@DisplayName("zur Login-Seite weiterleiten, wenn der Benutzer nicht existiert")
+	public void test05() throws AuthentifizierungNichtGefundenException
+	{
+		final var erwartet = "redirect:login";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
 		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
@@ -96,10 +108,10 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Fehler-Seite per GET navigieren, wenn die Authentifizierung nicht existiert")
-	public void test05() throws AuthentifizierungNichtGefundenException
+	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
+	public void test06() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/error";
+		final var erwartet = "redirect:login";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
 		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
@@ -112,7 +124,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test06() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	public void test07() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -132,7 +144,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	public void test07()
+	public void test08()
 	{
 		final var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
@@ -142,10 +154,10 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei fehlerhafter Authentifizierung zur Fehler-Seite per GET navigieren")
-	public void test08() throws AuthentifizierungNichtGefundenException
+	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
+	public void test09() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/error";
+		final var erwartet = "redirect:login";
 		final var benutzername = "harder";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
@@ -161,7 +173,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("eine neue Koerpermessung erstellen")
-	public void test09() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	public void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		final var benutzername = "harder";

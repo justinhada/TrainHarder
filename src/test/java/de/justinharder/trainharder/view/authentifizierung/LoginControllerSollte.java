@@ -168,7 +168,7 @@ public class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei erfolgreichem Login zur Start-Seite navigieren")
+	@DisplayName("zur Start-Seite navigieren, wenn der Login erfolgreich ist")
 	public void test06()
 	{
 		final var erwartet = "redirect:start";

@@ -52,7 +52,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite weiterleiten, wenn Benutzer angemeldet ist")
 	public void test01()
 	{
 		final var erwartet = "redirect:login";
@@ -95,7 +95,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Login-Seite per GET navigieren ohne angemeldeten Benutzer")
+	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	public void test04()
 	{
 		final var erwartet = "redirect:login";
@@ -150,10 +150,10 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei fehlerhafter Authentifizierung zur Fehler-Seite per GET navigieren")
+	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	public void test08() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/error";
+		final var erwartet = "redirect:login";
 		final var benutzername = "harder";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
@@ -241,10 +241,23 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei Logout ohne angemeldeten Benutzer zur Login-Seite per GET navigieren")
+	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	public void test11() throws ServletException
 	{
 		final var erwartet = "redirect:login";
+		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
+
+		final var ergebnis = sut.logout();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("zur Fehler-Seite weiterleiten, wenn der Logout fehlerhaft ist")
+	public void test12() throws ServletException
+	{
+		final var erwartet = "redirect:error";
+		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
 		angenommenDerHttpServletRequestWirftServletException();
 
 		final var ergebnis = sut.logout();
@@ -253,8 +266,8 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei erfolgreichem Logout zur Start-Seite per GET navigieren")
-	public void test12() throws ServletException
+	@DisplayName("zur Start-Seite weiterleiten, wenn der Logout erfolgreich ist")
+	public void test13() throws ServletException
 	{
 		final var erwartet = "redirect:start";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));

@@ -118,7 +118,7 @@ public class KontaktControllerSollte
 	}
 
 	@Test
-	@DisplayName("zur Start-Seite per GET navigieren mit angemeldeten Benutzer")
+	@DisplayName("zur Kontakt-Seite per GET navigieren mit angemeldeten Benutzer")
 	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/kontakt.xhtml";
@@ -166,7 +166,7 @@ public class KontaktControllerSollte
 	}
 
 	@Test
-	@DisplayName("bei erfolgreichem Kontaktieren zur Kontaktiert-Seite navigieren")
+	@DisplayName("bei erfolgreichem Kontaktieren zur Kontaktiert-Seite per GET navigieren")
 	public void test06()
 	{
 		final var erwartet = "/kontaktiert.xhtml";

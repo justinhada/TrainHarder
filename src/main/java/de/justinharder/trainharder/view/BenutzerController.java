@@ -15,6 +15,7 @@ import com.google.common.base.Preconditions;
 
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -23,7 +24,9 @@ import lombok.Setter;
 @Path(value = "/benutzer")
 public class BenutzerController extends AbstractController
 {
+	private static final String REDIRECT_TO_START = "redirect:start";
 	private static final String REDIRECT_TO_LOGIN = "redirect:login";
+	private static final String REDIRECT_TO_ERROR = "redirect:error";
 
 	@Context
 	@Setter(value = AccessLevel.PUBLIC)
@@ -64,29 +67,31 @@ public class BenutzerController extends AbstractController
 	{
 		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
 
-		if (securityContext.getCallerPrincipal() == null)
-		{
-			return REDIRECT_TO_LOGIN;
-		}
-
 		try
 		{
 			final var authentifizierungDto = getAuthentifizierungDto();
-			try
-			{
-				final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
-				benutzerService.aktualisiereBenutzer(benutzerDto.getPrimaerschluessel(), benutzerdaten);
-			}
-			catch (final BenutzerNichtGefundenException e)
-			{
-				benutzerService.erstelleBenutzer(benutzerdaten, authentifizierungDto.getPrimaerschluessel());
-			}
+
+			aendereOderErstelle(benutzerdaten, authentifizierungDto);
 			return benutzerdaten(authentifizierungDto.getBenutzername());
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
-			return "/error";
+			return REDIRECT_TO_LOGIN;
+		}
+	}
+
+	private void aendereOderErstelle(final Benutzerdaten benutzerdaten, final AuthentifizierungDto authentifizierungDto)
+		throws AuthentifizierungNichtGefundenException
+	{
+		try
+		{
+			final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
+			benutzerService.aktualisiereBenutzer(benutzerDto.getPrimaerschluessel(), benutzerdaten);
+		}
+		catch (final BenutzerNichtGefundenException e)
+		{
+			benutzerService.erstelleBenutzer(benutzerdaten, authentifizierungDto.getPrimaerschluessel());
 		}
 	}
 
@@ -102,12 +107,12 @@ public class BenutzerController extends AbstractController
 		try
 		{
 			request.logout();
-			return "redirect:start";
+			return REDIRECT_TO_START;
 		}
 		catch (final ServletException e)
 		{
 			models.put("fehler", e.getMessage());
-			return "/error";
+			return REDIRECT_TO_ERROR;
 		}
 	}
 }
