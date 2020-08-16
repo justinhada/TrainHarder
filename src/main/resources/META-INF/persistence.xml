@@ -6,11 +6,18 @@
 	<persistence-unit name="TrainHarder"
 		transaction-type="JTA">
 		<jta-data-source>java:jboss/jdbc/trainharder</jta-data-source>
+		<class>de.justinharder.trainharder.model.domain.Entitaet</class>
 		<class>de.justinharder.trainharder.model.domain.Benutzer</class>
 		<class>de.justinharder.trainharder.model.domain.Kraftwert</class>
 		<class>de.justinharder.trainharder.model.domain.Belastungsfaktor</class>
 		<class>de.justinharder.trainharder.model.domain.Uebung</class>
 		<class>de.justinharder.trainharder.model.domain.Authentifizierung</class>
 		<class>de.justinharder.trainharder.model.domain.Koerpermessung</class>
+		<class>de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe</class>
+		<class>de.justinharder.trainharder.model.domain.embeddables.Koerpermasse</class>
+		<class>de.justinharder.trainharder.model.domain.embeddables.Name</class>
+		<class>de.justinharder.trainharder.model.domain.embeddables.Passwort</class>
+		<class>de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel</class>
+		<class>de.justinharder.trainharder.model.UuidMapper</class>
 	</persistence-unit>
 </persistence>
