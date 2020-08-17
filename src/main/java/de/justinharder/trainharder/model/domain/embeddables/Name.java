@@ -5,13 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class Name implements Serializable
 {
@@ -21,6 +17,15 @@ public class Name implements Serializable
 	private String vorname;
 	@Column(name = "Nachname")
 	private String nachname;
+
+	public Name()
+	{}
+
+	public Name(final String vorname, final String nachname)
+	{
+		this.vorname = vorname;
+		this.nachname = nachname;
+	}
 
 	public Name setVorname(final String vorname)
 	{

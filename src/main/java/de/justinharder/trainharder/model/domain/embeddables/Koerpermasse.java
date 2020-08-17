@@ -7,11 +7,9 @@ import javax.persistence.Embeddable;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@NoArgsConstructor
 @Embeddable
 public class Koerpermasse implements Serializable
 {
@@ -23,15 +21,18 @@ public class Koerpermasse implements Serializable
 	private double koerpergewicht;
 	@Column(name = "KoerperfettAnteil")
 	private double koerperfettAnteil;
+	@Setter(value = AccessLevel.NONE)
 	@Column(name = "FettfreiesKoerpergewicht")
-	@Setter(value = AccessLevel.NONE)
 	private double fettfreiesKoerpergewicht;
+	@Setter(value = AccessLevel.NONE)
 	@Column(name = "BodyMassIndex")
-	@Setter(value = AccessLevel.NONE)
 	private double bodyMassIndex;
-	@Column(name = "FatFreeMassIndex")
 	@Setter(value = AccessLevel.NONE)
+	@Column(name = "FatFreeMassIndex")
 	private double fatFreeMassIndex;
+
+	public Koerpermasse()
+	{}
 
 	public Koerpermasse(final int koerpergroesse, final double koerpergewicht, final double koerperfettAnteil)
 	{
@@ -39,9 +40,9 @@ public class Koerpermasse implements Serializable
 		this.koerpergewicht = koerpergewicht;
 		this.koerperfettAnteil = koerperfettAnteil;
 
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 
 	private double berechneFettfreiesKoerpergewicht(final double koerpergewicht, final double koerperfettAnteil)
@@ -65,27 +66,27 @@ public class Koerpermasse implements Serializable
 	public Koerpermasse setKoerpergroesse(final int koerpergroesse)
 	{
 		this.koerpergroesse = koerpergroesse;
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 
 	public Koerpermasse setKoerpergewicht(final double koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 
 	public Koerpermasse setKoerperfettAnteil(final double koerperfettAnteil)
 	{
 		this.koerperfettAnteil = koerperfettAnteil;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 }

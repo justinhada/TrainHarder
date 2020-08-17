@@ -16,39 +16,40 @@ import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Embeddable
 public class Benutzerangabe implements Serializable
 {
 	private static final long serialVersionUID = 9094368590669673429L;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Kraftlevel")
-	@Enumerated(EnumType.STRING)
 	private Kraftlevel kraftlevel = Kraftlevel.CLASS_5;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Geschlecht")
-	@Enumerated(EnumType.STRING)
 	private Geschlecht geschlecht;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Erfahrung")
-	@Enumerated(EnumType.STRING)
 	private Erfahrung erfahrung;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Ernaehrung")
-	@Enumerated(EnumType.STRING)
 	private Ernaehrung ernaehrung;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Schlafqualitaet")
-	@Enumerated(EnumType.STRING)
 	private Schlafqualitaet schlafqualitaet;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Stress")
-	@Enumerated(EnumType.STRING)
 	private Stress stress;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Doping")
-	@Enumerated(EnumType.STRING)
 	private Doping doping;
-	@Column(name = "Regenerationsfaehigkeit")
 	@Enumerated(EnumType.STRING)
+	@Column(name = "Regenerationsfaehigkeit")
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
+
+	public Benutzerangabe()
+	{}
 
 	public Benutzerangabe(
 		final Geschlecht geschlecht,

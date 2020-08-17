@@ -15,18 +15,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Benutzer")
 public class Benutzer extends Entitaet
@@ -45,12 +43,17 @@ public class Benutzer extends Entitaet
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.MERGE)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
+	@Transient
 	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
+	private final List<Koerpermessung> koerpermessungen = new ArrayList<>();
+	@Transient
 	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	private List<Kraftwert> kraftwerte = new ArrayList<>();
+	private final List<Kraftwert> kraftwerte = new ArrayList<>();
+
+	public Benutzer()
+	{}
 
 	public Benutzer(
 		final Primaerschluessel primaerschluessel,
@@ -91,6 +94,12 @@ public class Benutzer extends Entitaet
 			.orElseGet(() -> null);
 	}
 
+	public Benutzer setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
 	public Benutzer setName(final Name name)
 	{
 		this.name = name;
@@ -109,6 +118,12 @@ public class Benutzer extends Entitaet
 		return this;
 	}
 
+	public Benutzer setAuthentifizierung(final Authentifizierung authentifizierung)
+	{
+		this.authentifizierung = authentifizierung;
+		return this;
+	}
+
 	public Benutzer fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
@@ -119,5 +134,17 @@ public class Benutzer extends Entitaet
 	{
 		koerpermessungen.add(koerpermessung);
 		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@NoArgsConstructor
 public class KoerpermessungDto implements Serializable
 {
 	private static final long serialVersionUID = 46915464001880978L;
@@ -27,13 +25,16 @@ public class KoerpermessungDto implements Serializable
 	private int kalorieneinnahme;
 	private int kalorienverbrauch;
 
+	public KoerpermessungDto()
+	{}
+
 	public KoerpermessungDto(
-		final String primaerschluessel, 
+		final String primaerschluessel,
 		final String datum,
 		final int koerpergroesse,
 		final double koerpergewicht,
-		final double koerperfettAnteil, 
-		final int kalorieneinnahme, 
+		final double koerperfettAnteil,
+		final int kalorieneinnahme,
 		final int kalorienverbrauch)
 	{
 		this.primaerschluessel = primaerschluessel;
@@ -41,11 +42,12 @@ public class KoerpermessungDto implements Serializable
 		this.koerpergroesse = koerpergroesse;
 		this.koerpergewicht = koerpergewicht;
 		this.koerperfettAnteil = koerperfettAnteil;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		this.kalorieneinnahme = kalorieneinnahme;
 		this.kalorienverbrauch = kalorienverbrauch;
+
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 
 	private double berechneFettfreiesKoerpergewicht(final double koerpergewicht, final double koerperfettAnteil)
@@ -66,6 +68,12 @@ public class KoerpermessungDto implements Serializable
 		return Math.round(ffmi * 100) / 100.0;
 	}
 
+	public KoerpermessungDto setPrimaerschluessel(final String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
 	public KoerpermessungDto setDatum(final String datum)
 	{
 		this.datum = datum;
@@ -75,27 +83,27 @@ public class KoerpermessungDto implements Serializable
 	public KoerpermessungDto setKoerpergroesse(final int koerpergroesse)
 	{
 		this.koerpergroesse = koerpergroesse;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 
 	public KoerpermessungDto setKoerpergewicht(final double koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 
 	public KoerpermessungDto setKoerperfettAnteil(final double koerperfettAnteil)
 	{
 		this.koerperfettAnteil = koerperfettAnteil;
-		this.fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		this.bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		this.fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
+		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
 	}
 

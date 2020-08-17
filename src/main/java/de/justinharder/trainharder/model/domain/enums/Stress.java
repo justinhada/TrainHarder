@@ -8,17 +8,17 @@ public enum Stress
 	MITTELMAESSIG("MITTELMAESSIG"),
 	HOCH("HOCH");
 
-	private String stress;
+	private String stressOption;
 
-	private Stress(final String stress)
+	private Stress(final String stressOption)
 	{
-		this.stress = stress;
+		this.stressOption = stressOption;
 	}
 
 	public static Stress fromStressOption(final String stressOption)
 	{
 		return Stream.of(Stress.values())
-			.filter(s -> s.stress.equalsIgnoreCase(stressOption))
+			.filter(s -> s.stressOption.equalsIgnoreCase(stressOption))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"Die Stress-Option \"" + stressOption + "\" existiert nicht!"));

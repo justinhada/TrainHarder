@@ -8,17 +8,17 @@ public enum Ernaehrung
 	DURCHSCHNITT("DURCHSCHNITT"),
 	GUT("GUT");
 
-	private String ernaehrung;
+	private String ernaehrungOption;
 
-	private Ernaehrung(final String ernaehrung)
+	private Ernaehrung(final String ernaehrungOption)
 	{
-		this.ernaehrung = ernaehrung;
+		this.ernaehrungOption = ernaehrungOption;
 	}
 
 	public static Ernaehrung fromErnaehrungOption(final String ernaehrungOption)
 	{
 		return Stream.of(Ernaehrung.values())
-			.filter(e -> e.ernaehrung.equalsIgnoreCase(ernaehrungOption))
+			.filter(e -> e.ernaehrungOption.equalsIgnoreCase(ernaehrungOption))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"Die Ernaehrung-Option \"" + ernaehrungOption + "\" existiert nicht!"));

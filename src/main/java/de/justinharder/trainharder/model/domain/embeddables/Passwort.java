@@ -5,13 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class Passwort implements Serializable
 {
@@ -20,7 +16,16 @@ public class Passwort implements Serializable
 	@Column(name = "Salt", columnDefinition = "VARBINARY(128)", nullable = false)
 	private byte[] salt;
 	@Column(name = "PasswortHash", columnDefinition = "VARBINARY(128)", nullable = false)
-	private byte[] passwortHash; 
+	private byte[] passwortHash;
+
+	public Passwort()
+	{}
+
+	public Passwort(final byte[] salt, final byte[] passwortHash)
+	{
+		this.salt = salt;
+		this.passwortHash = passwortHash;
+	}
 
 	public Passwort setSalt(final byte[] salt)
 	{

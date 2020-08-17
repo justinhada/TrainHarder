@@ -10,17 +10,17 @@ public enum Regenerationsfaehigkeit
 	GUT("GUT"),
 	PERFEKT("PERFEKT");
 
-	private String regenerationsfaehigkeit;
+	private String regenerationsfaehigkeitOption;
 
-	private Regenerationsfaehigkeit(final String regenerationsfaehigkeit)
+	private Regenerationsfaehigkeit(final String regenerationsfaehigkeitOption)
 	{
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.regenerationsfaehigkeitOption = regenerationsfaehigkeitOption;
 	}
 
 	public static Regenerationsfaehigkeit fromRegenerationsfaehigkeitOption(final String regenerationsfaehigkeitOption)
 	{
 		return Stream.of(Regenerationsfaehigkeit.values())
-			.filter(r -> r.regenerationsfaehigkeit.equalsIgnoreCase(regenerationsfaehigkeitOption))
+			.filter(r -> r.regenerationsfaehigkeitOption.equalsIgnoreCase(regenerationsfaehigkeitOption))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"Die Regenerationsfaehigkeit-Option \"" + regenerationsfaehigkeitOption + "\" existiert nicht!"));

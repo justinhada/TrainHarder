@@ -113,337 +113,332 @@ public class Testdaten
 
 	static
 	{
-		PASSWORT // aus Justinharder#98 und salt
+		PASSWORT
 			.setSalt(new byte[]
 			{ -92, 56, -96, 113, -49, 24, 56, -94, -125, 43, 99, 45, 84, 52, 72, 19 })
 			.setPasswortHash(new byte[]
-			{ -35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107 });
+			{ -35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107 }); // Justinharder#98
 
-		AUTHENTIFIZIERUNG_JUSTIN.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN_ID);
-		AUTHENTIFIZIERUNG_JUSTIN.setMail("mail@justinharder.de");
-		AUTHENTIFIZIERUNG_JUSTIN.setBenutzername("harder");
-		AUTHENTIFIZIERUNG_JUSTIN.setPasswort(PASSWORT);
-		AUTHENTIFIZIERUNG_JUSTIN.setAktiv(false);
-		AUTHENTIFIZIERUNG_JUSTIN.setResetUuid(UUID.randomUUID());
-		AUTHENTIFIZIERUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
+		AUTHENTIFIZIERUNG_JUSTIN
+			.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN_ID)
+			.setMail("mail@justinharder.de")
+			.setBenutzername("harder")
+			.setPasswort(PASSWORT)
+			.setAktiv(false)
+			.setResetUuid(UUID.randomUUID())
+			.setBenutzer(BENUTZER_JUSTIN);
 
-		AUTHENTIFIZIERUNG_EDUARD.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID);
-		AUTHENTIFIZIERUNG_EDUARD.setMail("mail@eduard.de");
-		AUTHENTIFIZIERUNG_EDUARD.setBenutzername("eduard");
-		AUTHENTIFIZIERUNG_EDUARD.setPasswort(PASSWORT);
-		AUTHENTIFIZIERUNG_EDUARD.setAktiv(true);
-		AUTHENTIFIZIERUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
+		AUTHENTIFIZIERUNG_EDUARD
+			.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD_ID)
+			.setMail("mail@eduard.de")
+			.setBenutzername("eduard")
+			.setPasswort(PASSWORT)
+			.setAktiv(true)
+			.setBenutzer(BENUTZER_EDUARD);
 
 		AUTHENTIFIZIERUNG_DTO_JUSTIN
-			.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel().getId().toString());
-		AUTHENTIFIZIERUNG_DTO_JUSTIN.setMail(AUTHENTIFIZIERUNG_JUSTIN.getMail());
-		AUTHENTIFIZIERUNG_DTO_JUSTIN.setBenutzername(AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
+			.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel().getId().toString())
+			.setMail(AUTHENTIFIZIERUNG_JUSTIN.getMail())
+			.setBenutzername(AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 
 		AUTHENTIFIZIERUNG_DTO_EDUARD
-			.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD.getPrimaerschluessel().getId().toString());
-		AUTHENTIFIZIERUNG_DTO_EDUARD.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail());
-		AUTHENTIFIZIERUNG_DTO_EDUARD.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
+			.setPrimaerschluessel(AUTHENTIFIZIERUNG_EDUARD.getPrimaerschluessel().getId().toString())
+			.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail())
+			.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 
-		KOERPERMASSE_JUSTIN.setKoerpergroesse(178);
-		KOERPERMASSE_JUSTIN.setKoerpergewicht(90);
-		KOERPERMASSE_JUSTIN.setKoerperfettAnteil(25);
+		KOERPERMASSE_JUSTIN
+			.setKoerpergroesse(178)
+			.setKoerpergewicht(90)
+			.setKoerperfettAnteil(25);
 
-		KOERPERMESSUNG_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID);
-		KOERPERMESSUNG_JUSTIN.setDatum(LocalDate.of(2020, 7, 29));
-		KOERPERMESSUNG_JUSTIN.setKoerpermasse(KOERPERMASSE_JUSTIN);
-		KOERPERMESSUNG_JUSTIN.setKalorieneinnahme(2500);
-		KOERPERMESSUNG_JUSTIN.setKalorienverbrauch(2900);
-		KOERPERMESSUNG_JUSTIN.setBenutzer(BENUTZER_JUSTIN);
+		KOERPERMESSUNG_JUSTIN
+			.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID)
+			.setDatum(LocalDate.of(2020, 7, 29))
+			.setKoerpermasse(KOERPERMASSE_JUSTIN)
+			.setKalorieneinnahme(2500)
+			.setKalorienverbrauch(2900)
+			.setBenutzer(BENUTZER_JUSTIN);
 
-		KOERPERMESSUNG_DTO_JUSTIN.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString());
 		KOERPERMESSUNG_DTO_JUSTIN
-			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
-		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse());
-		KOERPERMESSUNG_DTO_JUSTIN.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht());
-		KOERPERMESSUNG_DTO_JUSTIN.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil());
-		KOERPERMESSUNG_DTO_JUSTIN.setKalorieneinnahme(KOERPERMESSUNG_JUSTIN.getKalorieneinnahme());
-		KOERPERMESSUNG_DTO_JUSTIN.setKalorienverbrauch(KOERPERMESSUNG_JUSTIN.getKalorienverbrauch());
+			.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString())
+			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse())
+			.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht())
+			.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil())
+			.setKalorieneinnahme(KOERPERMESSUNG_JUSTIN.getKalorieneinnahme())
+			.setKalorienverbrauch(KOERPERMESSUNG_JUSTIN.getKalorienverbrauch());
 
-		KOERPERMASSE_EDUARD.setKoerpergroesse(182);
-		KOERPERMASSE_EDUARD.setKoerpergewicht(64);
-		KOERPERMASSE_EDUARD.setKoerperfettAnteil(9);
+		KOERPERMASSE_EDUARD
+			.setKoerpergroesse(182)
+			.setKoerpergewicht(64)
+			.setKoerperfettAnteil(9);
 
-		KOERPERMESSUNG_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID);
-		KOERPERMESSUNG_EDUARD.setDatum(LocalDate.of(2020, 7, 29));
-		KOERPERMESSUNG_EDUARD.setKoerpermasse(KOERPERMASSE_EDUARD);
-		KOERPERMESSUNG_EDUARD.setKalorieneinnahme(2500);
-		KOERPERMESSUNG_EDUARD.setKalorienverbrauch(2900);
-		KOERPERMESSUNG_EDUARD.setBenutzer(BENUTZER_EDUARD);
+		KOERPERMESSUNG_EDUARD
+			.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID)
+			.setDatum(LocalDate.of(2020, 7, 29))
+			.setKoerpermasse(KOERPERMASSE_EDUARD)
+			.setKalorieneinnahme(2500)
+			.setKalorienverbrauch(2900)
+			.setBenutzer(BENUTZER_EDUARD);
 
-		KOERPERMESSUNG_DTO_EDUARD.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString());
 		KOERPERMESSUNG_DTO_EDUARD
-			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
-		KOERPERMESSUNG_DTO_EDUARD.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse());
-		KOERPERMESSUNG_DTO_EDUARD.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht());
-		KOERPERMESSUNG_DTO_EDUARD.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil());
-		KOERPERMESSUNG_DTO_EDUARD.setKalorieneinnahme(KOERPERMESSUNG_EDUARD.getKalorieneinnahme());
-		KOERPERMESSUNG_DTO_EDUARD.setKalorienverbrauch(KOERPERMESSUNG_EDUARD.getKalorienverbrauch());
+			.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString())
+			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse())
+			.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht())
+			.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil())
+			.setKalorieneinnahme(KOERPERMESSUNG_EDUARD.getKalorieneinnahme())
+			.setKalorienverbrauch(KOERPERMESSUNG_EDUARD.getKalorienverbrauch());
 
-		BENUTZERANGABE_JUSTIN.setKraftlevel(Kraftlevel.CLASS_5);
-		BENUTZERANGABE_JUSTIN.setGeschlecht(Geschlecht.MAENNLICH);
-		BENUTZERANGABE_JUSTIN.setErfahrung(Erfahrung.BEGINNER);
-		BENUTZERANGABE_JUSTIN.setErnaehrung(Ernaehrung.GUT);
-		BENUTZERANGABE_JUSTIN.setSchlafqualitaet(Schlafqualitaet.GUT);
-		BENUTZERANGABE_JUSTIN.setStress(Stress.MITTELMAESSIG);
-		BENUTZERANGABE_JUSTIN.setDoping(Doping.NEIN);
-		BENUTZERANGABE_JUSTIN.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
+		BENUTZERANGABE_JUSTIN
+			.setKraftlevel(Kraftlevel.CLASS_5)
+			.setGeschlecht(Geschlecht.MAENNLICH)
+			.setErfahrung(Erfahrung.BEGINNER)
+			.setErnaehrung(Ernaehrung.GUT)
+			.setSchlafqualitaet(Schlafqualitaet.GUT)
+			.setStress(Stress.MITTELMAESSIG)
+			.setDoping(Doping.NEIN)
+			.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.GUT);
 
-		BENUTZER_JUSTIN.setPrimaerschluessel(BENUTZER_JUSTIN_ID);
-		BENUTZER_JUSTIN.setName(new Name("Justin", "Harder"));
-		BENUTZER_JUSTIN.setGeburtsdatum(LocalDate.of(1998, 12, 6));
-		BENUTZER_JUSTIN.setBenutzerangabe(BENUTZERANGABE_JUSTIN);
-		BENUTZER_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN);
-		BENUTZER_JUSTIN.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN);
+		BENUTZER_JUSTIN
+			.setPrimaerschluessel(BENUTZER_JUSTIN_ID)
+			.setName(new Name("Justin", "Harder"))
+			.setGeburtsdatum(LocalDate.of(1998, 12, 6))
+			.setBenutzerangabe(BENUTZERANGABE_JUSTIN)
+			.setAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN)
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN);
 
-		BENUTZER_DTO_JUSTIN.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString());
-		BENUTZER_DTO_JUSTIN.setVorname(BENUTZER_JUSTIN.getName().getVorname());
-		BENUTZER_DTO_JUSTIN.setNachname(BENUTZER_JUSTIN.getName().getNachname());
-		BENUTZER_DTO_JUSTIN.setGeburtsdatum(BENUTZER_JUSTIN.getGeburtsdatum());
-		BENUTZER_DTO_JUSTIN.setKraftlevel(BENUTZER_JUSTIN.getBenutzerangabe().getKraftlevel().name());
-		BENUTZER_DTO_JUSTIN.setGeschlecht(BENUTZER_JUSTIN.getBenutzerangabe().getGeschlecht().name());
-		BENUTZER_DTO_JUSTIN.setErfahrung(BENUTZER_JUSTIN.getBenutzerangabe().getErfahrung().name());
-		BENUTZER_DTO_JUSTIN.setErnaehrung(BENUTZER_JUSTIN.getBenutzerangabe().getErnaehrung().name());
-		BENUTZER_DTO_JUSTIN.setSchlafqualitaet(BENUTZER_JUSTIN.getBenutzerangabe().getSchlafqualitaet().name());
-		BENUTZER_DTO_JUSTIN.setStress(BENUTZER_JUSTIN.getBenutzerangabe().getStress().name());
-		BENUTZER_DTO_JUSTIN.setDoping(BENUTZER_JUSTIN.getBenutzerangabe().getDoping().name());
 		BENUTZER_DTO_JUSTIN
-			.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getBenutzerangabe().getRegenerationsfaehigkeit().name());
-		BENUTZER_DTO_JUSTIN.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_JUSTIN);
-		BENUTZER_DTO_JUSTIN.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_JUSTIN);
+			.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString())
+			.setVorname(BENUTZER_JUSTIN.getName().getVorname())
+			.setNachname(BENUTZER_JUSTIN.getName().getNachname())
+			.setGeburtsdatum(BENUTZER_JUSTIN.getGeburtsdatum())
+			.setKraftlevel(BENUTZER_JUSTIN.getBenutzerangabe().getKraftlevel().name())
+			.setGeschlecht(BENUTZER_JUSTIN.getBenutzerangabe().getGeschlecht().name())
+			.setErfahrung(BENUTZER_JUSTIN.getBenutzerangabe().getErfahrung().name())
+			.setErnaehrung(BENUTZER_JUSTIN.getBenutzerangabe().getErnaehrung().name())
+			.setSchlafqualitaet(BENUTZER_JUSTIN.getBenutzerangabe().getSchlafqualitaet().name())
+			.setStress(BENUTZER_JUSTIN.getBenutzerangabe().getStress().name())
+			.setDoping(BENUTZER_JUSTIN.getBenutzerangabe().getDoping().name())
+			.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+			.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_JUSTIN)
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_JUSTIN);
 
-		BENUTZERANGABE_EDUARD.setKraftlevel(Kraftlevel.CLASS_4);
-		BENUTZERANGABE_EDUARD.setGeschlecht(Geschlecht.MAENNLICH);
-		BENUTZERANGABE_EDUARD.setErfahrung(Erfahrung.FORTGESCHRITTEN);
-		BENUTZERANGABE_EDUARD.setErnaehrung(Ernaehrung.SCHLECHT);
-		BENUTZERANGABE_EDUARD.setSchlafqualitaet(Schlafqualitaet.SCHLECHT);
-		BENUTZERANGABE_EDUARD.setStress(Stress.NIEDRIG);
-		BENUTZERANGABE_EDUARD.setDoping(Doping.JA);
-		BENUTZERANGABE_EDUARD.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
+		BENUTZERANGABE_EDUARD
+			.setKraftlevel(Kraftlevel.CLASS_4)
+			.setGeschlecht(Geschlecht.MAENNLICH)
+			.setErfahrung(Erfahrung.FORTGESCHRITTEN)
+			.setErnaehrung(Ernaehrung.SCHLECHT)
+			.setSchlafqualitaet(Schlafqualitaet.SCHLECHT)
+			.setStress(Stress.NIEDRIG)
+			.setDoping(Doping.JA)
+			.setRegenerationsfaehigkeit(Regenerationsfaehigkeit.PERFEKT);
 
-		BENUTZER_EDUARD.setPrimaerschluessel(BENUTZER_EDUARD_ID);
-		BENUTZER_EDUARD.setName(new Name("Eduard", "Stremel"));
-		BENUTZER_EDUARD.setGeburtsdatum(LocalDate.of(1998, 11, 9));
-		BENUTZER_EDUARD.setBenutzerangabe(BENUTZERANGABE_EDUARD);
-		BENUTZER_EDUARD.setAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD);
-		BENUTZER_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
+		BENUTZER_EDUARD
+			.setPrimaerschluessel(BENUTZER_EDUARD_ID)
+			.setName(new Name("Eduard", "Stremel"))
+			.setGeburtsdatum(LocalDate.of(1998, 11, 9))
+			.setBenutzerangabe(BENUTZERANGABE_EDUARD)
+			.setAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD)
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_EDUARD);
 
-		BENUTZER_DTO_EDUARD.setPrimaerschluessel(BENUTZER_EDUARD.getPrimaerschluessel().getId().toString());
-		BENUTZER_DTO_EDUARD.setVorname(BENUTZER_EDUARD.getName().getVorname());
-		BENUTZER_DTO_EDUARD.setNachname(BENUTZER_EDUARD.getName().getNachname());
-		BENUTZER_DTO_EDUARD.setGeburtsdatum(BENUTZER_EDUARD.getGeburtsdatum());
-		BENUTZER_DTO_EDUARD.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name());
-		BENUTZER_DTO_EDUARD.setGeschlecht(BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name());
-		BENUTZER_DTO_EDUARD.setErfahrung(BENUTZER_EDUARD.getBenutzerangabe().getErfahrung().name());
-		BENUTZER_DTO_EDUARD.setErnaehrung(BENUTZER_EDUARD.getBenutzerangabe().getErnaehrung().name());
-		BENUTZER_DTO_EDUARD.setSchlafqualitaet(BENUTZER_EDUARD.getBenutzerangabe().getSchlafqualitaet().name());
-		BENUTZER_DTO_EDUARD.setStress(BENUTZER_EDUARD.getBenutzerangabe().getStress().name());
-		BENUTZER_DTO_EDUARD.setDoping(BENUTZER_EDUARD.getBenutzerangabe().getDoping().name());
 		BENUTZER_DTO_EDUARD
-			.setRegenerationsfaehigkeit(BENUTZER_EDUARD.getBenutzerangabe().getRegenerationsfaehigkeit().name());
-		BENUTZER_DTO_EDUARD.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_EDUARD);
-		BENUTZER_DTO_EDUARD.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_EDUARD);
+			.setPrimaerschluessel(BENUTZER_EDUARD.getPrimaerschluessel().getId().toString())
+			.setVorname(BENUTZER_EDUARD.getName().getVorname())
+			.setNachname(BENUTZER_EDUARD.getName().getNachname())
+			.setGeburtsdatum(BENUTZER_EDUARD.getGeburtsdatum())
+			.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name())
+			.setGeschlecht(BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name())
+			.setErfahrung(BENUTZER_EDUARD.getBenutzerangabe().getErfahrung().name())
+			.setErnaehrung(BENUTZER_EDUARD.getBenutzerangabe().getErnaehrung().name())
+			.setSchlafqualitaet(BENUTZER_EDUARD.getBenutzerangabe().getSchlafqualitaet().name())
+			.setStress(BENUTZER_EDUARD.getBenutzerangabe().getStress().name())
+			.setDoping(BENUTZER_EDUARD.getBenutzerangabe().getDoping().name())
+			.setRegenerationsfaehigkeit(BENUTZER_EDUARD.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+			.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_EDUARD)
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_EDUARD);
 
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBack(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBenchpress(1.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setBiceps(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setChest(1.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setCore(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setDeadlift(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setGlutes(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setHamstrings(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setQuads(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setShoulder(0.1);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setSquat(0.0);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setTriceps(0.7);
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN);
+		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID)
+			.setBack(0.0)
+			.setBenchpress(1.0)
+			.setBiceps(0.0)
+			.setChest(1.0)
+			.setCore(0.0)
+			.setDeadlift(0.0)
+			.setGlutes(0.0)
+			.setHamstrings(0.0)
+			.setQuads(0.0)
+			.setShoulder(0.1)
+			.setSquat(0.0)
+			.setTriceps(0.7)
+			.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN);
 
 		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setBack(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBack());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN
-			.setBenchpress(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBenchpress());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setBiceps(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBiceps());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setChest(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getChest());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setCore(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getCore());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setDeadlift(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getDeadlift());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setGlutes(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getGlutes());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN
-			.setHamstrings(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getHamstrings());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setQuads(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getQuads());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setShoulder(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getShoulder());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setSquat(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getSquat());
-		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.setTriceps(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getTriceps());
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
+			.setBack(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBack())
+			.setBenchpress(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBenchpress())
+			.setBiceps(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getBiceps())
+			.setChest(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getChest())
+			.setCore(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getCore())
+			.setDeadlift(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getDeadlift())
+			.setGlutes(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getGlutes())
+			.setHamstrings(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getHamstrings())
+			.setQuads(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getQuads())
+			.setShoulder(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getShoulder())
+			.setSquat(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getSquat())
+			.setTriceps(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getTriceps());
 
-		UEBUNG_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(UEBUNG_WETTKAMPFBANKDRUECKEN_ID);
-		UEBUNG_WETTKAMPFBANKDRUECKEN.setName("Wettkampfbankdrücken (pausiert)");
-		UEBUNG_WETTKAMPFBANKDRUECKEN.setUebungsart(Uebungsart.GRUNDUEBUNG);
-		UEBUNG_WETTKAMPFBANKDRUECKEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
-		UEBUNG_WETTKAMPFBANKDRUECKEN.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+		UEBUNG_WETTKAMPFBANKDRUECKEN
+			.setPrimaerschluessel(UEBUNG_WETTKAMPFBANKDRUECKEN_ID)
+			.setName("Wettkampfbankdrücken (pausiert)")
+			.setUebungsart(Uebungsart.GRUNDUEBUNG)
+			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
 		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN
-			.setPrimaerschluessel(UEBUNG_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
-		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN.setName(UEBUNG_WETTKAMPFBANKDRUECKEN.getName());
-		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN.setUebungsart(UEBUNG_WETTKAMPFBANKDRUECKEN.getUebungsart().name());
-		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN.setUebungskategorie(UEBUNG_WETTKAMPFBANKDRUECKEN.getUebungskategorie().name());
-		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN.setBelastungsfaktor(BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
+			.setPrimaerschluessel(UEBUNG_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
+			.setName(UEBUNG_WETTKAMPFBANKDRUECKEN.getName())
+			.setUebungsart(UEBUNG_WETTKAMPFBANKDRUECKEN.getUebungsart().name())
+			.setUebungskategorie(UEBUNG_WETTKAMPFBANKDRUECKEN.getUebungskategorie().name())
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
 
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setMaximum(100);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setDatum(LocalDate.now());
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
-		KRAFTWERT_WETTKAMPFBANKDRUECKEN.setBenutzer(BENUTZER_JUSTIN);
+		KRAFTWERT_WETTKAMPFBANKDRUECKEN
+			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID)
+			.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN)
+			.setMaximum(100)
+			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
+			.setDatum(LocalDate.now())
+			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
+			.setBenutzer(BENUTZER_JUSTIN);
 
 		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
-			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString());
-		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN.setMaximum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getMaximum());
-		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht());
-		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
-			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
-		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
+			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
+			.setMaximum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getMaximum())
+			.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht())
+			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().name());
 
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBack(0.2);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBenchpress(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setBiceps(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setChest(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setCore(0.3);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setDeadlift(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setGlutes(1.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setHamstrings(0.5);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setQuads(1.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setShoulder(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setSquat(1.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setTriceps(0.0);
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.setUebung(UEBUNG_LOWBAR_KNIEBEUGE);
+		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID)
+			.setBack(0.2)
+			.setBenchpress(0.0)
+			.setBiceps(0.0)
+			.setChest(0.0)
+			.setCore(0.3)
+			.setDeadlift(0.0)
+			.setGlutes(1.0)
+			.setHamstrings(0.5)
+			.setQuads(1.0)
+			.setShoulder(0.0)
+			.setSquat(1.0)
+			.setTriceps(0.0)
+			.setUebung(UEBUNG_LOWBAR_KNIEBEUGE);
 
 		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setBack(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBack());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setBenchpress(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBenchpress());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setBiceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBiceps());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setChest(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getChest());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setCore(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getCore());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setDeadlift(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getDeadlift());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setGlutes(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getGlutes());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setHamstrings(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getHamstrings());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setQuads(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getQuads());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setShoulder(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getShoulder());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setSquat(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getSquat());
-		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE.setTriceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getTriceps());
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
+			.setBack(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBack())
+			.setBenchpress(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBenchpress())
+			.setBiceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getBiceps())
+			.setChest(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getChest())
+			.setCore(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getCore())
+			.setDeadlift(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getDeadlift())
+			.setGlutes(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getGlutes())
+			.setHamstrings(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getHamstrings())
+			.setQuads(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getQuads())
+			.setShoulder(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getShoulder())
+			.setSquat(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getSquat())
+			.setTriceps(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getTriceps());
 
-		UEBUNG_LOWBAR_KNIEBEUGE.setPrimaerschluessel(UEBUNG_LOWBAR_KNIEBEUGE_ID);
-		UEBUNG_LOWBAR_KNIEBEUGE.setName("Lowbar-Kniebeuge");
-		UEBUNG_LOWBAR_KNIEBEUGE.setUebungsart(Uebungsart.GRUNDUEBUNG);
-		UEBUNG_LOWBAR_KNIEBEUGE.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE);
-		UEBUNG_LOWBAR_KNIEBEUGE.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
+		UEBUNG_LOWBAR_KNIEBEUGE
+			.setPrimaerschluessel(UEBUNG_LOWBAR_KNIEBEUGE_ID)
+			.setName("Lowbar-Kniebeuge")
+			.setUebungsart(Uebungsart.GRUNDUEBUNG)
+			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE)
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
 
 		UEBUNG_DTO_LOWBAR_KNIEBEUGE
-			.setPrimaerschluessel(UEBUNG_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
-		UEBUNG_DTO_LOWBAR_KNIEBEUGE.setName(UEBUNG_LOWBAR_KNIEBEUGE.getName());
-		UEBUNG_DTO_LOWBAR_KNIEBEUGE.setUebungsart(UEBUNG_LOWBAR_KNIEBEUGE.getUebungsart().name());
-		UEBUNG_DTO_LOWBAR_KNIEBEUGE.setUebungskategorie(UEBUNG_LOWBAR_KNIEBEUGE.getUebungskategorie().name());
-		UEBUNG_DTO_LOWBAR_KNIEBEUGE.setBelastungsfaktor(BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);
+			.setPrimaerschluessel(UEBUNG_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
+			.setName(UEBUNG_LOWBAR_KNIEBEUGE.getName())
+			.setUebungsart(UEBUNG_LOWBAR_KNIEBEUGE.getUebungsart().name())
+			.setUebungskategorie(UEBUNG_LOWBAR_KNIEBEUGE.getUebungskategorie().name())
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);
 
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setUebung(UEBUNG_LOWBAR_KNIEBEUGE);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setMaximum(150);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setDatum(LocalDate.now());
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setWiederholungen(Wiederholungen.ONE_REP_MAX);
-		KRAFTWERT_LOWBAR_KNIEBEUGE.setBenutzer(BENUTZER_JUSTIN);
+		KRAFTWERT_LOWBAR_KNIEBEUGE
+			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID)
+			.setUebung(UEBUNG_LOWBAR_KNIEBEUGE)
+			.setMaximum(150)
+			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
+			.setDatum(LocalDate.now())
+			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
+			.setBenutzer(BENUTZER_JUSTIN);
 
 		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE
-			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString());
-		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE.setMaximum(KRAFTWERT_LOWBAR_KNIEBEUGE.getMaximum());
-		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht());
-		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE
-			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
-		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().name());
+			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
+			.setMaximum(KRAFTWERT_LOWBAR_KNIEBEUGE.getMaximum())
+			.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht())
+			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().name());
 
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBack(0.5);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBenchpress(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setBiceps(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setChest(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setCore(0.3);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setDeadlift(1.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setGlutes(0.5);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setHamstrings(0.5);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setQuads(0.3);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setShoulder(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setSquat(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setTriceps(0.0);
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID)
+			.setBack(0.5)
+			.setBenchpress(0.0)
+			.setBiceps(0.0)
+			.setChest(0.0)
+			.setCore(0.3)
+			.setDeadlift(1.0)
+			.setGlutes(0.5)
+			.setHamstrings(0.5)
+			.setQuads(0.3)
+			.setShoulder(0.0)
+			.setSquat(0.0)
+			.setTriceps(0.0)
+			.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 
 		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setPrimaerschluessel(
-				BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setBack(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBack());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setBenchpress(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBenchpress());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setBiceps(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBiceps());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setChest(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getChest());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setCore(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getCore());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setDeadlift(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getDeadlift());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setGlutes(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getGlutes());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setHamstrings(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getHamstrings());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setQuads(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getQuads());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setShoulder(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getShoulder());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setSquat(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getSquat());
-		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
+			.setBack(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBack())
+			.setBenchpress(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBenchpress())
+			.setBiceps(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getBiceps())
+			.setChest(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getChest())
+			.setCore(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getCore())
+			.setDeadlift(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getDeadlift())
+			.setGlutes(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getGlutes())
+			.setHamstrings(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getHamstrings())
+			.setQuads(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getQuads())
+			.setShoulder(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getShoulder())
+			.setSquat(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getSquat())
 			.setTriceps(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getTriceps());
 
-		UEBUNG_KONVENTIONELLES_KREUZHEBEN.setPrimaerschluessel(UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID);
-		UEBUNG_KONVENTIONELLES_KREUZHEBEN.setName("Konventionelles Kreuzheben");
-		UEBUNG_KONVENTIONELLES_KREUZHEBEN.setUebungsart(Uebungsart.GRUNDUEBUNG);
-		UEBUNG_KONVENTIONELLES_KREUZHEBEN.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN);
-		UEBUNG_KONVENTIONELLES_KREUZHEBEN.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+		UEBUNG_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID)
+			.setName("Konventionelles Kreuzheben")
+			.setUebungsart(Uebungsart.GRUNDUEBUNG)
+			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN)
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
 
 		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setPrimaerschluessel(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
-		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN.setName(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getName());
-		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN.setUebungsart(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getUebungsart().name());
-		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setUebungskategorie(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getUebungskategorie().name());
-		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
+			.setName(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getName())
+			.setUebungsart(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getUebungsart().name())
+			.setUebungskategorie(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getUebungskategorie().name())
 			.setBelastungsfaktor(BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
 
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setMaximum(200);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht());
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setDatum(LocalDate.now());
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setWiederholungen(Wiederholungen.ONE_REP_MAX);
-		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.setBenutzer(BENUTZER_JUSTIN);
+		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID)
+			.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN)
+			.setMaximum(200)
+			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
+			.setDatum(LocalDate.now())
+			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
+			.setBenutzer(BENUTZER_JUSTIN);
 
 		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString());
-		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN.setMaximum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getMaximum());
-		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht());
-		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN.setDatum(
-			KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)));
-		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
+			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
+			.setMaximum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getMaximum())
+			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht())
+			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().name());
 	}
 }

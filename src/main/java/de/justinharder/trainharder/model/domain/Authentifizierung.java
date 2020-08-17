@@ -17,12 +17,8 @@ import de.justinharder.trainharder.model.UuidMapper;
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Authentifizierung")
 public class Authentifizierung extends Entitaet
@@ -40,12 +36,15 @@ public class Authentifizierung extends Entitaet
 	private Passwort passwort;
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
-	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
 	@Convert(converter = UuidMapper.class)
+	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
 	private UUID resetUuid;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "BenutzerID", nullable = true)
 	private Benutzer benutzer;
+
+	public Authentifizierung()
+	{}
 
 	public Authentifizierung(
 		final Primaerschluessel primaerschluessel,
@@ -57,12 +56,24 @@ public class Authentifizierung extends Entitaet
 		this.mail = mail;
 		this.benutzername = benutzername;
 		this.passwort = passwort;
-		this.aktiv = false;
+		aktiv = false;
 	}
 
-	public Authentifizierung setAktiv(final boolean aktiv)
+	public Authentifizierung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
 	{
-		this.aktiv = aktiv;
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
+	public Authentifizierung setMail(final String mail)
+	{
+		this.mail = mail;
+		return this;
+	}
+
+	public Authentifizierung setBenutzername(final String benutzername)
+	{
+		this.benutzername = benutzername;
 		return this;
 	}
 
@@ -72,9 +83,33 @@ public class Authentifizierung extends Entitaet
 		return this;
 	}
 
+	public Authentifizierung setAktiv(final boolean aktiv)
+	{
+		this.aktiv = aktiv;
+		return this;
+	}
+
 	public Authentifizierung setResetUuid(final UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;
+	}
+
+	public Authentifizierung setBenutzer(final Benutzer benutzer)
+	{
+		this.benutzer = benutzer;
+		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

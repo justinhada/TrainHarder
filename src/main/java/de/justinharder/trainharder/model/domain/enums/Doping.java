@@ -7,17 +7,17 @@ public enum Doping
 	NEIN("NEIN"),
 	JA("JA");
 
-	private String doping;
+	private String dopingOption;
 
-	private Doping(final String doping)
+	private Doping(final String dopingOption)
 	{
-		this.doping = doping;
+		this.dopingOption = dopingOption;
 	}
 
 	public static Doping fromDopingOption(final String dopingOption)
 	{
 		return Stream.of(Doping.values())
-			.filter(d -> d.doping.equalsIgnoreCase(dopingOption))
+			.filter(d -> d.dopingOption.equalsIgnoreCase(dopingOption))
 			.findAny()
 			.orElseThrow(
 				() -> new IllegalArgumentException("Die Doping-Option \"" + dopingOption + "\" existiert nicht!"));

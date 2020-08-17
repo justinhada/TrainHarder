@@ -16,12 +16,8 @@ import javax.persistence.Table;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Kraftwert")
 public class Kraftwert extends Entitaet
@@ -47,6 +43,9 @@ public class Kraftwert extends Entitaet
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
+	public Kraftwert()
+	{}
+
 	public Kraftwert(
 		final Primaerschluessel primaerschluessel,
 		final int maximum,
@@ -66,5 +65,59 @@ public class Kraftwert extends Entitaet
 
 		uebung.fuegeKraftwertHinzu(this);
 		benutzer.fuegeKraftwertHinzu(this);
+	}
+
+	public Kraftwert setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
+	public Kraftwert setMaximum(final int maximum)
+	{
+		this.maximum = maximum;
+		return this;
+	}
+
+	public Kraftwert setKoerpergewicht(final double koerpergewicht)
+	{
+		this.koerpergewicht = koerpergewicht;
+		return this;
+	}
+
+	public Kraftwert setDatum(final LocalDate datum)
+	{
+		this.datum = datum;
+		return this;
+	}
+
+	public Kraftwert setWiederholungen(final Wiederholungen wiederholungen)
+	{
+		this.wiederholungen = wiederholungen;
+		return this;
+	}
+
+	public Kraftwert setUebung(final Uebung uebung)
+	{
+		this.uebung = uebung;
+		return this;
+	}
+
+	public Kraftwert setBenutzer(final Benutzer benutzer)
+	{
+		this.benutzer = benutzer;
+		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

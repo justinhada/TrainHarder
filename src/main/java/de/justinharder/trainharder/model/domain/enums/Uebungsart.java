@@ -8,17 +8,17 @@ public enum Uebungsart
 	GRUNDUEBUNG_VARIATION("GRUNDUEBUNG_VARIATION"),
 	ASSISTENZ("ASSISTENZ");
 
-	private String uebungsart;
+	private String uebungsartOption;
 
-	private Uebungsart(final String uebungsart)
+	private Uebungsart(final String uebungsartOption)
 	{
-		this.uebungsart = uebungsart;
+		this.uebungsartOption = uebungsartOption;
 	}
 
 	public static Uebungsart fromUebungsartOption(final String uebungsartOption)
 	{
 		return Stream.of(Uebungsart.values())
-			.filter(u -> u.uebungsart.equalsIgnoreCase(uebungsartOption))
+			.filter(u -> u.uebungsartOption.equalsIgnoreCase(uebungsartOption))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"Die Uebungsart-Option \"" + uebungsartOption + "\" existiert nicht!"));

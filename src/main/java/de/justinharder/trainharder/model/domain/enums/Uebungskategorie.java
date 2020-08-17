@@ -19,17 +19,17 @@ public enum Uebungskategorie
 	WETTKAMPF_KNIEBEUGE("WETTKAMPF_KNIEBEUGE"),
 	WETTKAMPF_KREUZHEBEN("WETTKAMPF_KREUZHEBEN");
 
-	private String uebungskategorie;
+	private String uebungskategorieOption;
 
-	private Uebungskategorie(final String uebungskategorie)
+	private Uebungskategorie(final String uebungskategorieOption)
 	{
-		this.uebungskategorie = uebungskategorie;
+		this.uebungskategorieOption = uebungskategorieOption;
 	}
 
 	public static Uebungskategorie fromUebungskategorieOption(final String uebungskategorieOption)
 	{
 		return Stream.of(Uebungskategorie.values())
-			.filter(u -> u.uebungskategorie.equalsIgnoreCase(uebungskategorieOption))
+			.filter(u -> u.uebungskategorieOption.equalsIgnoreCase(uebungskategorieOption))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"Die Uebungskategorie-Option \"" + uebungskategorieOption + "\" existiert nicht!"));

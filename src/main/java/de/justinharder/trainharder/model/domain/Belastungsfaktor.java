@@ -11,12 +11,8 @@ import javax.persistence.Table;
 
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Belastungsfaktor")
 public class Belastungsfaktor extends Entitaet
@@ -54,6 +50,9 @@ public class Belastungsfaktor extends Entitaet
 	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
 
+	public Belastungsfaktor()
+	{}
+
 	public Belastungsfaktor(
 		final Primaerschluessel primaerschluessel,
 		final double squat,
@@ -82,5 +81,101 @@ public class Belastungsfaktor extends Entitaet
 		this.quads = quads;
 		this.hamstrings = hamstrings;
 		this.shoulder = shoulder;
+	}
+
+	public Belastungsfaktor setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
+	public Belastungsfaktor setSquat(final double squat)
+	{
+		this.squat = squat;
+		return this;
+	}
+
+	public Belastungsfaktor setBenchpress(final double benchpress)
+	{
+		this.benchpress = benchpress;
+		return this;
+	}
+
+	public Belastungsfaktor setDeadlift(final double deadlift)
+	{
+		this.deadlift = deadlift;
+		return this;
+	}
+
+	public Belastungsfaktor setTriceps(final double triceps)
+	{
+		this.triceps = triceps;
+		return this;
+	}
+
+	public Belastungsfaktor setChest(final double chest)
+	{
+		this.chest = chest;
+		return this;
+	}
+
+	public Belastungsfaktor setCore(final double core)
+	{
+		this.core = core;
+		return this;
+	}
+
+	public Belastungsfaktor setBack(final double back)
+	{
+		this.back = back;
+		return this;
+	}
+
+	public Belastungsfaktor setBiceps(final double biceps)
+	{
+		this.biceps = biceps;
+		return this;
+	}
+
+	public Belastungsfaktor setGlutes(final double glutes)
+	{
+		this.glutes = glutes;
+		return this;
+	}
+
+	public Belastungsfaktor setQuads(final double quads)
+	{
+		this.quads = quads;
+		return this;
+	}
+
+	public Belastungsfaktor setHamstrings(final double hamstrings)
+	{
+		this.hamstrings = hamstrings;
+		return this;
+	}
+
+	public Belastungsfaktor setShoulder(final double shoulder)
+	{
+		this.shoulder = shoulder;
+		return this;
+	}
+
+	public Belastungsfaktor setUebung(final Uebung uebung)
+	{
+		this.uebung = uebung;
+		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

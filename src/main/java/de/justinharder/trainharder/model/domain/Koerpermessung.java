@@ -14,12 +14,8 @@ import javax.persistence.Table;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Koerpermessung")
 public class Koerpermessung extends Entitaet
@@ -41,6 +37,9 @@ public class Koerpermessung extends Entitaet
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
+	public Koerpermessung()
+	{}
+
 	public Koerpermessung(
 		final Primaerschluessel primaerschluessel,
 		final LocalDate datum,
@@ -57,6 +56,12 @@ public class Koerpermessung extends Entitaet
 		this.benutzer = benutzer;
 
 		benutzer.fuegeKoerpermessungHinzu(this);
+	}
+
+	public Koerpermessung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public Koerpermessung setDatum(final LocalDate datum)
@@ -81,5 +86,23 @@ public class Koerpermessung extends Entitaet
 	{
 		this.kalorienverbrauch = kalorienverbrauch;
 		return this;
+	}
+
+	public Koerpermessung setBenutzer(final Benutzer benutzer)
+	{
+		this.benutzer = benutzer;
+		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

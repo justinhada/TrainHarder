@@ -11,20 +11,16 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import de.justinharder.trainharder.model.UuidMapper;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
-@Setter
 @Embeddable
 public class Primaerschluessel implements Serializable
 {
 	private static final long serialVersionUID = -7279995861374733781L;
 
-	@Column(columnDefinition = "VARCHAR(36)")
 	@Convert(converter = UuidMapper.class)
+	@Column(columnDefinition = "VARCHAR(36)")
 	private UUID id;
 
 	public Primaerschluessel()
@@ -32,9 +28,20 @@ public class Primaerschluessel implements Serializable
 		this(UUID.randomUUID());
 	}
 
+	public Primaerschluessel(final UUID id)
+	{
+		this.id = id;
+	}
+
 	public Primaerschluessel(final String id)
 	{
 		this(UUID.fromString(id));
+	}
+
+	public Primaerschluessel setId(final UUID id)
+	{
+		this.id = id;
+		return this;
 	}
 
 	@Override

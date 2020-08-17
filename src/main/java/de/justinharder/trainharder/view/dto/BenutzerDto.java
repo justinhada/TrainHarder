@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class BenutzerDto implements Serializable
 {
 	private static final long serialVersionUID = 2341943957236551490L;
@@ -34,13 +30,54 @@ public class BenutzerDto implements Serializable
 	@Setter(value = AccessLevel.NONE)
 	private List<KoerpermessungDto> koerpermessungen = new ArrayList<>();
 
+	public BenutzerDto()
+	{}
+
+	public BenutzerDto(
+		final String primaerschluessel,
+		final String vorname,
+		final String nachname,
+		final LocalDate geburtsdatum,
+		final String kraftlevel,
+		final String geschlecht,
+		final String erfahrung,
+		final String ernaehrung,
+		final String schlafqualitaet,
+		final String stress,
+		final String doping,
+		final String regenerationsfaehigkeit,
+		final AuthentifizierungDto authentifizierung,
+		final List<KoerpermessungDto> koerpermessungen)
+	{
+		this.primaerschluessel = primaerschluessel;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.geburtsdatum = geburtsdatum;
+		this.kraftlevel = kraftlevel;
+		this.geschlecht = geschlecht;
+		this.erfahrung = erfahrung;
+		this.ernaehrung = ernaehrung;
+		this.schlafqualitaet = schlafqualitaet;
+		this.stress = stress;
+		this.doping = doping;
+		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.authentifizierung = authentifizierung;
+		this.koerpermessungen = koerpermessungen;
+	}
+
+	public BenutzerDto setPrimaerschluessel(final String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
 	public BenutzerDto setVorname(final String vorname)
 	{
 		this.vorname = vorname;
 		return this;
 	}
 
-	public BenutzerDto setNachname(final String nachname) 
+	public BenutzerDto setNachname(final String nachname)
 	{
 		this.nachname = nachname;
 		return this;
@@ -99,7 +136,13 @@ public class BenutzerDto implements Serializable
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		return this;
 	}
-	
+
+	public BenutzerDto setAuthentifizierung(final AuthentifizierungDto authentifizierung)
+	{
+		this.authentifizierung = authentifizierung;
+		return this;
+	}
+
 	public BenutzerDto fuegeKoerpermessungHinzu(final KoerpermessungDto koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);

@@ -1,5 +1,6 @@
-package de.justinharder.trainharder.view.navigation;
+package de.justinharder.trainharder.view.navigation.error;
 
+import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,9 @@ public class ErrorController extends AbstractController
 	@Context
 	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
+
+	@Inject
+	private Errors errors;
 
 	@GET
 	@Override

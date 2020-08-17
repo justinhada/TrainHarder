@@ -14,18 +14,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "Uebung")
 public class Uebung extends Entitaet
@@ -37,18 +35,22 @@ public class Uebung extends Entitaet
 	private Primaerschluessel primaerschluessel;
 	@Column(name = "Name", unique = true)
 	private String name;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Uebungsart")
-	@Enumerated(EnumType.STRING)
 	private Uebungsart uebungsart;
-	@Column(name = "Uebungskategorie")
 	@Enumerated(EnumType.STRING)
+	@Column(name = "Uebungskategorie")
 	private Uebungskategorie uebungskategorie;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
 	@JoinColumn(name = "BelastungsfaktorID", nullable = false)
 	private Belastungsfaktor belastungsfaktor;
+	@Transient
 	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
-	private List<Kraftwert> kraftwerte = new ArrayList<>();
+	private final List<Kraftwert> kraftwerte = new ArrayList<>();
+
+	public Uebung()
+	{}
 
 	public Uebung(
 		final Primaerschluessel primaerschluessel,
@@ -65,9 +67,52 @@ public class Uebung extends Entitaet
 
 		belastungsfaktor.setUebung(this);
 	}
-	
-	public void fuegeKraftwertHinzu(final Kraftwert kraftwert)
+
+	public Uebung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
+	}
+
+	public Uebung setName(final String name)
+	{
+		this.name = name;
+		return this;
+	}
+
+	public Uebung setUebungsart(final Uebungsart uebungsart)
+	{
+		this.uebungsart = uebungsart;
+		return this;
+	}
+
+	public Uebung setUebungskategorie(final Uebungskategorie uebungskategorie)
+	{
+		this.uebungskategorie = uebungskategorie;
+		return this;
+	}
+
+	public Uebung setBelastungsfaktor(final Belastungsfaktor belastungsfaktor)
+	{
+		this.belastungsfaktor = belastungsfaktor;
+		return this;
+	}
+
+	public Uebung fuegeKraftwertHinzu(final Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
+		return this;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return super.hashCode();
 	}
 }

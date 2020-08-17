@@ -10,21 +10,20 @@ public enum Wiederholungen
 	EIGHT_REP_MAX("8RM"),
 	TEN_REP_MAX("10RM");
 
-	private String wiederholungen;
+	private String wiederholungenOption;
 
-	private Wiederholungen(final String wiederholungen)
+	private Wiederholungen(final String wiederholungenOption)
 	{
-		this.wiederholungen = wiederholungen;
+		this.wiederholungenOption = wiederholungenOption;
 	}
 
 	public static Wiederholungen fromWiederholungenOption(final String wiederholungenOption)
 	{
 		return Stream.of(Wiederholungen.values())
-			.filter(w -> w.wiederholungen.equalsIgnoreCase(wiederholungenOption))
+			.filter(w -> w.wiederholungenOption.equalsIgnoreCase(wiederholungenOption))
 			.findAny()
-			.orElseThrow(
-				() -> new IllegalArgumentException(
-					"Die Wiederholungen-Option \"" + wiederholungenOption + "\" existiert nicht!"));
+			.orElseThrow(() -> new IllegalArgumentException(
+				"Die Wiederholungen-Option \"" + wiederholungenOption + "\" existiert nicht!"));
 	}
 
 	public static Wiederholungen fromName(final String name)
