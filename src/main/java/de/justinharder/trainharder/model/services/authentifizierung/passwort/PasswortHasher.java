@@ -15,7 +15,7 @@ import lombok.Setter;
 public class PasswortHasher
 {
 	private static final int LAENGE = 128;
-	private static final int ITERATIONS = 65536;
+	private static final int ITERATIONEN = 65536;
 	private static final String ALGORITHMUS = "PBKDF2WithHmacSHA1";
 
 	@Setter
@@ -36,22 +36,22 @@ public class PasswortHasher
 	public byte[] hash(final String passwort, final byte[] salt)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		return pbkdf2(passwort.toCharArray(), salt, ITERATIONS);
+		return pbkdf2(passwort.toCharArray(), salt);
 	}
 
 	public boolean check(final Passwort aktuellesPasswort, final String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		final var hash = pbkdf2(passwort.toCharArray(), aktuellesPasswort.getSalt(), ITERATIONS);
+		final var hash = pbkdf2(passwort.toCharArray(), aktuellesPasswort.getSalt());
 		return Arrays.equals(hash, aktuellesPasswort.getPasswortHash());
 	}
 
-	private static byte[] pbkdf2(final char[] passwort, final byte[] salt, final int iterationCount)
+	private static byte[] pbkdf2(final char[] passwort, final byte[] salt)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return SecretKeyFactory
 			.getInstance(ALGORITHMUS)
-			.generateSecret(new PBEKeySpec(passwort, salt, iterationCount, LAENGE))
+			.generateSecret(new PBEKeySpec(passwort, salt, ITERATIONEN, LAENGE))
 			.getEncoded();
 	}
 }

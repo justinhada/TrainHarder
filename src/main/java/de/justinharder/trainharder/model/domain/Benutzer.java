@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
@@ -43,14 +42,12 @@ public class Benutzer extends Entitaet
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.MERGE)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
-	@Transient
 	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	private final List<Koerpermessung> koerpermessungen = new ArrayList<>();
-	@Transient
+	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
 	@Setter(value = AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	private final List<Kraftwert> kraftwerte = new ArrayList<>();
+	private List<Kraftwert> kraftwerte = new ArrayList<>();
 
 	public Benutzer()
 	{}
