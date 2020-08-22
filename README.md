@@ -17,7 +17,10 @@ Dieses muss sich an folgende Richtlinien halten:
 
 ## Wie wird das Passwort in der Datenbank gespeichert?
 
-folgt...
+1. Generierung eines 128Bit-Salts.
+2. Speicherung des Salts (als VARBINARY).
+3. Hashing mithilfe von **PBKDF2WithHmacSHA1** und generiertem Salt.
+4. Speicherung des Hashs (als VARBINARY).
 
 ## Glossar
 
