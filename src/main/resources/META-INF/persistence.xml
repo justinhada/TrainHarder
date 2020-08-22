@@ -19,5 +19,8 @@
 		<class>de.justinharder.trainharder.model.domain.embeddables.Passwort</class>
 		<class>de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel</class>
 		<class>de.justinharder.trainharder.model.UuidMapper</class>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
 	</persistence-unit>
 </persistence>
