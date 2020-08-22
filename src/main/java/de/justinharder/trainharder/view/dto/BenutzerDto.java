@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -62,7 +63,7 @@ public class BenutzerDto implements Serializable
 		this.doping = doping;
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		this.authentifizierung = authentifizierung;
-		this.koerpermessungen = koerpermessungen;
+		this.koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
 	}
 
 	public BenutzerDto setPrimaerschluessel(final String primaerschluessel)
@@ -146,6 +147,14 @@ public class BenutzerDto implements Serializable
 	public BenutzerDto fuegeKoerpermessungHinzu(final KoerpermessungDto koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
+		koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
 		return this;
+	}
+
+	private List<KoerpermessungDto> sortiereKoerpermessungen(final List<KoerpermessungDto> koerpermessungen)
+	{
+		return koerpermessungen.stream()
+			.sorted((k1, k2) -> k1.getDatum().compareTo(k2.getDatum()))
+			.collect(Collectors.toList());
 	}
 }
