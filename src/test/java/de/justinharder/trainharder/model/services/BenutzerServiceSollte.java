@@ -51,6 +51,11 @@ public class BenutzerServiceSollte
 		Testdaten.BENUTZER_JUSTIN.setBenutzerangabe(Testdaten.BENUTZERANGABE_JUSTIN);
 	}
 
+	private void angenommenDasBenutzerRepositoryErmitteltAlle(final List<Benutzer> benutzer)
+	{
+		when(benutzerRepository.ermittleAlle()).thenReturn(benutzer);
+	}
+
 	private void angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(final String id,
 		final Optional<Benutzer> benutzer)
 	{
@@ -80,7 +85,7 @@ public class BenutzerServiceSollte
 		when(benutzerRepository.speichereBenutzer(any(Benutzer.class))).thenReturn(benutzer);
 	}
 
-	private void angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(final Benutzer benutzer,
+	private void angenommenDerBenutzerDtoMapperKonvertiertZuBenutzerDto(final Benutzer benutzer,
 		final BenutzerDto benutzerDto)
 	{
 		when(benutzerDtoMapper.konvertiere(benutzer)).thenReturn(benutzerDto);
@@ -99,9 +104,29 @@ public class BenutzerServiceSollte
 		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.empty());
 	}
 
+	private void angenommenDerBenutzerDtoMapperKonvertiertAlleZuBenutzerDtos(final List<Benutzer> benutzer,
+		final List<BenutzerDto> benutzerDtos)
+	{
+		when(benutzerDtoMapper.konvertiereAlle(benutzer)).thenReturn(benutzerDtos);
+	}
+
+	@Test
+	@DisplayName("alle Benutzer ermitteln")
+	public void test01()
+	{
+		final var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_EDUARD);
+		final var benutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
+		angenommenDasBenutzerRepositoryErmitteltAlle(benutzer);
+		angenommenDerBenutzerDtoMapperKonvertiertAlleZuBenutzerDtos(benutzer, erwartet);
+
+		final var ergebnis = sut.ermittleAlle();
+
+		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test01()
+	public void test02()
 	{
 		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!";
 
@@ -112,7 +137,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zu ID ermittelt wird")
-	public void test02()
+	public void test03()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
@@ -125,13 +150,13 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zu ID ermitteln")
-	public void test03() throws BenutzerNichtGefundenException
+	public void test04() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
-		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
+		angenommenDerBenutzerDtoMapperKonvertiertZuBenutzerDto(benutzer, erwartet);
 
 		final var ergebnis = sut.ermittleZuId(id);
 
@@ -142,7 +167,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	public void test04()
+	public void test05()
 	{
 		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
@@ -153,7 +178,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
-	public void test05() throws BenutzerNichtGefundenException
+	public void test06() throws BenutzerNichtGefundenException
 	{
 		final var authentifizierungId = new Primaerschluessel().getId().toString();
 		final var erwartet =
@@ -169,14 +194,14 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zur AuthentifizierungID ermitteln")
-	public void test06() throws BenutzerNichtGefundenException
+	public void test07() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId,
 			Optional.of(benutzer));
-		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
+		angenommenDerBenutzerDtoMapperKonvertiertZuBenutzerDto(benutzer, erwartet);
 
 		final var ergebnis = sut.ermittleZuAuthentifizierung(authentifizierungId);
 
@@ -187,7 +212,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	public void test07()
+	public void test08()
 	{
 		final var erwartet = "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!";
 
@@ -198,7 +223,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null sind")
-	public void test08()
+	public void test09()
 	{
 		final var erwartet = "Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
@@ -210,7 +235,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
-	public void test09()
+	public void test10()
 	{
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
@@ -225,7 +250,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen neuen Benutzer erstellen")
-	public void test10() throws AuthentifizierungNichtGefundenException
+	public void test11() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
@@ -245,7 +270,7 @@ public class BenutzerServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
 			Optional.of(authentifizierung));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
-		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
+		angenommenDerBenutzerDtoMapperKonvertiertZuBenutzerDto(benutzer, erwartet);
 
 		final var ergebnis = sut.erstelleBenutzer(benutzerdaten, authentifizierungId);
 
@@ -257,7 +282,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test11()
+	public void test12()
 	{
 		final var erwartet = "Die Aktualisierung des Benutzers benötigt eine gültige ID!";
 
@@ -269,7 +294,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	public void test12()
+	public void test13()
 	{
 		final var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
 
@@ -281,7 +306,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
-	public void test13()
+	public void test14()
 	{
 		final var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
 		final var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
@@ -296,7 +321,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer aktualisieren")
-	public void test14() throws BenutzerNichtGefundenException
+	public void test15() throws BenutzerNichtGefundenException
 	{
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var id = benutzer.getPrimaerschluessel().getId().toString();
@@ -328,7 +353,7 @@ public class BenutzerServiceSollte
 			"GUT");
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
-		angenommenDerBenutzerDtoMapperGibtBenutzerDtoZurueck(benutzer, erwartet);
+		angenommenDerBenutzerDtoMapperKonvertiertZuBenutzerDto(benutzer, erwartet);
 
 		final var ergebnis = sut.aktualisiereBenutzer(id, benutzerdaten);
 

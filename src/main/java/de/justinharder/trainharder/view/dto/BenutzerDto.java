@@ -144,6 +144,11 @@ public class BenutzerDto implements Serializable
 		return this;
 	}
 
+	public double getKoerpergewicht()
+	{
+		return koerpermessungen.get(koerpermessungen.size() - 1).getKoerpergewicht();
+	}
+
 	public BenutzerDto fuegeKoerpermessungHinzu(final KoerpermessungDto koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);

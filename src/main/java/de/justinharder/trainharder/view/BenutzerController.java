@@ -45,6 +45,8 @@ public class BenutzerController extends AbstractController
 		}
 		initialisiere();
 
+		models.put("alleBenutzer", benutzerService.ermittleAlle());
+
 		return "/benutzer/index.xhtml";
 	}
 
@@ -57,6 +59,8 @@ public class BenutzerController extends AbstractController
 			return REDIRECT_TO_LOGIN;
 		}
 		initialisiere();
+
+		models.put("benutzername", benutzername);
 
 		return "/benutzer/benutzerdaten.xhtml";
 	}

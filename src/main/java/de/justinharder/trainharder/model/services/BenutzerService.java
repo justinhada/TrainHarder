@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,11 @@ public class BenutzerService
 		this.benutzerRepository = benutzerRepository;
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.benutzerDtoMapper = benutzerDtoMapper;
+	}
+
+	public List<BenutzerDto> ermittleAlle()
+	{
+		return benutzerDtoMapper.konvertiereAlle(benutzerRepository.ermittleAlle());
 	}
 
 	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
