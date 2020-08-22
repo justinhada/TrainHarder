@@ -52,6 +52,11 @@ h3 {
 	margin: auto;
 }
 
+.logo-right {
+	width: 70%;
+	float: right;
+}
+
 header {
 	font-size: 1.2em;
 	background-color: #1D242E;
@@ -171,8 +176,15 @@ header {
 .title {
 	line-height: 2em;
 	font-size: 2em;
-	text-align: center;
 	font-weight: bold;
+}
+
+.text-font {
+	font-family: Consolas, monaco, monospace;
+}
+
+.text-white {
+	color: white;
 }
 
 .text-height {
@@ -202,6 +214,10 @@ header {
 .btn-secondary {
 	text-align: center;
 	font-weight: bold;
+}
+
+.shadow-selfmade {
+	box-shadow: 5px 5px 5px 0 black !important;
 }
 
 /* Small screens */
