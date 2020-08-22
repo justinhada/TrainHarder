@@ -27,9 +27,9 @@
 		</div>
 		<ul class="navbar-nav flex-row ml-md-auto mr-md-auto d-none d-md-flex">
 			<h:panelGroup rendered="#{authentifizierung != null}">
-				<li class="nav-item"><a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}">Benutzereinstellungen</a></li>
-				<li class="nav-item"><a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border link-active" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}">Körpermessungen</a></li>
-				<li class="nav-item"><a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}">Kraftwerte</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="#{authentifizierung.benutzername}">Benutzer</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2 active" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}" title="Körpermessungen">Körpermessungen</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}" title="Kraftwerte">Kraftwerte</a></li>
 			</h:panelGroup>
 		</ul>
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">

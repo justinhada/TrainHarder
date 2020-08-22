@@ -19,12 +19,19 @@
 				alt="TrainHarder-Logo" width="80" height="80" /></a>
 		<div class="navbar-nav-scroll">
 			<ul class="navbar-nav bd-navbar-nav flex-row">
-				<li class="nav-item"><a class="nav-link mr-sm-2 active" href="/TrainHarder/start" title="Startseite">Home</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/start" title="Startseite">Home</a></li>
 				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/impressum" title="Impressum">Impressum</a></li>
 				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/datenschutz" title="Datenschutz">Datenschutz</a></li>
 				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/kontakt" title="Kontakt">Kontakt</a></li>
 			</ul>
 		</div>
+		<ul class="navbar-nav flex-row ml-md-auto mr-md-auto d-none d-md-flex">
+			<h:panelGroup rendered="#{authentifizierung != null}">
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="#{authentifizierung.benutzername}">Benutzer</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}" title="Körpermessungen">Körpermessungen</a></li>
+				<li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}" title="Kraftwerte">Kraftwerte</a></li>
+			</h:panelGroup>
+		</ul>
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 			<h:panelGroup rendered="#{authentifizierung != null}">
 				<li class="nav-item"><a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}"
@@ -63,7 +70,7 @@
 			<div class="col-4">
 				<div class="card shadow-selfmade">
 					<div class="card-body">
-						<div class="card-title title text-font">Benutzerlisten</div>
+						<div class="card-title title text-font">Benutzer</div>
 						<p class="card-text text-font">Sieh dir die anderen Benutzer genauer an. Vergleiche dich mit ihnen!</p>
 						<a href="/TrainHarder/benutzer" class="btn btn-secondary btn-block active">Jetzt ansehen ❯</a>
 					</div>

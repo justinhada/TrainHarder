@@ -131,37 +131,6 @@ header {
 	margin: auto;
 }
 
-.footer {
-	width: 100%;
-	font-weight: bold;
-}
-
-.footer a {
-	text-decoration: none;
-	color: white;
-	display: block;
-	padding: 1em 1.35em;
-}
-
-.footer a:hover {
-	background-color: #111;
-}
-
-.footer ul {
-	list-style-type: none;
-	margin: 1em;
-	padding: 0;
-}
-
-.footer ul li {
-	float: left;
-	display: inline;
-}
-
-.footer ul li:last-child {
-	border-right: none;
-}
-
 .attribution {
 	width: 100%;
 	color: white;
@@ -181,6 +150,10 @@ header {
 
 .text-font {
 	font-family: Consolas, monaco, monospace;
+}
+
+.text-fontsize-1-1 {
+	font-size: 1.1em;
 }
 
 .text-white {
@@ -214,6 +187,10 @@ header {
 .btn-secondary {
 	text-align: center;
 	font-weight: bold;
+}
+
+.card {
+	background-color: #DAEAFB;
 }
 
 .shadow-selfmade {
