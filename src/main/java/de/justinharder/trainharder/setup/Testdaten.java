@@ -114,10 +114,8 @@ public class Testdaten
 	static
 	{
 		PASSWORT
-			.setSalt(new byte[]
-			{ -92, 56, -96, 113, -49, 24, 56, -94, -125, 43, 99, 45, 84, 52, 72, 19 })
-			.setPasswortHash(new byte[]
-			{ -35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107 }); // Justinharder#98
+			.setSalt("lhwMFKf4DTBEXnWG7tXvhA==")
+			.setPasswortHash("mNMZ8W5m2jf5TtSBnNfB/w==");
 
 		AUTHENTIFIZIERUNG_JUSTIN
 			.setPrimaerschluessel(AUTHENTIFIZIERUNG_JUSTIN_ID)

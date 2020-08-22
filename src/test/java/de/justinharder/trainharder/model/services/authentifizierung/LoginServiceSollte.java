@@ -105,7 +105,7 @@ public class LoginServiceSollte
 			Optional.empty());
 	}
 
-	private void angenommenDerPasswortHasherHashtPasswort(final String passwort, final byte[] salt, final byte[] hash)
+	private void angenommenDerPasswortHasherHashtPasswort(final String passwort, final String salt, final String hash)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);

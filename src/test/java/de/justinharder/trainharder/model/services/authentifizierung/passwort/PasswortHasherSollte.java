@@ -35,8 +35,7 @@ public class PasswortHasherSollte
 	@DisplayName("einen Salt generieren")
 	public void test01()
 	{
-		final var erwartet = new byte[]
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		final var erwartet = "AAAAAAAAAAAAAAAAAAAAAA==";
 
 		final var salt = new byte[16];
 		final var ergebnis = sut.generiereSalt(salt);
@@ -49,11 +48,9 @@ public class PasswortHasherSollte
 	@DisplayName("ein Passwort hashen")
 	public void test02() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		final var erwartet = new byte[]
-		{ 24, 28, -70, 122, -75, -126, 40, 77, -62, -88, 75, -106, -87, -125, -92, -1 };
+		final var erwartet = "GBy6erWCKE3CqEuWqYOk/w==";
 
-		final var salt = new byte[]
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		final var salt = "AAAAAAAAAAAAAAAAAAAAAA==";
 		final var ergebnis = sut.hash("Justinharder#98", salt);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -67,24 +64,16 @@ public class PasswortHasherSollte
 		{
 			final var erwartet = true;
 
-			final var ergebnis = sut.check(new Passwort(
-				new byte[]
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new byte[]
-			{ 24, 28, -70, 122, -75, -126, 40, 77, -62, -88, 75, -106, -87, -125, -92, -1 }),
-				"Justinharder#98");
+			final var ergebnis =
+				sut.check(new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="), "Justinharder#98");
 
 			assertThat(ergebnis).isEqualTo(erwartet);
 		}, () ->
 		{
 			final var erwartet = false;
 
-			final var ergebnis = sut.check(new Passwort(
-				new byte[]
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new byte[]
-			{ 24, 28, -70, 122, -75, -126, 40, 77, -62, -88, 75, -106, -87, -125, -92, -1 }),
-				"NichtJustinharder#98");
+			final var ergebnis =
+				sut.check(new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="), "NichtJustinharder#98");
 
 			assertThat(ergebnis).isEqualTo(erwartet);
 		});

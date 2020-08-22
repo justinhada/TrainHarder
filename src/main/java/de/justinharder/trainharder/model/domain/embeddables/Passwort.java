@@ -13,27 +13,27 @@ public class Passwort implements Serializable
 {
 	private static final long serialVersionUID = 6610897321271486027L;
 
-	@Column(name = "Salt", columnDefinition = "VARBINARY(128)", nullable = false)
-	private byte[] salt;
-	@Column(name = "PasswortHash", columnDefinition = "VARBINARY(128)", nullable = false)
-	private byte[] passwortHash;
+	@Column(name = "Salt", nullable = false)
+	private String salt;
+	@Column(name = "PasswortHash", nullable = false)
+	private String passwortHash;
 
 	public Passwort()
 	{}
 
-	public Passwort(final byte[] salt, final byte[] passwortHash)
+	public Passwort(final String salt, final String passwortHash)
 	{
 		this.salt = salt;
 		this.passwortHash = passwortHash;
 	}
 
-	public Passwort setSalt(final byte[] salt)
+	public Passwort setSalt(final String salt)
 	{
 		this.salt = salt;
 		return this;
 	}
 
-	public Passwort setPasswortHash(final byte[] passwortHash)
+	public Passwort setPasswortHash(final String passwortHash)
 	{
 		this.passwortHash = passwortHash;
 		return this;

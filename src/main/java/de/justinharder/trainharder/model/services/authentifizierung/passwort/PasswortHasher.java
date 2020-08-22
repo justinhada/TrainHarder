@@ -3,7 +3,7 @@ package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
+import java.util.Base64;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -27,31 +27,35 @@ public class PasswortHasher
 		secureRandom = new SecureRandom();
 	}
 
-	public byte[] generiereSalt(final byte[] salt)
+	public String generiereSalt(final byte[] salt)
 	{
 		secureRandom.nextBytes(salt);
-		return salt;
+		return Base64.getEncoder().encodeToString(salt);
 	}
 
-	public byte[] hash(final String passwort, final byte[] salt)
+	public String hash(final String passwort, final String salt)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		return pbkdf2(passwort.toCharArray(), salt);
+		return pbkdf2(passwort, salt);
 	}
 
 	public boolean check(final Passwort aktuellesPasswort, final String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		final var hash = pbkdf2(passwort.toCharArray(), aktuellesPasswort.getSalt());
-		return Arrays.equals(hash, aktuellesPasswort.getPasswortHash());
+		final var hash = pbkdf2(passwort, aktuellesPasswort.getSalt());
+		return hash.equals(aktuellesPasswort.getPasswortHash());
 	}
 
-	private static byte[] pbkdf2(final char[] passwort, final byte[] salt)
+	private static String pbkdf2(final String passwort, final String salt)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		return SecretKeyFactory
+		return Base64.getEncoder().encodeToString(SecretKeyFactory
 			.getInstance(ALGORITHMUS)
-			.generateSecret(new PBEKeySpec(passwort, salt, ITERATIONEN, LAENGE))
-			.getEncoded();
+			.generateSecret(new PBEKeySpec(
+				passwort.toCharArray(),
+				Base64.getDecoder().decode(salt),
+				ITERATIONEN,
+				LAENGE))
+			.getEncoded());
 	}
 }

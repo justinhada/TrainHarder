@@ -46,11 +46,7 @@ public class PasswortSollte
 	@SuppressWarnings("unlikely-arg-type")
 	public void test05()
 	{
-		final var anderesPasswort = new Passwort(
-			new byte[]
-			{ -91, 56, -96, 113, -49, 24, 56, -94, -125, 43, 99, 45, 84, 52, 72, 19 },
-			new byte[]
-			{ -35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107 });
+		final var anderesPasswort = new Passwort("213MFKf4DTBEXnWG7tXvhA==", "lllZ8W5m2jf5TtSBnNfB/w==");
 
 		assertAll(
 			() -> assertThat(sut.equals(sut)).isEqualTo(true),
@@ -64,8 +60,7 @@ public class PasswortSollte
 	@DisplayName("eine toString()-Methode haben")
 	public void test06()
 	{
-		final var erwartet =
-			"Passwort(salt=[-92, 56, -96, 113, -49, 24, 56, -94, -125, 43, 99, 45, 84, 52, 72, 19], passwortHash=[-35, 61, 38, -97, 17, -55, 58, -123, 42, 57, 101, 23, 52, 74, -16, -107])";
+		final var erwartet = "Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)";
 
 		assertThat(sut.toString()).isEqualTo(erwartet);
 	}
