@@ -23,9 +23,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-      
-    - name: SonarCloud Scan
-      run: ./gradlew jacocoTestReport
 
-    - name: SonarCloud Scan 2
+    - name: SonarCloud Scan
       run: ./gradlew sonarqube
