@@ -4,10 +4,17 @@ plugins {
     id 'eclipse-wtp'
     id 'war'
     id 'jacoco'
+	id "org.sonarqube" version "3.0"
 }
 
 repositories {
     jcenter()
+}
+
+sonarqube {
+	properties {
+		property 'sonar.projectName', 'TrainHarder'
+	}
 }
 
 [
@@ -56,6 +63,13 @@ eclipse {
 		component {
 			contextPath = 'TrainHarder'
 		}
+	}
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.enabled true
 	}
 }
 

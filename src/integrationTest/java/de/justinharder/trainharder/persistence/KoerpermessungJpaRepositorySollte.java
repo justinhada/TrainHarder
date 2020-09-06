@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Koerpermessung;
@@ -14,6 +15,7 @@ import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
+@Ignore
 public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private KoerpermessungJpaRepository sut;
