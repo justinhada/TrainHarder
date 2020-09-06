@@ -26,3 +26,6 @@ jobs:
       
     - name: SonarCloud Scan
       run: ./gradlew jacocoTestReport
+
+    - name: SonarCloud Scan 2
+      run: ./gradlew sonarqube
