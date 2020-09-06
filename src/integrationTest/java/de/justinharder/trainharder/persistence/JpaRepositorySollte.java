@@ -8,7 +8,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import de.justinharder.trainharder.setup.TestdatenAnleger;
+import org.junit.Ignore;
 
+@Ignore
 public class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
