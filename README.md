@@ -3,7 +3,7 @@
 
 Weboberfläche zur Verwaltung von Trainingsplänen, individuell für jeden Benutzer.
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=justinhada_TrainHarder&metric=alert_status)](https://sonarcloud.io/dashboard?id=justinhada_TrainHarder)
+![Build](https://github.com/justinhada/TrainHarder/workflows/Build/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=justinhada_TrainHarder&metric=alert_status)](https://sonarcloud.io/dashboard?id=justinhada_TrainHarder)
 
 ## Entwicklung
 
