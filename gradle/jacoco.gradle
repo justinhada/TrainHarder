@@ -1,0 +1,50 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = project.jacocoVersion
+    reportsDir = file("$buildDir/jacoco")
+}
+
+jacocoTestReport {
+    // https://stackoverflow.com/questions/19025138/gradle-how-to-generate-coverage-report-for-integration-test-using-jacoco
+    executionData(file("$buildDir/jacoco/test.exec"),
+                  file("$buildDir/jacoco/integrationTest.exec"))
+    reports {
+        xml.enabled true
+        xml.destination file("$buildDir/jacoco/all-tests/jacocoAllTestReport.xml")
+        html.enabled true
+        html.destination file("$buildDir/jacoco/all-tests/html")
+        csv.enabled false
+    }
+}
+
+test {
+    jacoco {
+        append = false
+    }
+}
+
+integrationTest {
+    jacoco {
+        append = false
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.coverage.jacoco.xmlReportPaths", jacocoTestReport.reports.xml.destination
+        properties["sonar.junit.reportPaths"] += integrationTest.reports.junitXml.destination
+        properties["sonar.tests"] += sourceSets.integrationTest.allSource.srcDirs
+    }
+}
+
+
+build.dependsOn jacocoTestReport
+project.tasks['sonarqube'].dependsOn jacocoTestReport
+
+task copyJacocoAgent(type: Copy) {
+    configurations.jacocoAgent.asFileTree.each {
+        from(zipTree(it))
+    }
+    into "${rootDir}/build/jacoco"
+}
