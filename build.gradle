@@ -11,14 +11,6 @@ repositories {
     jcenter()
 }
 
-sonarqube {
-	properties {
-		property "sonar.projectKey", "justinhada_TrainHarder"
-		property "sonar.organization", "justinhada"
-		property "sonar.host.url", "https://sonarcloud.io"
-	}
-}
-
 [
 	"integrationstests",
 	"tests",
@@ -65,13 +57,6 @@ eclipse {
 		component {
 			contextPath = 'TrainHarder'
 		}
-	}
-}
-
-jacocoTestReport {
-	dependsOn test
-	reports {
-		xml.enabled true
 	}
 }
 
