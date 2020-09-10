@@ -32,6 +32,9 @@ integrationTest {
 
 sonarqube {
     properties {
+		property "sonar.projectKey", "justinhada_TrainHarder"
+		property "sonar.organization", "justinhada"
+		property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", jacocoTestReport.reports.xml.destination
         properties["sonar.junit.reportPaths"] += integrationTest.reports.junitXml.destination
         properties["sonar.tests"] += sourceSets.integrationTest.allSource.srcDirs
