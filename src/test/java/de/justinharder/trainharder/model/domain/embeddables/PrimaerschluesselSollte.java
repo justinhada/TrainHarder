@@ -14,26 +14,26 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class PrimaerschluesselSollte
+class PrimaerschluesselSollte
 {
 	private Primaerschluessel sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Primaerschluessel();
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor besitzen")
-	public void test01()
+	void test01()
 	{
 		assertThat(Primaerschluessel.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
 	@DisplayName("einen RequiredArgsConstructor und Getter besitzen")
-	public void test02()
+	void test02()
 	{
 		final var primaerschluessel = new Primaerschluessel(sut.getId());
 
@@ -42,7 +42,7 @@ public class PrimaerschluesselSollte
 
 	@Test
 	@DisplayName("Setter besitzen")
-	public void test03()
+	void test03()
 	{
 		final var primaerschluessel = new Primaerschluessel();
 		final var uuid = UUID.randomUUID();
@@ -55,7 +55,7 @@ public class PrimaerschluesselSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var andererPrimaerschluessel = new Primaerschluessel();
 
@@ -72,7 +72,7 @@ public class PrimaerschluesselSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
 

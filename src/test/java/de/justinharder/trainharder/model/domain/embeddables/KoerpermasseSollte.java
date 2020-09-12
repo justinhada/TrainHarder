@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KoerpermasseSollte
+class KoerpermasseSollte
 {
 	private Koerpermasse sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Koerpermasse(178, 90, 25);
 	}
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
@@ -34,7 +34,7 @@ public class KoerpermasseSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new Koerpermasse()
 			.setKoerpergroesse(178)
@@ -53,7 +53,7 @@ public class KoerpermasseSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test03()
+	void test03()
 	{
 		final var andereKoerpermasse = new Koerpermasse(190, 100, 6);
 
@@ -67,7 +67,7 @@ public class KoerpermasseSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet =
 			"Koerpermasse(koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43)";

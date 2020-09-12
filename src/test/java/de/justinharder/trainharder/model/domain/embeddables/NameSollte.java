@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class NameSollte
+class NameSollte
 {
 	private Name sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Name("Justin", "Harder");
 	}
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
@@ -30,7 +30,7 @@ public class NameSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new Name()
 			.setVorname("Justin")
@@ -44,7 +44,7 @@ public class NameSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var andererName = new Name("Nicole", "Harder");
 
@@ -58,7 +58,7 @@ public class NameSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Name(vorname=Justin, nachname=Harder)";
 

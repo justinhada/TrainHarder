@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class PasswortSollte
+class PasswortSollte
 {
 	private Passwort sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Passwort(Testdaten.PASSWORT.getSalt(), Testdaten.PASSWORT.getPasswortHash());
 	}
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getSalt()).isEqualTo(Testdaten.PASSWORT.getSalt()),
@@ -30,7 +30,7 @@ public class PasswortSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new Passwort()
 			.setSalt(Testdaten.PASSWORT.getSalt())
@@ -44,7 +44,7 @@ public class PasswortSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var anderesPasswort = new Passwort("213MFKf4DTBEXnWG7tXvhA==", "lllZ8W5m2jf5TtSBnNfB/w==");
 
@@ -58,7 +58,7 @@ public class PasswortSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)";
 
