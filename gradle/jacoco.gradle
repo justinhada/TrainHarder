@@ -38,5 +38,4 @@ sonarqube {
     }
 }
 
-build.dependsOn jacocoTestReport
-project.tasks['sonarqube'].dependsOn jacocoTestReport
+sonarqube.dependsOn jacocoTestReport
