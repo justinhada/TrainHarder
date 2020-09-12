@@ -30,11 +30,5 @@ tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
-eclipse {
-    classpath {
-        plusConfigurations += [ configurations.integrationTestCompileClasspath ]
-    }
-}
-
 check.dependsOn integrationTest
 integrationTest.dependsOn assemble
