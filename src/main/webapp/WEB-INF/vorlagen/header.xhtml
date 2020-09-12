@@ -1,0 +1,49 @@
+<ui:composition lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <a class="navbar-brand mr-0 mr-md-2" href="/TrainHarder/start" title="Startseite"><h:graphicImage styleClass="d-block" value="#{resource['img/icon.svg']}" alt="TrainHarder-Logo" width="80" height="80" /></a>
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2 active" href="/TrainHarder/start" title="Startseite">Home</a></li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2" href="/TrainHarder/impressum" title="Impressum">Impressum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2" href="/TrainHarder/datenschutz" title="Datenschutz">Datenschutz</a></li>
+                <li class="nav-item"><a class="nav-link mr-sm-2" href="/TrainHarder/kontakt" title="Kontakt">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav flex-row ml-md-auto mr-md-auto d-none d-md-flex">
+            <h:panelGroup rendered="#{authentifizierung != null}">
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="#{authentifizierung.benutzername}">Benutzer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2" href="/TrainHarder/koerpermessungen/#{authentifizierung.benutzername}" title="Körpermessungen">Körpermessungen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2" href="/TrainHarder/kraftwerte/#{authentifizierung.benutzername}" title="Kraftwerte">Kraftwerte</a>
+                </li>
+            </h:panelGroup>
+        </ul>
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <h:panelGroup rendered="#{authentifizierung != null}">
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/benutzer/#{authentifizierung.benutzername}" title="Benutzereinstellungen"><i class="fa fa-user" aria-hidden="true" />#{authentifizierung.benutzername}
+                    </a></li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/benutzer/logout" title="Sign out"><i class="fa fa-sign-out" aria-hidden="true" /></a>
+                </li>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{authentifizierung == null}">
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/login" title="Sign in">Sign in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mr-sm-2 ml-sm-2 px-4 active with-border" href="/TrainHarder/join" title="Sign up">Sign up</a>
+                </li>
+            </h:panelGroup>
+        </ul>
+    </header>
+</ui:composition>

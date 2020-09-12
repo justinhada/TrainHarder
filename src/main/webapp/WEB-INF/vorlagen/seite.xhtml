@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="title" /></title>
+
+        <ui:include src="/WEB-INF/vorlagen/head.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/vorlagen/header.xhtml" />
+
+        <div class="title text-center font-weight-bold"><ui:insert name="heading" /></div>
+
+        <ui:insert name="content" />
+
+        <ui:include src="/WEB-INF/vorlagen/footer.xhtml"></ui:include>
+    </h:body>
+</html>
