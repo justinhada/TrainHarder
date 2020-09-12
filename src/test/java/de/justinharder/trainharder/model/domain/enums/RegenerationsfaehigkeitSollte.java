@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 
-public class RegenerationsfaehigkeitSollte
+class RegenerationsfaehigkeitSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Regenerationsfaehigkeit-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class,
@@ -24,7 +24,7 @@ public class RegenerationsfaehigkeitSollte
 
 	@Test
 	@DisplayName("die Regenerationsfaehigkeit aus der Regenerationsfaehigkeit-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Regenerationsfaehigkeit.PERFEKT;
 
@@ -35,7 +35,7 @@ public class RegenerationsfaehigkeitSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Regenerationsfaehigkeit.fromName("UNGUELTIG"));
@@ -45,7 +45,7 @@ public class RegenerationsfaehigkeitSollte
 
 	@Test
 	@DisplayName("die Regenerationsfaehigkeit aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Regenerationsfaehigkeit.SCHLECHT;
 

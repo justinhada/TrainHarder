@@ -12,12 +12,12 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefunden
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.AbstractControllerSollte;
 
-public class StartControllerSollte extends AbstractControllerSollte
+class StartControllerSollte extends AbstractControllerSollte
 {
 	private StartController sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new StartController();
 		super.setup(sut);
@@ -25,7 +25,7 @@ public class StartControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Start-Seite per GET navigieren ohne angemeldeten Benutzer")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "/index.xhtml";
 
@@ -36,7 +36,7 @@ public class StartControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Start-Seite per GET navigieren mit Servicefehler")
-	public void test02() throws AuthentifizierungNichtGefundenException
+	void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -50,7 +50,7 @@ public class StartControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Start-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;

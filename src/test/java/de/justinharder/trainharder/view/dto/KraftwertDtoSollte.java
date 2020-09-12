@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KraftwertDtoSollte
+class KraftwertDtoSollte
 {
 	private KraftwertDto sut;
 
 	private String primaerschluessel;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		primaerschluessel = new Primaerschluessel().getId().toString();
 		sut = new KraftwertDto(primaerschluessel, 100, 75.0, "22.08.2020", "1RM");
@@ -25,7 +25,7 @@ public class KraftwertDtoSollte
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
@@ -37,7 +37,7 @@ public class KraftwertDtoSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new KraftwertDto()
 			.setPrimaerschluessel(primaerschluessel)
@@ -57,7 +57,7 @@ public class KraftwertDtoSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var anderesKraftwertDto =
 			new KraftwertDto(new Primaerschluessel().getId().toString(), 100, 75.0, "22.08.2020", "1RM");
@@ -72,7 +72,7 @@ public class KraftwertDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "KraftwertDto(primaerschluessel=" + primaerschluessel
 			+ ", maximum=100, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";

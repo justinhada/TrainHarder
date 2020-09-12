@@ -11,11 +11,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class BenutzerdatenSollte
+class BenutzerdatenSollte
 {
 	@Test
 	@DisplayName("ein Bean sein")
-	public void test01()
+	void test01()
 	{
 		assertThat(Benutzerdaten.class, allOf(
 			hasValidBeanConstructor(),

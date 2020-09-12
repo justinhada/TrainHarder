@@ -28,7 +28,7 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
 
-public class BenutzerServiceSollte
+class BenutzerServiceSollte
 {
 	private BenutzerService sut;
 
@@ -37,7 +37,7 @@ public class BenutzerServiceSollte
 	private BenutzerDtoMapper benutzerDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		benutzerRepository = mock(BenutzerRepository.class);
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
@@ -46,7 +46,7 @@ public class BenutzerServiceSollte
 	}
 
 	@AfterEach
-	public void reset()
+	void reset()
 	{
 		Testdaten.BENUTZER_JUSTIN.setBenutzerangabe(Testdaten.BENUTZERANGABE_JUSTIN);
 	}
@@ -112,7 +112,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("alle Benutzer ermitteln")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_EDUARD);
 		final var benutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
@@ -126,7 +126,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!";
 
@@ -137,7 +137,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zu ID ermittelt wird")
-	public void test03()
+	void test03()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
@@ -150,7 +150,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zu ID ermitteln")
-	public void test04() throws BenutzerNichtGefundenException
+	void test04() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
@@ -167,7 +167,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
@@ -178,7 +178,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
-	public void test06() throws BenutzerNichtGefundenException
+	void test06() throws BenutzerNichtGefundenException
 	{
 		final var authentifizierungId = new Primaerschluessel().getId().toString();
 		final var erwartet =
@@ -194,7 +194,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zur AuthentifizierungID ermitteln")
-	public void test07() throws BenutzerNichtGefundenException
+	void test07() throws BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
@@ -212,7 +212,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	public void test08()
+	void test08()
 	{
 		final var erwartet = "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!";
 
@@ -223,7 +223,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null sind")
-	public void test09()
+	void test09()
 	{
 		final var erwartet = "Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
@@ -235,7 +235,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
-	public void test10()
+	void test10()
 	{
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
@@ -250,7 +250,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen neuen Benutzer erstellen")
-	public void test11() throws AuthentifizierungNichtGefundenException
+	void test11() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
@@ -282,7 +282,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test12()
+	void test12()
 	{
 		final var erwartet = "Die Aktualisierung des Benutzers benötigt eine gültige ID!";
 
@@ -294,7 +294,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	public void test13()
+	void test13()
 	{
 		final var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
 
@@ -306,7 +306,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
-	public void test14()
+	void test14()
 	{
 		final var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
 		final var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
@@ -321,7 +321,7 @@ public class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer aktualisieren")
-	public void test15() throws BenutzerNichtGefundenException
+	void test15() throws BenutzerNichtGefundenException
 	{
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var id = benutzer.getPrimaerschluessel().getId().toString();

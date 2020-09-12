@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class BelastungsfaktorDtoMapperSollte
+class BelastungsfaktorDtoMapperSollte
 {
 	private BelastungsfaktorDtoMapper sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new BelastungsfaktorDtoMapper();
 	}
 
 	@Test
 	@DisplayName("alle Belastungsfaktoren zu BelastungsfaktorDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN,

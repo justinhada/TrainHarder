@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KoerpermessungDtoSollte
+class KoerpermessungDtoSollte
 {
 	private KoerpermessungDto sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KoerpermessungDto(
 			Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString(),
@@ -32,7 +32,7 @@ public class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel())
@@ -52,7 +52,7 @@ public class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new KoerpermessungDto()
 			.setDatum(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
@@ -79,7 +79,7 @@ public class KoerpermessungDtoSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var andereKoerpermessungDto = new KoerpermessungDto(
 			new Primaerschluessel().getId().toString(),
@@ -100,7 +100,7 @@ public class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "KoerpermessungDto(primaerschluessel="
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()

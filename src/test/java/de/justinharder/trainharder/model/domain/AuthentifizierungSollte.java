@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class AuthentifizierungSollte
+class AuthentifizierungSollte
 {
 	private Authentifizierung sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Authentifizierung(
 			new Primaerschluessel(),
@@ -31,14 +31,14 @@ public class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor haben")
-	public void test01()
+	void test01()
 	{
 		assertThat(Authentifizierung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
 	@DisplayName("einen RequiredArgsCounstructor haben")
-	public void test02()
+	void test02()
 	{
 		final var id = new Primaerschluessel();
 		final var authentifizierung = new Authentifizierung(
@@ -58,7 +58,7 @@ public class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("Setter besitzen")
-	public void test03()
+	void test03()
 	{
 		final var id = new Primaerschluessel();
 		final var resetUuid = UUID.randomUUID();
@@ -84,7 +84,7 @@ public class AuthentifizierungSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test04()
+	void test04()
 	{
 		final var andereAuthentifizierung = new Authentifizierung();
 		andereAuthentifizierung.setPrimaerschluessel(new Primaerschluessel());
@@ -98,12 +98,12 @@ public class AuthentifizierungSollte
 			() -> assertThat(sut.equals(Testdaten.BENUTZER_JUSTIN)).isEqualTo(false),
 			() -> assertThat(sut.equals(andereAuthentifizierung)).isEqualTo(false),
 			() -> assertThat(sut.equals(authentifizierungMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung));
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung.hashCode()));
 	}
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 

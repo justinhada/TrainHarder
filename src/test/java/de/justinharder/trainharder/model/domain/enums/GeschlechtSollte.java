@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Geschlecht;
 
-public class GeschlechtSollte
+class GeschlechtSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Geschlecht-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Geschlecht.fromGeschlechtOption("UNGUELTIG"));
@@ -22,7 +22,7 @@ public class GeschlechtSollte
 
 	@Test
 	@DisplayName("die Geschlecht aus der Geschlecht-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Geschlecht.MAENNLICH;
 
@@ -33,7 +33,7 @@ public class GeschlechtSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Geschlecht.fromName("UNGUELTIG"));
 
@@ -42,7 +42,7 @@ public class GeschlechtSollte
 
 	@Test
 	@DisplayName("die Geschlecht aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Geschlecht.WEIBLICH;
 

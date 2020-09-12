@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class AuthentifizierungDtoSollte
+class AuthentifizierungDtoSollte
 {
 	private AuthentifizierungDto sut;
 
 	private String primaerschluessel;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		primaerschluessel = new Primaerschluessel().getId().toString();
 		sut = new AuthentifizierungDto(primaerschluessel, "mail@justinharder.de", "harder");
@@ -25,7 +25,7 @@ public class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
@@ -35,7 +35,7 @@ public class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new AuthentifizierungDto()
 			.setPrimaerschluessel(primaerschluessel)
@@ -51,7 +51,7 @@ public class AuthentifizierungDtoSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var anderesAuthentifizierungDto = new AuthentifizierungDto(
 			new Primaerschluessel().getId().toString(), "justinharder@t-online.de", "harder");
@@ -66,7 +66,7 @@ public class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "AuthentifizierungDto(primaerschluessel=" + primaerschluessel
 			+ ", mail=mail@justinharder.de, benutzername=harder)";

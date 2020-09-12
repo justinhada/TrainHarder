@@ -17,26 +17,26 @@ import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class UebungSollte
+class UebungSollte
 {
 	private Uebung sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor haben")
-	public void test01()
+	void test01()
 	{
 		org.hamcrest.MatcherAssert.assertThat(Uebung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
 	@DisplayName("einen RequiredArgsConstructor haben")
-	public void test02()
+	void test02()
 	{
 		final var id = new Primaerschluessel();
 		final var uebung = new Uebung(
@@ -56,7 +56,7 @@ public class UebungSollte
 
 	@Test
 	@DisplayName("Getter besitzen")
-	public void test03()
+	void test03()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID),
@@ -68,7 +68,7 @@ public class UebungSollte
 
 	@Test
 	@DisplayName("Setter besitzen")
-	public void test04()
+	void test04()
 	{
 		final var id = new Primaerschluessel();
 		final var uebung = new Uebung();
@@ -89,7 +89,7 @@ public class UebungSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var andereUebung = new Uebung();
 		andereUebung.setPrimaerschluessel(new Primaerschluessel());
@@ -108,7 +108,7 @@ public class UebungSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
@@ -117,7 +117,7 @@ public class UebungSollte
 
 	@Test
 	@DisplayName("einen Kraftwert hinzufügen können")
-	public void test07()
+	void test07()
 	{
 		final var kraftwert = new Kraftwert(
 			new Primaerschluessel(),

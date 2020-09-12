@@ -9,19 +9,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class UuidMapperSollte
+class UuidMapperSollte
 {
 	private UuidMapper sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new UuidMapper();
 	}
 
 	@Test
 	@DisplayName("UUID zu String konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var uuid = UUID.randomUUID();
 
@@ -32,7 +32,7 @@ public class UuidMapperSollte
 
 	@Test
 	@DisplayName("String zu UUID konvertieren")
-	public void test02()
+	void test02()
 	{
 		final var uuid = UUID.randomUUID().toString();
 

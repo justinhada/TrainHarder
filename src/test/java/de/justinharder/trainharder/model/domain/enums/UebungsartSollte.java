@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 
-public class UebungsartSollte
+class UebungsartSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Uebungsart-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Uebungsart.fromUebungsartOption("UNGUELTIG"));
@@ -22,7 +22,7 @@ public class UebungsartSollte
 
 	@Test
 	@DisplayName("die Uebungsart aus der Uebungsart-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Uebungsart.GRUNDUEBUNG;
 
@@ -33,7 +33,7 @@ public class UebungsartSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Uebungsart.fromName("UNGUELTIG"));
 
@@ -42,7 +42,7 @@ public class UebungsartSollte
 
 	@Test
 	@DisplayName("die Uebungsart aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Uebungsart.ASSISTENZ;
 

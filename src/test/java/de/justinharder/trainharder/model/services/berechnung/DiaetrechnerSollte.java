@@ -8,19 +8,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.services.berechnung.Diaetrechner;
 
-public class DiaetrechnerSollte
+class DiaetrechnerSollte
 {
 	private Diaetrechner sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Diaetrechner();
 	}
 
 	@Test
 	@DisplayName("die Diätzeit in Wochen berechnen")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = 16;
 
@@ -31,7 +31,7 @@ public class DiaetrechnerSollte
 
 	@Test
 	@DisplayName("die Diätzeit in Tagen berechnen")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = 112;
 
@@ -42,7 +42,7 @@ public class DiaetrechnerSollte
 
 	@Test
 	@DisplayName("den erwarteten Körperfettanteil berechnen")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = 15;
 

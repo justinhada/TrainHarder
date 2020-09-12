@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 
-public class UebungskategorieSollte
+class UebungskategorieSollte
 {
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Uebungskategorie-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class,
@@ -24,7 +24,7 @@ public class UebungskategorieSollte
 
 	@Test
 	@DisplayName("die Uebungskategorie aus der Uebungskategorie-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Uebungskategorie.UEBERKOPFDRUECKEN;
 
@@ -35,7 +35,7 @@ public class UebungskategorieSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Uebungskategorie.fromName("UNGUELTIG"));
@@ -45,7 +45,7 @@ public class UebungskategorieSollte
 
 	@Test
 	@DisplayName("die Uebungskategorie aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Uebungskategorie.ASSISTENZ_CORE;
 

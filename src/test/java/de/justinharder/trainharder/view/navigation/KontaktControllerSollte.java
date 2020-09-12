@@ -28,7 +28,7 @@ import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
 
-public class KontaktControllerSollte
+class KontaktControllerSollte
 {
 	private KontaktController sut;
 
@@ -40,7 +40,7 @@ public class KontaktControllerSollte
 	private BenutzerService benutzerService;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KontaktController();
 
@@ -92,7 +92,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("zur Kontakt-Seite per GET navigieren ohne angemeldeten Benutzer")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "/kontakt.xhtml";
 
@@ -103,7 +103,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("zur Kontakt-Seite per GET navigieren mit Servicefehler")
-	public void test02() throws AuthentifizierungNichtGefundenException
+	void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/kontakt.xhtml";
 		final var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
@@ -119,7 +119,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("zur Kontakt-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/kontakt.xhtml";
 		final var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
@@ -142,7 +142,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Kontaktformular null ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
 
@@ -153,7 +153,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Kontakt-Seite navigieren")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = "/kontakt.xhtml";
 		angenommenDasBindingResultFailed();
@@ -167,7 +167,7 @@ public class KontaktControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Kontaktieren zur Kontaktiert-Seite per GET navigieren")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "/kontaktiert.xhtml";
 

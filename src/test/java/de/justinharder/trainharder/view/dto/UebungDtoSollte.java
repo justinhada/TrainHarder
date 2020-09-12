@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class UebungDtoSollte
+class UebungDtoSollte
 {
 	private UebungDto sut;
 
@@ -19,7 +19,7 @@ public class UebungDtoSollte
 	private BelastungsfaktorDto belastungsfaktor;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		primaerschluessel = new Primaerschluessel().getId().toString();
 		belastungsfaktorPrimaerschluessel = new Primaerschluessel().getId().toString();
@@ -35,7 +35,7 @@ public class UebungDtoSollte
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
@@ -47,7 +47,7 @@ public class UebungDtoSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new UebungDto()
 			.setPrimaerschluessel(primaerschluessel)
@@ -67,7 +67,7 @@ public class UebungDtoSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var anderesUebungDto = new UebungDto(
 			new Primaerschluessel().getId().toString(),
@@ -87,7 +87,7 @@ public class UebungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "UebungDto(primaerschluessel=" + primaerschluessel
 			+ ", name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(primaerschluessel="

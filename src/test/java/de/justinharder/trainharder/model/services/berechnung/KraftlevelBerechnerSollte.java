@@ -26,14 +26,14 @@ import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KraftlevelBerechnerSollte
+class KraftlevelBerechnerSollte
 {
 	private KraftlevelBerechner sut;
 
 	@Test
 	@DisplayName("das Kraftlevel für Justin setzen")
 	@Disabled("scheiße")
-	public void test01()
+	void test01()
 	{
 		final var benutzer = Testdaten.BENUTZER_JUSTIN;
 		final var kniebeugeKraftwert = new Kraftwert(
@@ -73,7 +73,7 @@ public class KraftlevelBerechnerSollte
 	@Test
 	@DisplayName("das Kraftlevel für eine Frau setzen")
 	@Disabled("scheiße")
-	public void test02()
+	void test02()
 	{
 		final var benutzer = new Benutzer();
 		final var koerpermessung =

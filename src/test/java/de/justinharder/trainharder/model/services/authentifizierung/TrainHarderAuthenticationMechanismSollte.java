@@ -19,7 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TrainHarderAuthenticationMechanismSollte
+class TrainHarderAuthenticationMechanismSollte
 {
 	private TrainHarderAuthenticationMechanism sut;
 	private IdentityStore identityStore;
@@ -31,7 +31,7 @@ public class TrainHarderAuthenticationMechanismSollte
 	private AuthenticationParameters authenticationParameters;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new TrainHarderAuthenticationMechanism();
 
@@ -71,7 +71,7 @@ public class TrainHarderAuthenticationMechanismSollte
 
 	@Test
 	@DisplayName("eine Anfrage validieren, wenn die Credentials null sind")
-	public void test01() throws AuthenticationException
+	void test01() throws AuthenticationException
 	{
 		final var erwartet = AuthenticationStatus.NOT_DONE;
 		angenommenDerHttpMessageContextGibtNullZurueck();
@@ -84,7 +84,7 @@ public class TrainHarderAuthenticationMechanismSollte
 
 	@Test
 	@DisplayName("eine Anfrage validieren, wenn die Credentials gültig sind")
-	public void test02() throws AuthenticationException
+	void test02() throws AuthenticationException
 	{
 		final var erwartet = AuthenticationStatus.SUCCESS;
 		angenommenDerHttpMessageContextGibtCredentialZurueck();
@@ -97,6 +97,6 @@ public class TrainHarderAuthenticationMechanismSollte
 
 	@Test
 	@DisplayName("ein Anfrage aufräumen (bei einem Logout)")
-	public void test03()
+	void test03()
 	{}
 }

@@ -17,7 +17,7 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 
-public class BenutzerDtoMapperSollte
+class BenutzerDtoMapperSollte
 {
 	private BenutzerDtoMapper sut;
 
@@ -25,7 +25,7 @@ public class BenutzerDtoMapperSollte
 	private KoerpermessungDtoMapper koerpermessungDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
 		koerpermessungDtoMapper = mock(KoerpermessungDtoMapper.class);
@@ -49,7 +49,7 @@ public class BenutzerDtoMapperSollte
 
 	@Test
 	@DisplayName("alle Benutzer zu BenutzerDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			//Testdaten.BENUTZER_DTO_JUSTIN,

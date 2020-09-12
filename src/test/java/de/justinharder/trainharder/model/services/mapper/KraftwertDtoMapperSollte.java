@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KraftwertDtoMapperSollte
+class KraftwertDtoMapperSollte
 {
 	private KraftwertDtoMapper sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KraftwertDtoMapper();
 	}
 
 	@Test
 	@DisplayName("alle Kraftwerte zu KraftwertDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,

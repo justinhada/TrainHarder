@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 
-public class WiederholungenSollte
+class WiederholungenSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Wiederholungen-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Wiederholungen.fromWiederholungenOption("UNGUELTIG"));
@@ -22,7 +22,7 @@ public class WiederholungenSollte
 
 	@Test
 	@DisplayName("die Wiederholungen aus der Wiederholungen-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Wiederholungen.ONE_REP_MAX;
 
@@ -33,7 +33,7 @@ public class WiederholungenSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Wiederholungen.fromName("UNGUELTIG"));
 
@@ -42,7 +42,7 @@ public class WiederholungenSollte
 
 	@Test
 	@DisplayName("die Wiederholungen aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Wiederholungen.FIVE_REP_MAX;
 

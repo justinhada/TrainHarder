@@ -33,7 +33,7 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
 
-public class RegistrierungControllerSollte
+class RegistrierungControllerSollte
 {
 	private RegistrierungController sut;
 
@@ -43,7 +43,7 @@ public class RegistrierungControllerSollte
 	private RegistrierungService registrierungService;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new RegistrierungController();
 
@@ -99,7 +99,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("zur Registrierung-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
-	public void test01()
+	void test01()
 	{
 		final var callerPrincipal = new CallerPrincipal("harder");
 		final var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
@@ -113,7 +113,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("zur Registrierung-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = "/join.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -126,7 +126,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
 
@@ -137,7 +137,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Registrierung-Seite navigieren")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "/join.xhtml";
 		angenommenDasBindingResultFailed();
@@ -150,7 +150,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei fehlerhafter Registrierung zurück zur Registrierung-Seite navigieren")
-	public void test05()
+	void test05()
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
@@ -165,7 +165,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreicher Registrierung zur Success-Seite navigieren")
-	public void test06()
+	void test06()
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
@@ -181,7 +181,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	public void test07()
+	void test07()
 	{
 		final var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
 
@@ -192,7 +192,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei fehlerhafter Aktivierung zur Fehler-Seite navigieren")
-	public void test08() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/error";
 		final var authentifizierungId = new Primaerschluessel().getId().toString();
@@ -209,7 +209,7 @@ public class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreicher Aktivierung zur Aktiviert-Seite navigieren")
-	public void test09() throws AuthentifizierungNichtGefundenException
+	void test09() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/aktiviert.xhtml";
 		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();

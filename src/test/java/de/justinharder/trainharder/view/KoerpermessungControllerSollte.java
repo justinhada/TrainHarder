@@ -20,14 +20,14 @@ import de.justinharder.trainharder.model.services.KoerpermessungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 
-public class KoerpermessungControllerSollte extends AbstractControllerSollte
+class KoerpermessungControllerSollte extends AbstractControllerSollte
 {
 	private KoerpermessungController sut;
 
 	private KoerpermessungService koerpermessungService;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KoerpermessungController();
 		super.setup(sut);
@@ -39,7 +39,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "redirect:login";
 
@@ -50,7 +50,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit Servicefehler")
-	public void test02() throws AuthentifizierungNichtGefundenException
+	void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -66,7 +66,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -82,7 +82,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "redirect:login";
 
@@ -94,7 +94,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn der Benutzer nicht existiert")
-	public void test05() throws AuthentifizierungNichtGefundenException
+	void test05() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "redirect:login";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -109,7 +109,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
-	public void test06() throws AuthentifizierungNichtGefundenException
+	void test06() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "redirect:login";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -124,7 +124,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test07() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test07() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -144,7 +144,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	public void test08()
+	void test08()
 	{
 		final var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
@@ -155,7 +155,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
-	public void test09() throws AuthentifizierungNichtGefundenException
+	void test09() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "redirect:login";
 		final var benutzername = "harder";
@@ -173,7 +173,7 @@ public class KoerpermessungControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("eine neue Koerpermessung erstellen")
-	public void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		final var benutzername = "harder";

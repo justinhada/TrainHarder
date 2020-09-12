@@ -27,7 +27,7 @@ import de.justinharder.trainharder.model.services.mapper.UebungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.UebungDto;
 
-public class UebungServiceSollte
+class UebungServiceSollte
 {
 	private UebungService sut;
 
@@ -36,7 +36,7 @@ public class UebungServiceSollte
 	private UebungDtoMapper uebungDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		uebungRepository = mock(UebungRepository.class);
 		belastungsfaktorRepository = mock(BelastungsfaktorRepository.class);
@@ -106,7 +106,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen ermitteln")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
@@ -128,7 +128,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Uebungsart null ist")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = "Die Ermittlung der Uebungen benötigt eine gültige Uebungsart!";
 
@@ -139,7 +139,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
@@ -162,7 +162,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Uebungskategorie null ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!";
 
@@ -173,7 +173,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
 		final var uebungen = List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
@@ -191,7 +191,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die UebungID null ist")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Die Ermittlung der Uebung benötigt eine gültige UebungID!";
 
@@ -202,7 +202,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("UebungNichtGefundenException werfen, wenn die UebungID nicht existiert")
-	public void test07()
+	void test07()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		final var erwartet = "Die Uebung mit der ID \"" + id + "\" existiert nicht!";
@@ -216,7 +216,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("eine Uebung zur ID ermitteln")
-	public void test08() throws UebungNichtGefundenException
+	void test08() throws UebungNichtGefundenException
 	{
 		final var erwartet = Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN;
 		final var uebung = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
@@ -233,7 +233,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das UebungDto null ist")
-	public void test09()
+	void test09()
 	{
 		final var erwartet = "Zur Erstellung der Uebung wird ein gültiges UebungDto benötigt!";
 
@@ -244,7 +244,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BelastungsfaktorID null ist")
-	public void test10()
+	void test10()
 	{
 		final var erwartet = "Zur Erstellung der Uebung wird ein gültiges UebungDto benötigt!";
 
@@ -255,7 +255,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn die BelastungsfaktorID nicht existiert")
-	public void test11()
+	void test11()
 	{
 		final var belastungsfaktorId = new Primaerschluessel().getId().toString();
 		final var erwartet = "Der Belastungsfaktor mit der ID \"" + belastungsfaktorId + "\" existiert nicht!";
@@ -270,7 +270,7 @@ public class UebungServiceSollte
 
 	@Test
 	@DisplayName("eine Uebung erstellen")
-	public void test12() throws BelastungsfaktorNichtGefundenException
+	void test12() throws BelastungsfaktorNichtGefundenException
 	{
 		final var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
 		final var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;

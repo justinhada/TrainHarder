@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class MailSollte
+class MailSollte
 {
 	private Mail sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new Mail(new MailAdresse("mail@justinharder.de", "Justin"), "Betreff", "Inhalt")
 			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin"))
@@ -26,7 +26,7 @@ public class MailSollte
 
 	@Test
 	@DisplayName("Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getSender()).isEqualTo(new MailAdresse("mail@justinharder.de", "Justin")),
@@ -43,7 +43,7 @@ public class MailSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test02()
+	void test02()
 	{
 		final var andereMail =
 			new Mail(new MailAdresse("justinharder@t-online.de", "Justin"), "Anderer Betreff", "Anderer Inhalt");
@@ -58,7 +58,7 @@ public class MailSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Mail("
 			+ "sender=MailAdresse(adresse=mail@justinharder.de, name=Justin), "

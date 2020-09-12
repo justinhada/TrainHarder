@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Erfahrung;
 
-public class ErfahrungSollte
+class ErfahrungSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Erfahrung-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class, () -> Erfahrung.fromErfahrungOption("UNGUELTIG"));
@@ -22,7 +22,7 @@ public class ErfahrungSollte
 
 	@Test
 	@DisplayName("die Erfahrung aus der Erfahrung-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Erfahrung.EXPERTE;
 
@@ -33,7 +33,7 @@ public class ErfahrungSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Erfahrung.fromName("UNGUELTIG"));
 
@@ -42,7 +42,7 @@ public class ErfahrungSollte
 
 	@Test
 	@DisplayName("die Erfahrung aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Erfahrung.BEGINNER;
 

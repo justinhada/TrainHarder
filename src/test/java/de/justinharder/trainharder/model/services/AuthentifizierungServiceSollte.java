@@ -19,7 +19,7 @@ import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMap
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
-public class AuthentifizierungServiceSollte
+class AuthentifizierungServiceSollte
 {
 	private AuthentifizierungService sut;
 
@@ -27,7 +27,7 @@ public class AuthentifizierungServiceSollte
 	private AuthentifizierungDtoMapper authentifizierungDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
@@ -80,7 +80,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ID null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!";
 
@@ -91,7 +91,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn keine Authentifizierung zur ID ermittelt werden kann")
-	public void test02()
+	void test02()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZurId(id);
@@ -104,7 +104,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung zur ID ermitteln")
-	public void test03() throws AuthentifizierungNichtGefundenException
+	void test03() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD;
 		final var id = Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID.getId().toString();
@@ -119,7 +119,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!";
 
@@ -130,7 +130,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn BenutzerID zu keiner Authentifizierung gehört")
-	public void test05() throws AuthentifizierungNichtGefundenException
+	void test05() throws AuthentifizierungNichtGefundenException
 	{
 		final var benutzerId = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(benutzerId);
@@ -144,7 +144,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("Authentifizierung zu BenutzerID ermitteln")
-	public void test06() throws AuthentifizierungNichtGefundenException
+	void test06() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var benutzerId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
@@ -160,7 +160,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
-	public void test07()
+	void test07()
 	{
 		final var erwartet = "Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!";
 
@@ -171,7 +171,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn keine Authentifizierung zum Benutzernamen ermittelt werden kann")
-	public void test08()
+	void test08()
 	{
 		final var benutzername = "nichtbekannt";
 		final var erwartet = "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!";
@@ -185,7 +185,7 @@ public class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("Authentifizierung zum Benutzernamen ermitteln")
-	public void test09() throws AuthentifizierungNichtGefundenException
+	void test09() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var benutzername = "harder";

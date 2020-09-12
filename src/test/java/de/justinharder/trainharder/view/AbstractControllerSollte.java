@@ -17,7 +17,7 @@ import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 
-public abstract class AbstractControllerSollte
+abstract class AbstractControllerSollte
 {
 	protected Models models;
 	protected SecurityContext securityContext;

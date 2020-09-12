@@ -20,13 +20,13 @@ import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
-public class TrainHarderIdentityStoreSollte
+class TrainHarderIdentityStoreSollte
 {
 	private TrainHarderIdentityStore sut;
 	private LoginService loginService;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new TrainHarderIdentityStore();
 
@@ -49,7 +49,7 @@ public class TrainHarderIdentityStoreSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung validieren und ein invalides Ergebnis zurückgeben")
-	public void test01() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	void test01() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = CredentialValidationResult.INVALID_RESULT;
 		angenommenDerAuthentifizierungServiceWirftLoginExcepion();
@@ -61,7 +61,7 @@ public class TrainHarderIdentityStoreSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung valdidieren und ein nicht valides Ergebnis zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = CredentialValidationResult.NOT_VALIDATED_RESULT;
 
@@ -73,7 +73,7 @@ public class TrainHarderIdentityStoreSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung erfolgreich validieren")
-	public void test03() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	void test03() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var erwartet = new CredentialValidationResult(authentifizierungDto.getBenutzername());

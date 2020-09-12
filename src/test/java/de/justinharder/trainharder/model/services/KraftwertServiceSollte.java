@@ -28,7 +28,7 @@ import de.justinharder.trainharder.model.services.mapper.KraftwertDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
 
-public class KraftwertServiceSollte
+class KraftwertServiceSollte
 {
 	private KraftwertService sut;
 
@@ -38,7 +38,7 @@ public class KraftwertServiceSollte
 	private KraftwertDtoMapper kraftwertDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		kraftwertRepository = mock(KraftwertRepository.class);
 		benutzerRepository = mock(BenutzerRepository.class);
@@ -106,7 +106,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!";
 
@@ -117,7 +117,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("alle Kraftwerte zu Benutzer ermitteln")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = List.of(
 			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
@@ -140,7 +140,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ID null ist")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Die Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!";
 
@@ -151,7 +151,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("KraftwertNichtGefundenException werfen, wenn ID zu keinem Kraftwert gehört")
-	public void test04()
+	void test04()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		angenommenDasKraftwertRepositoryGibtNullZurueck(id);
@@ -164,7 +164,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert zur ID ermitteln")
-	public void test05() throws KraftwertNichtGefundenException
+	void test05() throws KraftwertNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
 		final var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
@@ -181,7 +181,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("UebungNichtGefundenException werfen, wenn die Uebung nicht gefunden werden kann")
-	public void test06()
+	void test06()
 	{
 		final var uebungId = new Primaerschluessel().getId().toString();
 		final var erwartet = "Die Uebung mit der ID \"" + uebungId + "\" existiert nicht!";
@@ -198,7 +198,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn der Benutzer nicht gefunden werden kann")
-	public void test07()
+	void test07()
 	{
 		final var benutzerId = new Primaerschluessel().getId().toString();
 		final var erwartet = "Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!";
@@ -220,7 +220,7 @@ public class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert erstellen")
-	public void test08() throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	void test08() throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
 		final var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;

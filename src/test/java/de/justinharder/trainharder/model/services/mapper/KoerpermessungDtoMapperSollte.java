@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KoerpermessungDtoMapperSollte
+class KoerpermessungDtoMapperSollte
 {
 	private KoerpermessungDtoMapper sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KoerpermessungDtoMapper();
 	}
 
 	@Test
 	@DisplayName("alle Koerpermessungen zu KoerpermessungDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN, Testdaten.KOERPERMESSUNG_DTO_EDUARD);
 		final var koerpermessungen = List.of(Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD);

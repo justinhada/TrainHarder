@@ -28,7 +28,7 @@ import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMap
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 
-public class LoginServiceSollte
+class LoginServiceSollte
 {
 	private LoginService sut;
 
@@ -39,7 +39,7 @@ public class LoginServiceSollte
 	private MailServer mailServer;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
@@ -113,7 +113,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Zum Login wird ein gültiger Benutzername benötigt!";
 
@@ -124,7 +124,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = "Zum Login wird ein gültiges Passwort benötigt!";
 
@@ -135,7 +135,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("LoginException werfen, wenn der Benutzername nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		final var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
@@ -150,7 +150,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("LoginException werfen, wenn das Passwort falsch ist")
-	public void test04() throws InvalidKeySpecException, NoSuchAlgorithmException
+	void test04() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
@@ -169,7 +169,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer einloggen")
-	public void test05() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	void test05() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
@@ -190,7 +190,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Mail null ist")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!";
 
@@ -201,7 +201,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test07()
+	void test07()
 	{
 		final var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		final var erwartet = "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!";
@@ -213,7 +213,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die Mail nicht existiert")
-	public void test08()
+	void test08()
 	{
 		final var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		final var erwartet = "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!";
@@ -229,7 +229,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("die Reset-Mail senden")
-	public void test09() throws AuthentifizierungNichtGefundenException
+	void test09() throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		final var mail = authentifizierung.getMail();
@@ -256,7 +256,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test10()
+	void test10()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
 
@@ -267,7 +267,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	public void test11()
+	void test11()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
 
@@ -279,7 +279,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
-	public void test12()
+	void test12()
 	{
 		final var erwartet = "Das Passwort ist unsicher!";
 		final var passwort = "UnsicheresPasswort";
@@ -294,7 +294,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die ResetUUID nicht existiert")
-	public void test13()
+	void test13()
 	{
 		final var resetUuid = UUID.randomUUID();
 		final var erwartet = "Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!";
@@ -310,7 +310,7 @@ public class LoginServiceSollte
 
 	@Test
 	@DisplayName("das Passwort zurücksetzen")
-	public void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var authentifizierung = new Authentifizierung(

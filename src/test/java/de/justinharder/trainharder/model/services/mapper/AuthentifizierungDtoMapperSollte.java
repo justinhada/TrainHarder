@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class AuthentifizierungDtoMapperSollte
+class AuthentifizierungDtoMapperSollte
 {
 	private AuthentifizierungDtoMapper sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new AuthentifizierungDtoMapper();
 	}
 
 	@Test
 	@DisplayName("alle Authentifizierungen zu AuthentifizierungDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,

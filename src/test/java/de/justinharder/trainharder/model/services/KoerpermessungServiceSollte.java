@@ -39,7 +39,7 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 
-public class KoerpermessungServiceSollte
+class KoerpermessungServiceSollte
 {
 	private KoerpermessungService sut;
 
@@ -48,7 +48,7 @@ public class KoerpermessungServiceSollte
 	private KoerpermessungDtoMapper koerpermessungDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		koerpermessungRepository = mock(KoerpermessungRepository.class);
 		benutzerRepository = mock(BenutzerRepository.class);
@@ -105,7 +105,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Die Ermittlung der Koerpermessungen benötigt eine gültige BenutzerID!";
 
@@ -116,7 +116,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("alle Koerpermessungen zu Benutzer ermitteln")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN);
 		final var benutzerId = Testdaten.BENUTZER_JUSTIN_ID;
@@ -134,7 +134,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die KoerpermessungID null ist")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Die Ermittlung der Koerpermessung benötigt eine gültige ID!";
 
@@ -145,7 +145,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
-	public void test04()
+	void test04()
 	{
 		final var id = new Primaerschluessel();
 		final var erwartet = "Die Koerpermessung mit der ID \"" + id.getId().toString() + "\" existiert nicht!";
@@ -160,7 +160,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("Koerpermessung zu KoerpermessungID ermitteln")
-	public void test05() throws KoerpermessungNichtGefundenException
+	void test05() throws KoerpermessungNichtGefundenException
 	{
 		final var erwartet = Testdaten.KOERPERMESSUNG_DTO_JUSTIN;
 		final var id = Testdaten.KOERPERMESSUNG_JUSTIN_ID;
@@ -178,7 +178,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
@@ -189,7 +189,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	public void test07()
+	void test07()
 	{
 		final var erwartet = "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!";
 
@@ -201,7 +201,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
-	public void test08()
+	void test08()
 	{
 		final var benutzerId = new Primaerschluessel();
 		final var erwartet = "Der Benutzer mit der ID \"" + benutzerId.getId().toString() + "\" existiert nicht!";
@@ -216,7 +216,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("eine Koerpermessung erstellen")
-	public void test09() throws BenutzerNichtGefundenException
+	void test09() throws BenutzerNichtGefundenException
 	{
 		final var id = new Primaerschluessel();
 		final var erwartet = new KoerpermessungDto(
@@ -262,7 +262,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die KoerpermessungID null ist")
-	public void test10()
+	void test10()
 	{
 		final var erwartet = "Die Aktualisierung der Koerpermessungen benötigt eine gültige ID!";
 
@@ -274,7 +274,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	public void test11()
+	void test11()
 	{
 		final var erwartet = "Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
@@ -286,7 +286,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
-	public void test12()
+	void test12()
 	{
 		final var id = new Primaerschluessel();
 		final var erwartet = "Die Koerpermessung mit der ID \"" + id.getId().toString() + "\" existiert nicht!";
@@ -300,7 +300,7 @@ public class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("eine Koerpermessung aktualisieren")
-	public void test13() throws KoerpermessungNichtGefundenException
+	void test13() throws KoerpermessungNichtGefundenException
 	{
 		final var id = new Primaerschluessel();
 		final var erwartet = new KoerpermessungDto(

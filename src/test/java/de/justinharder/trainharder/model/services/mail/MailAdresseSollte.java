@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.view.dto.Login;
 
-public class MailAdresseSollte
+class MailAdresseSollte
 {
 	@Test
 	@DisplayName("ein Bean sein")
-	public void test01()
+	void test01()
 	{
 		assertThat(Login.class, allOf(
 			hasValidGettersAndSetters(),

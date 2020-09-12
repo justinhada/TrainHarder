@@ -16,14 +16,14 @@ import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
 
-public class KontaktServiceSollte
+class KontaktServiceSollte
 {
 	private KontaktService sut;
 
 	private MailServer mailServer;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		mailServer = mock(MailServer.class);
 
@@ -32,7 +32,7 @@ public class KontaktServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Kontaktformular null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
 
@@ -43,7 +43,7 @@ public class KontaktServiceSollte
 
 	@Test
 	@DisplayName("erfolgreich kontaktieren und Mail an MailServer weitergeben")
-	public void test02()
+	void test02()
 	{
 		final var kontaktformular =
 			new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Ich habe ein Problem.");

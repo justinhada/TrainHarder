@@ -16,26 +16,26 @@ import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class KoerpermessungSollte
+class KoerpermessungSollte
 {
 	private Koerpermessung sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = Testdaten.KOERPERMESSUNG_JUSTIN;
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor haben")
-	public void test01()
+	void test01()
 	{
 		assertThat(Koerpermessung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
 	@DisplayName("einen RequiredArgsConstructor haben")
-	public void test02()
+	void test02()
 	{
 		final var id = new Primaerschluessel();
 		final var koerpermessung = new Koerpermessung(
@@ -57,7 +57,7 @@ public class KoerpermessungSollte
 
 	@Test
 	@DisplayName("Getter besitzen")
-	public void test03()
+	void test03()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KOERPERMESSUNG_JUSTIN_ID),
@@ -70,7 +70,7 @@ public class KoerpermessungSollte
 
 	@Test
 	@DisplayName("Setter besitzen")
-	public void test04()
+	void test04()
 	{
 		final var id = new Primaerschluessel();
 		final var koerpermessung = new Koerpermessung();
@@ -93,7 +93,7 @@ public class KoerpermessungSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var andereKoerpermessung = new Koerpermessung();
 		andereKoerpermessung.setPrimaerschluessel(new Primaerschluessel());
@@ -112,7 +112,7 @@ public class KoerpermessungSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Koerpermessung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 

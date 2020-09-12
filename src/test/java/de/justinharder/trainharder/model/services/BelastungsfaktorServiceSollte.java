@@ -21,7 +21,7 @@ import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapp
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
-public class BelastungsfaktorServiceSollte
+class BelastungsfaktorServiceSollte
 {
 	private BelastungsfaktorService sut;
 
@@ -29,7 +29,7 @@ public class BelastungsfaktorServiceSollte
 	private BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		belastungsfaktorRepository = mock(BelastungsfaktorRepository.class);
 		belastungsfaktorDtoMapper = mock(BelastungsfaktorDtoMapper.class);
@@ -63,7 +63,7 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ID null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!";
 
@@ -74,7 +74,7 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn ID zu keinem Belastungsfaktor gehört")
-	public void test02()
+	void test02()
 	{
 		final var id = new Primaerschluessel().getId().toString();
 		final var erwartet = "Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!";
@@ -88,7 +88,7 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("einen Belastungsfaktor zur ID ermitteln")
-	public void test03() throws BelastungsfaktorNichtGefundenException
+	void test03() throws BelastungsfaktorNichtGefundenException
 	{
 		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
@@ -105,7 +105,7 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das BelastungsfaktorDto null ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!";
 
@@ -116,7 +116,7 @@ public class BelastungsfaktorServiceSollte
 
 	@Test
 	@DisplayName("einen Belastungsfaktor speichern")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
 		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;

@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class BelastungsfaktorDtoSollte
+class BelastungsfaktorDtoSollte
 {
 	private BelastungsfaktorDto sut;
 
 	private String primaerschluessel;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		primaerschluessel = new Primaerschluessel().getId().toString();
 		sut = new BelastungsfaktorDto(primaerschluessel, 0.0, 1.0, 0.0, 0.7, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1);
@@ -25,7 +25,7 @@ public class BelastungsfaktorDtoSollte
 
 	@Test
 	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	public void test01()
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
@@ -45,7 +45,7 @@ public class BelastungsfaktorDtoSollte
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	public void test02()
+	void test02()
 	{
 		sut = new BelastungsfaktorDto()
 			.setPrimaerschluessel(primaerschluessel)
@@ -81,7 +81,7 @@ public class BelastungsfaktorDtoSollte
 	@Test
 	@DisplayName("sich vergleichen")
 	@SuppressWarnings("unlikely-arg-type")
-	public void test05()
+	void test05()
 	{
 		final var anderesBelastungsfaktorDto = new BelastungsfaktorDto(new Primaerschluessel().getId().toString(),
 			1.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.0, 1.0, 1.0, 0.5, 0.0);
@@ -96,7 +96,7 @@ public class BelastungsfaktorDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "BelastungsfaktorDto(primaerschluessel=" + primaerschluessel
 			+ ", squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1)";

@@ -11,19 +11,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
 
-public class MailServerSollte
+class MailServerSollte
 {
 	private MailServer sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new MailServer();
 	}
 
 	@Test
 	@DisplayName("MailServerException werfen, wenn die Mail nicht gesendet werden kann")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Beim Versenden der Mail ist ein Fehler aufgetreten!";
 

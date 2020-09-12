@@ -15,14 +15,14 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 
-public class PasswortHasherSollte
+class PasswortHasherSollte
 {
 	private PasswortHasher sut;
 
 	private SecureRandom secureRandom;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		secureRandom = mock(SecureRandom.class);
 
@@ -33,7 +33,7 @@ public class PasswortHasherSollte
 
 	@Test
 	@DisplayName("einen Salt generieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "AAAAAAAAAAAAAAAAAAAAAA==";
 
@@ -46,7 +46,7 @@ public class PasswortHasherSollte
 
 	@Test
 	@DisplayName("ein Passwort hashen")
-	public void test02() throws InvalidKeySpecException, NoSuchAlgorithmException
+	void test02() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = "GBy6erWCKE3CqEuWqYOk/w==";
 
@@ -58,7 +58,7 @@ public class PasswortHasherSollte
 
 	@Test
 	@DisplayName("zwei Passwörter vergleichen")
-	public void test03() throws InvalidKeySpecException, NoSuchAlgorithmException
+	void test03() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		assertAll(() ->
 		{

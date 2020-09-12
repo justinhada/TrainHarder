@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.model.domain.enums.Doping;
 
-public class DopingSollte
+class DopingSollte
 {
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn die Doping-Option nicht existiert")
-	public void test01()
+	void test01()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Doping.fromDopingOption("UNGUELTIG"));
 
@@ -21,7 +21,7 @@ public class DopingSollte
 
 	@Test
 	@DisplayName("das Doping aus der Doping-Option zurückgeben")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = Doping.JA;
 
@@ -32,7 +32,7 @@ public class DopingSollte
 
 	@Test
 	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	public void test03()
+	void test03()
 	{
 		final var exception = assertThrows(IllegalArgumentException.class, () -> Doping.fromName("UNGUELTIG"));
 
@@ -41,7 +41,7 @@ public class DopingSollte
 
 	@Test
 	@DisplayName("das Doping aus dem Namen zurückgeben")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = Doping.NEIN;
 

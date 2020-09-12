@@ -15,14 +15,14 @@ import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
 
-public class UebungDtoMapperSollte
+class UebungDtoMapperSollte
 {
 	private UebungDtoMapper sut;
 
 	private BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		belastungsfaktorDtoMapper = mock(BelastungsfaktorDtoMapper.class);
 
@@ -37,7 +37,7 @@ public class UebungDtoMapperSollte
 
 	@Test
 	@DisplayName("alle Uebungen zu UebungDtos konvertieren")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = List.of(
 			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,

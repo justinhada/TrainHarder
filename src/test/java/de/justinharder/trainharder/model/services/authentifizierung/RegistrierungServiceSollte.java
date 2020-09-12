@@ -30,7 +30,7 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
 
-public class RegistrierungServiceSollte
+class RegistrierungServiceSollte
 {
 	private RegistrierungService sut;
 
@@ -41,7 +41,7 @@ public class RegistrierungServiceSollte
 	private MailServer mailServer;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
@@ -96,7 +96,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
 
@@ -107,7 +107,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("MailVergebenException werfen, wenn die Mail vergeben ist")
-	public void test02()
+	void test02()
 	{
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		final var erwartet = "Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!";
@@ -121,7 +121,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("BenutzernameVergebenException werfen, wenn der Benutzername vergeben ist")
-	public void test03()
+	void test03()
 	{
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		final var erwartet = "Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!";
@@ -138,7 +138,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "Das Passwort ist unsicher!";
 		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
@@ -156,7 +156,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer registrieren")
-	public void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException,
+	void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -191,7 +191,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
 
@@ -202,7 +202,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
-	public void test07()
+	void test07()
 	{
 		final var authentifizierungId = new Primaerschluessel().getId().toString();
 		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
@@ -215,7 +215,7 @@ public class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung aktivieren")
-	public void test08() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungNichtGefundenException
 	{
 		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		final var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();

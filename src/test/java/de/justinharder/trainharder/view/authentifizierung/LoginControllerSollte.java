@@ -36,7 +36,7 @@ import de.justinharder.trainharder.model.services.authentifizierung.LoginService
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Login;
 
-public class LoginControllerSollte
+class LoginControllerSollte
 {
 	private LoginController sut;
 
@@ -46,7 +46,7 @@ public class LoginControllerSollte
 	private LoginService loginService;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new LoginController();
 
@@ -103,7 +103,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
-	public void test01()
+	void test01()
 	{
 		final var callerPrincipal = new CallerPrincipal("harder");
 		final var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
@@ -117,7 +117,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
-	public void test02()
+	void test02()
 	{
 		final var erwartet = "/login.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -130,7 +130,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn der Login null ist")
-	public void test03()
+	void test03()
 	{
 		final var erwartet = "Zur Authentifizierung wird ein gültiger Login benötigt!";
 
@@ -141,7 +141,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Login-Seite navigieren")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "/login.xhtml";
 		angenommenDasBindingResultFailed();
@@ -155,7 +155,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei falschem Benutzernamen oder Passwort zurück zur Login-Seite navigieren")
-	public void test05()
+	void test05()
 	{
 		final var erwartet = "/login.xhtml";
 		angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus.SEND_FAILURE);
@@ -169,7 +169,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Start-Seite navigieren, wenn der Login erfolgreich ist")
-	public void test06()
+	void test06()
 	{
 		final var erwartet = "redirect:start";
 		angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus.SUCCESS);
@@ -182,7 +182,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei unerwartetem Ergebnis zurück zur Login-Seite navigieren")
-	public void test07()
+	void test07()
 	{
 		final var erwartet = "/login.xhtml";
 		angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus.NOT_DONE);
@@ -196,7 +196,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Reset-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
-	public void test08()
+	void test08()
 	{
 		final var callerPrincipal = new CallerPrincipal("harder");
 		final var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
@@ -210,7 +210,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Reset-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
-	public void test09()
+	void test09()
 	{
 		final var erwartet = "/reset.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -223,7 +223,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Mail null ist")
-	public void test10()
+	void test10()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!";
 
@@ -234,7 +234,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei fehlerhafter Mail zurück zur Reset-Seite navigieren")
-	public void test11() throws AuthentifizierungNichtGefundenException
+	void test11() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/reset.xhtml";
 		final var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
@@ -249,7 +249,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Senden der Reset-Mail zur Reset-Success-Seite navigieren")
-	public void test12() throws AuthentifizierungNichtGefundenException
+	void test12() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/reset-success.xhtml";
 
@@ -262,7 +262,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test13()
+	void test13()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
 
@@ -273,7 +273,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Reset-Password-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
-	public void test14()
+	void test14()
 	{
 		final var callerPrincipal = new CallerPrincipal("harder");
 		final var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
@@ -287,7 +287,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Reset-Password-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
-	public void test15()
+	void test15()
 	{
 		final var erwartet = "/reset-password.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -300,7 +300,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	public void test16()
+	void test16()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
 
@@ -311,7 +311,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	public void test17()
+	void test17()
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
 
@@ -323,7 +323,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei fehlerhaftem Passwort zurück zur Reset-Password-Seite navigieren")
-	public void test18() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test18() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 
@@ -341,7 +341,7 @@ public class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Password-Reset zur Reset-Password-Success-Seite navigieren")
-	public void test19() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test19() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		final var erwartet = "/reset-password-success.xhtml";

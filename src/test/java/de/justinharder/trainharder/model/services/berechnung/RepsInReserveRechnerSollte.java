@@ -13,7 +13,7 @@ import de.justinharder.trainharder.model.domain.exceptions.UngueltigeWiederholun
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigesMaximumException;
 import de.justinharder.trainharder.model.services.berechnung.RepsInReserveRechner;
 
-public class RepsInReserveRechnerSollte
+class RepsInReserveRechnerSollte
 {
 	private static final int GUELTIGES_MAXIMUM = 100;
 	private static final int GUELTIGE_WIEDERHOLUNGEN = 5;
@@ -25,14 +25,14 @@ public class RepsInReserveRechnerSollte
 	private RepsInReserveRechner sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new RepsInReserveRechner();
 	}
 
 	@Test
 	@DisplayName("UngueltigesMaximumException werfen, wenn Maximum ungültig ist")
-	public void test01()
+	void test01()
 	{
 		final var e = assertThrows(UngueltigesMaximumException.class,
 			() -> sut.berechneRichtwert(UNGUELTIGES_MAXIMUM, GUELTIGE_WIEDERHOLUNGEN, GUELTIGE_RIR));
@@ -42,7 +42,7 @@ public class RepsInReserveRechnerSollte
 
 	@Test
 	@DisplayName("UngueltigeWiederholungenException werfen, wenn Wiederholungen ungültig sind")
-	public void test02()
+	void test02()
 	{
 		final var e = assertThrows(UngueltigeWiederholungenException.class,
 			() -> sut.berechneRichtwert(GUELTIGES_MAXIMUM, UNGUELTIGE_WIEDERHOLUNGEN, GUELTIGE_RIR));
@@ -53,7 +53,7 @@ public class RepsInReserveRechnerSollte
 
 	@Test
 	@DisplayName("UngueltigeRepsInReserveException werfen, wenn RIR ungültig sind")
-	public void test03()
+	void test03()
 	{
 		final var e = assertThrows(UngueltigeRepsInReserveException.class,
 			() -> sut.berechneRichtwert(GUELTIGES_MAXIMUM, GUELTIGE_WIEDERHOLUNGEN, UNGUELTIGE_RIR));
@@ -64,7 +64,7 @@ public class RepsInReserveRechnerSollte
 
 	@Test
 	@DisplayName("richtige Richtwerte berechnen")
-	public void test04() throws Exception
+	void test04() throws Exception
 	{
 		assertAll("richtige Richtwerte für alle Beispiele berechnen",
 			() -> assertThat(sut.berechneRichtwert(100, 5, 2)).isEqualTo(82),

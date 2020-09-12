@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import de.justinharder.trainharder.setup.Testdaten;
 
-public class AnpassungsfaktorBerechnerSollte
+class AnpassungsfaktorBerechnerSollte
 {
 	private AnpassungsfaktorBerechner sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new AnpassungsfaktorBerechner();
 	}
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn Benutzer null ist")
-	public void test01()
+	void test01()
 	{
 		final var e = assertThrows(NullPointerException.class, () -> sut.berechneAnpassungsfaktor(null));
 
@@ -31,14 +31,14 @@ public class AnpassungsfaktorBerechnerSollte
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Justin berechnen")
-	public void test02()
+	void test02()
 	{
 		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_JUSTIN)).isEqualTo(9);
 	}
 
 	@Test
 	@DisplayName("den richtigen Anpassungsfaktor für Eduard berechnen")
-	public void test03()
+	void test03()
 	{
 		assertThat(sut.berechneAnpassungsfaktor(Testdaten.BENUTZER_EDUARD)).isEqualTo(7);
 	}

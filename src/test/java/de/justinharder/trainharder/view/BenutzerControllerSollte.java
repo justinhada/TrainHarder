@@ -21,14 +21,14 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefunden
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
 
-public class BenutzerControllerSollte extends AbstractControllerSollte
+class BenutzerControllerSollte extends AbstractControllerSollte
 {
 	private BenutzerController sut;
 
 	private HttpServletRequest request;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new BenutzerController();
 		super.setup(sut);
@@ -53,7 +53,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn Benutzer angemeldet ist")
-	public void test01()
+	void test01()
 	{
 		final var erwartet = "redirect:login";
 
@@ -64,7 +64,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit Servicefehler")
-	public void test02() throws AuthentifizierungNichtGefundenException
+	void test02() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/benutzer/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -80,7 +80,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/benutzer/index.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -96,7 +96,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	public void test04()
+	void test04()
 	{
 		final var erwartet = "redirect:login";
 
@@ -107,7 +107,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit Servicefehler")
-	public void test05() throws AuthentifizierungNichtGefundenException
+	void test05() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "/benutzer/benutzerdaten.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -122,7 +122,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
-	public void test06() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test06() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/benutzer/benutzerdaten.xhtml";
 		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
@@ -140,7 +140,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	public void test07()
+	void test07()
 	{
 		final var erwartet = "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!";
 
@@ -151,7 +151,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	public void test08() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungNichtGefundenException
 	{
 		final var erwartet = "redirect:login";
 		final var benutzername = "harder";
@@ -179,7 +179,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("einen neuen Benutzer erstellen")
-	public void test09() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test09() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/benutzer/benutzerdaten.xhtml";
 		final var benutzername = "harder";
@@ -210,7 +210,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("einen Benutzer aktualisieren")
-	public void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		final var erwartet = "/benutzer/benutzerdaten.xhtml";
 		final var benutzername = "harder";
@@ -242,7 +242,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	public void test11() throws ServletException
+	void test11() throws ServletException
 	{
 		final var erwartet = "redirect:login";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -254,7 +254,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Fehler-Seite weiterleiten, wenn der Logout fehlerhaft ist")
-	public void test12() throws ServletException
+	void test12() throws ServletException
 	{
 		final var erwartet = "redirect:error";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
@@ -267,7 +267,7 @@ public class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Start-Seite weiterleiten, wenn der Logout erfolgreich ist")
-	public void test13() throws ServletException
+	void test13() throws ServletException
 	{
 		final var erwartet = "redirect:start";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
