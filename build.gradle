@@ -3,7 +3,6 @@ plugins {
     id 'eclipse'
     id 'eclipse-wtp'
     id 'war'
-    id 'jacoco'
 	id "org.sonarqube" version "3.0"
 }
 
