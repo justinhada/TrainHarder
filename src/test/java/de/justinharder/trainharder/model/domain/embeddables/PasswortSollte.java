@@ -50,7 +50,7 @@ class PasswortSollte
 
 		assertAll(
 			() -> assertThat(sut).isEqualTo(sut),
-			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotNull(),
 			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesPasswort),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesPasswort.hashCode()));

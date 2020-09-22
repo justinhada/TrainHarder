@@ -50,7 +50,7 @@ class NameSollte
 
 		assertAll(
 			() -> assertThat(sut).isEqualTo(sut),
-			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotNull(),
 			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererName),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));

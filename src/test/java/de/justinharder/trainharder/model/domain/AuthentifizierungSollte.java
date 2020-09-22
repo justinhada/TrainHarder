@@ -94,7 +94,7 @@ class AuthentifizierungSollte
 
 		assertAll(
 			() -> assertThat(sut).isEqualTo(sut),
-			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotNull(),
 			() -> assertThat(sut).isNotEqualTo(Testdaten.BENUTZER_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereAuthentifizierung),
 			() -> assertThat(sut).isEqualTo(authentifizierungMitGleicherId),
