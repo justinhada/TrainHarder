@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.setup;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
+import de.justinharder.trainharder.model.domain.Entitaet;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-
-import de.justinharder.trainharder.model.domain.Entitaet;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 @Slf4j
 @ApplicationScoped
@@ -49,8 +48,9 @@ public class TestdatenAnleger
 		tabellen.forEach(tabelle ->
 		{
 			logger.accept("Lösche Inhalte der Tabelle \"" + tabelle + "\".");
-			final var query = entityManager.createNativeQuery("DELETE FROM " + tabelle);
-			query.executeUpdate();
+			entityManager.createNativeQuery("DELETE FROM :tabelle")
+				.setParameter("tabelle", tabelle)
+				.executeUpdate();
 		});
 	}
 
