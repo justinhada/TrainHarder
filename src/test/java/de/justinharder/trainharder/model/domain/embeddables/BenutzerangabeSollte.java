@@ -85,10 +85,10 @@ class BenutzerangabeSollte
 			Regenerationsfaehigkeit.GUT);
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereBenutzerangabe)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andereBenutzerangabe),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereBenutzerangabe.hashCode()));
 	}
 
@@ -99,6 +99,6 @@ class BenutzerangabeSollte
 		final var erwartet =
 			"Benutzerangabe(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

@@ -38,17 +38,17 @@ class BelastungsfaktorSollte
 
 		assertAll(
 			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(belastungsfaktor.getSquat()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getSquat()).isZero(),
 			() -> assertThat(belastungsfaktor.getBenchpress()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getDeadlift()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getDeadlift()).isZero(),
 			() -> assertThat(belastungsfaktor.getTriceps()).isEqualTo(0.7),
 			() -> assertThat(belastungsfaktor.getChest()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getCore()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getBack()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getBiceps()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getGlutes()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getQuads()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getHamstrings()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getCore()).isZero(),
+			() -> assertThat(belastungsfaktor.getBack()).isZero(),
+			() -> assertThat(belastungsfaktor.getBiceps()).isZero(),
+			() -> assertThat(belastungsfaktor.getGlutes()).isZero(),
+			() -> assertThat(belastungsfaktor.getQuads()).isZero(),
+			() -> assertThat(belastungsfaktor.getHamstrings()).isZero(),
 			() -> assertThat(belastungsfaktor.getShoulder()).isEqualTo(0.1));
 	}
 
@@ -58,17 +58,17 @@ class BelastungsfaktorSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID),
-			() -> assertThat(sut.getSquat()).isEqualTo(0),
+			() -> assertThat(sut.getSquat()).isZero(),
 			() -> assertThat(sut.getBenchpress()).isEqualTo(1),
-			() -> assertThat(sut.getDeadlift()).isEqualTo(0),
+			() -> assertThat(sut.getDeadlift()).isZero(),
 			() -> assertThat(sut.getTriceps()).isEqualTo(0.7),
 			() -> assertThat(sut.getChest()).isEqualTo(1),
-			() -> assertThat(sut.getCore()).isEqualTo(0),
-			() -> assertThat(sut.getBack()).isEqualTo(0),
-			() -> assertThat(sut.getBiceps()).isEqualTo(0),
-			() -> assertThat(sut.getGlutes()).isEqualTo(0),
-			() -> assertThat(sut.getQuads()).isEqualTo(0),
-			() -> assertThat(sut.getHamstrings()).isEqualTo(0),
+			() -> assertThat(sut.getCore()).isZero(),
+			() -> assertThat(sut.getBack()).isZero(),
+			() -> assertThat(sut.getBiceps()).isZero(),
+			() -> assertThat(sut.getGlutes()).isZero(),
+			() -> assertThat(sut.getQuads()).isZero(),
+			() -> assertThat(sut.getHamstrings()).isZero(),
 			() -> assertThat(sut.getShoulder()).isEqualTo(0.1));
 	}
 
@@ -95,17 +95,17 @@ class BelastungsfaktorSollte
 
 		assertAll(
 			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(belastungsfaktor.getSquat()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getSquat()).isZero(),
 			() -> assertThat(belastungsfaktor.getBenchpress()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getDeadlift()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getDeadlift()).isZero(),
 			() -> assertThat(belastungsfaktor.getTriceps()).isEqualTo(0.7),
 			() -> assertThat(belastungsfaktor.getChest()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getCore()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getBack()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getBiceps()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getGlutes()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getQuads()).isEqualTo(0),
-			() -> assertThat(belastungsfaktor.getHamstrings()).isEqualTo(0),
+			() -> assertThat(belastungsfaktor.getCore()).isZero(),
+			() -> assertThat(belastungsfaktor.getBack()).isZero(),
+			() -> assertThat(belastungsfaktor.getBiceps()).isZero(),
+			() -> assertThat(belastungsfaktor.getGlutes()).isZero(),
+			() -> assertThat(belastungsfaktor.getQuads()).isZero(),
+			() -> assertThat(belastungsfaktor.getHamstrings()).isZero(),
 			() -> assertThat(belastungsfaktor.getShoulder()).isEqualTo(0.1),
 			() -> assertThat(belastungsfaktor.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
 	}
@@ -122,12 +122,12 @@ class BelastungsfaktorSollte
 		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andererBelastungsfaktor)).isEqualTo(false),
-			() -> assertThat(sut.equals(belastungsfaktorMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor));
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andererBelastungsfaktor),
+			() -> assertThat(sut).isEqualTo(belastungsfaktorMitGleicherId),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor.hashCode()));
 	}
 
 	@Test
@@ -136,6 +136,6 @@ class BelastungsfaktorSollte
 	{
 		final var erwartet = "Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

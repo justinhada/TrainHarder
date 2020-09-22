@@ -102,12 +102,12 @@ class KoerpermessungSollte
 		koerpermessungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereKoerpermessung)).isEqualTo(false),
-			() -> assertThat(sut.equals(koerpermessungMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessung));
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andereKoerpermessung),
+			() -> assertThat(sut).isEqualTo(koerpermessungMitGleicherId),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessung.hashCode()));
 	}
 
 	@Test
@@ -116,6 +116,6 @@ class KoerpermessungSollte
 	{
 		final var erwartet = "Koerpermessung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

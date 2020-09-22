@@ -35,6 +35,8 @@ import lombok.Setter;
 @Path(value = "/join")
 public class RegistrierungController
 {
+	public static final String FEHLER = "fehler";
+
 	@Context
 	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
@@ -69,7 +71,7 @@ public class RegistrierungController
 
 		if (bindingResult.isFailed())
 		{
-			models.put("fehler", bindingResult.getAllErrors().stream()
+			models.put(FEHLER, bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
 				.collect(Collectors.toList()));
 			return index();
@@ -83,7 +85,7 @@ public class RegistrierungController
 		catch (final MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException
 			| InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
-			models.put("fehler", e.getMessage());
+			models.put(FEHLER, e.getMessage());
 			return index();
 		}
 	}
@@ -108,7 +110,7 @@ public class RegistrierungController
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
 		{
-			models.put("fehler", e.getMessage());
+			models.put(FEHLER, e.getMessage());
 			return "/error";
 		}
 	}

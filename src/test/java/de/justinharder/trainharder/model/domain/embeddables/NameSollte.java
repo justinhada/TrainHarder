@@ -49,10 +49,10 @@ class NameSollte
 		final var andererName = new Name("Nicole", "Harder");
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andererName)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andererName),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));
 	}
 
@@ -62,6 +62,6 @@ class NameSollte
 	{
 		final var erwartet = "Name(vorname=Justin, nachname=Harder)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

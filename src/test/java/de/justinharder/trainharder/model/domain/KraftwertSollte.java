@@ -109,12 +109,12 @@ class KraftwertSollte
 		kraftwertMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andererKraftwert)).isEqualTo(false),
-			() -> assertThat(sut.equals(kraftwertMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererKraftwert));
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andererKraftwert),
+			() -> assertThat(sut).isEqualTo(kraftwertMitGleicherId),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andererKraftwert.hashCode()));
 	}
 
 	@Test
@@ -123,6 +123,6 @@ class KraftwertSollte
 	{
 		final var erwartet = "Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

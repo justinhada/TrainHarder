@@ -57,10 +57,10 @@ class AuthentifizierungDtoSollte
 			new Primaerschluessel().getId().toString(), "justinharder@t-online.de", "harder");
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(anderesAuthentifizierungDto)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(anderesAuthentifizierungDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesAuthentifizierungDto.hashCode()));
 	}
 
@@ -71,6 +71,6 @@ class AuthentifizierungDtoSollte
 		final var erwartet = "AuthentifizierungDto(primaerschluessel=" + primaerschluessel
 			+ ", mail=mail@justinharder.de, benutzername=harder)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

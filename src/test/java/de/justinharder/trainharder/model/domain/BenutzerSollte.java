@@ -173,11 +173,11 @@ class BenutzerSollte
 		benutzerMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andererBenutzer)).isEqualTo(false),
-			() -> assertThat(sut.equals(benutzerMitGleicherId)).isEqualTo(true),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andererBenutzer),
+			() -> assertThat(sut).isEqualTo(benutzerMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer.hashCode()));
 	}
 
@@ -187,7 +187,7 @@ class BenutzerSollte
 	{
 		final var erwartet = "Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 
 	@Test

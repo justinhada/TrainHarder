@@ -98,12 +98,12 @@ class UebungSollte
 		uebungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereUebung)).isEqualTo(false),
-			() -> assertThat(sut.equals(uebungMitGleicherId)).isEqualTo(true),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereUebung));
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andereUebung),
+			() -> assertThat(sut).isEqualTo(uebungMitGleicherId),
+			() -> assertThat(sut.hashCode()).isNotEqualTo(andereUebung.hashCode()));
 	}
 
 	@Test
@@ -112,7 +112,7 @@ class UebungSollte
 	{
 		final var erwartet = "Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 
 	@Test

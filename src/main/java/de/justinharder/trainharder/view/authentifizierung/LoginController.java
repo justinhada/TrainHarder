@@ -22,7 +22,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import com.google.common.base.Preconditions;
@@ -38,6 +37,9 @@ import lombok.Setter;
 @Path(value = "/login")
 public class LoginController
 {
+	public static final String FEHLER = "fehler";
+	public static final String REDIRECT_TO_BENUTZER = "redirect:benutzer/";
+
 	@Context
 	private HttpServletRequest request;
 	@Context
@@ -57,7 +59,7 @@ public class LoginController
 	{
 		if (securityContext.getCallerPrincipal() != null)
 		{
-			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+			return REDIRECT_TO_BENUTZER + securityContext.getCallerPrincipal().getName();
 		}
 
 		return "/login.xhtml";
@@ -70,7 +72,7 @@ public class LoginController
 
 		if (bindingResult.isFailed())
 		{
-			models.put("fehler", bindingResult.getAllErrors().stream()
+			models.put(FEHLER, bindingResult.getAllErrors().stream()
 				.map(ParamError::getMessage)
 				.collect(Collectors.toList()));
 			return index();
@@ -89,7 +91,7 @@ public class LoginController
 		}
 		if (authenticationStatus.equals(AuthenticationStatus.SEND_FAILURE))
 		{
-			models.put("fehler", "Der Benutzername oder das Passwort ist leider falsch!");
+			models.put(FEHLER, "Der Benutzername oder das Passwort ist leider falsch!");
 		}
 		else
 		{
@@ -104,7 +106,7 @@ public class LoginController
 	{
 		if (securityContext.getCallerPrincipal() != null)
 		{
-			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+			return REDIRECT_TO_BENUTZER + securityContext.getCallerPrincipal().getName();
 		}
 
 		return "/reset.xhtml";
@@ -123,7 +125,7 @@ public class LoginController
 		}
 		catch (final AuthentifizierungNichtGefundenException e)
 		{
-			models.put("fehler", e.getMessage());
+			models.put(FEHLER, e.getMessage());
 			return resetMailView();
 		}
 	}
@@ -136,7 +138,7 @@ public class LoginController
 
 		if (securityContext.getCallerPrincipal() != null)
 		{
-			return "redirect:benutzer/" + securityContext.getCallerPrincipal().getName();
+			return REDIRECT_TO_BENUTZER + securityContext.getCallerPrincipal().getName();
 		}
 
 		models.put("resetUuid", resetUuid);
@@ -160,7 +162,7 @@ public class LoginController
 		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException | InvalidKeySpecException
 			| NoSuchAlgorithmException e)
 		{
-			models.put("fehler", e.getMessage());
+			models.put(FEHLER, e.getMessage());
 			return resetPasswordView(resetUuid);
 		}
 	}

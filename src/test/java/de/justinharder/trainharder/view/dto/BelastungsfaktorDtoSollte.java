@@ -87,10 +87,10 @@ class BelastungsfaktorDtoSollte
 			1.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.0, 1.0, 1.0, 0.5, 0.0);
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(anderesBelastungsfaktorDto)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(anderesBelastungsfaktorDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesBelastungsfaktorDto.hashCode()));
 	}
 
@@ -101,6 +101,6 @@ class BelastungsfaktorDtoSollte
 		final var erwartet = "BelastungsfaktorDto(primaerschluessel=" + primaerschluessel
 			+ ", squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

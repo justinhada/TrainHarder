@@ -49,10 +49,10 @@ class MailSollte
 			new Mail(new MailAdresse("justinharder@t-online.de", "Justin"), "Anderer Betreff", "Anderer Inhalt");
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereMail)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andereMail),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereMail.hashCode()));
 	}
 
@@ -68,6 +68,6 @@ class MailSollte
 			+ "betreff=Betreff, "
 			+ "inhalt=Inhalt)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

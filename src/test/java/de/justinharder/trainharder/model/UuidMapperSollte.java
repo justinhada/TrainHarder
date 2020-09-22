@@ -26,7 +26,7 @@ class UuidMapperSollte
 		final var uuid = UUID.randomUUID();
 
 		assertAll(
-			() -> assertThat(sut.convertToDatabaseColumn(null)).isEqualTo(null),
+			() -> assertThat(sut.convertToDatabaseColumn(null)).isNull(),
 			() -> assertThat(sut.convertToDatabaseColumn(uuid)).isEqualTo(uuid.toString()));
 	}
 
@@ -37,7 +37,7 @@ class UuidMapperSollte
 		final var uuid = UUID.randomUUID().toString();
 
 		assertAll(
-			() -> assertThat(sut.convertToEntityAttribute(null)).isEqualTo(null),
+			() -> assertThat(sut.convertToEntityAttribute(null)).isNull(),
 			() -> assertThat(sut.convertToEntityAttribute(uuid)).isEqualTo(UUID.fromString(uuid)));
 	}
 }

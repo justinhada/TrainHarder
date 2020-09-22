@@ -62,11 +62,11 @@ class PrimaerschluesselSollte
 		final var primaerschluesselMitGleicherId = new Primaerschluessel(sut.getId());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andererPrimaerschluessel)).isEqualTo(false),
-			() -> assertThat(sut.equals(primaerschluesselMitGleicherId)).isEqualTo(true),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andererPrimaerschluessel),
+			() -> assertThat(sut).isEqualTo(primaerschluesselMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererPrimaerschluessel.hashCode()));
 	}
 
@@ -76,6 +76,6 @@ class PrimaerschluesselSollte
 	{
 		final var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

@@ -63,10 +63,10 @@ class KraftwertDtoSollte
 			new KraftwertDto(new Primaerschluessel().getId().toString(), 100, 75.0, "22.08.2020", "1RM");
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(anderesKraftwertDto)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(anderesKraftwertDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesKraftwertDto.hashCode()));
 	}
 
@@ -77,6 +77,6 @@ class KraftwertDtoSollte
 		final var erwartet = "KraftwertDto(primaerschluessel=" + primaerschluessel
 			+ ", maximum=100, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

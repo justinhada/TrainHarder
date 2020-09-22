@@ -52,8 +52,8 @@ class AuthentifizierungSollte
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
-			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(false),
-			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(null));
+			() -> assertThat(authentifizierung.isAktiv()).isFalse(),
+			() -> assertThat(authentifizierung.getResetUuid()).isNull());
 	}
 
 	@Test
@@ -76,7 +76,7 @@ class AuthentifizierungSollte
 			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
-			() -> assertThat(authentifizierung.isAktiv()).isEqualTo(true),
+			() -> assertThat(authentifizierung.isAktiv()).isTrue(),
 			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid),
 			() -> assertThat(authentifizierung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
 	}
@@ -93,11 +93,11 @@ class AuthentifizierungSollte
 		authentifizierungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.BENUTZER_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(andereAuthentifizierung)).isEqualTo(false),
-			() -> assertThat(sut.equals(authentifizierungMitGleicherId)).isEqualTo(true),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.BENUTZER_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(andereAuthentifizierung),
+			() -> assertThat(sut).isEqualTo(authentifizierungMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung.hashCode()));
 	}
 
@@ -107,6 +107,6 @@ class AuthentifizierungSollte
 	{
 		final var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

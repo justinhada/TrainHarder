@@ -23,7 +23,6 @@ import de.justinharder.trainharder.model.domain.enums.Geschlecht;
 import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.setup.Testdaten;
 
 @Ignore
@@ -178,7 +177,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void authentifizierungErstellen() throws AuthentifizierungNichtGefundenException
+	public void authentifizierungErstellen()
 	{
 		final var erwartet = new Authentifizierung(
 			new Primaerschluessel(),

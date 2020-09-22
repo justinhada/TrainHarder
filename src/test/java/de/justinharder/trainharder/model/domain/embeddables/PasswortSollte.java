@@ -49,10 +49,10 @@ class PasswortSollte
 		final var anderesPasswort = new Passwort("213MFKf4DTBEXnWG7tXvhA==", "lllZ8W5m2jf5TtSBnNfB/w==");
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(anderesPasswort)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(anderesPasswort),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesPasswort.hashCode()));
 	}
 
@@ -62,6 +62,6 @@ class PasswortSollte
 	{
 		final var erwartet = "Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }

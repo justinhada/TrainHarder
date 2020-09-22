@@ -109,10 +109,10 @@ class BenutzerDtoSollte
 			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 
 		assertAll(
-			() -> assertThat(sut.equals(sut)).isEqualTo(true),
-			() -> assertThat(sut.equals(null)).isEqualTo(false),
-			() -> assertThat(sut.equals(Testdaten.AUTHENTIFIZIERUNG_JUSTIN)).isEqualTo(false),
-			() -> assertThat(sut.equals(anderesBenutzerDto)).isEqualTo(false),
+			() -> assertThat(sut).isEqualTo(sut),
+			() -> assertThat(sut).isNotEqualTo(null),
+			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut).isNotEqualTo(anderesBenutzerDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesBenutzerDto.hashCode()));
 	}
 
@@ -127,6 +127,6 @@ class BenutzerDtoSollte
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
 			+ ", datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)])";
 
-		assertThat(sut.toString()).isEqualTo(erwartet);
+		assertThat(sut).hasToString(erwartet);
 	}
 }
