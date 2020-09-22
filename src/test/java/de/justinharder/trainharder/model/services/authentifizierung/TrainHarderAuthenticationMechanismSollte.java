@@ -1,9 +1,8 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import javax.security.enterprise.AuthenticationException;
 import javax.security.enterprise.AuthenticationStatus;
@@ -15,9 +14,10 @@ import javax.security.enterprise.identitystore.IdentityStore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class TrainHarderAuthenticationMechanismSollte
 {
@@ -98,5 +98,9 @@ class TrainHarderAuthenticationMechanismSollte
 	@Test
 	@DisplayName("ein Anfrage aufräumen (bei einem Logout)")
 	void test03()
-	{}
+	{
+		sut.cleanSubject(request, response, httpMessageContext);
+
+		assertThat(request.getUserPrincipal()).isNull();
+	}
 }
