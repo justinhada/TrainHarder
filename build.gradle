@@ -64,7 +64,7 @@ sonarqube {
         property "sonar.projectKey", "justinhada_TrainHarder"
         property "sonar.organization", "justinhada"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacoco.xml"
     }
 }
 
