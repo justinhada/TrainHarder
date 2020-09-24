@@ -50,7 +50,7 @@ jacoco {
 }
 
 jacocoTestReport {
-    dependsOn test
+    dependsOn test, integrationTest
     reports {
         xml.enabled true
         csv.enabled false
