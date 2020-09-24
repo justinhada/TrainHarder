@@ -51,7 +51,7 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 
 		final var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		assertThat(ergebnis).isNotEqualTo(erwartet);
+		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 
 	@Test
