@@ -1,15 +1,14 @@
 package de.justinharder.trainharder.model.services;
 
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapper;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+
+import javax.inject.Inject;
 
 public class BelastungsfaktorService
 {
@@ -31,8 +30,7 @@ public class BelastungsfaktorService
 
 		return belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(belastungsfaktorDtoMapper::konvertiere)
-			.orElseThrow(() -> new BelastungsfaktorNichtGefundenException(
-				"Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", id));
 	}
 
 	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorDto)

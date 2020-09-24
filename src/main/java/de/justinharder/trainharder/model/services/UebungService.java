@@ -1,11 +1,6 @@
 package de.justinharder.trainharder.model.services;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
@@ -16,6 +11,9 @@ import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import de.justinharder.trainharder.model.services.mapper.UebungDtoMapper;
 import de.justinharder.trainharder.view.dto.UebungDto;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class UebungService
 {
@@ -52,8 +50,7 @@ public class UebungService
 		Preconditions.checkNotNull(uebungskategorie,
 			"Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!");
 
-		return uebungDtoMapper.konvertiereAlle(
-			uebungRepository
+		return uebungDtoMapper.konvertiereAlle(uebungRepository
 				.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
 	}
 
@@ -63,8 +60,7 @@ public class UebungService
 
 		return uebungRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(uebungDtoMapper::konvertiere)
-			.orElseThrow(
-				() -> new UebungNichtGefundenException("Die Uebung mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException("der ID", id));
 	}
 
 	public UebungDto speichereUebung(final UebungDto uebungDto, final String belastungsfaktorId)
@@ -76,8 +72,7 @@ public class UebungService
 
 		final var belastungsfaktor = belastungsfaktorRepository
 			.ermittleZuId(new Primaerschluessel(belastungsfaktorId))
-			.orElseThrow(() -> new BelastungsfaktorNichtGefundenException(
-				"Der Belastungsfaktor mit der ID \"" + belastungsfaktorId + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", belastungsfaktorId));
 
 		return uebungDtoMapper.konvertiere(uebungRepository.speichereUebung(new Uebung(
 			new Primaerschluessel(),

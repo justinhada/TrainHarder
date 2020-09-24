@@ -13,7 +13,7 @@ import de.justinharder.trainharder.setup.TestdatenAnleger;
 import org.junit.Ignore;
 
 @Ignore
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";

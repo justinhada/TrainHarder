@@ -1,27 +1,17 @@
 package de.justinharder.trainharder.model.domain;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -75,8 +65,7 @@ public class Benutzer extends Entitaet
 
 	public double getKoerpergewicht()
 	{
-		return koerpermessungen
-			.stream()
+		return koerpermessungen.stream()
 			.reduce((first, second) -> second)
 			.map(koerpermessung -> koerpermessung.getKoerpermasse().getKoerpergewicht())
 			.orElseGet(() -> null);
@@ -84,8 +73,7 @@ public class Benutzer extends Entitaet
 
 	public int getKoerpergroesse()
 	{
-		return koerpermessungen
-			.stream()
+		return koerpermessungen.stream()
 			.reduce((first, second) -> second)
 			.map(koerpermessung -> koerpermessung.getKoerpermasse().getKoerpergroesse())
 			.orElseGet(() -> null);

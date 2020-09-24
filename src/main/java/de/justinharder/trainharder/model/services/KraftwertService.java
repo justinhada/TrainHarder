@@ -1,13 +1,6 @@
 package de.justinharder.trainharder.model.services;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
@@ -20,8 +13,14 @@ import de.justinharder.trainharder.model.repository.UebungRepository;
 import de.justinharder.trainharder.model.services.mapper.KraftwertDtoMapper;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
 
+import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 public class KraftwertService
 {
+	private static final String ID = "der ID";
 	private static final String DATUMSFORMAT = "dd.MM.yyyy";
 
 	private final KraftwertRepository kraftwertRepository;
@@ -56,8 +55,7 @@ public class KraftwertService
 
 		return kraftwertRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(kraftwertDtoMapper::konvertiere)
-			.orElseThrow(() -> new KraftwertNichtGefundenException(
-				"Der Kraftwert mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfKraftwertNichtGefundenException(ID, id));
 	}
 
 	public KraftwertDto speichereKraftwert(
@@ -71,11 +69,9 @@ public class KraftwertService
 		Preconditions.checkNotNull(benutzerId, "Zur Erstellung des Kraftwerts wird eine gültige BenutzerID benötigt!");
 
 		final var uebung = uebungRepository.ermittleZuId(new Primaerschluessel(uebungId))
-			.orElseThrow(() -> new UebungNichtGefundenException(
-				"Die Uebung mit der ID \"" + uebungId + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException(ID, uebungId));
 		final var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
-			.orElseThrow(() -> new BenutzerNichtGefundenException(
-				"Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
 
 		return kraftwertDtoMapper.konvertiere(kraftwertRepository.speichereKraftwert(new Kraftwert(
 			new Primaerschluessel(),

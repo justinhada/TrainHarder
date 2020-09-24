@@ -1,13 +1,6 @@
 package de.justinharder.trainharder.model.services;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -18,6 +11,11 @@ import de.justinharder.trainharder.model.repository.KoerpermessungRepository;
 import de.justinharder.trainharder.model.services.mapper.KoerpermessungDtoMapper;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+
+import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class KoerpermessungService
 {
@@ -50,8 +48,7 @@ public class KoerpermessungService
 
 		return koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(koerpermessungDtoMapper::konvertiere)
-			.orElseThrow(() -> new KoerpermessungNichtGefundenException(
-				"Die Koerpermessung mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException("der ID", id));
 	}
 
 	public KoerpermessungDto erstelleKoerpermessung(final Koerpermessdaten koerpermessdaten, final String benutzerId)
@@ -62,8 +59,7 @@ public class KoerpermessungService
 		Preconditions.checkNotNull(benutzerId, "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!");
 
 		final var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
-			.orElseThrow(() -> new BenutzerNichtGefundenException(
-				"Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException("der ID", benutzerId));
 
 		return koerpermessungDtoMapper.konvertiere(koerpermessungRepository.speichereKoerpermessung(new Koerpermessung(
 			new Primaerschluessel(),
@@ -85,8 +81,7 @@ public class KoerpermessungService
 			"Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!");
 
 		final var koerpermessung = koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(() -> new KoerpermessungNichtGefundenException(
-				"Die Koerpermessung mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException("der ID", id));
 
 		return koerpermessungDtoMapper.konvertiere(koerpermessungRepository.speichereKoerpermessung(koerpermessung
 			.setDatum(LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE))

@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.model.services;
 
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+
+import javax.inject.Inject;
 
 public class AuthentifizierungService
 {
@@ -30,8 +29,7 @@ public class AuthentifizierungService
 
 		return authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(authentifizierungDtoMapper::konvertiere)
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ID", id));
 	}
 
 	public AuthentifizierungDto ermittleZuBenutzer(final String benutzerId)
@@ -41,8 +39,8 @@ public class AuthentifizierungService
 
 		return authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId))
 			.map(authentifizierungDtoMapper::konvertiere)
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der BenutzerID \"" + benutzerId + "\" existiert nicht!"));
+			.orElseThrow(
+				FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der BenutzerID", benutzerId));
 	}
 
 	public AuthentifizierungDto ermittleZuBenutzername(final String benutzername)
@@ -53,7 +51,7 @@ public class AuthentifizierungService
 
 		return authentifizierungRepository.ermittleZuBenutzername(benutzername)
 			.map(authentifizierungDtoMapper::konvertiere)
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService
+				.wirfAuthentifizierungNichtGefundenException("dem Benutzernamen", benutzername));
 	}
 }
