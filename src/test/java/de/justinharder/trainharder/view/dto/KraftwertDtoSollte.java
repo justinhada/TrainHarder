@@ -63,9 +63,7 @@ class KraftwertDtoSollte
 			new KraftwertDto(new Primaerschluessel().getId().toString(), 100, 75.0, "22.08.2020", "1RM");
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesKraftwertDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesKraftwertDto.hashCode()));
 	}

@@ -91,9 +91,7 @@ class KoerpermessungDtoSollte
 			2900);
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereKoerpermessungDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessungDto.hashCode()));
 	}

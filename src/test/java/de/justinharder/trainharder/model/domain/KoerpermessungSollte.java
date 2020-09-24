@@ -102,9 +102,7 @@ class KoerpermessungSollte
 		koerpermessungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereKoerpermessung),
 			() -> assertThat(sut).isEqualTo(koerpermessungMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessung.hashCode()));

@@ -122,9 +122,7 @@ class BelastungsfaktorSollte
 		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererBelastungsfaktor),
 			() -> assertThat(sut).isEqualTo(belastungsfaktorMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor.hashCode()));

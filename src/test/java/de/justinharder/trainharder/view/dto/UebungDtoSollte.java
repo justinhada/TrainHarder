@@ -78,9 +78,7 @@ class UebungDtoSollte
 				1.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.0, 1.0, 1.0, 0.5, 0.0));
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesUebungDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesUebungDto.hashCode()));
 	}

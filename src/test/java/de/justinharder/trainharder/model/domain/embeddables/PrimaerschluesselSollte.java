@@ -62,9 +62,7 @@ class PrimaerschluesselSollte
 		final var primaerschluesselMitGleicherId = new Primaerschluessel(sut.getId());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererPrimaerschluessel),
 			() -> assertThat(sut).isEqualTo(primaerschluesselMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererPrimaerschluessel.hashCode()));

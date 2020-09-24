@@ -49,9 +49,7 @@ class NameSollte
 		final var andererName = new Name("Nicole", "Harder");
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererName),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));
 	}

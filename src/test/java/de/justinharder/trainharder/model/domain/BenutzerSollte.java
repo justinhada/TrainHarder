@@ -173,9 +173,7 @@ class BenutzerSollte
 		benutzerMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererBenutzer),
 			() -> assertThat(sut).isEqualTo(benutzerMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer.hashCode()));

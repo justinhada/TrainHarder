@@ -58,9 +58,7 @@ class KoerpermasseSollte
 		final var andereKoerpermasse = new Koerpermasse(190, 100, 6);
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereKoerpermasse),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermasse.hashCode()));
 	}

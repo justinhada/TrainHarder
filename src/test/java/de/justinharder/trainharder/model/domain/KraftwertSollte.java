@@ -109,9 +109,7 @@ class KraftwertSollte
 		kraftwertMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andererKraftwert),
 			() -> assertThat(sut).isEqualTo(kraftwertMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andererKraftwert.hashCode()));

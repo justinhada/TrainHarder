@@ -85,9 +85,7 @@ class BenutzerangabeSollte
 			Regenerationsfaehigkeit.GUT);
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereBenutzerangabe),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereBenutzerangabe.hashCode()));
 	}

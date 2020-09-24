@@ -93,9 +93,7 @@ class AuthentifizierungSollte
 		authentifizierungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.BENUTZER_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereAuthentifizierung),
 			() -> assertThat(sut).isEqualTo(authentifizierungMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung.hashCode()));

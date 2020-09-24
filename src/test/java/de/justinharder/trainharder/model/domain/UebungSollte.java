@@ -98,9 +98,7 @@ class UebungSollte
 		uebungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(andereUebung),
 			() -> assertThat(sut).isEqualTo(uebungMitGleicherId),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(andereUebung.hashCode()));

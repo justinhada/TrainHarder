@@ -57,9 +57,7 @@ class AuthentifizierungDtoSollte
 			new Primaerschluessel().getId().toString(), "justinharder@t-online.de", "harder");
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesAuthentifizierungDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesAuthentifizierungDto.hashCode()));
 	}

@@ -49,9 +49,7 @@ class PasswortSollte
 		final var anderesPasswort = new Passwort("213MFKf4DTBEXnWG7tXvhA==", "lllZ8W5m2jf5TtSBnNfB/w==");
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesPasswort),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesPasswort.hashCode()));
 	}

@@ -109,9 +109,7 @@ class BenutzerDtoSollte
 			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 
 		assertAll(
-			() -> assertThat(sut).isEqualTo(sut),
 			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
 			() -> assertThat(sut).isNotEqualTo(anderesBenutzerDto),
 			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesBenutzerDto.hashCode()));
 	}
