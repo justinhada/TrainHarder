@@ -48,8 +48,7 @@ public class TestdatenAnleger
 		tabellen.forEach(tabelle ->
 		{
 			logger.accept("Lösche Inhalte der Tabelle \"" + tabelle + "\".");
-			entityManager.createNativeQuery("DELETE FROM :tabelle")
-				.setParameter("tabelle", tabelle)
+			entityManager.createNativeQuery("DELETE FROM " + tabelle)
 				.executeUpdate();
 		});
 	}

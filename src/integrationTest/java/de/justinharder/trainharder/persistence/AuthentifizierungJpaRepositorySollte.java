@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
@@ -25,7 +24,6 @@ import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import de.justinharder.trainharder.setup.Testdaten;
 
-@Ignore
 public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private AuthentifizierungJpaRepository sut;

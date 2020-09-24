@@ -12,7 +12,6 @@ import org.junit.BeforeClass;
 import de.justinharder.trainharder.setup.TestdatenAnleger;
 import org.junit.Ignore;
 
-@Ignore
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JpaRepositorySollte
 {
@@ -33,7 +32,7 @@ public class JpaRepositorySollte
 		schliesseEntityMananger();
 	}
 
-	protected static final EntityManager erzeugeEntityManager()
+	protected static EntityManager erzeugeEntityManager()
 	{
 		if (entityManager == null)
 		{
@@ -43,7 +42,7 @@ public class JpaRepositorySollte
 		return entityManager;
 	}
 
-	protected static final void schliesseEntityMananger()
+	protected static void schliesseEntityMananger()
 	{
 		if (entityManager.getTransaction().isActive())
 		{
