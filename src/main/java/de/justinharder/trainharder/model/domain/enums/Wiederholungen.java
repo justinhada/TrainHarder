@@ -1,7 +1,10 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.Getter;
+
 import java.util.stream.Stream;
 
+@Getter
 public enum Wiederholungen
 {
 	ONE_REP_MAX("1RM"),
@@ -10,27 +13,19 @@ public enum Wiederholungen
 	EIGHT_REP_MAX("8RM"),
 	TEN_REP_MAX("10RM");
 
-	private String wiederholungenOption;
+	private final String wert;
 
-	private Wiederholungen(final String wiederholungenOption)
+	private Wiederholungen(final String wert)
 	{
-		this.wiederholungenOption = wiederholungenOption;
+		this.wert = wert;
 	}
 
-	public static Wiederholungen fromWiederholungenOption(final String wiederholungenOption)
+	public static Wiederholungen fromString(final String wert)
 	{
 		return Stream.of(Wiederholungen.values())
-			.filter(w -> w.wiederholungenOption.equalsIgnoreCase(wiederholungenOption))
+			.filter(w -> w.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Wiederholungen-Option \"" + wiederholungenOption + "\" existiert nicht!"));
-	}
-
-	public static Wiederholungen fromName(final String name)
-	{
-		return Stream.of(Wiederholungen.values())
-			.filter(w -> w.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Wiederholungen existiert nicht!"));
 	}
 }

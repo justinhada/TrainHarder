@@ -8,27 +8,19 @@ public enum Schlafqualitaet
 	DURCHSCHNITT("DURCHSCHNITT"),
 	GUT("GUT");
 
-	private String schlafqualitaetOption;
+	private final String wert;
 
-	private Schlafqualitaet(final String schlafqualitaetOption)
+	private Schlafqualitaet(final String wert)
 	{
-		this.schlafqualitaetOption = schlafqualitaetOption;
+		this.wert = wert;
 	}
 
-	public static Schlafqualitaet fromSchlafqualitaetOption(final String schlafqualitaetOption)
+	public static Schlafqualitaet fromString(final String wert)
 	{
 		return Stream.of(Schlafqualitaet.values())
-			.filter(s -> s.schlafqualitaetOption.equalsIgnoreCase(schlafqualitaetOption))
+			.filter(s -> s.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Schlafqualitaet-Option \"" + schlafqualitaetOption + "\" existiert nicht!"));
-	}
-
-	public static Schlafqualitaet fromName(final String name)
-	{
-		return Stream.of(Schlafqualitaet.values())
-			.filter(s -> s.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Schlafqualität existiert nicht!"));
 	}
 }

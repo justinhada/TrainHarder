@@ -42,7 +42,7 @@ public class UebungService
 		Preconditions.checkNotNull(uebungsart, "Die Ermittlung der Uebungen benötigt eine gültige Uebungsart!");
 
 		return uebungDtoMapper.konvertiereAlle(
-			uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)));
+			uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromString(uebungsart)));
 	}
 
 	public List<UebungDto> ermittleZuUebungskategorie(final String uebungskategorie)
@@ -51,7 +51,7 @@ public class UebungService
 			"Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!");
 
 		return uebungDtoMapper.konvertiereAlle(uebungRepository
-				.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)));
+				.ermittleAlleZuUebungskategorie(Uebungskategorie.fromString(uebungskategorie)));
 	}
 
 	public UebungDto ermittleZuId(final String id) throws UebungNichtGefundenException
@@ -77,8 +77,8 @@ public class UebungService
 		return uebungDtoMapper.konvertiere(uebungRepository.speichereUebung(new Uebung(
 			new Primaerschluessel(),
 			uebungDto.getName(),
-			Uebungsart.fromUebungsartOption(uebungDto.getUebungsart()),
-			Uebungskategorie.fromUebungskategorieOption(uebungDto.getUebungskategorie()),
+			Uebungsart.fromString(uebungDto.getUebungsart()),
+			Uebungskategorie.fromString(uebungDto.getUebungskategorie()),
 			belastungsfaktor)));
 	}
 }

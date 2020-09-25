@@ -7,27 +7,19 @@ public enum Doping
 	NEIN("NEIN"),
 	JA("JA");
 
-	private String dopingOption;
+	private final String wert;
 
-	private Doping(final String dopingOption)
+	private Doping(final String wert)
 	{
-		this.dopingOption = dopingOption;
+		this.wert = wert;
 	}
 
-	public static Doping fromDopingOption(final String dopingOption)
+		public static Doping fromString(final String wert)
 	{
 		return Stream.of(Doping.values())
-			.filter(d -> d.dopingOption.equalsIgnoreCase(dopingOption))
+			.filter(d -> d.wert.equalsIgnoreCase(wert))
 			.findAny()
-			.orElseThrow(
-				() -> new IllegalArgumentException("Die Doping-Option \"" + dopingOption + "\" existiert nicht!"));
-	}
-
-	public static Doping fromName(final String name)
-	{
-		return Stream.of(Doping.values())
-			.filter(d -> d.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+			.orElseThrow(() -> new IllegalArgumentException(
+					"Der Wert \"" + wert + "\" für Doping existiert nicht!"));
 	}
 }

@@ -26,6 +26,6 @@ public class KraftwertDtoMapper
 			kraftwert.getMaximum(),
 			kraftwert.getKoerpergewicht(),
 			kraftwert.getDatum().format(DATUMSFORMAT),
-			kraftwert.getWiederholungen().name());
+			kraftwert.getWiederholungen().getWert());
 	}
 }

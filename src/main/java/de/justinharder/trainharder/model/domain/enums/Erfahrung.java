@@ -9,27 +9,19 @@ public enum Erfahrung
 	SEHR_FORTGESCHRITTEN("SEHR_FORTGESCHRITTEN"), // 8-12 Jahre
 	EXPERTE("EXPERTE"); // > 12 Jahre
 
-	private String erfahrungOption;
+	private final String wert;
 
-	private Erfahrung(final String erfahrungOption)
+	private Erfahrung(final String wert)
 	{
-		this.erfahrungOption = erfahrungOption;
+		this.wert = wert;
 	}
 
-	public static Erfahrung fromErfahrungOption(final String erfahrungOption)
+	public static Erfahrung fromString(final String wert)
 	{
 		return Stream.of(Erfahrung.values())
-			.filter(e -> e.erfahrungOption.equalsIgnoreCase(erfahrungOption))
+			.filter(e -> e.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Erfahrung-Option \"" + erfahrungOption + "\" existiert nicht!"));
-	}
-
-	public static Erfahrung fromName(final String name)
-	{
-		return Stream.of(Erfahrung.values())
-			.filter(e -> e.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Erfahrung existiert nicht!"));
 	}
 }

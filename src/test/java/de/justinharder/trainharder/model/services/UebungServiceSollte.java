@@ -53,7 +53,7 @@ class UebungServiceSollte
 	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(final String uebungsart,
 		final List<Uebung> uebungen)
 	{
-		when(uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart)))
+		when(uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromString(uebungsart)))
 			.thenReturn(uebungen);
 	}
 
@@ -61,7 +61,7 @@ class UebungServiceSollte
 		final List<Uebung> uebungen)
 	{
 		when(uebungRepository
-			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie)))
+			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromString(uebungskategorie)))
 				.thenReturn(uebungen);
 	}
 
@@ -156,7 +156,7 @@ class UebungServiceSollte
 		final var ergebnis = sut.ermittleZuUebungsart(uebungsart);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleAlleZuUebungsart(Uebungsart.fromUebungsartOption(uebungsart));
+		verify(uebungRepository).ermittleAlleZuUebungsart(Uebungsart.fromString(uebungsart));
 		verify(uebungDtoMapper).konvertiereAlle(uebungen);
 	}
 
@@ -185,7 +185,7 @@ class UebungServiceSollte
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(uebungRepository)
-			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromUebungskategorieOption(uebungskategorie));
+			.ermittleAlleZuUebungskategorie(Uebungskategorie.fromString(uebungskategorie));
 		verify(uebungDtoMapper).konvertiereAlle(uebungen);
 	}
 

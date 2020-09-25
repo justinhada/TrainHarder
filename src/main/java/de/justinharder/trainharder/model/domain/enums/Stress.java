@@ -8,27 +8,19 @@ public enum Stress
 	MITTELMAESSIG("MITTELMAESSIG"),
 	HOCH("HOCH");
 
-	private String stressOption;
+	private final String wert;
 
-	private Stress(final String stressOption)
+	private Stress(final String wert)
 	{
-		this.stressOption = stressOption;
+		this.wert = wert;
 	}
 
-	public static Stress fromStressOption(final String stressOption)
+	public static Stress fromString(final String wert)
 	{
 		return Stream.of(Stress.values())
-			.filter(s -> s.stressOption.equalsIgnoreCase(stressOption))
+			.filter(s -> s.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Stress-Option \"" + stressOption + "\" existiert nicht!"));
-	}
-
-	public static Stress fromName(final String name)
-	{
-		return Stream.of(Stress.values())
-			.filter(s -> s.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Stress existiert nicht!"));
 	}
 }
