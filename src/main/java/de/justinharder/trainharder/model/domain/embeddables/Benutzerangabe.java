@@ -16,8 +16,13 @@ import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
 import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
 import de.justinharder.trainharder.model.domain.enums.Stress;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 @Embeddable
 public class Benutzerangabe implements Serializable
 {

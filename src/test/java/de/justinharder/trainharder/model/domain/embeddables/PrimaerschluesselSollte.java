@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.UUID;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,15 +58,7 @@ class PrimaerschluesselSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andererPrimaerschluessel = new Primaerschluessel();
-
-		final var primaerschluesselMitGleicherId = new Primaerschluessel(sut.getId());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andererPrimaerschluessel),
-			() -> assertThat(sut).isEqualTo(primaerschluesselMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererPrimaerschluessel.hashCode()));
+		EqualsVerifier.simple().forClass(Primaerschluessel.class).verify();
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain.embeddables;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,12 +56,7 @@ class KoerpermasseSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test03()
 	{
-		final var andereKoerpermasse = new Koerpermasse(190, 100, 6);
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereKoerpermasse),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermasse.hashCode()));
+		EqualsVerifier.forClass(Koerpermasse.class).verify();
 	}
 
 	@Test

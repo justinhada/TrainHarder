@@ -5,11 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 @Embeddable
 public class Koerpermasse implements Serializable
 {

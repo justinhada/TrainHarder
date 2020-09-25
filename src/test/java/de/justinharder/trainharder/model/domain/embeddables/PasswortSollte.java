@@ -3,6 +3,9 @@ package de.justinharder.trainharder.model.domain.embeddables;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import lombok.Getter;
+import lombok.ToString;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,12 +49,7 @@ class PasswortSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var anderesPasswort = new Passwort("213MFKf4DTBEXnWG7tXvhA==", "lllZ8W5m2jf5TtSBnNfB/w==");
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(anderesPasswort),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesPasswort.hashCode()));
+		EqualsVerifier.forClass(Passwort.class).verify();
 	}
 
 	@Test

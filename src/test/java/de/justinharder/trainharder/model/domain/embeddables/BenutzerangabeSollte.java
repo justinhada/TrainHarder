@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain.embeddables;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,19 +76,7 @@ class BenutzerangabeSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andereBenutzerangabe = new Benutzerangabe(
-			Geschlecht.WEIBLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.GUT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.GUT);
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereBenutzerangabe),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereBenutzerangabe.hashCode()));
+		EqualsVerifier.forClass(Benutzerangabe.class).verify();
 	}
 
 	@Test

@@ -6,8 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 @Embeddable
 public class Passwort implements Serializable
 {
