@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain.embeddables;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,12 +47,14 @@ class NameSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andererName = new Name("Nicole", "Harder");
+//		final var andererName = new Name("Nicole", "Harder");
+//
+//		assertAll(
+//			() -> assertThat(sut).isNotNull(),
+//			() -> assertThat(sut).isNotEqualTo(andererName),
+//			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));
 
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andererName),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));
+		EqualsVerifier.forClass(Name.class).verify();
 	}
 
 	@Test
