@@ -8,27 +8,19 @@ public enum Uebungsart
 	GRUNDUEBUNG_VARIATION("GRUNDUEBUNG_VARIATION"),
 	ASSISTENZ("ASSISTENZ");
 
-	private String uebungsartOption;
+	private final String wert;
 
-	private Uebungsart(final String uebungsartOption)
+	private Uebungsart(final String wert)
 	{
-		this.uebungsartOption = uebungsartOption;
+		this.wert = wert;
 	}
 
-	public static Uebungsart fromUebungsartOption(final String uebungsartOption)
+	public static Uebungsart fromString(final String wert)
 	{
 		return Stream.of(Uebungsart.values())
-			.filter(u -> u.uebungsartOption.equalsIgnoreCase(uebungsartOption))
+			.filter(u -> u.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Uebungsart-Option \"" + uebungsartOption + "\" existiert nicht!"));
-	}
-
-	public static Uebungsart fromName(final String name)
-	{
-		return Stream.of(Uebungsart.values())
-			.filter(u -> u.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Übungsart existiert nicht!"));
 	}
 }

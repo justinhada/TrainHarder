@@ -6,46 +6,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.enums.Doping;
-
 class DopingSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn die Doping-Option nicht existiert")
+	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
 	void test01()
 	{
-		final var exception = assertThrows(IllegalArgumentException.class, () -> Doping.fromDopingOption("UNGUELTIG"));
+		final var exception = assertThrows(IllegalArgumentException.class, () -> Doping.fromString("UNGUELTIG"));
 
-		assertThat(exception.getMessage()).isEqualTo("Die Doping-Option \"UNGUELTIG\" existiert nicht!");
+		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Doping existiert nicht!");
 	}
 
 	@Test
-	@DisplayName("das Doping aus der Doping-Option zurückgeben")
+	@DisplayName("das Doping aus dem String zurückgeben")
 	void test02()
 	{
 		final var erwartet = Doping.JA;
 
-		final var ergebnis = Doping.fromDopingOption("JA");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	void test03()
-	{
-		final var exception = assertThrows(IllegalArgumentException.class, () -> Doping.fromName("UNGUELTIG"));
-
-		assertThat(exception.getMessage()).isEqualTo("Der Name \"UNGUELTIG\" existiert nicht!");
-	}
-
-	@Test
-	@DisplayName("das Doping aus dem Namen zurückgeben")
-	void test04()
-	{
-		final var erwartet = Doping.NEIN;
-
-		final var ergebnis = Doping.fromName("NEIN");
+		final var ergebnis = Doping.fromString("JA");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

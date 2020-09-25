@@ -10,27 +10,19 @@ public enum Regenerationsfaehigkeit
 	GUT("GUT"),
 	PERFEKT("PERFEKT");
 
-	private String regenerationsfaehigkeitOption;
+	private final String wert;
 
-	private Regenerationsfaehigkeit(final String regenerationsfaehigkeitOption)
+	private Regenerationsfaehigkeit(final String wert)
 	{
-		this.regenerationsfaehigkeitOption = regenerationsfaehigkeitOption;
+		this.wert = wert;
 	}
 
-	public static Regenerationsfaehigkeit fromRegenerationsfaehigkeitOption(final String regenerationsfaehigkeitOption)
+	public static Regenerationsfaehigkeit fromString(final String wert)
 	{
 		return Stream.of(Regenerationsfaehigkeit.values())
-			.filter(r -> r.regenerationsfaehigkeitOption.equalsIgnoreCase(regenerationsfaehigkeitOption))
+			.filter(r -> r.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Regenerationsfaehigkeit-Option \"" + regenerationsfaehigkeitOption + "\" existiert nicht!"));
-	}
-
-	public static Regenerationsfaehigkeit fromName(final String name)
-	{
-		return Stream.of(Regenerationsfaehigkeit.values())
-			.filter(r -> r.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Regenerationsfähigkeit existiert nicht!"));
 	}
 }

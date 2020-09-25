@@ -78,7 +78,7 @@ public class KraftwertService
 			kraftwertDto.getMaximum(),
 			kraftwertDto.getKoerpergewicht(),
 			LocalDate.parse(kraftwertDto.getDatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
-			Wiederholungen.fromName(kraftwertDto.getWiederholungen()),
+			Wiederholungen.fromString(kraftwertDto.getWiederholungen()),
 			uebung,
 			benutzer)));
 	}

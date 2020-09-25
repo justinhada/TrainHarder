@@ -19,27 +19,19 @@ public enum Uebungskategorie
 	WETTKAMPF_KNIEBEUGE("WETTKAMPF_KNIEBEUGE"),
 	WETTKAMPF_KREUZHEBEN("WETTKAMPF_KREUZHEBEN");
 
-	private String uebungskategorieOption;
+	private final String wert;
 
-	private Uebungskategorie(final String uebungskategorieOption)
+	private Uebungskategorie(final String wert)
 	{
-		this.uebungskategorieOption = uebungskategorieOption;
+		this.wert = wert;
 	}
 
-	public static Uebungskategorie fromUebungskategorieOption(final String uebungskategorieOption)
+	public static Uebungskategorie fromString(final String wert)
 	{
 		return Stream.of(Uebungskategorie.values())
-			.filter(u -> u.uebungskategorieOption.equalsIgnoreCase(uebungskategorieOption))
+			.filter(u -> u.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Uebungskategorie-Option \"" + uebungskategorieOption + "\" existiert nicht!"));
-	}
-
-	public static Uebungskategorie fromName(final String name)
-	{
-		return Stream.of(Uebungskategorie.values())
-			.filter(u -> u.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Übungskategorie existiert nicht!"));
 	}
 }

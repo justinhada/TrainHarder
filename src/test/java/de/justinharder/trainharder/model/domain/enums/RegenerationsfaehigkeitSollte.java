@@ -6,50 +6,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-
 class RegenerationsfaehigkeitSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn die Regenerationsfaehigkeit-Option nicht existiert")
+	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
 	void test01()
 	{
 		final var exception =
 			assertThrows(IllegalArgumentException.class,
-				() -> Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption("UNGUELTIG"));
+				() -> Regenerationsfaehigkeit.fromString("UNGUELTIG"));
 
 		assertThat(exception.getMessage())
-			.isEqualTo("Die Regenerationsfaehigkeit-Option \"UNGUELTIG\" existiert nicht!");
+			.isEqualTo("Der Wert \"UNGUELTIG\" für Regenerationsfähigkeit existiert nicht!");
 	}
 
 	@Test
-	@DisplayName("die Regenerationsfaehigkeit aus der Regenerationsfaehigkeit-Option zurückgeben")
+	@DisplayName("die Regenerationsfaehigkeit aus dem String zurückgeben")
 	void test02()
 	{
 		final var erwartet = Regenerationsfaehigkeit.PERFEKT;
 
-		final var ergebnis = Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption("PERFEKT");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der Name nicht existiert")
-	void test03()
-	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Regenerationsfaehigkeit.fromName("UNGUELTIG"));
-
-		assertThat(exception.getMessage()).isEqualTo("Der Name \"UNGUELTIG\" existiert nicht!");
-	}
-
-	@Test
-	@DisplayName("die Regenerationsfaehigkeit aus dem Namen zurückgeben")
-	void test04()
-	{
-		final var erwartet = Regenerationsfaehigkeit.SCHLECHT;
-
-		final var ergebnis = Regenerationsfaehigkeit.fromName("SCHLECHT");
+		final var ergebnis = Regenerationsfaehigkeit.fromString("PERFEKT");
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

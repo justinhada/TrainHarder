@@ -7,27 +7,19 @@ public enum Geschlecht
 	MAENNLICH("MAENNLICH"),
 	WEIBLICH("WEIBLICH");
 
-	private String geschlechtOption;
+	private final String wert;
 
-	private Geschlecht(final String geschlechtOption)
+	private Geschlecht(final String wert)
 	{
-		this.geschlechtOption = geschlechtOption;
+		this.wert = wert;
 	}
 
-	public static Geschlecht fromGeschlechtOption(final String geschlechtOption)
+	public static Geschlecht fromString(final String wert)
 	{
 		return Stream.of(Geschlecht.values())
-			.filter(g -> g.geschlechtOption.equalsIgnoreCase(geschlechtOption))
+			.filter(g -> g.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Geschlecht-Option \"" + geschlechtOption + "\" existiert nicht!"));
-	}
-
-	public static Geschlecht fromName(final String name)
-	{
-		return Stream.of(Geschlecht.values())
-			.filter(g -> g.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Geschlecht existiert nicht!"));
 	}
 }

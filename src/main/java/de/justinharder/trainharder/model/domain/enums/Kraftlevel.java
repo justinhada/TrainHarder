@@ -12,28 +12,21 @@ public enum Kraftlevel
 	MASTER("MASTER"),
 	ELITE("ELITE");
 
-	private String kraftlevelOption;
+	private final String wert;
 
-	private Kraftlevel(final String kraftlevelOption)
+	private Kraftlevel(final String wert)
 	{
-		this.kraftlevelOption = kraftlevelOption;
+		this.wert = wert;
 	}
 
-	public static Kraftlevel fromKraftlevelOption(final String kraftlevelOption)
+	public static Kraftlevel fromString(final String wert)
 	{
 		return Stream.of(Kraftlevel.values())
-			.filter(k -> k.kraftlevelOption.equalsIgnoreCase(kraftlevelOption))
+			.filter(k -> k.wert.equalsIgnoreCase(wert))
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Die Kraftlevel-Option \"" + kraftlevelOption + "\" existiert nicht!"));
+				"Der Wert \"" + wert + "\" für Kraftlevel existiert nicht!"));
 	}
 
-	public static Kraftlevel fromName(final String name)
-	{
-		return Stream.of(Kraftlevel.values())
-			.filter(k -> k.name().equals(name))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("Der Name \"" + name + "\" existiert nicht!"));
-	}
 
 }

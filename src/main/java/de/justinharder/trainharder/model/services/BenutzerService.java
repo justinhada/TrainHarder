@@ -79,13 +79,13 @@ public class BenutzerService
 			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
 			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE),
 			new Benutzerangabe(
-				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
-				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
-				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
-				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
-				Stress.fromStressOption(benutzerdaten.getStress()),
-				Doping.fromDopingOption(benutzerdaten.getDoping()),
-				Regenerationsfaehigkeit.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())),
+				Geschlecht.fromString(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromString(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromString(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromString(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromString(benutzerdaten.getStress()),
+				Doping.fromString(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit.fromString(benutzerdaten.getRegenerationsfaehigkeit())),
 			authentifizierung));
 
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
@@ -107,13 +107,13 @@ public class BenutzerService
 			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
 			.setGeburtsdatum(LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE))
 			.setBenutzerangabe(new Benutzerangabe(
-				Geschlecht.fromGeschlechtOption(benutzerdaten.getGeschlecht()),
-				Erfahrung.fromErfahrungOption(benutzerdaten.getErfahrung()),
-				Ernaehrung.fromErnaehrungOption(benutzerdaten.getErnaehrung()),
-				Schlafqualitaet.fromSchlafqualitaetOption(benutzerdaten.getSchlafqualitaet()),
-				Stress.fromStressOption(benutzerdaten.getStress()),
-				Doping.fromDopingOption(benutzerdaten.getDoping()),
+				Geschlecht.fromString(benutzerdaten.getGeschlecht()),
+				Erfahrung.fromString(benutzerdaten.getErfahrung()),
+				Ernaehrung.fromString(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.fromString(benutzerdaten.getSchlafqualitaet()),
+				Stress.fromString(benutzerdaten.getStress()),
+				Doping.fromString(benutzerdaten.getDoping()),
 				Regenerationsfaehigkeit
-					.fromRegenerationsfaehigkeitOption(benutzerdaten.getRegenerationsfaehigkeit())))));
+					.fromString(benutzerdaten.getRegenerationsfaehigkeit())))));
 	}
 }
