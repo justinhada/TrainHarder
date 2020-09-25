@@ -51,12 +51,12 @@ jacoco {
 
 jacocoTestReport {
     dependsOn test, integrationTest
-    executionData(file("$buildDir/jacoco/text.exec"), file("$buildDir/jacoco/integrationTest.exec"))
+    executionData tasks.withType(Test).findAll {it.state.executed }
     reports {
         xml.enabled true
         csv.enabled false
         html.destination file("${buildDir}/jacoco/jacoco.html")
-        xml.destination file("${buildDir}/jacoco/jacoco.xml")
+        xml.destination file("${buildDir}/jacoco/jacocoAllTestReport.xml")
     }
 }
 
