@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,10 @@ class AuthentifizierungDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		EqualsVerifier.forClass(AuthentifizierungDto.class).verify();
+		EqualsVerifier.forClass(AuthentifizierungDto.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test
