@@ -49,14 +49,17 @@ jacoco {
     reportsDir = file("$buildDir/jacoco")
 }
 
-jacocoTestReport {
+task mergeJacocoReports(type: JacocoReport) {
     dependsOn test, integrationTest
-    executionData tasks.withType(Test).findAll {it.state.executed }
+    sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom files(sourceSets.main.output)
+    executionData.setFrom project.fileTree(dir: '.', include: '**/build/jacoco/*.exec')
     reports {
         xml.enabled true
         csv.enabled false
-        html.destination file("${buildDir}/jacoco/jacoco.html")
-        xml.destination file("${buildDir}/jacoco/jacocoAllTestReport.xml")
+        html.enabled true
+        html.destination file("${buildDir}/jacoco/merge")
+        xml.destination file("${buildDir}/jacoco/merge.xml")
     }
 }
 
@@ -65,10 +68,10 @@ sonarqube {
         property "sonar.projectKey", "justinhada_TrainHarder"
         property "sonar.organization", "justinhada"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.coverage.jacoco.xmlReportPaths", jacocoTestReport.reports.xml.destination
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/merge.xml"
     }
 }
 
-tasks['sonarqube'].dependsOn jacocoTestReport
+tasks['sonarqube'].dependsOn mergeJacocoReports
 
 version = '0.0.2'
