@@ -47,14 +47,10 @@ class NameSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-//		final var andererName = new Name("Nicole", "Harder");
-//
-//		assertAll(
-//			() -> assertThat(sut).isNotNull(),
-//			() -> assertThat(sut).isNotEqualTo(andererName),
-//			() -> assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode()));
+		final var andererName = new Name("Nicole", "Harder");
 
 		EqualsVerifier.forClass(Name.class).verify();
+		assertThat(sut.hashCode()).isNotEqualTo(andererName.hashCode());
 	}
 
 	@Test
