@@ -31,7 +31,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new AuthentifizierungJpaRepository(JpaRepositorySollte.erzeugeEntityManager());
+		sut = new AuthentifizierungJpaRepository(erzeugeEntityManager());
 	}
 
 	@Test

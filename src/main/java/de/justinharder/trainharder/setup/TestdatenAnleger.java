@@ -56,14 +56,16 @@ public class TestdatenAnleger
 	public void speichereTestdaten(final EntityManager entityManager, final Consumer<String> logger)
 	{
 		loescheTestdaten(entityManager, logger);
-		final var entitaeten = List.of(
+		List.of(
 			Testdaten.BENUTZER_JUSTIN,
-			Testdaten.KOERPERMESSUNG_JUSTIN,
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
 			Testdaten.BENUTZER_EDUARD,
-			Testdaten.KOERPERMESSUNG_EDUARD,
-			Testdaten.AUTHENTIFIZIERUNG_EDUARD);
-		entitaeten.forEach(entitaet -> legeDatensatzAn(entityManager, logger, entitaet));
+			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,
+			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN)
+			.forEach(entitaet -> legeDatensatzAn(entityManager, logger, entitaet));
 	}
 
 	private <T extends Entitaet> void legeDatensatzAn(

@@ -21,7 +21,7 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new KoerpermessungJpaRepository(JpaRepositorySollte.erzeugeEntityManager());
+		sut = new KoerpermessungJpaRepository(erzeugeEntityManager());
 	}
 
 	@Test
