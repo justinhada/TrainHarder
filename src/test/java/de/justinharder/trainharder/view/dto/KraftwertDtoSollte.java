@@ -3,6 +3,8 @@ package de.justinharder.trainharder.view.dto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,13 +61,10 @@ class KraftwertDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var anderesKraftwertDto =
-			new KraftwertDto(new Primaerschluessel().getId().toString(), 100, 75.0, "22.08.2020", "1RM");
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(anderesKraftwertDto),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesKraftwertDto.hashCode()));
+		EqualsVerifier.forClass(KraftwertDto.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test

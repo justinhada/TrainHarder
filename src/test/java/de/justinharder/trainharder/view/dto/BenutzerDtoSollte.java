@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.time.LocalDate;
 import java.util.List;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -92,26 +94,10 @@ class BenutzerDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var anderesBenutzerDto = new BenutzerDto(
-			Testdaten.BENUTZER_JUSTIN_ID.getId().toString(),
-			"Nicole",
-			"Harder",
-			LocalDate.of(1998, 12, 6),
-			"CLASS_5",
-			"WEIBLICH",
-			"FORTGESCHRITTEN",
-			"GUT",
-			"GUT",
-			"MITTELMAESSIG",
-			"NEIN",
-			"GUT",
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
-			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(anderesBenutzerDto),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesBenutzerDto.hashCode()));
+		EqualsVerifier.forClass(BenutzerDto.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test

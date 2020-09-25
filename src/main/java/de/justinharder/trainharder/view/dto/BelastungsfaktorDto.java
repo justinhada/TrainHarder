@@ -3,8 +3,13 @@ package de.justinharder.trainharder.view.dto;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 public class BelastungsfaktorDto implements Serializable
 {
 	private static final long serialVersionUID = -2050880743329267381L;

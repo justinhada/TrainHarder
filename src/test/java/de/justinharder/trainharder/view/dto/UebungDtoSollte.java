@@ -3,6 +3,8 @@ package de.justinharder.trainharder.view.dto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,18 +71,10 @@ class UebungDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var anderesUebungDto = new UebungDto(
-			new Primaerschluessel().getId().toString(),
-			"Lowbar-Kniebeuge",
-			"Grundübung",
-			"Wettkampf Kniebeuge",
-			new BelastungsfaktorDto(new Primaerschluessel().getId().toString(),
-				1.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.0, 1.0, 1.0, 0.5, 0.0));
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(anderesUebungDto),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesUebungDto.hashCode()));
+		EqualsVerifier.forClass(UebungDto.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test

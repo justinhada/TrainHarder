@@ -3,6 +3,7 @@ package de.justinharder.trainharder.view.dto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,13 +54,7 @@ class AuthentifizierungDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var anderesAuthentifizierungDto = new AuthentifizierungDto(
-			new Primaerschluessel().getId().toString(), "justinharder@t-online.de", "harder");
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(anderesAuthentifizierungDto),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(anderesAuthentifizierungDto.hashCode()));
+		EqualsVerifier.forClass(AuthentifizierungDto.class).verify();
 	}
 
 	@Test

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -81,19 +83,10 @@ class KoerpermessungDtoSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andereKoerpermessungDto = new KoerpermessungDto(
-			new Primaerschluessel().getId().toString(),
-			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			178,
-			80,
-			20,
-			2500,
-			2900);
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereKoerpermessungDto),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessungDto.hashCode()));
+		EqualsVerifier.forClass(KoerpermessungDto.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test
