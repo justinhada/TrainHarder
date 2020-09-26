@@ -1,21 +1,22 @@
 package de.justinharder.trainharder.model.domain;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.time.LocalDate;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
+import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UebungSollte
 {
@@ -88,20 +89,17 @@ class UebungSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andereUebung = new Uebung();
-		andereUebung.setPrimaerschluessel(new Primaerschluessel());
-
-		final var uebungMitGleicherId = new Uebung();
-		uebungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereUebung),
-			() -> assertThat(sut).isEqualTo(uebungMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereUebung.hashCode()));
+		EqualsVerifier.forClass(Uebung.class)
+			.withPrefabValues(Belastungsfaktor.class, Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
+				Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.SURROGATE_KEY)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

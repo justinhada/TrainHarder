@@ -1,31 +1,23 @@
 package de.justinharder.trainharder.model.domain;
 
+import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.model.domain.embeddables.Name;
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.enums.*;
+import de.justinharder.trainharder.setup.Testdaten;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
-import de.justinharder.trainharder.model.domain.embeddables.Name;
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.enums.Doping;
-import de.justinharder.trainharder.model.domain.enums.Erfahrung;
-import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
-import de.justinharder.trainharder.model.domain.enums.Geschlecht;
-import de.justinharder.trainharder.model.domain.enums.Kraftlevel;
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
-import de.justinharder.trainharder.model.domain.enums.Stress;
-import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
-import de.justinharder.trainharder.setup.Testdaten;
 
 class BenutzerSollte
 {
@@ -163,20 +155,18 @@ class BenutzerSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andererBenutzer = new Benutzer();
-		andererBenutzer.setPrimaerschluessel(new Primaerschluessel());
-
-		final var benutzerMitGleicherId = new Benutzer();
-		benutzerMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andererBenutzer),
-			() -> assertThat(sut).isEqualTo(benutzerMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBenutzer.hashCode()));
+		EqualsVerifier.forClass(Benutzer.class)
+			.withPrefabValues(Authentifizierung.class, Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
+				Testdaten.AUTHENTIFIZIERUNG_EDUARD)
+			.withPrefabValues(Koerpermessung.class, Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD)
+			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.SURROGATE_KEY)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

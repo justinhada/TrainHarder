@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.UUID;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,20 +85,14 @@ class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test04()
 	{
-		final var andereAuthentifizierung = new Authentifizierung();
-		andereAuthentifizierung.setPrimaerschluessel(new Primaerschluessel());
-
-		final var authentifizierungMitGleicherId = new Authentifizierung();
-		authentifizierungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereAuthentifizierung),
-			() -> assertThat(sut).isEqualTo(authentifizierungMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereAuthentifizierung.hashCode()));
+		EqualsVerifier.forClass(Authentifizierung.class)
+			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.SURROGATE_KEY)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

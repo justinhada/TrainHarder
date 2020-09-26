@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -115,17 +117,24 @@ class BelastungsfaktorSollte
 	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andererBelastungsfaktor = new Belastungsfaktor();
-		andererBelastungsfaktor.setPrimaerschluessel(new Primaerschluessel());
+//		final var andererBelastungsfaktor = new Belastungsfaktor();
+//		andererBelastungsfaktor.setPrimaerschluessel(new Primaerschluessel());
+//
+//		final var belastungsfaktorMitGleicherId = new Belastungsfaktor();
+//		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
+//
+//		assertAll(
+//			() -> assertThat(sut).isNotNull(),
+//			() -> assertThat(sut).isNotEqualTo(andererBelastungsfaktor),
+//			() -> assertThat(sut).isEqualTo(belastungsfaktorMitGleicherId),
+//			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor.hashCode()));
 
-		final var belastungsfaktorMitGleicherId = new Belastungsfaktor();
-		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andererBelastungsfaktor),
-			() -> assertThat(sut).isEqualTo(belastungsfaktorMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor.hashCode()));
+		EqualsVerifier.forClass(Belastungsfaktor.class)
+			.withPrefabValues(Uebung.class,	Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.SURROGATE_KEY)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

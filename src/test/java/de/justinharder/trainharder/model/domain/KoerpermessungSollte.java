@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDate;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -92,20 +94,14 @@ class KoerpermessungSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		final var andereKoerpermessung = new Koerpermessung();
-		andereKoerpermessung.setPrimaerschluessel(new Primaerschluessel());
-
-		final var koerpermessungMitGleicherId = new Koerpermessung();
-		koerpermessungMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereKoerpermessung),
-			() -> assertThat(sut).isEqualTo(koerpermessungMitGleicherId),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereKoerpermessung.hashCode()));
+		EqualsVerifier.forClass(Koerpermessung.class)
+			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.SURROGATE_KEY)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test
