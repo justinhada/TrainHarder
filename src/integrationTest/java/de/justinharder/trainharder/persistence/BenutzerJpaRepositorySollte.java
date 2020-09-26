@@ -133,7 +133,7 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	@Test
 	public void benutzerAktualisieren()
 	{
-		final var erwartet = Testdaten.BENUTZER_JUSTIN;
+		final var erwartet = Testdaten.BENUTZER_EDUARD;
 		erwartet.setGeburtsdatum(LocalDate.of(1997, 12, 6));
 
 		final var ergebnis = sut.speichereBenutzer(erwartet);
