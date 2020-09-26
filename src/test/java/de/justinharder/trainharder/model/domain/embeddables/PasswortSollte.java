@@ -46,7 +46,6 @@ class PasswortSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
 		EqualsVerifier.forClass(Passwort.class).verify();

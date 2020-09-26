@@ -80,7 +80,6 @@ class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
 		EqualsVerifier.forClass(KoerpermessungDto.class)

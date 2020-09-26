@@ -44,7 +44,6 @@ class NameSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
 		EqualsVerifier.forClass(Name.class).verify();

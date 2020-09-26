@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.util.UUID;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,10 +56,12 @@ class PrimaerschluesselSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-		EqualsVerifier.simple().forClass(Primaerschluessel.class).verify();
+		EqualsVerifier.forClass(Primaerschluessel.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 
 	@Test

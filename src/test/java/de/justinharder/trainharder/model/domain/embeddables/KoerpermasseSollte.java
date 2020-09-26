@@ -53,7 +53,6 @@ class KoerpermasseSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test03()
 	{
 		EqualsVerifier.forClass(Koerpermasse.class).verify();
