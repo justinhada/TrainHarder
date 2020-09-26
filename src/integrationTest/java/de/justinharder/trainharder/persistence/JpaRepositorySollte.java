@@ -10,7 +10,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import de.justinharder.trainharder.setup.TestdatenAnleger;
-import org.junit.Ignore;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JpaRepositorySollte

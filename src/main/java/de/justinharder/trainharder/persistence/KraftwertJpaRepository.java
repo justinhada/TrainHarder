@@ -25,8 +25,8 @@ public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements 
 		final var criteriaBuilder = entityManager.getCriteriaBuilder();
 		final var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
 		final var root = criteriaQuery.from(Kraftwert.class);
-		final var joinBenutzer = root.join("Benutzer");
-		criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("ID"), benutzerId));
+		final var joinBenutzer = root.join("benutzer");
+		criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 

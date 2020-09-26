@@ -52,7 +52,7 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void alleUebungenZuUebungskategroieErmitteln()
+	public void alleUebungenZuUebungskategorieErmitteln()
 	{
 		assertAll(
 			() -> {

@@ -57,13 +57,15 @@ public class TestdatenAnleger
 	{
 		loescheTestdaten(entityManager, logger);
 		List.of(
+			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
+			Testdaten.AUTHENTIFIZIERUNG_EDUARD,
 			Testdaten.BENUTZER_JUSTIN,
 			Testdaten.BENUTZER_EDUARD,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
 			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
 			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN,
+			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
 			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN)
 			.forEach(entitaet -> legeDatensatzAn(entityManager, logger, entitaet));
 	}
@@ -73,11 +75,12 @@ public class TestdatenAnleger
 		final Consumer<String> logger,
 		final T entitaet)
 	{
+		logger.accept("Weiter mit Datensatz " + entitaet);
 		final var datensatz = entityManager.find(entitaet.getClass(), entitaet.getPrimaerschluessel());
 		if (datensatz == null)
 		{
 			logger.accept("Lege Datensatz an: " + entitaet);
-			entityManager.merge(entitaet);
+			entityManager.persist(entitaet);
 		}
 		else
 		{

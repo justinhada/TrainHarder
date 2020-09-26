@@ -36,10 +36,10 @@ public class Kraftwert extends Entitaet
 	@Column(name = "Wiederholungen")
 	@Enumerated(EnumType.STRING)
 	private Wiederholungen wiederholungen;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
