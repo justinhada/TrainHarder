@@ -1,17 +1,25 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
-@AllArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
 public class MailAdresse
 {
 	private final String adresse;
 	private String name;
-	
+
 	public MailAdresse(String adresse)
 	{
-		this.adresse=adresse;
+		this.adresse = adresse;
+	}
+
+	public MailAdresse(String adresse, String name)
+	{
+		this(adresse);
+		this.name = name;
 	}
 }

@@ -7,6 +7,8 @@ import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetter
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +22,17 @@ class MailAdresseSollte
 	{
 		assertThat(Login.class, allOf(
 			hasValidGettersAndSetters(),
-			hasValidBeanEquals(),
 			hasValidBeanHashCode(),
 			hasValidBeanToString()));
+	}
+
+	@Test
+	@DisplayName("sich vergleichen")
+	void test02()
+	{
+		EqualsVerifier.forClass(MailAdresse.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NONFINAL_FIELDS)
+			.verify();
 	}
 }
