@@ -5,7 +5,6 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +12,6 @@ import java.util.Optional;
 @NoArgsConstructor
 public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
-	public KraftwertJpaRepository(final EntityManager entityManager)
-	{
-		super(entityManager);
-	}
-
 	@Override
 	public List<Kraftwert> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId)
 	{

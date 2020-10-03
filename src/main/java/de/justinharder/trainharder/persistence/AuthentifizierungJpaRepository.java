@@ -5,7 +5,6 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -15,11 +14,6 @@ import java.util.UUID;
 public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>
 	implements AuthentifizierungRepository
 {
-	public AuthentifizierungJpaRepository(final EntityManager entityManager)
-	{
-		super(entityManager);
-	}
-
 	@Override
 	public Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id)
 	{

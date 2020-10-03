@@ -22,7 +22,8 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new UebungJpaRepository(erzeugeEntityManager());
+		sut = new UebungJpaRepository();
+		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test

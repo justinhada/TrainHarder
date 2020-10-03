@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.domain.Entitaet;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 public class JpaRepository<T extends Entitaet>
 {
+	@Setter
 	@PersistenceContext
 	protected EntityManager entityManager;
 

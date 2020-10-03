@@ -1,29 +1,22 @@
 package de.justinharder.trainharder.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.enums.Doping;
-import de.justinharder.trainharder.model.domain.enums.Erfahrung;
-import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
-import de.justinharder.trainharder.model.domain.enums.Geschlecht;
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
-import de.justinharder.trainharder.model.domain.enums.Stress;
+import de.justinharder.trainharder.model.domain.enums.*;
 import de.justinharder.trainharder.setup.Testdaten;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -32,7 +25,8 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new AuthentifizierungJpaRepository(erzeugeEntityManager());
+		sut = new AuthentifizierungJpaRepository();
+		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test

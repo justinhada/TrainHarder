@@ -7,7 +7,6 @@ import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +14,6 @@ import java.util.Optional;
 @NoArgsConstructor
 public class UebungJpaRepository extends JpaRepository<Uebung> implements UebungRepository
 {
-	public UebungJpaRepository(final EntityManager entityManager)
-	{
-		super(entityManager);
-	}
-
 	@Override
 	public List<Uebung> ermittleAlle()
 	{

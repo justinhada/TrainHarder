@@ -21,7 +21,8 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new BelastungsfaktorJpaRepository(erzeugeEntityManager());
+		sut = new BelastungsfaktorJpaRepository();
+		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test

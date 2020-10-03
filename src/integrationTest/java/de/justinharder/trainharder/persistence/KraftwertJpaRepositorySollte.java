@@ -22,7 +22,8 @@ public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new KraftwertJpaRepository(erzeugeEntityManager());
+		sut = new KraftwertJpaRepository();
+		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test

@@ -1,18 +1,17 @@
 package de.justinharder.trainharder.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.time.LocalDate;
-import java.util.Optional;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -21,7 +20,8 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	@Before
 	public void setup()
 	{
-		sut = new KoerpermessungJpaRepository(erzeugeEntityManager());
+		sut = new KoerpermessungJpaRepository();
+		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test
