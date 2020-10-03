@@ -33,11 +33,6 @@ public class RepsInReserveRechner implements Serializable
 			throw new UngueltigeRepsInReserveException("Die RIR-Zahl (" + rir + ") ist ungültig!");
 		}
 
-		return (int) Math.round(Konstanten.PROZENTE[rir][wiederholungen - 1] * maximum);
-	}
-
-	public double[][] getProzente()
-	{
-		return Konstanten.PROZENTE;
+		return (int) Math.round(Konstanten.PROZENTE.get(rir).get(wiederholungen - 1) * maximum);
 	}
 }

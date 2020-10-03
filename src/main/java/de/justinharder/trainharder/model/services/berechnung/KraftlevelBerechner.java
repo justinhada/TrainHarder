@@ -35,11 +35,11 @@ public class KraftlevelBerechner
 		}
 
 		var gewichtIndex = 0;
-		for (var i = 0; i < klassifikationen[0].length; i++)
+		for (var i = 0; i < klassifikationen.get(0).size(); i++)
 		{
-			if (koerpergewicht > klassifikationen[0][i])
+			if (koerpergewicht > klassifikationen.get(0).get(i))
 			{
-				if (i + 1 == klassifikationen[0].length)
+				if (i + 1 == klassifikationen.get(0).size())
 				{
 					gewichtIndex = i;
 				}
@@ -51,15 +51,15 @@ public class KraftlevelBerechner
 		}
 
 		var totalIndex = 0;
-		for (var i = klassifikationen.length - 1; i > 0; i--)
+		for (var i = klassifikationen.size() - 1; i > 0; i--)
 		{
-			if (total >= klassifikationen[i][gewichtIndex])
+			if (total >= klassifikationen.get(i).get(gewichtIndex))
 			{
 				totalIndex = i;
 			}
 		}
 
-		final var kraftlevel = Konstanten.KRAFTLEVEL_EINTEILUNG[totalIndex - 1];
+		final var kraftlevel = Konstanten.KRAFTLEVEL_EINTEILUNG.get(totalIndex - 1);
 		benutzer.getBenutzerangabe().setKraftlevel(kraftlevel);
 	}
 }

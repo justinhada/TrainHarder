@@ -1,21 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
@@ -23,13 +7,7 @@ import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.enums.Doping;
-import de.justinharder.trainharder.model.domain.enums.Erfahrung;
-import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
-import de.justinharder.trainharder.model.domain.enums.Geschlecht;
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
-import de.justinharder.trainharder.model.domain.enums.Stress;
+import de.justinharder.trainharder.model.domain.enums.*;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.KoerpermessungNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
@@ -38,6 +16,19 @@ import de.justinharder.trainharder.model.services.mapper.KoerpermessungDtoMapper
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class KoerpermessungServiceSollte
 {
@@ -193,8 +184,9 @@ class KoerpermessungServiceSollte
 	{
 		final var erwartet = "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!";
 
+		var koerpermessdaten = new Koerpermessdaten();
 		final var exception =
-			assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(new Koerpermessdaten(), null));
+			assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(koerpermessdaten, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -278,8 +270,9 @@ class KoerpermessungServiceSollte
 	{
 		final var erwartet = "Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
+		var primaerschluessel = new Primaerschluessel().getId().toString();
 		final var exception = assertThrows(NullPointerException.class,
-			() -> sut.aktualisiereKoerpermessung(new Primaerschluessel().getId().toString(), null));
+			() -> sut.aktualisiereKoerpermessung(primaerschluessel, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}

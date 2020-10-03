@@ -1,21 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -27,6 +11,19 @@ import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class BenutzerServiceSollte
 {
@@ -227,8 +224,8 @@ class BenutzerServiceSollte
 	{
 		final var erwartet = "Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
 
-		final var exception =
-			assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), null));
+		var benutzerdaten = new Benutzerdaten();
+		final var exception = assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(benutzerdaten, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -296,10 +293,11 @@ class BenutzerServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
 	void test13()
 	{
-		final var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
+		var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
 
-		final var exception = assertThrows(NullPointerException.class,
-			() -> sut.aktualisiereBenutzer(Testdaten.BENUTZER_JUSTIN_ID.getId().toString(), null));
+		var primaerschluessel = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
+		var exception =
+			assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(primaerschluessel, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
