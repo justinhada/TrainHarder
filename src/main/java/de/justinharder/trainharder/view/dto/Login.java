@@ -27,11 +27,11 @@ public class Login
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Login))
 		{
 			return false;
 		}
-		Login login = (Login) o;
+		var login = (Login) o;
 		return benutzername.equals(login.benutzername) && passwort.equals(login.passwort);
 	}
 

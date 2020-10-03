@@ -173,11 +173,11 @@ public class BenutzerDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof BenutzerDto))
 		{
 			return false;
 		}
-		BenutzerDto that = (BenutzerDto) o;
+		var that = (BenutzerDto) o;
 		return primaerschluessel.equals(that.primaerschluessel) &&
 			vorname.equals(that.vorname) &&
 			nachname.equals(that.nachname) &&

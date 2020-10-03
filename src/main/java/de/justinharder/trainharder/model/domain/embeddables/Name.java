@@ -41,21 +41,23 @@ public class Name implements Serializable
 		return this;
 	}
 
-	@Override public boolean equals(Object o)
+	@Override
+	public boolean equals(Object o)
 	{
 		if (this == o)
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Name))
 		{
 			return false;
 		}
-		Name name = (Name) o;
+		var name = (Name) o;
 		return vorname.equals(name.vorname) && nachname.equals(name.nachname);
 	}
 
-	@Override public int hashCode()
+	@Override
+	public int hashCode()
 	{
 		return Objects.hash(vorname, nachname);
 	}

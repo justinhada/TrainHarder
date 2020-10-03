@@ -43,22 +43,18 @@ public class Primaerschluessel implements Serializable
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(final Object o)
 	{
-		if (this == obj)
+		if (this == o)
 		{
 			return true;
 		}
-		if (obj == null)
+		if (!(o instanceof Primaerschluessel))
 		{
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final var other = (Primaerschluessel) obj;
-		return Objects.equal(getId(), other.getId());
+		var that = (Primaerschluessel) o;
+		return Objects.equal(getId(), that.getId());
 	}
 
 	@Override

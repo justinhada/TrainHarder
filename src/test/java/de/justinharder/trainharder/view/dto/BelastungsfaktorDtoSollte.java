@@ -98,6 +98,7 @@ class BelastungsfaktorDtoSollte
 		EqualsVerifier.forClass(BelastungsfaktorDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
+			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}
 

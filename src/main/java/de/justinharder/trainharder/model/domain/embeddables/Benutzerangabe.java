@@ -118,11 +118,11 @@ public class Benutzerangabe implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Benutzerangabe))
 		{
 			return false;
 		}
-		Benutzerangabe that = (Benutzerangabe) o;
+		var that = (Benutzerangabe) o;
 		return kraftlevel == that.kraftlevel &&
 			geschlecht == that.geschlecht &&
 			erfahrung == that.erfahrung &&

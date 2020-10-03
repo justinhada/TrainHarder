@@ -34,11 +34,11 @@ public class Koerpermessdaten
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Koerpermessdaten))
 		{
 			return false;
 		}
-		Koerpermessdaten that = (Koerpermessdaten) o;
+		var that = (Koerpermessdaten) o;
 		return koerpergroesse == that.koerpergroesse &&
 			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
 			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&

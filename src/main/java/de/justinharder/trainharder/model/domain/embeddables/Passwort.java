@@ -48,11 +48,11 @@ public class Passwort implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Passwort))
 		{
 			return false;
 		}
-		Passwort passwort = (Passwort) o;
+		var passwort = (Passwort) o;
 		return salt.equals(passwort.salt) && passwortHash.equals(passwort.passwortHash);
 	}
 

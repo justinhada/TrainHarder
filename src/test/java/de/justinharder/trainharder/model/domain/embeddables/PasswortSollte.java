@@ -1,16 +1,14 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import lombok.Getter;
-import lombok.ToString;
+import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PasswortSollte
 {
@@ -48,7 +46,9 @@ class PasswortSollte
 	@DisplayName("sich vergleichen")
 	void test05()
 	{
-		EqualsVerifier.forClass(Passwort.class).verify();
+		EqualsVerifier.forClass(Passwort.class)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

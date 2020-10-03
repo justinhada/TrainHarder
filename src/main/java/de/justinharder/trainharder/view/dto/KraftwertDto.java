@@ -72,11 +72,11 @@ public class KraftwertDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof KraftwertDto))
 		{
 			return false;
 		}
-		KraftwertDto that = (KraftwertDto) o;
+		var that = (KraftwertDto) o;
 		return maximum == that.maximum &&
 			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
 			primaerschluessel.equals(that.primaerschluessel) &&

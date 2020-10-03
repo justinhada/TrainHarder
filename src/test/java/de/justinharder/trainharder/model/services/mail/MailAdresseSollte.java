@@ -1,18 +1,13 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanEquals;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanHashCode;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanToString;
-import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.view.dto.Login;
+import static com.google.code.beanmatchers.BeanMatchers.*;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class MailAdresseSollte
 {
@@ -20,7 +15,7 @@ class MailAdresseSollte
 	@DisplayName("ein Bean sein")
 	void test01()
 	{
-		assertThat(Login.class, allOf(
+		assertThat(MailAdresse.class, allOf(
 			hasValidGettersAndSetters(),
 			hasValidBeanHashCode(),
 			hasValidBeanToString()));
@@ -33,6 +28,7 @@ class MailAdresseSollte
 		EqualsVerifier.forClass(MailAdresse.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
+			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}
 }

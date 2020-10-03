@@ -99,11 +99,11 @@ public class Koerpermasse implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Koerpermasse))
 		{
 			return false;
 		}
-		Koerpermasse that = (Koerpermasse) o;
+		var that = (Koerpermasse) o;
 		return koerpergroesse == that.koerpergroesse &&
 			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
 			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&

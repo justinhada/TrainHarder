@@ -144,11 +144,11 @@ public class BelastungsfaktorDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof BelastungsfaktorDto))
 		{
 			return false;
 		}
-		BelastungsfaktorDto that = (BelastungsfaktorDto) o;
+		var that = (BelastungsfaktorDto) o;
 		return Double.compare(that.squat, squat) == 0 &&
 			Double.compare(that.benchpress, benchpress) == 0 &&
 			Double.compare(that.deadlift, deadlift) == 0 &&

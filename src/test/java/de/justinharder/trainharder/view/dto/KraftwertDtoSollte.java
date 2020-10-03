@@ -61,6 +61,7 @@ class KraftwertDtoSollte
 		EqualsVerifier.forClass(KraftwertDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
+			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}
 

@@ -55,6 +55,7 @@ class AuthentifizierungDtoSollte
 		EqualsVerifier.forClass(AuthentifizierungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
+			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}
 

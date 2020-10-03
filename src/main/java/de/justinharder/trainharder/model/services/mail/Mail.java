@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 public class Mail
 {
 	private final MailAdresse sender;
@@ -46,5 +45,31 @@ public class Mail
 		Stream.of(inBlindkopie).forEach(alleInBlindkopie::add);
 
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (!(o instanceof Mail))
+		{
+			return false;
+		}
+		var mail = (Mail) o;
+		return sender.equals(mail.sender) &&
+			alleEmpfaenger.equals(mail.alleEmpfaenger) &&
+			alleInKopie.equals(mail.alleInKopie) &&
+			alleInBlindkopie.equals(mail.alleInBlindkopie) &&
+			betreff.equals(mail.betreff) &&
+			inhalt.equals(mail.inhalt);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(sender, alleEmpfaenger, alleInKopie, alleInBlindkopie, betreff, inhalt);
 	}
 }

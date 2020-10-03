@@ -1,15 +1,19 @@
 package de.justinharder.trainharder.model.services.mail;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class MailAdresse
 {
-	private final String adresse;
+	private String adresse;
 	private String name;
 
 	public MailAdresse(String adresse)
@@ -30,11 +34,11 @@ public class MailAdresse
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof MailAdresse))
 		{
 			return false;
 		}
-		MailAdresse that = (MailAdresse) o;
+		var that = (MailAdresse) o;
 		return adresse.equals(that.adresse) && name.equals(that.name);
 	}
 

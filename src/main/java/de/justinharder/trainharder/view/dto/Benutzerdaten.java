@@ -44,11 +44,11 @@ public class Benutzerdaten
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Benutzerdaten))
 		{
 			return false;
 		}
-		Benutzerdaten that = (Benutzerdaten) o;
+		var that = (Benutzerdaten) o;
 		return vorname.equals(that.vorname) &&
 			nachname.equals(that.nachname) &&
 			geburtsdatum.equals(that.geburtsdatum) &&

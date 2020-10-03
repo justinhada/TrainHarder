@@ -95,6 +95,7 @@ class BenutzerDtoSollte
 		EqualsVerifier.forClass(BenutzerDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
+			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}
 

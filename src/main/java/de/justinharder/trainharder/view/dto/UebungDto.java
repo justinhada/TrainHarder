@@ -72,16 +72,16 @@ public class UebungDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof UebungDto))
 		{
 			return false;
 		}
-		UebungDto uebungDto = (UebungDto) o;
-		return primaerschluessel.equals(uebungDto.primaerschluessel) &&
-			name.equals(uebungDto.name) &&
-			uebungsart.equals(uebungDto.uebungsart) &&
-			uebungskategorie.equals(uebungDto.uebungskategorie) &&
-			belastungsfaktor.equals(uebungDto.belastungsfaktor);
+		var that = (UebungDto) o;
+		return primaerschluessel.equals(that.primaerschluessel) &&
+			name.equals(that.name) &&
+			uebungsart.equals(that.uebungsart) &&
+			uebungskategorie.equals(that.uebungskategorie) &&
+			belastungsfaktor.equals(that.belastungsfaktor);
 	}
 
 	@Override

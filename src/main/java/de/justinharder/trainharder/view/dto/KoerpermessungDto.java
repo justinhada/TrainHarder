@@ -128,11 +128,11 @@ public class KoerpermessungDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof KoerpermessungDto))
 		{
 			return false;
 		}
-		KoerpermessungDto that = (KoerpermessungDto) o;
+		var that = (KoerpermessungDto) o;
 		return koerpergroesse == that.koerpergroesse &&
 			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
 			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&

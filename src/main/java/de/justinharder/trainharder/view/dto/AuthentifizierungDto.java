@@ -51,11 +51,11 @@ public class AuthentifizierungDto implements Serializable
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof AuthentifizierungDto))
 		{
 			return false;
 		}
-		AuthentifizierungDto that = (AuthentifizierungDto) o;
+		var that = (AuthentifizierungDto) o;
 		return primaerschluessel.equals(that.primaerschluessel) &&
 			mail.equals(that.mail) &&
 			benutzername.equals(that.benutzername);

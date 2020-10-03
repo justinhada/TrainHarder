@@ -36,11 +36,11 @@ public class Kontaktformular
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Kontaktformular))
 		{
 			return false;
 		}
-		Kontaktformular that = (Kontaktformular) o;
+		var that = (Kontaktformular) o;
 		return mail.equals(that.mail) &&
 			benutzername.equals(that.benutzername) &&
 			vorname.equals(that.vorname) &&

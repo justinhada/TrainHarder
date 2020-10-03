@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class NameSollte
 {
@@ -46,7 +45,9 @@ class NameSollte
 	@DisplayName("sich vergleichen")
 	void test05()
 	{
-		EqualsVerifier.forClass(Name.class).verify();
+		EqualsVerifier.forClass(Name.class)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test

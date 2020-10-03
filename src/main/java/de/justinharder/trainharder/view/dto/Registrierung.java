@@ -31,11 +31,11 @@ public class Registrierung
 		{
 			return true;
 		}
-		if (o == null || getClass() != o.getClass())
+		if (!(o instanceof Registrierung))
 		{
 			return false;
 		}
-		Registrierung that = (Registrierung) o;
+		var that = (Registrierung) o;
 		return mail.equals(that.mail) && benutzername.equals(that.benutzername) && passwort.equals(that.passwort);
 	}
 
