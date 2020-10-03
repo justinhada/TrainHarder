@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
@@ -202,6 +203,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
+	@Ignore
 	public void authentifizierungAktualisieren()
 	{
 		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
