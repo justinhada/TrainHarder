@@ -13,7 +13,7 @@ public class PasswortCheck
 	private static final int ZAHL_MINDESTCODE = '0';
 	private static final int ZAHL_MAXIMALCODE = '9';
 	private static final char[] ERLAUBTE_SONDERZEICHEN = new char[]
-	{ '$', '%', '&', '?', '#', '_' };
+		{ '$', '%', '&', '?', '#', '_' };
 
 	private boolean hatKleinbuchstabe;
 	private boolean hatGrossbuchstabe;
@@ -22,6 +22,11 @@ public class PasswortCheck
 
 	public boolean isUnsicher(final String passwort)
 	{
+		hatKleinbuchstabe = false;
+		hatGrossbuchstabe = false;
+		hatSonderzeichen = false;
+		hatZahl = false;
+
 		if (passwort.length() < MINDESTLAENGE)
 		{
 			return true;

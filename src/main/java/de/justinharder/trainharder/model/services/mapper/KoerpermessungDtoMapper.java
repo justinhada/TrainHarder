@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.model.services.mapper;
 
+import de.justinharder.trainharder.model.domain.Koerpermessung;
+import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import de.justinharder.trainharder.model.domain.Koerpermessung;
-import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 
 public class KoerpermessungDtoMapper
 {

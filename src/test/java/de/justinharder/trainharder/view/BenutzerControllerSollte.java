@@ -1,25 +1,20 @@
 package de.justinharder.trainharder.view;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
+import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import javax.security.enterprise.CallerPrincipal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class BenutzerControllerSollte extends AbstractControllerSollte
 {

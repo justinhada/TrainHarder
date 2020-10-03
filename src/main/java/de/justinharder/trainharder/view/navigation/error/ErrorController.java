@@ -1,5 +1,9 @@
 package de.justinharder.trainharder.view.navigation.error;
 
+import de.justinharder.trainharder.view.AbstractController;
+import lombok.AccessLevel;
+import lombok.Setter;
+
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
@@ -7,10 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
-
-import de.justinharder.trainharder.view.AbstractController;
-import lombok.AccessLevel;
-import lombok.Setter;
 
 @Controller
 @Path(value = "/error")

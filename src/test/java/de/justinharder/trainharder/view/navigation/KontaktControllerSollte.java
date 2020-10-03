@@ -1,23 +1,5 @@
 package de.justinharder.trainharder.view.navigation;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.security.Principal;
-import java.util.ArrayList;
-
-import javax.mvc.Models;
-import javax.mvc.binding.BindingResult;
-import javax.security.enterprise.CallerPrincipal;
-import javax.security.enterprise.SecurityContext;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
@@ -27,6 +9,20 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import javax.mvc.Models;
+import javax.mvc.binding.BindingResult;
+import javax.security.enterprise.CallerPrincipal;
+import javax.security.enterprise.SecurityContext;
+import java.security.Principal;
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class KontaktControllerSollte
 {

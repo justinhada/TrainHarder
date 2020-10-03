@@ -1,9 +1,5 @@
 package de.justinharder.trainharder.view;
 
-import javax.inject.Inject;
-import javax.mvc.Models;
-import javax.security.enterprise.SecurityContext;
-
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
@@ -11,6 +7,10 @@ import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import lombok.Setter;
+
+import javax.inject.Inject;
+import javax.mvc.Models;
+import javax.security.enterprise.SecurityContext;
 
 @Setter
 public abstract class AbstractController

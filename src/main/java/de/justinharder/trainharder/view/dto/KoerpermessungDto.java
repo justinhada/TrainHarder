@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.view.dto;
 
-import java.io.Serializable;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 @Data
 public class KoerpermessungDto implements Serializable

@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.persistence;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
-
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements BenutzerRepository

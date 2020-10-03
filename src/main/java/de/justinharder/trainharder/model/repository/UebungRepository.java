@@ -1,12 +1,12 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface UebungRepository
 {

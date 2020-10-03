@@ -21,6 +21,8 @@ import java.util.List;
 
 public class BenutzerService
 {
+	public static final String ID = "der ID";
+
 	private final BenutzerRepository benutzerRepository;
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final BenutzerDtoMapper benutzerDtoMapper;
@@ -47,7 +49,7 @@ public class BenutzerService
 
 		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(benutzerDtoMapper::konvertiere)
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException("der ID", id));
+			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 	}
 
 	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
@@ -72,7 +74,7 @@ public class BenutzerService
 		final var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(
-				FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ID", authentifizierungId));
+				FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
 
 		final var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
@@ -101,7 +103,7 @@ public class BenutzerService
 
 		final var benutzer = benutzerRepository
 			.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException("der ID", id));
+			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 
 		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(benutzer
 			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))

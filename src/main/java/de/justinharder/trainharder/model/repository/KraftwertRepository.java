@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface KraftwertRepository
 {

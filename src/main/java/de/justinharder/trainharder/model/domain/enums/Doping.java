@@ -9,7 +9,7 @@ public enum Doping
 
 	private final String wert;
 
-	private Doping(final String wert)
+	Doping(final String wert)
 	{
 		this.wert = wert;
 	}

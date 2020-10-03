@@ -1,9 +1,11 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import com.google.common.base.Preconditions;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
+import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
+import de.justinharder.trainharder.view.dto.Login;
+import lombok.Setter;
 
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -16,21 +18,12 @@ import javax.security.enterprise.authentication.mechanism.http.AuthenticationPar
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-
-import com.google.common.base.Preconditions;
-
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
-import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
-import de.justinharder.trainharder.view.dto.Login;
-import lombok.Setter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Setter
 @Controller

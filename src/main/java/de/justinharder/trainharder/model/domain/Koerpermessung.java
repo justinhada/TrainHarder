@@ -1,19 +1,11 @@
 package de.justinharder.trainharder.model.domain;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Entity

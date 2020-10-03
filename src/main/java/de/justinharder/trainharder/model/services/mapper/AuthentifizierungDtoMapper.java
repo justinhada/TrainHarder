@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.model.services.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AuthentifizierungDtoMapper
 {

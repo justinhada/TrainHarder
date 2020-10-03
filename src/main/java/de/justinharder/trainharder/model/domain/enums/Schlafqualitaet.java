@@ -10,7 +10,7 @@ public enum Schlafqualitaet
 
 	private final String wert;
 
-	private Schlafqualitaet(final String wert)
+	Schlafqualitaet(final String wert)
 	{
 		this.wert = wert;
 	}

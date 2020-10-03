@@ -15,7 +15,7 @@ public enum Wiederholungen
 
 	private final String wert;
 
-	private Wiederholungen(final String wert)
+	Wiederholungen(final String wert)
 	{
 		this.wert = wert;
 	}

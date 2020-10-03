@@ -9,7 +9,7 @@ public enum Geschlecht
 
 	private final String wert;
 
-	private Geschlecht(final String wert)
+	Geschlecht(final String wert)
 	{
 		this.wert = wert;
 	}

@@ -10,7 +10,7 @@ public enum Ernaehrung
 
 	private final String wert;
 
-	private Ernaehrung(final String wert)
+	Ernaehrung(final String wert)
 	{
 		this.wert = wert;
 	}

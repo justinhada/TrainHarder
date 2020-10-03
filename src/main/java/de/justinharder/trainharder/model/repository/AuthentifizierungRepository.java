@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.model.repository;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public interface AuthentifizierungRepository
 {

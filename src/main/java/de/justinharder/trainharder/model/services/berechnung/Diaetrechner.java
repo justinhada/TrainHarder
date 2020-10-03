@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.model.services.berechnung;
 
-import java.io.Serializable;
-
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @NoArgsConstructor
 public class Diaetrechner implements Serializable

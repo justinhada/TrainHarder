@@ -1,15 +1,14 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.nio.charset.StandardCharsets;
-
+import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
+import java.nio.charset.StandardCharsets;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MailServerSollte
 {
@@ -27,12 +26,12 @@ class MailServerSollte
 	{
 		final var erwartet = "Beim Versenden der Mail ist ein Fehler aufgetreten!";
 
-		final var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(new Mail(
+		var mail = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 			"Betreff",
 			"Inhalt")
-				.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
-			StandardCharsets.UTF_8));
+			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder"));
+		final var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(mail, StandardCharsets.UTF_8));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}

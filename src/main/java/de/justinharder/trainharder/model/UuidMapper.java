@@ -1,9 +1,8 @@
 package de.justinharder.trainharder.model;
 
-import java.util.UUID;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.UUID;
 
 @Converter(autoApply = true)
 public class UuidMapper implements AttributeConverter<UUID, String>

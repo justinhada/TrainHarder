@@ -1,15 +1,13 @@
 package de.justinharder.trainharder.model.services;
 
-import java.nio.charset.StandardCharsets;
-
-import javax.inject.Inject;
-
 import com.google.common.base.Preconditions;
-
 import de.justinharder.trainharder.model.services.mail.Mail;
 import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+
+import javax.inject.Inject;
+import java.nio.charset.StandardCharsets;
 
 public class KontaktService
 {

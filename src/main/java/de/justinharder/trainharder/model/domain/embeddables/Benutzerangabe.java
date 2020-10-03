@@ -1,23 +1,15 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import java.io.Serializable;
+import de.justinharder.trainharder.model.domain.enums.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
-import de.justinharder.trainharder.model.domain.enums.Doping;
-import de.justinharder.trainharder.model.domain.enums.Erfahrung;
-import de.justinharder.trainharder.model.domain.enums.Ernaehrung;
-import de.justinharder.trainharder.model.domain.enums.Geschlecht;
-import de.justinharder.trainharder.model.domain.enums.Kraftlevel;
-import de.justinharder.trainharder.model.domain.enums.Regenerationsfaehigkeit;
-import de.justinharder.trainharder.model.domain.enums.Schlafqualitaet;
-import de.justinharder.trainharder.model.domain.enums.Stress;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import java.io.Serializable;
 
 @Getter
 @ToString

@@ -1,12 +1,11 @@
 package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PasswortCheckSollte
 {
@@ -19,68 +18,21 @@ class PasswortCheckSollte
 	}
 
 	@Test
-	@DisplayName("true zurückgeben, wenn das Passwort zu kurz ist")
+	@DisplayName("ein ungültiges Passwort checken")
 	void test01()
 	{
-		final var erwartet = true;
-
-		final var ergebnis = sut.isUnsicher("zukurz");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(sut.isUnsicher("zukurz")).isTrue(),
+			() -> assertThat(sut.isUnsicher("ICHHABEKEINENKLEINBUCHSTABEN#12")).isTrue(),
+			() -> assertThat(sut.isUnsicher("ichhabekeinengrossbuchstaben#12")).isTrue(),
+			() -> assertThat(sut.isUnsicher("IchhabekeinSonderzeichen=12")).isTrue(),
+			() -> assertThat(sut.isUnsicher("IchhabekeineZahl#")).isTrue());
 	}
 
 	@Test
-	@DisplayName("true zurückgeben, wenn das Passwort keinen Kleinbuchstaben hat")
-	void test02()
-	{
-		final var erwartet = true;
-
-		final var ergebnis = sut.isUnsicher("ICHHABEKEINENKLEINBUCHSTABEN#12");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("true zurückgeben, wenn das Passwort keinen Großbuchstaben hat")
-	void test03()
-	{
-		final var erwartet = true;
-
-		final var ergebnis = sut.isUnsicher("ichhabekeinengrossbuchstaben#12");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("true zurückgeben, wenn das Passwort kein Sonderzeichen hat")
-	void test04()
-	{
-		final var erwartet = true;
-
-		final var ergebnis = sut.isUnsicher("IchhabekeinSonderzeichen=12");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("true zurückgeben, wenn das Passwort keine Zahl hat")
-	void test05()
-	{
-		final var erwartet = true;
-
-		final var ergebnis = sut.isUnsicher("IchhabekeineZahl#");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("false zurückgeben, wenn das Passwort gültig ist")
+	@DisplayName("ein gültiges Passwort checken")
 	void test06()
 	{
-		final var erwartet = false;
-
-		final var ergebnis = sut.isUnsicher("IchBinEinGueltigesPasswort#1234");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.isUnsicher("IchBinEinGueltigesPasswort#1234")).isFalse();
 	}
 }

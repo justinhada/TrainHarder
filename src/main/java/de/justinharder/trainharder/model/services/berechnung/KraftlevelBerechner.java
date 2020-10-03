@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.model.services.berechnung;
 
-import java.util.List;
-
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.Konstanten;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.enums.Geschlecht;
+
+import java.util.List;
 
 public class KraftlevelBerechner
 {

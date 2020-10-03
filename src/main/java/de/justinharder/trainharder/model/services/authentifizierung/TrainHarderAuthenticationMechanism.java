@@ -1,5 +1,7 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
+import lombok.Setter;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.security.enterprise.AuthenticationException;
@@ -11,8 +13,6 @@ import javax.security.enterprise.authentication.mechanism.http.LoginToContinue;
 import javax.security.enterprise.identitystore.IdentityStore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import lombok.Setter;
 
 @Setter
 @AutoApplySession

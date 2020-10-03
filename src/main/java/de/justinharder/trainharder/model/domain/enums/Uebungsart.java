@@ -10,7 +10,7 @@ public enum Uebungsart
 
 	private final String wert;
 
-	private Uebungsart(final String wert)
+	Uebungsart(final String wert)
 	{
 		this.wert = wert;
 	}

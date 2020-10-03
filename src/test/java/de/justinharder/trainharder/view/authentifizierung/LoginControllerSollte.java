@@ -1,21 +1,13 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.Principal;
-import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.UUID;
+import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
+import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
+import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
+import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.Login;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import javax.mvc.Models;
 import javax.mvc.binding.BindingResult;
@@ -25,16 +17,16 @@ import javax.security.enterprise.SecurityContext;
 import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.UUID;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
-import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.Login;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class LoginControllerSollte
 {
@@ -90,7 +82,7 @@ class LoginControllerSollte
 	{
 		doThrow(new AuthentifizierungNichtGefundenException(
 			"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!")).when(loginService)
-				.sendeResetMail(anyString(), any(UUID.class));
+			.sendeResetMail(anyString(), any(UUID.class));
 	}
 
 	private void angenommenDerLoginServiceWirftPasswortUnsicherException(final UUID resetUuid, final String passwort)
@@ -315,8 +307,8 @@ class LoginControllerSollte
 	{
 		final var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
 
-		final var exception =
-			assertThrows(NullPointerException.class, () -> sut.resetPassword(UUID.randomUUID().toString(), null));
+		var uuid = UUID.randomUUID().toString();
+		final var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(uuid, null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}

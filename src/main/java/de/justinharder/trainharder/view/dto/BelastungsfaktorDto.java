@@ -1,11 +1,10 @@
 package de.justinharder.trainharder.view.dto;
 
-import java.io.Serializable;
-
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.io.Serializable;
 
 @Getter
 @ToString

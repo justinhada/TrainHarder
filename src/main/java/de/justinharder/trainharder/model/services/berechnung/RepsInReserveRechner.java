@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.model.services.berechnung;
 
-import java.io.Serializable;
-
 import de.justinharder.trainharder.model.domain.Konstanten;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigeRepsInReserveException;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigesMaximumException;
+
+import java.io.Serializable;
 
 public class RepsInReserveRechner implements Serializable
 {

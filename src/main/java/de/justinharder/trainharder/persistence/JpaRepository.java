@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.persistence;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Supplier;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import de.justinharder.trainharder.model.domain.Entitaet;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @NoArgsConstructor
 @AllArgsConstructor

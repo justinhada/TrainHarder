@@ -2,10 +2,9 @@ package de.justinharder.trainharder.model.domain.embeddables;
 
 import lombok.*;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Getter
 @ToString

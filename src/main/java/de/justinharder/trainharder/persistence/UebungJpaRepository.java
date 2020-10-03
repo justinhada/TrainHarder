@@ -1,17 +1,16 @@
 package de.justinharder.trainharder.persistence;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 public class UebungJpaRepository extends JpaRepository<Uebung> implements UebungRepository

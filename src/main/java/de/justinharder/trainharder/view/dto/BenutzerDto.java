@@ -1,14 +1,14 @@
 package de.justinharder.trainharder.view.dto;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
 
 @Data
 public class BenutzerDto implements Serializable

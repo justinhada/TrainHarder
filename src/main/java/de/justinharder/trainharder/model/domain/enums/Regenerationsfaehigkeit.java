@@ -12,7 +12,7 @@ public enum Regenerationsfaehigkeit
 
 	private final String wert;
 
-	private Regenerationsfaehigkeit(final String wert)
+	Regenerationsfaehigkeit(final String wert)
 	{
 		this.wert = wert;
 	}

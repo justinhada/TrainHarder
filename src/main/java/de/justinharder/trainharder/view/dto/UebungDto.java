@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.view.dto;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 @Data
 public class UebungDto implements Serializable

@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.persistence;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
+import java.util.Optional;
+import java.util.UUID;
 
 @NoArgsConstructor
 public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>

@@ -1,17 +1,15 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import java.io.Serializable;
-import java.util.UUID;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+import de.justinharder.trainharder.model.UuidMapper;
+import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
-
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
-import de.justinharder.trainharder.model.UuidMapper;
-import lombok.Getter;
+import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Embeddable

@@ -11,7 +11,7 @@ public enum Erfahrung
 
 	private final String wert;
 
-	private Erfahrung(final String wert)
+	Erfahrung(final String wert)
 	{
 		this.wert = wert;
 	}

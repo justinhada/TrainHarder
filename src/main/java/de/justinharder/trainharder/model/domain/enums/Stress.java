@@ -10,7 +10,7 @@ public enum Stress
 
 	private final String wert;
 
-	private Stress(final String wert)
+	Stress(final String wert)
 	{
 		this.wert = wert;
 	}

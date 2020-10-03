@@ -1,12 +1,12 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @ToString

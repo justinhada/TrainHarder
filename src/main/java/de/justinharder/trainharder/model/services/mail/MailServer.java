@@ -1,8 +1,6 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.util.List;
+import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
 
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
@@ -11,8 +9,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 public class MailServer
 {

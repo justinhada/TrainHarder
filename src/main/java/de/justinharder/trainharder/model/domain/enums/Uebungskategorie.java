@@ -21,7 +21,7 @@ public enum Uebungskategorie
 
 	private final String wert;
 
-	private Uebungskategorie(final String wert)
+	Uebungskategorie(final String wert)
 	{
 		this.wert = wert;
 	}

@@ -14,7 +14,7 @@ public enum Kraftlevel
 
 	private final String wert;
 
-	private Kraftlevel(final String wert)
+	Kraftlevel(final String wert)
 	{
 		this.wert = wert;
 	}

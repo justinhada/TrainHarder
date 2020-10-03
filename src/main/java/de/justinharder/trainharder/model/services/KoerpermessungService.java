@@ -19,6 +19,7 @@ import java.util.List;
 
 public class KoerpermessungService
 {
+	public static final String ID = "der ID";
 	private final KoerpermessungRepository koerpermessungRepository;
 	private final BenutzerRepository benutzerRepository;
 	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
@@ -48,7 +49,7 @@ public class KoerpermessungService
 
 		return koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(koerpermessungDtoMapper::konvertiere)
-			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException("der ID", id));
+			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
 	}
 
 	public KoerpermessungDto erstelleKoerpermessung(final Koerpermessdaten koerpermessdaten, final String benutzerId)
@@ -59,7 +60,7 @@ public class KoerpermessungService
 		Preconditions.checkNotNull(benutzerId, "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!");
 
 		final var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException("der ID", benutzerId));
+			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
 
 		return koerpermessungDtoMapper.konvertiere(koerpermessungRepository.speichereKoerpermessung(new Koerpermessung(
 			new Primaerschluessel(),
@@ -81,7 +82,7 @@ public class KoerpermessungService
 			"Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!");
 
 		final var koerpermessung = koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException("der ID", id));
+			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
 
 		return koerpermessungDtoMapper.konvertiere(koerpermessungRepository.speichereKoerpermessung(koerpermessung
 			.setDatum(LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE))

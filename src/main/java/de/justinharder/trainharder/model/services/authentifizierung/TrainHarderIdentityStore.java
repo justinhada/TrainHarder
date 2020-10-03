@@ -1,7 +1,8 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import de.justinharder.trainharder.model.domain.exceptions.LoginException;
+import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import lombok.Setter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -9,10 +10,8 @@ import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
-
-import de.justinharder.trainharder.model.domain.exceptions.LoginException;
-import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
-import lombok.Setter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @Setter
 @ApplicationScoped

@@ -1,13 +1,11 @@
 package de.justinharder.trainharder.model.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.MappedSuperclass;
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 @MappedSuperclass
 public abstract class Entitaet implements Serializable

@@ -1,21 +1,20 @@
 package de.justinharder.trainharder.view;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.security.Principal;
-import java.util.function.Supplier;
-
-import javax.mvc.Models;
-import javax.security.enterprise.CallerPrincipal;
-import javax.security.enterprise.SecurityContext;
-
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+
+import javax.mvc.Models;
+import javax.security.enterprise.CallerPrincipal;
+import javax.security.enterprise.SecurityContext;
+import java.security.Principal;
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public abstract class AbstractControllerSollte
 {

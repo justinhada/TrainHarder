@@ -1,12 +1,11 @@
 package de.justinharder.trainharder.model.services.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
-
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BenutzerDtoMapper
 {
