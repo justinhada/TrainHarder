@@ -1,16 +1,19 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@ToString
 public class BenutzerDto implements Serializable
 {
 	private static final long serialVersionUID = 2341943957236551490L;
@@ -161,5 +164,41 @@ public class BenutzerDto implements Serializable
 		return koerpermessungen.stream()
 			.sorted((k1, k2) -> k1.getDatum().compareTo(k2.getDatum()))
 			.collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		BenutzerDto that = (BenutzerDto) o;
+		return primaerschluessel.equals(that.primaerschluessel) &&
+			vorname.equals(that.vorname) &&
+			nachname.equals(that.nachname) &&
+			geburtsdatum.equals(that.geburtsdatum) &&
+			kraftlevel.equals(that.kraftlevel) &&
+			geschlecht.equals(that.geschlecht) &&
+			erfahrung.equals(that.erfahrung) &&
+			ernaehrung.equals(that.ernaehrung) &&
+			schlafqualitaet.equals(that.schlafqualitaet) &&
+			stress.equals(that.stress) &&
+			doping.equals(that.doping) &&
+			regenerationsfaehigkeit.equals(that.regenerationsfaehigkeit) &&
+			authentifizierung.equals(that.authentifizierung) &&
+			koerpermessungen.equals(that.koerpermessungen);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(primaerschluessel, vorname, nachname, geburtsdatum, kraftlevel, geschlecht, erfahrung, ernaehrung,
+				schlafqualitaet, stress, doping, regenerationsfaehigkeit, authentifizierung, koerpermessungen);
 	}
 }

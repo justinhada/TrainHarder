@@ -1,14 +1,17 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 @Embeddable
 public class Koerpermasse implements Serializable
 {
@@ -87,5 +90,32 @@ public class Koerpermasse implements Serializable
 		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
 		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Koerpermasse that = (Koerpermasse) o;
+		return koerpergroesse == that.koerpergroesse &&
+			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
+			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&
+			Double.compare(that.fettfreiesKoerpergewicht, fettfreiesKoerpergewicht) == 0 &&
+			Double.compare(that.bodyMassIndex, bodyMassIndex) == 0 &&
+			Double.compare(that.fatFreeMassIndex, fatFreeMassIndex) == 0;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(koerpergroesse, koerpergewicht, koerperfettAnteil, fettfreiesKoerpergewicht, bodyMassIndex,
+			fatFreeMassIndex);
 	}
 }

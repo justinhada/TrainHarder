@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 public class BelastungsfaktorDto implements Serializable
 {
 	private static final long serialVersionUID = -2050880743329267381L;
@@ -136,5 +135,40 @@ public class BelastungsfaktorDto implements Serializable
 	{
 		this.shoulder = shoulder;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		BelastungsfaktorDto that = (BelastungsfaktorDto) o;
+		return Double.compare(that.squat, squat) == 0 &&
+			Double.compare(that.benchpress, benchpress) == 0 &&
+			Double.compare(that.deadlift, deadlift) == 0 &&
+			Double.compare(that.triceps, triceps) == 0 &&
+			Double.compare(that.chest, chest) == 0 &&
+			Double.compare(that.core, core) == 0 &&
+			Double.compare(that.back, back) == 0 &&
+			Double.compare(that.biceps, biceps) == 0 &&
+			Double.compare(that.glutes, glutes) == 0 &&
+			Double.compare(that.quads, quads) == 0 &&
+			Double.compare(that.hamstrings, hamstrings) == 0 &&
+			Double.compare(that.shoulder, shoulder) == 0 &&
+			primaerschluessel.equals(that.primaerschluessel);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(primaerschluessel, squat, benchpress, deadlift, triceps, chest, core, back, biceps, glutes, quads,
+				hamstrings, shoulder);
 	}
 }

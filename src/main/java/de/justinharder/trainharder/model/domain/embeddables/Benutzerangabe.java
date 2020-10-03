@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
 import de.justinharder.trainharder.model.domain.enums.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,10 +9,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 @Embeddable
 public class Benutzerangabe implements Serializable
 {
@@ -44,8 +43,7 @@ public class Benutzerangabe implements Serializable
 	@Column(name = "Regenerationsfaehigkeit")
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
 
-	public Benutzerangabe()
-	{}
+	public Benutzerangabe() {}
 
 	public Benutzerangabe(
 		final Geschlecht geschlecht,
@@ -111,5 +109,35 @@ public class Benutzerangabe implements Serializable
 	{
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Benutzerangabe that = (Benutzerangabe) o;
+		return kraftlevel == that.kraftlevel &&
+			geschlecht == that.geschlecht &&
+			erfahrung == that.erfahrung &&
+			ernaehrung == that.ernaehrung &&
+			schlafqualitaet == that.schlafqualitaet &&
+			stress == that.stress &&
+			doping == that.doping &&
+			regenerationsfaehigkeit == that.regenerationsfaehigkeit;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
+				regenerationsfaehigkeit);
 	}
 }

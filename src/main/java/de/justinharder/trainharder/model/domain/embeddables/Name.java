@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 @Embeddable
 public class Name implements Serializable
 {
@@ -40,6 +39,25 @@ public class Name implements Serializable
 	{
 		this.nachname = nachname;
 		return this;
+	}
+
+	@Override public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Name name = (Name) o;
+		return vorname.equals(name.vorname) && nachname.equals(name.nachname);
+	}
+
+	@Override public int hashCode()
+	{
+		return Objects.hash(vorname, nachname);
 	}
 }
 

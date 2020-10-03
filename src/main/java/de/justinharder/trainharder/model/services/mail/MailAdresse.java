@@ -1,12 +1,12 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Getter
 @ToString
-@EqualsAndHashCode
 public class MailAdresse
 {
 	private final String adresse;
@@ -21,5 +21,26 @@ public class MailAdresse
 	{
 		this(adresse);
 		this.name = name;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		MailAdresse that = (MailAdresse) o;
+		return adresse.equals(that.adresse) && name.equals(that.name);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(adresse, name);
 	}
 }

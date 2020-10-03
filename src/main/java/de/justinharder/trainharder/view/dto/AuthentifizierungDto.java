@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 public class AuthentifizierungDto implements Serializable
 {
 	private static final long serialVersionUID = -2585152739995047225L;
@@ -43,5 +42,28 @@ public class AuthentifizierungDto implements Serializable
 	{
 		this.benutzername = benutzername;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		AuthentifizierungDto that = (AuthentifizierungDto) o;
+		return primaerschluessel.equals(that.primaerschluessel) &&
+			mail.equals(that.mail) &&
+			benutzername.equals(that.benutzername);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(primaerschluessel, mail, benutzername);
 	}
 }

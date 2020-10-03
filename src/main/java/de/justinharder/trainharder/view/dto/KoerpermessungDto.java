@@ -1,12 +1,15 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-@Data
+@Getter
+@ToString
 public class KoerpermessungDto implements Serializable
 {
 	private static final long serialVersionUID = 46915464001880978L;
@@ -25,8 +28,7 @@ public class KoerpermessungDto implements Serializable
 	private int kalorieneinnahme;
 	private int kalorienverbrauch;
 
-	public KoerpermessungDto()
-	{}
+	public KoerpermessungDto() {}
 
 	public KoerpermessungDto(
 		final String primaerschluessel,
@@ -117,5 +119,37 @@ public class KoerpermessungDto implements Serializable
 	{
 		this.kalorienverbrauch = kalorienverbrauch;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		KoerpermessungDto that = (KoerpermessungDto) o;
+		return koerpergroesse == that.koerpergroesse &&
+			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
+			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&
+			Double.compare(that.fettfreiesKoerpergewicht, fettfreiesKoerpergewicht) == 0 &&
+			Double.compare(that.bodyMassIndex, bodyMassIndex) == 0 &&
+			Double.compare(that.fatFreeMassIndex, fatFreeMassIndex) == 0 &&
+			kalorieneinnahme == that.kalorieneinnahme &&
+			kalorienverbrauch == that.kalorienverbrauch &&
+			primaerschluessel.equals(that.primaerschluessel) &&
+			datum.equals(that.datum);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(primaerschluessel, datum, koerpergroesse, koerpergewicht, koerperfettAnteil, fettfreiesKoerpergewicht,
+				bodyMassIndex, fatFreeMassIndex, kalorieneinnahme, kalorienverbrauch);
 	}
 }

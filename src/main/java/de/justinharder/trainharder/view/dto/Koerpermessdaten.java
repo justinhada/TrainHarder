@@ -1,13 +1,14 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Koerpermessdaten
@@ -25,4 +26,31 @@ public class Koerpermessdaten
 	private int kalorieneinnahme;
 	@FormParam(value = "kalorienverbrauch")
 	private int kalorienverbrauch;
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Koerpermessdaten that = (Koerpermessdaten) o;
+		return koerpergroesse == that.koerpergroesse &&
+			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
+			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&
+			kalorieneinnahme == that.kalorieneinnahme &&
+			kalorienverbrauch == that.kalorienverbrauch &&
+			datum.equals(that.datum);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(datum, koerpergroesse, koerpergewicht, koerperfettAnteil, kalorieneinnahme, kalorienverbrauch);
+	}
 }

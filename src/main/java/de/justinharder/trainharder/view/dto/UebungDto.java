@@ -1,10 +1,13 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-@Data
+@Getter
+@ToString
 public class UebungDto implements Serializable
 {
 	private static final long serialVersionUID = -7055200842034977331L;
@@ -60,5 +63,30 @@ public class UebungDto implements Serializable
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		UebungDto uebungDto = (UebungDto) o;
+		return primaerschluessel.equals(uebungDto.primaerschluessel) &&
+			name.equals(uebungDto.name) &&
+			uebungsart.equals(uebungDto.uebungsart) &&
+			uebungskategorie.equals(uebungDto.uebungskategorie) &&
+			belastungsfaktor.equals(uebungDto.belastungsfaktor);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(primaerschluessel, name, uebungsart, uebungskategorie, belastungsfaktor);
 	}
 }

@@ -1,10 +1,13 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-@Data
+@Getter
+@ToString
 public class KraftwertDto implements Serializable
 {
 	private static final long serialVersionUID = -5177169492291346152L;
@@ -60,5 +63,30 @@ public class KraftwertDto implements Serializable
 	{
 		this.wiederholungen = wiederholungen;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		KraftwertDto that = (KraftwertDto) o;
+		return maximum == that.maximum &&
+			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
+			primaerschluessel.equals(that.primaerschluessel) &&
+			datum.equals(that.datum) &&
+			wiederholungen.equals(that.wiederholungen);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(primaerschluessel, maximum, koerpergewicht, datum, wiederholungen);
 	}
 }

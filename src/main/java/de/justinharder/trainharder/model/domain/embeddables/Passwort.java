@@ -1,16 +1,15 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 @Embeddable
 public class Passwort implements Serializable
 {
@@ -40,5 +39,26 @@ public class Passwort implements Serializable
 	{
 		this.passwortHash = passwortHash;
 		return this;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Passwort passwort = (Passwort) o;
+		return salt.equals(passwort.salt) && passwortHash.equals(passwort.passwortHash);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(salt, passwortHash);
 	}
 }

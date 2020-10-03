@@ -1,13 +1,14 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Benutzerdaten
@@ -35,4 +36,36 @@ public class Benutzerdaten
 	private String doping;
 	@FormParam(value = "regenerationsfaehigkeit")
 	private String regenerationsfaehigkeit;
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Benutzerdaten that = (Benutzerdaten) o;
+		return vorname.equals(that.vorname) &&
+			nachname.equals(that.nachname) &&
+			geburtsdatum.equals(that.geburtsdatum) &&
+			geschlecht.equals(that.geschlecht) &&
+			erfahrung.equals(that.erfahrung) &&
+			ernaehrung.equals(that.ernaehrung) &&
+			schlafqualitaet.equals(that.schlafqualitaet) &&
+			stress.equals(that.stress) &&
+			doping.equals(that.doping) &&
+			regenerationsfaehigkeit.equals(that.regenerationsfaehigkeit);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects
+			.hash(vorname, nachname, geburtsdatum, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
+				regenerationsfaehigkeit);
+	}
 }

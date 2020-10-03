@@ -1,14 +1,15 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Kontaktformular
@@ -27,4 +28,29 @@ public class Kontaktformular
 	private String nachname;
 	@FormParam("nachricht")
 	private String nachricht;
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o)
+		{
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		Kontaktformular that = (Kontaktformular) o;
+		return mail.equals(that.mail) &&
+			benutzername.equals(that.benutzername) &&
+			vorname.equals(that.vorname) &&
+			nachname.equals(that.nachname) &&
+			nachricht.equals(that.nachricht);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(mail, benutzername, vorname, nachname, nachricht);
+	}
 }
