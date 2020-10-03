@@ -1,15 +1,15 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.util.List;
-
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MailSollte
 {
@@ -42,16 +42,12 @@ class MailSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test02()
 	{
-		final var andereMail =
-			new Mail(new MailAdresse("justinharder@t-online.de", "Justin"), "Anderer Betreff", "Anderer Inhalt");
-
-		assertAll(
-			() -> assertThat(sut).isNotNull(),
-			() -> assertThat(sut).isNotEqualTo(andereMail),
-			() -> assertThat(sut.hashCode()).isNotEqualTo(andereMail.hashCode()));
+		EqualsVerifier.forClass(Mail.class)
+			.suppress(Warning.STRICT_INHERITANCE)
+			.suppress(Warning.NULL_FIELDS)
+			.verify();
 	}
 
 	@Test
