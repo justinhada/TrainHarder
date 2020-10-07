@@ -54,6 +54,7 @@ class BenutzerDtoSollte
 			() -> assertThat(sut.getStress()).isEqualTo("MITTELMAESSIG"),
 			() -> assertThat(sut.getDoping()).isEqualTo("NEIN"),
 			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo("GUT"),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
 			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN));
 	}
 
