@@ -180,7 +180,10 @@ public class Testdaten
 			.setGeburtsdatum(LocalDate.of(1998, 12, 6))
 			.setBenutzerangabe(BENUTZERANGABE_JUSTIN)
 			.setAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN)
-			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN);
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_JUSTIN)
+			.fuegeKraftwertHinzu(KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.fuegeKraftwertHinzu(KRAFTWERT_WETTKAMPFBANKDRUECKEN)
+			.fuegeKraftwertHinzu(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 
 		BENUTZER_DTO_JUSTIN
 			.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString())
@@ -268,7 +271,8 @@ public class Testdaten
 			.setName("Wettkampfbankdrücken (pausiert)")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)
+			.fuegeKraftwertHinzu(KRAFTWERT_WETTKAMPFBANKDRUECKEN);
 
 		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(UEBUNG_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
@@ -329,7 +333,8 @@ public class Testdaten
 			.setName("Lowbar-Kniebeuge")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE)
+			.fuegeKraftwertHinzu(KRAFTWERT_LOWBAR_KNIEBEUGE);
 
 		UEBUNG_DTO_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(UEBUNG_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
@@ -390,7 +395,8 @@ public class Testdaten
 			.setName("Konventionelles Kreuzheben")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+			.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN)
+			.fuegeKraftwertHinzu(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 
 		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())

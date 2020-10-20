@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -100,8 +101,8 @@ class BenutzerSollte
 			() -> assertThat(sut.getBenutzerangabe().getRegenerationsfaehigkeit())
 				.isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
-			//() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90.0),
+			() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
 			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 	}
 
@@ -182,14 +183,15 @@ class BenutzerSollte
 	@DisplayName("einen Kraftwert hinzufügen können")
 	void test07()
 	{
-		final var kraftwert = new Kraftwert(
+		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
-			100,
+			100.0,
 			sut.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			sut);
+		sut.fuegeKraftwertHinzu(kraftwert);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);
 	}

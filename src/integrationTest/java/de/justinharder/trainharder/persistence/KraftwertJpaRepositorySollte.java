@@ -115,7 +115,7 @@ public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 
 		assertAll(
 			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getMaximum()).isEqualTo(erwartet.getMaximum()),
+			() -> assertThat(ergebnis.getGewicht()).isEqualTo(erwartet.getGewicht()),
 			() -> assertThat(ergebnis.getKoerpergewicht()).isEqualTo(erwartet.getKoerpergewicht()),
 			() -> assertThat(ergebnis.getDatum()).isEqualTo(erwartet.getDatum()),
 			() -> assertThat(ergebnis.getWiederholungen()).isEqualTo(erwartet.getWiederholungen()),

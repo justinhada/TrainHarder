@@ -69,8 +69,8 @@ class KraftwertDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "KraftwertDto(primaerschluessel=" + primaerschluessel
-			+ ", maximum=100, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";
+		final var erwartet =
+			"KraftwertDto(primaerschluessel=" + primaerschluessel + ", gewicht=100.0, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";
 
 		assertThat(sut).hasToString(erwartet);
 	}

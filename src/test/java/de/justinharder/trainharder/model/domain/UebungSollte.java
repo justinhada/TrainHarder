@@ -115,14 +115,15 @@ class UebungSollte
 	@DisplayName("einen Kraftwert hinzufügen können")
 	void test07()
 	{
-		final var kraftwert = new Kraftwert(
+		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
-			100,
+			100.0,
 			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			sut,
 			Testdaten.BENUTZER_JUSTIN);
+		sut.fuegeKraftwertHinzu(kraftwert);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);
 	}
