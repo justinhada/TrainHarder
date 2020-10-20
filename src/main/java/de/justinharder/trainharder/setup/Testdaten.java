@@ -280,7 +280,7 @@ public class Testdaten
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID)
 			.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN)
-			.setMaximum(100)
+			.setGewicht(100)
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -288,7 +288,7 @@ public class Testdaten
 
 		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
-			.setMaximum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getMaximum())
+			.setGewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht())
 			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().getWert());
@@ -341,7 +341,7 @@ public class Testdaten
 		KRAFTWERT_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID)
 			.setUebung(UEBUNG_LOWBAR_KNIEBEUGE)
-			.setMaximum(150)
+			.setGewicht(150)
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -349,7 +349,7 @@ public class Testdaten
 
 		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
-			.setMaximum(KRAFTWERT_LOWBAR_KNIEBEUGE.getMaximum())
+			.setGewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht())
 			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
 			.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().getWert());
@@ -402,7 +402,7 @@ public class Testdaten
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID)
 			.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN)
-			.setMaximum(200)
+			.setGewicht(200)
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -410,7 +410,7 @@ public class Testdaten
 
 		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
-			.setMaximum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getMaximum())
+			.setGewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht())
 			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().getWert());

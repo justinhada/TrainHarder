@@ -109,7 +109,7 @@ public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	public void kraftwertAktualisieren()
 	{
 		var erwartet = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN
-			.setMaximum(105);
+			.setGewicht(105);
 
 		var ergebnis = sut.speichereKraftwert(erwartet);
 

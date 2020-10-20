@@ -13,7 +13,7 @@ public class KraftwertDto implements Serializable
 	private static final long serialVersionUID = -5177169492291346152L;
 
 	private String primaerschluessel;
-	private int maximum;
+	private double gewicht;
 	private double koerpergewicht;
 	private String datum;
 	private String wiederholungen;
@@ -23,13 +23,13 @@ public class KraftwertDto implements Serializable
 
 	public KraftwertDto(
 		final String primaerschluessel,
-		final int maximum,
+		final double gewicht,
 		final double koerpergewicht,
 		final String datum,
 		final String wiederholungen)
 	{
 		this.primaerschluessel = primaerschluessel;
-		this.maximum = maximum;
+		this.gewicht = gewicht;
 		this.koerpergewicht = koerpergewicht;
 		this.datum = datum;
 		this.wiederholungen = wiederholungen;
@@ -41,9 +41,9 @@ public class KraftwertDto implements Serializable
 		return this;
 	}
 
-	public KraftwertDto setMaximum(final int maximum)
+	public KraftwertDto setGewicht(final double gewicht)
 	{
-		this.maximum = maximum;
+		this.gewicht = gewicht;
 		return this;
 	}
 
@@ -77,7 +77,7 @@ public class KraftwertDto implements Serializable
 			return false;
 		}
 		var that = (KraftwertDto) o;
-		return maximum == that.maximum &&
+		return Double.compare(that.gewicht, gewicht) == 0 &&
 			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
 			primaerschluessel.equals(that.primaerschluessel) &&
 			datum.equals(that.datum) &&
@@ -87,6 +87,6 @@ public class KraftwertDto implements Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, maximum, koerpergewicht, datum, wiederholungen);
+		return Objects.hash(primaerschluessel, gewicht, koerpergewicht, datum, wiederholungen);
 	}
 }

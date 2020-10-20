@@ -49,9 +49,8 @@ class KraftwertSollte
 
 		assertAll(
 			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
-			() -> assertThat(kraftwert.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
+			() -> assertThat(kraftwert.getGewicht()).isEqualTo(100),
+			() -> assertThat(kraftwert.getKoerpergewicht()).isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
@@ -64,9 +63,8 @@ class KraftwertSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID),
-			() -> assertThat(sut.getMaximum()).isEqualTo(100),
-			() -> assertThat(sut.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
+			() -> assertThat(sut.getGewicht()).isEqualTo(100),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(sut.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(sut.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
@@ -80,7 +78,7 @@ class KraftwertSollte
 		final var id = new Primaerschluessel();
 		final var kraftwert = new Kraftwert();
 		kraftwert.setPrimaerschluessel(id);
-		kraftwert.setMaximum(100);
+		kraftwert.setGewicht(100);
 		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht());
 		kraftwert.setDatum(LocalDate.now());
 		kraftwert.setWiederholungen(Wiederholungen.ONE_REP_MAX);
@@ -89,9 +87,8 @@ class KraftwertSollte
 
 		assertAll(
 			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(kraftwert.getMaximum()).isEqualTo(100),
-			() -> assertThat(kraftwert.getKoerpergewicht())
-				.isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
+			() -> assertThat(kraftwert.getGewicht()).isEqualTo(100),
+			() -> assertThat(kraftwert.getKoerpergewicht()).isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(LocalDate.now()),
 			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
 			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),

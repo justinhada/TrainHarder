@@ -17,8 +17,8 @@ public class Kraftwert extends Entitaet
 	@EmbeddedId
 	@Column(name = "ID")
 	private Primaerschluessel primaerschluessel;
-	@Column(name = "Maximum")
-	private int maximum;
+	@Column(name = "Gewicht")
+	private double gewicht;
 	@Column(name = "Koerpergewicht")
 	private double koerpergewicht;
 	@Column(name = "Datum")
@@ -38,7 +38,7 @@ public class Kraftwert extends Entitaet
 
 	public Kraftwert(
 		final Primaerschluessel primaerschluessel,
-		final int maximum,
+		final double gewicht,
 		final double koerpergewicht,
 		final LocalDate datum,
 		final Wiederholungen wiederholungen,
@@ -46,15 +46,12 @@ public class Kraftwert extends Entitaet
 		final Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
-		this.maximum = maximum;
+		this.gewicht = gewicht;
 		this.koerpergewicht = koerpergewicht;
 		this.datum = datum;
 		this.wiederholungen = wiederholungen;
 		this.uebung = uebung;
 		this.benutzer = benutzer;
-
-		uebung.fuegeKraftwertHinzu(this);
-		benutzer.fuegeKraftwertHinzu(this);
 	}
 
 	public Kraftwert setPrimaerschluessel(final Primaerschluessel primaerschluessel)
@@ -63,9 +60,9 @@ public class Kraftwert extends Entitaet
 		return this;
 	}
 
-	public Kraftwert setMaximum(final int maximum)
+	public Kraftwert setGewicht(final double gewicht)
 	{
-		this.maximum = maximum;
+		this.gewicht = gewicht;
 		return this;
 	}
 

@@ -23,7 +23,7 @@ public class KraftwertDtoMapper
 	{
 		return new KraftwertDto(
 			kraftwert.getPrimaerschluessel().getId().toString(),
-			kraftwert.getMaximum(),
+			kraftwert.getGewicht(),
 			kraftwert.getKoerpergewicht(),
 			kraftwert.getDatum().format(DATUMSFORMAT),
 			kraftwert.getWiederholungen().getWert());

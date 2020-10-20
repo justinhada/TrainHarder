@@ -75,7 +75,7 @@ public class KraftwertService
 
 		return kraftwertDtoMapper.konvertiere(kraftwertRepository.speichereKraftwert(new Kraftwert(
 			new Primaerschluessel(),
-			kraftwertDto.getMaximum(),
+			kraftwertDto.getGewicht(),
 			kraftwertDto.getKoerpergewicht(),
 			LocalDate.parse(kraftwertDto.getDatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
 			Wiederholungen.fromString(kraftwertDto.getWiederholungen()),

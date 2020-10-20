@@ -29,7 +29,7 @@ class KraftwertDtoSollte
 	{
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getMaximum()).isEqualTo(100),
+			() -> assertThat(sut.getGewicht()).isEqualTo(100),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(75.0),
 			() -> assertThat(sut.getDatum()).isEqualTo("22.08.2020"),
 			() -> assertThat(sut.getWiederholungen()).isEqualTo("1RM"));
@@ -41,14 +41,14 @@ class KraftwertDtoSollte
 	{
 		sut = new KraftwertDto()
 			.setPrimaerschluessel(primaerschluessel)
-			.setMaximum(100)
+			.setGewicht(100)
 			.setKoerpergewicht(75.0)
 			.setDatum("22.08.2020")
 			.setWiederholungen("1RM");
 
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getMaximum()).isEqualTo(100),
+			() -> assertThat(sut.getGewicht()).isEqualTo(100),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(75.0),
 			() -> assertThat(sut.getDatum()).isEqualTo("22.08.2020"),
 			() -> assertThat(sut.getWiederholungen()).isEqualTo("1RM"));
