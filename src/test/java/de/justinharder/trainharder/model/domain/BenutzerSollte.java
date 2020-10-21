@@ -12,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -102,7 +101,7 @@ class BenutzerSollte
 				.isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
 			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90.0),
-			() -> assertThat(sut.getKoerpermessungen()).isEqualTo(List.of(Testdaten.KOERPERMESSUNG_JUSTIN)),
+			() -> assertThat(sut.getKoerpermessungen()).contains(Testdaten.KOERPERMESSUNG_JUSTIN),
 			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 	}
 
