@@ -28,14 +28,19 @@ class KraftlevelErmittlungSollte
 		sut = new KraftlevelErmittlung();
 	}
 
-	private Benutzer erstelleBenutzer(Geschlecht geschlecht, double kniebeuge, double bankdruecken, double kreuzheben)
+	private Benutzer erstelleBenutzer(
+		double koerpergewicht,
+		Geschlecht geschlecht,
+		double kniebeuge,
+		double bankdruecken,
+		double kreuzheben)
 	{
 		var benutzer = new Benutzer();
 		return benutzer
 			.fuegeKoerpermessungHinzu(new Koerpermessung(
 				new Primaerschluessel(),
 				LocalDate.now(),
-				new Koerpermasse(178, 90, 24),
+				new Koerpermasse(178, koerpergewicht, 24),
 				2500,
 				2900,
 				benutzer))
@@ -75,14 +80,14 @@ class KraftlevelErmittlungSollte
 				benutzer));
 	}
 
-	private Benutzer erstelleMann(double kniebeuge, double bankdruecken, double kreuzheben)
+	private Benutzer erstelleMann(double koerpergewicht, double kniebeuge, double bankdruecken, double kreuzheben)
 	{
-		return erstelleBenutzer(Geschlecht.MAENNLICH, kniebeuge, bankdruecken, kreuzheben);
+		return erstelleBenutzer(koerpergewicht, Geschlecht.MAENNLICH, kniebeuge, bankdruecken, kreuzheben);
 	}
 
-	private Benutzer erstelleFrau(double kniebeuge, double bankdruecken, double kreuzheben)
+	private Benutzer erstelleFrau(double koerpergewicht, double kniebeuge, double bankdruecken, double kreuzheben)
 	{
-		return erstelleBenutzer(Geschlecht.WEIBLICH, kniebeuge, bankdruecken, kreuzheben);
+		return erstelleBenutzer(koerpergewicht, Geschlecht.WEIBLICH, kniebeuge, bankdruecken, kreuzheben);
 	}
 
 	@Test
@@ -90,13 +95,14 @@ class KraftlevelErmittlungSollte
 	void test01()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittle(erstelleMann(110, 95, 140))).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.ermittle(erstelleMann(150, 110, 170))).isEqualTo(Kraftlevel.CLASS_4),
-			() -> assertThat(sut.ermittle(erstelleMann(170, 130, 200))).isEqualTo(Kraftlevel.CLASS_3),
-			() -> assertThat(sut.ermittle(erstelleMann(200, 145, 230))).isEqualTo(Kraftlevel.CLASS_2),
-			() -> assertThat(sut.ermittle(erstelleMann(220, 160, 250))).isEqualTo(Kraftlevel.CLASS_1),
-			() -> assertThat(sut.ermittle(erstelleMann(240, 170, 270))).isEqualTo(Kraftlevel.MASTER),
-			() -> assertThat(sut.ermittle(erstelleMann(260, 185, 290))).isEqualTo(Kraftlevel.ELITE));
+			() -> assertThat(sut.ermittle(erstelleMann(90, 110, 95, 140))).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 150, 110, 170))).isEqualTo(Kraftlevel.CLASS_4),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 170, 130, 200))).isEqualTo(Kraftlevel.CLASS_3),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 200, 145, 230))).isEqualTo(Kraftlevel.CLASS_2),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 220, 160, 250))).isEqualTo(Kraftlevel.CLASS_1),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 240, 170, 270))).isEqualTo(Kraftlevel.MASTER),
+			() -> assertThat(sut.ermittle(erstelleMann(90, 260, 185, 290))).isEqualTo(Kraftlevel.ELITE),
+			() -> assertThat(sut.ermittle(erstelleMann(130, 300, 200, 350))).isEqualTo(Kraftlevel.MASTER));
 	}
 
 	@Test
@@ -104,12 +110,12 @@ class KraftlevelErmittlungSollte
 	void test02()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittle(erstelleFrau(100, 50, 110))).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.ermittle(erstelleFrau(110, 60, 120))).isEqualTo(Kraftlevel.CLASS_4),
-			() -> assertThat(sut.ermittle(erstelleFrau(120, 70, 130))).isEqualTo(Kraftlevel.CLASS_3),
-			() -> assertThat(sut.ermittle(erstelleFrau(140, 90, 150))).isEqualTo(Kraftlevel.CLASS_2),
-			() -> assertThat(sut.ermittle(erstelleFrau(150, 100, 160))).isEqualTo(Kraftlevel.CLASS_1),
-			() -> assertThat(sut.ermittle(erstelleFrau(170, 110, 180))).isEqualTo(Kraftlevel.MASTER),
-			() -> assertThat(sut.ermittle(erstelleFrau(200, 120, 220))).isEqualTo(Kraftlevel.ELITE));
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 100, 50, 110))).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 110, 60, 120))).isEqualTo(Kraftlevel.CLASS_4),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 120, 70, 130))).isEqualTo(Kraftlevel.CLASS_3),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 140, 90, 150))).isEqualTo(Kraftlevel.CLASS_2),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 150, 100, 160))).isEqualTo(Kraftlevel.CLASS_1),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 170, 110, 180))).isEqualTo(Kraftlevel.MASTER),
+			() -> assertThat(sut.ermittle(erstelleFrau(90, 200, 120, 220))).isEqualTo(Kraftlevel.ELITE));
 	}
 }

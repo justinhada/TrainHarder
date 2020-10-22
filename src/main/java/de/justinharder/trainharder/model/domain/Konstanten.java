@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Konstanten
@@ -13,37 +14,149 @@ public class Konstanten
 	public static final int MAX = Integer.MAX_VALUE;
 	public static final int MIN = 0;
 
-	public static final List<List<Integer>> KLASSIFIKATION_FRAUEN = ImmutableList.of(
-		List.of(43, 47, 52, 57, 63, 72, 84, MAX),
-		List.of(275, 310, 334, 359, 382, 407, 440, 479),
-		List.of(264, 297, 318, 342, 363, 386, 417, 453),
-		List.of(241, 270, 288, 308, 326, 346, 373, 403),
-		List.of(229, 254, 270, 288, 304, 322, 346, 374),
-		List.of(204, 224, 236, 250, 264, 278, 297, 318),
-		List.of(178, 193, 202, 214, 222, 232, 246, 263),
-		List.of(156, 166, 172, 180, 185, 192, 202, 212),
-		List.of(MIN, MIN, MIN, MIN, MIN, MIN, MIN, MIN));
+	public static final List<Integer> GEWICHTSKLASSEN_FRAUEN = List.of(43, 47, 52, 57, 63, 72, 84, MAX);
 
-	public static final List<List<Integer>> KLASSIFIKATION_MAENNER = ImmutableList.of(
-		List.of(53, 59, 66, 74, 83, 93, 105, 120, MAX),
-		List.of(456, 520, 567, 616, 666, 715, 765, 819, 877),
-		List.of(432, 493, 538, 585, 633, 680, 729, 779, 835),
-		List.of(385, 441, 482, 525, 569, 613, 656, 704, 755),
-		List.of(356, 410, 449, 489, 531, 572, 614, 658, 706),
-		List.of(304, 352, 387, 423, 460, 497, 534, 574, 617),
-		List.of(251, 294, 325, 357, 390, 422, 455, 490, 528),
-		List.of(205, 242, 269, 297, 326, 355, 383, 414, 448),
-		List.of(MIN, MIN, MIN, MIN, MIN, MIN, MIN, MIN));
+	public static final List<Integer> GEWICHTSKLASSEN_MAENNER = List.of(53, 59, 66, 74, 83, 93, 105, 120, MAX);
 
-	public static final List<Kraftlevel> KRAFTLEVEL_EINTEILUNG = List.of(
-		Kraftlevel.ELITE,
-		Kraftlevel.MASTER,
-		Kraftlevel.CLASS_1,
-		Kraftlevel.CLASS_2,
-		Kraftlevel.CLASS_3,
-		Kraftlevel.CLASS_4,
-		Kraftlevel.CLASS_5,
-		Kraftlevel.CLASS_5);
+	public static final Map<Integer, Map<Integer, Kraftlevel>> TOTALS_FRAUEN = Map.of(
+		GEWICHTSKLASSEN_FRAUEN.get(0), Map.of(
+			156, Kraftlevel.CLASS_5,
+			178, Kraftlevel.CLASS_4,
+			203, Kraftlevel.CLASS_3,
+			228, Kraftlevel.CLASS_2,
+			241, Kraftlevel.CLASS_1,
+			263, Kraftlevel.MASTER,
+			275, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(1), Map.of(
+			166, Kraftlevel.CLASS_5,
+			193, Kraftlevel.CLASS_4,
+			223, Kraftlevel.CLASS_3,
+			253, Kraftlevel.CLASS_2,
+			269, Kraftlevel.CLASS_1,
+			296, Kraftlevel.MASTER,
+			310, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(2), Map.of(
+			172, Kraftlevel.CLASS_5,
+			202, Kraftlevel.CLASS_4,
+			236, Kraftlevel.CLASS_3,
+			269, Kraftlevel.CLASS_2,
+			287, Kraftlevel.CLASS_1,
+			317, Kraftlevel.MASTER,
+			333, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(3), Map.of(
+			179, Kraftlevel.CLASS_5,
+			213, Kraftlevel.CLASS_4,
+			250, Kraftlevel.CLASS_3,
+			287, Kraftlevel.CLASS_2,
+			307, Kraftlevel.CLASS_1,
+			341, Kraftlevel.MASTER,
+			358, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(4), Map.of(
+			185, Kraftlevel.CLASS_5,
+			222, Kraftlevel.CLASS_4,
+			263, Kraftlevel.CLASS_3,
+			303, Kraftlevel.CLASS_2,
+			325, Kraftlevel.CLASS_1,
+			362, Kraftlevel.MASTER,
+			381, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(5), Map.of(
+			192, Kraftlevel.CLASS_5,
+			232, Kraftlevel.CLASS_4,
+			277, Kraftlevel.CLASS_3,
+			321, Kraftlevel.CLASS_2,
+			345, Kraftlevel.CLASS_1,
+			385, Kraftlevel.MASTER,
+			406, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(6), Map.of(
+			202, Kraftlevel.CLASS_5,
+			246, Kraftlevel.CLASS_4,
+			296, Kraftlevel.CLASS_3,
+			345, Kraftlevel.CLASS_2,
+			372, Kraftlevel.CLASS_1,
+			416, Kraftlevel.MASTER,
+			439, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_FRAUEN.get(7), Map.of(
+			212, Kraftlevel.CLASS_5,
+			262, Kraftlevel.CLASS_4,
+			317, Kraftlevel.CLASS_3,
+			373, Kraftlevel.CLASS_2,
+			402, Kraftlevel.CLASS_1,
+			452, Kraftlevel.MASTER,
+			478, Kraftlevel.ELITE));
+
+	public static final Map<Integer, Map<Integer, Kraftlevel>> TOTALS_MAENNER = Map.of(
+		GEWICHTSKLASSEN_MAENNER.get(0), Map.of(
+			204, Kraftlevel.CLASS_5,
+			251, Kraftlevel.CLASS_4,
+			303, Kraftlevel.CLASS_3,
+			355, Kraftlevel.CLASS_2,
+			384, Kraftlevel.CLASS_1,
+			431, Kraftlevel.MASTER,
+			455, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(1), Map.of(
+			241, Kraftlevel.CLASS_5,
+			293, Kraftlevel.CLASS_4,
+			351, Kraftlevel.CLASS_3,
+			409, Kraftlevel.CLASS_2,
+			440, Kraftlevel.CLASS_1,
+			492, Kraftlevel.MASTER,
+			519, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(2), Map.of(
+			268, Kraftlevel.CLASS_5,
+			324, Kraftlevel.CLASS_4,
+			386, Kraftlevel.CLASS_3,
+			448, Kraftlevel.CLASS_2,
+			481, Kraftlevel.CLASS_1,
+			537, Kraftlevel.MASTER,
+			566, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(3), Map.of(
+			296, Kraftlevel.CLASS_5,
+			356, Kraftlevel.CLASS_4,
+			422, Kraftlevel.CLASS_3,
+			488, Kraftlevel.CLASS_2,
+			524, Kraftlevel.CLASS_1,
+			584, Kraftlevel.MASTER,
+			615, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(4), Map.of(
+			325, Kraftlevel.CLASS_5,
+			389, Kraftlevel.CLASS_4,
+			459, Kraftlevel.CLASS_3,
+			530, Kraftlevel.CLASS_2,
+			568, Kraftlevel.CLASS_1,
+			632, Kraftlevel.MASTER,
+			665, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(5), Map.of(
+			354, Kraftlevel.CLASS_5,
+			421, Kraftlevel.CLASS_4,
+			496, Kraftlevel.CLASS_3,
+			571, Kraftlevel.CLASS_2,
+			612, Kraftlevel.CLASS_1,
+			679, Kraftlevel.MASTER,
+			714, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(6), Map.of(
+			382, Kraftlevel.CLASS_5,
+			454, Kraftlevel.CLASS_4,
+			533, Kraftlevel.CLASS_3,
+			613, Kraftlevel.CLASS_2,
+			655, Kraftlevel.CLASS_1,
+			727, Kraftlevel.MASTER,
+			764, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(7), Map.of(
+			413, Kraftlevel.CLASS_5,
+			489, Kraftlevel.CLASS_4,
+			573, Kraftlevel.CLASS_3,
+			657, Kraftlevel.CLASS_2,
+			702, Kraftlevel.CLASS_1,
+			777, Kraftlevel.MASTER,
+			817, Kraftlevel.ELITE),
+		GEWICHTSKLASSEN_MAENNER.get(8), Map.of(
+			447, Kraftlevel.CLASS_5,
+			527, Kraftlevel.CLASS_4,
+			616, Kraftlevel.CLASS_3,
+			705, Kraftlevel.CLASS_2,
+			753, Kraftlevel.CLASS_1,
+			833, Kraftlevel.MASTER,
+			875, Kraftlevel.ELITE));
 
 	// Zeilen entsprechen den RIR (0-4), Spalten den Reps (1-12)
 	public static final List<List<Double>> PROZENTE = ImmutableList.of(
