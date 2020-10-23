@@ -1,13 +1,12 @@
 package de.justinharder.trainharder.model.services.berechnung;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AnpassungsfaktorBerechnerSollte
 {
@@ -23,10 +22,9 @@ class AnpassungsfaktorBerechnerSollte
 	@DisplayName("NullPointerException werfen, wenn Benutzer null ist")
 	void test01()
 	{
-		final var e = assertThrows(NullPointerException.class, () -> sut.berechneAnpassungsfaktor(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.berechneAnpassungsfaktor(null));
 
-		assertThat(e.getMessage())
-			.isEqualTo("Der Benutzer, für den der Anpassungsfaktor berechnet werden soll, existiert nicht!");
+		assertThat(exception.getMessage()).isEqualTo("Benutzer ist null!");
 	}
 
 	@Test

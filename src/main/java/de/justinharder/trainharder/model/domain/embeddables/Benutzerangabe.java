@@ -136,8 +136,7 @@ public class Benutzerangabe implements Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects
-			.hash(kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
-				regenerationsfaehigkeit);
+		return Objects.hash(kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
+			regenerationsfaehigkeit);
 	}
 }

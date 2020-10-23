@@ -6,14 +6,13 @@ import de.justinharder.trainharder.model.domain.enums.*;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class AnpassungsfaktorBerechner
+public class AnpassungsfaktorErmittlung
 {
 	private int anpassungsfaktor;
 
-	public int berechneAnpassungsfaktor(final Benutzer benutzer)
+	public int berechneAnpassungsfaktor(Benutzer benutzer)
 	{
-		Preconditions.checkNotNull(benutzer,
-			"Der Benutzer, für den der Anpassungsfaktor berechnet werden soll, existiert nicht!");
+		Preconditions.checkNotNull(benutzer, "Benutzer ist null!");
 		anpassungsfaktor = 0;
 
 		var geschlecht = Geschlecht.MAENNLICH;
@@ -37,7 +36,7 @@ public class AnpassungsfaktorBerechner
 		return anpassungsfaktor;
 	}
 
-	private void berechneKraftlevelAnpassungsfaktor(final Kraftlevel kraftlevel)
+	private void berechneKraftlevelAnpassungsfaktor(Kraftlevel kraftlevel)
 	{
 		if (kraftlevel.equals(Kraftlevel.CLASS_5) || kraftlevel.equals(Kraftlevel.CLASS_4))
 		{
@@ -55,7 +54,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneRegenerationsfaehigkeitAnpassungsfaktor(final Regenerationsfaehigkeit regenerationsfaehigkeit)
+	private void berechneRegenerationsfaehigkeitAnpassungsfaktor(Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		if (regenerationsfaehigkeit.equals(Regenerationsfaehigkeit.SCHLECHT))
 		{
@@ -78,7 +77,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneDopingAnpassungsfaktor(final Doping doping)
+	private void berechneDopingAnpassungsfaktor(Doping doping)
 	{
 		if (doping.equals(Doping.JA))
 		{
@@ -86,7 +85,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneStressAnpassungsfaktor(final Stress stress)
+	private void berechneStressAnpassungsfaktor(Stress stress)
 	{
 		if (stress.equals(Stress.NIEDRIG))
 		{
@@ -99,7 +98,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneSchlafqualitaetAnpassungsfaktor(final Schlafqualitaet schlafqualitaet)
+	private void berechneSchlafqualitaetAnpassungsfaktor(Schlafqualitaet schlafqualitaet)
 	{
 		if (schlafqualitaet.equals(Schlafqualitaet.SCHLECHT))
 		{
@@ -112,7 +111,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneErnaehrungAnpassungsfaktor(final Ernaehrung ernaehrung)
+	private void berechneErnaehrungAnpassungsfaktor(Ernaehrung ernaehrung)
 	{
 		if (ernaehrung.equals(Ernaehrung.SCHLECHT))
 		{
@@ -125,7 +124,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneLebensalterAnpassungsfaktor(final int lebensalter)
+	private void berechneLebensalterAnpassungsfaktor(int lebensalter)
 	{
 		if (lebensalter < 15)
 		{
@@ -148,7 +147,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneErfahrungAnpassungsfaktor(final Erfahrung erfahrung)
+	private void berechneErfahrungAnpassungsfaktor(Erfahrung erfahrung)
 	{
 		if (erfahrung.equals(Erfahrung.BEGINNER))
 		{
@@ -166,7 +165,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneKoerpergroesseAnpassungsfaktor(final int koerpergroesse, final Geschlecht geschlecht)
+	private void berechneKoerpergroesseAnpassungsfaktor(int koerpergroesse, Geschlecht geschlecht)
 	{
 		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 160 ||
 			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 170)
@@ -193,7 +192,7 @@ public class AnpassungsfaktorBerechner
 		}
 	}
 
-	private void berechneKoerpergewichtAnpassungsfaktor(final double koerpergewicht, final Geschlecht geschlecht)
+	private void berechneKoerpergewichtAnpassungsfaktor(double koerpergewicht, Geschlecht geschlecht)
 	{
 		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 57 ||
 			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 74)
