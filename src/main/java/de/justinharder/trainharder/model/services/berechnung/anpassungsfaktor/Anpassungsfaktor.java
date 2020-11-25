@@ -1,12 +1,14 @@
 package de.justinharder.trainharder.model.services.berechnung.anpassungsfaktor;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class Anpassungsfaktor
 {
 	private int alter = 0;
@@ -20,8 +22,6 @@ public class Anpassungsfaktor
 	private int stress = 0;
 	private int doping = 0;
 	private int regenerationsfaehigkeit = 0;
-
-	public Anpassungsfaktor() {}
 
 	public int werteAus()
 	{

@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechnung;
+package de.justinharder.trainharder.model.services.berechnung.anpassungsfaktor;
 
 import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Benutzer;
@@ -8,214 +8,215 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnpassungsfaktorErmittlung
 {
-	private int anpassungsfaktor;
-
-	public int berechneAnpassungsfaktor(Benutzer benutzer)
+	public Anpassungsfaktor berechneAnpassungsfaktor(Benutzer benutzer)
 	{
 		Preconditions.checkNotNull(benutzer, "Benutzer ist null!");
-		anpassungsfaktor = 0;
 
-		var geschlecht = Geschlecht.MAENNLICH;
-		if (benutzer.getBenutzerangabe().getGeschlecht().equals(Geschlecht.WEIBLICH))
-		{
-			geschlecht = Geschlecht.WEIBLICH;
-			anpassungsfaktor += 5;
-		}
+		var benutzerangabe = benutzer.getBenutzerangabe();
+		var geschlecht = benutzerangabe.getGeschlecht();
 
-		berechneKoerpergewichtAnpassungsfaktor(benutzer.getKoerpergewicht(), geschlecht);
-		berechneKoerpergroesseAnpassungsfaktor(benutzer.getKoerpergroesse(), geschlecht);
-		berechneErfahrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErfahrung());
-		berechneLebensalterAnpassungsfaktor(benutzer.getAlter());
-		berechneErnaehrungAnpassungsfaktor(benutzer.getBenutzerangabe().getErnaehrung());
-		berechneSchlafqualitaetAnpassungsfaktor(benutzer.getBenutzerangabe().getSchlafqualitaet());
-		berechneStressAnpassungsfaktor(benutzer.getBenutzerangabe().getStress());
-		berechneDopingAnpassungsfaktor(benutzer.getBenutzerangabe().getDoping());
-		berechneRegenerationsfaehigkeitAnpassungsfaktor(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit());
-		berechneKraftlevelAnpassungsfaktor(benutzer.getBenutzerangabe().getKraftlevel());
-
-		return anpassungsfaktor;
+		return new Anpassungsfaktor()
+			.mitAlter(alter(benutzer.getAlter()))
+			.mitKoerpergewicht(koerpergewicht(benutzer.getKoerpergewicht(), geschlecht))
+			.mitKoerpergroesse(koerpergroesse(benutzer.getKoerpergroesse(), geschlecht))
+			.mitKraftlevel(kraftlevel(benutzerangabe.getKraftlevel()))
+			.mitGeschlecht(geschlecht(geschlecht))
+			.mitErfahrung(erfahrung(benutzerangabe.getErfahrung()))
+			.mitErnaehrung(ernaehrung(benutzerangabe.getErnaehrung()))
+			.mitSchlafqualitaet(schlafqualitaet(benutzerangabe.getSchlafqualitaet()))
+			.mitStress(stress(benutzerangabe.getStress()))
+			.mitDoping(doping(benutzerangabe.getDoping()))
+			.mitRegenerationsfaehigkeit(regenerationsfaehigkeit(benutzerangabe.getRegenerationsfaehigkeit()));
 	}
 
-	private void berechneKraftlevelAnpassungsfaktor(Kraftlevel kraftlevel)
+	private int geschlecht(Geschlecht geschlecht)
+	{
+		return geschlecht.equals(Geschlecht.WEIBLICH) ? 5 : 0;
+	}
+
+	private int kraftlevel(Kraftlevel kraftlevel)
 	{
 		if (kraftlevel.equals(Kraftlevel.CLASS_5) || kraftlevel.equals(Kraftlevel.CLASS_4))
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
 
 		if (kraftlevel.equals(Kraftlevel.CLASS_1))
 		{
-			anpassungsfaktor -= 1;
+			return -1;
 		}
 
 		if (kraftlevel.equals(Kraftlevel.MASTER) || kraftlevel.equals(Kraftlevel.ELITE))
 		{
-			anpassungsfaktor -= 3;
+			return -3;
 		}
+
+		return 0;
 	}
 
-	private void berechneRegenerationsfaehigkeitAnpassungsfaktor(Regenerationsfaehigkeit regenerationsfaehigkeit)
+	private int regenerationsfaehigkeit(Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		if (regenerationsfaehigkeit.equals(Regenerationsfaehigkeit.SCHLECHT))
 		{
-			anpassungsfaktor -= 2;
+			return -2;
 		}
 
 		if (regenerationsfaehigkeit.equals(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH))
 		{
-			anpassungsfaktor -= 1;
+			return -1;
 		}
 
 		if (regenerationsfaehigkeit.equals(Regenerationsfaehigkeit.GUT))
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
 
 		if (regenerationsfaehigkeit.equals(Regenerationsfaehigkeit.PERFEKT))
 		{
-			anpassungsfaktor += 2;
+			return 2;
 		}
+
+		return 0;
 	}
 
-	private void berechneDopingAnpassungsfaktor(Doping doping)
+	private int doping(Doping doping)
 	{
-		if (doping.equals(Doping.JA))
-		{
-			anpassungsfaktor += 3;
-		}
+		return doping.equals(Doping.JA) ? 3 : 0;
 	}
 
-	private void berechneStressAnpassungsfaktor(Stress stress)
+	private int stress(Stress stress)
 	{
 		if (stress.equals(Stress.NIEDRIG))
 		{
-			anpassungsfaktor += 1;
+			return +1;
 		}
 
 		if (stress.equals(Stress.HOCH))
 		{
-			anpassungsfaktor -= 3;
+			return -3;
 		}
+
+		return 0;
 	}
 
-	private void berechneSchlafqualitaetAnpassungsfaktor(Schlafqualitaet schlafqualitaet)
+	private int schlafqualitaet(Schlafqualitaet schlafqualitaet)
 	{
 		if (schlafqualitaet.equals(Schlafqualitaet.SCHLECHT))
 		{
-			anpassungsfaktor -= 3;
+			return -3;
 		}
 
 		if (schlafqualitaet.equals(Schlafqualitaet.GUT))
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
+
+		return 0;
 	}
 
-	private void berechneErnaehrungAnpassungsfaktor(Ernaehrung ernaehrung)
+	private int ernaehrung(Ernaehrung ernaehrung)
 	{
 		if (ernaehrung.equals(Ernaehrung.SCHLECHT))
 		{
-			anpassungsfaktor -= 3;
+			return -3;
 		}
 
 		if (ernaehrung.equals(Ernaehrung.GUT))
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
+
+		return 0;
 	}
 
-	private void berechneLebensalterAnpassungsfaktor(int lebensalter)
+	private int alter(int lebensalter)
 	{
 		if (lebensalter < 15)
 		{
-			anpassungsfaktor += 2;
+			return 2;
 		}
 
-		if (lebensalter >= 15 && lebensalter < 25)
+		if (lebensalter < 25)
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
 
-		if (lebensalter >= 35 && lebensalter < 45)
+		if (lebensalter < 35)
 		{
-			anpassungsfaktor -= 2;
+			return 0;
 		}
 
-		if (lebensalter >= 45)
+		if (lebensalter < 45)
 		{
-			anpassungsfaktor -= 4;
+			return -2;
 		}
+
+		return -4;
 	}
 
-	private void berechneErfahrungAnpassungsfaktor(Erfahrung erfahrung)
+	private int erfahrung(Erfahrung erfahrung)
 	{
 		if (erfahrung.equals(Erfahrung.BEGINNER))
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
 
 		if (erfahrung.equals(Erfahrung.SEHR_FORTGESCHRITTEN))
 		{
-			anpassungsfaktor -= 1;
+			return -1;
 		}
 
 		if (erfahrung.equals(Erfahrung.EXPERTE))
 		{
-			anpassungsfaktor -= 3;
+			return -3;
 		}
+
+		return 0;
 	}
 
-	private void berechneKoerpergroesseAnpassungsfaktor(int koerpergroesse, Geschlecht geschlecht)
+	private int koerpergroesse(int koerpergroesse, Geschlecht geschlecht)
 	{
 		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 160 ||
 			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 170)
 		{
-			anpassungsfaktor += 2;
+			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse >= 160 && koerpergroesse < 167 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse >= 170 && koerpergroesse < 183)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 167 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 183)
 		{
-			anpassungsfaktor += 1;
+			return 1;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse >= 167 && koerpergroesse < 175 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse >= 183 && koerpergroesse < 195)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 175 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 195)
 		{
-			anpassungsfaktor -= 1;
+			return -1;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse >= 175 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse >= 195)
-		{
-			anpassungsfaktor -= 2;
-		}
+		return -2;
 	}
 
-	private void berechneKoerpergewichtAnpassungsfaktor(double koerpergewicht, Geschlecht geschlecht)
+	private int koerpergewicht(double koerpergewicht, Geschlecht geschlecht)
 	{
 		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 57 ||
 			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 74)
 		{
-			anpassungsfaktor += 4;
+			return 4;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht >= 57 && koerpergewicht < 74 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht >= 74 && koerpergewicht < 105)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 74 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 105)
 		{
-			anpassungsfaktor += 2;
+			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht >= 74 && koerpergewicht < 84 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht >= 105 && koerpergewicht < 120)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 84 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 120)
 		{
-			anpassungsfaktor -= 2;
+			return -2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht >= 84 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht >= 120)
-		{
-			anpassungsfaktor -= 4;
-		}
+		return -4;
 	}
 }
