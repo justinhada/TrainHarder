@@ -3,16 +3,14 @@ package de.justinharder.trainharder.view.dto;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @ToString
-public class BelastungsfaktorDto implements Serializable
+public class BelastungsfaktorDto extends Dto
 {
 	private static final long serialVersionUID = -2050880743329267381L;
 
-	private String primaerschluessel;
 	private double squat;
 	private double benchpress;
 	private double deadlift;
@@ -30,21 +28,21 @@ public class BelastungsfaktorDto implements Serializable
 	{}
 
 	public BelastungsfaktorDto(
-		final String primaerschluessel,
-		final double squat,
-		final double benchpress,
-		final double deadlift,
-		final double triceps,
-		final double chest,
-		final double core,
-		final double back,
-		final double biceps,
-		final double glutes,
-		final double quads,
-		final double hamstrings,
-		final double shoulder)
+		String primaerschluessel,
+		double squat,
+		double benchpress,
+		double deadlift,
+		double triceps,
+		double chest,
+		double core,
+		double back,
+		double biceps,
+		double glutes,
+		double quads,
+		double hamstrings,
+		double shoulder)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(primaerschluessel);
 		this.squat = squat;
 		this.benchpress = benchpress;
 		this.deadlift = deadlift;
@@ -59,79 +57,73 @@ public class BelastungsfaktorDto implements Serializable
 		this.shoulder = shoulder;
 	}
 
-	public BelastungsfaktorDto setPrimaerschluessel(final String primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public BelastungsfaktorDto setSquat(final double squat)
+	public BelastungsfaktorDto setSquat(double squat)
 	{
 		this.squat = squat;
 		return this;
 	}
 
-	public BelastungsfaktorDto setBenchpress(final double benchpress)
+	public BelastungsfaktorDto setBenchpress(double benchpress)
 	{
 		this.benchpress = benchpress;
 		return this;
 	}
 
-	public BelastungsfaktorDto setDeadlift(final double deadlift)
+	public BelastungsfaktorDto setDeadlift(double deadlift)
 	{
 		this.deadlift = deadlift;
 		return this;
 	}
 
-	public BelastungsfaktorDto setTriceps(final double triceps)
+	public BelastungsfaktorDto setTriceps(double triceps)
 	{
 		this.triceps = triceps;
 		return this;
 	}
 
-	public BelastungsfaktorDto setChest(final double chest)
+	public BelastungsfaktorDto setChest(double chest)
 	{
 		this.chest = chest;
 		return this;
 	}
 
-	public BelastungsfaktorDto setCore(final double core)
+	public BelastungsfaktorDto setCore(double core)
 	{
 		this.core = core;
 		return this;
 	}
 
-	public BelastungsfaktorDto setBack(final double back)
+	public BelastungsfaktorDto setBack(double back)
 	{
 		this.back = back;
 		return this;
 	}
 
-	public BelastungsfaktorDto setBiceps(final double biceps)
+	public BelastungsfaktorDto setBiceps(double biceps)
 	{
 		this.biceps = biceps;
 		return this;
 	}
 
-	public BelastungsfaktorDto setGlutes(final double glutes)
+	public BelastungsfaktorDto setGlutes(double glutes)
 	{
 		this.glutes = glutes;
 		return this;
 	}
 
-	public BelastungsfaktorDto setQuads(final double quads)
+	public BelastungsfaktorDto setQuads(double quads)
 	{
 		this.quads = quads;
 		return this;
 	}
 
-	public BelastungsfaktorDto setHamstrings(final double hamstrings)
+	public BelastungsfaktorDto setHamstrings(double hamstrings)
 	{
 		this.hamstrings = hamstrings;
 		return this;
 	}
 
-	public BelastungsfaktorDto setShoulder(final double shoulder)
+	public BelastungsfaktorDto setShoulder(double shoulder)
 	{
 		this.shoulder = shoulder;
 		return this;
@@ -167,8 +159,7 @@ public class BelastungsfaktorDto implements Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects
-			.hash(primaerschluessel, squat, benchpress, deadlift, triceps, chest, core, back, biceps, glutes, quads,
-				hamstrings, shoulder);
+		return Objects.hash(primaerschluessel, squat, benchpress, deadlift, triceps, chest, core, back, biceps, glutes,
+			quads, hamstrings, shoulder);
 	}
 }

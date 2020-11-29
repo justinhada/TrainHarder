@@ -3,42 +3,34 @@ package de.justinharder.trainharder.view.dto;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @ToString
-public class AuthentifizierungDto implements Serializable
+public class AuthentifizierungDto extends Dto
 {
 	private static final long serialVersionUID = -2585152739995047225L;
 
-	private String primaerschluessel;
 	private String mail;
 	private String benutzername;
 
 	public AuthentifizierungDto()
 	{}
 
-	public AuthentifizierungDto(final String primaerschluessel, final String mail, final String benutzername)
+	public AuthentifizierungDto(String primaerschluessel, String mail, String benutzername)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(primaerschluessel);
 		this.mail = mail;
 		this.benutzername = benutzername;
 	}
 
-	public AuthentifizierungDto setPrimaerschluessel(final String primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public AuthentifizierungDto setMail(final String mail)
+	public AuthentifizierungDto setMail(String mail)
 	{
 		this.mail = mail;
 		return this;
 	}
 
-	public AuthentifizierungDto setBenutzername(final String benutzername)
+	public AuthentifizierungDto setBenutzername(String benutzername)
 	{
 		this.benutzername = benutzername;
 		return this;

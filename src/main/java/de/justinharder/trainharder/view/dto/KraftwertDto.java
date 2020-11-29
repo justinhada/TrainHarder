@@ -3,16 +3,14 @@ package de.justinharder.trainharder.view.dto;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @ToString
-public class KraftwertDto implements Serializable
+public class KraftwertDto extends Dto
 {
 	private static final long serialVersionUID = -5177169492291346152L;
 
-	private String primaerschluessel;
 	private double gewicht;
 	private double koerpergewicht;
 	private String datum;
@@ -22,44 +20,38 @@ public class KraftwertDto implements Serializable
 	{}
 
 	public KraftwertDto(
-		final String primaerschluessel,
-		final double gewicht,
-		final double koerpergewicht,
-		final String datum,
-		final String wiederholungen)
+		String primaerschluessel,
+		double gewicht,
+		double koerpergewicht,
+		String datum,
+		String wiederholungen)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(primaerschluessel);
 		this.gewicht = gewicht;
 		this.koerpergewicht = koerpergewicht;
 		this.datum = datum;
 		this.wiederholungen = wiederholungen;
 	}
 
-	public KraftwertDto setPrimaerschluessel(final String primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public KraftwertDto setGewicht(final double gewicht)
+	public KraftwertDto setGewicht(double gewicht)
 	{
 		this.gewicht = gewicht;
 		return this;
 	}
 
-	public KraftwertDto setKoerpergewicht(final double koerpergewicht)
+	public KraftwertDto setKoerpergewicht(double koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
 		return this;
 	}
 
-	public KraftwertDto setDatum(final String datum)
+	public KraftwertDto setDatum(String datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public KraftwertDto setWiederholungen(final String wiederholungen)
+	public KraftwertDto setWiederholungen(String wiederholungen)
 	{
 		this.wiederholungen = wiederholungen;
 		return this;

@@ -3,16 +3,14 @@ package de.justinharder.trainharder.view.dto;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @ToString
-public class UebungDto implements Serializable
+public class UebungDto extends Dto
 {
 	private static final long serialVersionUID = -7055200842034977331L;
 
-	private String primaerschluessel;
 	private String name;
 	private String uebungsart;
 	private String uebungskategorie;
@@ -22,44 +20,38 @@ public class UebungDto implements Serializable
 	{}
 
 	public UebungDto(
-		final String primaerschluessel,
-		final String name,
-		final String uebungsart,
-		final String uebungskategorie,
-		final BelastungsfaktorDto belastungsfaktor)
+		String primaerschluessel,
+		String name,
+		String uebungsart,
+		String uebungskategorie,
+		BelastungsfaktorDto belastungsfaktor)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(primaerschluessel);
 		this.name = name;
 		this.uebungsart = uebungsart;
 		this.uebungskategorie = uebungskategorie;
 		this.belastungsfaktor = belastungsfaktor;
 	}
 
-	public UebungDto setPrimaerschluessel(final String primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public UebungDto setName(final String name)
+	public UebungDto setName(String name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public UebungDto setUebungsart(final String uebungsart)
+	public UebungDto setUebungsart(String uebungsart)
 	{
 		this.uebungsart = uebungsart;
 		return this;
 	}
 
-	public UebungDto setUebungskategorie(final String uebungskategorie)
+	public UebungDto setUebungskategorie(String uebungskategorie)
 	{
 		this.uebungskategorie = uebungskategorie;
 		return this;
 	}
 
-	public UebungDto setBelastungsfaktor(final BelastungsfaktorDto belastungsfaktor)
+	public UebungDto setBelastungsfaktor(BelastungsfaktorDto belastungsfaktor)
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;
