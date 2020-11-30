@@ -1,31 +1,33 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UebungsartSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Uebungsart.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Übungsart existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Uebungsart.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("die Uebungsart aus dem String zurückgeben")
+	@DisplayName("die Uebungsart zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Uebungsart.GRUNDUEBUNG;
-
-		final var ergebnis = Uebungsart.fromString("GRUNDUEBUNG");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Uebungsart.zuWert("GRUNDUEBUNG")).isEqualTo(Uebungsart.GRUNDUEBUNG),
+			() -> assertThat(Uebungsart.zuWert("GRUNDUEBUNG_VARIATION")).isEqualTo(Uebungsart.GRUNDUEBUNG_VARIATION),
+			() -> assertThat(Uebungsart.zuWert("ASSISTENZ")).isEqualTo(Uebungsart.ASSISTENZ));
 	}
 }

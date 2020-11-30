@@ -1,12 +1,18 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Uebungskategorie
 {
 	ASSISTENZ_BRUST("ASSISTENZ_BRUST"),
-	ASSISTENZ_CORE("ASSITENZ_CORE"),
-	ASSISTENZ_GLUTEUS("ASSITENZ_GLUTEUS"),
+	ASSISTENZ_CORE("ASSISTENZ_CORE"),
+	ASSISTENZ_GLUTEUS("ASSISTENZ_GLUTEUS"),
 	ASSISTENZ_RUECKEN("ASSISTENZ_RUECKEN"),
 	ASSISTENZ_SCHULTER("ASSISTENZ_SCHULTER"),
 	ASSISTENZ_TRIZEPS("ASSISTENZ_TRIZEPS"),
@@ -21,17 +27,9 @@ public enum Uebungskategorie
 
 	private final String wert;
 
-	Uebungskategorie(final String wert)
+	public static Uebungskategorie zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Uebungskategorie fromString(final String wert)
-	{
-		return Stream.of(Uebungskategorie.values())
-			.filter(u -> u.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Übungskategorie existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Uebungsart
 {
 	GRUNDUEBUNG("GRUNDUEBUNG"),
@@ -10,17 +16,9 @@ public enum Uebungsart
 
 	private final String wert;
 
-	Uebungsart(final String wert)
+	public static Uebungsart zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Uebungsart fromString(final String wert)
-	{
-		return Stream.of(Uebungsart.values())
-			.filter(u -> u.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Übungsart existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

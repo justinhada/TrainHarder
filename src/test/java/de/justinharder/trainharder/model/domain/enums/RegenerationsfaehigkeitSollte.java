@@ -1,33 +1,37 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RegenerationsfaehigkeitSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class,
-				() -> Regenerationsfaehigkeit.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage())
-			.isEqualTo("Der Wert \"UNGUELTIG\" für Regenerationsfähigkeit existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Regenerationsfaehigkeit.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("die Regenerationsfaehigkeit aus dem String zurückgeben")
+	@DisplayName("die Regenerationsfaehigkeit zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Regenerationsfaehigkeit.PERFEKT;
-
-		final var ergebnis = Regenerationsfaehigkeit.fromString("PERFEKT");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("SCHLECHT")).isEqualTo(Regenerationsfaehigkeit.SCHLECHT),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("UNTERDURCHSCHNITTLICH"))
+				.isEqualTo(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("DURCHSCHNITTLICH"))
+				.isEqualTo(Regenerationsfaehigkeit.DURCHSCHNITTLICH),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("GUT")).isEqualTo(Regenerationsfaehigkeit.GUT),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("PERFEKT")).isEqualTo(Regenerationsfaehigkeit.PERFEKT));
 	}
 }

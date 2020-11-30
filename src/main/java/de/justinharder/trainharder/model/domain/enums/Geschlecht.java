@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Geschlecht
 {
 	MAENNLICH("MAENNLICH"),
@@ -9,17 +15,9 @@ public enum Geschlecht
 
 	private final String wert;
 
-	Geschlecht(final String wert)
+	public static Geschlecht zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Geschlecht fromString(final String wert)
-	{
-		return Stream.of(Geschlecht.values())
-			.filter(g -> g.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Geschlecht existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

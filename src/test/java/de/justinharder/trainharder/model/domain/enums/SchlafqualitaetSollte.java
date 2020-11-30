@@ -1,31 +1,33 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SchlafqualitaetSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Schlafqualitaet.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Schlafqualität existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Schlafqualitaet.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("die Schlafqualitaet aus dem String zurückgeben")
+	@DisplayName("die Schlafqualitaet zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Schlafqualitaet.DURCHSCHNITT;
-
-		final var ergebnis = Schlafqualitaet.fromString("DURCHSCHNITT");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Schlafqualitaet.zuWert("SCHLECHT")).isEqualTo(Schlafqualitaet.SCHLECHT),
+			() -> assertThat(Schlafqualitaet.zuWert("DURCHSCHNITT")).isEqualTo(Schlafqualitaet.DURCHSCHNITT),
+			() -> assertThat(Schlafqualitaet.zuWert("GUT")).isEqualTo(Schlafqualitaet.GUT));
 	}
 }

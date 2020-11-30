@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Schlafqualitaet
 {
 	SCHLECHT("SCHLECHT"),
@@ -10,17 +16,9 @@ public enum Schlafqualitaet
 
 	private final String wert;
 
-	Schlafqualitaet(final String wert)
+	public static Schlafqualitaet zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Schlafqualitaet fromString(final String wert)
-	{
-		return Stream.of(Schlafqualitaet.values())
-			.filter(s -> s.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Schlafqualität existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

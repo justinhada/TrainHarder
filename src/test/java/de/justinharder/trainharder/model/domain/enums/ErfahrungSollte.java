@@ -1,31 +1,34 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ErfahrungSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Erfahrung.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Erfahrung existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Erfahrung.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("die Erfahrung aus dem String zurückgeben")
+	@DisplayName("die Erfahrung zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Erfahrung.EXPERTE;
-
-		final var ergebnis = Erfahrung.fromString("EXPERTE");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Erfahrung.zuWert("BEGINNER")).isEqualTo(Erfahrung.BEGINNER),
+			() -> assertThat(Erfahrung.zuWert("FORTGESCHRITTEN")).isEqualTo(Erfahrung.FORTGESCHRITTEN),
+			() -> assertThat(Erfahrung.zuWert("SEHR_FORTGESCHRITTEN")).isEqualTo(Erfahrung.SEHR_FORTGESCHRITTEN),
+			() -> assertThat(Erfahrung.zuWert("EXPERTE")).isEqualTo(Erfahrung.EXPERTE));
 	}
 }

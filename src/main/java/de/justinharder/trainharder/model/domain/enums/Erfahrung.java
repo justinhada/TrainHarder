@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Erfahrung
 {
 	BEGINNER("BEGINNER"), // < 4 Jahre
@@ -11,17 +17,9 @@ public enum Erfahrung
 
 	private final String wert;
 
-	Erfahrung(final String wert)
+	public static Erfahrung zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Erfahrung fromString(final String wert)
-	{
-		return Stream.of(Erfahrung.values())
-			.filter(e -> e.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Erfahrung existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

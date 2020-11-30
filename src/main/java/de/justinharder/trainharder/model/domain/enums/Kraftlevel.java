@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Kraftlevel
 {
 	CLASS_5("CLASS_5"),
@@ -14,19 +20,10 @@ public enum Kraftlevel
 
 	private final String wert;
 
-	Kraftlevel(final String wert)
+	public static Kraftlevel zuWert(String wert)
 	{
-		this.wert = wert;
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
-
-	public static Kraftlevel fromString(final String wert)
-	{
-		return Stream.of(Kraftlevel.values())
-			.filter(k -> k.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Kraftlevel existiert nicht!"));
-	}
-
 
 }

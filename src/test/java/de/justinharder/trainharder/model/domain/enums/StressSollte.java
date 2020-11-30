@@ -1,31 +1,33 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StressSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Stress.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Stress existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Stress.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("den Stress aus dem String zurückgeben")
+	@DisplayName("den Stress zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Stress.MITTELMAESSIG;
-
-		final var ergebnis = Stress.fromString("MITTELMAESSIG");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Stress.zuWert("NIEDRIG")).isEqualTo(Stress.NIEDRIG),
+			() -> assertThat(Stress.zuWert("MITTELMAESSIG")).isEqualTo(Stress.MITTELMAESSIG),
+			() -> assertThat(Stress.zuWert("HOCH")).isEqualTo(Stress.HOCH));
 	}
 }

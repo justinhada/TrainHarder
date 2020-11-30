@@ -1,10 +1,15 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Wiederholungen
 {
 	ONE_REP_MAX("1RM"),
@@ -15,17 +20,9 @@ public enum Wiederholungen
 
 	private final String wert;
 
-	Wiederholungen(final String wert)
+	public static Wiederholungen zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Wiederholungen fromString(final String wert)
-	{
-		return Stream.of(Wiederholungen.values())
-			.filter(w -> w.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Wiederholungen existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

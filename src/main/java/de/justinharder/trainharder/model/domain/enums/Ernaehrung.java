@@ -1,7 +1,13 @@
 package de.justinharder.trainharder.model.domain.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Ernaehrung
 {
 	SCHLECHT("SCHLECHT"),
@@ -10,17 +16,9 @@ public enum Ernaehrung
 
 	private final String wert;
 
-	Ernaehrung(final String wert)
+	public static Ernaehrung zuWert(String wert)
 	{
-		this.wert = wert;
-	}
-
-	public static Ernaehrung fromString(final String wert)
-	{
-		return Stream.of(Ernaehrung.values())
-			.filter(e -> e.wert.equalsIgnoreCase(wert))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException(
-				"Der Wert \"" + wert + "\" für Ernährung existiert nicht!"));
+		return Enums.zuWert(Stream.of(values())
+			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);
 	}
 }

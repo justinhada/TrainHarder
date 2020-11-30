@@ -1,31 +1,32 @@
 package de.justinharder.trainharder.model.domain.enums;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import de.justinharder.trainharder.model.domain.exceptions.EnumException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GeschlechtSollte
 {
 	@Test
-	@DisplayName("IllegalArgumentException werfen, wenn der String nicht existiert")
+	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		final var exception =
-			assertThrows(IllegalArgumentException.class, () -> Geschlecht.fromString("UNGUELTIG"));
+		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
 
-		assertThat(exception.getMessage()).isEqualTo("Der Wert \"UNGUELTIG\" für Geschlecht existiert nicht!");
+		var exception = assertThrows(EnumException.class, () -> Geschlecht.zuWert("UNGUELTIG"));
+
+		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
-	@DisplayName("das Geschlecht aus dem String zurückgeben")
+	@DisplayName("das Geschlecht zu Wert ermitteln")
 	void test02()
 	{
-		final var erwartet = Geschlecht.MAENNLICH;
-
-		final var ergebnis = Geschlecht.fromString("MAENNLICH");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(Geschlecht.zuWert("MAENNLICH")).isEqualTo(Geschlecht.MAENNLICH),
+			() -> assertThat(Geschlecht.zuWert("WEIBLICH")).isEqualTo(Geschlecht.WEIBLICH));
 	}
 }
