@@ -51,7 +51,7 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 				assertThat(ergebnis).hasValue(erwartet);
 			}, () ->
 			{
-				var erwartet =Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
+				var erwartet = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID);
 

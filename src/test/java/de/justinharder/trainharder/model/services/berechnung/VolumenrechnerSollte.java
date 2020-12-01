@@ -21,7 +21,7 @@ class VolumenrechnerSollte
 	void test01()
 	{
 		var erwartet = new int[]
-		{ 20, 22, 17 };
+			{ 20, 22, 17 };
 
 		assertThat(sut.getVolumenHypertrophiePhase()).isEqualTo(erwartet);
 	}
@@ -31,7 +31,7 @@ class VolumenrechnerSollte
 	void test02()
 	{
 		var erwartet = new int[]
-		{ 16, 19, 15 };
+			{ 16, 19, 15 };
 
 		assertThat(sut.getVolumenKraftPhase()).isEqualTo(erwartet);
 	}
@@ -41,7 +41,7 @@ class VolumenrechnerSollte
 	void test03()
 	{
 		var erwartet = new int[]
-		{ 14, 17, 13 };
+			{ 14, 17, 13 };
 
 		assertThat(sut.getVolumenPeakingPhase()).isEqualTo(erwartet);
 	}
