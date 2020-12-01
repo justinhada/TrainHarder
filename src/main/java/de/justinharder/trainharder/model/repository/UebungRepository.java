@@ -12,11 +12,11 @@ public interface UebungRepository
 {
 	List<Uebung> ermittleAlle();
 
-	List<Uebung> ermittleAlleZuUebungsart(final Uebungsart uebungsart);
+	List<Uebung> ermittleAlleZuUebungsart(Uebungsart uebungsart);
 
-	List<Uebung> ermittleAlleZuUebungskategorie(final Uebungskategorie uebungskategorie);
+	List<Uebung> ermittleAlleZuUebungskategorie(Uebungskategorie uebungskategorie);
 
-	Optional<Uebung> ermittleZuId(final Primaerschluessel id);
+	Optional<Uebung> ermittleZuId(Primaerschluessel id);
 
-	Uebung speichereUebung(final Uebung uebung);
+	Uebung speichereUebung(Uebung uebung);
 }

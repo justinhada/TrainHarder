@@ -10,9 +10,9 @@ public interface BenutzerRepository
 {
 	List<Benutzer> ermittleAlle();
 
-	Optional<Benutzer> ermittleZuId(final Primaerschluessel id);
+	Optional<Benutzer> ermittleZuId(Primaerschluessel id);
 
-	Optional<Benutzer> ermittleZuAuthentifizierung(final Primaerschluessel authentifizierungId);
+	Optional<Benutzer> ermittleZuAuthentifizierung(Primaerschluessel authentifizierungId);
 
-	Benutzer speichereBenutzer(final Benutzer benutzer);
+	Benutzer speichereBenutzer(Benutzer benutzer);
 }

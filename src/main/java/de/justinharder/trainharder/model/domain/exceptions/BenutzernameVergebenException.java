@@ -4,7 +4,7 @@ public class BenutzernameVergebenException extends Exception
 {
 	private static final long serialVersionUID = 7646830880003860994L;
 
-	public BenutzernameVergebenException(final String nachricht)
+	public BenutzernameVergebenException(String nachricht)
 	{
 		super(nachricht);
 	}

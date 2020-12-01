@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -25,15 +24,16 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	public void setup()
 	{
 		sut = new BenutzerJpaRepository();
+
 		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test
 	public void alleBenutzerErmitteln()
 	{
-		final var erwartet = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
+		var erwartet = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
 
-		final var ergebnis = sut.ermittleAlle();
+		var ergebnis = sut.ermittleAlle();
 
 		assertThat(ergebnis).containsAll(erwartet);
 	}
@@ -41,11 +41,9 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	@Test
 	public void keinenBenutzerZuIdErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		final var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -53,29 +51,27 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.BENUTZER_JUSTIN);
+			var erwartet = Testdaten.BENUTZER_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_JUSTIN_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.BENUTZER_EDUARD);
+			var erwartet = Testdaten.BENUTZER_EDUARD;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_EDUARD_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keinenBenutzerZuAuthentifizierungErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuAuthentifizierung(new Primaerschluessel());
 
-		final var ergebnis = sut.ermittleZuAuthentifizierung(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -83,25 +79,25 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.BENUTZER_JUSTIN);
+			var erwartet = Testdaten.BENUTZER_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
+			var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.BENUTZER_EDUARD);
+			var erwartet = Testdaten.BENUTZER_EDUARD;
 
-			final var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
+			var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void benutzerErstellen()
 	{
-		final var erwartet = new Benutzer(
+		var erwartet = new Benutzer(
 			new Primaerschluessel(),
 			new Name("Nicole", "Harder"),
 			LocalDate.of(2007, 2, 26),
@@ -119,7 +115,7 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 				"nicoleee",
 				Testdaten.PASSWORT));
 
-		final var ergebnis = sut.speichereBenutzer(erwartet);
+		var ergebnis = sut.speichereBenutzer(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -127,10 +123,10 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	@Test
 	public void benutzerAktualisieren()
 	{
-		final var erwartet = Testdaten.BENUTZER_EDUARD;
+		var erwartet = Testdaten.BENUTZER_EDUARD;
 		erwartet.setGeburtsdatum(LocalDate.of(1997, 12, 6));
 
-		final var ergebnis = sut.speichereBenutzer(erwartet);
+		var ergebnis = sut.speichereBenutzer(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

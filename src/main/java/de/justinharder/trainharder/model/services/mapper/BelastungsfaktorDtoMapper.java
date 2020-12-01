@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 
 public class BelastungsfaktorDtoMapper
 {
-	public List<BelastungsfaktorDto> konvertiereAlle(final List<Belastungsfaktor> belastungsfaktoren)
+	public List<BelastungsfaktorDto> mappeAlle(List<Belastungsfaktor> belastungsfaktoren)
 	{
 		return belastungsfaktoren
 			.stream()
-			.map(this::konvertiere)
+			.map(this::mappe)
 			.collect(Collectors.toList());
 	}
 
-	public BelastungsfaktorDto konvertiere(final Belastungsfaktor belastungsfaktor)
+	public BelastungsfaktorDto mappe(Belastungsfaktor belastungsfaktor)
 	{
 		return new BelastungsfaktorDto(
 			belastungsfaktor.getPrimaerschluessel().getId().toString(),

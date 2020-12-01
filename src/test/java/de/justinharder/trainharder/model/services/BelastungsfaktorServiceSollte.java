@@ -1,18 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
@@ -20,6 +7,16 @@ import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class BelastungsfaktorServiceSollte
 {
@@ -37,37 +34,36 @@ class BelastungsfaktorServiceSollte
 		sut = new BelastungsfaktorService(belastungsfaktorRepository, belastungsfaktorDtoMapper);
 	}
 
-	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(
-		final String id, final Optional<Belastungsfaktor> belastungsfaktor)
+	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String id,
+		Optional<Belastungsfaktor> belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(belastungsfaktor);
 	}
 
-	private void angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(final String id)
+	private void angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(String id)
 	{
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.empty());
 	}
 
-	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(
-		final Belastungsfaktor belastungsfaktor)
+	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(Belastungsfaktor belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastungsfaktor.class)))
 			.thenReturn(belastungsfaktor);
 	}
 
-	private void angenommenDerBelastungsfaktorDtoMapperKonvertiertZuBelastungsfaktorDto(
-		final Belastungsfaktor belastungsfaktor, final BelastungsfaktorDto belastungsfaktorDto)
+	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastungsfaktor belastungsfaktor,
+		BelastungsfaktorDto belastungsfaktorDto)
 	{
-		when(belastungsfaktorDtoMapper.konvertiere(belastungsfaktor)).thenReturn(belastungsfaktorDto);
+		when(belastungsfaktorDtoMapper.mappe(belastungsfaktor)).thenReturn(belastungsfaktorDto);
 	}
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die ID null ist")
 	void test01()
 	{
-		final var erwartet = "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!";
+		var erwartet = "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -76,11 +72,11 @@ class BelastungsfaktorServiceSollte
 	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn ID zu keinem Belastungsfaktor gehört")
 	void test02()
 	{
-		final var id = new Primaerschluessel().getId().toString();
-		final var erwartet = "Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!";
+		var id = new Primaerschluessel().getId().toString();
+		var erwartet = "Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!";
 		angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(id);
 
-		final var exception = assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.ermittleZuId(id));
+		var exception = assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.ermittleZuId(id));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 		verify(belastungsfaktorRepository).ermittleZuId(new Primaerschluessel(id));
@@ -90,26 +86,26 @@ class BelastungsfaktorServiceSollte
 	@DisplayName("einen Belastungsfaktor zur ID ermitteln")
 	void test03() throws BelastungsfaktorNichtGefundenException
 	{
-		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
-		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
-		final var id = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID.getId().toString();
+		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
+		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
+		var id = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID.getId().toString();
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.of(belastungsfaktor));
-		angenommenDerBelastungsfaktorDtoMapperKonvertiertZuBelastungsfaktorDto(belastungsfaktor, erwartet);
+		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
 
-		final var ergebnis = sut.ermittleZuId(id);
+		var ergebnis = sut.ermittleZuId(id);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(belastungsfaktorRepository).ermittleZuId(new Primaerschluessel(id));
-		verify(belastungsfaktorDtoMapper).konvertiere(belastungsfaktor);
+		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
 	}
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn das BelastungsfaktorDto null ist")
 	void test04()
 	{
-		final var erwartet = "Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!";
+		var erwartet = "Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -118,14 +114,14 @@ class BelastungsfaktorServiceSollte
 	@DisplayName("einen Belastungsfaktor speichern")
 	void test05()
 	{
-		final var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
-		final var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
+		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
 		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
-		angenommenDerBelastungsfaktorDtoMapperKonvertiertZuBelastungsfaktorDto(belastungsfaktor, erwartet);
+		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
 
-		final var ergebnis = sut.speichereBelastungsfaktor(erwartet);
+		var ergebnis = sut.speichereBelastungsfaktor(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(belastungsfaktorDtoMapper).konvertiere(belastungsfaktor);
+		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
 	}
 }

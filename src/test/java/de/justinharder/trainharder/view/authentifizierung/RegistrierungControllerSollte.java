@@ -39,12 +39,12 @@ class RegistrierungControllerSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new RegistrierungController();
-
 		models = mock(Models.class);
 		bindingResult = mock(BindingResult.class);
 		securityContext = mock(SecurityContext.class);
 		registrierungService = mock(RegistrierungService.class);
+
+		sut = new RegistrierungController();
 
 		sut.setModels(models);
 		sut.setBindingResult(bindingResult);
@@ -52,7 +52,7 @@ class RegistrierungControllerSollte
 		sut.setRegistrierungService(registrierungService);
 	}
 
-	private void angenommenDerSecurityContextGibtCallerPrincipalZurueck(final Principal principal)
+	private void angenommenDerSecurityContextGibtCallerPrincipalZurueck(Principal principal)
 	{
 		when(securityContext.getCallerPrincipal()).thenReturn(principal);
 	}
@@ -76,7 +76,7 @@ class RegistrierungControllerSollte
 	}
 
 	private void angenommenDerRegistrierungServiceGibtAuthentifizierungDtoZurueck(
-		final AuthentifizierungDto authentifizierungDto)
+		AuthentifizierungDto authentifizierungDto)
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
@@ -84,22 +84,22 @@ class RegistrierungControllerSollte
 	}
 
 	private void angenommenDerRegistrierungServiceWirftAuthentifizierungNichtGefundenException(
-		final String authentifizierungId) throws AuthentifizierungNichtGefundenException
+		String authentifizierungId) throws AuthentifizierungNichtGefundenException
 	{
 		doThrow(new AuthentifizierungNichtGefundenException(
 			"Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!"))
-				.when(registrierungService).aktiviere(authentifizierungId);
+			.when(registrierungService).aktiviere(authentifizierungId);
 	}
 
 	@Test
 	@DisplayName("zur Registrierung-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
 	void test01()
 	{
-		final var callerPrincipal = new CallerPrincipal("harder");
-		final var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
+		var callerPrincipal = new CallerPrincipal("harder");
+		var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 
-		final var ergebnis = sut.index();
+		var ergebnis = sut.index();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(securityContext, times(2)).getCallerPrincipal();
@@ -109,10 +109,10 @@ class RegistrierungControllerSollte
 	@DisplayName("zur Registrierung-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
 	void test02()
 	{
-		final var erwartet = "/join.xhtml";
+		var erwartet = "/join.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		final var ergebnis = sut.index();
+		var ergebnis = sut.index();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(securityContext).getCallerPrincipal();
@@ -122,9 +122,9 @@ class RegistrierungControllerSollte
 	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
 	void test03()
 	{
-		final var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
+		var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -133,10 +133,10 @@ class RegistrierungControllerSollte
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Registrierung-Seite navigieren")
 	void test04()
 	{
-		final var erwartet = "/join.xhtml";
+		var erwartet = "/join.xhtml";
 		angenommenDasBindingResultFailed();
 
-		final var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
+		var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler", new ArrayList<>());
@@ -148,10 +148,10 @@ class RegistrierungControllerSollte
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
-		final var erwartet = "/join.xhtml";
+		var erwartet = "/join.xhtml";
 		angenommenDerRegistrierungServiceWirftMailBereitsRegistriertException();
 
-		final var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
+		var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler", "Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse!");
@@ -163,11 +163,11 @@ class RegistrierungControllerSollte
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
-		final var erwartet = "/success.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "/success.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		angenommenDerRegistrierungServiceGibtAuthentifizierungDtoZurueck(authentifizierungDto);
 
-		final var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
+		var ergebnis = sut.registriere(new Registrierung("mail@justinharder.de", "harder", "Justinharder#98"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("authentifizierung", authentifizierungDto);
@@ -177,9 +177,9 @@ class RegistrierungControllerSollte
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
 	void test07()
 	{
-		final var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
+		var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -188,11 +188,11 @@ class RegistrierungControllerSollte
 	@DisplayName("bei fehlerhafter Aktivierung zur Fehler-Seite navigieren")
 	void test08() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/error";
-		final var authentifizierungId = new Primaerschluessel().getId().toString();
+		var erwartet = "/error";
+		var authentifizierungId = new Primaerschluessel().getId().toString();
 		angenommenDerRegistrierungServiceWirftAuthentifizierungNichtGefundenException(authentifizierungId);
 
-		final var ergebnis = sut.aktiviere(authentifizierungId);
+		var ergebnis = sut.aktiviere(authentifizierungId);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(registrierungService).aktiviere(authentifizierungId);
@@ -205,10 +205,10 @@ class RegistrierungControllerSollte
 	@DisplayName("bei erfolgreicher Aktivierung zur Aktiviert-Seite navigieren")
 	void test09() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/aktiviert.xhtml";
-		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		var erwartet = "/aktiviert.xhtml";
+		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 
-		final var ergebnis = sut.aktiviere(authentifizierungId);
+		var ergebnis = sut.aktiviere(authentifizierungId);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(registrierungService).aktiviere(authentifizierungId);

@@ -43,11 +43,11 @@ public class Benutzer extends Entitaet
 	{}
 
 	public Benutzer(
-		final Primaerschluessel primaerschluessel,
-		final Name name,
-		final LocalDate geburtsdatum,
-		final Benutzerangabe benutzerangabe,
-		final Authentifizierung authentifizierung)
+		Primaerschluessel primaerschluessel,
+		Name name,
+		LocalDate geburtsdatum,
+		Benutzerangabe benutzerangabe,
+		Authentifizierung authentifizierung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
@@ -79,50 +79,50 @@ public class Benutzer extends Entitaet
 			.orElseGet(() -> null);
 	}
 
-	public Benutzer setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Benutzer setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Benutzer setName(final Name name)
+	public Benutzer setName(Name name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public Benutzer setGeburtsdatum(final LocalDate geburtsdatum)
+	public Benutzer setGeburtsdatum(LocalDate geburtsdatum)
 	{
 		this.geburtsdatum = geburtsdatum;
 		return this;
 	}
 
-	public Benutzer setBenutzerangabe(final Benutzerangabe benutzerangabe)
+	public Benutzer setBenutzerangabe(Benutzerangabe benutzerangabe)
 	{
 		this.benutzerangabe = benutzerangabe;
 		return this;
 	}
 
-	public Benutzer setAuthentifizierung(final Authentifizierung authentifizierung)
+	public Benutzer setAuthentifizierung(Authentifizierung authentifizierung)
 	{
 		this.authentifizierung = authentifizierung;
 		return this;
 	}
 
-	public Benutzer fuegeKraftwertHinzu(final Kraftwert kraftwert)
+	public Benutzer fuegeKraftwertHinzu(Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
 		return this;
 	}
 
-	public Benutzer fuegeKoerpermessungHinzu(final Koerpermessung koerpermessung)
+	public Benutzer fuegeKoerpermessungHinzu(Koerpermessung koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

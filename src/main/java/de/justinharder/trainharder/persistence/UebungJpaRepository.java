@@ -21,34 +21,34 @@ public class UebungJpaRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungsart(final Uebungsart uebungsart)
+	public List<Uebung> ermittleAlleZuUebungsart(Uebungsart uebungsart)
 	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
-		final var root = criteriaQuery.from(Uebung.class);
+		var criteriaBuilder = entityManager.getCriteriaBuilder();
+		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
+		var root = criteriaQuery.from(Uebung.class);
 		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungsart"), uebungsart));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungskategorie(final Uebungskategorie uebungskategorie)
+	public List<Uebung> ermittleAlleZuUebungskategorie(Uebungskategorie uebungskategorie)
 	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
-		final var root = criteriaQuery.from(Uebung.class);
+		var criteriaBuilder = entityManager.getCriteriaBuilder();
+		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
+		var root = criteriaQuery.from(Uebung.class);
 		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungskategorie"), uebungskategorie));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
-	public Optional<Uebung> ermittleZuId(final Primaerschluessel id)
+	public Optional<Uebung> ermittleZuId(Primaerschluessel id)
 	{
 		return super.ermittleZuId(Uebung.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Uebung speichereUebung(final Uebung uebung)
+	public Uebung speichereUebung(Uebung uebung)
 	{
 		return super.speichereEntitaet(Uebung.class, uebung);
 	}

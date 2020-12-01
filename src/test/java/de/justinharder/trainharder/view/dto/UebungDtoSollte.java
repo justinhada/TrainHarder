@@ -66,7 +66,7 @@ class UebungDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(UebungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -77,7 +77,7 @@ class UebungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet = "UebungDto(super=Dto(primaerschluessel=" + primaerschluessel
 			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="

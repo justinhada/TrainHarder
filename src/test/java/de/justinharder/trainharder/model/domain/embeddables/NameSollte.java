@@ -54,7 +54,7 @@ class NameSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Name(vorname=Justin, nachname=Harder)";
+		var erwartet = "Name(vorname=Justin, nachname=Harder)";
 
 		assertThat(sut).hasToString(erwartet);
 	}

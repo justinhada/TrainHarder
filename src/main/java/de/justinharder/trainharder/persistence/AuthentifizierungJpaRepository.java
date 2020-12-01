@@ -15,75 +15,75 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	implements AuthentifizierungRepository
 {
 	@Override
-	public Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id)
+	public Optional<Authentifizierung> ermittleZuId(Primaerschluessel id)
 	{
 		return super.ermittleZuId(Authentifizierung.class, id);
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzer(final Primaerschluessel benutzerId)
+	public Optional<Authentifizierung> ermittleZuBenutzer(Primaerschluessel benutzerId)
 	{
 		try
 		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
-			final var joinBenutzer = root.join("benutzer");
+			var criteriaBuilder = entityManager.getCriteriaBuilder();
+			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			var root = criteriaQuery.from(Authentifizierung.class);
+			var joinBenutzer = root.join("benutzer");
 			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
-		catch (final NoResultException e)
+		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuMail(final String mail)
+	public Optional<Authentifizierung> ermittleZuMail(String mail)
 	{
 		try
 		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
+			var criteriaBuilder = entityManager.getCriteriaBuilder();
+			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			var root = criteriaQuery.from(Authentifizierung.class);
 			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("mail"), mail));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
-		catch (final NoResultException e)
+		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername)
+	public Optional<Authentifizierung> ermittleZuBenutzername(String benutzername)
 	{
 		try
 		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
+			var criteriaBuilder = entityManager.getCriteriaBuilder();
+			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			var root = criteriaQuery.from(Authentifizierung.class);
 			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("benutzername"), benutzername));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
-		catch (final NoResultException e)
+		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuResetUuid(final UUID resetUuid)
+	public Optional<Authentifizierung> ermittleZuResetUuid(UUID resetUuid)
 	{
 		try
 		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			final var root = criteriaQuery.from(Authentifizierung.class);
+			var criteriaBuilder = entityManager.getCriteriaBuilder();
+			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
+			var root = criteriaQuery.from(Authentifizierung.class);
 			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("resetUuid"), resetUuid));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
-		catch (final NoResultException e)
+		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
@@ -91,7 +91,7 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 
 	@Override
 	@Transactional
-	public Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung)
+	public Authentifizierung speichereAuthentifizierung(Authentifizierung authentifizierung)
 	{
 		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
 	}

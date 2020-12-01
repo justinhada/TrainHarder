@@ -1,20 +1,17 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.util.UUID;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import java.util.UUID;
+
+import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class PrimaerschluesselSollte
 {
@@ -37,7 +34,7 @@ class PrimaerschluesselSollte
 	@DisplayName("einen RequiredArgsConstructor und Getter besitzen")
 	void test02()
 	{
-		final var primaerschluessel = new Primaerschluessel(sut.getId());
+		var primaerschluessel = new Primaerschluessel(sut.getId());
 
 		assertThat(primaerschluessel.getId()).isEqualTo(sut.getId());
 	}
@@ -46,8 +43,8 @@ class PrimaerschluesselSollte
 	@DisplayName("Setter besitzen")
 	void test03()
 	{
-		final var primaerschluessel = new Primaerschluessel();
-		final var uuid = UUID.randomUUID();
+		var primaerschluessel = new Primaerschluessel();
+		var uuid = UUID.randomUUID();
 
 		primaerschluessel.setId(uuid);
 
@@ -68,7 +65,7 @@ class PrimaerschluesselSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
+		var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

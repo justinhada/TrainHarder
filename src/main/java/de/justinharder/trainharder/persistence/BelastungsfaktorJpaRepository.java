@@ -12,14 +12,14 @@ import java.util.Optional;
 public class BelastungsfaktorJpaRepository extends JpaRepository<Belastungsfaktor> implements BelastungsfaktorRepository
 {
 	@Override
-	public Optional<Belastungsfaktor> ermittleZuId(final Primaerschluessel id)
+	public Optional<Belastungsfaktor> ermittleZuId(Primaerschluessel id)
 	{
 		return super.ermittleZuId(Belastungsfaktor.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Belastungsfaktor speichereBelastungsfaktor(final Belastungsfaktor belastungsfaktor)
+	public Belastungsfaktor speichereBelastungsfaktor(Belastungsfaktor belastungsfaktor)
 	{
 		return super.speichereEntitaet(Belastungsfaktor.class, belastungsfaktor);
 	}

@@ -14,12 +14,12 @@ public class KontaktService
 	private final MailServer mailServer;
 
 	@Inject
-	public KontaktService(final MailServer mailServer)
+	public KontaktService(MailServer mailServer)
 	{
 		this.mailServer = mailServer;
 	}
 
-	public void kontaktiere(final Kontaktformular kontaktformular)
+	public void kontaktiere(Kontaktformular kontaktformular)
 	{
 		Preconditions.checkNotNull(kontaktformular, "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!");
 

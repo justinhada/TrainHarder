@@ -21,7 +21,7 @@ import java.util.List;
 
 public class BenutzerService
 {
-	public static final String ID = "der ID";
+	private static final String ID = "der ID";
 
 	private final BenutzerRepository benutzerRepository;
 	private final AuthentifizierungRepository authentifizierungRepository;
@@ -29,9 +29,9 @@ public class BenutzerService
 
 	@Inject
 	public BenutzerService(
-		final BenutzerRepository benutzerRepository,
-		final AuthentifizierungRepository authentifizierungRepository,
-		final BenutzerDtoMapper benutzerDtoMapper)
+		BenutzerRepository benutzerRepository,
+		AuthentifizierungRepository authentifizierungRepository,
+		BenutzerDtoMapper benutzerDtoMapper)
 	{
 		this.benutzerRepository = benutzerRepository;
 		this.authentifizierungRepository = authentifizierungRepository;
@@ -40,82 +40,81 @@ public class BenutzerService
 
 	public List<BenutzerDto> ermittleAlle()
 	{
-		return benutzerDtoMapper.konvertiereAlle(benutzerRepository.ermittleAlle());
+		return benutzerDtoMapper.mappeAlle(benutzerRepository.ermittleAlle());
 	}
 
-	public BenutzerDto ermittleZuId(final String id) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuId(String id) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
 
 		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
-			.map(benutzerDtoMapper::konvertiere)
+			.map(benutzerDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 	}
 
-	public BenutzerDto ermittleZuAuthentifizierung(final String authentifizierungId)
-		throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuAuthentifizierung(String authentifizierungId) throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(authentifizierungId,
 			"Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
 
 		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
-			.map(benutzerDtoMapper::konvertiere)
+			.map(benutzerDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService
 				.wirfBenutzerNichtGefundenException("der AuthentifizierungID", authentifizierungId));
 	}
 
-	public BenutzerDto erstelleBenutzer(final Benutzerdaten benutzerdaten, final String authentifizierungId)
+	public BenutzerDto erstelleBenutzer(Benutzerdaten benutzerdaten, String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(benutzerdaten, "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!");
 		Preconditions.checkNotNull(authentifizierungId,
 			"Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
 
-		final var authentifizierung = authentifizierungRepository
+		var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(
 				FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
 
-		final var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
+		var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
 			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE),
 			new Benutzerangabe(
-				Geschlecht.fromString(benutzerdaten.getGeschlecht()),
-				Erfahrung.fromString(benutzerdaten.getErfahrung()),
-				Ernaehrung.fromString(benutzerdaten.getErnaehrung()),
-				Schlafqualitaet.fromString(benutzerdaten.getSchlafqualitaet()),
-				Stress.fromString(benutzerdaten.getStress()),
-				Doping.fromString(benutzerdaten.getDoping()),
-				Regenerationsfaehigkeit.fromString(benutzerdaten.getRegenerationsfaehigkeit())),
+				Geschlecht.zuWert(benutzerdaten.getGeschlecht()),
+				Erfahrung.zuWert(benutzerdaten.getErfahrung()),
+				Ernaehrung.zuWert(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.zuWert(benutzerdaten.getSchlafqualitaet()),
+				Stress.zuWert(benutzerdaten.getStress()),
+				Doping.zuWert(benutzerdaten.getDoping()),
+				Regenerationsfaehigkeit.zuWert(benutzerdaten.getRegenerationsfaehigkeit())),
 			authentifizierung));
 
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
 
-		return benutzerDtoMapper.konvertiere(benutzer);
+		return benutzerDtoMapper.mappe(benutzer);
 	}
 
-	public BenutzerDto aktualisiereBenutzer(final String id, final Benutzerdaten benutzerdaten)
+	public BenutzerDto aktualisiereBenutzer(String id, Benutzerdaten benutzerdaten)
 		throws BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Die Aktualisierung des Benutzers benötigt eine gültige ID!");
 		Preconditions.checkNotNull(benutzerdaten, "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
 
-		final var benutzer = benutzerRepository
+		var benutzer = benutzerRepository
 			.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 
-		return benutzerDtoMapper.konvertiere(benutzerRepository.speichereBenutzer(benutzer
+		return benutzerDtoMapper.mappe(benutzerRepository.speichereBenutzer(benutzer
 			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
 			.setGeburtsdatum(LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE))
 			.setBenutzerangabe(new Benutzerangabe(
-				Geschlecht.fromString(benutzerdaten.getGeschlecht()),
-				Erfahrung.fromString(benutzerdaten.getErfahrung()),
-				Ernaehrung.fromString(benutzerdaten.getErnaehrung()),
-				Schlafqualitaet.fromString(benutzerdaten.getSchlafqualitaet()),
-				Stress.fromString(benutzerdaten.getStress()),
-				Doping.fromString(benutzerdaten.getDoping()),
+				Geschlecht.zuWert(benutzerdaten.getGeschlecht()),
+				Erfahrung.zuWert(benutzerdaten.getErfahrung()),
+				Ernaehrung.zuWert(benutzerdaten.getErnaehrung()),
+				Schlafqualitaet.zuWert(benutzerdaten.getSchlafqualitaet()),
+				Stress.zuWert(benutzerdaten.getStress()),
+				Doping.zuWert(benutzerdaten.getDoping()),
 				Regenerationsfaehigkeit
-					.fromString(benutzerdaten.getRegenerationsfaehigkeit())))));
+					.zuWert(benutzerdaten.getRegenerationsfaehigkeit())))));
 	}
 }

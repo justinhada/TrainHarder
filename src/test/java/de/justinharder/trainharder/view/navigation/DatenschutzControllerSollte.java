@@ -19,6 +19,7 @@ class DatenschutzControllerSollte extends AbstractControllerSollte
 	void setup()
 	{
 		sut = new DatenschutzController();
+
 		super.setup(sut);
 	}
 
@@ -26,9 +27,9 @@ class DatenschutzControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Datenschutz-Seite per GET navigieren ohne angemeldeten Benutzer")
 	void test01()
 	{
-		final var erwartet = "/datenschutz.xhtml";
+		var erwartet = "/datenschutz.xhtml";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
+		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -37,10 +38,10 @@ class DatenschutzControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Datenschutz-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/datenschutz.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "/datenschutz.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
@@ -51,12 +52,11 @@ class DatenschutzControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Datenschutz-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/datenschutz.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var erwartet = "/datenschutz.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		final var ergebnis =
-			super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
+		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("authentifizierung", authentifizierungDto);

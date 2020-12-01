@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 @Getter
 @ToString
@@ -19,30 +19,30 @@ public class Mail
 	private final String betreff;
 	private final String inhalt;
 
-	public Mail(final MailAdresse sender, final String betreff, final String inhalt)
+	public Mail(MailAdresse sender, String betreff, String inhalt)
 	{
 		this.sender = sender;
 		this.betreff = betreff;
 		this.inhalt = inhalt;
 	}
 
-	public Mail fuegeEmpfaengerHinzu(final MailAdresse... empfaenger)
+	public Mail fuegeEmpfaengerHinzu(MailAdresse... empfaenger)
 	{
-		Stream.of(empfaenger).forEach(alleEmpfaenger::add);
+		alleEmpfaenger.addAll(Arrays.asList(empfaenger));
 
 		return this;
 	}
 
-	public Mail fuegeInKopieHinzu(final MailAdresse... inKopie)
+	public Mail fuegeInKopieHinzu(MailAdresse... inKopie)
 	{
-		Stream.of(inKopie).forEach(alleInKopie::add);
+		alleInKopie.addAll(Arrays.asList(inKopie));
 
 		return this;
 	}
 
-	public Mail fuegeInBlindkopieHinzu(final MailAdresse... inBlindkopie)
+	public Mail fuegeInBlindkopieHinzu(MailAdresse... inBlindkopie)
 	{
-		Stream.of(inBlindkopie).forEach(alleInBlindkopie::add);
+		alleInBlindkopie.addAll(Arrays.asList(inBlindkopie));
 
 		return this;
 	}

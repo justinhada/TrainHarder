@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 
 public class KoerpermessungDtoMapper
 {
-	public List<KoerpermessungDto> konvertiereAlle(final List<Koerpermessung> koerpermessungen)
+	public List<KoerpermessungDto> mappeAlle(List<Koerpermessung> koerpermessungen)
 	{
 		return koerpermessungen
 			.stream()
-			.map(this::konvertiere)
+			.map(this::mappe)
 			.collect(Collectors.toList());
 	}
 
-	public KoerpermessungDto konvertiere(final Koerpermessung koerpermessung)
+	public KoerpermessungDto mappe(Koerpermessung koerpermessung)
 	{
 		return new KoerpermessungDto(
 			koerpermessung.getPrimaerschluessel().getId().toString(),

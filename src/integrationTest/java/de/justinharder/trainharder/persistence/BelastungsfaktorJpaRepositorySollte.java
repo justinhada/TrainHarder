@@ -9,8 +9,6 @@ import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -22,17 +20,16 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	public void setup()
 	{
 		sut = new BelastungsfaktorJpaRepository();
+
 		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test
 	public void keinenBelastungsfaktorZuIdErmitteln()
 	{
-		var erwartet = Optional.empty();
-
 		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -40,25 +37,25 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 			{
-				var erwartet = Optional.of(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+				var erwartet = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			}, () ->
 			{
-				var erwartet = Optional.of(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
+				var erwartet = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			}, () ->
 			{
-				var erwartet = Optional.of(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+				var erwartet =Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			}
 		);
 	}

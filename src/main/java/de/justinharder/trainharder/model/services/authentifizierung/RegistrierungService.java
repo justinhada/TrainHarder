@@ -32,11 +32,11 @@ public class RegistrierungService
 
 	@Inject
 	public RegistrierungService(
-		final AuthentifizierungRepository authentifizierungRepository,
-		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		final PasswortHasher passwortHasher,
-		final PasswortCheck passwortCheck,
-		final MailServer mailServer)
+		AuthentifizierungRepository authentifizierungRepository,
+		AuthentifizierungDtoMapper authentifizierungDtoMapper,
+		PasswortHasher passwortHasher,
+		PasswortCheck passwortCheck,
+		MailServer mailServer)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
@@ -45,7 +45,7 @@ public class RegistrierungService
 		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto registriere(final Registrierung registrierung)
+	public AuthentifizierungDto registriere(Registrierung registrierung)
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
@@ -68,15 +68,15 @@ public class RegistrierungService
 			throw new PasswortUnsicherException("Das Passwort ist unsicher!");
 		}
 
-		final var salt = passwortHasher.generiereSalt(new byte[16]);
-		final var authentifizierung = authentifizierungRepository
+		var salt = passwortHasher.generiereSalt(new byte[16]);
+		var authentifizierung = authentifizierungRepository
 			.speichereAuthentifizierung(new Authentifizierung(
 				new Primaerschluessel(),
 				registrierung.getMail(),
 				registrierung.getBenutzername(),
 				new Passwort(salt, passwortHasher.hash(registrierung.getPasswort(), salt))));
 
-		final var mail = new Mail(
+		var mail = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 			"Willkommen bei TrainHarder!",
 			"Hallo " + authentifizierung.getBenutzername() + ",\n"
@@ -86,21 +86,21 @@ public class RegistrierungService
 				+ "\n\n"
 				+ "Mit den besten Grüßen!\n"
 				+ "das TrainHarder-Team")
-					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
+			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
 		System.out.println(mail);
 
 		//		mailServer.sendeMail(
 		//			mail,
 		//			StandardCharsets.UTF_8);
 
-		return authentifizierungDtoMapper.konvertiere(authentifizierung);
+		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void aktiviere(final String id) throws AuthentifizierungNichtGefundenException
+	public void aktiviere(String id) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
 
-		final var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
+		var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"));
 

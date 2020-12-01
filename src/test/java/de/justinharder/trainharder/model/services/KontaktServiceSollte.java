@@ -1,20 +1,19 @@
 package de.justinharder.trainharder.model.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.nio.charset.StandardCharsets;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.services.mail.Mail;
 import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.nio.charset.StandardCharsets;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class KontaktServiceSollte
 {
@@ -34,9 +33,9 @@ class KontaktServiceSollte
 	@DisplayName("NullPointerException werfen, wenn das Kontaktformular null ist")
 	void test01()
 	{
-		final var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
+		var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.kontaktiere(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.kontaktiere(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -45,22 +44,26 @@ class KontaktServiceSollte
 	@DisplayName("erfolgreich kontaktieren und Mail an MailServer weitergeben")
 	void test02()
 	{
-		final var kontaktformular =
-			new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Ich habe ein Problem.");
+		var kontaktformular = new Kontaktformular(
+			"mail@justinharder.de",
+			"harder",
+			"Justin",
+			"Harder",
+			"Ich habe ein Problem.");
 
 		sut.kontaktiere(kontaktformular);
 
 		verify(mailServer).sendeMail(new Mail(
-			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-			"Support-Anfrage von " + kontaktformular.getBenutzername(),
-			"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
-				+ "Benutzer:\n"
-				+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
-				+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
-				+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
-				+ "Nachricht:\n"
-				+ "\t" + kontaktformular.getNachricht())
-					.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
+				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+				"Support-Anfrage von " + kontaktformular.getBenutzername(),
+				"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
+					+ "Benutzer:\n"
+					+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
+					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
+					+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
+					+ "Nachricht:\n"
+					+ "\t" + kontaktformular.getNachricht())
+				.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
 			StandardCharsets.UTF_8);
 	}
 }

@@ -1,18 +1,17 @@
 package de.justinharder.trainharder.model.domain;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.setup.Testdaten;
+import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class BelastungsfaktorSollte
 {
@@ -35,8 +34,8 @@ class BelastungsfaktorSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	void test02()
 	{
-		final var id = new Primaerschluessel();
-		final var belastungsfaktor = new Belastungsfaktor(id, 0, 1, 0, 0.7, 1, 0, 0, 0, 0, 0, 0, 0.1);
+		var id = new Primaerschluessel();
+		var belastungsfaktor = new Belastungsfaktor(id, 0, 1, 0, 0.7, 1, 0, 0, 0, 0, 0, 0, 0.1);
 
 		assertAll(
 			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
@@ -78,22 +77,22 @@ class BelastungsfaktorSollte
 	@DisplayName("Setter besitzen")
 	void test04()
 	{
-		final var id = new Primaerschluessel();
-		final var belastungsfaktor = new Belastungsfaktor();
-		belastungsfaktor.setPrimaerschluessel(id);
-		belastungsfaktor.setSquat(0);
-		belastungsfaktor.setBenchpress(1);
-		belastungsfaktor.setDeadlift(0);
-		belastungsfaktor.setTriceps(0.7);
-		belastungsfaktor.setChest(1);
-		belastungsfaktor.setCore(0);
-		belastungsfaktor.setBack(0);
-		belastungsfaktor.setBiceps(0);
-		belastungsfaktor.setGlutes(0);
-		belastungsfaktor.setQuads(0);
-		belastungsfaktor.setHamstrings(0);
-		belastungsfaktor.setShoulder(0.1);
-		belastungsfaktor.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
+		var id = new Primaerschluessel();
+		var belastungsfaktor = new Belastungsfaktor()
+			.setPrimaerschluessel(id)
+			.setSquat(0)
+			.setBenchpress(1)
+			.setDeadlift(0)
+			.setTriceps(0.7)
+			.setChest(1)
+			.setCore(0)
+			.setBack(0)
+			.setBiceps(0)
+			.setGlutes(0)
+			.setQuads(0)
+			.setHamstrings(0)
+			.setShoulder(0.1)
+			.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
 			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(id),
@@ -114,23 +113,10 @@ class BelastungsfaktorSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	@SuppressWarnings("unlikely-arg-type")
 	void test05()
 	{
-//		final var andererBelastungsfaktor = new Belastungsfaktor();
-//		andererBelastungsfaktor.setPrimaerschluessel(new Primaerschluessel());
-//
-//		final var belastungsfaktorMitGleicherId = new Belastungsfaktor();
-//		belastungsfaktorMitGleicherId.setPrimaerschluessel(sut.getPrimaerschluessel());
-//
-//		assertAll(
-//			() -> assertThat(sut).isNotNull(),
-//			() -> assertThat(sut).isNotEqualTo(andererBelastungsfaktor),
-//			() -> assertThat(sut).isEqualTo(belastungsfaktorMitGleicherId),
-//			() -> assertThat(sut.hashCode()).isNotEqualTo(andererBelastungsfaktor.hashCode()));
-
 		EqualsVerifier.forClass(Belastungsfaktor.class)
-			.withPrefabValues(Uebung.class,	Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Uebung.class, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -141,7 +127,7 @@ class BelastungsfaktorSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+		var erwartet = "Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

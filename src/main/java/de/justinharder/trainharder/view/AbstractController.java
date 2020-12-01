@@ -31,12 +31,12 @@ public abstract class AbstractController
 		{
 			if (securityContext.getCallerPrincipal() != null)
 			{
-				final var authentifizierungDto = getAuthentifizierungDto();
+				var authentifizierungDto = getAuthentifizierungDto();
 				models.put("authentifizierung", authentifizierungDto);
 				models.put("benutzer", getBenutzerDto(authentifizierungDto.getPrimaerschluessel()));
 			}
 		}
-		catch (final AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
+		catch (AuthentifizierungNichtGefundenException | BenutzerNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
 		}
@@ -47,7 +47,7 @@ public abstract class AbstractController
 		return authentifizierungService.ermittleZuBenutzername(securityContext.getCallerPrincipal().getName());
 	}
 
-	protected BenutzerDto getBenutzerDto(final String authentifizierungId) throws BenutzerNichtGefundenException
+	protected BenutzerDto getBenutzerDto(String authentifizierungId) throws BenutzerNichtGefundenException
 	{
 		return benutzerService.ermittleZuAuthentifizierung(authentifizierungId);
 	}

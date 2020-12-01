@@ -23,9 +23,9 @@ public class UebungService
 
 	@Inject
 	public UebungService(
-		final UebungRepository uebungRepository,
-		final BelastungsfaktorRepository belastungsfaktorRepository,
-		final UebungDtoMapper uebungDtoMapper)
+		UebungRepository uebungRepository,
+		BelastungsfaktorRepository belastungsfaktorRepository,
+		UebungDtoMapper uebungDtoMapper)
 	{
 		this.uebungRepository = uebungRepository;
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
@@ -34,51 +34,51 @@ public class UebungService
 
 	public List<UebungDto> ermittleAlle()
 	{
-		return uebungDtoMapper.konvertiereAlle(uebungRepository.ermittleAlle());
+		return uebungDtoMapper.mappeAlle(uebungRepository.ermittleAlle());
 	}
 
-	public List<UebungDto> ermittleZuUebungsart(final String uebungsart)
+	public List<UebungDto> ermittleZuUebungsart(String uebungsart)
 	{
 		Preconditions.checkNotNull(uebungsart, "Die Ermittlung der Uebungen benötigt eine gültige Uebungsart!");
 
-		return uebungDtoMapper.konvertiereAlle(
-			uebungRepository.ermittleAlleZuUebungsart(Uebungsart.fromString(uebungsart)));
+		return uebungDtoMapper.mappeAlle(
+			uebungRepository.ermittleAlleZuUebungsart(Uebungsart.zuWert(uebungsart)));
 	}
 
-	public List<UebungDto> ermittleZuUebungskategorie(final String uebungskategorie)
+	public List<UebungDto> ermittleZuUebungskategorie(String uebungskategorie)
 	{
 		Preconditions.checkNotNull(uebungskategorie,
 			"Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!");
 
-		return uebungDtoMapper.konvertiereAlle(uebungRepository
-				.ermittleAlleZuUebungskategorie(Uebungskategorie.fromString(uebungskategorie)));
+		return uebungDtoMapper.mappeAlle(uebungRepository
+			.ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie)));
 	}
 
-	public UebungDto ermittleZuId(final String id) throws UebungNichtGefundenException
+	public UebungDto ermittleZuId(String id) throws UebungNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Die Ermittlung der Uebung benötigt eine gültige UebungID!");
 
 		return uebungRepository.ermittleZuId(new Primaerschluessel(id))
-			.map(uebungDtoMapper::konvertiere)
+			.map(uebungDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException("der ID", id));
 	}
 
-	public UebungDto speichereUebung(final UebungDto uebungDto, final String belastungsfaktorId)
+	public UebungDto speichereUebung(UebungDto uebungDto, String belastungsfaktorId)
 		throws BelastungsfaktorNichtGefundenException
 	{
 		Preconditions.checkNotNull(uebungDto, "Zur Erstellung der Uebung wird ein gültiges UebungDto benötigt!");
 		Preconditions.checkNotNull(belastungsfaktorId,
 			"Zur Erstellung der Uebung wird eine gültige BelastungsfaktorID benötigt!");
 
-		final var belastungsfaktor = belastungsfaktorRepository
+		var belastungsfaktor = belastungsfaktorRepository
 			.ermittleZuId(new Primaerschluessel(belastungsfaktorId))
 			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", belastungsfaktorId));
 
-		return uebungDtoMapper.konvertiere(uebungRepository.speichereUebung(new Uebung(
+		return uebungDtoMapper.mappe(uebungRepository.speichereUebung(new Uebung(
 			new Primaerschluessel(),
 			uebungDto.getName(),
-			Uebungsart.fromString(uebungDto.getUebungsart()),
-			Uebungskategorie.fromString(uebungDto.getUebungskategorie()),
+			Uebungsart.zuWert(uebungDto.getUebungsart()),
+			Uebungskategorie.zuWert(uebungDto.getUebungskategorie()),
 			belastungsfaktor)));
 	}
 }

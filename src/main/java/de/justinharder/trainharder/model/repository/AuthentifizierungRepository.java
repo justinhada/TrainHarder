@@ -8,15 +8,15 @@ import java.util.UUID;
 
 public interface AuthentifizierungRepository
 {
-	Optional<Authentifizierung> ermittleZuId(final Primaerschluessel id);
+	Optional<Authentifizierung> ermittleZuId(Primaerschluessel id);
 
-	Optional<Authentifizierung> ermittleZuBenutzer(final Primaerschluessel benutzerId);
+	Optional<Authentifizierung> ermittleZuBenutzer(Primaerschluessel benutzerId);
 
-	Optional<Authentifizierung> ermittleZuMail(final String mail);
+	Optional<Authentifizierung> ermittleZuMail(String mail);
 
-	Optional<Authentifizierung> ermittleZuBenutzername(final String benutzername);
+	Optional<Authentifizierung> ermittleZuBenutzername(String benutzername);
 
-	Optional<Authentifizierung> ermittleZuResetUuid(final UUID resetUuid);
+	Optional<Authentifizierung> ermittleZuResetUuid(UUID resetUuid);
 
-	Authentifizierung speichereAuthentifizierung(final Authentifizierung authentifizierung);
+	Authentifizierung speichereAuthentifizierung(Authentifizierung authentifizierung);
 }

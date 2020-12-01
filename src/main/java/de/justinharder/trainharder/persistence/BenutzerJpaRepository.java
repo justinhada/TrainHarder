@@ -20,25 +20,25 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	public Optional<Benutzer> ermittleZuId(final Primaerschluessel id)
+	public Optional<Benutzer> ermittleZuId(Primaerschluessel id)
 	{
 		return super.ermittleZuId(Benutzer.class, id);
 	}
 
 	@Override
-	public Optional<Benutzer> ermittleZuAuthentifizierung(final Primaerschluessel authentifizierungId)
+	public Optional<Benutzer> ermittleZuAuthentifizierung(Primaerschluessel authentifizierungId)
 	{
 		try
 		{
-			final var criteriaBuilder = entityManager.getCriteriaBuilder();
-			final var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
-			final var root = criteriaQuery.from(Benutzer.class);
-			final var joinAuthentifizierung = root.join("authentifizierung");
+			var criteriaBuilder = entityManager.getCriteriaBuilder();
+			var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
+			var root = criteriaQuery.from(Benutzer.class);
+			var joinAuthentifizierung = root.join("authentifizierung");
 			criteriaQuery.select(root).where(
 				criteriaBuilder.equal(joinAuthentifizierung.get("primaerschluessel"), authentifizierungId));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
-		catch (final NoResultException e)
+		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
@@ -46,7 +46,7 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 
 	@Override
 	@Transactional
-	public Benutzer speichereBenutzer(final Benutzer benutzer)
+	public Benutzer speichereBenutzer(Benutzer benutzer)
 	{
 		return super.speichereEntitaet(Benutzer.class, benutzer);
 	}

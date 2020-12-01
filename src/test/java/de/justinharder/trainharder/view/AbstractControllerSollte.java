@@ -23,7 +23,7 @@ public abstract class AbstractControllerSollte
 	protected AuthentifizierungService authentifizierungService;
 	protected BenutzerService benutzerService;
 
-	protected void setup(final AbstractController sut)
+	protected void setup(AbstractController sut)
 	{
 		models = mock(Models.class);
 		securityContext = mock(SecurityContext.class);
@@ -36,7 +36,7 @@ public abstract class AbstractControllerSollte
 		sut.setBenutzerService(benutzerService);
 	}
 
-	protected void angenommenDerSecurityContextGibtCallerPrincipalZurueck(final Principal principal)
+	protected void angenommenDerSecurityContextGibtCallerPrincipalZurueck(Principal principal)
 	{
 		when(securityContext.getCallerPrincipal()).thenReturn(principal);
 	}
@@ -47,50 +47,48 @@ public abstract class AbstractControllerSollte
 	}
 
 	protected void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(
-		final String benutzername) throws AuthentifizierungNichtGefundenException
+		String benutzername) throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername))
 			.thenThrow(new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
 	}
 
-	protected void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(
-		final String benutzername, final AuthentifizierungDto authentifizierungDto)
+	protected void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(String benutzername,
+		AuthentifizierungDto authentifizierungDto)
 		throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierungDto);
 	}
 
-	protected void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(final String authentifizierungId,
-		final BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
+	protected void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(String authentifizierungId,
+		BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuAuthentifizierung(authentifizierungId)).thenReturn(benutzerDto);
 	}
 
-	protected String zurSeiteNavigierenOhneAngemeldetenBenutzer(final Supplier<String> methode)
+	protected String zurSeiteNavigierenOhneAngemeldetenBenutzer(Supplier<String> methode)
 	{
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
 		return methode.get();
 	}
 
-	protected String zurSeiteNavigierenMitServicefehler(
-		final Supplier<String> methode,
-		final AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
+	protected String zurSeiteNavigierenMitServicefehler(Supplier<String> methode,
+		AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
 	{
-		final var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
+		var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(callerPrincipal.getName());
 
 		return methode.get();
 	}
 
-	protected String zurSeiteNavigierenMitAngemeldetenBenutzer(
-		final Supplier<String> methode,
-		final AuthentifizierungDto authentifizierungDto,
-		final BenutzerDto benutzerDto) throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
+	protected String zurSeiteNavigierenMitAngemeldetenBenutzer(Supplier<String> methode,
+		AuthentifizierungDto authentifizierungDto, BenutzerDto benutzerDto)
+		throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
+		var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(
 			callerPrincipal.getName(),

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.security.enterprise.AuthenticationException;
 import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
@@ -33,8 +32,6 @@ class TrainHarderAuthenticationMechanismSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new TrainHarderAuthenticationMechanism();
-
 		identityStore = mock(IdentityStore.class);
 		request = mock(HttpServletRequest.class);
 		response = mock(HttpServletResponse.class);
@@ -42,6 +39,8 @@ class TrainHarderAuthenticationMechanismSollte
 		credential = mock(Credential.class);
 		credentialValidationResult = mock(CredentialValidationResult.class);
 		authenticationParameters = mock(AuthenticationParameters.class);
+
+		sut = new TrainHarderAuthenticationMechanism();
 
 		sut.setIdentityStore(identityStore);
 	}
@@ -63,34 +62,34 @@ class TrainHarderAuthenticationMechanismSollte
 		when(authenticationParameters.getCredential()).thenReturn(credential);
 	}
 
-	private void angenommenDerHttpMessageContextBenachrichtigtUeberLogin(final AuthenticationStatus erwartet)
+	private void angenommenDerHttpMessageContextBenachrichtigtUeberLogin(AuthenticationStatus authenticationStatus)
 	{
 		when(identityStore.validate(any(Credential.class))).thenReturn(credentialValidationResult);
-		when(httpMessageContext.notifyContainerAboutLogin(credentialValidationResult)).thenReturn(erwartet);
+		when(httpMessageContext.notifyContainerAboutLogin(credentialValidationResult)).thenReturn(authenticationStatus);
 	}
 
 	@Test
 	@DisplayName("eine Anfrage validieren, wenn die Credentials null sind")
-	void test01() throws AuthenticationException
+	void test01()
 	{
-		final var erwartet = AuthenticationStatus.NOT_DONE;
+		var erwartet = AuthenticationStatus.NOT_DONE;
 		angenommenDerHttpMessageContextGibtNullZurueck();
 		angenommenDerHttpMessageContextGibtNichtsZurueck();
 
-		final var ergebnis = sut.validateRequest(request, response, httpMessageContext);
+		var ergebnis = sut.validateRequest(request, response, httpMessageContext);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
 
 	@Test
 	@DisplayName("eine Anfrage validieren, wenn die Credentials gültig sind")
-	void test02() throws AuthenticationException
+	void test02()
 	{
-		final var erwartet = AuthenticationStatus.SUCCESS;
+		var erwartet = AuthenticationStatus.SUCCESS;
 		angenommenDerHttpMessageContextGibtCredentialZurueck();
 		angenommenDerHttpMessageContextBenachrichtigtUeberLogin(erwartet);
 
-		final var ergebnis = sut.validateRequest(request, response, httpMessageContext);
+		var ergebnis = sut.validateRequest(request, response, httpMessageContext);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

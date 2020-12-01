@@ -47,7 +47,7 @@ public class KontaktController extends AbstractController
 	}
 
 	@POST
-	public String kontaktiere(@BeanParam final Kontaktformular kontaktformular)
+	public String kontaktiere(@BeanParam Kontaktformular kontaktformular)
 	{
 		Preconditions.checkNotNull(kontaktformular, "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!");
 

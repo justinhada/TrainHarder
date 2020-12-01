@@ -13,25 +13,25 @@ import java.util.Optional;
 public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
 	@Override
-	public List<Kraftwert> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId)
+	public List<Kraftwert> ermittleAlleZuBenutzer(Primaerschluessel benutzerId)
 	{
-		final var criteriaBuilder = entityManager.getCriteriaBuilder();
-		final var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
-		final var root = criteriaQuery.from(Kraftwert.class);
-		final var joinBenutzer = root.join("benutzer");
+		var criteriaBuilder = entityManager.getCriteriaBuilder();
+		var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
+		var root = criteriaQuery.from(Kraftwert.class);
+		var joinBenutzer = root.join("benutzer");
 		criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
-	public Optional<Kraftwert> ermittleZuId(final Primaerschluessel id)
+	public Optional<Kraftwert> ermittleZuId(Primaerschluessel id)
 	{
 		return super.ermittleZuId(Kraftwert.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Kraftwert speichereKraftwert(final Kraftwert kraftwert)
+	public Kraftwert speichereKraftwert(Kraftwert kraftwert)
 	{
 		return super.speichereEntitaet(Kraftwert.class, kraftwert);
 	}

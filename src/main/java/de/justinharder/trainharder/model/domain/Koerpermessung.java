@@ -33,12 +33,12 @@ public class Koerpermessung extends Entitaet
 	{}
 
 	public Koerpermessung(
-		final Primaerschluessel primaerschluessel,
-		final LocalDate datum,
-		final Koerpermasse koerpermasse,
-		final int kalorieneinnahme,
-		final int kalorienverbrauch,
-		final Benutzer benutzer)
+		Primaerschluessel primaerschluessel,
+		LocalDate datum,
+		Koerpermasse koerpermasse,
+		int kalorieneinnahme,
+		int kalorienverbrauch,
+		Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.datum = datum;
@@ -50,44 +50,44 @@ public class Koerpermessung extends Entitaet
 		benutzer.fuegeKoerpermessungHinzu(this);
 	}
 
-	public Koerpermessung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Koerpermessung setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Koerpermessung setDatum(final LocalDate datum)
+	public Koerpermessung setDatum(LocalDate datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public Koerpermessung setKoerpermasse(final Koerpermasse koerpermasse)
+	public Koerpermessung setKoerpermasse(Koerpermasse koerpermasse)
 	{
 		this.koerpermasse = koerpermasse;
 		return this;
 	}
 
-	public Koerpermessung setKalorieneinnahme(final int kalorieneinnahme)
+	public Koerpermessung setKalorieneinnahme(int kalorieneinnahme)
 	{
 		this.kalorieneinnahme = kalorieneinnahme;
 		return this;
 	}
 
-	public Koerpermessung setKalorienverbrauch(final int kalorienverbrauch)
+	public Koerpermessung setKalorienverbrauch(int kalorienverbrauch)
 	{
 		this.kalorienverbrauch = kalorienverbrauch;
 		return this;
 	}
 
-	public Koerpermessung setBenutzer(final Benutzer benutzer)
+	public Koerpermessung setBenutzer(Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

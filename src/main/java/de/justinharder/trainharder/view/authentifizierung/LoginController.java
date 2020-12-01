@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 @Path(value = "/login")
 public class LoginController
 {
-	public static final String FEHLER = "fehler";
-	public static final String REDIRECT_TO_BENUTZER = "redirect:benutzer/";
+	private static final String FEHLER = "fehler";
+	private static final String REDIRECT_TO_BENUTZER = "redirect:benutzer/";
 
 	@Context
 	private HttpServletRequest request;
@@ -59,7 +59,7 @@ public class LoginController
 	}
 
 	@POST
-	public String login(@BeanParam final Login login)
+	public String login(@BeanParam Login login)
 	{
 		Preconditions.checkNotNull(login, "Zur Authentifizierung wird ein gültiger Login benötigt!");
 
@@ -71,8 +71,8 @@ public class LoginController
 			return index();
 		}
 
-		final var credential = new UsernamePasswordCredential(login.getBenutzername(), login.getPasswort());
-		final var authenticationStatus = securityContext.authenticate(request, response,
+		var credential = new UsernamePasswordCredential(login.getBenutzername(), login.getPasswort());
+		var authenticationStatus = securityContext.authenticate(request, response,
 			AuthenticationParameters
 				.withParams()
 				.credential(credential)
@@ -107,7 +107,7 @@ public class LoginController
 
 	@POST
 	@Path(value = "/reset")
-	public String resetMail(@FormParam(value = "mail") final String mail)
+	public String resetMail(@FormParam(value = "mail") String mail)
 	{
 		Preconditions.checkNotNull(mail, "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!");
 
@@ -116,7 +116,7 @@ public class LoginController
 			loginService.sendeResetMail(mail, UUID.randomUUID());
 			return "/reset-success.xhtml";
 		}
-		catch (final AuthentifizierungNichtGefundenException e)
+		catch (AuthentifizierungNichtGefundenException e)
 		{
 			models.put(FEHLER, e.getMessage());
 			return resetMailView();
@@ -125,7 +125,7 @@ public class LoginController
 
 	@GET
 	@Path(value = "/reset/{id}")
-	public String resetPasswordView(@PathParam(value = "id") final String resetUuid)
+	public String resetPasswordView(@PathParam(value = "id") String resetUuid)
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
 
@@ -140,9 +140,7 @@ public class LoginController
 
 	@POST
 	@Path(value = "/reset/{id}")
-	public String resetPassword(
-		@PathParam(value = "id") final String resetUuid,
-		@FormParam("passwort") final String passwort)
+	public String resetPassword(@PathParam(value = "id") String resetUuid, @FormParam("passwort") String passwort)
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
 		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");

@@ -8,13 +8,13 @@ import java.util.UUID;
 public class UuidMapper implements AttributeConverter<UUID, String>
 {
 	@Override
-	public String convertToDatabaseColumn(final UUID uuid)
+	public String convertToDatabaseColumn(UUID uuid)
 	{
 		return uuid == null ? null : uuid.toString();
 	}
 
 	@Override
-	public UUID convertToEntityAttribute(final String uuid)
+	public UUID convertToEntityAttribute(String uuid)
 	{
 		return uuid == null ? null : UUID.fromString(uuid);
 	}

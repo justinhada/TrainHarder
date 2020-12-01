@@ -1,24 +1,20 @@
 package de.justinharder.trainharder.view;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
-
-import javax.security.enterprise.CallerPrincipal;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.KoerpermessungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import javax.security.enterprise.CallerPrincipal;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 class KoerpermessungControllerSollte extends AbstractControllerSollte
 {
@@ -29,21 +25,21 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new KoerpermessungController();
-		super.setup(sut);
-
 		koerpermessungService = mock(KoerpermessungService.class);
 
+		sut = new KoerpermessungController();
+
 		sut.setKoerpermessungService(koerpermessungService);
+		super.setup(sut);
 	}
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test01()
 	{
-		final var erwartet = "redirect:login";
+		var erwartet = "redirect:login";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
+		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -52,10 +48,10 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/koerpermessungen/index.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "/koerpermessungen/index.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put(
@@ -68,12 +64,11 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/koerpermessungen/index.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var erwartet = "/koerpermessungen/index.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		final var ergebnis =
-			super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
+		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put("authentifizierung", authentifizierungDto);
@@ -84,9 +79,9 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test04()
 	{
-		final var erwartet = "redirect:login";
+		var erwartet = "redirect:login";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.koerpermessdaten("harder"));
+		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.koerpermessdaten("harder"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(securityContext).getCallerPrincipal();
@@ -96,10 +91,10 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn der Benutzer nicht existiert")
 	void test05() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "redirect:login";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "redirect:login";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(
 			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -111,10 +106,10 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
 	void test06() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "redirect:login";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "redirect:login";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(
 			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -126,12 +121,12 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test07() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
-		final var koerpermessungDtos = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN);
+		var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var koerpermessungDtos = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN);
 
-		final var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
+		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
 			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()),
 			authentifizierungDto,
 			benutzerDto);
@@ -146,9 +141,9 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
 	void test08()
 	{
-		final var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
+		var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.addKoerpermessung(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.addKoerpermessung(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -157,13 +152,13 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
 	void test09() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "redirect:login";
-		final var benutzername = "harder";
+		var erwartet = "redirect:login";
+		var benutzername = "harder";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
 
-		final var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
-		final var ergebnis = sut.addKoerpermessung(koerpermessdaten);
+		var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
+		var ergebnis = sut.addKoerpermessung(koerpermessdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put(
@@ -175,18 +170,18 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("eine neue Koerpermessung erstellen")
 	void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
-		final var benutzername = "harder";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
+		var benutzername = "harder";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(benutzername,
 			authentifizierungDto);
 		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel(),
 			benutzerDto);
 
-		final var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
-		final var ergebnis = sut.addKoerpermessung(koerpermessdaten);
+		var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
+		var ergebnis = sut.addKoerpermessung(koerpermessdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);

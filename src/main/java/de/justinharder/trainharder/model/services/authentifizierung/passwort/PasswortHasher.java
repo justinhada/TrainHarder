@@ -26,27 +26,25 @@ public class PasswortHasher
 		secureRandom = new SecureRandom();
 	}
 
-	public String generiereSalt(final byte[] salt)
+	public String generiereSalt(byte[] salt)
 	{
 		secureRandom.nextBytes(salt);
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
-	public String hash(final String passwort, final String salt)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	public String hash(String passwort, String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return pbkdf2(passwort, salt);
 	}
 
-	public boolean check(final Passwort aktuellesPasswort, final String passwort)
+	public boolean check(Passwort aktuellesPasswort, String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		final var hash = pbkdf2(passwort, aktuellesPasswort.getSalt());
+		var hash = pbkdf2(passwort, aktuellesPasswort.getSalt());
 		return hash.equals(aktuellesPasswort.getPasswortHash());
 	}
 
-	private static String pbkdf2(final String passwort, final String salt)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	private static String pbkdf2(String passwort, String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return Base64.getEncoder().encodeToString(SecretKeyFactory
 			.getInstance(ALGORITHMUS)

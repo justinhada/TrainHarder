@@ -15,7 +15,7 @@ public abstract class Entitaet implements Serializable
 	public abstract Primaerschluessel getPrimaerschluessel();
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		if (this == obj)
 		{
@@ -29,7 +29,7 @@ public abstract class Entitaet implements Serializable
 		{
 			return false;
 		}
-		final var other = (Entitaet) obj;
+		var other = (Entitaet) obj;
 		return Objects.equal(getPrimaerschluessel().getId(), other.getPrimaerschluessel().getId());
 	}
 

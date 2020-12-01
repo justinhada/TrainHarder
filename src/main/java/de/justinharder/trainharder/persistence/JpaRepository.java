@@ -18,31 +18,31 @@ public class JpaRepository<T extends Entitaet>
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	protected List<T> ermittleAlle(final Class<T> clazz)
+	protected List<T> ermittleAlle(Class<T> clazz)
 	{
-		final var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(clazz);
+		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(clazz);
 		criteriaQuery.select(criteriaQuery.from(clazz));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	protected Optional<T> ermittleZuId(final Class<T> clazz, final Primaerschluessel id)
+	protected Optional<T> ermittleZuId(Class<T> clazz, Primaerschluessel id)
 	{
 		return Optional.ofNullable(entityManager.find(clazz, id));
 	}
 
-	protected T speichereEntitaet(final Class<T> clazz, final T entitaet)
+	protected T speichereEntitaet(Class<T> clazz, T entitaet)
 	{
 		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())
 			.map(ungenutzt -> aktualisiereEntitaet(entitaet))
 			.orElseGet(erstelleEntitaet(entitaet));
 	}
 
-	private T aktualisiereEntitaet(final T entitaet)
+	private T aktualisiereEntitaet(T entitaet)
 	{
 		return entityManager.merge(entitaet);
 	}
 
-	private Supplier<? extends T> erstelleEntitaet(final T entitaet)
+	private Supplier<? extends T> erstelleEntitaet(T entitaet)
 	{
 		return () ->
 		{

@@ -27,18 +27,18 @@ public class TestdatenAnleger
 		{
 			speichereTestdaten(entityManager, log::info);
 		}
-		catch (final Exception e)
+		catch (Exception e)
 		{
 			log.error(e.getMessage(), e);
 		}
 	}
 
-	public void loescheTestdaten(final EntityManager entityManager, final Consumer<String> logger)
+	public void loescheTestdaten(EntityManager entityManager, Consumer<String> logger)
 	{
-		final var persistenceUnit =
+		var persistenceUnit =
 			entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
-		final var tabellen = Arrays.asList(
+		var tabellen = Arrays.asList(
 			"Authentifizierung",
 			"Belastungsfaktor",
 			"Koerpermessung",
@@ -53,7 +53,7 @@ public class TestdatenAnleger
 		});
 	}
 
-	public void speichereTestdaten(final EntityManager entityManager, final Consumer<String> logger)
+	public void speichereTestdaten(EntityManager entityManager, Consumer<String> logger)
 	{
 		loescheTestdaten(entityManager, logger);
 		List.of(
@@ -71,12 +71,12 @@ public class TestdatenAnleger
 	}
 
 	private <T extends Entitaet> void legeDatensatzAn(
-		final EntityManager entityManager,
-		final Consumer<String> logger,
-		final T entitaet)
+		EntityManager entityManager,
+		Consumer<String> logger,
+		T entitaet)
 	{
 		logger.accept("Weiter mit Datensatz " + entitaet);
-		final var datensatz = entityManager.find(entitaet.getClass(), entitaet.getPrimaerschluessel());
+		var datensatz = entityManager.find(entitaet.getClass(), entitaet.getPrimaerschluessel());
 		if (datensatz == null)
 		{
 			logger.accept("Lege Datensatz an: " + entitaet);

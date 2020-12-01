@@ -37,13 +37,13 @@ public class Kraftwert extends Entitaet
 	{}
 
 	public Kraftwert(
-		final Primaerschluessel primaerschluessel,
-		final double gewicht,
-		final double koerpergewicht,
-		final LocalDate datum,
-		final Wiederholungen wiederholungen,
-		final Uebung uebung,
-		final Benutzer benutzer)
+		Primaerschluessel primaerschluessel,
+		double gewicht,
+		double koerpergewicht,
+		LocalDate datum,
+		Wiederholungen wiederholungen,
+		Uebung uebung,
+		Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.gewicht = gewicht;
@@ -54,50 +54,50 @@ public class Kraftwert extends Entitaet
 		this.benutzer = benutzer;
 	}
 
-	public Kraftwert setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Kraftwert setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Kraftwert setGewicht(final double gewicht)
+	public Kraftwert setGewicht(double gewicht)
 	{
 		this.gewicht = gewicht;
 		return this;
 	}
 
-	public Kraftwert setKoerpergewicht(final double koerpergewicht)
+	public Kraftwert setKoerpergewicht(double koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
 		return this;
 	}
 
-	public Kraftwert setDatum(final LocalDate datum)
+	public Kraftwert setDatum(LocalDate datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public Kraftwert setWiederholungen(final Wiederholungen wiederholungen)
+	public Kraftwert setWiederholungen(Wiederholungen wiederholungen)
 	{
 		this.wiederholungen = wiederholungen;
 		return this;
 	}
 
-	public Kraftwert setUebung(final Uebung uebung)
+	public Kraftwert setUebung(Uebung uebung)
 	{
 		this.uebung = uebung;
 		return this;
 	}
 
-	public Kraftwert setBenutzer(final Benutzer benutzer)
+	public Kraftwert setBenutzer(Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

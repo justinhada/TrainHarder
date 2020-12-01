@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 
 public class AuthentifizierungDtoMapper
 {
-	public List<AuthentifizierungDto> konvertiereAlle(final List<Authentifizierung> authentifizierungen)
+	public List<AuthentifizierungDto> mappeAlle(List<Authentifizierung> authentifizierungen)
 	{
 		return authentifizierungen
 			.stream()
-			.map(this::konvertiere)
+			.map(this::mappe)
 			.collect(Collectors.toList());
 	}
 
-	public AuthentifizierungDto konvertiere(final Authentifizierung authentifizierung)
+	public AuthentifizierungDto mappe(Authentifizierung authentifizierung)
 	{
 		return new AuthentifizierungDto(
 			authentifizierung.getPrimaerschluessel().getId().toString(),

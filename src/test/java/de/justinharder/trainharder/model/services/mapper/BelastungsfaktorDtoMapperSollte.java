@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.model.services.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
+import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BelastungsfaktorDtoMapperSollte
 {
@@ -21,19 +20,19 @@ class BelastungsfaktorDtoMapperSollte
 	}
 
 	@Test
-	@DisplayName("alle Belastungsfaktoren zu BelastungsfaktorDtos konvertieren")
+	@DisplayName("alle Belastungsfaktoren zu BelastungsfaktorDtos mappen")
 	void test01()
 	{
-		final var erwartet = List.of(
+		var erwartet = List.of(
 			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE,
 			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
-		final var belastungsfaktoren = List.of(
+		var belastungsfaktoren = List.of(
 			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
 			Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
 
-		final var ergebnis = sut.konvertiereAlle(belastungsfaktoren);
+		var ergebnis = sut.mappeAlle(belastungsfaktoren);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

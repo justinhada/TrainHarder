@@ -4,7 +4,6 @@ import lombok.Setter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.security.enterprise.AuthenticationException;
 import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.authentication.mechanism.http.AutoApplySession;
 import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
@@ -27,11 +26,11 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 
 	@Override
 	public AuthenticationStatus validateRequest(
-		final HttpServletRequest request,
-		final HttpServletResponse response,
-		final HttpMessageContext httpMessageContext) throws AuthenticationException
+		HttpServletRequest request,
+		HttpServletResponse response,
+		HttpMessageContext httpMessageContext)
 	{
-		final var credential = httpMessageContext.getAuthParameters().getCredential();
+		var credential = httpMessageContext.getAuthParameters().getCredential();
 
 		if (credential != null)
 		{
@@ -42,9 +41,9 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 
 	@Override
 	public void cleanSubject(
-		final HttpServletRequest request,
-		final HttpServletResponse response,
-		final HttpMessageContext httpMessageContext)
+		HttpServletRequest request,
+		HttpServletResponse response,
+		HttpMessageContext httpMessageContext)
 	{
 		HttpAuthenticationMechanism.super.cleanSubject(request, response, httpMessageContext);
 	}

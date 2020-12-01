@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface KraftwertRepository
 {
-	List<Kraftwert> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId);
+	List<Kraftwert> ermittleAlleZuBenutzer(Primaerschluessel benutzerId);
 
-	Optional<Kraftwert> ermittleZuId(final Primaerschluessel id);
+	Optional<Kraftwert> ermittleZuId(Primaerschluessel id);
 
-	Kraftwert speichereKraftwert(final Kraftwert kraftwert);
+	Kraftwert speichereKraftwert(Kraftwert kraftwert);
 }

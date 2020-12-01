@@ -31,11 +31,11 @@ public class LoginService
 
 	@Inject
 	public LoginService(
-		final AuthentifizierungRepository authentifizierungRepository,
-		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		final PasswortHasher passwortHasher,
-		final PasswortCheck passwortCheck,
-		final MailServer mailServer)
+		AuthentifizierungRepository authentifizierungRepository,
+		AuthentifizierungDtoMapper authentifizierungDtoMapper,
+		PasswortHasher passwortHasher,
+		PasswortCheck passwortCheck,
+		MailServer mailServer)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
@@ -44,13 +44,13 @@ public class LoginService
 		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto login(final String benutzername, final String passwort)
+	public AuthentifizierungDto login(String benutzername, String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
 	{
 		Preconditions.checkNotNull(benutzername, "Zum Login wird ein gültiger Benutzername benötigt!");
 		Preconditions.checkNotNull(passwort, "Zum Login wird ein gültiges Passwort benötigt!");
 
-		final var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
+		var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
 			.orElseThrow(() -> new LoginException(LOGIN_EXCEPTION));
 
 		if (!passwortHasher.check(authentifizierung.getPasswort(), passwort))
@@ -58,21 +58,21 @@ public class LoginService
 			throw new LoginException(LOGIN_EXCEPTION);
 		}
 
-		return authentifizierungDtoMapper.konvertiere(authentifizierung);
+		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void sendeResetMail(final String mail, final UUID resetUuid) throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(String mail, UUID resetUuid) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(mail, "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!");
 		Preconditions.checkNotNull(resetUuid, "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!");
 
-		final var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
+		var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!"));
 		authentifizierungRepository.speichereAuthentifizierung(
 			authentifizierung.setResetUuid(resetUuid));
 
-		final var mail1 = new Mail(
+		var mail1 = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 			"Anfrage der Passwort-Zurücksetzung",
 			"Hallo " + authentifizierung.getBenutzername() + ",\n"
@@ -81,7 +81,7 @@ public class LoginService
 				+ "\thttps://www.trainharder.de/login/reset/" + resetUuid.toString() + "\n\n"
 				+ "Mit den besten Grüßen!\n"
 				+ "das TrainHarder-Team")
-					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
+			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
 		System.out.println(mail1);
 
 		//		mailServer.sendeMail(
@@ -89,7 +89,7 @@ public class LoginService
 		//			StandardCharsets.UTF_8);
 	}
 
-	public void resetPassword(final UUID resetUuid, final String passwort) throws PasswortUnsicherException,
+	public void resetPassword(UUID resetUuid, String passwort) throws PasswortUnsicherException,
 		AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
@@ -100,11 +100,11 @@ public class LoginService
 			throw new PasswortUnsicherException("Das Passwort ist unsicher!");
 		}
 
-		final var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
+		var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ResetUUID \"" + resetUuid.toString() + "\" existiert nicht!"));
 
-		final var salt = authentifizierung.getPasswort().getSalt();
+		var salt = authentifizierung.getPasswort().getSalt();
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung
 			.setPasswort(new Passwort(salt, passwortHasher.hash(passwort, salt)))
 			.setResetUuid(null));

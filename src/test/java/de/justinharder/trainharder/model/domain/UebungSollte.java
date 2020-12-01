@@ -39,8 +39,8 @@ class UebungSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	void test02()
 	{
-		final var id = new Primaerschluessel();
-		final var uebung = new Uebung(
+		var id = new Primaerschluessel();
+		var uebung = new Uebung(
 			id,
 			"Wettkampfbankdrücken (pausiert)",
 			Uebungsart.GRUNDUEBUNG,
@@ -71,13 +71,13 @@ class UebungSollte
 	@DisplayName("Setter besitzen")
 	void test04()
 	{
-		final var id = new Primaerschluessel();
-		final var uebung = new Uebung();
-		uebung.setPrimaerschluessel(id);
-		uebung.setName("Wettkampfbankdrücken (pausiert)");
-		uebung.setUebungsart(Uebungsart.GRUNDUEBUNG);
-		uebung.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
-		uebung.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+		var id = new Primaerschluessel();
+		var uebung = new Uebung()
+			.setPrimaerschluessel(id)
+			.setName("Wettkampfbankdrücken (pausiert)")
+			.setUebungsart(Uebungsart.GRUNDUEBUNG)
+			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
+			.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
 			() -> assertThat(uebung.getPrimaerschluessel()).isEqualTo(id),
@@ -106,7 +106,7 @@ class UebungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+		var erwartet = "Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

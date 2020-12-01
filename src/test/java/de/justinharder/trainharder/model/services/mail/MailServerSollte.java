@@ -24,14 +24,14 @@ class MailServerSollte
 	@DisplayName("MailServerException werfen, wenn die Mail nicht gesendet werden kann")
 	void test01()
 	{
-		final var erwartet = "Beim Versenden der Mail ist ein Fehler aufgetreten!";
+		var erwartet = "Beim Versenden der Mail ist ein Fehler aufgetreten!";
 
 		var mail = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 			"Betreff",
 			"Inhalt")
 			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder"));
-		final var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(mail, StandardCharsets.UTF_8));
+		var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(mail, StandardCharsets.UTF_8));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}

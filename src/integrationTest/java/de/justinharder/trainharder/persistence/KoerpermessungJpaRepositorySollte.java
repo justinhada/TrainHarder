@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -21,6 +20,7 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	public void setup()
 	{
 		sut = new KoerpermessungJpaRepository();
+
 		sut.setEntityManager(erzeugeEntityManager());
 	}
 
@@ -39,35 +39,33 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.KOERPERMESSUNG_JUSTIN);
+			var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.KOERPERMESSUNG_EDUARD);
+			var erwartet = Testdaten.KOERPERMESSUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keineKoerpermessungZuIdErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		final var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
 	public void koerpermessungErstellen()
 	{
-		final var erwartet = new Koerpermessung(
+		var erwartet = new Koerpermessung(
 			new Primaerschluessel(),
 			LocalDate.now(),
 			new Koerpermasse(178, 90, 25),
@@ -75,7 +73,7 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 			2900,
 			Testdaten.BENUTZER_JUSTIN);
 
-		final var ergebnis = sut.speichereKoerpermessung(erwartet);
+		var ergebnis = sut.speichereKoerpermessung(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -83,10 +81,10 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	@Test
 	public void koerpermessungAktualisieren()
 	{
-		final var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
+		var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
 		erwartet.setKalorieneinnahme(1900);
 
-		final var ergebnis = sut.speichereKoerpermessung(erwartet);
+		var ergebnis = sut.speichereKoerpermessung(erwartet);
 
 		assertAll(
 			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),

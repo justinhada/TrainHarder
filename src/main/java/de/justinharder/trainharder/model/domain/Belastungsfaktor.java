@@ -47,19 +47,19 @@ public class Belastungsfaktor extends Entitaet
 	{}
 
 	public Belastungsfaktor(
-		final Primaerschluessel primaerschluessel,
-		final double squat,
-		final double benchpress,
-		final double deadlift,
-		final double triceps,
-		final double chest,
-		final double core,
-		final double back,
-		final double biceps,
-		final double glutes,
-		final double quads,
-		final double hamstrings,
-		final double shoulder)
+		Primaerschluessel primaerschluessel,
+		double squat,
+		double benchpress,
+		double deadlift,
+		double triceps,
+		double chest,
+		double core,
+		double back,
+		double biceps,
+		double glutes,
+		double quads,
+		double hamstrings,
+		double shoulder)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.squat = squat;
@@ -76,92 +76,92 @@ public class Belastungsfaktor extends Entitaet
 		this.shoulder = shoulder;
 	}
 
-	public Belastungsfaktor setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Belastungsfaktor setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Belastungsfaktor setSquat(final double squat)
+	public Belastungsfaktor setSquat(double squat)
 	{
 		this.squat = squat;
 		return this;
 	}
 
-	public Belastungsfaktor setBenchpress(final double benchpress)
+	public Belastungsfaktor setBenchpress(double benchpress)
 	{
 		this.benchpress = benchpress;
 		return this;
 	}
 
-	public Belastungsfaktor setDeadlift(final double deadlift)
+	public Belastungsfaktor setDeadlift(double deadlift)
 	{
 		this.deadlift = deadlift;
 		return this;
 	}
 
-	public Belastungsfaktor setTriceps(final double triceps)
+	public Belastungsfaktor setTriceps(double triceps)
 	{
 		this.triceps = triceps;
 		return this;
 	}
 
-	public Belastungsfaktor setChest(final double chest)
+	public Belastungsfaktor setChest(double chest)
 	{
 		this.chest = chest;
 		return this;
 	}
 
-	public Belastungsfaktor setCore(final double core)
+	public Belastungsfaktor setCore(double core)
 	{
 		this.core = core;
 		return this;
 	}
 
-	public Belastungsfaktor setBack(final double back)
+	public Belastungsfaktor setBack(double back)
 	{
 		this.back = back;
 		return this;
 	}
 
-	public Belastungsfaktor setBiceps(final double biceps)
+	public Belastungsfaktor setBiceps(double biceps)
 	{
 		this.biceps = biceps;
 		return this;
 	}
 
-	public Belastungsfaktor setGlutes(final double glutes)
+	public Belastungsfaktor setGlutes(double glutes)
 	{
 		this.glutes = glutes;
 		return this;
 	}
 
-	public Belastungsfaktor setQuads(final double quads)
+	public Belastungsfaktor setQuads(double quads)
 	{
 		this.quads = quads;
 		return this;
 	}
 
-	public Belastungsfaktor setHamstrings(final double hamstrings)
+	public Belastungsfaktor setHamstrings(double hamstrings)
 	{
 		this.hamstrings = hamstrings;
 		return this;
 	}
 
-	public Belastungsfaktor setShoulder(final double shoulder)
+	public Belastungsfaktor setShoulder(double shoulder)
 	{
 		this.shoulder = shoulder;
 		return this;
 	}
 
-	public Belastungsfaktor setUebung(final Uebung uebung)
+	public Belastungsfaktor setUebung(Uebung uebung)
 	{
 		this.uebung = uebung;
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

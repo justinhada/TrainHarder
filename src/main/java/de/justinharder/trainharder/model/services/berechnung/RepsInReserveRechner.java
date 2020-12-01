@@ -5,17 +5,13 @@ import de.justinharder.trainharder.model.domain.exceptions.UngueltigeRepsInReser
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigeWiederholungenException;
 import de.justinharder.trainharder.model.domain.exceptions.UngueltigesMaximumException;
 
-import java.io.Serializable;
-
-public class RepsInReserveRechner implements Serializable
+public class RepsInReserveRechner
 {
-	private static final long serialVersionUID = 1616003028454876849L;
-
 	private static final int MINIMUM = 0;
 	private static final int MAXIMUM_RIR = 4;
 	private static final int MAXIMUM_WIEDERHOLUNGEN = 12;
 
-	public int berechneRichtwert(final int maximum, final int wiederholungen, final int rir)
+	public int berechneRichtwert(int maximum, int wiederholungen, int rir)
 		throws UngueltigesMaximumException, UngueltigeWiederholungenException, UngueltigeRepsInReserveException
 	{
 		if (maximum <= MINIMUM)

@@ -31,7 +31,7 @@ class PasswortCheckSollte
 
 	@Test
 	@DisplayName("ein gültiges Passwort checken")
-	void test06()
+	void test02()
 	{
 		assertThat(sut.isUnsicher("IchBinEinGueltigesPasswort#1234")).isFalse();
 	}

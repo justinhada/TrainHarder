@@ -24,7 +24,7 @@ public class MailServer
 	@Inject
 	public MailServer()
 	{
-		final var properties = System.getProperties();
+		var properties = System.getProperties();
 		properties.setProperty(MAIL_PROPERTY, LOCALHOST);
 		session = Session.getDefaultInstance(properties);
 		mailSender = mimeMessage ->
@@ -33,18 +33,18 @@ public class MailServer
 			{
 				Transport.send(mimeMessage);
 			}
-			catch (final MessagingException e)
+			catch (MessagingException e)
 			{
 				throw new MailServerException("Beim Versenden der Mail ist ein Fehler aufgetreten!", e);
 			}
 		};
 	}
 
-	public void sendeMail(final Mail mail, final Charset charset)
+	public void sendeMail(Mail mail, Charset charset)
 	{
 		try
 		{
-			final var mimeMessage = new MimeMessage(session);
+			var mimeMessage = new MimeMessage(session);
 
 			mimeMessage.setFrom(new InternetAddress(mail.getSender().getAdresse(), mail.getSender().getName()));
 			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleEmpfaenger(), RecipientType.TO, mimeMessage);
@@ -55,16 +55,16 @@ public class MailServer
 
 			mailSender.sende(mimeMessage);
 		}
-		catch (final MessagingException | UnsupportedEncodingException e)
+		catch (MessagingException | UnsupportedEncodingException e)
 		{
 			throw new MailServerException("Beim Versenden der Mail ist ein Fehler aufgetreten!", e);
 		}
 	}
 
 	private void verarbeiteEmpfaengerMithilfeDesTypen(
-		final List<MailAdresse> mailAdressen,
-		final RecipientType recipientType,
-		final MimeMessage mimeMessage)
+		List<MailAdresse> mailAdressen,
+		RecipientType recipientType,
+		MimeMessage mimeMessage)
 	{
 		mailAdressen
 			.forEach(mailAdresse ->
@@ -73,7 +73,7 @@ public class MailServer
 				{
 					mimeMessage.addRecipient(recipientType, new InternetAddress(mailAdresse.getAdresse()));
 				}
-				catch (final MessagingException e)
+				catch (MessagingException e)
 				{
 					throw new MailServerException("Beim Hinzufügen eines Empfängers ist ein Fehler aufgetreten!", e);
 				}

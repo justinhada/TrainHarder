@@ -46,13 +46,13 @@ public class Benutzerangabe implements Serializable
 	public Benutzerangabe() {}
 
 	public Benutzerangabe(
-		final Geschlecht geschlecht,
-		final Erfahrung erfahrung,
-		final Ernaehrung ernaehrung,
-		final Schlafqualitaet schlafqualitaet,
-		final Stress stress,
-		final Doping doping,
-		final Regenerationsfaehigkeit regenerationsfaehigkeit)
+		Geschlecht geschlecht,
+		Erfahrung erfahrung,
+		Ernaehrung ernaehrung,
+		Schlafqualitaet schlafqualitaet,
+		Stress stress,
+		Doping doping,
+		Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		this.geschlecht = geschlecht;
 		this.erfahrung = erfahrung;
@@ -63,49 +63,49 @@ public class Benutzerangabe implements Serializable
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 	}
 
-	public Benutzerangabe setKraftlevel(final Kraftlevel kraftlevel)
+	public Benutzerangabe setKraftlevel(Kraftlevel kraftlevel)
 	{
 		this.kraftlevel = kraftlevel;
 		return this;
 	}
 
-	public Benutzerangabe setGeschlecht(final Geschlecht geschlecht)
+	public Benutzerangabe setGeschlecht(Geschlecht geschlecht)
 	{
 		this.geschlecht = geschlecht;
 		return this;
 	}
 
-	public Benutzerangabe setErfahrung(final Erfahrung erfahrung)
+	public Benutzerangabe setErfahrung(Erfahrung erfahrung)
 	{
 		this.erfahrung = erfahrung;
 		return this;
 	}
 
-	public Benutzerangabe setErnaehrung(final Ernaehrung ernaehrung)
+	public Benutzerangabe setErnaehrung(Ernaehrung ernaehrung)
 	{
 		this.ernaehrung = ernaehrung;
 		return this;
 	}
 
-	public Benutzerangabe setSchlafqualitaet(final Schlafqualitaet schlafqualitaet)
+	public Benutzerangabe setSchlafqualitaet(Schlafqualitaet schlafqualitaet)
 	{
 		this.schlafqualitaet = schlafqualitaet;
 		return this;
 	}
 
-	public Benutzerangabe setStress(final Stress stress)
+	public Benutzerangabe setStress(Stress stress)
 	{
 		this.stress = stress;
 		return this;
 	}
 
-	public Benutzerangabe setDoping(final Doping doping)
+	public Benutzerangabe setDoping(Doping doping)
 	{
 		this.doping = doping;
 		return this;
 	}
 
-	public Benutzerangabe setRegenerationsfaehigkeit(final Regenerationsfaehigkeit regenerationsfaehigkeit)
+	public Benutzerangabe setRegenerationsfaehigkeit(Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		return this;

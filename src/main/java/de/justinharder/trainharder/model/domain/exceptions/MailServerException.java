@@ -4,7 +4,7 @@ public class MailServerException extends RuntimeException
 {
 	private static final long serialVersionUID = 7319896133971648787L;
 
-	public MailServerException(final String nachricht, final Throwable ursache)
+	public MailServerException(String nachricht, Throwable ursache)
 	{
 		super(nachricht, ursache);
 	}

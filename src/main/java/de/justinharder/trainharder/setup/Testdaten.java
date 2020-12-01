@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
-	private static final String DATUMSFORMAT = "dd.MM.yyyy";
+	private static final DateTimeFormatter DATUMSFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_EDUARD_ID = new Primaerschluessel();
@@ -135,7 +135,7 @@ public class Testdaten
 
 		KOERPERMESSUNG_DTO_JUSTIN
 			.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString())
-			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DATUMSFORMAT))
 			.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse())
 			.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht())
 			.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil())
@@ -157,7 +157,7 @@ public class Testdaten
 
 		KOERPERMESSUNG_DTO_EDUARD
 			.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString())
-			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DATUMSFORMAT))
 			.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse())
 			.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht())
 			.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil())
@@ -294,7 +294,7 @@ public class Testdaten
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
 			.setGewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht())
-			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DATUMSFORMAT))
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().getWert());
 
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE
@@ -356,7 +356,7 @@ public class Testdaten
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
 			.setGewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht())
-			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DATUMSFORMAT))
 			.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().getWert());
 
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN
@@ -418,7 +418,7 @@ public class Testdaten
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
 			.setGewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getGewicht())
 			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht())
-			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DateTimeFormatter.ofPattern(DATUMSFORMAT)))
+			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DATUMSFORMAT))
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().getWert());
 	}
 }

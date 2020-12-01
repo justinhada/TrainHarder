@@ -41,11 +41,11 @@ public class Uebung extends Entitaet
 	{}
 
 	public Uebung(
-		final Primaerschluessel primaerschluessel,
-		final String name,
-		final Uebungsart uebungsart,
-		final Uebungskategorie uebungskategorie,
-		final Belastungsfaktor belastungsfaktor)
+		Primaerschluessel primaerschluessel,
+		String name,
+		Uebungsart uebungsart,
+		Uebungskategorie uebungskategorie,
+		Belastungsfaktor belastungsfaktor)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
@@ -56,44 +56,44 @@ public class Uebung extends Entitaet
 		belastungsfaktor.setUebung(this);
 	}
 
-	public Uebung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Uebung setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Uebung setName(final String name)
+	public Uebung setName(String name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public Uebung setUebungsart(final Uebungsart uebungsart)
+	public Uebung setUebungsart(Uebungsart uebungsart)
 	{
 		this.uebungsart = uebungsart;
 		return this;
 	}
 
-	public Uebung setUebungskategorie(final Uebungskategorie uebungskategorie)
+	public Uebung setUebungskategorie(Uebungskategorie uebungskategorie)
 	{
 		this.uebungskategorie = uebungskategorie;
 		return this;
 	}
 
-	public Uebung setBelastungsfaktor(final Belastungsfaktor belastungsfaktor)
+	public Uebung setBelastungsfaktor(Belastungsfaktor belastungsfaktor)
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;
 	}
 
-	public Uebung fuegeKraftwertHinzu(final Kraftwert kraftwert)
+	public Uebung fuegeKraftwertHinzu(Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

@@ -47,7 +47,7 @@ public class BenutzerController extends AbstractController
 
 	@GET
 	@Path(value = "/{benutzername}")
-	public String benutzerdaten(@PathParam(value = "benutzername") final String benutzername)
+	public String benutzerdaten(@PathParam(value = "benutzername") String benutzername)
 	{
 		if (securityContext.getCallerPrincipal() == null)
 		{
@@ -62,33 +62,33 @@ public class BenutzerController extends AbstractController
 
 	@POST
 	@Path(value = "/{benutzername}")
-	public String aendereBenutzerdaten(@BeanParam final Benutzerdaten benutzerdaten)
+	public String aendereBenutzerdaten(@BeanParam Benutzerdaten benutzerdaten)
 	{
 		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
 
 		try
 		{
-			final var authentifizierungDto = getAuthentifizierungDto();
+			var authentifizierungDto = getAuthentifizierungDto();
 
 			aendereOderErstelle(benutzerdaten, authentifizierungDto);
 			return benutzerdaten(authentifizierungDto.getBenutzername());
 		}
-		catch (final AuthentifizierungNichtGefundenException e)
+		catch (AuthentifizierungNichtGefundenException e)
 		{
 			models.put("fehler", e.getMessage());
 			return REDIRECT_TO_LOGIN;
 		}
 	}
 
-	private void aendereOderErstelle(final Benutzerdaten benutzerdaten, final AuthentifizierungDto authentifizierungDto)
+	private void aendereOderErstelle(Benutzerdaten benutzerdaten, AuthentifizierungDto authentifizierungDto)
 		throws AuthentifizierungNichtGefundenException
 	{
 		try
 		{
-			final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
+			var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
 			benutzerService.aktualisiereBenutzer(benutzerDto.getPrimaerschluessel(), benutzerdaten);
 		}
-		catch (final BenutzerNichtGefundenException e)
+		catch (BenutzerNichtGefundenException e)
 		{
 			benutzerService.erstelleBenutzer(benutzerdaten, authentifizierungDto.getPrimaerschluessel());
 		}
@@ -108,7 +108,7 @@ public class BenutzerController extends AbstractController
 			request.logout();
 			return REDIRECT_TO_START;
 		}
-		catch (final ServletException e)
+		catch (ServletException e)
 		{
 			models.put("fehler", e.getMessage());
 			return REDIRECT_TO_ERROR;

@@ -23,19 +23,19 @@ public class Passwort implements Serializable
 	public Passwort()
 	{}
 
-	public Passwort(final String salt, final String passwortHash)
+	public Passwort(String salt, String passwortHash)
 	{
 		this.salt = salt;
 		this.passwortHash = passwortHash;
 	}
 
-	public Passwort setSalt(final String salt)
+	public Passwort setSalt(String salt)
 	{
 		this.salt = salt;
 		return this;
 	}
 
-	public Passwort setPasswortHash(final String passwortHash)
+	public Passwort setPasswortHash(String passwortHash)
 	{
 		this.passwortHash = passwortHash;
 		return this;
@@ -52,8 +52,8 @@ public class Passwort implements Serializable
 		{
 			return false;
 		}
-		var passwort = (Passwort) o;
-		return salt.equals(passwort.salt) && passwortHash.equals(passwort.passwortHash);
+		var that = (Passwort) o;
+		return salt.equals(that.salt) && passwortHash.equals(that.passwortHash);
 	}
 
 	@Override

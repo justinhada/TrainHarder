@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BelastungsfaktorRepository
 {
-	Optional<Belastungsfaktor> ermittleZuId(final Primaerschluessel id);
+	Optional<Belastungsfaktor> ermittleZuId(Primaerschluessel id);
 
-	Belastungsfaktor speichereBelastungsfaktor(final Belastungsfaktor belastungsfaktor);
+	Belastungsfaktor speichereBelastungsfaktor(Belastungsfaktor belastungsfaktor);
 }

@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface KoerpermessungRepository
 {
-	List<Koerpermessung> ermittleAlleZuBenutzer(final Primaerschluessel benutzerId);
+	List<Koerpermessung> ermittleAlleZuBenutzer(Primaerschluessel benutzerId);
 
-	Optional<Koerpermessung> ermittleZuId(final Primaerschluessel id);
+	Optional<Koerpermessung> ermittleZuId(Primaerschluessel id);
 
-	Koerpermessung speichereKoerpermessung(final Koerpermessung koerpermessung);
+	Koerpermessung speichereKoerpermessung(Koerpermessung koerpermessung);
 }

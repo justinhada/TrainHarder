@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.model.services.berechnung;
+package de.justinharder.trainharder.model.services.berechnung.anpassungsfaktor;
 
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.Benutzer;
@@ -8,7 +8,6 @@ import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.*;
-import de.justinharder.trainharder.model.services.berechnung.anpassungsfaktor.AnpassungsfaktorErmittlung;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,21 @@ class AnpassungsfaktorErmittlungSollte
 	void setup()
 	{
 		sut = new AnpassungsfaktorErmittlung();
+	}
+
+	private Benutzer erstelleBenutzer(LocalDate geburtsdatum, Benutzerangabe benutzerangabe, Kraftlevel kraftlevel,
+		int koerpergroesse, int koerpergewicht)
+	{
+		var benutzer = new Benutzer(
+			new Primaerschluessel(),
+			new Name("Max", "Mustermann"),
+			geburtsdatum,
+			benutzerangabe.setKraftlevel(kraftlevel),
+			new Authentifizierung());
+		return benutzer.fuegeKoerpermessungHinzu(new Koerpermessung(
+			new Primaerschluessel(),
+			LocalDate.now(),
+			new Koerpermasse(koerpergroesse, koerpergewicht, 20), 2800, 2800, benutzer));
 	}
 
 	@Test
@@ -227,20 +241,5 @@ class AnpassungsfaktorErmittlungSollte
 				Kraftlevel.ELITE,
 				180,
 				90)).werteAus()).isEqualTo(-7));
-	}
-
-	private Benutzer erstelleBenutzer(LocalDate geburtsdatum, Benutzerangabe benutzerangabe, Kraftlevel kraftlevel,
-		int koerpergroesse, int koerpergewicht)
-	{
-		var benutzer = new Benutzer(
-			new Primaerschluessel(),
-			new Name("Max", "Mustermann"),
-			geburtsdatum,
-			benutzerangabe.setKraftlevel(kraftlevel),
-			new Authentifizierung());
-		return benutzer.fuegeKoerpermessungHinzu(new Koerpermessung(
-			new Primaerschluessel(),
-			LocalDate.now(),
-			new Koerpermasse(koerpergroesse, koerpergewicht, 20), 2800, 2800, benutzer));
 	}
 }

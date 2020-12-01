@@ -16,8 +16,9 @@ public class KraftlevelErmittlung
 {
 	public Kraftlevel ermittle(Benutzer benutzer)
 	{
-		var gewichtsklasse =
-			ermittleGewichtsklasse(benutzer.getBenutzerangabe().getGeschlecht(), benutzer.getKoerpergewicht());
+		var gewichtsklasse = ermittleGewichtsklasse(
+			benutzer.getBenutzerangabe().getGeschlecht(),
+			benutzer.getKoerpergewicht());
 		var total = ermittleTotal(benutzer.getKraftwerte());
 		var totals = ermittleTotals(benutzer.getBenutzerangabe().getGeschlecht(), gewichtsklasse);
 		var uebertroffeneTotals = totals.keySet().stream()

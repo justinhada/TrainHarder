@@ -1,13 +1,13 @@
 package de.justinharder.trainharder.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.util.UUID;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UuidMapperSollte
 {
@@ -20,10 +20,10 @@ class UuidMapperSollte
 	}
 
 	@Test
-	@DisplayName("UUID zu String konvertieren")
+	@DisplayName("UUID zu String mappen")
 	void test01()
 	{
-		final var uuid = UUID.randomUUID();
+		var uuid = UUID.randomUUID();
 
 		assertAll(
 			() -> assertThat(sut.convertToDatabaseColumn(null)).isNull(),
@@ -31,10 +31,10 @@ class UuidMapperSollte
 	}
 
 	@Test
-	@DisplayName("String zu UUID konvertieren")
+	@DisplayName("String zu UUID mappen")
 	void test02()
 	{
-		final var uuid = UUID.randomUUID().toString();
+		var uuid = UUID.randomUUID().toString();
 
 		assertAll(
 			() -> assertThat(sut.convertToEntityAttribute(null)).isNull(),

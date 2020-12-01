@@ -4,7 +4,7 @@ public class BenutzerNichtGefundenException extends Exception
 {
 	private static final long serialVersionUID = -8124391141573256519L;
 
-	public BenutzerNichtGefundenException(final String nachricht)
+	public BenutzerNichtGefundenException(String nachricht)
 	{
 		super(nachricht);
 	}

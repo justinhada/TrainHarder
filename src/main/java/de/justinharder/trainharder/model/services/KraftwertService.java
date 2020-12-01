@@ -21,7 +21,7 @@ import java.util.List;
 public class KraftwertService
 {
 	private static final String ID = "der ID";
-	private static final String DATUMSFORMAT = "dd.MM.yyyy";
+	private static final DateTimeFormatter DATUMSFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	private final KraftwertRepository kraftwertRepository;
 	private final BenutzerRepository benutzerRepository;
@@ -30,10 +30,10 @@ public class KraftwertService
 
 	@Inject
 	public KraftwertService(
-		final KraftwertRepository kraftwertRepository,
-		final BenutzerRepository benutzerRepository,
-		final UebungRepository uebungRepository,
-		final KraftwertDtoMapper kraftwertDtoMapper)
+		KraftwertRepository kraftwertRepository,
+		BenutzerRepository benutzerRepository,
+		UebungRepository uebungRepository,
+		KraftwertDtoMapper kraftwertDtoMapper)
 	{
 		this.kraftwertRepository = kraftwertRepository;
 		this.benutzerRepository = benutzerRepository;
@@ -41,44 +41,42 @@ public class KraftwertService
 		this.kraftwertDtoMapper = kraftwertDtoMapper;
 	}
 
-	public List<KraftwertDto> ermittleAlleZuBenutzer(final String benutzerId)
+	public List<KraftwertDto> ermittleAlleZuBenutzer(String benutzerId)
 	{
 		Preconditions.checkNotNull(benutzerId, "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!");
 
-		return kraftwertDtoMapper.konvertiereAlle(
+		return kraftwertDtoMapper.mappeAlle(
 			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
-	public KraftwertDto ermittleZuId(final String id) throws KraftwertNichtGefundenException
+	public KraftwertDto ermittleZuId(String id) throws KraftwertNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Die Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!");
 
 		return kraftwertRepository.ermittleZuId(new Primaerschluessel(id))
-			.map(kraftwertDtoMapper::konvertiere)
+			.map(kraftwertDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfKraftwertNichtGefundenException(ID, id));
 	}
 
-	public KraftwertDto speichereKraftwert(
-		final KraftwertDto kraftwertDto,
-		final String uebungId,
-		final String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	public KraftwertDto speichereKraftwert(KraftwertDto kraftwertDto, String uebungId, String benutzerId)
+		throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		Preconditions.checkNotNull(kraftwertDto,
 			"Zur Erstellung des Kraftwerts wird ein gültiges KraftwertDto benötigt!");
 		Preconditions.checkNotNull(uebungId, "Zur Erstellung des Kraftwerts wird eine gültige UebungID benötigt!");
 		Preconditions.checkNotNull(benutzerId, "Zur Erstellung des Kraftwerts wird eine gültige BenutzerID benötigt!");
 
-		final var uebung = uebungRepository.ermittleZuId(new Primaerschluessel(uebungId))
+		var uebung = uebungRepository.ermittleZuId(new Primaerschluessel(uebungId))
 			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException(ID, uebungId));
-		final var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
+		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
 
-		return kraftwertDtoMapper.konvertiere(kraftwertRepository.speichereKraftwert(new Kraftwert(
+		return kraftwertDtoMapper.mappe(kraftwertRepository.speichereKraftwert(new Kraftwert(
 			new Primaerschluessel(),
 			kraftwertDto.getGewicht(),
 			kraftwertDto.getKoerpergewicht(),
-			LocalDate.parse(kraftwertDto.getDatum(), DateTimeFormatter.ofPattern(DATUMSFORMAT)),
-			Wiederholungen.fromString(kraftwertDto.getWiederholungen()),
+			LocalDate.parse(kraftwertDto.getDatum(), DATUMSFORMAT),
+			Wiederholungen.zuWert(kraftwertDto.getWiederholungen()),
 			uebung,
 			benutzer)));
 	}

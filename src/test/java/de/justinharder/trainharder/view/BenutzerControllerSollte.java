@@ -25,12 +25,12 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new BenutzerController();
-		super.setup(sut);
-
 		request = mock(HttpServletRequest.class);
 
+		sut = new BenutzerController();
+
 		sut.setRequest(request);
+		super.setup(sut);
 	}
 
 	private void angenommenDerHttpServletRequestWirftServletException() throws ServletException
@@ -38,7 +38,7 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 		doThrow(ServletException.class).when(request).logout();
 	}
 
-	private void angenommenDerBenutzerServiceWirftBenutzerNichtGefundenException(final String authentifizierungId)
+	private void angenommenDerBenutzerServiceWirftBenutzerNichtGefundenException(String authentifizierungId)
 		throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuAuthentifizierung(authentifizierungId))
@@ -50,9 +50,9 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn Benutzer angemeldet ist")
 	void test01()
 	{
-		final var erwartet = "redirect:login";
+		var erwartet = "redirect:login";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
+		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -61,10 +61,10 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/benutzer/index.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "/benutzer/index.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put(
@@ -77,11 +77,11 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/benutzer/index.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var erwartet = "/benutzer/index.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		final var ergebnis =
+		var ergebnis =
 			super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -93,9 +93,9 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test04()
 	{
-		final var erwartet = "redirect:login";
+		var erwartet = "redirect:login";
 
-		final var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.benutzerdaten("harder"));
+		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.benutzerdaten("harder"));
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -104,10 +104,10 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit Servicefehler")
 	void test05() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "/benutzer/benutzerdaten.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var erwartet = "/benutzer/benutzerdaten.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitServicefehler(
+		var ergebnis = super.zurSeiteNavigierenMitServicefehler(
 			() -> sut.benutzerdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
@@ -119,11 +119,11 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test06() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/benutzer/benutzerdaten.xhtml";
-		final var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
+		var erwartet = "/benutzer/benutzerdaten.xhtml";
+		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		final var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
+		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
 			() -> sut.benutzerdaten(authentifizierungDto.getBenutzername()),
 			authentifizierungDto,
 			benutzerDto);
@@ -137,9 +137,9 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
 	void test07()
 	{
-		final var erwartet = "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!";
+		var erwartet = "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.aendereBenutzerdaten(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.aendereBenutzerdaten(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -148,12 +148,12 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test08() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = "redirect:login";
-		final var benutzername = "harder";
+		var erwartet = "redirect:login";
+		var benutzername = "harder";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
 
-		final var benutzerdaten = new Benutzerdaten(
+		var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",
 			"06.12.1998",
@@ -164,7 +164,7 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
+		var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(models).put(
@@ -176,15 +176,15 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("einen neuen Benutzer erstellen")
 	void test09() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/benutzer/benutzerdaten.xhtml";
-		final var benutzername = "harder";
-		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		var erwartet = "/benutzer/benutzerdaten.xhtml";
+		var benutzername = "harder";
+		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(benutzername,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
 		angenommenDerBenutzerServiceWirftBenutzerNichtGefundenException(authentifizierungId);
 
-		final var benutzerdaten = new Benutzerdaten(
+		var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",
 			"06.12.1998",
@@ -195,7 +195,7 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
+		var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);
@@ -207,16 +207,16 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("einen Benutzer aktualisieren")
 	void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		final var erwartet = "/benutzer/benutzerdaten.xhtml";
-		final var benutzername = "harder";
-		final var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		var erwartet = "/benutzer/benutzerdaten.xhtml";
+		var benutzername = "harder";
+		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(benutzername,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
 		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungId,
 			Testdaten.BENUTZER_DTO_JUSTIN);
 
-		final var benutzerdaten = new Benutzerdaten(
+		var benutzerdaten = new Benutzerdaten(
 			"Justin",
 			"Harder",
 			"06.12.1998",
@@ -227,7 +227,7 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 			"MITTELMAESSIG",
 			"NEIN",
 			"GUT");
-		final var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
+		var ergebnis = sut.aendereBenutzerdaten(benutzerdaten);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);
@@ -237,12 +237,12 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
-	void test11() throws ServletException
+	void test11()
 	{
-		final var erwartet = "redirect:login";
+		var erwartet = "redirect:login";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		final var ergebnis = sut.logout();
+		var ergebnis = sut.logout();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -251,11 +251,11 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Fehler-Seite weiterleiten, wenn der Logout fehlerhaft ist")
 	void test12() throws ServletException
 	{
-		final var erwartet = "redirect:error";
+		var erwartet = "redirect:error";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
 		angenommenDerHttpServletRequestWirftServletException();
 
-		final var ergebnis = sut.logout();
+		var ergebnis = sut.logout();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -264,10 +264,10 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Start-Seite weiterleiten, wenn der Logout erfolgreich ist")
 	void test13() throws ServletException
 	{
-		final var erwartet = "redirect:start";
+		var erwartet = "redirect:start";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal("harder"));
 
-		final var ergebnis = sut.logout();
+		var ergebnis = sut.logout();
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(request).logout();

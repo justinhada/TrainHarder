@@ -11,15 +11,15 @@ public class KraftwertDtoMapper
 {
 	private static final DateTimeFormatter DATUMSFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-	public List<KraftwertDto> konvertiereAlle(final List<Kraftwert> kraftwerte)
+	public List<KraftwertDto> mappeAlle(List<Kraftwert> kraftwerte)
 	{
 		return kraftwerte
 			.stream()
-			.map(this::konvertiere)
+			.map(this::mappe)
 			.collect(Collectors.toList());
 	}
 
-	public KraftwertDto konvertiere(final Kraftwert kraftwert)
+	public KraftwertDto mappe(Kraftwert kraftwert)
 	{
 		return new KraftwertDto(
 			kraftwert.getPrimaerschluessel().getId().toString(),

@@ -16,41 +16,40 @@ public class AuthentifizierungService
 
 	@Inject
 	public AuthentifizierungService(
-		final AuthentifizierungRepository authentifizierungRepository,
-		final AuthentifizierungDtoMapper authentifizierungDtoMapper)
+		AuthentifizierungRepository authentifizierungRepository,
+		AuthentifizierungDtoMapper authentifizierungDtoMapper)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
 	}
 
-	public AuthentifizierungDto ermittleZuId(final String id) throws AuthentifizierungNichtGefundenException
+	public AuthentifizierungDto ermittleZuId(String id) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!");
 
 		return authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
-			.map(authentifizierungDtoMapper::konvertiere)
+			.map(authentifizierungDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ID", id));
 	}
 
-	public AuthentifizierungDto ermittleZuBenutzer(final String benutzerId)
-		throws AuthentifizierungNichtGefundenException
+	public AuthentifizierungDto ermittleZuBenutzer(String benutzerId) throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(benutzerId, "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!");
 
 		return authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId))
-			.map(authentifizierungDtoMapper::konvertiere)
+			.map(authentifizierungDtoMapper::mappe)
 			.orElseThrow(
 				FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der BenutzerID", benutzerId));
 	}
 
-	public AuthentifizierungDto ermittleZuBenutzername(final String benutzername)
+	public AuthentifizierungDto ermittleZuBenutzername(String benutzername)
 		throws AuthentifizierungNichtGefundenException
 	{
 		Preconditions.checkNotNull(benutzername,
 			"Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!");
 
 		return authentifizierungRepository.ermittleZuBenutzername(benutzername)
-			.map(authentifizierungDtoMapper::konvertiere)
+			.map(authentifizierungDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService
 				.wirfAuthentifizierungNichtGefundenException("dem Benutzernamen", benutzername));
 	}

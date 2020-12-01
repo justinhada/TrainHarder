@@ -21,18 +21,18 @@ public class TrainHarderIdentityStore implements IdentityStore
 	private LoginService loginService;
 
 	@Override
-	public CredentialValidationResult validate(final Credential credential)
+	public CredentialValidationResult validate(Credential credential)
 	{
 		try
 		{
 			if (credential instanceof UsernamePasswordCredential)
 			{
-				final var benutzername = ((UsernamePasswordCredential) credential).getCaller();
-				final var passwort = ((UsernamePasswordCredential) credential).getPasswordAsString();
+				var benutzername = ((UsernamePasswordCredential) credential).getCaller();
+				var passwort = ((UsernamePasswordCredential) credential).getPasswordAsString();
 				return validate(loginService.login(benutzername, passwort));
 			}
 		}
-		catch (final LoginException | InvalidKeySpecException | NoSuchAlgorithmException e)
+		catch (LoginException | InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			return CredentialValidationResult.INVALID_RESULT;
 		}
@@ -40,7 +40,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 		return CredentialValidationResult.NOT_VALIDATED_RESULT;
 	}
 
-	private CredentialValidationResult validate(final AuthentifizierungDto authentifizierungDto)
+	private CredentialValidationResult validate(AuthentifizierungDto authentifizierungDto)
 	{
 		return new CredentialValidationResult(authentifizierungDto.getBenutzername());
 	}

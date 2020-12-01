@@ -1,15 +1,14 @@
 package de.justinharder.trainharder.persistence;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
+import de.justinharder.trainharder.setup.TestdatenAnleger;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import de.justinharder.trainharder.setup.TestdatenAnleger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JpaRepositorySollte
@@ -57,7 +56,7 @@ public class JpaRepositorySollte
 	{
 		erzeugeEntityManager();
 
-		final var transaction = entityManager.getTransaction();
+		var transaction = entityManager.getTransaction();
 		transaction.begin();
 		new TestdatenAnleger().speichereTestdaten(entityManager, System.out::println);
 		transaction.commit();

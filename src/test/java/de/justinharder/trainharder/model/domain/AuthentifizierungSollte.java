@@ -1,21 +1,20 @@
 package de.justinharder.trainharder.model.domain;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
-import java.util.UUID;
-
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.setup.Testdaten;
+import java.util.UUID;
+
+import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class AuthentifizierungSollte
 {
@@ -42,8 +41,8 @@ class AuthentifizierungSollte
 	@DisplayName("einen RequiredArgsCounstructor haben")
 	void test02()
 	{
-		final var id = new Primaerschluessel();
-		final var authentifizierung = new Authentifizierung(
+		var id = new Primaerschluessel();
+		var authentifizierung = new Authentifizierung(
 			id,
 			"mail@justinharder.de",
 			"harder",
@@ -62,16 +61,16 @@ class AuthentifizierungSollte
 	@DisplayName("Setter besitzen")
 	void test03()
 	{
-		final var id = new Primaerschluessel();
-		final var resetUuid = UUID.randomUUID();
-		final var authentifizierung = new Authentifizierung();
-		authentifizierung.setPrimaerschluessel(id);
-		authentifizierung.setMail("mail@justinharder.de");
-		authentifizierung.setBenutzername("harder");
-		authentifizierung.setPasswort(Testdaten.PASSWORT);
-		authentifizierung.setAktiv(true);
-		authentifizierung.setResetUuid(resetUuid);
-		authentifizierung.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+		var id = new Primaerschluessel();
+		var resetUuid = UUID.randomUUID();
+		var authentifizierung = new Authentifizierung()
+			.setPrimaerschluessel(id)
+			.setMail("mail@justinharder.de")
+			.setBenutzername("harder")
+			.setPasswort(Testdaten.PASSWORT)
+			.setAktiv(true)
+			.setResetUuid(resetUuid)
+			.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
 			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
@@ -99,7 +98,7 @@ class AuthentifizierungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test05()
 	{
-		final var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+		var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

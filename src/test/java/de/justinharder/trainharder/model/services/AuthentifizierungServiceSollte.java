@@ -1,16 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
@@ -18,6 +7,16 @@ import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class AuthentifizierungServiceSollte
 {
@@ -31,48 +30,47 @@ class AuthentifizierungServiceSollte
 	{
 		authentifizierungRepository = mock(AuthentifizierungRepository.class);
 		authentifizierungDtoMapper = mock(AuthentifizierungDtoMapper.class);
+
 		sut = new AuthentifizierungService(authentifizierungRepository, authentifizierungDtoMapper);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(final String id,
-		final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(String id,
+		Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZurId(final String id)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZurId(String id)
 	{
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(id, Optional.empty());
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(
-		final Authentifizierung authentifizierung, final AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung,
+		AuthentifizierungDto authentifizierungDto)
 	{
-		when(authentifizierungDtoMapper.konvertiere(authentifizierung)).thenReturn(authentifizierungDto);
+		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(
-		final String benutzerId, final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(String benutzerId,
+		Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId)))
 			.thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(
-		final String benutzerId)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(String benutzerId)
 	{
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(benutzerId, Optional.empty());
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(
-		final String benutzername,
-		final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(String benutzername,
+		Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
 
 	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(
-		final String benutzername)
+		String benutzername)
 	{
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
 			Optional.empty());
@@ -82,9 +80,9 @@ class AuthentifizierungServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die ID null ist")
 	void test01()
 	{
-		final var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!";
+		var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -93,10 +91,10 @@ class AuthentifizierungServiceSollte
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn keine Authentifizierung zur ID ermittelt werden kann")
 	void test02()
 	{
-		final var id = new Primaerschluessel().getId().toString();
+		var id = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZurId(id);
 
-		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuId(id));
+		var exception = assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuId(id));
 
 		assertThat(exception.getMessage())
 			.isEqualTo("Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!");
@@ -106,13 +104,13 @@ class AuthentifizierungServiceSollte
 	@DisplayName("eine Authentifizierung zur ID ermitteln")
 	void test03() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD;
-		final var id = Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID.getId().toString();
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD;
+		var id = Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID.getId().toString();
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(id, Optional.of(authentifizierung));
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		final var ergebnis = sut.ermittleZuId(id);
+		var ergebnis = sut.ermittleZuId(id);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -121,21 +119,21 @@ class AuthentifizierungServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
 	void test04()
 	{
-		final var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!";
+		var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzer(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzer(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn BenutzerID zu keiner Authentifizierung gehört")
-	void test05() throws AuthentifizierungNichtGefundenException
+	void test05()
 	{
-		final var benutzerId = new Primaerschluessel().getId().toString();
+		var benutzerId = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(benutzerId);
 
-		final var exception =
+		var exception =
 			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzer(benutzerId));
 
 		assertThat(exception.getMessage())
@@ -146,14 +144,14 @@ class AuthentifizierungServiceSollte
 	@DisplayName("Authentifizierung zu BenutzerID ermitteln")
 	void test06() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzerId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzerId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(benutzerId,
 			Optional.of(authentifizierung));
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		final var ergebnis = sut.ermittleZuBenutzer(benutzerId);
+		var ergebnis = sut.ermittleZuBenutzer(benutzerId);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -162,9 +160,9 @@ class AuthentifizierungServiceSollte
 	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
 	void test07()
 	{
-		final var erwartet = "Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!";
+		var erwartet = "Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzername(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzername(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -173,11 +171,11 @@ class AuthentifizierungServiceSollte
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn keine Authentifizierung zum Benutzernamen ermittelt werden kann")
 	void test08()
 	{
-		final var benutzername = "nichtbekannt";
-		final var erwartet = "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!";
+		var benutzername = "nichtbekannt";
+		var erwartet = "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!";
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(benutzername);
 
-		final var exception =
+		var exception =
 			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzername(benutzername));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
@@ -187,14 +185,14 @@ class AuthentifizierungServiceSollte
 	@DisplayName("Authentifizierung zum Benutzernamen ermitteln")
 	void test09() throws AuthentifizierungNichtGefundenException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var benutzername = "harder";
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var benutzername = "harder";
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
 			Optional.of(authentifizierung));
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		final var ergebnis = sut.ermittleZuBenutzername(benutzername);
+		var ergebnis = sut.ermittleZuBenutzername(benutzername);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}

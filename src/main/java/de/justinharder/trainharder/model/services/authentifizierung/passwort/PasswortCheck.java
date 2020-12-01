@@ -20,7 +20,7 @@ public class PasswortCheck
 	private boolean hatSonderzeichen;
 	private boolean hatZahl;
 
-	public boolean isUnsicher(final String passwort)
+	public boolean isUnsicher(String passwort)
 	{
 		hatKleinbuchstabe = false;
 		hatGrossbuchstabe = false;
@@ -43,7 +43,7 @@ public class PasswortCheck
 		return !(hatKleinbuchstabe && hatGrossbuchstabe && hatSonderzeichen && hatZahl);
 	}
 
-	private boolean checkKleinbuchstabe(final char buchstabe)
+	private boolean checkKleinbuchstabe(char buchstabe)
 	{
 		if (hatKleinbuchstabe)
 		{
@@ -53,7 +53,7 @@ public class PasswortCheck
 		return buchstabe >= KLEINBUCHSTABE_MINDESTCODE && buchstabe <= KLEINBUCHSTABE_MAXIMALCODE;
 	}
 
-	private boolean checkGrossbuchstabe(final char buchstabe)
+	private boolean checkGrossbuchstabe(char buchstabe)
 	{
 		if (hatGrossbuchstabe)
 		{
@@ -63,7 +63,7 @@ public class PasswortCheck
 		return buchstabe >= GROSSBUCHSTABE_MINDESTCODE && buchstabe <= GROSSBUCHSTABE_MAXIMALCODE;
 	}
 
-	private boolean checkZahl(final char buchstabe)
+	private boolean checkZahl(char buchstabe)
 	{
 		if (hatZahl)
 		{
@@ -73,14 +73,14 @@ public class PasswortCheck
 		return buchstabe >= ZAHL_MINDESTCODE && buchstabe <= ZAHL_MAXIMALCODE;
 	}
 
-	private boolean checkSonderzeichen(final char buchstabe)
+	private boolean checkSonderzeichen(char buchstabe)
 	{
 		if (hatSonderzeichen)
 		{
 			return true;
 		}
 
-		for (final var sonderzeichen : ERLAUBTE_SONDERZEICHEN)
+		for (var sonderzeichen : ERLAUBTE_SONDERZEICHEN)
 		{
 			if (sonderzeichen == buchstabe)
 			{

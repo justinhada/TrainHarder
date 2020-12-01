@@ -1,20 +1,5 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
@@ -29,6 +14,18 @@ import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMap
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class RegistrierungServiceSollte
 {
@@ -57,38 +54,36 @@ class RegistrierungServiceSollte
 			mailServer);
 	}
 
-	private void angenommenDieMailIstVergeben(final String mail, final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDieMailIstVergeben(String mail, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuMail(mail)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDerBenutzernameIstVergeben(final String benutzername,
-		final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDerBenutzernameIstVergeben(String benutzername,
+		Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasPasswortIstUnsicher(final String passwort, final boolean unsicher)
+	private void angenommenDasPasswortIstUnsicher(String passwort, boolean unsicher)
 	{
 		when(passwortCheck.isUnsicher(passwort)).thenReturn(unsicher);
 	}
 
-	private void angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(
-		final Authentifizierung authentifizierung)
+	private void angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(Authentifizierung authentifizierung)
 	{
 		when(authentifizierungRepository.speichereAuthentifizierung(any(Authentifizierung.class)))
 			.thenReturn(authentifizierung);
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(
-		final Authentifizierung authentifizierung, final AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
+		Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
 	{
-		when(authentifizierungDtoMapper.konvertiere(authentifizierung)).thenReturn(authentifizierungDto);
+		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(
-		final String authentifizierungId,
-		final Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId,
+		Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId)))
 			.thenReturn(authentifizierung);
@@ -98,9 +93,9 @@ class RegistrierungServiceSollte
 	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
 	void test01()
 	{
-		final var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
+		var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -109,11 +104,11 @@ class RegistrierungServiceSollte
 	@DisplayName("MailVergebenException werfen, wenn die Mail vergeben ist")
 	void test02()
 	{
-		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		final var erwartet = "Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!";
+		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
+		var erwartet = "Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!";
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
-		final var exception = assertThrows(MailVergebenException.class, () -> sut.registriere(registrierung));
+		var exception = assertThrows(MailVergebenException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
@@ -123,13 +118,13 @@ class RegistrierungServiceSollte
 	@DisplayName("BenutzernameVergebenException werfen, wenn der Benutzername vergeben ist")
 	void test03()
 	{
-		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		final var erwartet = "Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!";
+		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
+		var erwartet = "Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!";
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
 		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(),
 			Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
-		final var exception = assertThrows(BenutzernameVergebenException.class, () -> sut.registriere(registrierung));
+		var exception = assertThrows(BenutzernameVergebenException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
@@ -140,13 +135,13 @@ class RegistrierungServiceSollte
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
 	void test04()
 	{
-		final var erwartet = "Das Passwort ist unsicher!";
-		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
+		var erwartet = "Das Passwort ist unsicher!";
+		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
 		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), true);
 
-		final var exception = assertThrows(PasswortUnsicherException.class, () -> sut.registriere(registrierung));
+		var exception = assertThrows(PasswortUnsicherException.class, () -> sut.registriere(registrierung));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
@@ -159,16 +154,16 @@ class RegistrierungServiceSollte
 	void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		final var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
 		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), false);
 		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
-		angenommenDerAuthentifizierungDtoMapperKonvertiertZuAuthentifizierungDto(authentifizierung, erwartet);
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		final var ergebnis = sut.registriere(registrierung);
+		var ergebnis = sut.registriere(registrierung);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
@@ -186,16 +181,16 @@ class RegistrierungServiceSollte
 		//				+ "das TrainHarder-Team")
 		//					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())),
 		//			StandardCharsets.UTF_8);
-		verify(authentifizierungDtoMapper).konvertiere(authentifizierung);
+		verify(authentifizierungDtoMapper).mappe(authentifizierung);
 	}
 
 	@Test
 	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
 	void test06()
 	{
-		final var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
+		var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
 
-		final var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
+		var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
 	}
@@ -204,10 +199,10 @@ class RegistrierungServiceSollte
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
 	void test07()
 	{
-		final var authentifizierungId = new Primaerschluessel().getId().toString();
-		final var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
+		var authentifizierungId = new Primaerschluessel().getId().toString();
+		var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
 
-		final var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
+		var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
 			() -> sut.aktiviere(authentifizierungId));
 
 		assertThat(exception.getMessage()).isEqualTo(erwartet);
@@ -217,8 +212,8 @@ class RegistrierungServiceSollte
 	@DisplayName("eine Authentifizierung aktivieren")
 	void test08() throws AuthentifizierungNichtGefundenException
 	{
-		final var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		final var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
 			Optional.of(authentifizierung));
 		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);

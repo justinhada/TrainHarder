@@ -37,10 +37,10 @@ public class Authentifizierung extends Entitaet
 	{}
 
 	public Authentifizierung(
-		final Primaerschluessel primaerschluessel,
-		final String mail,
-		final String benutzername,
-		final Passwort passwort)
+		Primaerschluessel primaerschluessel,
+		String mail,
+		String benutzername,
+		Passwort passwort)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.mail = mail;
@@ -49,50 +49,50 @@ public class Authentifizierung extends Entitaet
 		aktiv = false;
 	}
 
-	public Authentifizierung setPrimaerschluessel(final Primaerschluessel primaerschluessel)
+	public Authentifizierung setPrimaerschluessel(Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Authentifizierung setMail(final String mail)
+	public Authentifizierung setMail(String mail)
 	{
 		this.mail = mail;
 		return this;
 	}
 
-	public Authentifizierung setBenutzername(final String benutzername)
+	public Authentifizierung setBenutzername(String benutzername)
 	{
 		this.benutzername = benutzername;
 		return this;
 	}
 
-	public Authentifizierung setPasswort(final Passwort passwort)
+	public Authentifizierung setPasswort(Passwort passwort)
 	{
 		this.passwort = passwort;
 		return this;
 	}
 
-	public Authentifizierung setAktiv(final boolean aktiv)
+	public Authentifizierung setAktiv(boolean aktiv)
 	{
 		this.aktiv = aktiv;
 		return this;
 	}
 
-	public Authentifizierung setResetUuid(final UUID resetUuid)
+	public Authentifizierung setResetUuid(UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;
 	}
 
-	public Authentifizierung setBenutzer(final Benutzer benutzer)
+	public Authentifizierung setBenutzer(Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object obj)
+	public boolean equals(Object obj)
 	{
 		return super.equals(obj);
 	}

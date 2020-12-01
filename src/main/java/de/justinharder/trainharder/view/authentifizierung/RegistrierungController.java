@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Path(value = "/join")
 public class RegistrierungController
 {
-	public static final String FEHLER = "fehler";
+	private static final String FEHLER = "fehler";
 
 	@Context
 	@Setter(value = AccessLevel.NONE)
@@ -59,7 +59,7 @@ public class RegistrierungController
 	}
 
 	@POST
-	public String registriere(@BeanParam final Registrierung registrierung)
+	public String registriere(@BeanParam Registrierung registrierung)
 	{
 		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
 
@@ -76,7 +76,7 @@ public class RegistrierungController
 			models.put("authentifizierung", registrierungService.registriere(registrierung));
 			return erfolgreich();
 		}
-		catch (final MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException
+		catch (MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException
 			| InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			models.put(FEHLER, e.getMessage());
@@ -93,7 +93,7 @@ public class RegistrierungController
 
 	@GET
 	@Path(value = "/{id}")
-	public String aktiviere(@PathParam(value = "id") final String id)
+	public String aktiviere(@PathParam(value = "id") String id)
 	{
 		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
 
@@ -102,7 +102,7 @@ public class RegistrierungController
 			registrierungService.aktiviere(id);
 			return "/aktiviert.xhtml";
 		}
-		catch (final AuthentifizierungNichtGefundenException e)
+		catch (AuthentifizierungNichtGefundenException e)
 		{
 			models.put(FEHLER, e.getMessage());
 			return "/error";

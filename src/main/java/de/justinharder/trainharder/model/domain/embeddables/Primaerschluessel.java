@@ -26,24 +26,24 @@ public class Primaerschluessel implements Serializable
 		this(UUID.randomUUID());
 	}
 
-	public Primaerschluessel(final UUID id)
+	public Primaerschluessel(UUID id)
 	{
 		this.id = id;
 	}
 
-	public Primaerschluessel(final String id)
+	public Primaerschluessel(String id)
 	{
 		this(UUID.fromString(id));
 	}
 
-	public Primaerschluessel setId(final UUID id)
+	public Primaerschluessel setId(UUID id)
 	{
 		this.id = id;
 		return this;
 	}
 
 	@Override
-	public boolean equals(final Object o)
+	public boolean equals(Object o)
 	{
 		if (this == o)
 		{

@@ -17,28 +17,28 @@ public class BelastungsfaktorService
 
 	@Inject
 	public BelastungsfaktorService(
-		final BelastungsfaktorRepository belastungsfaktorRepository,
-		final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
+		BelastungsfaktorRepository belastungsfaktorRepository,
+		BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
 	{
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
 		this.belastungsfaktorDtoMapper = belastungsfaktorDtoMapper;
 	}
 
-	public BelastungsfaktorDto ermittleZuId(final String id) throws BelastungsfaktorNichtGefundenException
+	public BelastungsfaktorDto ermittleZuId(String id) throws BelastungsfaktorNichtGefundenException
 	{
 		Preconditions.checkNotNull(id, "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!");
 
 		return belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))
-			.map(belastungsfaktorDtoMapper::konvertiere)
+			.map(belastungsfaktorDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", id));
 	}
 
-	public BelastungsfaktorDto speichereBelastungsfaktor(final BelastungsfaktorDto belastungsfaktorDto)
+	public BelastungsfaktorDto speichereBelastungsfaktor(BelastungsfaktorDto belastungsfaktorDto)
 	{
 		Preconditions.checkNotNull(belastungsfaktorDto,
 			"Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!");
 
-		return belastungsfaktorDtoMapper.konvertiere(belastungsfaktorRepository
+		return belastungsfaktorDtoMapper.mappe(belastungsfaktorRepository
 			.speichereBelastungsfaktor(new Belastungsfaktor(
 				new Primaerschluessel(),
 				belastungsfaktorDto.getSquat(),

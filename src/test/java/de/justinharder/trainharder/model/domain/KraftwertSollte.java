@@ -37,8 +37,8 @@ class KraftwertSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	void test02()
 	{
-		final var id = new Primaerschluessel();
-		final var kraftwert = new Kraftwert(
+		var id = new Primaerschluessel();
+		var kraftwert = new Kraftwert(
 			id,
 			100,
 			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
@@ -75,15 +75,15 @@ class KraftwertSollte
 	@DisplayName("Setter besitzen")
 	void test04()
 	{
-		final var id = new Primaerschluessel();
-		final var kraftwert = new Kraftwert();
-		kraftwert.setPrimaerschluessel(id);
-		kraftwert.setGewicht(100);
-		kraftwert.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht());
-		kraftwert.setDatum(LocalDate.now());
-		kraftwert.setWiederholungen(Wiederholungen.ONE_REP_MAX);
-		kraftwert.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
-		kraftwert.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+		var id = new Primaerschluessel();
+		var kraftwert = new Kraftwert()
+			.setPrimaerschluessel(id)
+			.setGewicht(100)
+			.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht())
+			.setDatum(LocalDate.now())
+			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
+			.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN)
+			.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
 			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(id),
@@ -112,7 +112,7 @@ class KraftwertSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+		var erwartet = "Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

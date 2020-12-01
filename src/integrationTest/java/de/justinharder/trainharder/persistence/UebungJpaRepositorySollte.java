@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -23,6 +22,7 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	public void setup()
 	{
 		sut = new UebungJpaRepository();
+
 		sut.setEntityManager(erzeugeEntityManager());
 	}
 
@@ -83,11 +83,9 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	@Test
 	public void keineUebungZuIdErmitteln()
 	{
-		var erwartet = Optional.empty();
-
 		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -95,25 +93,25 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(
 			() -> {
-				var erwartet = Optional.of(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
+				var erwartet = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			},
 			() -> {
-				var erwartet = Optional.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
+				var erwartet = Testdaten.UEBUNG_LOWBAR_KNIEBEUGE;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			},
 			() -> {
-				var erwartet = Optional.of(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+				var erwartet = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
 
 				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID);
 
-				assertThat(ergebnis).isEqualTo(erwartet);
+				assertThat(ergebnis).hasValue(erwartet);
 			}
 		);
 	}

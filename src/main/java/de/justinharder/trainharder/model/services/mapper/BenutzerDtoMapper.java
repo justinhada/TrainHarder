@@ -14,21 +14,21 @@ public class BenutzerDtoMapper
 
 	@Inject
 	public BenutzerDtoMapper(
-		final AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		final KoerpermessungDtoMapper koerpermessungDtoMapper)
+		AuthentifizierungDtoMapper authentifizierungDtoMapper,
+		KoerpermessungDtoMapper koerpermessungDtoMapper)
 	{
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
 		this.koerpermessungDtoMapper = koerpermessungDtoMapper;
 	}
 
-	public List<BenutzerDto> konvertiereAlle(final List<Benutzer> benutzer)
+	public List<BenutzerDto> mappeAlle(List<Benutzer> benutzer)
 	{
 		return benutzer.stream()
-			.map(this::konvertiere)
+			.map(this::mappe)
 			.collect(Collectors.toList());
 	}
 
-	public BenutzerDto konvertiere(final Benutzer benutzer)
+	public BenutzerDto mappe(Benutzer benutzer)
 	{
 		return new BenutzerDto(
 			benutzer.getPrimaerschluessel().getId().toString(),
@@ -43,7 +43,7 @@ public class BenutzerDtoMapper
 			benutzer.getBenutzerangabe().getStress().name(),
 			benutzer.getBenutzerangabe().getDoping().name(),
 			benutzer.getBenutzerangabe().getRegenerationsfaehigkeit().name(),
-			authentifizierungDtoMapper.konvertiere(benutzer.getAuthentifizierung()),
-			koerpermessungDtoMapper.konvertiereAlle(benutzer.getKoerpermessungen()));
+			authentifizierungDtoMapper.mappe(benutzer.getAuthentifizierung()),
+			koerpermessungDtoMapper.mappeAlle(benutzer.getKoerpermessungen()));
 	}
 }

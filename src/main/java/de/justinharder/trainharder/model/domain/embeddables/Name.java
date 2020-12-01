@@ -23,19 +23,19 @@ public class Name implements Serializable
 	public Name()
 	{}
 
-	public Name(final String vorname, final String nachname)
+	public Name(String vorname, String nachname)
 	{
 		this.vorname = vorname;
 		this.nachname = nachname;
 	}
 
-	public Name setVorname(final String vorname)
+	public Name setVorname(String vorname)
 	{
 		this.vorname = vorname;
 		return this;
 	}
 
-	public Name setNachname(final String nachname)
+	public Name setNachname(String nachname)
 	{
 		this.nachname = nachname;
 		return this;
@@ -52,8 +52,8 @@ public class Name implements Serializable
 		{
 			return false;
 		}
-		var name = (Name) o;
-		return vorname.equals(name.vorname) && nachname.equals(name.nachname);
+		var that = (Name) o;
+		return vorname.equals(that.vorname) && nachname.equals(that.nachname);
 	}
 
 	@Override

@@ -54,7 +54,7 @@ class MailSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		final var erwartet = "Mail("
+		var erwartet = "Mail("
 			+ "sender=MailAdresse(adresse=mail@justinharder.de, name=Justin), "
 			+ "alleEmpfaenger=[MailAdresse(adresse=justinharder@t-online.de, name=Justin)], "
 			+ "alleInKopie=[MailAdresse(adresse=justinharder@t-online.de, name=Justin)], "

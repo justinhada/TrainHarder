@@ -40,9 +40,9 @@ class BenutzerSollte
 	@DisplayName("einen RequiredArgsConstructor haben")
 	void test02()
 	{
-		final var benutzerId = new Primaerschluessel();
-		final var authentifizierungId = new Primaerschluessel();
-		final var benutzer = new Benutzer(
+		var benutzerId = new Primaerschluessel();
+		var authentifizierungId = new Primaerschluessel();
+		var benutzer = new Benutzer(
 			benutzerId,
 			new Name("Justin", "Harder"),
 			LocalDate.of(1998, 12, 6),
@@ -109,27 +109,27 @@ class BenutzerSollte
 	@DisplayName("Setter besitzen")
 	void test04()
 	{
-		final var benutzerId = new Primaerschluessel();
-		final var authentifizierungId = new Primaerschluessel();
-		final var authentifizierung = new Authentifizierung(
+		var benutzerId = new Primaerschluessel();
+		var authentifizierungId = new Primaerschluessel();
+		var authentifizierung = new Authentifizierung(
 			authentifizierungId,
 			"mail@justinharder.de",
 			"harder",
 			Testdaten.PASSWORT);
-		final var benutzer = new Benutzer();
-		benutzer.setPrimaerschluessel(benutzerId);
-		benutzer.setName(new Name("Justin", "Harder"));
-		benutzer.setGeburtsdatum(LocalDate.of(1998, 12, 6));
-		benutzer.setBenutzerangabe(new Benutzerangabe(
-			Geschlecht.MAENNLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.GUT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.GUT));
+		var benutzer = new Benutzer()
+			.setPrimaerschluessel(benutzerId)
+			.setName(new Name("Justin", "Harder"))
+			.setGeburtsdatum(LocalDate.of(1998, 12, 6))
+			.setAuthentifizierung(authentifizierung)
+			.setBenutzerangabe(new Benutzerangabe(
+				Geschlecht.MAENNLICH,
+				Erfahrung.BEGINNER,
+				Ernaehrung.GUT,
+				Schlafqualitaet.GUT,
+				Stress.MITTELMAESSIG,
+				Doping.NEIN,
+				Regenerationsfaehigkeit.GUT));
 		benutzer.getBenutzerangabe().setKraftlevel(Kraftlevel.CLASS_5);
-		benutzer.setAuthentifizierung(authentifizierung);
 		authentifizierung.setBenutzer(benutzer);
 
 		assertAll(
@@ -173,7 +173,7 @@ class BenutzerSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
+		var erwartet = "Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
 	}

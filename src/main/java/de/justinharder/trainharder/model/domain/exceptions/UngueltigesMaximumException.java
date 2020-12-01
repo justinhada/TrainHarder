@@ -4,7 +4,7 @@ public class UngueltigesMaximumException extends Exception
 {
 	private static final long serialVersionUID = 7503469787236516845L;
 
-	public UngueltigesMaximumException(final String nachricht)
+	public UngueltigesMaximumException(String nachricht)
 	{
 		super(nachricht);
 	}

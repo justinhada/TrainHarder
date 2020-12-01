@@ -12,7 +12,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,17 +25,16 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	public void setup()
 	{
 		sut = new AuthentifizierungJpaRepository();
+
 		sut.setEntityManager(erzeugeEntityManager());
 	}
 
 	@Test
 	public void keineAuthentifizierungZuIdErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
 
-		final var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -44,29 +42,27 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
+			var ergebnis = sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keineAuthentifizierungZuBenutzerErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuBenutzer(new Primaerschluessel());
 
-		final var ergebnis = sut.ermittleZuBenutzer(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -74,29 +70,27 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID);
+			var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID);
+			var ergebnis = sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID);
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keineAuthentifizierungZuMailErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuMail("nicht@existent.de");
 
-		final var ergebnis = sut.ermittleZuMail("nicht@existent.de");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -104,29 +98,27 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail());
+			var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getMail());
+			var ergebnis = sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getMail());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keineAuthentifizierungZuBenutzernameErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuBenutzername("nichtexistent");
 
-		final var ergebnis = sut.ermittleZuBenutzername("nichtexistent");
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
@@ -134,45 +126,43 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(() ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-			final var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
+			var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		}, () ->
 		{
-			final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
+			var erwartet = Testdaten.AUTHENTIFIZIERUNG_EDUARD;
 
-			final var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
+			var ergebnis = sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 
-			assertThat(ergebnis).isEqualTo(erwartet);
+			assertThat(ergebnis).hasValue(erwartet);
 		});
 	}
 
 	@Test
 	public void keineAuthentifizierungZuResetUuidErmitteln()
 	{
-		final var erwartet = Optional.empty();
+		var ergebnis = sut.ermittleZuResetUuid(UUID.randomUUID());
 
-		final var ergebnis = sut.ermittleZuResetUuid(UUID.randomUUID());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).isEmpty();
 	}
 
 	@Test
 	public void authentifizierungZuResetUuidErmitteln()
 	{
-		final var erwartet = Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 
-		final var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid());
+		var ergebnis = sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid());
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(ergebnis).hasValue(erwartet);
 	}
 
 	@Test
 	public void authentifizierungErstellen()
 	{
-		final var erwartet = new Authentifizierung(
+		var erwartet = new Authentifizierung(
 			new Primaerschluessel(),
 			"justinharder@t-online.de",
 			"lololol",
@@ -191,7 +181,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 				Regenerationsfaehigkeit.DURCHSCHNITTLICH),
 			erwartet));
 
-		final var ergebnis = sut.speichereAuthentifizierung(erwartet);
+		var ergebnis = sut.speichereAuthentifizierung(erwartet);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
 	}
@@ -200,10 +190,10 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	@Ignore
 	public void authentifizierungAktualisieren()
 	{
-		final var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		erwartet.setAktiv(true);
 
-		final var ergebnis = sut.speichereAuthentifizierung(erwartet);
+		var ergebnis = sut.speichereAuthentifizierung(erwartet);
 
 		assertAll(
 			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),

@@ -1,14 +1,12 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import de.justinharder.trainharder.setup.Testdaten;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class KoerpermasseSollte
 {
@@ -62,7 +60,7 @@ class KoerpermasseSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test04()
 	{
-		final var erwartet =
+		var erwartet =
 			"Koerpermasse(koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43)";
 
 		assertThat(sut).hasToString(erwartet);

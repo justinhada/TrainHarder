@@ -47,7 +47,7 @@ public class KoerpermessungController extends AbstractController
 
 	@GET
 	@Path(value = "/{benutzername}")
-	public String koerpermessdaten(@PathParam(value = "benutzername") final String benutzername)
+	public String koerpermessdaten(@PathParam(value = "benutzername") String benutzername)
 	{
 		if (securityContext.getCallerPrincipal() == null)
 		{
@@ -56,8 +56,8 @@ public class KoerpermessungController extends AbstractController
 
 		try
 		{
-			final var authentifizierungDto = getAuthentifizierungDto();
-			final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
+			var authentifizierungDto = getAuthentifizierungDto();
+			var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
 
 			models.put("authentifizierung", authentifizierungDto);
 			models.put("benutzer", benutzerDto);
@@ -74,15 +74,15 @@ public class KoerpermessungController extends AbstractController
 
 	@POST
 	@Path(value = "/{benutzername}")
-	public String addKoerpermessung(@BeanParam final Koerpermessdaten koerpermessdaten)
+	public String addKoerpermessung(@BeanParam Koerpermessdaten koerpermessdaten)
 	{
 		Preconditions.checkNotNull(koerpermessdaten,
 			"Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!");
 
 		try
 		{
-			final var authentifizierungDto = getAuthentifizierungDto();
-			final var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
+			var authentifizierungDto = getAuthentifizierungDto();
+			var benutzerDto = getBenutzerDto(authentifizierungDto.getPrimaerschluessel());
 			koerpermessungService.erstelleKoerpermessung(koerpermessdaten, benutzerDto.getPrimaerschluessel());
 			return koerpermessdaten(authentifizierungDto.getBenutzername());
 		}
