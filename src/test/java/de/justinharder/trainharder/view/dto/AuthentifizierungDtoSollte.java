@@ -63,8 +63,8 @@ class AuthentifizierungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "AuthentifizierungDto(primaerschluessel=" + primaerschluessel
-			+ ", mail=mail@justinharder.de, benutzername=harder)";
+		var erwartet = "AuthentifizierungDto(super=Dto(primaerschluessel=" + primaerschluessel
+			+ "), mail=mail@justinharder.de, benutzername=harder)";
 
 		assertThat(sut).hasToString(erwartet);
 	}

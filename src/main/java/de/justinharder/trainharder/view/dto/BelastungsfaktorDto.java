@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class BelastungsfaktorDto extends Dto
 {
 	private static final long serialVersionUID = -2050880743329267381L;
@@ -55,6 +55,13 @@ public class BelastungsfaktorDto extends Dto
 		this.quads = quads;
 		this.hamstrings = hamstrings;
 		this.shoulder = shoulder;
+	}
+
+	@Override
+	public BelastungsfaktorDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public BelastungsfaktorDto setSquat(double squat)

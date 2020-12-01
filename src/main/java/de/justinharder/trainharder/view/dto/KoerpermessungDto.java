@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class KoerpermessungDto extends Dto
 {
 	private static final long serialVersionUID = 46915464001880978L;
@@ -66,6 +66,13 @@ public class KoerpermessungDto extends Dto
 		var magermasse = koerpergewicht * (1 - koerperfettAnteil / 100.0);
 		var ffmi = magermasse / Math.pow(koerpergroesse / 100.0, 2) + 6.1 * (1.8 - koerpergroesse / 100.0);
 		return Math.round(ffmi * 100) / 100.0;
+	}
+
+	@Override
+	public KoerpermessungDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public KoerpermessungDto setDatum(String datum)

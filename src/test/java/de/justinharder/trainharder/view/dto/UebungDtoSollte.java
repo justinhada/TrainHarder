@@ -79,10 +79,10 @@ class UebungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "UebungDto(primaerschluessel=" + primaerschluessel
-			+ ", name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(primaerschluessel="
+		var erwartet = "UebungDto(super=Dto(primaerschluessel=" + primaerschluessel
+			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="
 			+ belastungsfaktorPrimaerschluessel
-			+ ", squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))";
+			+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))";
 
 		assertThat(sut).hasToString(erwartet);
 	}

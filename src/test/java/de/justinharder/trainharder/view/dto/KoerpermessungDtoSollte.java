@@ -91,9 +91,9 @@ class KoerpermessungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "KoerpermessungDto(primaerschluessel="
+		var erwartet = "KoerpermessungDto(super=Dto(primaerschluessel="
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
-			+ ", datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
+			+ "), datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
 
 		assertThat(sut).hasToString(erwartet);
 	}

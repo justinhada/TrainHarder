@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class UebungDto extends Dto
 {
 	private static final long serialVersionUID = -7055200842034977331L;
@@ -31,6 +31,13 @@ public class UebungDto extends Dto
 		this.uebungsart = uebungsart;
 		this.uebungskategorie = uebungskategorie;
 		this.belastungsfaktor = belastungsfaktor;
+	}
+
+	@Override
+	public UebungDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public UebungDto setName(String name)

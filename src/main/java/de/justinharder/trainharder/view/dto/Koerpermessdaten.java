@@ -50,7 +50,7 @@ public class Koerpermessdaten
 	@Override
 	public int hashCode()
 	{
-		return Objects
-			.hash(datum, koerpergroesse, koerpergewicht, koerperfettAnteil, kalorieneinnahme, kalorienverbrauch);
+		return Objects.hash(datum, koerpergroesse, koerpergewicht, koerperfettAnteil, kalorieneinnahme,
+			kalorienverbrauch);
 	}
 }

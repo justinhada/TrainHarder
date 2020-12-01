@@ -64,8 +64,7 @@ public class Benutzerdaten
 	@Override
 	public int hashCode()
 	{
-		return Objects
-			.hash(vorname, nachname, geburtsdatum, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
-				regenerationsfaehigkeit);
+		return Objects.hash(vorname, nachname, geburtsdatum, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress,
+			doping, regenerationsfaehigkeit);
 	}
 }

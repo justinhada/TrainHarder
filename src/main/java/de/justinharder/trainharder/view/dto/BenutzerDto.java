@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class BenutzerDto extends Dto
 {
 	private static final long serialVersionUID = 2341943957236551490L;
@@ -66,6 +66,13 @@ public class BenutzerDto extends Dto
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		this.authentifizierung = authentifizierung;
 		this.koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
+	}
+
+	@Override
+	public BenutzerDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public BenutzerDto setVorname(String vorname)

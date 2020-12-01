@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class KraftwertDto extends Dto
 {
 	private static final long serialVersionUID = -5177169492291346152L;
@@ -31,6 +31,13 @@ public class KraftwertDto extends Dto
 		this.koerpergewicht = koerpergewicht;
 		this.datum = datum;
 		this.wiederholungen = wiederholungen;
+	}
+
+	@Override
+	public KraftwertDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public KraftwertDto setGewicht(double gewicht)

@@ -106,8 +106,8 @@ class BelastungsfaktorDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test06()
 	{
-		final var erwartet = "BelastungsfaktorDto(primaerschluessel=" + primaerschluessel
-			+ ", squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1)";
+		var erwartet = "BelastungsfaktorDto(super=Dto(primaerschluessel=" + primaerschluessel
+			+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1)";
 
 		assertThat(sut).hasToString(erwartet);
 	}

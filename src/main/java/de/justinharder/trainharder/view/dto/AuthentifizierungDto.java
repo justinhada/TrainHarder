@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 public class AuthentifizierungDto extends Dto
 {
 	private static final long serialVersionUID = -2585152739995047225L;
@@ -22,6 +22,13 @@ public class AuthentifizierungDto extends Dto
 		super(primaerschluessel);
 		this.mail = mail;
 		this.benutzername = benutzername;
+	}
+
+	@Override
+	public AuthentifizierungDto setPrimaerschluessel(String primaerschluessel)
+	{
+		this.primaerschluessel = primaerschluessel;
+		return this;
 	}
 
 	public AuthentifizierungDto setMail(String mail)
