@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Getter
 @ToString
@@ -20,25 +19,8 @@ public abstract class Dto implements Serializable
 
 	public abstract Dto setPrimaerschluessel(String primaerschluessel);
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o)
-		{
-			return true;
-		}
-		if (!(o instanceof Dto))
-		{
-			return false;
-		}
-		var that = (Dto) o;
-		return primaerschluessel.equals(that.primaerschluessel);
-	}
+	public abstract boolean equals(Object o);
 
-	@Override
-	public int hashCode()
-	{
-		return Objects.hash(primaerschluessel);
-	}
+	public abstract int hashCode();
 }
 
