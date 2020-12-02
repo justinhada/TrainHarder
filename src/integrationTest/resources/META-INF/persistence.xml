@@ -20,7 +20,7 @@
         <class>de.justinharder.trainharder.model.UuidMapper</class>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="create" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect" />
             <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/trainharderTest" />
             <property name="javax.persistence.jdbc.user" value="powerlifter" />

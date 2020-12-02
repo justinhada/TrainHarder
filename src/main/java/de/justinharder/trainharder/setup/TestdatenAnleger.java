@@ -20,16 +20,17 @@ public class TestdatenAnleger
 			entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
 		List.of(
-			Authentifizierung.class.getSimpleName(),
-			Belastungsfaktor.class.getSimpleName(),
-			Koerpermessung.class.getSimpleName(),
-			Kraftwert.class.getSimpleName(),
-			Uebung.class.getSimpleName(),
-			Benutzer.class.getSimpleName())
+			Authentifizierung.class,
+			Belastungsfaktor.class,
+			Koerpermessung.class,
+			Kraftwert.class,
+			Uebung.class,
+			Benutzer.class)
 			.forEach(tabelle ->
 			{
 				logger.accept("Lösche Inhalte der Tabelle \"" + tabelle + "\".");
-				entityManager.createNativeQuery("DELETE FROM " + tabelle).executeUpdate();
+				var query = "DELETE FROM ".concat(tabelle.getSimpleName());
+				entityManager.createNativeQuery(query, tabelle).executeUpdate();
 			});
 	}
 
