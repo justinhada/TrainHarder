@@ -1,43 +1,36 @@
 package de.justinharder.trainharder.model.services.berechnung;
 
+import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Konstanten;
-import de.justinharder.trainharder.model.domain.exceptions.RepsInReserveException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class EstimatedOneRepMax
+public class OneRepMax
 {
-	private static final int MINIMUM = 0;
-	private static final int MAXIMUM_RIR = 4;
-	private static final int MAXIMUM_WIEDERHOLUNGEN = 12;
-
 	private final int gewicht;
 	private final int wiederholungen;
 	private final int repsInReserve;
-	private final int estimatedOneRepMax;
+	private final double richtwert;
 
-	public static EstimatedOneRepMax aus(int gewicht, int wiederholungen, int repsInReserve)
+	public static OneRepMax aus(int gewicht, int wiederholungen, int repsInReserve)
 	{
-		if (gewicht <= MINIMUM)
-		{
-			throw new RepsInReserveException("Du bist leider zu schwach, um überhaupt mit dem Training zu beginnen!");
-		}
-		if (wiederholungen <= MINIMUM || wiederholungen > MAXIMUM_WIEDERHOLUNGEN)
-		{
-			throw new RepsInReserveException("Die Wiederholungszahl (" + wiederholungen + ") ist leider ungültig!");
-		}
-		if (repsInReserve < MINIMUM || repsInReserve > MAXIMUM_RIR)
-		{
-			throw new RepsInReserveException("Die RIR-Zahl (" + repsInReserve + ") ist ungültig!");
-		}
+		Preconditions.checkArgument(gewicht > 0, "Ungültiges Gewicht!");
+		Preconditions.checkArgument(wiederholungen > 0, "Ungültige Wiederholungen!");
+		Preconditions.checkArgument(repsInReserve >= 0, "Ungültige RepsInReserve!");
 
-		var repsInReserve = (int) Math.round(Konstanten.PROZENTE.get(repsInReserve).get(wiederholungen - 1) * gewicht);
-		return new EstimatedOneRepMax(repsInReserve);
+		return new OneRepMax(
+			gewicht,
+			wiederholungen,
+			repsInReserve,
+			berechneRichtwert(gewicht, wiederholungen, repsInReserve));
 	}
 
-	public int werteA()
+	private static double berechneRichtwert(int gewicht, int wiederholungen, int repsInReserve)
 	{
-		return anzahl;
+		var prozentsatz = Konstanten.PROZENTE.get(repsInReserve).get(wiederholungen - 1);
+		return gewicht / prozentsatz;
 	}
 }
