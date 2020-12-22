@@ -6,8 +6,8 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -16,12 +16,12 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 {
 	private BelastungsfaktorJpaRepository sut;
 
-	@Before
+	@BeforeEach
 	public void setup()
 	{
 		sut = new BelastungsfaktorJpaRepository();
 
-		sut.setEntityManager(erzeugeEntityManager());
+		sut.setEntityManager(getEntityManager());
 	}
 
 	@Test

@@ -1,60 +1,58 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.setup.TestdatenAnleger;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
+import org.testcontainers.containers.MariaDBContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.HashMap;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Testcontainers
 public class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
-	private static EntityManagerFactory entityManagerFactory;
-	private static EntityManager entityManager;
+	@Container
+	private final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
+		.withExposedPorts(3306)
+		.withDatabaseName("trainharderTest")
+		.withUsername("powerlifter")
+		.withPassword("passwort");
 
-	@BeforeClass
-	public static void setupClass()
+	private EntityManager entityManager;
+
+	@BeforeEach
+	public void setupClass()
 	{
 		erzeugeTestdaten();
 	}
 
-	@AfterClass
-	public static void resetClass()
+	protected EntityManager getEntityManager()
 	{
-		schliesseEntityMananger();
-	}
-
-	protected static EntityManager erzeugeEntityManager()
-	{
-		if (entityManager == null)
+		if (entityManager != null)
 		{
-			entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-			entityManager = entityManagerFactory.createEntityManager();
+			return entityManager;
 		}
+
+		var props = new HashMap<String, Object>();
+		props.put("javax.persistence.jdbc.url", mariaDBContainer.getJdbcUrl());
+		props.put("javax.persistence.jdbc.driver", mariaDBContainer.getDriverClassName());
+		props.put("javax.persistence.jdbc.user", mariaDBContainer.getUsername());
+		props.put("javax.persistence.jdbc.password", mariaDBContainer.getPassword());
+		props.put("javax.persistence.schema-generation.database.action", "drop-and-create");
+		props.put("hibernate.show_sql", "true");
+
+		entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, props).createEntityManager();
 		return entityManager;
 	}
 
-	protected static void schliesseEntityMananger()
+	protected void erzeugeTestdaten()
 	{
-		if (entityManager.getTransaction().isActive())
-		{
-			entityManager.getTransaction().rollback();
-		}
-		entityManager.close();
-		entityManagerFactory.close();
-		entityManager = null;
-		entityManagerFactory = null;
-	}
-
-	protected static void erzeugeTestdaten()
-	{
-		erzeugeEntityManager();
+		getEntityManager();
 
 		var transaction = entityManager.getTransaction();
 		transaction.begin();

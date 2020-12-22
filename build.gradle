@@ -12,7 +12,6 @@ repositories {
 [
         "integrationstests",
         "tests",
-        "arquillian",
         "slf4j",
 ].each {
     apply from: "gradle/${it}.gradle"
@@ -25,7 +24,6 @@ dependencies {
     implementation "org.projectlombok:lombok:1.18.12",
             "com.google.guava:guava:28.0-jre",
             "javax.xml.bind:jaxb-api:2.3.1",
-            "org.slf4j:slf4j-api:1.7.25",
             "org.primefaces:primefaces:7.0",
             "javax.servlet:javax.servlet-api:3.1.0",
             "javax:javaee-api:8.0",
@@ -36,7 +34,6 @@ dependencies {
             "org.projectlombok:lombok:1.18.12",
             "javax.mail:javax.mail-api:1.6.2",
             "nl.jqno.equalsverifier:equalsverifier:3.4.3"
-
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.2"
 

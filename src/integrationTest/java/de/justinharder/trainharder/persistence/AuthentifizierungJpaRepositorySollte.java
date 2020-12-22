@@ -7,9 +7,9 @@ import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.*;
 import de.justinharder.trainharder.setup.Testdaten;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,12 +21,12 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private AuthentifizierungJpaRepository sut;
 
-	@Before
+	@BeforeEach
 	public void setup()
 	{
 		sut = new AuthentifizierungJpaRepository();
 
-		sut.setEntityManager(erzeugeEntityManager());
+		sut.setEntityManager(getEntityManager());
 	}
 
 	@Test
@@ -187,7 +187,7 @@ public class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void authentifizierungAktualisieren()
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;

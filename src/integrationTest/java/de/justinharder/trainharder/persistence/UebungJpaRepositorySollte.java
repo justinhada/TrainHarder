@@ -6,8 +6,8 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private UebungJpaRepository sut;
 
-	@Before
+	@BeforeEach
 	public void setup()
 	{
 		sut = new UebungJpaRepository();
 
-		sut.setEntityManager(erzeugeEntityManager());
+		sut.setEntityManager(getEntityManager());
 	}
 
 	@Test

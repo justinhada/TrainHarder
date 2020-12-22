@@ -4,8 +4,8 @@ import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 {
 	private KraftwertJpaRepository sut;
 
-	@Before
+	@BeforeEach
 	public void setup()
 	{
 		sut = new KraftwertJpaRepository();
-		sut.setEntityManager(erzeugeEntityManager());
+		sut.setEntityManager(getEntityManager());
 	}
 
 	@Test
