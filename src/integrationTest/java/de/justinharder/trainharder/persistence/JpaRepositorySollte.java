@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 @Testcontainers
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-class JpaRepositorySollte
+abstract class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
