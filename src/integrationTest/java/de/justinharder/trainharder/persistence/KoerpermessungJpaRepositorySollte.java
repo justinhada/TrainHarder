@@ -5,6 +5,7 @@ import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,12 +13,12 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
+class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private KoerpermessungJpaRepository sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KoerpermessungJpaRepository();
 
@@ -25,47 +26,39 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void alleKoerpermessungenZuBenutzerErmitteln()
+	@DisplayName("alle Koerpermessungen zu Benutzer ermitteln")
+	void test01()
 	{
 		assertAll(
 			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID))
-				.contains(Testdaten.KOERPERMESSUNG_JUSTIN),
+				.containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_JUSTIN),
 			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID))
-				.contains(Testdaten.KOERPERMESSUNG_EDUARD));
+				.containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_EDUARD));
 	}
 
 	@Test
-	public void koerpermessungZuIdErmitteln()
+	@DisplayName("keine Koerpermessung zu ID ermitteln")
+	void test02()
 	{
-		assertAll(() ->
-		{
-			var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
-
-			var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		}, () ->
-		{
-			var erwartet = Testdaten.KOERPERMESSUNG_EDUARD;
-
-			var ergebnis = sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		});
+		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void keineKoerpermessungZuIdErmitteln()
+	@DisplayName("Koerpermessung zu ID ermitteln")
+	void test03()
 	{
-		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEmpty();
+		assertAll(
+			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID))
+				.hasValue(Testdaten.KOERPERMESSUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID))
+				.hasValue(Testdaten.KOERPERMESSUNG_EDUARD));
 	}
 
 	@Test
-	public void koerpermessungErstellen()
+	@DisplayName("Koerpermessung erstellen")
+	void test04()
 	{
-		var erwartet = new Koerpermessung(
+		var koerpermessung = new Koerpermessung(
 			new Primaerschluessel(),
 			LocalDate.now(),
 			new Koerpermasse(178, 90, 25),
@@ -73,25 +66,24 @@ public class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 			2900,
 			Testdaten.BENUTZER_JUSTIN);
 
-		var ergebnis = sut.speichereKoerpermessung(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereKoerpermessung(koerpermessung)).isEqualTo(koerpermessung);
 	}
 
 	@Test
-	public void koerpermessungAktualisieren()
+	@DisplayName("Koerpermessung aktualisieren")
+	void test05()
 	{
-		var erwartet = Testdaten.KOERPERMESSUNG_JUSTIN;
-		erwartet.setKalorieneinnahme(1900);
+		var koerpermessung = Testdaten.KOERPERMESSUNG_JUSTIN;
+		koerpermessung.setKalorieneinnahme(1900);
 
-		var ergebnis = sut.speichereKoerpermessung(erwartet);
+		var ergebnis = sut.speichereKoerpermessung(koerpermessung);
 
 		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getDatum()).isEqualTo(erwartet.getDatum()),
-			() -> assertThat(ergebnis.getKoerpermasse()).isEqualTo(erwartet.getKoerpermasse()),
-			() -> assertThat(ergebnis.getKalorieneinnahme()).isEqualTo(erwartet.getKalorieneinnahme()),
-			() -> assertThat(ergebnis.getKalorienverbrauch()).isEqualTo(erwartet.getKalorienverbrauch()),
-			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(erwartet.getBenutzer()));
+			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(koerpermessung.getPrimaerschluessel()),
+			() -> assertThat(ergebnis.getDatum()).isEqualTo(koerpermessung.getDatum()),
+			() -> assertThat(ergebnis.getKoerpermasse()).isEqualTo(koerpermessung.getKoerpermasse()),
+			() -> assertThat(ergebnis.getKalorieneinnahme()).isEqualTo(koerpermessung.getKalorieneinnahme()),
+			() -> assertThat(ergebnis.getKalorienverbrauch()).isEqualTo(koerpermessung.getKalorienverbrauch()),
+			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(koerpermessung.getBenutzer()));
 	}
 }

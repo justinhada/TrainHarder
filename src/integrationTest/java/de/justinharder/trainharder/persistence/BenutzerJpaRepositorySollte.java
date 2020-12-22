@@ -8,20 +8,20 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.*;
 import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
+class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 {
 	private BenutzerJpaRepository sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new BenutzerJpaRepository();
 
@@ -29,75 +29,51 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void alleBenutzerErmitteln()
+	@DisplayName("alle Benutzer ermitteln")
+	void test01()
 	{
-		var erwartet = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
-
-		var ergebnis = sut.ermittleAlle();
-
-		assertThat(ergebnis).containsAll(erwartet);
+		assertThat(sut.ermittleAlle()).containsExactlyInAnyOrder(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
 	}
 
 	@Test
-	public void keinenBenutzerZuIdErmitteln()
+	@DisplayName("keinen Benutzer zu ID ermitteln")
+	void test02()
 	{
-		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEmpty();
+		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void benutzerZuIdErmitteln()
+	@DisplayName("Benutzer zu ID ermitteln")
+	void test03()
 	{
-		assertAll(() ->
-		{
-			var erwartet = Testdaten.BENUTZER_JUSTIN;
-
-			var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_JUSTIN_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		}, () ->
-		{
-			var erwartet = Testdaten.BENUTZER_EDUARD;
-
-			var ergebnis = sut.ermittleZuId(Testdaten.BENUTZER_EDUARD_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		});
+		assertAll(
+			() -> assertThat(sut.ermittleZuId(Testdaten.BENUTZER_JUSTIN_ID)).hasValue(Testdaten.BENUTZER_JUSTIN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.BENUTZER_EDUARD_ID)).hasValue(Testdaten.BENUTZER_EDUARD));
 	}
 
 	@Test
-	public void keinenBenutzerZuAuthentifizierungErmitteln()
+	@DisplayName("keinen Benutzer zu Authentifizierung ermitteln")
+	void test04()
 	{
-		var ergebnis = sut.ermittleZuAuthentifizierung(new Primaerschluessel());
-
-		assertThat(ergebnis).isEmpty();
+		assertThat(sut.ermittleZuAuthentifizierung(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void benutzerZuAuthentifizierungErmitteln()
+	@DisplayName("Benutzer zu Authentifizierung ermitteln")
+	void test05()
 	{
-		assertAll(() ->
-		{
-			var erwartet = Testdaten.BENUTZER_JUSTIN;
-
-			var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		}, () ->
-		{
-			var erwartet = Testdaten.BENUTZER_EDUARD;
-
-			var ergebnis = sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID);
-
-			assertThat(ergebnis).hasValue(erwartet);
-		});
+		assertAll(
+			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID))
+				.hasValue(Testdaten.BENUTZER_JUSTIN),
+			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID))
+				.hasValue(Testdaten.BENUTZER_EDUARD));
 	}
 
 	@Test
-	public void benutzerErstellen()
+	@DisplayName("Benutzer erstellen")
+	void test06()
 	{
-		var erwartet = new Benutzer(
+		var benutzer = new Benutzer(
 			new Primaerschluessel(),
 			new Name("Nicole", "Harder"),
 			LocalDate.of(2007, 2, 26),
@@ -115,19 +91,23 @@ public class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 				"nicoleee",
 				Testdaten.PASSWORT));
 
-		var ergebnis = sut.speichereBenutzer(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereBenutzer(benutzer)).isEqualTo(benutzer);
 	}
 
 	@Test
-	public void benutzerAktualisieren()
+	@DisplayName("Benutzer aktualisieren")
+	void test07()
 	{
-		var erwartet = Testdaten.BENUTZER_EDUARD;
-		erwartet.setGeburtsdatum(LocalDate.of(1997, 12, 6));
+		var benutzer = Testdaten.BENUTZER_EDUARD;
+		benutzer.setGeburtsdatum(LocalDate.of(1997, 12, 6));
 
-		var ergebnis = sut.speichereBenutzer(erwartet);
+		var ergebnis = sut.speichereBenutzer(benutzer);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(benutzer.getPrimaerschluessel()),
+			() -> assertThat(ergebnis.getName()).isEqualTo(benutzer.getName()),
+			() -> assertThat(ergebnis.getGeburtsdatum()).isEqualTo(benutzer.getGeburtsdatum()),
+			() -> assertThat(ergebnis.getBenutzerangabe()).isEqualTo(benutzer.getBenutzerangabe()),
+			() -> assertThat(ergebnis.getAuthentifizierung()).isEqualTo(benutzer.getAuthentifizierung()));
 	}
 }

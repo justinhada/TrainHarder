@@ -7,19 +7,18 @@ import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class UebungJpaRepositorySollte extends JpaRepositorySollte
+class UebungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private UebungJpaRepository sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new UebungJpaRepository();
 
@@ -27,99 +26,62 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void alleUebungenErmitteln()
+	@DisplayName("alle Uebungen ermitteln")
+	void test01()
 	{
-		var erwartet = List.of(
+		assertThat(sut.ermittleAlle()).containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+	}
+
+	@Test
+	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
+	void test02()
+	{
+		assertThat(sut.ermittleAlleZuUebungsart(Uebungsart.GRUNDUEBUNG)).containsExactlyInAnyOrder(
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
 			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-
-		var ergebnis = sut.ermittleAlle();
-
-		assertThat(ergebnis).containsAll(erwartet);
 	}
 
 	@Test
-	public void alleUebungenZuUebungsartErmitteln()
-	{
-		var erwartet = List.of(
-			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-
-		var ergebnis = sut.ermittleAlleZuUebungsart(Uebungsart.GRUNDUEBUNG);
-
-		assertThat(ergebnis).containsAll(erwartet);
-	}
-
-	@Test
-	public void alleUebungenZuUebungskategorieErmitteln()
+	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
+	void test03()
 	{
 		assertAll(
-			() -> {
-				var erwartet = List.of(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
-
-				var ergebnis = sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN);
-
-				assertThat(ergebnis).containsAll(erwartet);
-			},
-			() -> {
-				var erwartet = List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
-
-				var ergebnis = sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE);
-
-				assertThat(ergebnis).containsAll(erwartet);
-			},
-			() -> {
-				var erwartet = List.of(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-
-				var ergebnis = sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN);
-
-				assertThat(ergebnis).containsAll(erwartet);
-			}
-		);
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN))
+				.containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE))
+				.containsExactlyInAnyOrder(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN))
+				.containsExactlyInAnyOrder(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
-	public void keineUebungZuIdErmitteln()
+	@DisplayName("keine Uebung zu ID ermitteln")
+	void test04()
 	{
-		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEmpty();
+		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void uebungZuIdErmitteln()
+	@DisplayName("Uebung zu ID ermitteln")
+	void test05()
 	{
 		assertAll(
-			() -> {
-				var erwartet = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			},
-			() -> {
-				var erwartet = Testdaten.UEBUNG_LOWBAR_KNIEBEUGE;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			},
-			() -> {
-				var erwartet = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			}
-		);
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID))
+				.hasValue(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE_ID))
+				.hasValue(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID))
+				.hasValue(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
-	public void uebungErstellen()
+	@DisplayName("Uebung erstellen")
+	void test06()
 	{
-		var erwartet = new Uebung(
+		var uebung = new Uebung(
 			new Primaerschluessel(),
 			"Spoto Bankdrücken",
 			Uebungsart.GRUNDUEBUNG,
@@ -139,25 +101,23 @@ public class UebungJpaRepositorySollte extends JpaRepositorySollte
 				0.0,
 				0.7));
 
-		var ergebnis = sut.speichereUebung(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereUebung(uebung)).isEqualTo(uebung);
 	}
 
 	@Test
-	public void uebungAktualisieren()
+	@DisplayName("Uebung aktualisieren")
+	void test07()
 	{
-		var erwartet = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
-		erwartet.setName("Wettkampfbankdrücken (2s pausiert)");
+		var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN
+			.setName("Wettkampfbankdrücken (2s pausiert)");
 
-		var ergebnis = sut.speichereUebung(erwartet);
+		var ergebnis = sut.speichereUebung(uebung);
 
 		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getName()).isEqualTo(erwartet.getName()),
-			() -> assertThat(ergebnis.getUebungsart()).isEqualTo(erwartet.getUebungsart()),
-			() -> assertThat(ergebnis.getUebungskategorie()).isEqualTo(erwartet.getUebungskategorie()),
-			() -> assertThat(ergebnis.getBelastungsfaktor()).isEqualTo(erwartet.getBelastungsfaktor())
-		);
+			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(uebung.getPrimaerschluessel()),
+			() -> assertThat(ergebnis.getName()).isEqualTo(uebung.getName()),
+			() -> assertThat(ergebnis.getUebungsart()).isEqualTo(uebung.getUebungsart()),
+			() -> assertThat(ergebnis.getUebungskategorie()).isEqualTo(uebung.getUebungskategorie()),
+			() -> assertThat(ergebnis.getBelastungsfaktor()).isEqualTo(uebung.getBelastungsfaktor()));
 	}
 }

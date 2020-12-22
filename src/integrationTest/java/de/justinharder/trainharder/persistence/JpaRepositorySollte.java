@@ -1,7 +1,10 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.setup.TestdatenAnleger;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -12,26 +15,33 @@ import javax.persistence.Persistence;
 import java.util.HashMap;
 
 @Testcontainers
-public class JpaRepositorySollte
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
 	@Container
-	private final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
+	private static final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
 		.withExposedPorts(3306)
 		.withDatabaseName("trainharderTest")
 		.withUsername("powerlifter")
 		.withPassword("passwort");
 
-	private EntityManager entityManager;
+	private static EntityManager entityManager;
 
-	@BeforeEach
-	public void setupClass()
+	@BeforeAll
+	static void setupClass()
 	{
 		erzeugeTestdaten();
 	}
 
-	protected EntityManager getEntityManager()
+	@AfterAll
+	static void resetClass()
+	{
+		schliesseEntityManager();
+	}
+
+	protected static EntityManager getEntityManager()
 	{
 		if (entityManager != null)
 		{
@@ -50,7 +60,17 @@ public class JpaRepositorySollte
 		return entityManager;
 	}
 
-	protected void erzeugeTestdaten()
+	protected static void schliesseEntityManager()
+	{
+		if (entityManager.getTransaction().isActive())
+		{
+			entityManager.getTransaction().rollback();
+		}
+		entityManager.close();
+		entityManager = null;
+	}
+
+	protected static void erzeugeTestdaten()
 	{
 		getEntityManager();
 

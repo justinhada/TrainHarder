@@ -7,17 +7,18 @@ import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
+class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 {
 	private BelastungsfaktorJpaRepository sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new BelastungsfaktorJpaRepository();
 
@@ -25,45 +26,30 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	}
 
 	@Test
-	public void keinenBelastungsfaktorZuIdErmitteln()
+	@DisplayName("keinen Belastungsfaktor zu ID ermitteln")
+	void test01()
 	{
-		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEmpty();
+		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void belastungsfaktorZuIdErmitteln()
+	@DisplayName("Belastungsfaktor zu ID ermitteln")
+	void test02()
 	{
-		assertAll(() ->
-			{
-				var erwartet = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			}, () ->
-			{
-				var erwartet = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			}, () ->
-			{
-				var erwartet = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
-
-				var ergebnis = sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID);
-
-				assertThat(ergebnis).hasValue(erwartet);
-			}
-		);
+		assertAll(
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID))
+				.hasValue(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID))
+				.hasValue(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID))
+				.hasValue(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
-	public void belastungsfaktorErstellen()
+	@DisplayName("Belastungsfaktor erstellen")
+	void test03()
 	{
-		var erwartet = new Belastungsfaktor(
+		var belastungsfaktor = new Belastungsfaktor(
 			new Primaerschluessel(),
 			0.0,
 			1.0,
@@ -77,39 +63,38 @@ public class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 			0.1,
 			0.0,
 			0.7);
-		erwartet.setUebung(new Uebung(
+		belastungsfaktor.setUebung(new Uebung(
 			new Primaerschluessel(),
 			"Spoto Bankdrücken",
 			Uebungsart.GRUNDUEBUNG,
 			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
-			erwartet));
+			belastungsfaktor));
 
-		var ergebnis = sut.speichereBelastungsfaktor(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereBelastungsfaktor(belastungsfaktor)).isEqualTo(belastungsfaktor);
 	}
 
 	@Test
-	public void belastungsfaktorAktualisieren()
+	@DisplayName("Belastungsfaktor aktualisieren")
+	void test04()
 	{
-		var erwartet = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
-		erwartet.setTriceps(0.9);
+		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		belastungsfaktor.setTriceps(0.9);
 
-		var ergebnis = sut.speichereBelastungsfaktor(erwartet);
+		var ergebnis = sut.speichereBelastungsfaktor(belastungsfaktor);
 
 		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getSquat()).isEqualTo(erwartet.getSquat()),
-			() -> assertThat(ergebnis.getBenchpress()).isEqualTo(erwartet.getBenchpress()),
-			() -> assertThat(ergebnis.getDeadlift()).isEqualTo(erwartet.getDeadlift()),
-			() -> assertThat(ergebnis.getTriceps()).isEqualTo(erwartet.getTriceps()),
-			() -> assertThat(ergebnis.getChest()).isEqualTo(erwartet.getChest()),
-			() -> assertThat(ergebnis.getCore()).isEqualTo(erwartet.getCore()),
-			() -> assertThat(ergebnis.getBack()).isEqualTo(erwartet.getBack()),
-			() -> assertThat(ergebnis.getBiceps()).isEqualTo(erwartet.getBiceps()),
-			() -> assertThat(ergebnis.getGlutes()).isEqualTo(erwartet.getGlutes()),
-			() -> assertThat(ergebnis.getQuads()).isEqualTo(erwartet.getQuads()),
-			() -> assertThat(ergebnis.getHamstrings()).isEqualTo(erwartet.getHamstrings()),
-			() -> assertThat(ergebnis.getShoulder()).isEqualTo(erwartet.getShoulder()));
+			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(belastungsfaktor.getPrimaerschluessel()),
+			() -> assertThat(ergebnis.getSquat()).isEqualTo(belastungsfaktor.getSquat()),
+			() -> assertThat(ergebnis.getBenchpress()).isEqualTo(belastungsfaktor.getBenchpress()),
+			() -> assertThat(ergebnis.getDeadlift()).isEqualTo(belastungsfaktor.getDeadlift()),
+			() -> assertThat(ergebnis.getTriceps()).isEqualTo(belastungsfaktor.getTriceps()),
+			() -> assertThat(ergebnis.getChest()).isEqualTo(belastungsfaktor.getChest()),
+			() -> assertThat(ergebnis.getCore()).isEqualTo(belastungsfaktor.getCore()),
+			() -> assertThat(ergebnis.getBack()).isEqualTo(belastungsfaktor.getBack()),
+			() -> assertThat(ergebnis.getBiceps()).isEqualTo(belastungsfaktor.getBiceps()),
+			() -> assertThat(ergebnis.getGlutes()).isEqualTo(belastungsfaktor.getGlutes()),
+			() -> assertThat(ergebnis.getQuads()).isEqualTo(belastungsfaktor.getQuads()),
+			() -> assertThat(ergebnis.getHamstrings()).isEqualTo(belastungsfaktor.getHamstrings()),
+			() -> assertThat(ergebnis.getShoulder()).isEqualTo(belastungsfaktor.getShoulder()));
 	}
 }

@@ -5,93 +5,62 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
+class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 {
 	private KraftwertJpaRepository sut;
 
 	@BeforeEach
-	public void setup()
+	void setup()
 	{
 		sut = new KraftwertJpaRepository();
 		sut.setEntityManager(getEntityManager());
 	}
 
 	@Test
-	public void alleKraftwerteZuBenutzerErmitteln()
+	@DisplayName("alle Kraftwerte zu Benutzer ermitteln")
+	void test01()
 	{
 		assertAll(
-			() -> {
-				var erwartet = List.of(
-					Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID))
+				.containsExactlyInAnyOrder(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
 					Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-					Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-
-				var ergebnis = sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID);
-
-				assertThat(ergebnis).containsAll(erwartet);
-			},
-			() -> {
-				var erwartet = new ArrayList<Kraftwert>();
-
-				var ergebnis = sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID);
-
-				assertThat(ergebnis).containsAll(erwartet);
-			}
-		);
+					Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
+			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID)).isEmpty());
 	}
 
 	@Test
-	public void keinenKraftwertZuIdErmitteln()
+	@DisplayName("keinen Kraftwert zu ID ermitteln")
+	void test02()
 	{
-		var erwartet = Optional.empty();
-
-		var ergebnis = sut.ermittleZuId(new Primaerschluessel());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
 	}
 
 	@Test
-	public void kraftwertZuIdErmitteln()
+	@DisplayName("Kraftwert zu ID ermitteln")
+	void test03()
 	{
 		assertAll(
-			() -> {
-				var erwartet = Optional.of(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN);
-
-				var ergebnis = sut.ermittleZuId(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID);
-
-				assertThat(ergebnis).isEqualTo(erwartet);
-			},
-			() -> {
-				var erwartet = Optional.of(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE);
-
-				var ergebnis = sut.ermittleZuId(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE_ID);
-
-				assertThat(ergebnis).isEqualTo(erwartet);
-			},
-			() -> {
-				var erwartet = Optional.of(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-
-				var ergebnis = sut.ermittleZuId(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID);
-
-				assertThat(ergebnis).isEqualTo(erwartet);
-			}
-		);
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID))
+				.hasValue(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE_ID))
+				.hasValue(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID))
+				.hasValue(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
-	public void kraftwertErstellen()
+	@DisplayName("Kraftwert erstellen")
+	void test04()
 	{
-		var erwartet = new Kraftwert(
+		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			100,
 			76.5,
@@ -100,27 +69,25 @@ public class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BENUTZER_JUSTIN);
 
-		var ergebnis = sut.speichereKraftwert(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereKraftwert(kraftwert)).isEqualTo(kraftwert);
 	}
 
 	@Test
-	public void kraftwertAktualisieren()
+	@DisplayName("Kraftwert aktualisieren")
+	void test05()
 	{
-		var erwartet = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN
+		var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN
 			.setGewicht(105);
 
-		var ergebnis = sut.speichereKraftwert(erwartet);
+		var ergebnis = sut.speichereKraftwert(kraftwert);
 
 		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(erwartet.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getGewicht()).isEqualTo(erwartet.getGewicht()),
-			() -> assertThat(ergebnis.getKoerpergewicht()).isEqualTo(erwartet.getKoerpergewicht()),
-			() -> assertThat(ergebnis.getDatum()).isEqualTo(erwartet.getDatum()),
-			() -> assertThat(ergebnis.getWiederholungen()).isEqualTo(erwartet.getWiederholungen()),
-			() -> assertThat(ergebnis.getUebung()).isEqualTo(erwartet.getUebung()),
-			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(erwartet.getBenutzer())
-		);
+			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(kraftwert.getPrimaerschluessel()),
+			() -> assertThat(ergebnis.getGewicht()).isEqualTo(kraftwert.getGewicht()),
+			() -> assertThat(ergebnis.getKoerpergewicht()).isEqualTo(kraftwert.getKoerpergewicht()),
+			() -> assertThat(ergebnis.getDatum()).isEqualTo(kraftwert.getDatum()),
+			() -> assertThat(ergebnis.getWiederholungen()).isEqualTo(kraftwert.getWiederholungen()),
+			() -> assertThat(ergebnis.getUebung()).isEqualTo(kraftwert.getUebung()),
+			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(kraftwert.getBenutzer()));
 	}
 }
