@@ -23,6 +23,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -70,6 +71,17 @@ class RegistrierungServiceSollte
 		when(passwortCheck.isUnsicher(passwort)).thenReturn(unsicher);
 	}
 
+	private void angenommenDerPasswortHasherGeneriertSalt(byte[] bytes, String salt)
+	{
+		when(passwortHasher.generiereSalt(bytes)).thenReturn(salt);
+	}
+
+	private void angenommenDerPasswortHasherHasht(String passwort, String salt, String hash)
+		throws InvalidKeySpecException, NoSuchAlgorithmException
+	{
+		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);
+	}
+
 	private void angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(Authentifizierung authentifizierung)
 	{
 		when(authentifizierungRepository.speichereAuthentifizierung(any(Authentifizierung.class)))
@@ -90,14 +102,12 @@ class RegistrierungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
+	@DisplayName("null valdieren")
 	void test01()
 	{
-		var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.registriere(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktiviere(null)));
 	}
 
 	@Test
@@ -156,10 +166,13 @@ class RegistrierungServiceSollte
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
+		var salt = "AAAAAAAAAAAAAAAAAAAAAA==";
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
 		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), false);
+		angenommenDerPasswortHasherGeneriertSalt(new byte[16], salt);
+		angenommenDerPasswortHasherHasht(registrierung.getPasswort(), salt, "GBy6erWCKE3CqEuWqYOk/w==");
 		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
 		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
@@ -185,19 +198,8 @@ class RegistrierungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	void test06()
-	{
-		var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
-	void test07()
+	void test06()
 	{
 		var authentifizierungId = new Primaerschluessel().getId().toString();
 		var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
@@ -210,7 +212,7 @@ class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("eine Authentifizierung aktivieren")
-	void test08() throws AuthentifizierungNichtGefundenException
+	void test07() throws AuthentifizierungNichtGefundenException
 	{
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();

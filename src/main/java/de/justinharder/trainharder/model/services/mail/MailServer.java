@@ -62,10 +62,8 @@ public class MailServer
 		}
 	}
 
-	private void verarbeiteEmpfaengerMithilfeDesTypen(
-		@NonNull List<MailAdresse> mailAdressen,
-		@NonNull RecipientType recipientType,
-		@NonNull MimeMessage mimeMessage)
+	private void verarbeiteEmpfaengerMithilfeDesTypen(List<MailAdresse> mailAdressen, RecipientType recipientType,
+		MimeMessage mimeMessage)
 	{
 		mailAdressen
 			.forEach(mailAdresse ->

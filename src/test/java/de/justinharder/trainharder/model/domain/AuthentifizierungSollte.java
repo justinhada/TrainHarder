@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.model.domain;
 
+import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungSollte
 {
@@ -101,5 +103,25 @@ class AuthentifizierungSollte
 		var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test06()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(null, "mail@mail.de", "harder", new Passwort())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(new Primaerschluessel(), null, "harder", new Passwort())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(new Primaerschluessel(), "mail@mail.de", null, new Passwort())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(new Primaerschluessel(), "mail@mail.de", "harder", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPasswort(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzer(null)));
 	}
 }

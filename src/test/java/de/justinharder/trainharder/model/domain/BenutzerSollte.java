@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerSollte
 {
@@ -193,5 +194,32 @@ class BenutzerSollte
 		sut.fuegeKraftwertHinzu(kraftwert);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test08()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzer(null, new Name(), LocalDate.now(), new Benutzerangabe(), new Authentifizierung())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzer(new Primaerschluessel(), null, LocalDate.now(), new Benutzerangabe(),
+					new Authentifizierung())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzer(new Primaerschluessel(), new Name(), null, new Benutzerangabe(),
+					new Authentifizierung())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzer(new Primaerschluessel(), new Name(), LocalDate.now(), null,
+					new Authentifizierung())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzer(new Primaerschluessel(), new Name(), LocalDate.now(), new Benutzerangabe(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGeburtsdatum(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzerangabe(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setAuthentifizierung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.fuegeKraftwertHinzu(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.fuegeKoerpermessungHinzu(null)));
 	}
 }

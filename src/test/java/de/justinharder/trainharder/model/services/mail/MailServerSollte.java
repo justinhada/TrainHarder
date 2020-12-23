@@ -8,10 +8,17 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MailServerSollte
 {
+	private static final Mail MAIL = new Mail(
+		new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+		"Betreff",
+		"Inhalt")
+		.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder"));
+
 	private MailServer sut;
 
 	@BeforeEach
@@ -24,15 +31,17 @@ class MailServerSollte
 	@DisplayName("MailServerException werfen, wenn die Mail nicht gesendet werden kann")
 	void test01()
 	{
-		var erwartet = "Beim Versenden der Mail ist ein Fehler aufgetreten!";
+		var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(MAIL, StandardCharsets.UTF_8));
 
-		var mail = new Mail(
-			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-			"Betreff",
-			"Inhalt")
-			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder"));
-		var exception = assertThrows(MailServerException.class, () -> sut.sendeMail(mail, StandardCharsets.UTF_8));
+		assertThat(exception.getMessage()).isEqualTo("Beim Versenden der Mail ist ein Fehler aufgetreten!");
+	}
 
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+	@Test
+	@DisplayName("null validieren")
+	void test02()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.sendeMail(null, StandardCharsets.UTF_8)),
+			() -> assertThrows(NullPointerException.class, () -> sut.sendeMail(MAIL, null)));
 	}
 }

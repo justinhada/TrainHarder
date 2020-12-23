@@ -14,7 +14,9 @@ import java.time.LocalDate;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KraftwertSollte
 {
@@ -30,7 +32,7 @@ class KraftwertSollte
 	@DisplayName("einen NoArgsConstructor haben")
 	void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Kraftwert.class, allOf(hasValidBeanConstructor()));
+		assertThat(Kraftwert.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
@@ -115,5 +117,32 @@ class KraftwertSollte
 		var erwartet = "Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test07()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(null, 0, 0, LocalDate.now(), Wiederholungen.ONE_REP_MAX, new Uebung(),
+					new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(new Primaerschluessel(), 0, 0, null, Wiederholungen.ONE_REP_MAX, new Uebung(),
+					new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(new Primaerschluessel(), 0, 0, LocalDate.now(), null, new Uebung(),
+					new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(new Primaerschluessel(), 0, 0, LocalDate.now(), Wiederholungen.ONE_REP_MAX, null,
+					new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(new Primaerschluessel(), 0, 0, LocalDate.now(), Wiederholungen.ONE_REP_MAX,
+					new Uebung(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setWiederholungen(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzer(null)));
 	}
 }

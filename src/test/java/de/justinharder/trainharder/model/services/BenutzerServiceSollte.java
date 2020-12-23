@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -120,14 +121,16 @@ class BenutzerServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
+	@DisplayName("null validieren")
 	void test02()
 	{
-		var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(null, "authenfitizierungId")),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, new Benutzerdaten())),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer("id", null)));
 	}
 
 	@Test
@@ -161,19 +164,8 @@ class BenutzerServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	void test05()
-	{
-		var erwartet = "Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
-	void test06()
+	void test05()
 	{
 		var authentifizierungId = new Primaerschluessel().getId().toString();
 		var erwartet = "Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!";
@@ -188,7 +180,7 @@ class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer zur AuthentifizierungID ermitteln")
-	void test07() throws BenutzerNichtGefundenException
+	void test06() throws BenutzerNichtGefundenException
 	{
 		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
@@ -205,31 +197,8 @@ class BenutzerServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	void test08()
-	{
-		var erwartet = "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null sind")
-	void test09()
-	{
-		var erwartet = "Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!";
-
-		var benutzerdaten = new Benutzerdaten();
-		var exception = assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(benutzerdaten, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
-	void test10()
+	void test07()
 	{
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
@@ -244,7 +213,7 @@ class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen neuen Benutzer erstellen")
-	void test11() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		var benutzer = Testdaten.BENUTZER_JUSTIN;
@@ -275,32 +244,8 @@ class BenutzerServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	void test12()
-	{
-		var erwartet = "Die Aktualisierung des Benutzers benötigt eine gültige ID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
-	void test13()
-	{
-		var erwartet = "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!";
-
-		var primaerschluessel = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
-		var exception =
-			assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(primaerschluessel, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
-	void test14()
+	void test09()
 	{
 		var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
 		var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
@@ -315,7 +260,7 @@ class BenutzerServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer aktualisieren")
-	void test15() throws BenutzerNichtGefundenException
+	void test10() throws BenutzerNichtGefundenException
 	{
 		var benutzer = Testdaten.BENUTZER_JUSTIN;
 		var id = benutzer.getPrimaerschluessel().getId().toString();

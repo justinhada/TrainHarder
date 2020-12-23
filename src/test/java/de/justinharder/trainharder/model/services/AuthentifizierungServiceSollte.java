@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -77,14 +78,13 @@ class AuthentifizierungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ID null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige AuthentifizierungID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzername(null)));
 	}
 
 	@Test
@@ -116,19 +116,8 @@ class AuthentifizierungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	void test04()
-	{
-		var erwartet = "Ermittlung der Authentifizierung benötigt eine gültige BenutzerID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzer(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn BenutzerID zu keiner Authentifizierung gehört")
-	void test05()
+	void test04()
 	{
 		var benutzerId = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(benutzerId);
@@ -142,7 +131,7 @@ class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("Authentifizierung zu BenutzerID ermitteln")
-	void test06() throws AuthentifizierungNichtGefundenException
+	void test05() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
@@ -157,19 +146,8 @@ class AuthentifizierungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
-	void test07()
-	{
-		var erwartet = "Ermittlung der Authentifizierung benötigt einen gültigen Benutzernamen!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzername(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn keine Authentifizierung zum Benutzernamen ermittelt werden kann")
-	void test08()
+	void test06()
 	{
 		var benutzername = "nichtbekannt";
 		var erwartet = "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!";
@@ -183,7 +161,7 @@ class AuthentifizierungServiceSollte
 
 	@Test
 	@DisplayName("Authentifizierung zum Benutzernamen ermitteln")
-	void test09() throws AuthentifizierungNichtGefundenException
+	void test07() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzername = "harder";

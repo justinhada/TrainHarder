@@ -13,6 +13,7 @@ import javax.security.enterprise.CallerPrincipal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -138,14 +139,12 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
+	@DisplayName("null validieren")
 	void test08()
 	{
-		var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.addKoerpermessung(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.koerpermessdaten(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.addKoerpermessung(null)));
 	}
 
 	@Test

@@ -30,4 +30,11 @@ class SchlafqualitaetSollte
 			() -> assertThat(Schlafqualitaet.zuWert("DURCHSCHNITT")).isEqualTo(Schlafqualitaet.DURCHSCHNITT),
 			() -> assertThat(Schlafqualitaet.zuWert("GUT")).isEqualTo(Schlafqualitaet.GUT));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Schlafqualitaet.zuWert(null));
+	}
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NameSollte
 {
@@ -43,7 +44,7 @@ class NameSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(Name.class)
 			.suppress(Warning.NULL_FIELDS)
@@ -52,10 +53,21 @@ class NameSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet = "Name(vorname=Justin, nachname=Harder)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new Name(null, "Harder")),
+			() -> assertThrows(NullPointerException.class, () -> new Name("Justin", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setVorname(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setNachname(null)));
 	}
 }

@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -158,5 +159,19 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getPasswort()).isEqualTo(authentifizierung.getPasswort()),
 			() -> assertThat(ergebnis.isAktiv()).isEqualTo(authentifizierung.isAktiv()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(authentifizierung.getBenutzer()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test13()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuMail(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuBenutzername(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuResetUuid(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereAuthentifizierung(null)));
 	}
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -109,5 +110,16 @@ class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getGeburtsdatum()).isEqualTo(benutzer.getGeburtsdatum()),
 			() -> assertThat(ergebnis.getBenutzerangabe()).isEqualTo(benutzer.getBenutzerangabe()),
 			() -> assertThat(ergebnis.getAuthentifizierung()).isEqualTo(benutzer.getAuthentifizierung()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test08()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereBenutzer(null)));
 	}
 }

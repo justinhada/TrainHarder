@@ -21,6 +21,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -136,14 +137,13 @@ class KontaktControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn das Kontaktformular null ist")
+	@DisplayName("null validieren")
 	void test04()
 	{
-		var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.kontaktiere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setBindingResult(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKontaktService(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.kontaktiere(null)));
 	}
 
 	@Test

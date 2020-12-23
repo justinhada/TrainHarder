@@ -20,7 +20,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import java.util.stream.Collectors;
 
-@Setter
 @Controller
 @Path(value = "/kontakt")
 public class KontaktController extends AbstractController
@@ -36,6 +35,16 @@ public class KontaktController extends AbstractController
 
 	@Inject
 	private KontaktService kontaktService;
+
+	public void setBindingResult(@NonNull BindingResult bindingResult)
+	{
+		this.bindingResult = bindingResult;
+	}
+
+	public void setKontaktService(@NonNull KontaktService kontaktService)
+	{
+		this.kontaktService = kontaktService;
+	}
 
 	@GET
 	@Override

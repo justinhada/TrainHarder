@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -120,14 +121,15 @@ class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn der Login null ist")
+	@DisplayName("null validieren")
 	void test03()
 	{
-		var erwartet = "Zur Authentifizierung wird ein gültiger Login benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.login(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.login(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetMail(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPasswordView(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(null, "passwort")),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword("resetUuid", null)));
 	}
 
 	@Test
@@ -213,19 +215,8 @@ class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Mail null ist")
-	void test10()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetMail(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("bei fehlerhafter Mail zurück zur Reset-Seite navigieren")
-	void test11() throws AuthentifizierungNichtGefundenException
+	void test10() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = "/reset.xhtml";
 		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
@@ -240,7 +231,7 @@ class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Senden der Reset-Mail zur Reset-Success-Seite navigieren")
-	void test12() throws AuthentifizierungNichtGefundenException
+	void test11() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = "/reset-success.xhtml";
 
@@ -252,19 +243,8 @@ class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	void test13()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetPasswordView(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("zur Reset-Password-Seite per GET navigieren, wenn ein Benutzer angemeldet ist")
-	void test14()
+	void test12()
 	{
 		var callerPrincipal = new CallerPrincipal("harder");
 		var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
@@ -278,7 +258,7 @@ class LoginControllerSollte
 
 	@Test
 	@DisplayName("zur Reset-Password-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
-	void test15()
+	void test13()
 	{
 		var erwartet = "/reset-password.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
@@ -290,31 +270,8 @@ class LoginControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	void test16()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	void test17()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
-
-		var uuid = UUID.randomUUID().toString();
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(uuid, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("bei fehlerhaftem Passwort zurück zur Reset-Password-Seite navigieren")
-	void test18() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var erwartet = "/reset-password.xhtml";
@@ -331,7 +288,7 @@ class LoginControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreichem Password-Reset zur Reset-Password-Success-Seite navigieren")
-	void test19() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test15() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var erwartet = "/reset-password-success.xhtml";

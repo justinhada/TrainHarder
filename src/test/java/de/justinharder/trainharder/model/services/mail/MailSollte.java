@@ -10,18 +10,21 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MailSollte
 {
+	private static final MailAdresse MAIL_ADRESSE = new MailAdresse("justinharder@t-online.de", "Justin");
+
 	private Mail sut;
 
 	@BeforeEach
 	void setup()
 	{
 		sut = new Mail(new MailAdresse("mail@justinharder.de", "Justin"), "Betreff", "Inhalt")
-			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin"))
-			.fuegeInKopieHinzu(new MailAdresse("justinharder@t-online.de", "Justin"))
-			.fuegeInBlindkopieHinzu(new MailAdresse("justinharder@t-online.de", "Justin"));
+			.fuegeEmpfaengerHinzu(MAIL_ADRESSE)
+			.fuegeInKopieHinzu(MAIL_ADRESSE)
+			.fuegeInBlindkopieHinzu(MAIL_ADRESSE);
 	}
 
 	@Test
@@ -32,12 +35,9 @@ class MailSollte
 			() -> assertThat(sut.getSender()).isEqualTo(new MailAdresse("mail@justinharder.de", "Justin")),
 			() -> assertThat(sut.getBetreff()).isEqualTo("Betreff"),
 			() -> assertThat(sut.getInhalt()).isEqualTo("Inhalt"),
-			() -> assertThat(sut.getAlleEmpfaenger())
-				.isEqualTo(List.of(new MailAdresse("justinharder@t-online.de", "Justin"))),
-			() -> assertThat(sut.getAlleInKopie())
-				.isEqualTo(List.of(new MailAdresse("justinharder@t-online.de", "Justin"))),
-			() -> assertThat(sut.getAlleInBlindkopie())
-				.isEqualTo(List.of(new MailAdresse("justinharder@t-online.de", "Justin"))));
+			() -> assertThat(sut.getAlleEmpfaenger()).isEqualTo(List.of(MAIL_ADRESSE)),
+			() -> assertThat(sut.getAlleInKopie()).isEqualTo(List.of(MAIL_ADRESSE)),
+			() -> assertThat(sut.getAlleInBlindkopie()).isEqualTo(List.of(MAIL_ADRESSE)));
 	}
 
 	@Test
@@ -63,5 +63,15 @@ class MailSollte
 			+ "inhalt=Inhalt)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test04()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new Mail(null, "betreff", "inhalt")),
+			() -> assertThrows(NullPointerException.class, () -> new Mail(MAIL_ADRESSE, null, "inhalt")),
+			() -> assertThrows(NullPointerException.class, () -> new Mail(MAIL_ADRESSE, "betreff", null)));
 	}
 }

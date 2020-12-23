@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerangabeSollte
 {
@@ -78,5 +79,44 @@ class BenutzerangabeSollte
 			"Benutzerangabe(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test07()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(null, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
+					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN,
+					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, null, Ernaehrung.DURCHSCHNITT,
+					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN,
+					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, null, Schlafqualitaet.DURCHSCHNITT,
+					Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, null,
+					Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
+					Schlafqualitaet.DURCHSCHNITT, null, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
+					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, null,
+					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
+					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKraftlevel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGeschlecht(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setErfahrung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setErnaehrung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setSchlafqualitaet(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setStress(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setDoping(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setRegenerationsfaehigkeit(null)));
 	}
 }

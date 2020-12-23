@@ -31,4 +31,11 @@ class ErfahrungSollte
 			() -> assertThat(Erfahrung.zuWert("SEHR_FORTGESCHRITTEN")).isEqualTo(Erfahrung.SEHR_FORTGESCHRITTEN),
 			() -> assertThat(Erfahrung.zuWert("EXPERTE")).isEqualTo(Erfahrung.EXPERTE));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Erfahrung.zuWert(null));
+	}
 }

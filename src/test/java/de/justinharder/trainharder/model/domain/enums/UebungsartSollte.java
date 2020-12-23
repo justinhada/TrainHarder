@@ -30,4 +30,11 @@ class UebungsartSollte
 			() -> assertThat(Uebungsart.zuWert("GRUNDUEBUNG_VARIATION")).isEqualTo(Uebungsart.GRUNDUEBUNG_VARIATION),
 			() -> assertThat(Uebungsart.zuWert("ASSISTENZ")).isEqualTo(Uebungsart.ASSISTENZ));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Uebungsart.zuWert(null));
+	}
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PasswortCheckSollte
 {
@@ -34,5 +35,12 @@ class PasswortCheckSollte
 	void test02()
 	{
 		assertThat(sut.isUnsicher("IchBinEinGueltigesPasswort#1234")).isFalse();
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> sut.isUnsicher(null));
 	}
 }

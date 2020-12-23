@@ -17,6 +17,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KraftlevelErmittlungSollte
 {
@@ -117,5 +118,12 @@ class KraftlevelErmittlungSollte
 			() -> assertThat(sut.ermittle(erstelleFrau(90, 150, 100, 160))).isEqualTo(Kraftlevel.CLASS_1),
 			() -> assertThat(sut.ermittle(erstelleFrau(90, 170, 110, 180))).isEqualTo(Kraftlevel.MASTER),
 			() -> assertThat(sut.ermittle(erstelleFrau(90, 200, 120, 220))).isEqualTo(Kraftlevel.ELITE));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> sut.ermittle(null));
 	}
 }

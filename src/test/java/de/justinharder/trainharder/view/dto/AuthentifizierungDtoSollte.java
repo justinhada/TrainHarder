@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungDtoSollte
 {
@@ -20,6 +21,7 @@ class AuthentifizierungDtoSollte
 	void setup()
 	{
 		primaerschluessel = new Primaerschluessel().getId().toString();
+
 		sut = new AuthentifizierungDto(primaerschluessel, "mail@justinharder.de", "harder");
 	}
 
@@ -50,7 +52,7 @@ class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(AuthentifizierungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -61,11 +63,24 @@ class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet = "AuthentifizierungDto(super=Dto(primaerschluessel=" + primaerschluessel
 			+ "), mail=mail@justinharder.de, benutzername=harder)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto(null,"mail","benutzername")),
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel",null,"benutzername")),
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel","mail",null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)));
 	}
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -89,5 +90,16 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getWiederholungen()).isEqualTo(kraftwert.getWiederholungen()),
 			() -> assertThat(ergebnis.getUebung()).isEqualTo(kraftwert.getUebung()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(kraftwert.getBenutzer()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test06()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereKraftwert(null)));
 	}
 }

@@ -30,4 +30,11 @@ class StressSollte
 			() -> assertThat(Stress.zuWert("MITTELMAESSIG")).isEqualTo(Stress.MITTELMAESSIG),
 			() -> assertThat(Stress.zuWert("HOCH")).isEqualTo(Stress.HOCH));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Stress.zuWert(null));
+	}
 }

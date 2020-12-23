@@ -14,6 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -80,5 +82,14 @@ class TrainHarderIdentityStoreSollte
 		var ergebnis = sut.validate(new UsernamePasswordCredential("harder", "JustinHarder98"));
 
 		assertThat(ergebnis.getStatus()).isEqualTo(erwartet.getStatus());
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test04()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setLoginService(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.validate(null)));
 	}
 }

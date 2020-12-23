@@ -30,4 +30,11 @@ class ErnaehrungSollte
 			() -> assertThat(Ernaehrung.zuWert("DURCHSCHNITT")).isEqualTo(Ernaehrung.DURCHSCHNITT),
 			() -> assertThat(Ernaehrung.zuWert("GUT")).isEqualTo(Ernaehrung.GUT));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Ernaehrung.zuWert(null));
+	}
 }

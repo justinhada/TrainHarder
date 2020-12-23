@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -96,5 +97,15 @@ class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getQuads()).isEqualTo(belastungsfaktor.getQuads()),
 			() -> assertThat(ergebnis.getHamstrings()).isEqualTo(belastungsfaktor.getHamstrings()),
 			() -> assertThat(ergebnis.getShoulder()).isEqualTo(belastungsfaktor.getShoulder()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null)));
 	}
 }

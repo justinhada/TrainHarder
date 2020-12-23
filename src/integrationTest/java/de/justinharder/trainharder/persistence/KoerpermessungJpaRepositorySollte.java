@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -85,5 +86,16 @@ class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getKalorieneinnahme()).isEqualTo(koerpermessung.getKalorieneinnahme()),
 			() -> assertThat(ergebnis.getKalorienverbrauch()).isEqualTo(koerpermessung.getKalorienverbrauch()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(koerpermessung.getBenutzer()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test06()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereKoerpermessung(null)));
 	}
 }

@@ -34,4 +34,11 @@ class RegenerationsfaehigkeitSollte
 			() -> assertThat(Regenerationsfaehigkeit.zuWert("GUT")).isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(Regenerationsfaehigkeit.zuWert("PERFEKT")).isEqualTo(Regenerationsfaehigkeit.PERFEKT));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Regenerationsfaehigkeit.zuWert(null));
+	}
 }

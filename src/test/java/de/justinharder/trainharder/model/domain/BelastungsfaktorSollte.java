@@ -12,6 +12,7 @@ import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BelastungsfaktorSollte
 {
@@ -130,5 +131,16 @@ class BelastungsfaktorSollte
 		var erwartet = "Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test07()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Belastungsfaktor(null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebung(null)));
 	}
 }

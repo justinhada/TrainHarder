@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -121,14 +122,15 @@ class UebungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Uebungsart null ist")
+	@DisplayName("null validieren")
 	void test02()
 	{
-		var erwartet = "Die Ermittlung der Uebungen benötigt eine gültige Uebungsart!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungsart(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungsart(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungskategorie(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(new UebungDto(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(null, "belastungsfaktorId")));
 	}
 
 	@Test
@@ -155,19 +157,8 @@ class UebungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Uebungskategorie null ist")
-	void test04()
-	{
-		var erwartet = "Die Ermittlung der Uebungen benötigt eine gültige Uebungskategorie!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungskategorie(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
-	void test05()
+	void test04()
 	{
 		var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
 		var uebungen = List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
@@ -183,19 +174,8 @@ class UebungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die UebungID null ist")
-	void test06()
-	{
-		var erwartet = "Die Ermittlung der Uebung benötigt eine gültige UebungID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("UebungNichtGefundenException werfen, wenn die UebungID nicht existiert")
-	void test07()
+	void test05()
 	{
 		var id = new Primaerschluessel().getId().toString();
 		var erwartet = "Die Uebung mit der ID \"" + id + "\" existiert nicht!";
@@ -209,7 +189,7 @@ class UebungServiceSollte
 
 	@Test
 	@DisplayName("eine Uebung zur ID ermitteln")
-	void test08() throws UebungNichtGefundenException
+	void test06() throws UebungNichtGefundenException
 	{
 		var erwartet = Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN;
 		var uebung = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
@@ -225,30 +205,8 @@ class UebungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn das UebungDto null ist")
-	void test09()
-	{
-		var erwartet = "Zur Erstellung der Uebung wird ein gültiges UebungDto benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.speichereUebung(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die BelastungsfaktorID null ist")
-	void test10()
-	{
-		var erwartet = "Zur Erstellung der Uebung wird ein gültiges UebungDto benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.speichereUebung(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn die BelastungsfaktorID nicht existiert")
-	void test11()
+	void test07()
 	{
 		var belastungsfaktorId = new Primaerschluessel().getId().toString();
 		var erwartet = "Der Belastungsfaktor mit der ID \"" + belastungsfaktorId + "\" existiert nicht!";
@@ -263,7 +221,7 @@ class UebungServiceSollte
 
 	@Test
 	@DisplayName("eine Uebung erstellen")
-	void test12() throws BelastungsfaktorNichtGefundenException
+	void test08() throws BelastungsfaktorNichtGefundenException
 	{
 		var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
 		var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;

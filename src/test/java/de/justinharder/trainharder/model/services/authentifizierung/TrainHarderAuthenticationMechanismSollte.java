@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -101,5 +102,12 @@ class TrainHarderAuthenticationMechanismSollte
 		sut.cleanSubject(request, response, httpMessageContext);
 
 		assertThat(request.getUserPrincipal()).isNull();
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test04()
+	{
+		assertThrows(NullPointerException.class, () -> sut.setIdentityStore(null));
 	}
 }

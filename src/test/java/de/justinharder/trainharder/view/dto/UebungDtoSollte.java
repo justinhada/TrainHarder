@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UebungDtoSollte
 {
@@ -85,5 +86,28 @@ class UebungDtoSollte
 			+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new UebungDto(null, "name", "uebungsart", "uebungskategorie", new BelastungsfaktorDto())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new UebungDto("primaerschluessel", null, "uebungsart", "uebungskategorie",
+					new BelastungsfaktorDto())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new UebungDto("primaerschluessel", "name", null, "uebungskategorie", new BelastungsfaktorDto())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new UebungDto("primaerschluessel", "name", "uebungsart", null, new BelastungsfaktorDto())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new UebungDto("primaerschluessel", "name", "uebungsart", "uebungskategorie", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebungskategorie(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBelastungsfaktor(null)));
 	}
 }

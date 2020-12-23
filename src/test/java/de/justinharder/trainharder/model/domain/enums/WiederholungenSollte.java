@@ -32,4 +32,11 @@ class WiederholungenSollte
 			() -> assertThat(Wiederholungen.zuWert("8RM")).isEqualTo(Wiederholungen.EIGHT_REP_MAX),
 			() -> assertThat(Wiederholungen.zuWert("10RM")).isEqualTo(Wiederholungen.TEN_REP_MAX));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Wiederholungen.zuWert(null));
+	}
 }

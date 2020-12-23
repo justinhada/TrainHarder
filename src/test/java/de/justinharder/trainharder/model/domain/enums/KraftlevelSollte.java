@@ -34,4 +34,11 @@ class KraftlevelSollte
 			() -> assertThat(Kraftlevel.zuWert("MASTER")).isEqualTo(Kraftlevel.MASTER),
 			() -> assertThat(Kraftlevel.zuWert("ELITE")).isEqualTo(Kraftlevel.ELITE));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Kraftlevel.zuWert(null));
+	}
 }

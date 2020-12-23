@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -109,30 +110,21 @@ class LoginServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn der Benutzername null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Zum Login wird ein gültiger Benutzername benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.login(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	void test02()
-	{
-		var erwartet = "Zum Login wird ein gültiges Passwort benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.login("harder", null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.login(null, "passwort")),
+			() -> assertThrows(NullPointerException.class, () -> sut.login("benutzername", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(null, "passwort")),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(UUID.randomUUID(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.sendeResetMail("mail", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.sendeResetMail(null, UUID.randomUUID())));
 	}
 
 	@Test
 	@DisplayName("LoginException werfen, wenn der Benutzername nicht existiert")
-	void test03()
+	void test02()
 	{
 		var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
@@ -147,7 +139,7 @@ class LoginServiceSollte
 
 	@Test
 	@DisplayName("LoginException werfen, wenn das Passwort falsch ist")
-	void test04() throws InvalidKeySpecException, NoSuchAlgorithmException
+	void test03() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
@@ -166,7 +158,7 @@ class LoginServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer einloggen")
-	void test05() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	void test04() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
@@ -186,31 +178,8 @@ class LoginServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Mail null ist")
-	void test06()
-	{
-		var erwartet = "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.sendeResetMail(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	void test07()
-	{
-		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
-		var erwartet = "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.sendeResetMail(mail, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die Mail nicht existiert")
-	void test08()
+	void test05()
 	{
 		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		var erwartet = "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!";
@@ -226,7 +195,7 @@ class LoginServiceSollte
 
 	@Test
 	@DisplayName("die Reset-Mail senden")
-	void test09() throws AuthentifizierungNichtGefundenException
+	void test06() throws AuthentifizierungNichtGefundenException
 	{
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		var mail = authentifizierung.getMail();
@@ -252,31 +221,8 @@ class LoginServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ResetUUID null ist")
-	void test10()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn das Passwort null ist")
-	void test11()
-	{
-		var erwartet = "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!";
-
-		var resetUuid = UUID.randomUUID();
-		var exception = assertThrows(NullPointerException.class, () -> sut.resetPassword(resetUuid, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
-	void test12()
+	void test07()
 	{
 		var erwartet = "Das Passwort ist unsicher!";
 		var passwort = "UnsicheresPasswort";
@@ -291,7 +237,7 @@ class LoginServiceSollte
 
 	@Test
 	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die ResetUUID nicht existiert")
-	void test13()
+	void test08()
 	{
 		var resetUuid = UUID.randomUUID();
 		var erwartet = "Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!";
@@ -307,7 +253,7 @@ class LoginServiceSollte
 
 	@Test
 	@DisplayName("das Passwort zurücksetzen")
-	void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
+	void test09() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
 		InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var authentifizierung = new Authentifizierung(

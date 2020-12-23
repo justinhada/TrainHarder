@@ -23,6 +23,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -119,14 +120,12 @@ class RegistrierungControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Registrierung null ist")
+	@DisplayName("null validieren")
 	void test03()
 	{
-		var erwartet = "Zum Beitreten wird eine gültige Registrierung benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.registriere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.registriere(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktiviere(null)));
 	}
 
 	@Test
@@ -174,19 +173,8 @@ class RegistrierungControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die AuthentifizierungID null ist")
-	void test07()
-	{
-		var erwartet = "Zum Aktivieren wird eine gültige ID benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.aktiviere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("bei fehlerhafter Aktivierung zur Fehler-Seite navigieren")
-	void test08() throws AuthentifizierungNichtGefundenException
+	void test07() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = "/error";
 		var authentifizierungId = new Primaerschluessel().getId().toString();
@@ -203,7 +191,7 @@ class RegistrierungControllerSollte
 
 	@Test
 	@DisplayName("bei erfolgreicher Aktivierung zur Aktiviert-Seite navigieren")
-	void test09() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungNichtGefundenException
 	{
 		var erwartet = "/aktiviert.xhtml";
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();

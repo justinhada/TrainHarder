@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,7 +13,6 @@ import javax.security.enterprise.identitystore.IdentityStore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Setter
 @AutoApplySession
 @LoginToContinue(
 	loginPage = "/trainharder/login",
@@ -25,11 +23,14 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 	@Inject
 	private IdentityStore identityStore;
 
+	public void setIdentityStore(@NonNull IdentityStore identityStore)
+	{
+		this.identityStore = identityStore;
+	}
+
 	@Override
-	public AuthenticationStatus validateRequest(
-		@NonNull HttpServletRequest request,
-		@NonNull HttpServletResponse response,
-		@NonNull HttpMessageContext httpMessageContext)
+	public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response,
+		HttpMessageContext httpMessageContext)
 	{
 		var credential = httpMessageContext.getAuthParameters().getCredential();
 
@@ -41,10 +42,8 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 	}
 
 	@Override
-	public void cleanSubject(
-		@NonNull HttpServletRequest request,
-		@NonNull HttpServletResponse response,
-		@NonNull HttpMessageContext httpMessageContext)
+	public void cleanSubject(HttpServletRequest request, HttpServletResponse response,
+		HttpMessageContext httpMessageContext)
 	{
 		HttpAuthenticationMechanism.super.cleanSubject(request, response, httpMessageContext);
 	}

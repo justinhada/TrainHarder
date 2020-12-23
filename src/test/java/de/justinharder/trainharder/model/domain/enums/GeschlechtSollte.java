@@ -29,4 +29,11 @@ class GeschlechtSollte
 			() -> assertThat(Geschlecht.zuWert("MAENNLICH")).isEqualTo(Geschlecht.MAENNLICH),
 			() -> assertThat(Geschlecht.zuWert("WEIBLICH")).isEqualTo(Geschlecht.WEIBLICH));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Geschlecht.zuWert(null));
+	}
 }

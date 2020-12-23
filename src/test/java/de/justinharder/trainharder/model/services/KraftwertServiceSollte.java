@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -98,14 +99,18 @@ class KraftwertServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.speichereKraftwert(null, "uebungId", "benutzerId")),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.speichereKraftwert(new KraftwertDto(), null, "benutzerId")),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.speichereKraftwert(new KraftwertDto(), "uebungId", null)));
 	}
 
 	@Test
@@ -132,19 +137,8 @@ class KraftwertServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ID null ist")
-	void test03()
-	{
-		var erwartet = "Die Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("KraftwertNichtGefundenException werfen, wenn ID zu keinem Kraftwert gehört")
-	void test04()
+	void test03()
 	{
 		var id = new Primaerschluessel().getId().toString();
 		angenommenDasKraftwertRepositoryGibtNullZurueck(id);
@@ -157,7 +151,7 @@ class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert zur ID ermitteln")
-	void test05() throws KraftwertNichtGefundenException
+	void test04() throws KraftwertNichtGefundenException
 	{
 		var erwartet = Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
 		var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
@@ -174,7 +168,7 @@ class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("UebungNichtGefundenException werfen, wenn die Uebung nicht gefunden werden kann")
-	void test06()
+	void test05()
 	{
 		var uebungId = new Primaerschluessel().getId().toString();
 		var erwartet = "Die Uebung mit der ID \"" + uebungId + "\" existiert nicht!";
@@ -191,7 +185,7 @@ class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn der Benutzer nicht gefunden werden kann")
-	void test07()
+	void test06()
 	{
 		var benutzerId = new Primaerschluessel().getId().toString();
 		var erwartet = "Der Benutzer mit der ID \"" + benutzerId + "\" existiert nicht!";
@@ -213,7 +207,7 @@ class KraftwertServiceSollte
 
 	@Test
 	@DisplayName("einen Kraftwert erstellen")
-	void test08() throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	void test07() throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
 		var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;

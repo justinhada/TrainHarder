@@ -2,7 +2,6 @@ package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -18,7 +17,6 @@ public class PasswortHasher
 	private static final int ITERATIONEN = 65536;
 	private static final String ALGORITHMUS = "PBKDF2WithHmacSHA1";
 
-	@Setter
 	private SecureRandom secureRandom;
 
 	@Inject
@@ -27,13 +25,19 @@ public class PasswortHasher
 		secureRandom = new SecureRandom();
 	}
 
+	public void setSecureRandom(@NonNull SecureRandom secureRandom)
+	{
+		this.secureRandom = secureRandom;
+	}
+
 	public String generiereSalt(byte[] salt)
 	{
 		secureRandom.nextBytes(salt);
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
-	public String hash(@NonNull String passwort, @NonNull String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
+	public String hash(@NonNull String passwort, @NonNull String salt)
+		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return pbkdf2(passwort, salt);
 	}

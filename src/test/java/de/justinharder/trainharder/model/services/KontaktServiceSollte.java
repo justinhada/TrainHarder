@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -30,14 +29,10 @@ class KontaktServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn das Kontaktformular null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.kontaktiere(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(NullPointerException.class, () -> sut.kontaktiere(null));
 	}
 
 	@Test

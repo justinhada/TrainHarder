@@ -18,7 +18,7 @@ public class MailAdresse
 		this.adresse = adresse;
 	}
 
-	public MailAdresse(@NonNull String adresse, @NonNull String name)
+	public MailAdresse(String adresse, @NonNull String name)
 	{
 		this(adresse);
 		this.name = name;

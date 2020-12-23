@@ -3,7 +3,7 @@ package de.justinharder.trainharder.persistence;
 import de.justinharder.trainharder.model.domain.Entitaet;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,9 +14,13 @@ import java.util.function.Supplier;
 @NoArgsConstructor
 public class JpaRepository<T extends Entitaet>
 {
-	@Setter
 	@PersistenceContext
 	protected EntityManager entityManager;
+
+	public void setEntityManager(@NonNull EntityManager entityManager)
+	{
+		this.entityManager = entityManager;
+	}
 
 	protected List<T> ermittleAlle(Class<T> clazz)
 	{

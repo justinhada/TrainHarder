@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PasswortSollte
 {
@@ -44,7 +45,7 @@ class PasswortSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(Passwort.class)
 			.suppress(Warning.NULL_FIELDS)
@@ -53,10 +54,21 @@ class PasswortSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet = "Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new Passwort(null, "passwortHash")),
+			() -> assertThrows(NullPointerException.class, () -> new Passwort("salt", null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setSalt(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPasswortHash(null)));
 	}
 }

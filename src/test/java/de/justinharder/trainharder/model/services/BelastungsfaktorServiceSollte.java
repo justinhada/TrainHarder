@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -58,14 +59,12 @@ class BelastungsfaktorServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die ID null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Ermittlung des Belastungsfaktors benötigt eine gültige BelastungsfaktorID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null)));
 	}
 
 	@Test
@@ -100,19 +99,8 @@ class BelastungsfaktorServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn das BelastungsfaktorDto null ist")
-	void test04()
-	{
-		var erwartet = "Zum Speichern wird ein gueltiges BelastungsfaktorDto benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("einen Belastungsfaktor speichern")
-	void test05()
+	void test04()
 	{
 		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
 		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;

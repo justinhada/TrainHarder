@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -94,14 +95,18 @@ class KoerpermessungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Die Ermittlung der Koerpermessungen benötigt eine gültige BenutzerID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(null, "benutzerId")),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.erstelleKoerpermessung(new Koerpermessdaten(), null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.aktualisiereKoerpermessung(null, new Koerpermessdaten())),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung("id", null)));
 	}
 
 	@Test
@@ -123,19 +128,8 @@ class KoerpermessungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die KoerpermessungID null ist")
-	void test03()
-	{
-		var erwartet = "Die Ermittlung der Koerpermessung benötigt eine gültige ID!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
-	void test04()
+	void test03()
 	{
 		var id = new Primaerschluessel();
 		var erwartet = "Die Koerpermessung mit der ID \"" + id.getId().toString() + "\" existiert nicht!";
@@ -150,7 +144,7 @@ class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("Koerpermessung zu KoerpermessungID ermitteln")
-	void test05() throws KoerpermessungNichtGefundenException
+	void test04() throws KoerpermessungNichtGefundenException
 	{
 		var erwartet = Testdaten.KOERPERMESSUNG_DTO_JUSTIN;
 		var id = Testdaten.KOERPERMESSUNG_JUSTIN_ID;
@@ -167,32 +161,8 @@ class KoerpermessungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	void test06()
-	{
-		var erwartet = "Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die BenutzerID null ist")
-	void test07()
-	{
-		var erwartet = "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!";
-
-		var koerpermessdaten = new Koerpermessdaten();
-		var exception =
-			assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(koerpermessdaten, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
-	void test08()
+	void test05()
 	{
 		var benutzerId = new Primaerschluessel();
 		var erwartet = "Der Benutzer mit der ID \"" + benutzerId.getId().toString() + "\" existiert nicht!";
@@ -207,7 +177,7 @@ class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("eine Koerpermessung erstellen")
-	void test09() throws BenutzerNichtGefundenException
+	void test06() throws BenutzerNichtGefundenException
 	{
 		var id = new Primaerschluessel();
 		var erwartet = new KoerpermessungDto(
@@ -252,33 +222,8 @@ class KoerpermessungServiceSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die KoerpermessungID null ist")
-	void test10()
-	{
-		var erwartet = "Die Aktualisierung der Koerpermessungen benötigt eine gültige ID!";
-
-		var exception =
-			assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung(null, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
-	@DisplayName("NullPointerException werfen, wenn die Koerpermessdaten null sind")
-	void test11()
-	{
-		var erwartet = "Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!";
-
-		var primaerschluessel = new Primaerschluessel().getId().toString();
-		var exception = assertThrows(NullPointerException.class,
-			() -> sut.aktualisiereKoerpermessung(primaerschluessel, null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
-	void test12()
+	void test07()
 	{
 		var id = new Primaerschluessel();
 		var erwartet = "Die Koerpermessung mit der ID \"" + id.getId().toString() + "\" existiert nicht!";
@@ -292,7 +237,7 @@ class KoerpermessungServiceSollte
 
 	@Test
 	@DisplayName("eine Koerpermessung aktualisieren")
-	void test13() throws KoerpermessungNichtGefundenException
+	void test08() throws KoerpermessungNichtGefundenException
 	{
 		var id = new Primaerschluessel();
 		var erwartet = new KoerpermessungDto(

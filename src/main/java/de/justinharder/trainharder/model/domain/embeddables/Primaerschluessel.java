@@ -4,7 +4,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import de.justinharder.trainharder.model.UuidMapper;
 import lombok.Getter;
-import lombok.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -27,7 +26,7 @@ public class Primaerschluessel implements Serializable
 		this(UUID.randomUUID());
 	}
 
-	public Primaerschluessel(@NonNull UUID id)
+	public Primaerschluessel(UUID id)
 	{
 		this.id = id;
 	}
@@ -37,7 +36,7 @@ public class Primaerschluessel implements Serializable
 		this(UUID.fromString(id));
 	}
 
-	public Primaerschluessel setId(@NonNull UUID id)
+	public Primaerschluessel setId(UUID id)
 	{
 		this.id = id;
 		return this;

@@ -53,4 +53,11 @@ class UebungskategorieSollte
 			() -> assertThat(Uebungskategorie.zuWert("WETTKAMPF_KREUZHEBEN"))
 				.isEqualTo(Uebungskategorie.WETTKAMPF_KREUZHEBEN));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Uebungskategorie.zuWert(null));
+	}
 }

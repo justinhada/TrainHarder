@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -134,14 +135,12 @@ class BenutzerControllerSollte extends AbstractControllerSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn die Benutzerdaten null sind")
+	@DisplayName("null validieren")
 	void test07()
 	{
-		var erwartet = "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.aendereBenutzerdaten(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.benutzerdaten(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aendereBenutzerdaten(null)));
 	}
 
 	@Test

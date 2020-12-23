@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KoerpermessungDtoSollte
 {
@@ -78,7 +79,7 @@ class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(KoerpermessungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -89,12 +90,23 @@ class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet = "KoerpermessungDto(super=Dto(primaerschluessel="
 			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
 			+ "), datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(null,"datum",180,80,20,2800,2800)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto("primaerschluessel",null,180,80,20,2800,2800)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)));
 	}
 }

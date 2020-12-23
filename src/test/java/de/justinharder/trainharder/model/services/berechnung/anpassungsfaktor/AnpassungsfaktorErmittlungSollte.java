@@ -44,18 +44,14 @@ class AnpassungsfaktorErmittlungSollte
 	}
 
 	@Test
-	@DisplayName("NullPointerException werfen, wenn Benutzer null ist")
+	@DisplayName("null validieren")
 	void test01()
 	{
-		var erwartet = "Benutzer ist null!";
-
-		var exception = assertThrows(NullPointerException.class, () -> sut.berechneAnpassungsfaktor(null));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(NullPointerException.class, () -> sut.berechneAnpassungsfaktor(null));
 	}
 
 	@Test
-	@DisplayName("den richtigen Anpassungsfaktor für Justin berechnen")
+	@DisplayName("den richtigen Anpassungsfaktor berechnen")
 	void test02()
 	{
 		assertAll(

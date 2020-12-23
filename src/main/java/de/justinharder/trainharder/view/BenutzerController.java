@@ -78,8 +78,8 @@ public class BenutzerController extends AbstractController
 		}
 	}
 
-	private void aendereOderErstelle(@NonNull Benutzerdaten benutzerdaten,
-		@NonNull AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
+	private void aendereOderErstelle(Benutzerdaten benutzerdaten, AuthentifizierungDto authentifizierungDto)
+		throws AuthentifizierungNichtGefundenException
 	{
 		try
 		{

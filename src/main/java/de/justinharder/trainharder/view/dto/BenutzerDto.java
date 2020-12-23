@@ -156,7 +156,7 @@ public class BenutzerDto extends Dto
 		return this;
 	}
 
-	private List<KoerpermessungDto> sortiereKoerpermessungen(@NonNull List<KoerpermessungDto> koerpermessungen)
+	private List<KoerpermessungDto> sortiereKoerpermessungen(List<KoerpermessungDto> koerpermessungen)
 	{
 		return koerpermessungen.stream()
 			.sorted(Comparator.comparing(KoerpermessungDto::getDatum))

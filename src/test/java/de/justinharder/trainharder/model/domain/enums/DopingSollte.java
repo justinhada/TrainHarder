@@ -29,4 +29,11 @@ class DopingSollte
 			() -> assertThat(Doping.zuWert("JA")).isEqualTo(Doping.JA),
 			() -> assertThat(Doping.zuWert("NEIN")).isEqualTo(Doping.NEIN));
 	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertThrows(NullPointerException.class, () -> Doping.zuWert(null));
+	}
 }

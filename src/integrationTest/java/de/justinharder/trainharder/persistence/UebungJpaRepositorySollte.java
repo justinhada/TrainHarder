@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UebungJpaRepositorySollte extends JpaRepositorySollte
 {
@@ -119,5 +120,17 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getUebungsart()).isEqualTo(uebung.getUebungsart()),
 			() -> assertThat(ergebnis.getUebungskategorie()).isEqualTo(uebung.getUebungskategorie()),
 			() -> assertThat(ergebnis.getBelastungsfaktor()).isEqualTo(uebung.getBelastungsfaktor()));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test08()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setEntityManager(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuUebungsart(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuUebungskategorie(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(null)));
 	}
 }

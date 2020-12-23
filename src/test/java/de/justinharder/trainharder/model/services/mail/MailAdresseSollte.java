@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import static com.google.code.beanmatchers.BeanMatchers.*;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MailAdresseSollte
 {
@@ -30,5 +32,14 @@ class MailAdresseSollte
 			.suppress(Warning.NONFINAL_FIELDS)
 			.suppress(Warning.NULL_FIELDS)
 			.verify();
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test03()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new MailAdresse(null)),
+			() -> assertThrows(NullPointerException.class, () -> new MailAdresse("mail@mail.de", null)));
 	}
 }

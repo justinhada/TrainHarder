@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KoerpermessungSollte
 {
@@ -110,5 +111,24 @@ class KoerpermessungSollte
 		var erwartet = "Koerpermessung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test08()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Koerpermessung(null, LocalDate.now(), new Koerpermasse(), 0, 0, new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Koerpermessung(new Primaerschluessel(), null, new Koerpermasse(), 0, 0, new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Koerpermessung(new Primaerschluessel(), LocalDate.now(), null, 0, 0, new Benutzer())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Koerpermessung(new Primaerschluessel(), LocalDate.now(), new Koerpermasse(), 0, 0, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpermasse(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzer(null)));
 	}
 }

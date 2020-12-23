@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KraftwertDtoSollte
 {
@@ -56,7 +57,7 @@ class KraftwertDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test03()
 	{
 		EqualsVerifier.forClass(KraftwertDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -67,11 +68,24 @@ class KraftwertDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test04()
 	{
 		var erwartet =
 			"KraftwertDto(super=Dto(primaerschluessel=" + primaerschluessel + "), gewicht=100.0, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";
 
 		assertThat(sut).hasToString(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test05()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(null,100,80,"datum","wiederholungen")),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto("primaerschluessel",100,80,null,"wiederholungen")),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto("primaerschluessel",100,80,"datum",null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setWiederholungen(null)));
 	}
 }

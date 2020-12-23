@@ -27,24 +27,21 @@ public class Mail
 		this.inhalt = inhalt;
 	}
 
-	public Mail fuegeEmpfaengerHinzu(@NonNull MailAdresse... empfaenger)
+	public Mail fuegeEmpfaengerHinzu(MailAdresse... empfaenger)
 	{
 		alleEmpfaenger.addAll(Arrays.asList(empfaenger));
-
 		return this;
 	}
 
-	public Mail fuegeInKopieHinzu(@NonNull MailAdresse... inKopie)
+	public Mail fuegeInKopieHinzu(MailAdresse... inKopie)
 	{
 		alleInKopie.addAll(Arrays.asList(inKopie));
-
 		return this;
 	}
 
-	public Mail fuegeInBlindkopieHinzu(@NonNull MailAdresse... inBlindkopie)
+	public Mail fuegeInBlindkopieHinzu(MailAdresse... inBlindkopie)
 	{
 		alleInBlindkopie.addAll(Arrays.asList(inBlindkopie));
-
 		return this;
 	}
 

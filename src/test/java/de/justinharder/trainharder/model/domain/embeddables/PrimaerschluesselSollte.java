@@ -53,7 +53,7 @@ class PrimaerschluesselSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test04()
 	{
 		EqualsVerifier.forClass(Primaerschluessel.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -63,7 +63,7 @@ class PrimaerschluesselSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test05()
 	{
 		var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
 

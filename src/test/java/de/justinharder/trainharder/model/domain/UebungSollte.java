@@ -16,7 +16,9 @@ import java.time.LocalDate;
 import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UebungSollte
 {
@@ -32,7 +34,7 @@ class UebungSollte
 	@DisplayName("einen NoArgsConstructor haben")
 	void test01()
 	{
-		org.hamcrest.MatcherAssert.assertThat(Uebung.class, allOf(hasValidBeanConstructor()));
+		assertThat(Uebung.class, allOf(hasValidBeanConstructor()));
 	}
 
 	@Test
@@ -126,5 +128,33 @@ class UebungSollte
 		sut.fuegeKraftwertHinzu(kraftwert);
 
 		assertThat(sut.getKraftwerte()).contains(kraftwert);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test08()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(null, "Name", Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
+					new Belastungsfaktor())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(new Primaerschluessel(), null, Uebungsart.GRUNDUEBUNG,
+					Uebungskategorie.WETTKAMPF_BANKDRUECKEN, new Belastungsfaktor())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(new Primaerschluessel(), "Name", null, Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
+					new Belastungsfaktor())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(new Primaerschluessel(), "Name", Uebungsart.GRUNDUEBUNG, null,
+					new Belastungsfaktor())),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(new Primaerschluessel(), "Name", Uebungsart.GRUNDUEBUNG,
+					Uebungskategorie.WETTKAMPF_BANKDRUECKEN, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUebungskategorie(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBelastungsfaktor(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.fuegeKraftwertHinzu(null)));
 	}
 }
