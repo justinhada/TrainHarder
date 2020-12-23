@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class BenutzerDtoMapperSollte
@@ -68,5 +70,14 @@ class BenutzerDtoMapperSollte
 		assertThat(ergebnis).containsAll(erwartet);
 		verify(authentifizierungDtoMapper).mappe(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
 		verify(koerpermessungDtoMapper).mappeAlle(List.of(Testdaten.KOERPERMESSUNG_EDUARD));
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test02()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.mappeAlle(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.mappe(null)));
 	}
 }

@@ -2,21 +2,12 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import lombok.NonNull;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class BelastungsfaktorDtoMapper
+public class BelastungsfaktorDtoMapper implements DtoMapper<Belastungsfaktor, BelastungsfaktorDto>
 {
-	public List<BelastungsfaktorDto> mappeAlle(List<Belastungsfaktor> belastungsfaktoren)
-	{
-		return belastungsfaktoren
-			.stream()
-			.map(this::mappe)
-			.collect(Collectors.toList());
-	}
-
-	public BelastungsfaktorDto mappe(Belastungsfaktor belastungsfaktor)
+	@Override
+	public BelastungsfaktorDto mappe(@NonNull Belastungsfaktor belastungsfaktor)
 	{
 		return new BelastungsfaktorDto(
 			belastungsfaktor.getPrimaerschluessel().getId().toString(),

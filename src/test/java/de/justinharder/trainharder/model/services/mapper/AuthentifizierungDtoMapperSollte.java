@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungDtoMapperSollte
 {
@@ -29,5 +31,14 @@ class AuthentifizierungDtoMapperSollte
 		var ergebnis = sut.mappeAlle(authentifizierungen);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test02()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.mappeAlle(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.mappe(null)));
 	}
 }

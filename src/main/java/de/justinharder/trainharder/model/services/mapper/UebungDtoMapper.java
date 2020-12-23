@@ -2,12 +2,11 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.view.dto.UebungDto;
+import lombok.NonNull;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class UebungDtoMapper
+public class UebungDtoMapper implements DtoMapper<Uebung,UebungDto>
 {
 	private final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
 
@@ -17,15 +16,8 @@ public class UebungDtoMapper
 		this.belastungsfaktorDtoMapper = belastungsfaktorDtoMapper;
 	}
 
-	public List<UebungDto> mappeAlle(List<Uebung> uebungen)
-	{
-		return uebungen
-			.stream()
-			.map(this::mappe)
-			.collect(Collectors.toList());
-	}
-
-	public UebungDto mappe(Uebung uebung)
+	@Override
+	public UebungDto mappe(@NonNull Uebung uebung)
 	{
 		return new UebungDto(
 			uebung.getPrimaerschluessel().getId().toString(),

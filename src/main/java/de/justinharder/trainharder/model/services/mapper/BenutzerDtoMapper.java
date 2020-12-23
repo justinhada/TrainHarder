@@ -2,12 +2,11 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import lombok.NonNull;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class BenutzerDtoMapper
+public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 {
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
 	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
@@ -21,14 +20,8 @@ public class BenutzerDtoMapper
 		this.koerpermessungDtoMapper = koerpermessungDtoMapper;
 	}
 
-	public List<BenutzerDto> mappeAlle(List<Benutzer> benutzer)
-	{
-		return benutzer.stream()
-			.map(this::mappe)
-			.collect(Collectors.toList());
-	}
-
-	public BenutzerDto mappe(Benutzer benutzer)
+	@Override
+	public BenutzerDto mappe(@NonNull Benutzer benutzer)
 	{
 		return new BenutzerDto(
 			benutzer.getPrimaerschluessel().getId().toString(),

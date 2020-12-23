@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class UebungDtoMapperSollte
@@ -60,5 +62,14 @@ class UebungDtoMapperSollte
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test02()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.mappeAlle(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.mappe(null)));
 	}
 }
