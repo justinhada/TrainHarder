@@ -1,9 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -17,7 +14,7 @@ public abstract class Dto implements Serializable
 
 	protected String primaerschluessel;
 
-	public abstract Dto setPrimaerschluessel(String primaerschluessel);
+	public abstract Dto setPrimaerschluessel(@NonNull String primaerschluessel);
 
 	public abstract boolean equals(Object o);
 

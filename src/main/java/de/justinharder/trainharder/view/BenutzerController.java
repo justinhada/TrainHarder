@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.view;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.mvc.Controller;
@@ -47,7 +47,7 @@ public class BenutzerController extends AbstractController
 
 	@GET
 	@Path(value = "/{benutzername}")
-	public String benutzerdaten(@PathParam(value = "benutzername") String benutzername)
+	public String benutzerdaten(@NonNull @PathParam(value = "benutzername") String benutzername)
 	{
 		if (securityContext.getCallerPrincipal() == null)
 		{
@@ -62,10 +62,8 @@ public class BenutzerController extends AbstractController
 
 	@POST
 	@Path(value = "/{benutzername}")
-	public String aendereBenutzerdaten(@BeanParam Benutzerdaten benutzerdaten)
+	public String aendereBenutzerdaten(@NonNull @BeanParam Benutzerdaten benutzerdaten)
 	{
-		Preconditions.checkNotNull(benutzerdaten, "Zum Ändern des Benutzers werden gültige Benutzerdaten benötigt!");
-
 		try
 		{
 			var authentifizierungDto = getAuthentifizierungDto();
@@ -80,8 +78,8 @@ public class BenutzerController extends AbstractController
 		}
 	}
 
-	private void aendereOderErstelle(Benutzerdaten benutzerdaten, AuthentifizierungDto authentifizierungDto)
-		throws AuthentifizierungNichtGefundenException
+	private void aendereOderErstelle(@NonNull Benutzerdaten benutzerdaten,
+		@NonNull AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
 	{
 		try
 		{

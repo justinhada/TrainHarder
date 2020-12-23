@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
@@ -15,13 +16,13 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	implements AuthentifizierungRepository
 {
 	@Override
-	public Optional<Authentifizierung> ermittleZuId(Primaerschluessel id)
+	public Optional<Authentifizierung> ermittleZuId(@NonNull Primaerschluessel id)
 	{
 		return super.ermittleZuId(Authentifizierung.class, id);
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzer(Primaerschluessel benutzerId)
+	public Optional<Authentifizierung> ermittleZuBenutzer(@NonNull Primaerschluessel benutzerId)
 	{
 		try
 		{
@@ -39,7 +40,7 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuMail(String mail)
+	public Optional<Authentifizierung> ermittleZuMail(@NonNull String mail)
 	{
 		try
 		{
@@ -56,7 +57,7 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzername(String benutzername)
+	public Optional<Authentifizierung> ermittleZuBenutzername(@NonNull String benutzername)
 	{
 		try
 		{
@@ -73,7 +74,7 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuResetUuid(UUID resetUuid)
+	public Optional<Authentifizierung> ermittleZuResetUuid(@NonNull UUID resetUuid)
 	{
 		try
 		{
@@ -91,7 +92,7 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 
 	@Override
 	@Transactional
-	public Authentifizierung speichereAuthentifizierung(Authentifizierung authentifizierung)
+	public Authentifizierung speichereAuthentifizierung(@NonNull Authentifizierung authentifizierung)
 	{
 		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
 	}

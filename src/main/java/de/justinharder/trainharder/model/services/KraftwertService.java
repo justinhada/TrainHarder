@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
@@ -12,6 +11,7 @@ import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import de.justinharder.trainharder.model.services.mapper.KraftwertDtoMapper;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -41,31 +41,22 @@ public class KraftwertService
 		this.kraftwertDtoMapper = kraftwertDtoMapper;
 	}
 
-	public List<KraftwertDto> ermittleAlleZuBenutzer(String benutzerId)
+	public List<KraftwertDto> ermittleAlleZuBenutzer(@NonNull String benutzerId)
 	{
-		Preconditions.checkNotNull(benutzerId, "Die Ermittlung der Kraftwerte benötigt eine gültige BenutzerID!");
-
-		return kraftwertDtoMapper.mappeAlle(
-			kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
+		return kraftwertDtoMapper
+			.mappeAlle(kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
-	public KraftwertDto ermittleZuId(String id) throws KraftwertNichtGefundenException
+	public KraftwertDto ermittleZuId(@NonNull String id) throws KraftwertNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Die Ermittlung des Kraftwerts benötigt eine gültige KraftwertID!");
-
 		return kraftwertRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(kraftwertDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfKraftwertNichtGefundenException(ID, id));
 	}
 
-	public KraftwertDto speichereKraftwert(KraftwertDto kraftwertDto, String uebungId, String benutzerId)
-		throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	public KraftwertDto speichereKraftwert(@NonNull KraftwertDto kraftwertDto, @NonNull String uebungId,
+		@NonNull String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(kraftwertDto,
-			"Zur Erstellung des Kraftwerts wird ein gültiges KraftwertDto benötigt!");
-		Preconditions.checkNotNull(uebungId, "Zur Erstellung des Kraftwerts wird eine gültige UebungID benötigt!");
-		Preconditions.checkNotNull(benutzerId, "Zur Erstellung des Kraftwerts wird eine gültige BenutzerID benötigt!");
-
 		var uebung = uebungRepository.ermittleZuId(new Primaerschluessel(uebungId))
 			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException(ID, uebungId));
 		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))

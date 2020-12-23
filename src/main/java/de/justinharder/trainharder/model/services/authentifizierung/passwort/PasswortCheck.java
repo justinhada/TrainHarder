@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @NoArgsConstructor
 public class PasswortCheck
@@ -20,7 +21,7 @@ public class PasswortCheck
 	private boolean hatSonderzeichen;
 	private boolean hatZahl;
 
-	public boolean isUnsicher(String passwort)
+	public boolean isUnsicher(@NonNull String passwort)
 	{
 		hatKleinbuchstabe = false;
 		hatGrossbuchstabe = false;

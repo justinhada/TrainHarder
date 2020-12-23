@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,12 +34,12 @@ public class Koerpermessung extends Entitaet
 	{}
 
 	public Koerpermessung(
-		Primaerschluessel primaerschluessel,
-		LocalDate datum,
-		Koerpermasse koerpermasse,
+		@NonNull Primaerschluessel primaerschluessel,
+		@NonNull LocalDate datum,
+		@NonNull Koerpermasse koerpermasse,
 		int kalorieneinnahme,
 		int kalorienverbrauch,
-		Benutzer benutzer)
+		@NonNull Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.datum = datum;
@@ -50,19 +51,19 @@ public class Koerpermessung extends Entitaet
 		benutzer.fuegeKoerpermessungHinzu(this);
 	}
 
-	public Koerpermessung setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Koerpermessung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Koerpermessung setDatum(LocalDate datum)
+	public Koerpermessung setDatum(@NonNull LocalDate datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public Koerpermessung setKoerpermasse(Koerpermasse koerpermasse)
+	public Koerpermessung setKoerpermasse(@NonNull Koerpermasse koerpermasse)
 	{
 		this.koerpermasse = koerpermasse;
 		return this;
@@ -80,7 +81,7 @@ public class Koerpermessung extends Entitaet
 		return this;
 	}
 
-	public Koerpermessung setBenutzer(Benutzer benutzer)
+	public Koerpermessung setBenutzer(@NonNull Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;

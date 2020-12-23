@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.view.navigation;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.services.KontaktService;
 import de.justinharder.trainharder.view.AbstractController;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.inject.Inject;
@@ -47,10 +47,8 @@ public class KontaktController extends AbstractController
 	}
 
 	@POST
-	public String kontaktiere(@BeanParam Kontaktformular kontaktformular)
+	public String kontaktiere(@NonNull @BeanParam Kontaktformular kontaktformular)
 	{
-		Preconditions.checkNotNull(kontaktformular, "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!");
-
 		if (bindingResult.isFailed())
 		{
 			models.put("fehler", bindingResult.getAllErrors().stream()

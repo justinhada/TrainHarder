@@ -5,6 +5,7 @@ import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -41,11 +42,11 @@ public class Uebung extends Entitaet
 	{}
 
 	public Uebung(
-		Primaerschluessel primaerschluessel,
-		String name,
-		Uebungsart uebungsart,
-		Uebungskategorie uebungskategorie,
-		Belastungsfaktor belastungsfaktor)
+		@NonNull Primaerschluessel primaerschluessel,
+		@NonNull String name,
+		@NonNull Uebungsart uebungsart,
+		@NonNull Uebungskategorie uebungskategorie,
+		@NonNull Belastungsfaktor belastungsfaktor)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
@@ -56,37 +57,37 @@ public class Uebung extends Entitaet
 		belastungsfaktor.setUebung(this);
 	}
 
-	public Uebung setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Uebung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Uebung setName(String name)
+	public Uebung setName(@NonNull String name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public Uebung setUebungsart(Uebungsart uebungsart)
+	public Uebung setUebungsart(@NonNull Uebungsart uebungsart)
 	{
 		this.uebungsart = uebungsart;
 		return this;
 	}
 
-	public Uebung setUebungskategorie(Uebungskategorie uebungskategorie)
+	public Uebung setUebungskategorie(@NonNull Uebungskategorie uebungskategorie)
 	{
 		this.uebungskategorie = uebungskategorie;
 		return this;
 	}
 
-	public Uebung setBelastungsfaktor(Belastungsfaktor belastungsfaktor)
+	public Uebung setBelastungsfaktor(@NonNull Belastungsfaktor belastungsfaktor)
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;
 	}
 
-	public Uebung fuegeKraftwertHinzu(Kraftwert kraftwert)
+	public Uebung fuegeKraftwertHinzu(@NonNull Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
 		return this;

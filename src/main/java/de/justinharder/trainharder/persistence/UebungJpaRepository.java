@@ -6,6 +6,7 @@ import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,7 +22,7 @@ public class UebungJpaRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungsart(Uebungsart uebungsart)
+	public List<Uebung> ermittleAlleZuUebungsart(@NonNull Uebungsart uebungsart)
 	{
 		var criteriaBuilder = entityManager.getCriteriaBuilder();
 		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
@@ -31,7 +32,7 @@ public class UebungJpaRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungskategorie(Uebungskategorie uebungskategorie)
+	public List<Uebung> ermittleAlleZuUebungskategorie(@NonNull Uebungskategorie uebungskategorie)
 	{
 		var criteriaBuilder = entityManager.getCriteriaBuilder();
 		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
@@ -41,14 +42,14 @@ public class UebungJpaRepository extends JpaRepository<Uebung> implements Uebung
 	}
 
 	@Override
-	public Optional<Uebung> ermittleZuId(Primaerschluessel id)
+	public Optional<Uebung> ermittleZuId(@NonNull Primaerschluessel id)
 	{
 		return super.ermittleZuId(Uebung.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Uebung speichereUebung(Uebung uebung)
+	public Uebung speichereUebung(@NonNull Uebung uebung)
 	{
 		return super.speichereEntitaet(Uebung.class, uebung);
 	}

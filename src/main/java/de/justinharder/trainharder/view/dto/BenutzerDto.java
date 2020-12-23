@@ -1,9 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,20 +34,20 @@ public class BenutzerDto extends Dto
 	{}
 
 	public BenutzerDto(
-		String primaerschluessel,
-		String vorname,
-		String nachname,
-		LocalDate geburtsdatum,
-		String kraftlevel,
-		String geschlecht,
-		String erfahrung,
-		String ernaehrung,
-		String schlafqualitaet,
-		String stress,
-		String doping,
-		String regenerationsfaehigkeit,
-		AuthentifizierungDto authentifizierung,
-		List<KoerpermessungDto> koerpermessungen)
+		@NonNull String primaerschluessel,
+		@NonNull String vorname,
+		@NonNull String nachname,
+		@NonNull LocalDate geburtsdatum,
+		@NonNull String kraftlevel,
+		@NonNull String geschlecht,
+		@NonNull String erfahrung,
+		@NonNull String ernaehrung,
+		@NonNull String schlafqualitaet,
+		@NonNull String stress,
+		@NonNull String doping,
+		@NonNull String regenerationsfaehigkeit,
+		@NonNull AuthentifizierungDto authentifizierung,
+		@NonNull List<KoerpermessungDto> koerpermessungen)
 	{
 		super(primaerschluessel);
 		this.vorname = vorname;
@@ -69,79 +66,79 @@ public class BenutzerDto extends Dto
 	}
 
 	@Override
-	public BenutzerDto setPrimaerschluessel(String primaerschluessel)
+	public BenutzerDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public BenutzerDto setVorname(String vorname)
+	public BenutzerDto setVorname(@NonNull String vorname)
 	{
 		this.vorname = vorname;
 		return this;
 	}
 
-	public BenutzerDto setNachname(String nachname)
+	public BenutzerDto setNachname(@NonNull String nachname)
 	{
 		this.nachname = nachname;
 		return this;
 	}
 
-	public BenutzerDto setGeburtsdatum(LocalDate geburtsdatum)
+	public BenutzerDto setGeburtsdatum(@NonNull LocalDate geburtsdatum)
 	{
 		this.geburtsdatum = geburtsdatum;
 		return this;
 	}
 
-	public BenutzerDto setKraftlevel(String kraftlevel)
+	public BenutzerDto setKraftlevel(@NonNull String kraftlevel)
 	{
 		this.kraftlevel = kraftlevel;
 		return this;
 	}
 
-	public BenutzerDto setGeschlecht(String geschlecht)
+	public BenutzerDto setGeschlecht(@NonNull String geschlecht)
 	{
 		this.geschlecht = geschlecht;
 		return this;
 	}
 
-	public BenutzerDto setErfahrung(String erfahrung)
+	public BenutzerDto setErfahrung(@NonNull String erfahrung)
 	{
 		this.erfahrung = erfahrung;
 		return this;
 	}
 
-	public BenutzerDto setErnaehrung(String ernaehrung)
+	public BenutzerDto setErnaehrung(@NonNull String ernaehrung)
 	{
 		this.ernaehrung = ernaehrung;
 		return this;
 	}
 
-	public BenutzerDto setSchlafqualitaet(String schlafqualitaet)
+	public BenutzerDto setSchlafqualitaet(@NonNull String schlafqualitaet)
 	{
 		this.schlafqualitaet = schlafqualitaet;
 		return this;
 	}
 
-	public BenutzerDto setStress(String stress)
+	public BenutzerDto setStress(@NonNull String stress)
 	{
 		this.stress = stress;
 		return this;
 	}
 
-	public BenutzerDto setDoping(String doping)
+	public BenutzerDto setDoping(@NonNull String doping)
 	{
 		this.doping = doping;
 		return this;
 	}
 
-	public BenutzerDto setRegenerationsfaehigkeit(String regenerationsfaehigkeit)
+	public BenutzerDto setRegenerationsfaehigkeit(@NonNull String regenerationsfaehigkeit)
 	{
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		return this;
 	}
 
-	public BenutzerDto setAuthentifizierung(AuthentifizierungDto authentifizierung)
+	public BenutzerDto setAuthentifizierung(@NonNull AuthentifizierungDto authentifizierung)
 	{
 		this.authentifizierung = authentifizierung;
 		return this;
@@ -152,14 +149,14 @@ public class BenutzerDto extends Dto
 		return koerpermessungen.get(koerpermessungen.size() - 1).getKoerpergewicht();
 	}
 
-	public BenutzerDto fuegeKoerpermessungHinzu(KoerpermessungDto koerpermessung)
+	public BenutzerDto fuegeKoerpermessungHinzu(@NonNull KoerpermessungDto koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
 		koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
 		return this;
 	}
 
-	private List<KoerpermessungDto> sortiereKoerpermessungen(List<KoerpermessungDto> koerpermessungen)
+	private List<KoerpermessungDto> sortiereKoerpermessungen(@NonNull List<KoerpermessungDto> koerpermessungen)
 	{
 		return koerpermessungen.stream()
 			.sorted(Comparator.comparing(KoerpermessungDto::getDatum))

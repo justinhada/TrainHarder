@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain.enums;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public enum Wiederholungen
 
 	private final String wert;
 
-	public static Wiederholungen zuWert(String wert)
+	public static Wiederholungen zuWert(@NonNull String wert)
 	{
 		return Enums.zuWert(Stream.of(values())
 			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);

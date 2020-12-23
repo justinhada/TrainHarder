@@ -6,6 +6,7 @@ import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.enums.Geschlecht;
 import de.justinharder.trainharder.model.domain.enums.Kraftlevel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
+import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class KraftlevelErmittlung
 {
-	public Kraftlevel ermittle(Benutzer benutzer)
+	public Kraftlevel ermittle(@NonNull Benutzer benutzer)
 	{
 		var gewichtsklasse = ermittleGewichtsklasse(
 			benutzer.getBenutzerangabe().getGeschlecht(),

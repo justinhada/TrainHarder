@@ -3,6 +3,7 @@ package de.justinharder.trainharder.model.domain;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Wiederholungen;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,13 +38,13 @@ public class Kraftwert extends Entitaet
 	{}
 
 	public Kraftwert(
-		Primaerschluessel primaerschluessel,
+		@NonNull Primaerschluessel primaerschluessel,
 		double gewicht,
 		double koerpergewicht,
-		LocalDate datum,
-		Wiederholungen wiederholungen,
-		Uebung uebung,
-		Benutzer benutzer)
+		@NonNull LocalDate datum,
+		@NonNull Wiederholungen wiederholungen,
+		@NonNull Uebung uebung,
+		@NonNull Benutzer benutzer)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.gewicht = gewicht;
@@ -54,7 +55,7 @@ public class Kraftwert extends Entitaet
 		this.benutzer = benutzer;
 	}
 
-	public Kraftwert setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Kraftwert setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
@@ -72,25 +73,25 @@ public class Kraftwert extends Entitaet
 		return this;
 	}
 
-	public Kraftwert setDatum(LocalDate datum)
+	public Kraftwert setDatum(@NonNull LocalDate datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public Kraftwert setWiederholungen(Wiederholungen wiederholungen)
+	public Kraftwert setWiederholungen(@NonNull Wiederholungen wiederholungen)
 	{
 		this.wiederholungen = wiederholungen;
 		return this;
 	}
 
-	public Kraftwert setUebung(Uebung uebung)
+	public Kraftwert setUebung(@NonNull Uebung uebung)
 	{
 		this.uebung = uebung;
 		return this;
 	}
 
-	public Kraftwert setBenutzer(Benutzer benutzer)
+	public Kraftwert setBenutzer(@NonNull Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;

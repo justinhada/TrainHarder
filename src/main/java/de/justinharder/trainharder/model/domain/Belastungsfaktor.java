@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.domain;
 
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -47,7 +48,7 @@ public class Belastungsfaktor extends Entitaet
 	{}
 
 	public Belastungsfaktor(
-		Primaerschluessel primaerschluessel,
+		@NonNull Primaerschluessel primaerschluessel,
 		double squat,
 		double benchpress,
 		double deadlift,
@@ -76,7 +77,7 @@ public class Belastungsfaktor extends Entitaet
 		this.shoulder = shoulder;
 	}
 
-	public Belastungsfaktor setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Belastungsfaktor setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
@@ -154,7 +155,7 @@ public class Belastungsfaktor extends Entitaet
 		return this;
 	}
 
-	public Belastungsfaktor setUebung(Uebung uebung)
+	public Belastungsfaktor setUebung(@NonNull Uebung uebung)
 	{
 		this.uebung = uebung;
 		return this;

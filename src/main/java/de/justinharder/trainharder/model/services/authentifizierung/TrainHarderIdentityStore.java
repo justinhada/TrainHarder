@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.services.authentifizierung;
 
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -21,7 +22,7 @@ public class TrainHarderIdentityStore implements IdentityStore
 	private LoginService loginService;
 
 	@Override
-	public CredentialValidationResult validate(Credential credential)
+	public CredentialValidationResult validate(@NonNull Credential credential)
 	{
 		try
 		{

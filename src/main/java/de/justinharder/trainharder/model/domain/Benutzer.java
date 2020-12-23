@@ -5,6 +5,7 @@ import de.justinharder.trainharder.model.domain.embeddables.Name;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -43,11 +44,11 @@ public class Benutzer extends Entitaet
 	{}
 
 	public Benutzer(
-		Primaerschluessel primaerschluessel,
-		Name name,
-		LocalDate geburtsdatum,
-		Benutzerangabe benutzerangabe,
-		Authentifizierung authentifizierung)
+		@NonNull Primaerschluessel primaerschluessel,
+		@NonNull Name name,
+		@NonNull LocalDate geburtsdatum,
+		@NonNull Benutzerangabe benutzerangabe,
+		@NonNull Authentifizierung authentifizierung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
@@ -79,43 +80,43 @@ public class Benutzer extends Entitaet
 			.orElseGet(() -> null);
 	}
 
-	public Benutzer setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Benutzer setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Benutzer setName(Name name)
+	public Benutzer setName(@NonNull Name name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public Benutzer setGeburtsdatum(LocalDate geburtsdatum)
+	public Benutzer setGeburtsdatum(@NonNull LocalDate geburtsdatum)
 	{
 		this.geburtsdatum = geburtsdatum;
 		return this;
 	}
 
-	public Benutzer setBenutzerangabe(Benutzerangabe benutzerangabe)
+	public Benutzer setBenutzerangabe(@NonNull Benutzerangabe benutzerangabe)
 	{
 		this.benutzerangabe = benutzerangabe;
 		return this;
 	}
 
-	public Benutzer setAuthentifizierung(Authentifizierung authentifizierung)
+	public Benutzer setAuthentifizierung(@NonNull Authentifizierung authentifizierung)
 	{
 		this.authentifizierung = authentifizierung;
 		return this;
 	}
 
-	public Benutzer fuegeKraftwertHinzu(Kraftwert kraftwert)
+	public Benutzer fuegeKraftwertHinzu(@NonNull Kraftwert kraftwert)
 	{
 		kraftwerte.add(kraftwert);
 		return this;
 	}
 
-	public Benutzer fuegeKoerpermessungHinzu(Koerpermessung koerpermessung)
+	public Benutzer fuegeKoerpermessungHinzu(@NonNull Koerpermessung koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
 		return this;

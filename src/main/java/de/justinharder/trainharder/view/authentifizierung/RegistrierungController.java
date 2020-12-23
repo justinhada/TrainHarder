@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
@@ -8,6 +7,7 @@ import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherExcep
 import de.justinharder.trainharder.model.services.authentifizierung.RegistrierungService;
 import de.justinharder.trainharder.view.dto.Registrierung;
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.inject.Inject;
@@ -59,10 +59,8 @@ public class RegistrierungController
 	}
 
 	@POST
-	public String registriere(@BeanParam Registrierung registrierung)
+	public String registriere(@NonNull @BeanParam Registrierung registrierung)
 	{
-		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
-
 		if (bindingResult.isFailed())
 		{
 			models.put(FEHLER, bindingResult.getAllErrors().stream()
@@ -93,10 +91,8 @@ public class RegistrierungController
 
 	@GET
 	@Path(value = "/{id}")
-	public String aktiviere(@PathParam(value = "id") String id)
+	public String aktiviere(@NonNull @PathParam(value = "id") String id)
 	{
-		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
-
 		try
 		{
 			registrierungService.aktiviere(id);

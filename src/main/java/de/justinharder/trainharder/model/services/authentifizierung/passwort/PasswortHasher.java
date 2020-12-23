@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.crypto.SecretKeyFactory;
@@ -32,12 +33,12 @@ public class PasswortHasher
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
-	public String hash(String passwort, String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
+	public String hash(@NonNull String passwort, @NonNull String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return pbkdf2(passwort, salt);
 	}
 
-	public boolean check(Passwort aktuellesPasswort, String passwort)
+	public boolean check(@NonNull Passwort aktuellesPasswort, @NonNull String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var hash = pbkdf2(passwort, aktuellesPasswort.getSalt());

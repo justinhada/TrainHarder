@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.view;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.KoerpermessungService;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.inject.Inject;
@@ -47,7 +47,7 @@ public class KoerpermessungController extends AbstractController
 
 	@GET
 	@Path(value = "/{benutzername}")
-	public String koerpermessdaten(@PathParam(value = "benutzername") String benutzername)
+	public String koerpermessdaten(@NonNull @PathParam(value = "benutzername") String benutzername)
 	{
 		if (securityContext.getCallerPrincipal() == null)
 		{
@@ -74,11 +74,8 @@ public class KoerpermessungController extends AbstractController
 
 	@POST
 	@Path(value = "/{benutzername}")
-	public String addKoerpermessung(@BeanParam Koerpermessdaten koerpermessdaten)
+	public String addKoerpermessung(@NonNull @BeanParam Koerpermessdaten koerpermessdaten)
 	{
-		Preconditions.checkNotNull(koerpermessdaten,
-			"Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!");
-
 		try
 		{
 			var authentifizierungDto = getAuthentifizierungDto();

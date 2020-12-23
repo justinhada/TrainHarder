@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KoerpermessungRepository;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class KoerpermessungJpaRepository extends JpaRepository<Koerpermessung> implements KoerpermessungRepository
 {
 	@Override
-	public List<Koerpermessung> ermittleAlleZuBenutzer(Primaerschluessel benutzerId)
+	public List<Koerpermessung> ermittleAlleZuBenutzer(@NonNull Primaerschluessel benutzerId)
 	{
 		var criteriaBuilder = entityManager.getCriteriaBuilder();
 		var criteriaQuery = criteriaBuilder.createQuery(Koerpermessung.class);
@@ -24,14 +25,14 @@ public class KoerpermessungJpaRepository extends JpaRepository<Koerpermessung> i
 	}
 
 	@Override
-	public Optional<Koerpermessung> ermittleZuId(Primaerschluessel id)
+	public Optional<Koerpermessung> ermittleZuId(@NonNull Primaerschluessel id)
 	{
 		return super.ermittleZuId(Koerpermessung.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Koerpermessung speichereKoerpermessung(Koerpermessung koerpermessung)
+	public Koerpermessung speichereKoerpermessung(@NonNull Koerpermessung koerpermessung)
 	{
 		return super.speichereEntitaet(Koerpermessung.class, koerpermessung);
 	}

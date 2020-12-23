@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.Objects;
@@ -20,11 +21,11 @@ public class KraftwertDto extends Dto
 	{}
 
 	public KraftwertDto(
-		String primaerschluessel,
+		@NonNull String primaerschluessel,
 		double gewicht,
 		double koerpergewicht,
-		String datum,
-		String wiederholungen)
+		@NonNull String datum,
+		@NonNull String wiederholungen)
 	{
 		super(primaerschluessel);
 		this.gewicht = gewicht;
@@ -34,7 +35,7 @@ public class KraftwertDto extends Dto
 	}
 
 	@Override
-	public KraftwertDto setPrimaerschluessel(String primaerschluessel)
+	public KraftwertDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
@@ -52,13 +53,13 @@ public class KraftwertDto extends Dto
 		return this;
 	}
 
-	public KraftwertDto setDatum(String datum)
+	public KraftwertDto setDatum(@NonNull String datum)
 	{
 		this.datum = datum;
 		return this;
 	}
 
-	public KraftwertDto setWiederholungen(String wiederholungen)
+	public KraftwertDto setWiederholungen(@NonNull String wiederholungen)
 	{
 		this.wiederholungen = wiederholungen;
 		return this;

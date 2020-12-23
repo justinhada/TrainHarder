@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.model.services;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.services.mail.Mail;
 import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.nio.charset.StandardCharsets;
@@ -19,10 +19,8 @@ public class KontaktService
 		this.mailServer = mailServer;
 	}
 
-	public void kontaktiere(Kontaktformular kontaktformular)
+	public void kontaktiere(@NonNull Kontaktformular kontaktformular)
 	{
-		Preconditions.checkNotNull(kontaktformular, "Zum Kontaktieren wird ein gültiges Kontaktformular benötigt!");
-
 		mailServer.sendeMail(
 			new Mail(
 				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),

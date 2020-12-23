@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.view.authentifizierung;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
 import de.justinharder.trainharder.view.dto.Login;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.inject.Inject;
@@ -59,10 +59,8 @@ public class LoginController
 	}
 
 	@POST
-	public String login(@BeanParam Login login)
+	public String login(@NonNull @BeanParam Login login)
 	{
-		Preconditions.checkNotNull(login, "Zur Authentifizierung wird ein gültiger Login benötigt!");
-
 		if (bindingResult.isFailed())
 		{
 			models.put(FEHLER, bindingResult.getAllErrors().stream()
@@ -107,10 +105,8 @@ public class LoginController
 
 	@POST
 	@Path(value = "/reset")
-	public String resetMail(@FormParam(value = "mail") String mail)
+	public String resetMail(@NonNull @FormParam(value = "mail") String mail)
 	{
-		Preconditions.checkNotNull(mail, "Zum Zurücksetzen des Passworts wird eine gültige Mail benötigt!");
-
 		try
 		{
 			loginService.sendeResetMail(mail, UUID.randomUUID());
@@ -125,10 +121,8 @@ public class LoginController
 
 	@GET
 	@Path(value = "/reset/{id}")
-	public String resetPasswordView(@PathParam(value = "id") String resetUuid)
+	public String resetPasswordView(@NonNull @PathParam(value = "id") String resetUuid)
 	{
-		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
-
 		if (securityContext.getCallerPrincipal() != null)
 		{
 			return REDIRECT_TO_BENUTZER + securityContext.getCallerPrincipal().getName();
@@ -140,11 +134,9 @@ public class LoginController
 
 	@POST
 	@Path(value = "/reset/{id}")
-	public String resetPassword(@PathParam(value = "id") String resetUuid, @FormParam("passwort") String passwort)
+	public String resetPassword(@NonNull @PathParam(value = "id") String resetUuid,
+		@NonNull @FormParam(value = "passwort") String passwort)
 	{
-		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
-		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");
-
 		try
 		{
 			loginService.resetPassword(UUID.fromString(resetUuid), passwort);

@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Authentifizierung;
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -17,6 +16,7 @@ import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
@@ -45,12 +45,10 @@ public class RegistrierungService
 		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto registriere(Registrierung registrierung)
+	public AuthentifizierungDto registriere(@NonNull Registrierung registrierung)
 		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
 		NoSuchAlgorithmException
 	{
-		Preconditions.checkNotNull(registrierung, "Zum Beitreten wird eine gültige Registrierung benötigt!");
-
 		if (authentifizierungRepository.ermittleZuMail(registrierung.getMail()).isPresent())
 		{
 			throw new MailVergebenException(
@@ -96,10 +94,8 @@ public class RegistrierungService
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void aktiviere(String id) throws AuthentifizierungNichtGefundenException
+	public void aktiviere(@NonNull String id) throws AuthentifizierungNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Zum Aktivieren wird eine gültige ID benötigt!");
-
 		var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"));

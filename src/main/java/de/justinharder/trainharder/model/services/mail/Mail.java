@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.services.mail;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -19,28 +20,28 @@ public class Mail
 	private final String betreff;
 	private final String inhalt;
 
-	public Mail(MailAdresse sender, String betreff, String inhalt)
+	public Mail(@NonNull MailAdresse sender, @NonNull String betreff, @NonNull String inhalt)
 	{
 		this.sender = sender;
 		this.betreff = betreff;
 		this.inhalt = inhalt;
 	}
 
-	public Mail fuegeEmpfaengerHinzu(MailAdresse... empfaenger)
+	public Mail fuegeEmpfaengerHinzu(@NonNull MailAdresse... empfaenger)
 	{
 		alleEmpfaenger.addAll(Arrays.asList(empfaenger));
 
 		return this;
 	}
 
-	public Mail fuegeInKopieHinzu(MailAdresse... inKopie)
+	public Mail fuegeInKopieHinzu(@NonNull MailAdresse... inKopie)
 	{
 		alleInKopie.addAll(Arrays.asList(inKopie));
 
 		return this;
 	}
 
-	public Mail fuegeInBlindkopieHinzu(MailAdresse... inBlindkopie)
+	public Mail fuegeInBlindkopieHinzu(@NonNull MailAdresse... inBlindkopie)
 	{
 		alleInBlindkopie.addAll(Arrays.asList(inBlindkopie));
 

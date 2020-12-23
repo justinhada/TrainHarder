@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.domain.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public enum Uebungsart
 
 	private final String wert;
 
-	public static Uebungsart zuWert(String wert)
+	public static Uebungsart zuWert(@NonNull String wert)
 	{
 		return Enums.zuWert(Stream.of(values())
 			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);

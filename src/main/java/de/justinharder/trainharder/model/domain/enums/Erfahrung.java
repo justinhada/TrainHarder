@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.domain.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public enum Erfahrung
 
 	private final String wert;
 
-	public static Erfahrung zuWert(String wert)
+	public static Erfahrung zuWert(@NonNull String wert)
 	{
 		return Enums.zuWert(Stream.of(values())
 			.collect(Collectors.toMap(Function.identity(), eintrag -> eintrag.wert)), wert);

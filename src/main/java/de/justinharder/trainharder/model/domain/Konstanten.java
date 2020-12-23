@@ -12,7 +12,6 @@ import java.util.Map;
 public class Konstanten
 {
 	public static final int MAX = Integer.MAX_VALUE;
-	public static final int MIN = 0;
 
 	public static final List<Integer> GEWICHTSKLASSEN_FRAUEN = List.of(43, 47, 52, 57, 63, 72, 84, MAX);
 
@@ -162,7 +161,7 @@ public class Konstanten
 	public static final List<Double> ONE_REP_MAX_UMRECHNUNG = ImmutableList.of(
 		1.00, 0.95, 0.92, 0.89, 0.86, 0.84, 0.82, 0.79, 0.77, 0.75, 0.72, 0.69);
 
-	// Zeilen entsprechen den RIR (0-4), Spalten den Reps (1-12)
+	// Zeilen entsprechen den RIR (0-4), Spalten den Wiederholungen (1-12)
 	public static final List<List<Double>> PROZENTE = ImmutableList.of(
 		List.of(1.0000, 0.9700, 0.9400, 0.9000, 0.8700, 0.8400, 0.8100, 0.7800, 0.7700, 0.7500, 0.7400, 0.7200),
 		List.of(0.9750, 0.9450, 0.9100, 0.8800, 0.8500, 0.8200, 0.7900, 0.7750, 0.7550, 0.7450, 0.7250, 0.7150),

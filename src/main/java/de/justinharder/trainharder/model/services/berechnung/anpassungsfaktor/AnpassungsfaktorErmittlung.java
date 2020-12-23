@@ -1,17 +1,15 @@
 package de.justinharder.trainharder.model.services.berechnung.anpassungsfaktor;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.enums.*;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @NoArgsConstructor
 public class AnpassungsfaktorErmittlung
 {
-	public Anpassungsfaktor berechneAnpassungsfaktor(Benutzer benutzer)
+	public Anpassungsfaktor berechneAnpassungsfaktor(@NonNull Benutzer benutzer)
 	{
-		Preconditions.checkNotNull(benutzer, "Benutzer ist null!");
-
 		var benutzerangabe = benutzer.getBenutzerangabe();
 		var geschlecht = benutzerangabe.getGeschlecht();
 

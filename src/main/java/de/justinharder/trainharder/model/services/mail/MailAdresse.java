@@ -1,9 +1,6 @@
 package de.justinharder.trainharder.model.services.mail;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -16,12 +13,12 @@ public class MailAdresse
 	private String adresse;
 	private String name;
 
-	public MailAdresse(String adresse)
+	public MailAdresse(@NonNull String adresse)
 	{
 		this.adresse = adresse;
 	}
 
-	public MailAdresse(String adresse, String name)
+	public MailAdresse(@NonNull String adresse, @NonNull String name)
 	{
 		this(adresse);
 		this.name = name;

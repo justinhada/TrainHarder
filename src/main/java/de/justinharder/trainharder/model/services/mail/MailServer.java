@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.services.mail;
 
 import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
@@ -40,7 +41,7 @@ public class MailServer
 		};
 	}
 
-	public void sendeMail(Mail mail, Charset charset)
+	public void sendeMail(@NonNull Mail mail, @NonNull Charset charset)
 	{
 		try
 		{
@@ -62,9 +63,9 @@ public class MailServer
 	}
 
 	private void verarbeiteEmpfaengerMithilfeDesTypen(
-		List<MailAdresse> mailAdressen,
-		RecipientType recipientType,
-		MimeMessage mimeMessage)
+		@NonNull List<MailAdresse> mailAdressen,
+		@NonNull RecipientType recipientType,
+		@NonNull MimeMessage mimeMessage)
 	{
 		mailAdressen
 			.forEach(mailAdresse ->

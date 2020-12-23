@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.domain.embeddables;
 
 import de.justinharder.trainharder.model.domain.enums.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -46,13 +47,13 @@ public class Benutzerangabe implements Serializable
 	public Benutzerangabe() {}
 
 	public Benutzerangabe(
-		Geschlecht geschlecht,
-		Erfahrung erfahrung,
-		Ernaehrung ernaehrung,
-		Schlafqualitaet schlafqualitaet,
-		Stress stress,
-		Doping doping,
-		Regenerationsfaehigkeit regenerationsfaehigkeit)
+		@NonNull Geschlecht geschlecht,
+		@NonNull Erfahrung erfahrung,
+		@NonNull Ernaehrung ernaehrung,
+		@NonNull Schlafqualitaet schlafqualitaet,
+		@NonNull Stress stress,
+		@NonNull Doping doping,
+		@NonNull Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		this.geschlecht = geschlecht;
 		this.erfahrung = erfahrung;
@@ -63,49 +64,49 @@ public class Benutzerangabe implements Serializable
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 	}
 
-	public Benutzerangabe setKraftlevel(Kraftlevel kraftlevel)
+	public Benutzerangabe setKraftlevel(@NonNull Kraftlevel kraftlevel)
 	{
 		this.kraftlevel = kraftlevel;
 		return this;
 	}
 
-	public Benutzerangabe setGeschlecht(Geschlecht geschlecht)
+	public Benutzerangabe setGeschlecht(@NonNull Geschlecht geschlecht)
 	{
 		this.geschlecht = geschlecht;
 		return this;
 	}
 
-	public Benutzerangabe setErfahrung(Erfahrung erfahrung)
+	public Benutzerangabe setErfahrung(@NonNull Erfahrung erfahrung)
 	{
 		this.erfahrung = erfahrung;
 		return this;
 	}
 
-	public Benutzerangabe setErnaehrung(Ernaehrung ernaehrung)
+	public Benutzerangabe setErnaehrung(@NonNull Ernaehrung ernaehrung)
 	{
 		this.ernaehrung = ernaehrung;
 		return this;
 	}
 
-	public Benutzerangabe setSchlafqualitaet(Schlafqualitaet schlafqualitaet)
+	public Benutzerangabe setSchlafqualitaet(@NonNull Schlafqualitaet schlafqualitaet)
 	{
 		this.schlafqualitaet = schlafqualitaet;
 		return this;
 	}
 
-	public Benutzerangabe setStress(Stress stress)
+	public Benutzerangabe setStress(@NonNull Stress stress)
 	{
 		this.stress = stress;
 		return this;
 	}
 
-	public Benutzerangabe setDoping(Doping doping)
+	public Benutzerangabe setDoping(@NonNull Doping doping)
 	{
 		this.doping = doping;
 		return this;
 	}
 
-	public Benutzerangabe setRegenerationsfaehigkeit(Regenerationsfaehigkeit regenerationsfaehigkeit)
+	public Benutzerangabe setRegenerationsfaehigkeit(@NonNull Regenerationsfaehigkeit regenerationsfaehigkeit)
 	{
 		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
 		return this;

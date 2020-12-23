@@ -1,9 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -29,8 +26,8 @@ public class KoerpermessungDto extends Dto
 	public KoerpermessungDto() {}
 
 	public KoerpermessungDto(
-		String primaerschluessel,
-		String datum,
+		@NonNull String primaerschluessel,
+		@NonNull String datum,
 		int koerpergroesse,
 		double koerpergewicht,
 		double koerperfettAnteil,
@@ -69,13 +66,13 @@ public class KoerpermessungDto extends Dto
 	}
 
 	@Override
-	public KoerpermessungDto setPrimaerschluessel(String primaerschluessel)
+	public KoerpermessungDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public KoerpermessungDto setDatum(String datum)
+	public KoerpermessungDto setDatum(@NonNull String datum)
 	{
 		this.datum = datum;
 		return this;

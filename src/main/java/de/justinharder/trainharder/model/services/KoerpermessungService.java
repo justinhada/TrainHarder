@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
@@ -11,6 +10,7 @@ import de.justinharder.trainharder.model.repository.KoerpermessungRepository;
 import de.justinharder.trainharder.model.services.mapper.KoerpermessungDtoMapper;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -36,30 +36,22 @@ public class KoerpermessungService
 		this.koerpermessungDtoMapper = koerpermessungDtoMapper;
 	}
 
-	public List<KoerpermessungDto> ermittleAlleZuBenutzer(String benutzerId)
+	public List<KoerpermessungDto> ermittleAlleZuBenutzer(@NonNull String benutzerId)
 	{
-		Preconditions.checkNotNull(benutzerId, "Die Ermittlung der Koerpermessungen benötigt eine gültige BenutzerID!");
-
 		return koerpermessungDtoMapper
 			.mappeAlle(koerpermessungRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
-	public KoerpermessungDto ermittleZuId(String id) throws KoerpermessungNichtGefundenException
+	public KoerpermessungDto ermittleZuId(@NonNull String id) throws KoerpermessungNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Die Ermittlung der Koerpermessung benötigt eine gültige ID!");
-
 		return koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(koerpermessungDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
 	}
 
-	public KoerpermessungDto erstelleKoerpermessung(Koerpermessdaten koerpermessdaten, String benutzerId)
-		throws BenutzerNichtGefundenException
+	public KoerpermessungDto erstelleKoerpermessung(@NonNull Koerpermessdaten koerpermessdaten,
+		@NonNull String benutzerId) throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(koerpermessdaten,
-			"Die Erstellung der Koerpermessung benötigt gültige Koerpermessdaten!");
-		Preconditions.checkNotNull(benutzerId, "Die Erstellung der Koerpermessungen benötigt eine gültige BenutzerID!");
-
 		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
 
@@ -75,13 +67,9 @@ public class KoerpermessungService
 			benutzer)));
 	}
 
-	public KoerpermessungDto aktualisiereKoerpermessung(String id, Koerpermessdaten koerpermessdaten)
+	public KoerpermessungDto aktualisiereKoerpermessung(@NonNull String id, @NonNull Koerpermessdaten koerpermessdaten)
 		throws KoerpermessungNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Die Aktualisierung der Koerpermessungen benötigt eine gültige ID!");
-		Preconditions.checkNotNull(koerpermessdaten,
-			"Die Aktualisierung der Koerpermessung benötigt gültige Koerpermessdaten!");
-
 		var koerpermessung = koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
 

@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.UuidMapper;
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -37,10 +38,10 @@ public class Authentifizierung extends Entitaet
 	{}
 
 	public Authentifizierung(
-		Primaerschluessel primaerschluessel,
-		String mail,
-		String benutzername,
-		Passwort passwort)
+		@NonNull Primaerschluessel primaerschluessel,
+		@NonNull String mail,
+		@NonNull String benutzername,
+		@NonNull Passwort passwort)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.mail = mail;
@@ -49,25 +50,25 @@ public class Authentifizierung extends Entitaet
 		aktiv = false;
 	}
 
-	public Authentifizierung setPrimaerschluessel(Primaerschluessel primaerschluessel)
+	public Authentifizierung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Authentifizierung setMail(String mail)
+	public Authentifizierung setMail(@NonNull String mail)
 	{
 		this.mail = mail;
 		return this;
 	}
 
-	public Authentifizierung setBenutzername(String benutzername)
+	public Authentifizierung setBenutzername(@NonNull String benutzername)
 	{
 		this.benutzername = benutzername;
 		return this;
 	}
 
-	public Authentifizierung setPasswort(Passwort passwort)
+	public Authentifizierung setPasswort(@NonNull Passwort passwort)
 	{
 		this.passwort = passwort;
 		return this;
@@ -79,13 +80,13 @@ public class Authentifizierung extends Entitaet
 		return this;
 	}
 
-	public Authentifizierung setResetUuid(UUID resetUuid)
+	public Authentifizierung setResetUuid(@NonNull UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;
 	}
 
-	public Authentifizierung setBenutzer(Benutzer benutzer)
+	public Authentifizierung setBenutzer(@NonNull Benutzer benutzer)
 	{
 		this.benutzer = benutzer;
 		return this;

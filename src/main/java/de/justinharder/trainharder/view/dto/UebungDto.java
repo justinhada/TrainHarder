@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.Objects;
@@ -20,11 +21,11 @@ public class UebungDto extends Dto
 	{}
 
 	public UebungDto(
-		String primaerschluessel,
-		String name,
-		String uebungsart,
-		String uebungskategorie,
-		BelastungsfaktorDto belastungsfaktor)
+		@NonNull String primaerschluessel,
+		@NonNull String name,
+		@NonNull String uebungsart,
+		@NonNull String uebungskategorie,
+		@NonNull BelastungsfaktorDto belastungsfaktor)
 	{
 		super(primaerschluessel);
 		this.name = name;
@@ -34,31 +35,31 @@ public class UebungDto extends Dto
 	}
 
 	@Override
-	public UebungDto setPrimaerschluessel(String primaerschluessel)
+	public UebungDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public UebungDto setName(String name)
+	public UebungDto setName(@NonNull String name)
 	{
 		this.name = name;
 		return this;
 	}
 
-	public UebungDto setUebungsart(String uebungsart)
+	public UebungDto setUebungsart(@NonNull String uebungsart)
 	{
 		this.uebungsart = uebungsart;
 		return this;
 	}
 
-	public UebungDto setUebungskategorie(String uebungskategorie)
+	public UebungDto setUebungskategorie(@NonNull String uebungskategorie)
 	{
 		this.uebungskategorie = uebungskategorie;
 		return this;
 	}
 
-	public UebungDto setBelastungsfaktor(BelastungsfaktorDto belastungsfaktor)
+	public UebungDto setBelastungsfaktor(@NonNull BelastungsfaktorDto belastungsfaktor)
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;

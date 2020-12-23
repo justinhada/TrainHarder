@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -23,19 +24,19 @@ public class Name implements Serializable
 	public Name()
 	{}
 
-	public Name(String vorname, String nachname)
+	public Name(@NonNull String vorname, @NonNull String nachname)
 	{
 		this.vorname = vorname;
 		this.nachname = nachname;
 	}
 
-	public Name setVorname(String vorname)
+	public Name setVorname(@NonNull String vorname)
 	{
 		this.vorname = vorname;
 		return this;
 	}
 
-	public Name setNachname(String nachname)
+	public Name setNachname(@NonNull String nachname)
 	{
 		this.nachname = nachname;
 		return this;

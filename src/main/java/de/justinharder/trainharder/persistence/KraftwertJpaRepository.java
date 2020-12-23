@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements KraftwertRepository
 {
 	@Override
-	public List<Kraftwert> ermittleAlleZuBenutzer(Primaerschluessel benutzerId)
+	public List<Kraftwert> ermittleAlleZuBenutzer(@NonNull Primaerschluessel benutzerId)
 	{
 		var criteriaBuilder = entityManager.getCriteriaBuilder();
 		var criteriaQuery = criteriaBuilder.createQuery(Kraftwert.class);
@@ -24,14 +25,14 @@ public class KraftwertJpaRepository extends JpaRepository<Kraftwert> implements 
 	}
 
 	@Override
-	public Optional<Kraftwert> ermittleZuId(Primaerschluessel id)
+	public Optional<Kraftwert> ermittleZuId(@NonNull Primaerschluessel id)
 	{
 		return super.ermittleZuId(Kraftwert.class, id);
 	}
 
 	@Override
 	@Transactional
-	public Kraftwert speichereKraftwert(Kraftwert kraftwert)
+	public Kraftwert speichereKraftwert(@NonNull Kraftwert kraftwert)
 	{
 		return super.speichereEntitaet(Kraftwert.class, kraftwert);
 	}

@@ -13,6 +13,7 @@ import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -43,37 +44,28 @@ public class BenutzerService
 		return benutzerDtoMapper.mappeAlle(benutzerRepository.ermittleAlle());
 	}
 
-	public BenutzerDto ermittleZuId(String id) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuId(@NonNull String id) throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Die Ermittlung des Benutzers benötigt eine gültige BenutzerID!");
-
 		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
 			.map(benutzerDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 	}
 
-	public BenutzerDto ermittleZuAuthentifizierung(String authentifizierungId) throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuAuthentifizierung(@NonNull String authentifizierungId)
+		throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(authentifizierungId,
-			"Die Ermittlung des Benutzers benötigt eine gültige AuthentifizierungID!");
-
 		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
 			.map(benutzerDtoMapper::mappe)
 			.orElseThrow(FehlermeldungService
 				.wirfBenutzerNichtGefundenException("der AuthentifizierungID", authentifizierungId));
 	}
 
-	public BenutzerDto erstelleBenutzer(Benutzerdaten benutzerdaten, String authentifizierungId)
+	public BenutzerDto erstelleBenutzer(@NonNull Benutzerdaten benutzerdaten, @NonNull String authentifizierungId)
 		throws AuthentifizierungNichtGefundenException
 	{
-		Preconditions.checkNotNull(benutzerdaten, "Die Erstellung des Benutzers benötigt gültige Benutzerdaten!");
-		Preconditions.checkNotNull(authentifizierungId,
-			"Die Erstellung des Benutzers benötigt eine gültige AuthentifizierungID!");
-
 		var authentifizierung = authentifizierungRepository
 			.ermittleZuId(new Primaerschluessel(authentifizierungId))
-			.orElseThrow(
-				FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
 
 		var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
 			new Primaerschluessel(),

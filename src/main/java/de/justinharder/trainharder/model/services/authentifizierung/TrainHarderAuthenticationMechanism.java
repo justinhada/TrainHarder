@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,9 +27,9 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 
 	@Override
 	public AuthenticationStatus validateRequest(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		HttpMessageContext httpMessageContext)
+		@NonNull HttpServletRequest request,
+		@NonNull HttpServletResponse response,
+		@NonNull HttpMessageContext httpMessageContext)
 	{
 		var credential = httpMessageContext.getAuthParameters().getCredential();
 
@@ -41,9 +42,9 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 
 	@Override
 	public void cleanSubject(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		HttpMessageContext httpMessageContext)
+		@NonNull HttpServletRequest request,
+		@NonNull HttpServletResponse response,
+		@NonNull HttpMessageContext httpMessageContext)
 	{
 		HttpAuthenticationMechanism.super.cleanSubject(request, response, httpMessageContext);
 	}

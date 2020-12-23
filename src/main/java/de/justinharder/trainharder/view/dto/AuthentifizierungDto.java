@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.Objects;
@@ -17,7 +18,7 @@ public class AuthentifizierungDto extends Dto
 	public AuthentifizierungDto()
 	{}
 
-	public AuthentifizierungDto(String primaerschluessel, String mail, String benutzername)
+	public AuthentifizierungDto(@NonNull String primaerschluessel, @NonNull String mail, @NonNull String benutzername)
 	{
 		super(primaerschluessel);
 		this.mail = mail;
@@ -25,19 +26,19 @@ public class AuthentifizierungDto extends Dto
 	}
 
 	@Override
-	public AuthentifizierungDto setPrimaerschluessel(String primaerschluessel)
+	public AuthentifizierungDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public AuthentifizierungDto setMail(String mail)
+	public AuthentifizierungDto setMail(@NonNull String mail)
 	{
 		this.mail = mail;
 		return this;
 	}
 
-	public AuthentifizierungDto setBenutzername(String benutzername)
+	public AuthentifizierungDto setBenutzername(@NonNull String benutzername)
 	{
 		this.benutzername = benutzername;
 		return this;

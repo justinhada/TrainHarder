@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.services.authentifizierung;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNichtGefundenException;
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
@@ -13,6 +12,7 @@ import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
@@ -44,12 +44,9 @@ public class LoginService
 		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto login(String benutzername, String passwort)
+	public AuthentifizierungDto login(@NonNull String benutzername, @NonNull String passwort)
 		throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
 	{
-		Preconditions.checkNotNull(benutzername, "Zum Login wird ein gültiger Benutzername benötigt!");
-		Preconditions.checkNotNull(passwort, "Zum Login wird ein gültiges Passwort benötigt!");
-
 		var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
 			.orElseThrow(() -> new LoginException(LOGIN_EXCEPTION));
 
@@ -61,11 +58,8 @@ public class LoginService
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void sendeResetMail(String mail, UUID resetUuid) throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid) throws AuthentifizierungNichtGefundenException
 	{
-		Preconditions.checkNotNull(mail, "Zum Senden der Reset-Mail wird eine gültige Mail benötigt!");
-		Preconditions.checkNotNull(resetUuid, "Zum Senden der Reset-Mail wird eine gültige ResetUUID benötigt!");
-
 		var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
 			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
 				"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!"));
@@ -89,12 +83,9 @@ public class LoginService
 		//			StandardCharsets.UTF_8);
 	}
 
-	public void resetPassword(UUID resetUuid, String passwort) throws PasswortUnsicherException,
+	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort) throws PasswortUnsicherException,
 		AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		Preconditions.checkNotNull(resetUuid, "Zum Zurücksetzen des Passworts wird eine gültige ResetUUID benötigt!");
-		Preconditions.checkNotNull(passwort, "Zum Zurücksetzen des Passworts wird ein gültiges Passwort benötigt!");
-
 		if (passwortCheck.isUnsicher(passwort))
 		{
 			throw new PasswortUnsicherException("Das Passwort ist unsicher!");

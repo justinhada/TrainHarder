@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -23,19 +24,19 @@ public class Passwort implements Serializable
 	public Passwort()
 	{}
 
-	public Passwort(String salt, String passwortHash)
+	public Passwort(@NonNull String salt, @NonNull String passwortHash)
 	{
 		this.salt = salt;
 		this.passwortHash = passwortHash;
 	}
 
-	public Passwort setSalt(String salt)
+	public Passwort setSalt(@NonNull String salt)
 	{
 		this.salt = salt;
 		return this;
 	}
 
-	public Passwort setPasswortHash(String passwortHash)
+	public Passwort setPasswortHash(@NonNull String passwortHash)
 	{
 		this.passwortHash = passwortHash;
 		return this;

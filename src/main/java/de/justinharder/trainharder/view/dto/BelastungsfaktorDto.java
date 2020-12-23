@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class BelastungsfaktorDto extends Dto
 	{}
 
 	public BelastungsfaktorDto(
-		String primaerschluessel,
+		@NonNull String primaerschluessel,
 		double squat,
 		double benchpress,
 		double deadlift,
@@ -58,7 +59,7 @@ public class BelastungsfaktorDto extends Dto
 	}
 
 	@Override
-	public BelastungsfaktorDto setPrimaerschluessel(String primaerschluessel)
+	public BelastungsfaktorDto setPrimaerschluessel(@NonNull String primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;

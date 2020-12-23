@@ -4,6 +4,7 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
@@ -20,13 +21,13 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 	}
 
 	@Override
-	public Optional<Benutzer> ermittleZuId(Primaerschluessel id)
+	public Optional<Benutzer> ermittleZuId(@NonNull Primaerschluessel id)
 	{
 		return super.ermittleZuId(Benutzer.class, id);
 	}
 
 	@Override
-	public Optional<Benutzer> ermittleZuAuthentifizierung(Primaerschluessel authentifizierungId)
+	public Optional<Benutzer> ermittleZuAuthentifizierung(@NonNull Primaerschluessel authentifizierungId)
 	{
 		try
 		{
@@ -46,7 +47,7 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 
 	@Override
 	@Transactional
-	public Benutzer speichereBenutzer(Benutzer benutzer)
+	public Benutzer speichereBenutzer(@NonNull Benutzer benutzer)
 	{
 		return super.speichereEntitaet(Benutzer.class, benutzer);
 	}
