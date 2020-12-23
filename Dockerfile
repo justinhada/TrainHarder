@@ -1,7 +1,7 @@
 FROM jboss/wildfly
 
 COPY --chown=jboss:jboss config/wildfly /opt/jboss/config
-COPY --chown=jboss:jboss config/mariadb/mariadb-java-client.jar /var/mariadb-connector-java.jar
+ADD --chown=jboss:jboss https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.1/mariadb-java-client-2.7.1.jar /var/mariadb-connector-java.jar
 RUN chmod +x /opt/jboss/config/*.sh
 RUN /opt/jboss/config/jboss-init.sh "/opt/jboss/wildfly" "/opt/jboss/config/config.batch" "/opt/jboss/config/jboss.properties"
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history

@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.endtoend;
+package de.justinharder.trainharder.view;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -69,7 +69,7 @@ abstract class Deployment
 	protected void navigiere(String endpunkt)
 	{
 		var url = String.format("http://%s:%s/%s/%s",
-			"localhost",
+			"webapp",
 			"8080",
 			"TrainHarder",
 			endpunkt);

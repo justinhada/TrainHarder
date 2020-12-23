@@ -1,5 +1,7 @@
 batch
 
+/subsystem=naming/binding=java\:global\/de\/justinharder\/trainharder\/stage:add(binding-type=simple, type=java.lang.String, value=DEVELOPMENT)
+
 module add --name=com.mariadb --resources=/var/mariadb-connector-java.jar --dependencies=javax.api
 /subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=com.mariadb)
 data-source add --jndi-name=java:/TestRepoPU --name=TestRepoPU --connection-url=jdbc:mariadb://mariadbhost:3306/trainharderTest --driver-name=mariadb --user-name=powerlifter --password=passwort

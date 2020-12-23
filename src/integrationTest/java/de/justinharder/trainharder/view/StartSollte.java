@@ -1,9 +1,9 @@
-package de.justinharder.trainharder.endtoend;
+package de.justinharder.trainharder.view;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class StartSollte extends Deployment
 {
@@ -13,8 +13,8 @@ class StartSollte extends Deployment
 	{
 		navigiere("start");
 
-		var text = webseite().findElementByClassName("center-container big-container mt-5");
+		var elements = webseite().findElementsByTagName("div");
 
-		assertThat(text.getText()).isEqualTo("");
+		assertThat(elements).isEmpty();
 	}
 }
