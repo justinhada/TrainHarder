@@ -5,6 +5,7 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.LoginException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.FehlermeldungService;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
 import de.justinharder.trainharder.model.services.mail.Mail;
@@ -58,13 +59,12 @@ public class LoginService
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid) throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid)
+		throws AuthentifizierungNichtGefundenException
 	{
 		var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!"));
-		authentifizierungRepository.speichereAuthentifizierung(
-			authentifizierung.setResetUuid(resetUuid));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der Mail", mail));
+		authentifizierungRepository.speichereAuthentifizierung(authentifizierung.setResetUuid(resetUuid));
 
 		var mail1 = new Mail(
 			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
@@ -92,8 +92,8 @@ public class LoginService
 		}
 
 		var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der ResetUUID \"" + resetUuid.toString() + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService
+				.wirfAuthentifizierungNichtGefundenException("der ResetUUID", resetUuid.toString()));
 
 		var salt = authentifizierung.getPasswort().getSalt();
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung

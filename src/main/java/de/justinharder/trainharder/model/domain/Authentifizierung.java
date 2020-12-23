@@ -80,7 +80,7 @@ public class Authentifizierung extends Entitaet
 		return this;
 	}
 
-	public Authentifizierung setResetUuid(@NonNull UUID resetUuid)
+	public Authentifizierung setResetUuid(UUID resetUuid)
 	{
 		this.resetUuid = resetUuid;
 		return this;

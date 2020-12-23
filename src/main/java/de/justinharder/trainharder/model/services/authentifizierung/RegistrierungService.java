@@ -8,6 +8,7 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzernameVergebenE
 import de.justinharder.trainharder.model.domain.exceptions.MailVergebenException;
 import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
+import de.justinharder.trainharder.model.services.FehlermeldungService;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
 import de.justinharder.trainharder.model.services.mail.Mail;
@@ -97,8 +98,7 @@ public class RegistrierungService
 	public void aktiviere(@NonNull String id) throws AuthentifizierungNichtGefundenException
 	{
 		var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(() -> new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!"));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ID", id));
 
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung.setAktiv(true));
 	}
