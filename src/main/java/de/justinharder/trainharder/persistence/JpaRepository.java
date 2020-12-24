@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @NoArgsConstructor
-public class JpaRepository<T extends Entitaet>
+public abstract class JpaRepository<T extends Entitaet>
 {
 	@PersistenceContext
 	protected EntityManager entityManager;
