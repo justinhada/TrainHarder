@@ -13,150 +13,62 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerSollte
 {
+	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
+	private static final Name NAME = new Name("Justin", "Harder");
+	private static final LocalDate GEBURTSDATUM = LocalDate.of(1998, 12, 6);
+	private static final Benutzerangabe BENUTZERANGABE = new Benutzerangabe(
+		Geschlecht.MAENNLICH,
+		Erfahrung.BEGINNER,
+		Ernaehrung.GUT,
+		Schlafqualitaet.GUT,
+		Stress.MITTELMAESSIG,
+		Doping.NEIN,
+		Regenerationsfaehigkeit.GUT)
+		.setKraftlevel(Kraftlevel.CLASS_5);
+	private static final Primaerschluessel PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG = new Primaerschluessel();
+	private static final Authentifizierung AUTHENTIFIZIERUNG = new Authentifizierung(
+		PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG,
+		"mail@justinharder.de",
+		"harder",
+		Testdaten.PASSWORT);
+
 	private Benutzer sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = Testdaten.BENUTZER_JUSTIN;
+		sut = new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG);
 	}
 
 	@Test
-	@DisplayName("einen NoArgsConstructor haben")
+	@DisplayName("einen NoArgsConstructor und Setter besitzen")
 	void test01()
 	{
-		assertThat(Benutzer.class, allOf(hasValidBeanConstructor()));
-	}
-
-	@Test
-	@DisplayName("einen RequiredArgsConstructor haben")
-	void test02()
-	{
-		var benutzerId = new Primaerschluessel();
-		var authentifizierungId = new Primaerschluessel();
-		var benutzer = new Benutzer(
-			benutzerId,
-			new Name("Justin", "Harder"),
-			LocalDate.of(1998, 12, 6),
-			new Benutzerangabe(
-				Geschlecht.MAENNLICH,
-				Erfahrung.BEGINNER,
-				Ernaehrung.GUT,
-				Schlafqualitaet.GUT,
-				Stress.MITTELMAESSIG,
-				Doping.NEIN,
-				Regenerationsfaehigkeit.GUT),
-			new Authentifizierung(
-				authentifizierungId,
-				"mail@justinharder.de",
-				"harder",
-				Testdaten.PASSWORT));
-
-		assertAll(
-			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
-			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(benutzer.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(benutzer.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(benutzer.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(benutzer.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit())
-				.isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
-			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo(Testdaten.PASSWORT),
-			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
-	}
-
-	@Test
-	@DisplayName("Getter besitzen")
-	void test03()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID),
-			() -> assertThat(sut.getName().getVorname()).isEqualTo("Justin"),
-			() -> assertThat(sut.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
-			() -> assertThat(sut.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(sut.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(sut.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(sut.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(sut.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(sut.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(sut.getBenutzerangabe().getRegenerationsfaehigkeit())
-				.isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90.0),
-			() -> assertThat(sut.getKoerpermessungen()).contains(Testdaten.KOERPERMESSUNG_JUSTIN),
-			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
-	}
-
-	@Test
-	@DisplayName("Setter besitzen")
-	void test04()
-	{
-		var benutzerId = new Primaerschluessel();
-		var authentifizierungId = new Primaerschluessel();
-		var authentifizierung = new Authentifizierung(
-			authentifizierungId,
-			"mail@justinharder.de",
-			"harder",
-			Testdaten.PASSWORT);
 		var benutzer = new Benutzer()
-			.setPrimaerschluessel(benutzerId)
-			.setName(new Name("Justin", "Harder"))
-			.setGeburtsdatum(LocalDate.of(1998, 12, 6))
-			.setAuthentifizierung(authentifizierung)
-			.setBenutzerangabe(new Benutzerangabe(
-				Geschlecht.MAENNLICH,
-				Erfahrung.BEGINNER,
-				Ernaehrung.GUT,
-				Schlafqualitaet.GUT,
-				Stress.MITTELMAESSIG,
-				Doping.NEIN,
-				Regenerationsfaehigkeit.GUT));
-		benutzer.getBenutzerangabe().setKraftlevel(Kraftlevel.CLASS_5);
-		authentifizierung.setBenutzer(benutzer);
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setName(NAME)
+			.setGeburtsdatum(GEBURTSDATUM)
+			.setBenutzerangabe(BENUTZERANGABE)
+			.setAuthentifizierung(AUTHENTIFIZIERUNG);
+		AUTHENTIFIZIERUNG.setBenutzer(benutzer);
 
 		assertAll(
-			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(benutzerId),
-			() -> assertThat(benutzer.getName().getVorname()).isEqualTo("Justin"),
-			() -> assertThat(benutzer.getName().getNachname()).isEqualTo("Harder"),
-			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
-			() -> assertThat(benutzer.getBenutzerangabe().getKraftlevel()).isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(benutzer.getBenutzerangabe().getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(benutzer.getBenutzerangabe().getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(benutzer.getBenutzerangabe().getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(benutzer.getBenutzerangabe().getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(benutzer.getBenutzerangabe().getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(benutzer.getBenutzerangabe().getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(benutzer.getBenutzerangabe().getRegenerationsfaehigkeit())
-				.isEqualTo(Regenerationsfaehigkeit.GUT),
-			() -> assertThat(benutzer.getAuthentifizierung().getPrimaerschluessel()).isEqualTo(authentifizierungId),
-			() -> assertThat(benutzer.getAuthentifizierung().getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(benutzer.getAuthentifizierung().getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(benutzer.getAuthentifizierung().getPasswort()).isEqualTo(Testdaten.PASSWORT),
-			() -> assertThat(benutzer.getAuthentifizierung().getBenutzer()).isEqualTo(benutzer));
+			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(benutzer.getName()).isEqualTo(NAME),
+			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(GEBURTSDATUM),
+			() -> assertThat(benutzer.getBenutzerangabe()).isEqualTo(BENUTZERANGABE),
+			() -> assertThat(benutzer.getAuthentifizierung()).isEqualTo(AUTHENTIFIZIERUNG));
 	}
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test02()
 	{
 		EqualsVerifier.forClass(Benutzer.class)
 			.withPrefabValues(Authentifizierung.class, Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
@@ -172,21 +84,19 @@ class BenutzerSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test03()
 	{
-		var erwartet = "Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
 	}
 
 	@Test
 	@DisplayName("einen Kraftwert hinzufügen können")
-	void test07()
+	void test04()
 	{
 		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
 			100.0,
-			sut.getKoerpergewicht(),
+			80.0,
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
@@ -198,22 +108,19 @@ class BenutzerSollte
 
 	@Test
 	@DisplayName("null validieren")
-	void test08()
+	void test05()
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(null, new Name(), LocalDate.now(), new Benutzerangabe(), new Authentifizierung())),
+				() -> new Benutzer(null, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(new Primaerschluessel(), null, LocalDate.now(), new Benutzerangabe(),
-					new Authentifizierung())),
+				() -> new Benutzer(PRIMAERSCHLUESSEL, null, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(new Primaerschluessel(), new Name(), null, new Benutzerangabe(),
-					new Authentifizierung())),
+				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, null, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(new Primaerschluessel(), new Name(), LocalDate.now(), null,
-					new Authentifizierung())),
+				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, null, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(new Primaerschluessel(), new Name(), LocalDate.now(), new Benutzerangabe(), null)),
+				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeburtsdatum(null)),

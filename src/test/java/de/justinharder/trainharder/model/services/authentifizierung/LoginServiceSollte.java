@@ -113,13 +113,14 @@ class LoginServiceSollte
 	@DisplayName("null validieren")
 	void test01()
 	{
+		var resetUuid = UUID.randomUUID();
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.login(null, "passwort")),
 			() -> assertThrows(NullPointerException.class, () -> sut.login("benutzername", null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(null, "passwort")),
-			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(UUID.randomUUID(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.resetPassword(resetUuid, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.sendeResetMail("mail", null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.sendeResetMail(null, UUID.randomUUID())));
+			() -> assertThrows(NullPointerException.class, () -> sut.sendeResetMail(null, resetUuid)));
 	}
 
 	@Test

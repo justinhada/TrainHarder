@@ -105,12 +105,12 @@ class KraftwertServiceSollte
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(null, "uebungId", "benutzerId")),
-			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(new KraftwertDto(), null, "benutzerId")),
-			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(new KraftwertDto(), "uebungId", null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereKraftwert(null,
+				"uebungId", "benutzerId")),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereKraftwert(
+				Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, null, "benutzerId")),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereKraftwert(
+				Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, "uebungId", null)));
 	}
 
 	@Test

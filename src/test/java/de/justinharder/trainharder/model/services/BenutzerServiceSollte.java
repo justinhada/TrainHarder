@@ -124,12 +124,13 @@ class BenutzerServiceSollte
 	@DisplayName("null validieren")
 	void test02()
 	{
+		var benutzerdaten = new Benutzerdaten();
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(null, "authenfitizierungId")),
-			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, new Benutzerdaten())),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(benutzerdaten, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, benutzerdaten)),
 			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer("id", null)));
 	}
 

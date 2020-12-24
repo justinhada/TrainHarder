@@ -73,11 +73,12 @@ class PasswortHasherSollte
 	@DisplayName("null validieren")
 	void test04()
 	{
+		var passwort = new Passwort();
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.setSecureRandom(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.hash(null, "salt")),
 			() -> assertThrows(NullPointerException.class, () -> sut.hash("passwort", null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.check(null,"passwort")),
-			() -> assertThrows(NullPointerException.class, () -> sut.check(new Passwort(),null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.check(null, "passwort")),
+			() -> assertThrows(NullPointerException.class, () -> sut.check(passwort, null)));
 	}
 }

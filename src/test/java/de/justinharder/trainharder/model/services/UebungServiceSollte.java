@@ -129,7 +129,8 @@ class UebungServiceSollte
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungsart(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungskategorie(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(new UebungDto(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(
+				Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(null, "belastungsfaktorId")));
 	}
 

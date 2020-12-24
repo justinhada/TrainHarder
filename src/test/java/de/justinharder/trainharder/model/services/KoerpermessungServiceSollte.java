@@ -98,14 +98,14 @@ class KoerpermessungServiceSollte
 	@DisplayName("null validieren")
 	void test01()
 	{
+		var koerpermessdaten = new Koerpermessdaten();
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(null, "benutzerId")),
-			() -> assertThrows(NullPointerException.class,
-				() -> sut.erstelleKoerpermessung(new Koerpermessdaten(), null)),
-			() -> assertThrows(NullPointerException.class,
-				() -> sut.aktualisiereKoerpermessung(null, new Koerpermessdaten())),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(koerpermessdaten, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung(null,
+				koerpermessdaten)),
 			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung("id", null)));
 	}
 

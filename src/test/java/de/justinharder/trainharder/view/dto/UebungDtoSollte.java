@@ -80,30 +80,29 @@ class UebungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test04()
 	{
-		var erwartet = "UebungDto(super=Dto(primaerschluessel=" + primaerschluessel
-			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="
-			+ belastungsfaktorPrimaerschluessel
-			+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString(
+			"UebungDto(super=Dto(primaerschluessel=" + primaerschluessel
+				+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="
+				+ belastungsfaktorPrimaerschluessel
+				+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))");
 	}
 
 	@Test
 	@DisplayName("null validieren")
 	void test05()
 	{
+		var belastungsfaktorDto = new BelastungsfaktorDto();
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new UebungDto(null, "name", "uebungsart", "uebungskategorie", new BelastungsfaktorDto())),
-			() -> assertThrows(NullPointerException.class,
-				() -> new UebungDto("primaerschluessel", null, "uebungsart", "uebungskategorie",
-					new BelastungsfaktorDto())),
-			() -> assertThrows(NullPointerException.class,
-				() -> new UebungDto("primaerschluessel", "name", null, "uebungskategorie", new BelastungsfaktorDto())),
-			() -> assertThrows(NullPointerException.class,
-				() -> new UebungDto("primaerschluessel", "name", "uebungsart", null, new BelastungsfaktorDto())),
-			() -> assertThrows(NullPointerException.class,
-				() -> new UebungDto("primaerschluessel", "name", "uebungsart", "uebungskategorie", null)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(null, "name",
+				"uebungsart", "uebungskategorie", belastungsfaktorDto)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
+				null, "uebungsart", "uebungskategorie", belastungsfaktorDto)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
+				"name", null, "uebungskategorie", belastungsfaktorDto)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
+				"name", "uebungsart", null, belastungsfaktorDto)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
+				"name", "uebungsart", "uebungskategorie", null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),

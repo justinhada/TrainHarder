@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.domain;
 
-import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -11,73 +10,42 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static com.google.code.beanmatchers.BeanMatchers.hasValidBeanConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungSollte
 {
+	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
+	private static final String MAIL = "mail@justinharder.de";
+	private static final String BENUTZERNAME = "harder";
+
 	private Authentifizierung sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new Authentifizierung(
-			new Primaerschluessel(),
-			"mail@justinharder.de",
-			"harder",
-			Testdaten.PASSWORT);
+		sut = new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, Testdaten.PASSWORT);
 	}
 
 	@Test
-	@DisplayName("einen NoArgsConstructor haben")
+	@DisplayName("einen NoArgsConstructor und Setter besitzen")
 	void test01()
 	{
-		assertThat(Authentifizierung.class, allOf(hasValidBeanConstructor()));
-	}
-
-	@Test
-	@DisplayName("einen RequiredArgsCounstructor haben")
-	void test02()
-	{
-		var id = new Primaerschluessel();
-		var authentifizierung = new Authentifizierung(
-			id,
-			"mail@justinharder.de",
-			"harder",
-			Testdaten.PASSWORT);
-
-		assertAll(
-			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
-			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
-			() -> assertThat(authentifizierung.isAktiv()).isFalse(),
-			() -> assertThat(authentifizierung.getResetUuid()).isNull());
-	}
-
-	@Test
-	@DisplayName("Setter besitzen")
-	void test03()
-	{
-		var id = new Primaerschluessel();
 		var resetUuid = UUID.randomUUID();
 		var authentifizierung = new Authentifizierung()
-			.setPrimaerschluessel(id)
-			.setMail("mail@justinharder.de")
-			.setBenutzername("harder")
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setMail(MAIL)
+			.setBenutzername(BENUTZERNAME)
 			.setPasswort(Testdaten.PASSWORT)
 			.setAktiv(true)
 			.setResetUuid(resetUuid)
 			.setBenutzer(Testdaten.BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(id),
-			() -> assertThat(authentifizierung.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo("harder"),
+			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(authentifizierung.getMail()).isEqualTo(MAIL),
+			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo(BENUTZERNAME),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(authentifizierung.isAktiv()).isTrue(),
 			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid),
@@ -86,7 +54,7 @@ class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test04()
+	void test02()
 	{
 		EqualsVerifier.forClass(Authentifizierung.class)
 			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
@@ -98,26 +66,24 @@ class AuthentifizierungSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test05()
+	void test03()
 	{
-		var erwartet = "Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test06()
+	void test04()
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(null, "mail@mail.de", "harder", new Passwort())),
+				() -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(new Primaerschluessel(), null, "harder", new Passwort())),
+				() -> new Authentifizierung(PRIMAERSCHLUESSEL, null, BENUTZERNAME, Testdaten.PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(new Primaerschluessel(), "mail@mail.de", null, new Passwort())),
+				() -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, null, Testdaten.PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(new Primaerschluessel(), "mail@mail.de", "harder", null)),
+				() -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)),
