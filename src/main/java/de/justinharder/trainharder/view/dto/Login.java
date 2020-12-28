@@ -7,10 +7,7 @@ import javax.ws.rs.FormParam;
 import java.util.Objects;
 
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Login
 {
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")
@@ -19,6 +16,27 @@ public class Login
 	@Size(min = 12, max = 64, message = "Ungültiges Passwort!")
 	@FormParam("passwort")
 	private String passwort;
+
+	public Login()
+	{}
+
+	public Login(@NonNull String benutzername, @NonNull String passwort)
+	{
+		this.benutzername = benutzername;
+		this.passwort = passwort;
+	}
+
+	public Login setBenutzername(@NonNull String benutzername)
+	{
+		this.benutzername = benutzername;
+		return this;
+	}
+
+	public Login setPasswort(@NonNull String passwort)
+	{
+		this.passwort = passwort;
+		return this;
+	}
 
 	@Override
 	public boolean equals(Object o)

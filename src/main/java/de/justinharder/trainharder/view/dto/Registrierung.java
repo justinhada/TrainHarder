@@ -1,6 +1,8 @@
 package de.justinharder.trainharder.view.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -8,10 +10,7 @@ import javax.ws.rs.FormParam;
 import java.util.Objects;
 
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Registrierung
 {
 	@Email(message = "Ungültige E-Mail-Adresse!")
@@ -23,6 +22,34 @@ public class Registrierung
 	@Size(min = 12, max = 64, message = "Ungültiges Passwort!")
 	@FormParam("passwort")
 	private String passwort;
+
+	public Registrierung()
+	{}
+
+	public Registrierung(@NonNull String mail, @NonNull String benutzername, @NonNull String passwort)
+	{
+		this.mail = mail;
+		this.benutzername = benutzername;
+		this.passwort = passwort;
+	}
+
+	public Registrierung setMail(@NonNull String mail)
+	{
+		this.mail = mail;
+		return this;
+	}
+
+	public Registrierung setBenutzername(@NonNull String benutzername)
+	{
+		this.benutzername = benutzername;
+		return this;
+	}
+
+	public Registrierung setPasswort(@NonNull String passwort)
+	{
+		this.passwort = passwort;
+		return this;
+	}
 
 	@Override
 	public boolean equals(Object o)
