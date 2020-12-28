@@ -25,7 +25,7 @@ public abstract class AbstractController
 	@Inject
 	protected BenutzerService benutzerService;
 
-	protected void initialisiere()
+	protected String initialisiere(String pfad)
 	{
 		try
 		{
@@ -40,6 +40,8 @@ public abstract class AbstractController
 		{
 			models.put("fehler", e.getMessage());
 		}
+
+		return pfad;
 	}
 
 	protected AuthentifizierungDto getAuthentifizierungDto() throws AuthentifizierungNichtGefundenException

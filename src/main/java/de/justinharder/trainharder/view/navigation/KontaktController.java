@@ -50,9 +50,7 @@ public class KontaktController extends AbstractController
 	@Override
 	public String index()
 	{
-		initialisiere();
-
-		return "/kontakt.xhtml";
+		return initialisiere("/kontakt.xhtml");
 	}
 
 	@POST

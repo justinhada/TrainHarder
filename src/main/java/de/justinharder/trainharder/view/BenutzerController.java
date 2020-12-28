@@ -38,11 +38,9 @@ public class BenutzerController extends AbstractController
 		{
 			return REDIRECT_TO_LOGIN;
 		}
-		initialisiere();
-
 		models.put("alleBenutzer", benutzerService.ermittleAlle());
 
-		return "/benutzer/index.xhtml";
+		return initialisiere("/benutzer/index.xhtml");
 	}
 
 	@GET
@@ -53,11 +51,9 @@ public class BenutzerController extends AbstractController
 		{
 			return REDIRECT_TO_LOGIN;
 		}
-		initialisiere();
-
 		models.put("benutzername", benutzername);
 
-		return "/benutzer/benutzerdaten.xhtml";
+		return initialisiere("/benutzer/benutzerdaten.xhtml");
 	}
 
 	@POST

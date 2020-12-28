@@ -26,8 +26,6 @@ public class DatenschutzController extends AbstractController
 	@Override
 	public String index()
 	{
-		initialisiere();
-
-		return "/datenschutz.xhtml";
+		return initialisiere("/datenschutz.xhtml");
 	}
 }

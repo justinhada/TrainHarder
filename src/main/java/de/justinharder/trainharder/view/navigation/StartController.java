@@ -26,8 +26,6 @@ public class StartController extends AbstractController
 	@Override
 	public String index()
 	{
-		initialisiere();
-
-		return "/index.xhtml";
+		return initialisiere("/index.xhtml");
 	}
 }

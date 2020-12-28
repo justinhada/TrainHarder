@@ -40,9 +40,8 @@ public class KoerpermessungController extends AbstractController
 		{
 			return REDIRECT_TO_LOGIN;
 		}
-		initialisiere();
 
-		return "/koerpermessungen/index.xhtml";
+		return initialisiere("/koerpermessungen/index.xhtml");
 	}
 
 	@GET

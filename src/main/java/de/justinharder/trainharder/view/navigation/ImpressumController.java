@@ -26,8 +26,6 @@ public class ImpressumController extends AbstractController
 	@Override
 	public String index()
 	{
-		initialisiere();
-
-		return "/impressum.xhtml";
+		return initialisiere("/impressum.xhtml");
 	}
 }
