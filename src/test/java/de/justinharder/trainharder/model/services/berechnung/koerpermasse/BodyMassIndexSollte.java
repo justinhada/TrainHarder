@@ -15,9 +15,11 @@ class BodyMassIndexSollte
 	@DisplayName("null validieren")
 	void test01()
 	{
+		var koerpergewicht = new BigDecimal(90);
+		var koerpergroesse = new BigDecimal(178);
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> BodyMassIndex.aus(null, new BigDecimal(178))),
-			() -> assertThrows(NullPointerException.class, () -> BodyMassIndex.aus(new BigDecimal(90), null)));
+			() -> assertThrows(NullPointerException.class, () -> BodyMassIndex.aus(null, koerpergroesse)),
+			() -> assertThrows(NullPointerException.class, () -> BodyMassIndex.aus(koerpergewicht, null)));
 	}
 
 	@Test

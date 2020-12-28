@@ -15,11 +15,11 @@ class FettfreiesKoerpergewichtSollte
 	@DisplayName("null validieren")
 	void test01()
 	{
+		var koerpergewicht = new BigDecimal(90);
+		var koerperfettAnteil = new BigDecimal(20);
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> FettfreiesKoerpergewicht.aus(null, new BigDecimal(20))),
-			() -> assertThrows(NullPointerException.class,
-				() -> FettfreiesKoerpergewicht.aus(new BigDecimal(80), null)));
+			() -> assertThrows(NullPointerException.class, () -> FettfreiesKoerpergewicht.aus(null, koerperfettAnteil)),
+			() -> assertThrows(NullPointerException.class, () -> FettfreiesKoerpergewicht.aus(koerpergewicht, null)));
 	}
 
 	@Test

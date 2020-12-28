@@ -15,20 +15,22 @@ class FatFreeMassIndexSollte
 	@DisplayName("null validieren")
 	void test01()
 	{
+		var koerpergewicht = new BigDecimal(90);
+		var koerperfettAnteil = new BigDecimal(20);
+		var koerpergroesse = new BigDecimal(178);
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(null, new BigDecimal(20), new BigDecimal(178))),
+				() -> FatFreeMassIndex.aus(null, koerperfettAnteil, koerpergroesse)),
 			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(new BigDecimal(90), null, new BigDecimal(178))),
+				() -> FatFreeMassIndex.aus(koerpergewicht, null, koerpergroesse)),
 			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(new BigDecimal(90), new BigDecimal(20), null)));
+				() -> FatFreeMassIndex.aus(koerpergewicht, koerperfettAnteil, null)));
 	}
 
 	@Test
 	@DisplayName("berechnet werden")
 	void test02()
 	{
-		assertThat(FatFreeMassIndex.aus(new BigDecimal(90), new BigDecimal(25), new BigDecimal(178)))
-			.isEqualTo(new BigDecimal("21.42"));
+		assertThat(FatFreeMassIndex.aus(new BigDecimal(90), new BigDecimal(25), new BigDecimal(178))).isEqualTo(new BigDecimal("21.42"));
 	}
 }

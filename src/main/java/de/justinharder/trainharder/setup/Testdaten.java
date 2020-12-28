@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Testdaten
 {
 	private static final DateTimeFormatter DATUMFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	private static final String KOERPERGEWICHT = "90.00";
 
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_EDUARD_ID = new Primaerschluessel();
@@ -126,14 +127,9 @@ public class Testdaten
 			.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail())
 			.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 
-		//		KOERPERMASSE_JUSTIN
-		//			.setKoerpergroesse(new BigDecimal(178))
-		//			.setKoerpergewicht(new BigDecimal(90))
-		//			.setKoerperfettAnteil(new BigDecimal(25));
-
 		KOERPERMASSE_DTO_JUSTIN
 			.setKoerpergroesse("178")
-			.setKoerpergewicht("90.00")
+			.setKoerpergewicht(KOERPERGEWICHT)
 			.setKoerperfettAnteil("25.0")
 			.setFettfreiesKoerpergewicht("67.50")
 			.setBodyMassIndex("28.4")
@@ -153,11 +149,6 @@ public class Testdaten
 			.setKoerpermasse(KOERPERMASSE_DTO_JUSTIN)
 			.setKalorieneinnahme(KOERPERMESSUNG_JUSTIN.getKalorieneinnahme())
 			.setKalorienverbrauch(KOERPERMESSUNG_JUSTIN.getKalorienverbrauch());
-
-		//		KOERPERMASSE_EDUARD
-		//			.setKoerpergroesse(new BigDecimal(182))
-		//			.setKoerpergewicht(new BigDecimal(64))
-		//			.setKoerperfettAnteil(new BigDecimal(9));
 
 		KOERPERMASSE_DTO_EDUARD
 			.setKoerpergroesse("182")
@@ -311,7 +302,7 @@ public class Testdaten
 		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
 			.setGewicht("100.00")
-			.setKoerpergewicht("90.00")
+			.setKoerpergewicht(KOERPERGEWICHT)
 			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().getWert());
 
@@ -373,7 +364,7 @@ public class Testdaten
 		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
 			.setGewicht("150.00")
-			.setKoerpergewicht("90.00")
+			.setKoerpergewicht(KOERPERGEWICHT)
 			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().getWert());
 
@@ -435,7 +426,7 @@ public class Testdaten
 		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
 			.setGewicht("200.00")
-			.setKoerpergewicht("90.00")
+			.setKoerpergewicht(KOERPERGEWICHT)
 			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().getWert());
 	}
