@@ -5,12 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class BodyMassIndex extends Berechnung
+public class BodyMassIndex
 {
 	public static BigDecimal aus(@NonNull BigDecimal koerpergewicht, @NonNull BigDecimal koerpergroesse)
 	{
-		return dividiere(koerpergewicht, dividiereBasis(koerpergroesse).pow(2));
+		return Berechnung.dividiere(koerpergewicht, Berechnung.dividiereBasis(koerpergroesse).pow(2))
+			.setScale(2, RoundingMode.HALF_EVEN);
 	}
 }

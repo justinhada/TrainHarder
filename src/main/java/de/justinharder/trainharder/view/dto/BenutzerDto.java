@@ -144,11 +144,6 @@ public class BenutzerDto extends Dto
 		return this;
 	}
 
-	public double getKoerpergewicht()
-	{
-		return koerpermessungen.get(koerpermessungen.size() - 1).getKoerpergewicht();
-	}
-
 	public BenutzerDto fuegeKoerpermessungHinzu(@NonNull KoerpermessungDto koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);

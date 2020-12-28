@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +20,8 @@ class KoerpermessungSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
 	private static final LocalDate DATUM = LocalDate.of(2020, 7, 29);
-	private static final Koerpermasse KOERPERMASSE = new Koerpermasse(178, 90, 25);
+	private static final Koerpermasse KOERPERMASSE =
+		new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
 	private static final int KALORIENEINNAHME = 2500;
 	private static final int KALORIENVERBRAUCH = 2500;
 

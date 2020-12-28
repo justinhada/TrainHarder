@@ -13,27 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KraftwertDtoSollte
 {
-	private KraftwertDto sut;
+	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
+	private static final String GEWICHT = "100.00";
+	private static final String KOERPERGEWICHT = "75.00";
+	private static final String DATUM = "22.08.2020";
+	private static final String WIEDERHOLUNGEN = "1RM";
 
-	private String primaerschluessel;
+	private KraftwertDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		primaerschluessel = new Primaerschluessel().getId().toString();
-		sut = new KraftwertDto(primaerschluessel, 100, 75.0, "22.08.2020", "1RM");
-	}
-
-	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getGewicht()).isEqualTo(100),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(75.0),
-			() -> assertThat(sut.getDatum()).isEqualTo("22.08.2020"),
-			() -> assertThat(sut.getWiederholungen()).isEqualTo("1RM"));
+		sut = new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT, KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN);
 	}
 
 	@Test
@@ -41,18 +32,18 @@ class KraftwertDtoSollte
 	void test02()
 	{
 		sut = new KraftwertDto()
-			.setPrimaerschluessel(primaerschluessel)
-			.setGewicht(100)
-			.setKoerpergewicht(75.0)
-			.setDatum("22.08.2020")
-			.setWiederholungen("1RM");
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setGewicht(GEWICHT)
+			.setKoerpergewicht(KOERPERGEWICHT)
+			.setDatum(DATUM)
+			.setWiederholungen(WIEDERHOLUNGEN);
 
 		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getGewicht()).isEqualTo(100),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(75.0),
-			() -> assertThat(sut.getDatum()).isEqualTo("22.08.2020"),
-			() -> assertThat(sut.getWiederholungen()).isEqualTo("1RM"));
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(sut.getGewicht()).isEqualTo(GEWICHT),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(KOERPERGEWICHT),
+			() -> assertThat(sut.getDatum()).isEqualTo(DATUM),
+			() -> assertThat(sut.getWiederholungen()).isEqualTo(WIEDERHOLUNGEN));
 	}
 
 	@Test
@@ -70,10 +61,8 @@ class KraftwertDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test04()
 	{
-		var erwartet =
-			"KraftwertDto(super=Dto(primaerschluessel=" + primaerschluessel + "), gewicht=100.0, koerpergewicht=75.0, datum=22.08.2020, wiederholungen=1RM)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString(
+			"KraftwertDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), gewicht=100.00, koerpergewicht=75.00, datum=22.08.2020, wiederholungen=1RM)");
 	}
 
 	@Test
@@ -81,10 +70,19 @@ class KraftwertDtoSollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(null,100,80,"datum","wiederholungen")),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto("primaerschluessel",100,80,null,"wiederholungen")),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto("primaerschluessel",100,80,"datum",null)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(null, GEWICHT,
+				KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, null,
+				KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
+				null, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
+				KOERPERGEWICHT, null, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
+				KOERPERGEWICHT, DATUM, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGewicht(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setWiederholungen(null)));
 	}

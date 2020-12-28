@@ -5,6 +5,8 @@ import de.justinharder.trainharder.model.domain.enums.*;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 public class AnpassungsfaktorErmittlung
 {
@@ -172,22 +174,22 @@ public class AnpassungsfaktorErmittlung
 		return 0;
 	}
 
-	private int koerpergroesse(int koerpergroesse, Geschlecht geschlecht)
+	private int koerpergroesse(BigDecimal koerpergroesse, Geschlecht geschlecht)
 	{
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 160 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 170)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 160 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 170)
 		{
 			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 167 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 183)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 167 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 183)
 		{
 			return 1;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse < 175 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse < 195)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 175 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 195)
 		{
 			return -1;
 		}
@@ -195,22 +197,22 @@ public class AnpassungsfaktorErmittlung
 		return -2;
 	}
 
-	private int koerpergewicht(double koerpergewicht, Geschlecht geschlecht)
+	private int koerpergewicht(BigDecimal koerpergewicht, Geschlecht geschlecht)
 	{
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 57 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 74)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 57 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 74)
 		{
 			return 4;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 74 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 105)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 74 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 105)
 		{
 			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht < 84 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht < 120)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 84 ||
+			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 120)
 		{
 			return -2;
 		}

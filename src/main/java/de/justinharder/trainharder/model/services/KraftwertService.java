@@ -14,6 +14,7 @@ import de.justinharder.trainharder.view.dto.KraftwertDto;
 import lombok.NonNull;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -64,8 +65,8 @@ public class KraftwertService
 
 		return kraftwertDtoMapper.mappe(kraftwertRepository.speichereKraftwert(new Kraftwert(
 			new Primaerschluessel(),
-			kraftwertDto.getGewicht(),
-			kraftwertDto.getKoerpergewicht(),
+			new BigDecimal(kraftwertDto.getGewicht()),
+			new BigDecimal(kraftwertDto.getKoerpergewicht()),
 			LocalDate.parse(kraftwertDto.getDatum(), DATUMSFORMAT),
 			Wiederholungen.zuWert(kraftwertDto.getWiederholungen()),
 			uebung,

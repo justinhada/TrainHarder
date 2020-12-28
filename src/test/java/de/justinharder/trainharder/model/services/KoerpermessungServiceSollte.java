@@ -14,12 +14,14 @@ import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.repository.KoerpermessungRepository;
 import de.justinharder.trainharder.model.services.mapper.KoerpermessungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.view.dto.KoerpermasseDto;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -183,15 +185,13 @@ class KoerpermessungServiceSollte
 		var erwartet = new KoerpermessungDto(
 			id.getId().toString(),
 			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			178,
-			90,
-			25,
+			new KoerpermasseDto("178", "90.00", "25.0", "67.50", "28.4", "21.8"),
 			2500,
 			2900);
 		var koerpermessung = new Koerpermessung(
 			id,
 			LocalDate.of(2020, 6, 29),
-			new Koerpermasse(178, 90, 25),
+			new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25)),
 			2500,
 			2900,
 			new Benutzer());
@@ -243,16 +243,14 @@ class KoerpermessungServiceSollte
 		var erwartet = new KoerpermessungDto(
 			id.getId().toString(),
 			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			178,
-			90,
-			25,
+			new KoerpermasseDto("178", "90.00", "25.0", "67.50", "28.4", "21.8"),
 			2500,
 			2900);
 		erwartet.setKalorienverbrauch(3500);
 		var koerpermessung = new Koerpermessung(
 			id,
 			LocalDate.of(2020, 6, 29),
-			new Koerpermasse(178, 90, 25),
+			new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25)),
 			2500,
 			2900,
 			new Benutzer());

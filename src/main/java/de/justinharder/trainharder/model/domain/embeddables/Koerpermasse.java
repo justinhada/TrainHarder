@@ -1,13 +1,16 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
-import lombok.AccessLevel;
+import de.justinharder.trainharder.model.services.berechnung.koerpermasse.BodyMassIndex;
+import de.justinharder.trainharder.model.services.berechnung.koerpermasse.FatFreeMassIndex;
+import de.justinharder.trainharder.model.services.berechnung.koerpermasse.FettfreiesKoerpergewicht;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -17,79 +20,59 @@ public class Koerpermasse implements Serializable
 {
 	private static final long serialVersionUID = 3836150830695827628L;
 
-	@Column(name = "Koerpergroesse")
-	private int koerpergroesse;
-	@Column(name = "Koerpergewicht")
-	private double koerpergewicht;
-	@Column(name = "KoerperfettAnteil")
-	private double koerperfettAnteil;
-	@Setter(value = AccessLevel.NONE)
-	@Column(name = "FettfreiesKoerpergewicht")
-	private double fettfreiesKoerpergewicht;
-	@Setter(value = AccessLevel.NONE)
-	@Column(name = "BodyMassIndex")
-	private double bodyMassIndex;
-	@Setter(value = AccessLevel.NONE)
-	@Column(name = "FatFreeMassIndex")
-	private double fatFreeMassIndex;
+	@Column(name = "Koerpergroesse", precision = 7, scale = 2)
+	private BigDecimal koerpergroesse;
+	@Column(name = "Koerpergewicht", precision = 7, scale = 2)
+	private BigDecimal koerpergewicht;
+	@Column(name = "KoerperfettAnteil", precision = 7, scale = 2)
+	private BigDecimal koerperfettAnteil;
+	@Column(name = "FettfreiesKoerpergewicht", precision = 7, scale = 2)
+	private BigDecimal fettfreiesKoerpergewicht;
+	@Column(name = "BodyMassIndex", precision = 7, scale = 2)
+	private BigDecimal bodyMassIndex;
+	@Column(name = "FatFreeMassIndex", precision = 7, scale = 2)
+	private BigDecimal fatFreeMassIndex;
 
 	public Koerpermasse()
 	{}
 
-	public Koerpermasse(int koerpergroesse, double koerpergewicht, double koerperfettAnteil)
+	public Koerpermasse(
+		@NonNull BigDecimal koerpergroesse,
+		@NonNull BigDecimal koerpergewicht,
+		@NonNull BigDecimal koerperfettAnteil)
 	{
 		this.koerpergroesse = koerpergroesse;
 		this.koerpergewicht = koerpergewicht;
 		this.koerperfettAnteil = koerperfettAnteil;
-
-		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		berechneDaten();
 	}
 
-	private double berechneFettfreiesKoerpergewicht(double koerpergewicht, double koerperfettAnteil)
-	{
-		return Math.round((koerpergewicht - koerpergewicht * (koerperfettAnteil / 100)) * 100) / 100.0;
-	}
-
-	private double berechneBmi(int koerpergroesse, double koerpergewicht)
-	{
-		var bmi = koerpergewicht / Math.pow(koerpergroesse / 100.0, 2);
-		return Math.round(bmi * 100) / 100.0;
-	}
-
-	private double berechneFfmi(double koerpergewicht, double koerperfettAnteil, int koerpergroesse)
-	{
-		var magermasse = koerpergewicht * (1 - koerperfettAnteil / 100.0);
-		var ffmi = magermasse / Math.pow(koerpergroesse / 100.0, 2) + 6.1 * (1.8 - koerpergroesse / 100.0);
-		return Math.round(ffmi * 100) / 100.0;
-	}
-
-	public Koerpermasse setKoerpergroesse(int koerpergroesse)
+	public Koerpermasse setKoerpergroesse(@NonNull BigDecimal koerpergroesse)
 	{
 		this.koerpergroesse = koerpergroesse;
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		berechneDaten();
 		return this;
 	}
 
-	public Koerpermasse setKoerpergewicht(double koerpergewicht)
+	public Koerpermasse setKoerpergewicht(@NonNull BigDecimal koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
-		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		berechneDaten();
 		return this;
 	}
 
-	public Koerpermasse setKoerperfettAnteil(double koerperfettAnteil)
+	public Koerpermasse setKoerperfettAnteil(@NonNull BigDecimal koerperfettAnteil)
 	{
 		this.koerperfettAnteil = koerperfettAnteil;
-		fettfreiesKoerpergewicht = berechneFettfreiesKoerpergewicht(koerpergewicht, koerperfettAnteil);
-		bodyMassIndex = berechneBmi(koerpergroesse, koerpergewicht);
-		fatFreeMassIndex = berechneFfmi(koerpergewicht, koerperfettAnteil, koerpergroesse);
+		berechneDaten();
 		return this;
+	}
+
+	private void berechneDaten()
+	{
+		fettfreiesKoerpergewicht = FettfreiesKoerpergewicht.aus(koerpergewicht, koerperfettAnteil);
+		bodyMassIndex = BodyMassIndex.aus(koerpergewicht, koerpergroesse);
+		fatFreeMassIndex = FatFreeMassIndex.aus(koerpergewicht, koerperfettAnteil, koerpergroesse);
 	}
 
 	@Override
@@ -104,12 +87,12 @@ public class Koerpermasse implements Serializable
 			return false;
 		}
 		var that = (Koerpermasse) o;
-		return koerpergroesse == that.koerpergroesse &&
-			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
-			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&
-			Double.compare(that.fettfreiesKoerpergewicht, fettfreiesKoerpergewicht) == 0 &&
-			Double.compare(that.bodyMassIndex, bodyMassIndex) == 0 &&
-			Double.compare(that.fatFreeMassIndex, fatFreeMassIndex) == 0;
+		return koerpergroesse.equals(that.koerpergroesse)
+			&& koerpergewicht.equals(that.koerpergewicht)
+			&& koerperfettAnteil.equals(that.koerperfettAnteil)
+			&& fettfreiesKoerpergewicht.equals(that.fettfreiesKoerpergewicht)
+			&& bodyMassIndex.equals(that.bodyMassIndex)
+			&& fatFreeMassIndex.equals(that.fatFreeMassIndex);
 	}
 
 	@Override

@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Berechnung
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class Berechnung
 {
 	protected static BigDecimal dividiere(BigDecimal divident, BigDecimal divisor)
 	{
-		return divident.divide(divisor, 2, RoundingMode.HALF_UP);
+		return divident.divide(divisor, 2, RoundingMode.HALF_EVEN);
 	}
 
 	protected static BigDecimal dividiereBasis(BigDecimal divident)

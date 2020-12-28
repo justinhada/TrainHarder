@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +63,7 @@ class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 		var koerpermessung = new Koerpermessung(
 			new Primaerschluessel(),
 			LocalDate.now(),
-			new Koerpermasse(178, 90, 25),
+			new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25)),
 			2500,
 			2900,
 			Testdaten.BENUTZER_JUSTIN);

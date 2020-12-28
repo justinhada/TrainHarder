@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +41,10 @@ class AnpassungsfaktorErmittlungSollte
 		return benutzer.fuegeKoerpermessungHinzu(new Koerpermessung(
 			new Primaerschluessel(),
 			LocalDate.now(),
-			new Koerpermasse(koerpergroesse, koerpergewicht, 20), 2800, 2800, benutzer));
+			new Koerpermasse(new BigDecimal(koerpergroesse), new BigDecimal(koerpergewicht), new BigDecimal(20)),
+			2800,
+			2800,
+			benutzer));
 	}
 
 	@Test

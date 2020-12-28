@@ -16,70 +16,43 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class KoerpermessungDtoSollte
 {
+	private static final String PRIMAERSCHLUESSEL = Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString();
+	private static final String DATUM = LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+	private static final KoerpermasseDto KOERPERMASSE_DTO = new KoerpermasseDto("178", "90.00",
+		"20.0", "72.00", "28.4", "22.8");
+	private static final int KALORIENEINNAHME = 2500;
+	private static final int KALORIENVERBRAUCH = 2800;
+
 	private KoerpermessungDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new KoerpermessungDto(
-			Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString(),
-			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			178,
-			90,
-			25,
-			2500,
-			2900);
-	}
-
-	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel())
-				.isEqualTo(Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()),
-			() -> assertThat(sut.getDatum())
-				.isEqualTo(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))),
-			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
-			() -> assertThat(sut.getKoerperfettAnteil()).isEqualTo(25),
-			() -> assertThat(sut.getFettfreiesKoerpergewicht())
-				.isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getFettfreiesKoerpergewicht()),
-			() -> assertThat(sut.getBodyMassIndex()).isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getBodyMassIndex()),
-			() -> assertThat(sut.getFatFreeMassIndex()).isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getFatFreeMassIndex()),
-			() -> assertThat(sut.getKalorieneinnahme()).isEqualTo(2500),
-			() -> assertThat(sut.getKalorienverbrauch()).isEqualTo(2900));
+		sut = new KoerpermessungDto(PRIMAERSCHLUESSEL, DATUM, KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH);
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new KoerpermessungDto()
-			.setDatum(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-			.setKoerpergroesse(178)
-			.setKoerpergewicht(90)
-			.setKoerperfettAnteil(25)
-			.setKalorieneinnahme(2500)
-			.setKalorienverbrauch(2900);
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setDatum(DATUM)
+			.setKoerpermasse(KOERPERMASSE_DTO)
+			.setKalorieneinnahme(KALORIENEINNAHME)
+			.setKalorienverbrauch(KALORIENVERBRAUCH);
 
 		assertAll(
-			() -> assertThat(sut.getDatum())
-				.isEqualTo(LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))),
-			() -> assertThat(sut.getKoerpergroesse()).isEqualTo(178),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
-			() -> assertThat(sut.getKoerperfettAnteil()).isEqualTo(25),
-			() -> assertThat(sut.getFettfreiesKoerpergewicht())
-				.isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getFettfreiesKoerpergewicht()),
-			() -> assertThat(sut.getBodyMassIndex()).isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getBodyMassIndex()),
-			() -> assertThat(sut.getFatFreeMassIndex()).isEqualTo(Testdaten.KOERPERMASSE_JUSTIN.getFatFreeMassIndex()),
-			() -> assertThat(sut.getKalorieneinnahme()).isEqualTo(2500),
-			() -> assertThat(sut.getKalorienverbrauch()).isEqualTo(2900));
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(sut.getDatum()).isEqualTo(DATUM),
+			() -> assertThat(sut.getKoerpermasse()).isEqualTo(KOERPERMASSE_DTO),
+			() -> assertThat(sut.getKalorieneinnahme()).isEqualTo(KALORIENEINNAHME),
+			() -> assertThat(sut.getKalorienverbrauch()).isEqualTo(KALORIENVERBRAUCH));
 	}
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test03()
+	void test02()
 	{
 		EqualsVerifier.forClass(KoerpermessungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -90,23 +63,25 @@ class KoerpermessungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test04()
+	void test03()
 	{
-		var erwartet = "KoerpermessungDto(super=Dto(primaerschluessel="
-			+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
-			+ "), datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString(
+			"KoerpermessungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), datum=29.07.2020, koerpermasse=KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=20.0, fettfreiesKoerpergewicht=72.00, bodyMassIndex=28.4, fatFreeMassIndex=22.8), kalorieneinnahme=2500, kalorienverbrauch=2800)");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test05()
+	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(null,"datum",180,80,20,2800,2800)),
-			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto("primaerschluessel",null,180,80,20,2800,2800)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(null, DATUM,
+				KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(PRIMAERSCHLUESSEL, null,
+				KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(PRIMAERSCHLUESSEL, DATUM, null,
+				KALORIENEINNAHME, KALORIENVERBRAUCH)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpermasse(null)));
 	}
 }

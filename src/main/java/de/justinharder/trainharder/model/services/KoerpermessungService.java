@@ -13,6 +13,7 @@ import de.justinharder.trainharder.view.dto.KoerpermessungDto;
 import lombok.NonNull;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -59,9 +60,9 @@ public class KoerpermessungService
 			new Primaerschluessel(),
 			LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE),
 			new Koerpermasse(
-				koerpermessdaten.getKoerpergroesse(),
-				koerpermessdaten.getKoerpergewicht(),
-				koerpermessdaten.getKoerperfettAnteil()),
+				new BigDecimal(koerpermessdaten.getKoerpergroesse()),
+				BigDecimal.valueOf(koerpermessdaten.getKoerpergewicht()),
+				BigDecimal.valueOf(koerpermessdaten.getKoerperfettAnteil())),
 			koerpermessdaten.getKalorieneinnahme(),
 			koerpermessdaten.getKalorienverbrauch(),
 			benutzer)));
@@ -76,9 +77,9 @@ public class KoerpermessungService
 		return koerpermessungDtoMapper.mappe(koerpermessungRepository.speichereKoerpermessung(koerpermessung
 			.setDatum(LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE))
 			.setKoerpermasse(new Koerpermasse(
-				koerpermessdaten.getKoerpergroesse(),
-				koerpermessdaten.getKoerpergewicht(),
-				koerpermessdaten.getKoerperfettAnteil()))
+				new BigDecimal(koerpermessdaten.getKoerpergroesse()),
+				BigDecimal.valueOf(koerpermessdaten.getKoerpergewicht()),
+				BigDecimal.valueOf(koerpermessdaten.getKoerperfettAnteil())))
 			.setKalorieneinnahme(koerpermessdaten.getKalorieneinnahme())
 			.setKalorienverbrauch(koerpermessdaten.getKalorienverbrauch())));
 	}

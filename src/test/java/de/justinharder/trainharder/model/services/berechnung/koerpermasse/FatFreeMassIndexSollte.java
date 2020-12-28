@@ -29,6 +29,6 @@ class FatFreeMassIndexSollte
 	void test02()
 	{
 		assertThat(FatFreeMassIndex.aus(new BigDecimal(90), new BigDecimal(25), new BigDecimal(178)))
-			.isEqualTo(new BigDecimal("21.422"));
+			.isEqualTo(new BigDecimal("21.42"));
 	}
 }

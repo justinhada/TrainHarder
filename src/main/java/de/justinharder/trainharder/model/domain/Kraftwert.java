@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -18,10 +19,10 @@ public class Kraftwert extends Entitaet
 	@EmbeddedId
 	@Column(name = "ID")
 	private Primaerschluessel primaerschluessel;
-	@Column(name = "Gewicht")
-	private double gewicht;
-	@Column(name = "Koerpergewicht")
-	private double koerpergewicht;
+	@Column(name = "Gewicht", precision = 7, scale = 2)
+	private BigDecimal gewicht;
+	@Column(name = "Koerpergewicht", precision = 7, scale = 2)
+	private BigDecimal koerpergewicht;
 	@Column(name = "Datum")
 	private LocalDate datum;
 	@Column(name = "Wiederholungen")
@@ -39,8 +40,8 @@ public class Kraftwert extends Entitaet
 
 	public Kraftwert(
 		@NonNull Primaerschluessel primaerschluessel,
-		double gewicht,
-		double koerpergewicht,
+		@NonNull BigDecimal gewicht,
+		@NonNull BigDecimal koerpergewicht,
 		@NonNull LocalDate datum,
 		@NonNull Wiederholungen wiederholungen,
 		@NonNull Uebung uebung,
@@ -61,13 +62,13 @@ public class Kraftwert extends Entitaet
 		return this;
 	}
 
-	public Kraftwert setGewicht(double gewicht)
+	public Kraftwert setGewicht(@NonNull BigDecimal gewicht)
 	{
 		this.gewicht = gewicht;
 		return this;
 	}
 
-	public Kraftwert setKoerpergewicht(double koerpergewicht)
+	public Kraftwert setKoerpergewicht(@NonNull BigDecimal koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
 		return this;

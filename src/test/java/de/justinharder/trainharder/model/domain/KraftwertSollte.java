@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class KraftwertSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
-	private static final int GEWICHT = 100;
+	private static final BigDecimal GEWICHT = new BigDecimal(100);
 	private static final LocalDate DATUM = LocalDate.now();
 
 	private Kraftwert sut;
@@ -84,17 +85,30 @@ class KraftwertSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(null, 0, 0,
-				DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, 0,
-				null, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, 0,
-				DATUM, null, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, 0,
-				DATUM, Wiederholungen.ONE_REP_MAX, null, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, 0,
-				DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(null, GEWICHT, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), DATUM,
+					Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, null, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), DATUM,
+					Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, null, DATUM, Wiederholungen.ONE_REP_MAX,
+					Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), null,
+					Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), DATUM,
+					null, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), DATUM,
+					Wiederholungen.ONE_REP_MAX, null, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(), DATUM,
+					Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGewicht(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setWiederholungen(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebung(null)),

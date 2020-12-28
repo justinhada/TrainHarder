@@ -7,6 +7,7 @@ import de.justinharder.trainharder.view.dto.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
-	private static final DateTimeFormatter DATUMSFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	private static final DateTimeFormatter DATUMFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel AUTHENTIFIZIERUNG_EDUARD_ID = new Primaerschluessel();
@@ -27,8 +28,13 @@ public class Testdaten
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_JUSTIN = new AuthentifizierungDto();
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_EDUARD = new AuthentifizierungDto();
 
-	public static final Koerpermasse KOERPERMASSE_JUSTIN = new Koerpermasse();
-	public static final Koerpermasse KOERPERMASSE_EDUARD = new Koerpermasse();
+	public static final Koerpermasse KOERPERMASSE_JUSTIN =
+		new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
+	public static final Koerpermasse KOERPERMASSE_EDUARD =
+		new Koerpermasse(new BigDecimal(182), new BigDecimal(64), new BigDecimal(9));
+
+	public static final KoerpermasseDto KOERPERMASSE_DTO_JUSTIN = new KoerpermasseDto();
+	public static final KoerpermasseDto KOERPERMASSE_DTO_EDUARD = new KoerpermasseDto();
 
 	public static final Primaerschluessel KOERPERMESSUNG_JUSTIN_ID = new Primaerschluessel();
 	public static final Primaerschluessel KOERPERMESSUNG_EDUARD_ID = new Primaerschluessel();
@@ -120,10 +126,18 @@ public class Testdaten
 			.setMail(AUTHENTIFIZIERUNG_EDUARD.getMail())
 			.setBenutzername(AUTHENTIFIZIERUNG_EDUARD.getBenutzername());
 
-		KOERPERMASSE_JUSTIN
-			.setKoerpergroesse(178)
-			.setKoerpergewicht(90)
-			.setKoerperfettAnteil(25);
+		//		KOERPERMASSE_JUSTIN
+		//			.setKoerpergroesse(new BigDecimal(178))
+		//			.setKoerpergewicht(new BigDecimal(90))
+		//			.setKoerperfettAnteil(new BigDecimal(25));
+
+		KOERPERMASSE_DTO_JUSTIN
+			.setKoerpergroesse("178")
+			.setKoerpergewicht("90.00")
+			.setKoerperfettAnteil("25.0")
+			.setFettfreiesKoerpergewicht("67.50")
+			.setBodyMassIndex("28.4")
+			.setFatFreeMassIndex("21.4");
 
 		KOERPERMESSUNG_JUSTIN
 			.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN_ID)
@@ -135,17 +149,23 @@ public class Testdaten
 
 		KOERPERMESSUNG_DTO_JUSTIN
 			.setPrimaerschluessel(KOERPERMESSUNG_JUSTIN.getPrimaerschluessel().getId().toString())
-			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DATUMSFORMAT))
-			.setKoerpergroesse(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergroesse())
-			.setKoerpergewicht(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerpergewicht())
-			.setKoerperfettAnteil(KOERPERMESSUNG_JUSTIN.getKoerpermasse().getKoerperfettAnteil())
+			.setDatum(KOERPERMESSUNG_JUSTIN.getDatum().format(DATUMFORMAT))
+			.setKoerpermasse(KOERPERMASSE_DTO_JUSTIN)
 			.setKalorieneinnahme(KOERPERMESSUNG_JUSTIN.getKalorieneinnahme())
 			.setKalorienverbrauch(KOERPERMESSUNG_JUSTIN.getKalorienverbrauch());
 
-		KOERPERMASSE_EDUARD
-			.setKoerpergroesse(182)
-			.setKoerpergewicht(64)
-			.setKoerperfettAnteil(9);
+		//		KOERPERMASSE_EDUARD
+		//			.setKoerpergroesse(new BigDecimal(182))
+		//			.setKoerpergewicht(new BigDecimal(64))
+		//			.setKoerperfettAnteil(new BigDecimal(9));
+
+		KOERPERMASSE_DTO_EDUARD
+			.setKoerpergroesse("182")
+			.setKoerpergewicht("64.00")
+			.setKoerperfettAnteil("9.0")
+			.setFettfreiesKoerpergewicht("58.24")
+			.setBodyMassIndex("19.3")
+			.setFatFreeMassIndex("17.5");
 
 		KOERPERMESSUNG_EDUARD
 			.setPrimaerschluessel(KOERPERMESSUNG_EDUARD_ID)
@@ -157,10 +177,8 @@ public class Testdaten
 
 		KOERPERMESSUNG_DTO_EDUARD
 			.setPrimaerschluessel(KOERPERMESSUNG_EDUARD.getPrimaerschluessel().getId().toString())
-			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DATUMSFORMAT))
-			.setKoerpergroesse(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergroesse())
-			.setKoerpergewicht(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerpergewicht())
-			.setKoerperfettAnteil(KOERPERMESSUNG_EDUARD.getKoerpermasse().getKoerperfettAnteil())
+			.setDatum(KOERPERMESSUNG_EDUARD.getDatum().format(DATUMFORMAT))
+			.setKoerpermasse(KOERPERMASSE_DTO_EDUARD)
 			.setKalorieneinnahme(KOERPERMESSUNG_EDUARD.getKalorieneinnahme())
 			.setKalorienverbrauch(KOERPERMESSUNG_EDUARD.getKalorienverbrauch());
 
@@ -284,7 +302,7 @@ public class Testdaten
 		KRAFTWERT_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID)
 			.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN)
-			.setGewicht(100)
+			.setGewicht(new BigDecimal(100))
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -292,9 +310,9 @@ public class Testdaten
 
 		KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
-			.setGewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getGewicht())
-			.setKoerpergewicht(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getKoerpergewicht())
-			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DATUMSFORMAT))
+			.setGewicht("100.00")
+			.setKoerpergewicht("90.00")
+			.setDatum(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getWiederholungen().getWert());
 
 		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE
@@ -346,7 +364,7 @@ public class Testdaten
 		KRAFTWERT_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE_ID)
 			.setUebung(UEBUNG_LOWBAR_KNIEBEUGE)
-			.setGewicht(150)
+			.setGewicht(new BigDecimal(150))
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -354,9 +372,9 @@ public class Testdaten
 
 		KRAFTWERT_DTO_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(KRAFTWERT_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
-			.setGewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getGewicht())
-			.setKoerpergewicht(KRAFTWERT_LOWBAR_KNIEBEUGE.getKoerpergewicht())
-			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DATUMSFORMAT))
+			.setGewicht("150.00")
+			.setKoerpergewicht("90.00")
+			.setDatum(KRAFTWERT_LOWBAR_KNIEBEUGE.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_LOWBAR_KNIEBEUGE.getWiederholungen().getWert());
 
 		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN
@@ -408,7 +426,7 @@ public class Testdaten
 		KRAFTWERT_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID)
 			.setUebung(UEBUNG_KONVENTIONELLES_KREUZHEBEN)
-			.setGewicht(200)
+			.setGewicht(new BigDecimal(200))
 			.setKoerpergewicht(BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(LocalDate.now())
 			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
@@ -416,9 +434,9 @@ public class Testdaten
 
 		KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
-			.setGewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getGewicht())
-			.setKoerpergewicht(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getKoerpergewicht())
-			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DATUMSFORMAT))
+			.setGewicht("200.00")
+			.setKoerpergewicht("90.00")
+			.setDatum(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getDatum().format(DATUMFORMAT))
 			.setWiederholungen(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getWiederholungen().getWert());
 	}
 }

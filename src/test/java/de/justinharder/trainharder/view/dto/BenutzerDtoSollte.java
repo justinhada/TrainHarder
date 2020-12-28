@@ -39,29 +39,8 @@ class BenutzerDtoSollte
 	}
 
 	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(Testdaten.BENUTZER_JUSTIN_ID.getId().toString()),
-			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
-			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
-			() -> assertThat(sut.getKraftlevel()).isEqualTo("CLASS_5"),
-			() -> assertThat(sut.getGeschlecht()).isEqualTo("MAENNLICH"),
-			() -> assertThat(sut.getErfahrung()).isEqualTo("FORTGESCHRITTEN"),
-			() -> assertThat(sut.getErnaehrung()).isEqualTo("GUT"),
-			() -> assertThat(sut.getSchlafqualitaet()).isEqualTo("GUT"),
-			() -> assertThat(sut.getStress()).isEqualTo("MITTELMAESSIG"),
-			() -> assertThat(sut.getDoping()).isEqualTo("NEIN"),
-			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo("GUT"),
-			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(90),
-			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN));
-	}
-
-	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new BenutzerDto()
 			.setVorname("Justin")
@@ -92,7 +71,7 @@ class BenutzerDtoSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test03()
+	void test02()
 	{
 		EqualsVerifier.forClass(BenutzerDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -103,7 +82,7 @@ class BenutzerDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test04()
+	void test03()
 	{
 		assertThat(sut).hasToString(
 			"BenutzerDto(super=Dto(primaerschluessel=" + Testdaten.BENUTZER_JUSTIN_ID.getId().toString()
@@ -111,12 +90,12 @@ class BenutzerDtoSollte
 				+ Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString()
 				+ "), mail=mail@justinharder.de, benutzername=harder), koerpermessungen=[KoerpermessungDto(super=Dto(primaerschluessel="
 				+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
-				+ "), datum=29.07.2020, koerpergroesse=178, koerpergewicht=90.0, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.5, bodyMassIndex=28.41, fatFreeMassIndex=21.43, kalorieneinnahme=2500, kalorienverbrauch=2900)])");
+				+ "), datum=29.07.2020, koerpermasse=KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.50, bodyMassIndex=28.4, fatFreeMassIndex=21.4), kalorieneinnahme=2500, kalorienverbrauch=2900)])");
 	}
 
 	@Test
 	@DisplayName("null validieren (Konstruktor)")
-	void test05()
+	void test04()
 	{
 		var datum = LocalDate.now();
 		var authentifizierungDto = new AuthentifizierungDto();
@@ -182,7 +161,7 @@ class BenutzerDtoSollte
 
 	@Test
 	@DisplayName("null validieren (Setter)")
-	void test06()
+	void test05()
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),

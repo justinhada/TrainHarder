@@ -8,6 +8,7 @@ import de.justinharder.trainharder.model.domain.enums.Kraftlevel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import lombok.NonNull;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class KraftlevelErmittlung
 		var total = ermittleTotal(benutzer.getKraftwerte());
 		var totals = ermittleTotals(benutzer.getBenutzerangabe().getGeschlecht(), gewichtsklasse);
 		var uebertroffeneTotals = totals.keySet().stream()
-			.filter(t -> Double.compare(t, total) < 0)
+			.filter(t -> Double.compare(t, total.doubleValue()) < 0)
 			.collect(Collectors.toList());
 
 		if (uebertroffeneTotals.isEmpty())
@@ -38,12 +39,12 @@ public class KraftlevelErmittlung
 		return totals.get(Collections.max(uebertroffeneTotals));
 	}
 
-	private double ermittleTotal(List<Kraftwert> kraftwerte)
+	private BigDecimal ermittleTotal(List<Kraftwert> kraftwerte)
 	{
 		return kraftwerte.stream()
 			.filter(kraftwert -> kraftwert.getUebung().getUebungsart().equals(Uebungsart.GRUNDUEBUNG))
-			.mapToDouble(Kraftwert::getGewicht)
-			.sum();
+			.map(Kraftwert::getGewicht)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	private Map<Integer, Kraftlevel> ermittleTotals(Geschlecht geschlecht, int gewichtsklasse)
@@ -52,10 +53,10 @@ public class KraftlevelErmittlung
 			.get(gewichtsklasse);
 	}
 
-	private int ermittleGewichtsklasse(Geschlecht geschlecht, double koerpergewicht)
+	private int ermittleGewichtsklasse(Geschlecht geschlecht, BigDecimal koerpergewicht)
 	{
 		return Collections.min(ermittleGewichtsklassen(geschlecht).stream()
-			.filter(gk -> gk >= koerpergewicht)
+			.filter(gk -> gk >= koerpergewicht.intValueExact())
 			.collect(Collectors.toList()));
 	}
 

@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class Benutzer extends Entitaet
 		return Period.between(geburtsdatum, LocalDate.now()).getYears();
 	}
 
-	public double getKoerpergewicht()
+	public BigDecimal getKoerpergewicht()
 	{
 		return koerpermessungen.stream()
 			.reduce((first, second) -> second)
@@ -72,7 +73,7 @@ public class Benutzer extends Entitaet
 			.orElseGet(() -> null);
 	}
 
-	public int getKoerpergroesse()
+	public BigDecimal getKoerpergroesse()
 	{
 		return koerpermessungen.stream()
 			.reduce((first, second) -> second)

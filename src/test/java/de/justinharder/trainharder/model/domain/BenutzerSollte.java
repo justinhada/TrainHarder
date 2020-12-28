@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -95,8 +96,8 @@ class BenutzerSollte
 	{
 		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
-			100.0,
-			80.0,
+			new BigDecimal(100),
+			new BigDecimal(80),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,

@@ -12,8 +12,8 @@ public class KraftwertDto extends Dto
 {
 	private static final long serialVersionUID = -5177169492291346152L;
 
-	private double gewicht;
-	private double koerpergewicht;
+	private String gewicht;
+	private String koerpergewicht;
 	private String datum;
 	private String wiederholungen;
 
@@ -22,8 +22,8 @@ public class KraftwertDto extends Dto
 
 	public KraftwertDto(
 		@NonNull String primaerschluessel,
-		double gewicht,
-		double koerpergewicht,
+		@NonNull String gewicht,
+		@NonNull String koerpergewicht,
 		@NonNull String datum,
 		@NonNull String wiederholungen)
 	{
@@ -41,13 +41,13 @@ public class KraftwertDto extends Dto
 		return this;
 	}
 
-	public KraftwertDto setGewicht(double gewicht)
+	public KraftwertDto setGewicht(@NonNull String gewicht)
 	{
 		this.gewicht = gewicht;
 		return this;
 	}
 
-	public KraftwertDto setKoerpergewicht(double koerpergewicht)
+	public KraftwertDto setKoerpergewicht(@NonNull String koerpergewicht)
 	{
 		this.koerpergewicht = koerpergewicht;
 		return this;
@@ -77,11 +77,9 @@ public class KraftwertDto extends Dto
 			return false;
 		}
 		var that = (KraftwertDto) o;
-		return Double.compare(that.gewicht, gewicht) == 0 &&
-			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
-			primaerschluessel.equals(that.primaerschluessel) &&
-			datum.equals(that.datum) &&
-			wiederholungen.equals(that.wiederholungen);
+		return primaerschluessel.equals(that.primaerschluessel) && gewicht.equals(that.gewicht)
+			&& koerpergewicht.equals(that.koerpergewicht) && datum.equals(that.datum)
+			&& wiederholungen.equals(that.wiederholungen);
 	}
 
 	@Override

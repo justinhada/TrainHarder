@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,8 +64,8 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	{
 		var kraftwert = new Kraftwert(
 			new Primaerschluessel(),
-			100,
-			76.5,
+			new BigDecimal(100),
+			BigDecimal.valueOf(76.5),
 			LocalDate.now(),
 			Wiederholungen.ONE_REP_MAX,
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
@@ -78,7 +79,7 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	void test05()
 	{
 		var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN
-			.setGewicht(105);
+			.setGewicht(new BigDecimal(105));
 
 		var ergebnis = sut.speichereKraftwert(kraftwert);
 
