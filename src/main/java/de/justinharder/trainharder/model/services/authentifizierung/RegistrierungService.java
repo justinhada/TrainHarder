@@ -18,6 +18,8 @@ import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMap
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Registrierung;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +27,8 @@ import java.security.spec.InvalidKeySpecException;
 
 public class RegistrierungService
 {
+	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrierungService.class);
+
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
 	private final PasswortHasher passwortHasher;
@@ -86,11 +90,9 @@ public class RegistrierungService
 				+ "Mit den besten Grüßen!\n"
 				+ "das TrainHarder-Team")
 			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
-		System.out.println(mail);
 
-		//		mailServer.sendeMail(
-		//			mail,
-		//			StandardCharsets.UTF_8);
+		LOGGER.info("{}", mail);
+		// mailServer.sendeMail(mail, StandardCharsets.UTF_8);
 
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}

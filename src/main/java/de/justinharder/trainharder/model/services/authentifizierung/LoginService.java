@@ -14,6 +14,8 @@ import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +25,7 @@ import java.util.UUID;
 public class LoginService
 {
 	private static final String LOGIN_EXCEPTION = "Der Benutzername oder das Passwort ist leider falsch!";
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
@@ -76,11 +79,9 @@ public class LoginService
 				+ "Mit den besten Grüßen!\n"
 				+ "das TrainHarder-Team")
 			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
-		System.out.println(mail1);
 
-		//		mailServer.sendeMail(
-		//			mail1,
-		//			StandardCharsets.UTF_8);
+		LOGGER.info("{}", mail1);
+		//	mailServer.sendeMail(mail1,StandardCharsets.UTF_8);
 	}
 
 	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort) throws PasswortUnsicherException,
