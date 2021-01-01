@@ -124,14 +124,14 @@ public class Benutzerangabe implements Serializable
 			return false;
 		}
 		var that = (Benutzerangabe) o;
-		return kraftlevel == that.kraftlevel &&
-			geschlecht == that.geschlecht &&
-			erfahrung == that.erfahrung &&
-			ernaehrung == that.ernaehrung &&
-			schlafqualitaet == that.schlafqualitaet &&
-			stress == that.stress &&
-			doping == that.doping &&
-			regenerationsfaehigkeit == that.regenerationsfaehigkeit;
+		return kraftlevel == that.kraftlevel
+			&& geschlecht == that.geschlecht
+			&& erfahrung == that.erfahrung
+			&& ernaehrung == that.ernaehrung
+			&& schlafqualitaet == that.schlafqualitaet
+			&& stress == that.stress
+			&& doping == that.doping
+			&& regenerationsfaehigkeit == that.regenerationsfaehigkeit;
 	}
 
 	@Override

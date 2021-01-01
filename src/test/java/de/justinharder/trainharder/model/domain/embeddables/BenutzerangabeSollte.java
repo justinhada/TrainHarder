@@ -28,22 +28,8 @@ class BenutzerangabeSollte
 	}
 
 	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getGeschlecht()).isEqualTo(Geschlecht.MAENNLICH),
-			() -> assertThat(sut.getErfahrung()).isEqualTo(Erfahrung.BEGINNER),
-			() -> assertThat(sut.getErnaehrung()).isEqualTo(Ernaehrung.GUT),
-			() -> assertThat(sut.getSchlafqualitaet()).isEqualTo(Schlafqualitaet.GUT),
-			() -> assertThat(sut.getStress()).isEqualTo(Stress.MITTELMAESSIG),
-			() -> assertThat(sut.getDoping()).isEqualTo(Doping.NEIN),
-			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo(Regenerationsfaehigkeit.GUT));
-	}
-
-	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new Benutzerangabe()
 			.setGeschlecht(Geschlecht.MAENNLICH)
@@ -66,24 +52,22 @@ class BenutzerangabeSollte
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test05()
+	void test02()
 	{
 		EqualsVerifier.forClass(Benutzerangabe.class).verify();
 	}
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test06()
+	void test03()
 	{
-		var erwartet =
-			"Benutzerangabe(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString(
+			"Benutzerangabe(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test07()
+	void test04()
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
