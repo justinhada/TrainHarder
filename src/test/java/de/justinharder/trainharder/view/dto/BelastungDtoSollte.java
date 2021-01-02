@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BelastungsfaktorDtoSollte
+class BelastungDtoSollte
 {
 	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
 	private static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO = new GrunduebungBelastungDto("1.0",
@@ -21,12 +21,12 @@ class BelastungsfaktorDtoSollte
 	private static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO = new UnterkoerperBelastungDto("1.0",
 		"1.0", "0.5");
 
-	private BelastungsfaktorDto sut;
+	private BelastungDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new BelastungsfaktorDto(
+		sut = new BelastungDto(
 			PRIMAERSCHLUESSEL,
 			GRUNDUEBUNG_BELASTUNG_DTO,
 			OBERKOERPER_BELASTUNG_DTO,
@@ -37,7 +37,7 @@ class BelastungsfaktorDtoSollte
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
 	void test01()
 	{
-		sut = new BelastungsfaktorDto()
+		sut = new BelastungDto()
 			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_DTO)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_DTO)
@@ -54,7 +54,7 @@ class BelastungsfaktorDtoSollte
 	@DisplayName("sich vergleichen")
 	void test02()
 	{
-		EqualsVerifier.forClass(BelastungsfaktorDto.class)
+		EqualsVerifier.forClass(BelastungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.NONFINAL_FIELDS)
 			.suppress(Warning.NULL_FIELDS)
@@ -65,7 +65,7 @@ class BelastungsfaktorDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("BelastungsfaktorDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL +
+		assertThat(sut).hasToString("BelastungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL +
 			"), grunduebungBelastung=GrunduebungBelastungDto(squat=1.0, benchpress=0.0, deadlift=0.0), oberkoerperBelastung=OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1), unterkoerperBelastung=UnterkoerperBelastungDto(glutes=1.0, quads=1.0, hamstrings=0.5))");
 	}
 
@@ -74,13 +74,13 @@ class BelastungsfaktorDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(null,
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(null,
 				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
 				null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
 				GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
 				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),

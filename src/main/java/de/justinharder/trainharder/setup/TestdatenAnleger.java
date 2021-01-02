@@ -21,7 +21,7 @@ public class TestdatenAnleger
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
 		List.of(
 			Authentifizierung.class,
-			Belastungsfaktor.class,
+			Belastung.class,
 			Koerpermessung.class,
 			Kraftwert.class,
 			Uebung.class,

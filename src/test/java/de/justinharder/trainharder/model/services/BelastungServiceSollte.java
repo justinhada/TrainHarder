@@ -1,12 +1,12 @@
 package de.justinharder.trainharder.model.services;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Belastung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNichtGefundenException;
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import de.justinharder.trainharder.view.dto.BelastungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class BelastungsfaktorServiceSollte
+class BelastungServiceSollte
 {
 	private BelastungsfaktorService sut;
 
@@ -36,7 +36,7 @@ class BelastungsfaktorServiceSollte
 	}
 
 	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String id,
-		Optional<Belastungsfaktor> belastungsfaktor)
+		Optional<Belastung> belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(belastungsfaktor);
 	}
@@ -46,16 +46,16 @@ class BelastungsfaktorServiceSollte
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.empty());
 	}
 
-	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(Belastungsfaktor belastungsfaktor)
+	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(Belastung belastung)
 	{
-		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastungsfaktor.class)))
-			.thenReturn(belastungsfaktor);
+		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastung.class)))
+			.thenReturn(belastung);
 	}
 
-	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastungsfaktor belastungsfaktor,
-		BelastungsfaktorDto belastungsfaktorDto)
+	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastung belastung,
+		BelastungDto belastungDto)
 	{
-		when(belastungsfaktorDtoMapper.mappe(belastungsfaktor)).thenReturn(belastungsfaktorDto);
+		when(belastungsfaktorDtoMapper.mappe(belastung)).thenReturn(belastungDto);
 	}
 
 	@Test
@@ -86,7 +86,7 @@ class BelastungsfaktorServiceSollte
 	void test03() throws BelastungsfaktorNichtGefundenException
 	{
 		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
-		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN;
+		var belastungsfaktor = Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN;
 		var id = Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID.getId().toString();
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.of(belastungsfaktor));
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
@@ -103,7 +103,7 @@ class BelastungsfaktorServiceSollte
 	void test04()
 	{
 		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
-		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		var belastungsfaktor = Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN;
 		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
 

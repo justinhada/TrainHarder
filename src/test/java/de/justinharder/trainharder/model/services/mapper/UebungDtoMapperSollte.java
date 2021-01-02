@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.model.services.mapper;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Belastung;
 import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import de.justinharder.trainharder.view.dto.BelastungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +29,9 @@ class UebungDtoMapperSollte
 	}
 
 	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-		Belastungsfaktor belastungsfaktor, BelastungsfaktorDto belastungsfaktorDto)
+		Belastung belastung, BelastungDto belastungDto)
 	{
-		when(belastungsfaktorDtoMapper.mappe(belastungsfaktor)).thenReturn(belastungsfaktorDto);
+		when(belastungsfaktorDtoMapper.mappe(belastung)).thenReturn(belastungDto);
 	}
 
 	@Test
@@ -47,21 +47,21 @@ class UebungDtoMapperSollte
 			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
 			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
+			Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE,
 			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
+			Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN,
 			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN,
+			Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN,
 			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
 
 		var ergebnis = sut.mappeAlle(uebungen);
 
 		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE);
-		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
-		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE);
+		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
+		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test

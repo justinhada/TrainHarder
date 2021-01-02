@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BelastungsfaktorSollte
+class BelastungSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
 	private static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG = new GrunduebungBelastung(1.0, 0.0, 0.0);
@@ -23,12 +23,12 @@ class BelastungsfaktorSollte
 		0.0, 0.0, 0.1);
 	private static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG = new UnterkoerperBelastung(1.0, 1.0, 0.5);
 
-	private Belastungsfaktor sut;
+	private Belastung sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new Belastungsfaktor(
+		sut = new Belastung(
 			PRIMAERSCHLUESSEL,
 			GRUNDUEBUNG_BELASTUNG,
 			OBERKOERPER_BELASTUNG,
@@ -39,7 +39,7 @@ class BelastungsfaktorSollte
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
 	void test01()
 	{
-		sut = new Belastungsfaktor()
+		sut = new Belastung()
 			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG)
@@ -58,7 +58,7 @@ class BelastungsfaktorSollte
 	@DisplayName("sich vergleichen")
 	void test02()
 	{
-		EqualsVerifier.forClass(Belastungsfaktor.class)
+		EqualsVerifier.forClass(Belastung.class)
 			.withPrefabValues(Uebung.class, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
@@ -70,7 +70,7 @@ class BelastungsfaktorSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Belastungsfaktor{ID=" + PRIMAERSCHLUESSEL.getId().toString() + "}");
+		assertThat(sut).hasToString("Belastung{ID=" + PRIMAERSCHLUESSEL.getId().toString() + "}");
 	}
 
 	@Test
@@ -78,14 +78,14 @@ class BelastungsfaktorSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(null,
-				GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
-				null, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
-				GRUNDUEBUNG_BELASTUNG, null, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
-				GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(null, GRUNDUEBUNG_BELASTUNG,
+				OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, null,
+				OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG,
+				null, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG,
+				OBERKOERPER_BELASTUNG, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),

@@ -33,7 +33,7 @@ class UebungSollte
 			NAME,
 			Uebungsart.GRUNDUEBUNG,
 			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+			Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
 	}
 
 	@Test
@@ -45,14 +45,14 @@ class UebungSollte
 			.setName(NAME)
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
-			.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN);
+			.setBelastung(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
 			() -> assertThat(uebung.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
 			() -> assertThat(uebung.getName()).isEqualTo(NAME),
 			() -> assertThat(uebung.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
 			() -> assertThat(uebung.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
-			() -> assertThat(uebung.getBelastungsfaktor()).isEqualTo(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN));
+			() -> assertThat(uebung.getBelastung()).isEqualTo(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
@@ -60,8 +60,8 @@ class UebungSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Uebung.class)
-			.withPrefabValues(Belastungsfaktor.class, Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
-				Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Belastung.class, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN,
+				Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE)
 			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
 				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -100,21 +100,21 @@ class UebungSollte
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> new Uebung(null, NAME, Uebungsart.GRUNDUEBUNG,
-				Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)),
+				Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
 			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, null,
 				Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
-				Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)),
+				Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
 			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME, null,
-				Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)),
+				Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
 			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME,
-				Uebungsart.GRUNDUEBUNG, null, Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)),
+				Uebungsart.GRUNDUEBUNG, null, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
 			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME,
 				Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungskategorie(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setBelastungsfaktor(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.fuegeKraftwertHinzu(null)));
 	}
 }

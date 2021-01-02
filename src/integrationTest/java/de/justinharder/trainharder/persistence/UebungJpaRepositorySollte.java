@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.persistence;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Belastung;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
@@ -90,7 +90,7 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 			"Spoto Bankdrücken",
 			Uebungsart.GRUNDUEBUNG,
 			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
-			new Belastungsfaktor(
+			new Belastung(
 				new Primaerschluessel(),
 				new GrunduebungBelastung(0.0, 1.0, 0.0),
 				new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
@@ -113,7 +113,7 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 			() -> assertThat(ergebnis.getName()).isEqualTo(uebung.getName()),
 			() -> assertThat(ergebnis.getUebungsart()).isEqualTo(uebung.getUebungsart()),
 			() -> assertThat(ergebnis.getUebungskategorie()).isEqualTo(uebung.getUebungskategorie()),
-			() -> assertThat(ergebnis.getBelastungsfaktor()).isEqualTo(uebung.getBelastungsfaktor()));
+			() -> assertThat(ergebnis.getBelastung()).isEqualTo(uebung.getBelastung()));
 	}
 
 	@Test

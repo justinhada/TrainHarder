@@ -32,7 +32,7 @@ public class Uebung extends Entitaet
 	private Uebungskategorie uebungskategorie;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
 	@JoinColumn(name = "BelastungsfaktorID", nullable = false)
-	private Belastungsfaktor belastungsfaktor;
+	private Belastung belastung;
 	@Transient
 	@Setter(AccessLevel.NONE)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "uebung", cascade = CascadeType.ALL)
@@ -46,15 +46,15 @@ public class Uebung extends Entitaet
 		@NonNull String name,
 		@NonNull Uebungsart uebungsart,
 		@NonNull Uebungskategorie uebungskategorie,
-		@NonNull Belastungsfaktor belastungsfaktor)
+		@NonNull Belastung belastung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
 		this.uebungsart = uebungsart;
 		this.uebungskategorie = uebungskategorie;
-		this.belastungsfaktor = belastungsfaktor;
+		this.belastung = belastung;
 
-		belastungsfaktor.setUebung(this);
+		belastung.setUebung(this);
 	}
 
 	public Uebung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
@@ -81,9 +81,9 @@ public class Uebung extends Entitaet
 		return this;
 	}
 
-	public Uebung setBelastungsfaktor(@NonNull Belastungsfaktor belastungsfaktor)
+	public Uebung setBelastung(@NonNull Belastung belastung)
 	{
-		this.belastungsfaktor = belastungsfaktor;
+		this.belastung = belastung;
 		return this;
 	}
 

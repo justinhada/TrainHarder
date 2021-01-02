@@ -11,8 +11,8 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Table(name = "Belastungsfaktor")
-public class Belastungsfaktor extends Entitaet
+@Table(name = "Belastung")
+public class Belastung extends Entitaet
 {
 	private static final long serialVersionUID = 5251603922467033680L;
 
@@ -29,10 +29,10 @@ public class Belastungsfaktor extends Entitaet
 	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
 
-	public Belastungsfaktor()
+	public Belastung()
 	{}
 
-	public Belastungsfaktor(
+	public Belastung(
 		@NonNull Primaerschluessel primaerschluessel,
 		@NonNull GrunduebungBelastung grunduebungBelastung,
 		@NonNull OberkoerperBelastung oberkoerperBelastung,
@@ -44,31 +44,31 @@ public class Belastungsfaktor extends Entitaet
 		this.unterkoerperBelastung = unterkoerperBelastung;
 	}
 
-	public Belastungsfaktor setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
+	public Belastung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
 	{
 		this.primaerschluessel = primaerschluessel;
 		return this;
 	}
 
-	public Belastungsfaktor setGrunduebungBelastung(@NonNull GrunduebungBelastung grunduebungBelastung)
+	public Belastung setGrunduebungBelastung(@NonNull GrunduebungBelastung grunduebungBelastung)
 	{
 		this.grunduebungBelastung = grunduebungBelastung;
 		return this;
 	}
 
-	public Belastungsfaktor setOberkoerperBelastung(@NonNull OberkoerperBelastung oberkoerperBelastung)
+	public Belastung setOberkoerperBelastung(@NonNull OberkoerperBelastung oberkoerperBelastung)
 	{
 		this.oberkoerperBelastung = oberkoerperBelastung;
 		return this;
 	}
 
-	public Belastungsfaktor setUnterkoerperBelastung(@NonNull UnterkoerperBelastung unterkoerperBelastung)
+	public Belastung setUnterkoerperBelastung(@NonNull UnterkoerperBelastung unterkoerperBelastung)
 	{
 		this.unterkoerperBelastung = unterkoerperBelastung;
 		return this;
 	}
 
-	public Belastungsfaktor setUebung(@NonNull Uebung uebung)
+	public Belastung setUebung(@NonNull Uebung uebung)
 	{
 		this.uebung = uebung;
 		return this;

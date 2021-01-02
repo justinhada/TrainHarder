@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BelastungsfaktorDtoMapperSollte
+class BelastungDtoMapperSollte
 {
 	private BelastungsfaktorDtoMapper sut;
 
@@ -30,9 +30,9 @@ class BelastungsfaktorDtoMapperSollte
 			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE,
 			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
 		var belastungsfaktoren = List.of(
-			Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN);
+			Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN,
+			Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE,
+			Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
 
 		var ergebnis = sut.mappeAlle(belastungsfaktoren);
 

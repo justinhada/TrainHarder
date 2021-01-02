@@ -15,7 +15,7 @@ public class UebungDto extends Dto
 	private String name;
 	private String uebungsart;
 	private String uebungskategorie;
-	private BelastungsfaktorDto belastungsfaktor;
+	private BelastungDto belastungsfaktor;
 
 	public UebungDto()
 	{}
@@ -25,7 +25,7 @@ public class UebungDto extends Dto
 		@NonNull String name,
 		@NonNull String uebungsart,
 		@NonNull String uebungskategorie,
-		@NonNull BelastungsfaktorDto belastungsfaktor)
+		@NonNull BelastungDto belastungsfaktor)
 	{
 		super(primaerschluessel);
 		this.name = name;
@@ -59,7 +59,7 @@ public class UebungDto extends Dto
 		return this;
 	}
 
-	public UebungDto setBelastungsfaktor(@NonNull BelastungsfaktorDto belastungsfaktor)
+	public UebungDto setBelastungsfaktor(@NonNull BelastungDto belastungsfaktor)
 	{
 		this.belastungsfaktor = belastungsfaktor;
 		return this;

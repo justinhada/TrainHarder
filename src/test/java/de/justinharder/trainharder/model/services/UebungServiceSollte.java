@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.model.services;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Belastung;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
@@ -73,7 +73,7 @@ class UebungServiceSollte
 	}
 
 	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String belastungsfaktorId,
-		Optional<Belastungsfaktor> belastungsfaktor)
+		Optional<Belastung> belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(belastungsfaktorId)))
 			.thenReturn(belastungsfaktor);
@@ -226,7 +226,7 @@ class UebungServiceSollte
 	{
 		var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
 		var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
-		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE;
+		var belastungsfaktor = Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE;
 		var belastungsfaktorId = Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID.getId().toString();
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(belastungsfaktorId,
 			Optional.of(belastungsfaktor));

@@ -78,9 +78,9 @@ public class Testdaten
 	public static final Primaerschluessel BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
 	public static final Primaerschluessel BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID = new Primaerschluessel();
 
-	public static final Belastungsfaktor BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN = new Belastungsfaktor();
-	public static final Belastungsfaktor BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE = new Belastungsfaktor();
-	public static final Belastungsfaktor BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN = new Belastungsfaktor();
+	public static final Belastung BELASTUNG_WETTKAMPFBANKDRUECKEN = new Belastung();
+	public static final Belastung BELASTUNG_LOWBAR_KNIEBEUGE = new Belastung();
+	public static final Belastung BELASTUNG_KONVENTIONELLES_KREUZHEBEN = new Belastung();
 
 	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN =
 		new GrunduebungBelastungDto();
@@ -103,9 +103,9 @@ public class Testdaten
 	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN =
 		new UnterkoerperBelastungDto();
 
-	public static final BelastungsfaktorDto BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN = new BelastungsfaktorDto();
-	public static final BelastungsfaktorDto BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE = new BelastungsfaktorDto();
-	public static final BelastungsfaktorDto BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN = new BelastungsfaktorDto();
+	public static final BelastungDto BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN = new BelastungDto();
+	public static final BelastungDto BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE = new BelastungDto();
+	public static final BelastungDto BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN = new BelastungDto();
 
 	public static final Primaerschluessel UEBUNG_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel UEBUNG_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -299,7 +299,7 @@ public class Testdaten
 			.setQuads(0.0)
 			.setHamstrings(0.0);
 
-		BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN
+		BELASTUNG_WETTKAMPFBANKDRUECKEN
 			.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID)
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_WETTKAMPFBANKDRUECKEN)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_WETTKAMPFBANKDRUECKEN)
@@ -325,7 +325,7 @@ public class Testdaten
 			.setHamstrings("0.0");
 
 		BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
+			.setPrimaerschluessel(BELASTUNG_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel().getId().toString())
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN)
 			.setUnterkoerperBelastung(UNTERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN);
@@ -335,7 +335,7 @@ public class Testdaten
 			.setName("Wettkampfbankdrücken (pausiert)")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN)
+			.setBelastung(BELASTUNG_WETTKAMPFBANKDRUECKEN)
 			.fuegeKraftwertHinzu(KRAFTWERT_WETTKAMPFBANKDRUECKEN);
 
 		UEBUNG_DTO_WETTKAMPFBANKDRUECKEN
@@ -379,7 +379,7 @@ public class Testdaten
 			.setQuads(1.0)
 			.setHamstrings(0.5);
 
-		BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE
+		BELASTUNG_LOWBAR_KNIEBEUGE
 			.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID)
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_LOWBAR_KNIEBEUGE)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_LOWBAR_KNIEBEUGE)
@@ -405,7 +405,7 @@ public class Testdaten
 			.setHamstrings("0.5");
 
 		BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
+			.setPrimaerschluessel(BELASTUNG_LOWBAR_KNIEBEUGE.getPrimaerschluessel().getId().toString())
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_DTO_LOWBAR_KNIEBEUGE)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE)
 			.setUnterkoerperBelastung(UNTERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE);
@@ -415,7 +415,7 @@ public class Testdaten
 			.setName("Lowbar-Kniebeuge")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE)
+			.setBelastung(BELASTUNG_LOWBAR_KNIEBEUGE)
 			.fuegeKraftwertHinzu(KRAFTWERT_LOWBAR_KNIEBEUGE);
 
 		UEBUNG_DTO_LOWBAR_KNIEBEUGE
@@ -459,7 +459,7 @@ public class Testdaten
 			.setQuads(0.3)
 			.setHamstrings(0.5);
 
-		BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN
+		BELASTUNG_KONVENTIONELLES_KREUZHEBEN
 			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID)
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_KONVENTIONELLES_KREUZHEBEN)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_KONVENTIONELLES_KREUZHEBEN)
@@ -485,7 +485,7 @@ public class Testdaten
 			.setHamstrings("0.5");
 
 		BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN
-			.setPrimaerschluessel(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
+			.setPrimaerschluessel(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getPrimaerschluessel().getId().toString())
 			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN)
 			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN)
 			.setUnterkoerperBelastung(UNTERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
@@ -495,7 +495,7 @@ public class Testdaten
 			.setName("Konventionelles Kreuzheben")
 			.setUebungsart(Uebungsart.GRUNDUEBUNG)
 			.setUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN)
-			.setBelastungsfaktor(BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN)
+			.setBelastung(BELASTUNG_KONVENTIONELLES_KREUZHEBEN)
 			.fuegeKraftwertHinzu(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 
 		UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN

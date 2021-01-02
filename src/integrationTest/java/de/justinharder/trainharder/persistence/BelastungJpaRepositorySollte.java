@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.persistence;
 
-import de.justinharder.trainharder.model.domain.Belastungsfaktor;
+import de.justinharder.trainharder.model.domain.Belastung;
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
+class BelastungJpaRepositorySollte extends JpaRepositorySollte
 {
 	private BelastungsfaktorJpaRepository sut;
 
@@ -42,18 +42,18 @@ class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(
 			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID))
-				.hasValue(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN),
+				.hasValue(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN),
 			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID))
-				.hasValue(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE),
+				.hasValue(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE),
 			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID))
-				.hasValue(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN));
+				.hasValue(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
 	@DisplayName("Belastungsfaktor erstellen")
 	void test03()
 	{
-		var belastungsfaktor = new Belastungsfaktor(
+		var belastungsfaktor = new Belastung(
 			new Primaerschluessel(),
 			new GrunduebungBelastung(0.0, 1.0, 0.0),
 			new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
@@ -72,7 +72,7 @@ class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("Belastungsfaktor aktualisieren")
 	void test04()
 	{
-		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
+		var belastungsfaktor = Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN;
 		belastungsfaktor.getOberkoerperBelastung().setTriceps(0.9);
 
 		var ergebnis = sut.speichereBelastungsfaktor(belastungsfaktor);

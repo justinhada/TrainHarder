@@ -24,6 +24,6 @@ public class UebungDtoMapper implements DtoMapper<Uebung,UebungDto>
 			uebung.getName(),
 			uebung.getUebungsart().name(),
 			uebung.getUebungskategorie().name(),
-			belastungsfaktorDtoMapper.mappe(uebung.getBelastungsfaktor()));
+			belastungsfaktorDtoMapper.mappe(uebung.getBelastung()));
 	}
 }
