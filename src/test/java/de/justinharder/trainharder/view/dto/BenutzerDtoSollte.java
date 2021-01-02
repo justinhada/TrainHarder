@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.view.dto;
 
+import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -16,24 +17,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerDtoSollte
 {
+	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
+	private static final String VORNAME = "Justin";
+	private static final String NACHNAME = "Harder";
+	private static final LocalDate GEBURTSDATUM = LocalDate.of(1998, 12, 6);
+	private static final String KRAFTLEVEL = "CLASS_5";
+	private static final String GESCHLECHT = "MAENNLICH";
+	private static final String ERFAHRUNG = "FORTGESCHRITTEN";
+	private static final String ERNAEHRUNG = "GUT";
+	private static final String SCHLAFQUALITAET = "GUT";
+	private static final String STRESS = "MITTELMAESSIG";
+	private static final String DOPING = "NEIN";
+	private static final String REGENERATIONSFAEHIGKEIT = "GUT";
+
 	private BenutzerDto sut;
 
 	@BeforeEach
 	void setup()
 	{
 		sut = new BenutzerDto(
-			Testdaten.BENUTZER_JUSTIN_ID.getId().toString(),
-			"Justin",
-			"Harder",
-			LocalDate.of(1998, 12, 6),
-			"CLASS_5",
-			"MAENNLICH",
-			"FORTGESCHRITTEN",
-			"GUT",
-			"GUT",
-			"MITTELMAESSIG",
-			"NEIN",
-			"GUT",
+			PRIMAERSCHLUESSEL,
+			VORNAME,
+			NACHNAME,
+			GEBURTSDATUM,
+			KRAFTLEVEL,
+			GESCHLECHT,
+			ERFAHRUNG,
+			ERNAEHRUNG,
+			SCHLAFQUALITAET,
+			STRESS,
+			DOPING,
+			REGENERATIONSFAEHIGKEIT,
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
 			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 	}
@@ -43,30 +57,33 @@ class BenutzerDtoSollte
 	void test01()
 	{
 		sut = new BenutzerDto()
-			.setVorname("Justin")
-			.setNachname("Harder")
-			.setGeburtsdatum(LocalDate.of(1998, 12, 6))
-			.setKraftlevel("CLASS_5")
-			.setGeschlecht("MAENNLICH")
-			.setErfahrung("FORTGESCHRITTEN")
-			.setErnaehrung("GUT")
-			.setSchlafqualitaet("GUT")
-			.setStress("MITTELMAESSIG")
-			.setDoping("NEIN")
-			.setRegenerationsfaehigkeit("GUT");
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setVorname(VORNAME)
+			.setNachname(NACHNAME)
+			.setGeburtsdatum(GEBURTSDATUM)
+			.setKraftlevel(KRAFTLEVEL)
+			.setGeschlecht(GESCHLECHT)
+			.setErfahrung(ERFAHRUNG)
+			.setErnaehrung(ERNAEHRUNG)
+			.setSchlafqualitaet(SCHLAFQUALITAET)
+			.setStress(STRESS)
+			.setDoping(DOPING)
+			.setRegenerationsfaehigkeit(REGENERATIONSFAEHIGKEIT)
+			.setAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
 
 		assertAll(
-			() -> assertThat(sut.getVorname()).isEqualTo("Justin"),
-			() -> assertThat(sut.getNachname()).isEqualTo("Harder"),
-			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(LocalDate.of(1998, 12, 6)),
-			() -> assertThat(sut.getKraftlevel()).isEqualTo("CLASS_5"),
-			() -> assertThat(sut.getGeschlecht()).isEqualTo("MAENNLICH"),
-			() -> assertThat(sut.getErfahrung()).isEqualTo("FORTGESCHRITTEN"),
-			() -> assertThat(sut.getErnaehrung()).isEqualTo("GUT"),
-			() -> assertThat(sut.getSchlafqualitaet()).isEqualTo("GUT"),
-			() -> assertThat(sut.getStress()).isEqualTo("MITTELMAESSIG"),
-			() -> assertThat(sut.getDoping()).isEqualTo("NEIN"),
-			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo("GUT"));
+			() -> assertThat(sut.getVorname()).isEqualTo(VORNAME),
+			() -> assertThat(sut.getNachname()).isEqualTo(NACHNAME),
+			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(GEBURTSDATUM),
+			() -> assertThat(sut.getKraftlevel()).isEqualTo(KRAFTLEVEL),
+			() -> assertThat(sut.getGeschlecht()).isEqualTo(GESCHLECHT),
+			() -> assertThat(sut.getErfahrung()).isEqualTo(ERFAHRUNG),
+			() -> assertThat(sut.getErnaehrung()).isEqualTo(ERNAEHRUNG),
+			() -> assertThat(sut.getSchlafqualitaet()).isEqualTo(SCHLAFQUALITAET),
+			() -> assertThat(sut.getStress()).isEqualTo(STRESS),
+			() -> assertThat(sut.getDoping()).isEqualTo(DOPING),
+			() -> assertThat(sut.getRegenerationsfaehigkeit()).isEqualTo(REGENERATIONSFAEHIGKEIT),
+			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN));
 	}
 
 	@Test
@@ -85,7 +102,7 @@ class BenutzerDtoSollte
 	void test03()
 	{
 		assertThat(sut).hasToString(
-			"BenutzerDto(super=Dto(primaerschluessel=" + Testdaten.BENUTZER_JUSTIN_ID.getId().toString()
+			"BenutzerDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL
 				+ "), vorname=Justin, nachname=Harder, geburtsdatum=1998-12-06, kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=FORTGESCHRITTEN, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT, authentifizierung=AuthentifizierungDto(super=Dto(primaerschluessel="
 				+ Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString()
 				+ "), mail=mail@justinharder.de, benutzername=harder), koerpermessungen=[KoerpermessungDto(super=Dto(primaerschluessel="
@@ -97,66 +114,50 @@ class BenutzerDtoSollte
 	@DisplayName("null validieren (Konstruktor)")
 	void test04()
 	{
-		var datum = LocalDate.now();
-		var authentifizierungDto = new AuthentifizierungDto();
 		var koerpermessungDtos = List.of(new KoerpermessungDto());
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(null, "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", null,
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				null, datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", null, "kraftlevel", "geschlecht", "erfahrung",
-				"ernaehrung", "schlafqualitaet", "stress", "doping",
-				"regenerationsfaehigkeit", authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, null, "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", null, "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", null, "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", null,
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				null, "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", null, "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", null, "regenerationsfaehigkeit",
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", null,
-				authentifizierungDto, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				null, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto("primaerschluessel", "vorname",
-				"nachname", datum, "kraftlevel", "geschlecht", "erfahrung", "ernaehrung",
-				"schlafqualitaet", "stress", "doping", "regenerationsfaehigkeit",
-				authentifizierungDto, null)));
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(null, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, null, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, null,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				null, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, null, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, null, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, null, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, null, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, null, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, null, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, null,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				null, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, null, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, VORNAME, NACHNAME,
+				GEBURTSDATUM, KRAFTLEVEL, GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING,
+				REGENERATIONSFAEHIGKEIT, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, null)));
 	}
 
 	@Test

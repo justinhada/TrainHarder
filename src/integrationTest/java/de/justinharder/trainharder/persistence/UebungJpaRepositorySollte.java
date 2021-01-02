@@ -2,7 +2,10 @@ package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung;
+import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.UnterkoerperBelastung;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -89,18 +92,9 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
 			new Belastungsfaktor(
 				new Primaerschluessel(),
-				0.0,
-				1.0,
-				0.0,
-				1.0,
-				0.0,
-				0.0,
-				0.0,
-				0.0,
-				0.0,
-				0.1,
-				0.0,
-				0.7));
+				new GrunduebungBelastung(0.0, 1.0, 0.0),
+				new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
+				new UnterkoerperBelastung(0.0, 0.0, 0.0)));
 
 		assertThat(sut.speichereUebung(uebung)).isEqualTo(uebung);
 	}

@@ -13,88 +13,46 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BelastungsfaktorDtoSollte
 {
-	private BelastungsfaktorDto sut;
+	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
+	private static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO = new GrunduebungBelastungDto("1.0",
+		"0.0", "0.0");
+	private static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO = new OberkoerperBelastungDto("0.7",
+		"1.0", "0.0", "0.0", "0.0", "0.1");
+	private static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO = new UnterkoerperBelastungDto("1.0",
+		"1.0", "0.5");
 
-	private String primaerschluessel;
+	private BelastungsfaktorDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		primaerschluessel = new Primaerschluessel().getId().toString();
 		sut = new BelastungsfaktorDto(
-			primaerschluessel,
-			0.0,
-			1.0,
-			0.0,
-			0.7,
-			1.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.1);
-	}
-
-	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getBack()).isEqualTo(0.0),
-			() -> assertThat(sut.getBenchpress()).isEqualTo(1.0),
-			() -> assertThat(sut.getBiceps()).isEqualTo(0.0),
-			() -> assertThat(sut.getChest()).isEqualTo(1.0),
-			() -> assertThat(sut.getCore()).isEqualTo(0.0),
-			() -> assertThat(sut.getDeadlift()).isEqualTo(0.0),
-			() -> assertThat(sut.getGlutes()).isEqualTo(0.0),
-			() -> assertThat(sut.getHamstrings()).isEqualTo(0.0),
-			() -> assertThat(sut.getQuads()).isEqualTo(0.0),
-			() -> assertThat(sut.getShoulder()).isEqualTo(0.1),
-			() -> assertThat(sut.getSquat()).isEqualTo(0.0),
-			() -> assertThat(sut.getTriceps()).isEqualTo(0.7));
+			PRIMAERSCHLUESSEL,
+			GRUNDUEBUNG_BELASTUNG_DTO,
+			OBERKOERPER_BELASTUNG_DTO,
+			UNTERKOERPER_BELASTUNG_DTO);
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new BelastungsfaktorDto()
-			.setPrimaerschluessel(primaerschluessel)
-			.setBack(0.0)
-			.setBenchpress(1.0)
-			.setBiceps(0.0)
-			.setChest(1.0)
-			.setCore(0.0)
-			.setDeadlift(0.0)
-			.setGlutes(0.0)
-			.setHamstrings(0.0)
-			.setQuads(0.0)
-			.setShoulder(0.1)
-			.setSquat(0.0)
-			.setTriceps(0.7);
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG_DTO)
+			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG_DTO)
+			.setUnterkoerperBelastung(UNTERKOERPER_BELASTUNG_DTO);
 
 		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getBack()).isEqualTo(0.0),
-			() -> assertThat(sut.getBenchpress()).isEqualTo(1.0),
-			() -> assertThat(sut.getBiceps()).isEqualTo(0.0),
-			() -> assertThat(sut.getChest()).isEqualTo(1.0),
-			() -> assertThat(sut.getCore()).isEqualTo(0.0),
-			() -> assertThat(sut.getDeadlift()).isEqualTo(0.0),
-			() -> assertThat(sut.getGlutes()).isEqualTo(0.0),
-			() -> assertThat(sut.getHamstrings()).isEqualTo(0.0),
-			() -> assertThat(sut.getQuads()).isEqualTo(0.0),
-			() -> assertThat(sut.getShoulder()).isEqualTo(0.1),
-			() -> assertThat(sut.getSquat()).isEqualTo(0.0),
-			() -> assertThat(sut.getTriceps()).isEqualTo(0.7));
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(sut.getGrunduebungBelastung()).isEqualTo(GRUNDUEBUNG_BELASTUNG_DTO),
+			() -> assertThat(sut.getOberkoerperBelastung()).isEqualTo(OBERKOERPER_BELASTUNG_DTO),
+			() -> assertThat(sut.getUnterkoerperBelastung()).isEqualTo(UNTERKOERPER_BELASTUNG_DTO));
 	}
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test03()
+	void test02()
 	{
 		EqualsVerifier.forClass(BelastungsfaktorDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -105,21 +63,28 @@ class BelastungsfaktorDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test04()
+	void test03()
 	{
-		var erwartet = "BelastungsfaktorDto(super=Dto(primaerschluessel=" + primaerschluessel
-			+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("BelastungsfaktorDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL +
+			"), grunduebungBelastung=GrunduebungBelastungDto(squat=1.0, benchpress=0.0, deadlift=0.0), oberkoerperBelastung=OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1), unterkoerperBelastung=UnterkoerperBelastungDto(glutes=1.0, quads=1.0, hamstrings=0.5))");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test05()
+	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new BelastungsfaktorDto(null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)));
+			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(null,
+				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+				null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+				GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungsfaktorDto(PRIMAERSCHLUESSEL,
+				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUnterkoerperBelastung(null)));
 	}
 }

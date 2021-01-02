@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view.dto;
 
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,61 +14,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UebungDtoSollte
 {
-	private UebungDto sut;
+	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
+	private static final String NAME = "Wettkampfbankdrücken (pausiert)";
+	private static final String UEBUNGSART = "GRUNDUEBUNG";
+	private static final String UEBUNGSKATEGORIE = "WETTKAMPF_BANKDRUECKEN";
 
-	private String primaerschluessel;
-	private String belastungsfaktorPrimaerschluessel;
-	private BelastungsfaktorDto belastungsfaktor;
+	private UebungDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		primaerschluessel = new Primaerschluessel().getId().toString();
-		belastungsfaktorPrimaerschluessel = new Primaerschluessel().getId().toString();
-		belastungsfaktor = new BelastungsfaktorDto(belastungsfaktorPrimaerschluessel,
-			0.0, 1.0, 0.0, 0.7, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1);
 		sut = new UebungDto(
-			primaerschluessel,
-			"Wettkampfbankdrücken (pausiert)",
-			"Grundübung",
-			"Wettkampf Bankdrücken",
-			belastungsfaktor);
-	}
-
-	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
-			() -> assertThat(sut.getUebungsart()).isEqualTo("Grundübung"),
-			() -> assertThat(sut.getUebungskategorie()).isEqualTo("Wettkampf Bankdrücken"),
-			() -> assertThat(sut.getBelastungsfaktor()).isEqualTo(belastungsfaktor));
+			PRIMAERSCHLUESSEL,
+			NAME,
+			UEBUNGSART,
+			UEBUNGSKATEGORIE,
+			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new UebungDto()
-			.setPrimaerschluessel(primaerschluessel)
-			.setName("Wettkampfbankdrücken (pausiert)")
-			.setUebungsart("Grundübung")
-			.setUebungskategorie("Wettkampf Bankdrücken")
-			.setBelastungsfaktor(belastungsfaktor);
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
+			.setName(NAME)
+			.setUebungsart(UEBUNGSART)
+			.setUebungskategorie(UEBUNGSKATEGORIE)
+			.setBelastungsfaktor(Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getName()).isEqualTo("Wettkampfbankdrücken (pausiert)"),
-			() -> assertThat(sut.getUebungsart()).isEqualTo("Grundübung"),
-			() -> assertThat(sut.getUebungskategorie()).isEqualTo("Wettkampf Bankdrücken"),
-			() -> assertThat(sut.getBelastungsfaktor()).isEqualTo(belastungsfaktor));
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(sut.getName()).isEqualTo(NAME),
+			() -> assertThat(sut.getUebungsart()).isEqualTo(UEBUNGSART),
+			() -> assertThat(sut.getUebungskategorie()).isEqualTo(UEBUNGSKATEGORIE),
+			() -> assertThat(sut.getBelastungsfaktor())
+				.isEqualTo(Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test03()
+	void test02()
 	{
 		EqualsVerifier.forClass(UebungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -78,31 +65,29 @@ class UebungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test04()
+	void test03()
 	{
-		assertThat(sut).hasToString(
-			"UebungDto(super=Dto(primaerschluessel=" + primaerschluessel
-				+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=Grundübung, uebungskategorie=Wettkampf Bankdrücken, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="
-				+ belastungsfaktorPrimaerschluessel
-				+ "), squat=0.0, benchpress=1.0, deadlift=0.0, triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, glutes=0.0, quads=0.0, hamstrings=0.0, shoulder=0.1))");
+		assertThat(sut).hasToString("UebungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL
+			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=GRUNDUEBUNG, uebungskategorie=WETTKAMPF_BANKDRUECKEN, belastungsfaktor=BelastungsfaktorDto(super=Dto(primaerschluessel="
+			+ Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel()
+			+ "), grunduebungBelastung=GrunduebungBelastungDto(squat=0.0, benchpress=1.0, deadlift=0.0), oberkoerperBelastung=OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1), unterkoerperBelastung=UnterkoerperBelastungDto(glutes=0.0, quads=0.0, hamstrings=0.0)))");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test05()
+	void test04()
 	{
-		var belastungsfaktorDto = new BelastungsfaktorDto();
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(null, "name",
-				"uebungsart", "uebungskategorie", belastungsfaktorDto)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
-				null, "uebungsart", "uebungskategorie", belastungsfaktorDto)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
-				"name", null, "uebungskategorie", belastungsfaktorDto)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
-				"name", "uebungsart", null, belastungsfaktorDto)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto("primaerschluessel",
-				"name", "uebungsart", "uebungskategorie", null)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(null, NAME, UEBUNGSART,
+				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, null, UEBUNGSART,
+				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, null,
+				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART,
+				null, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART,
+				UEBUNGSKATEGORIE, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),

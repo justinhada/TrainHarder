@@ -169,21 +169,21 @@ public class BenutzerDto extends Dto
 		{
 			return false;
 		}
-		var that = (BenutzerDto) o;
-		return primaerschluessel.equals(that.primaerschluessel) &&
-			vorname.equals(that.vorname) &&
-			nachname.equals(that.nachname) &&
-			geburtsdatum.equals(that.geburtsdatum) &&
-			kraftlevel.equals(that.kraftlevel) &&
-			geschlecht.equals(that.geschlecht) &&
-			erfahrung.equals(that.erfahrung) &&
-			ernaehrung.equals(that.ernaehrung) &&
-			schlafqualitaet.equals(that.schlafqualitaet) &&
-			stress.equals(that.stress) &&
-			doping.equals(that.doping) &&
-			regenerationsfaehigkeit.equals(that.regenerationsfaehigkeit) &&
-			authentifizierung.equals(that.authentifizierung) &&
-			koerpermessungen.equals(that.koerpermessungen);
+		BenutzerDto that = (BenutzerDto) o;
+		return Objects.equals(primaerschluessel, that.primaerschluessel)
+			&& Objects.equals(vorname, that.vorname)
+			&& Objects.equals(nachname, that.nachname)
+			&& Objects.equals(geburtsdatum, that.geburtsdatum)
+			&& Objects.equals(kraftlevel, that.kraftlevel)
+			&& Objects.equals(geschlecht, that.geschlecht)
+			&& Objects.equals(erfahrung, that.erfahrung)
+			&& Objects.equals(ernaehrung, that.ernaehrung)
+			&& Objects.equals(schlafqualitaet, that.schlafqualitaet)
+			&& Objects.equals(stress, that.stress)
+			&& Objects.equals(doping, that.doping)
+			&& Objects.equals(regenerationsfaehigkeit, that.regenerationsfaehigkeit)
+			&& Objects.equals(authentifizierung, that.authentifizierung)
+			&& Objects.equals(koerpermessungen, that.koerpermessungen);
 	}
 
 	@Override

@@ -1,6 +1,9 @@
 package de.justinharder.trainharder.model.domain;
 
+import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung;
+import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.UnterkoerperBelastung;
 import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -15,51 +18,40 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BelastungsfaktorSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
+	private static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG = new GrunduebungBelastung(1.0, 0.0, 0.0);
+	private static final OberkoerperBelastung OBERKOERPER_BELASTUNG = new OberkoerperBelastung(0.7, 1.0, 0.0,
+		0.0, 0.0, 0.1);
+	private static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG = new UnterkoerperBelastung(1.0, 1.0, 0.5);
 
 	private Belastungsfaktor sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new Belastungsfaktor(PRIMAERSCHLUESSEL, 0, 1, 0, 0.7, 1, 0, 0, 0, 0, 0, 0, 0.1);
+		sut = new Belastungsfaktor(
+			PRIMAERSCHLUESSEL,
+			GRUNDUEBUNG_BELASTUNG,
+			OBERKOERPER_BELASTUNG,
+			UNTERKOERPER_BELASTUNG);
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
 	void test01()
 	{
-		var id = new Primaerschluessel();
-		var belastungsfaktor = new Belastungsfaktor()
+		sut = new Belastungsfaktor()
 			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
-			.setSquat(0)
-			.setBenchpress(1)
-			.setDeadlift(0)
-			.setTriceps(0.7)
-			.setChest(1)
-			.setCore(0)
-			.setBack(0)
-			.setBiceps(0)
-			.setGlutes(0)
-			.setQuads(0)
-			.setHamstrings(0)
-			.setShoulder(0.1)
+			.setGrunduebungBelastung(GRUNDUEBUNG_BELASTUNG)
+			.setOberkoerperBelastung(OBERKOERPER_BELASTUNG)
+			.setUnterkoerperBelastung(UNTERKOERPER_BELASTUNG)
 			.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(belastungsfaktor.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
-			() -> assertThat(belastungsfaktor.getSquat()).isZero(),
-			() -> assertThat(belastungsfaktor.getBenchpress()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getDeadlift()).isZero(),
-			() -> assertThat(belastungsfaktor.getTriceps()).isEqualTo(0.7),
-			() -> assertThat(belastungsfaktor.getChest()).isEqualTo(1),
-			() -> assertThat(belastungsfaktor.getCore()).isZero(),
-			() -> assertThat(belastungsfaktor.getBack()).isZero(),
-			() -> assertThat(belastungsfaktor.getBiceps()).isZero(),
-			() -> assertThat(belastungsfaktor.getGlutes()).isZero(),
-			() -> assertThat(belastungsfaktor.getQuads()).isZero(),
-			() -> assertThat(belastungsfaktor.getHamstrings()).isZero(),
-			() -> assertThat(belastungsfaktor.getShoulder()).isEqualTo(0.1),
-			() -> assertThat(belastungsfaktor.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
+			() -> assertThat(sut.getGrunduebungBelastung()).isEqualTo(GRUNDUEBUNG_BELASTUNG),
+			() -> assertThat(sut.getOberkoerperBelastung()).isEqualTo(OBERKOERPER_BELASTUNG),
+			() -> assertThat(sut.getUnterkoerperBelastung()).isEqualTo(UNTERKOERPER_BELASTUNG),
+			() -> assertThat(sut.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
@@ -78,7 +70,7 @@ class BelastungsfaktorSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Belastungsfaktor{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
+		assertThat(sut).hasToString("Belastungsfaktor{ID=" + PRIMAERSCHLUESSEL.getId().toString() + "}");
 	}
 
 	@Test
@@ -86,9 +78,18 @@ class BelastungsfaktorSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(null, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(null,
+				GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
+				null, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
+				GRUNDUEBUNG_BELASTUNG, null, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastungsfaktor(PRIMAERSCHLUESSEL,
+				GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setUnterkoerperBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebung(null)));
 	}
 }

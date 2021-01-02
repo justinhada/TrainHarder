@@ -2,6 +2,9 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.view.dto.BelastungsfaktorDto;
+import de.justinharder.trainharder.view.dto.GrunduebungBelastungDto;
+import de.justinharder.trainharder.view.dto.OberkoerperBelastungDto;
+import de.justinharder.trainharder.view.dto.UnterkoerperBelastungDto;
 import lombok.NonNull;
 
 public class BelastungsfaktorDtoMapper implements DtoMapper<Belastungsfaktor, BelastungsfaktorDto>
@@ -11,17 +14,20 @@ public class BelastungsfaktorDtoMapper implements DtoMapper<Belastungsfaktor, Be
 	{
 		return new BelastungsfaktorDto(
 			belastungsfaktor.getPrimaerschluessel().getId().toString(),
-			belastungsfaktor.getSquat(),
-			belastungsfaktor.getBenchpress(),
-			belastungsfaktor.getDeadlift(),
-			belastungsfaktor.getTriceps(),
-			belastungsfaktor.getChest(),
-			belastungsfaktor.getCore(),
-			belastungsfaktor.getBack(),
-			belastungsfaktor.getBiceps(),
-			belastungsfaktor.getGlutes(),
-			belastungsfaktor.getQuads(),
-			belastungsfaktor.getHamstrings(),
-			belastungsfaktor.getShoulder());
+			new GrunduebungBelastungDto(
+				String.valueOf(belastungsfaktor.getGrunduebungBelastung().getSquat()),
+				String.valueOf(belastungsfaktor.getGrunduebungBelastung().getBenchpress()),
+				String.valueOf(belastungsfaktor.getGrunduebungBelastung().getDeadlift())),
+			new OberkoerperBelastungDto(
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getTriceps()),
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getChest()),
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getCore()),
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getBack()),
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getBiceps()),
+				String.valueOf(belastungsfaktor.getOberkoerperBelastung().getShoulder())),
+			new UnterkoerperBelastungDto(
+				String.valueOf(belastungsfaktor.getUnterkoerperBelastung().getGlutes()),
+				String.valueOf(belastungsfaktor.getUnterkoerperBelastung().getQuads()),
+				String.valueOf(belastungsfaktor.getUnterkoerperBelastung().getHamstrings())));
 	}
 }

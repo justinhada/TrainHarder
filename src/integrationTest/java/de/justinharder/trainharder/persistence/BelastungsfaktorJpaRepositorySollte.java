@@ -2,7 +2,10 @@ package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.model.domain.Belastungsfaktor;
 import de.justinharder.trainharder.model.domain.Uebung;
+import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung;
+import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.model.domain.embeddables.UnterkoerperBelastung;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -52,23 +55,14 @@ class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	{
 		var belastungsfaktor = new Belastungsfaktor(
 			new Primaerschluessel(),
-			0.0,
-			1.0,
-			0.0,
-			1.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.1,
-			0.0,
-			0.7);
+			new GrunduebungBelastung(0.0, 1.0, 0.0),
+			new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
+			new UnterkoerperBelastung(0.0, 0.0, 0.0));
 		belastungsfaktor.setUebung(new Uebung(
 			new Primaerschluessel(),
 			"Spoto Bankdrücken",
 			Uebungsart.GRUNDUEBUNG,
-			Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
+			Uebungskategorie.BANKDRUECKEN_VARIATION,
 			belastungsfaktor));
 
 		assertThat(sut.speichereBelastungsfaktor(belastungsfaktor)).isEqualTo(belastungsfaktor);
@@ -79,24 +73,16 @@ class BelastungsfaktorJpaRepositorySollte extends JpaRepositorySollte
 	void test04()
 	{
 		var belastungsfaktor = Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN;
-		belastungsfaktor.setTriceps(0.9);
+		belastungsfaktor.getOberkoerperBelastung().setTriceps(0.9);
 
 		var ergebnis = sut.speichereBelastungsfaktor(belastungsfaktor);
 
 		assertAll(
 			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(belastungsfaktor.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getSquat()).isEqualTo(belastungsfaktor.getSquat()),
-			() -> assertThat(ergebnis.getBenchpress()).isEqualTo(belastungsfaktor.getBenchpress()),
-			() -> assertThat(ergebnis.getDeadlift()).isEqualTo(belastungsfaktor.getDeadlift()),
-			() -> assertThat(ergebnis.getTriceps()).isEqualTo(belastungsfaktor.getTriceps()),
-			() -> assertThat(ergebnis.getChest()).isEqualTo(belastungsfaktor.getChest()),
-			() -> assertThat(ergebnis.getCore()).isEqualTo(belastungsfaktor.getCore()),
-			() -> assertThat(ergebnis.getBack()).isEqualTo(belastungsfaktor.getBack()),
-			() -> assertThat(ergebnis.getBiceps()).isEqualTo(belastungsfaktor.getBiceps()),
-			() -> assertThat(ergebnis.getGlutes()).isEqualTo(belastungsfaktor.getGlutes()),
-			() -> assertThat(ergebnis.getQuads()).isEqualTo(belastungsfaktor.getQuads()),
-			() -> assertThat(ergebnis.getHamstrings()).isEqualTo(belastungsfaktor.getHamstrings()),
-			() -> assertThat(ergebnis.getShoulder()).isEqualTo(belastungsfaktor.getShoulder()));
+			() -> assertThat(ergebnis.getGrunduebungBelastung()).isEqualTo(belastungsfaktor.getGrunduebungBelastung()),
+			() -> assertThat(ergebnis.getOberkoerperBelastung()).isEqualTo(belastungsfaktor.getOberkoerperBelastung()),
+			() -> assertThat(ergebnis.getUnterkoerperBelastung()).isEqualTo(belastungsfaktor.getUnterkoerperBelastung()),
+			() -> assertThat(ergebnis.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
