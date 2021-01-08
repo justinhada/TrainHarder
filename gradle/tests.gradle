@@ -8,6 +8,10 @@ dependencies {
             "com.google.code.bean-matchers:bean-matchers:0.12"
 }
 
+configurations {
+    testAnnotationProcessor.extendsFrom annotationProcessor
+}
+
 test {
     testLogging {
         exceptionFormat = 'full'

@@ -3,10 +3,9 @@ package de.justinharder.trainharder.persistence;
 import de.justinharder.trainharder.setup.TestdatenAnleger;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -16,12 +15,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.HashMap;
 
+@Slf4j
 @Testcontainers
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 abstract class JpaRepositorySollte
 {
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
-	private static final Logger LOGGER = LoggerFactory.getLogger(JpaRepositorySollte.class);
 
 	@Container
 	private static final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
@@ -79,7 +78,7 @@ abstract class JpaRepositorySollte
 
 		var transaction = entityManager.getTransaction();
 		transaction.begin();
-		new TestdatenAnleger().speichereTestdaten(entityManager, LOGGER::info);
+		new TestdatenAnleger().speichereTestdaten(entityManager, log::info);
 		transaction.commit();
 	}
 }

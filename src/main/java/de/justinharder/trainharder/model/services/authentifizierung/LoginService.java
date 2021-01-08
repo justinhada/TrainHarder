@@ -14,18 +14,17 @@ import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import lombok.NonNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 
+@Slf4j
 public class LoginService
 {
 	private static final String LOGIN_EXCEPTION = "Der Benutzername oder das Passwort ist leider falsch!";
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 
 	private final AuthentifizierungRepository authentifizierungRepository;
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
@@ -80,7 +79,7 @@ public class LoginService
 				+ "das TrainHarder-Team")
 			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
 
-		LOGGER.info("{}", mail1);
+		log.info("{}", mail1);
 		//	mailServer.sendeMail(mail1,StandardCharsets.UTF_8);
 	}
 

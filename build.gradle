@@ -31,7 +31,6 @@ dependencies {
             "javax.mvc:javax.mvc-api:1.0.0",
             "org.mvc-spec.ozark:ozark-core:1.0.0-m04",
             "org.mvc-spec.ozark:ozark-resteasy:1.0.0-m04",
-            "org.projectlombok:lombok:1.18.12",
             "javax.mail:javax.mail-api:1.6.2",
             "nl.jqno.equalsverifier:equalsverifier:3.4.3"
 

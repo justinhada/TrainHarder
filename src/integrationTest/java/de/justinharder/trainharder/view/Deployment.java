@@ -2,11 +2,10 @@ package de.justinharder.trainharder.view;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.ClassRule;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MariaDBContainer;
@@ -24,6 +23,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+@Slf4j
 @Testcontainers
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 abstract class Deployment
@@ -32,11 +32,10 @@ abstract class Deployment
 	private static final Network NETZWERK = Network.newNetwork();
 
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
-	private static final Logger LOGGER = LoggerFactory.getLogger(Deployment.class);
 
 	@Container
 	private static final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
-		.withLogConsumer(new Slf4jLogConsumer(LOGGER))
+		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("mariadbhost")
 		.withExposedPorts(3306)
@@ -50,7 +49,7 @@ abstract class Deployment
 			.withFileFromPath("build/libs/TrainHarder-0.0.2.war", Paths.get("build/libs/TrainHarder-0.0.2.war"))
 			.withFileFromPath("config/wildfly", Paths.get("config/wildfly"))
 			.withFileFromPath("Dockerfile", Paths.get("Dockerfile")))
-		.withLogConsumer(new Slf4jLogConsumer(LOGGER))
+		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("webapp")
 		.waitingFor(Wait.forHttp("/"))
@@ -59,7 +58,7 @@ abstract class Deployment
 	@Container
 	private final BrowserWebDriverContainer<?> chromeContainer = new BrowserWebDriverContainer<>(
 		DockerImageName.parse("selenium/standalone-chrome-debug"))
-		.withLogConsumer(new Slf4jLogConsumer(LOGGER))
+		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withSharedMemorySize(21474836L)
 		.withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_FAILING, new File("./build"))
