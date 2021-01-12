@@ -102,6 +102,8 @@ class BenutzerDtoSollte
 			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
 				GEBURTSDATUM, null, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
 			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
+				GEBURTSDATUM, BENUTZERANGABE_DTO, null, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
 				GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
