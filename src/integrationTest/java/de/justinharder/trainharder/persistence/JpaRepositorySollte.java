@@ -23,7 +23,7 @@ abstract class JpaRepositorySollte
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
 	@Container
-	private static final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
+	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
 		.withExposedPorts(3306)
 		.withDatabaseName("trainharderTest")
 		.withUsername("powerlifter")
@@ -51,10 +51,10 @@ abstract class JpaRepositorySollte
 		}
 
 		var props = new HashMap<String, Object>();
-		props.put("javax.persistence.jdbc.url", mariaDBContainer.getJdbcUrl());
-		props.put("javax.persistence.jdbc.driver", mariaDBContainer.getDriverClassName());
-		props.put("javax.persistence.jdbc.user", mariaDBContainer.getUsername());
-		props.put("javax.persistence.jdbc.password", mariaDBContainer.getPassword());
+		props.put("javax.persistence.jdbc.url", MARIA_DB_CONTAINER.getJdbcUrl());
+		props.put("javax.persistence.jdbc.driver", MARIA_DB_CONTAINER.getDriverClassName());
+		props.put("javax.persistence.jdbc.user", MARIA_DB_CONTAINER.getUsername());
+		props.put("javax.persistence.jdbc.password", MARIA_DB_CONTAINER.getPassword());
 		props.put("javax.persistence.schema-generation.database.action", "drop-and-create");
 		props.put("hibernate.show_sql", "true");
 

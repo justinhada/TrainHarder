@@ -34,7 +34,7 @@ abstract class Deployment
 	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
 	@Container
-	private static final MariaDBContainer<?> mariaDBContainer = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
+	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
 		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("mariadbhost")
@@ -44,7 +44,7 @@ abstract class Deployment
 		.withPassword("passwort");
 
 	@Container
-	private static final GenericContainer<?> wildflyContainer = new GenericContainer<>(
+	private static final GenericContainer<?> WILDFLY_CONTAINER = new GenericContainer<>(
 		new ImageFromDockerfile()
 			.withFileFromPath("build/libs/TrainHarder-0.0.2.war", Paths.get("build/libs/TrainHarder-0.0.2.war"))
 			.withFileFromPath("config/wildfly", Paths.get("config/wildfly"))
@@ -53,7 +53,7 @@ abstract class Deployment
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("webapp")
 		.waitingFor(Wait.forHttp("/"))
-		.dependsOn(mariaDBContainer);
+		.dependsOn(MARIA_DB_CONTAINER);
 
 	@Container
 	private final BrowserWebDriverContainer<?> chromeContainer = new BrowserWebDriverContainer<>(
@@ -63,16 +63,11 @@ abstract class Deployment
 		.withSharedMemorySize(21474836L)
 		.withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_FAILING, new File("./build"))
 		.withCapabilities(new ChromeOptions())
-		.dependsOn(wildflyContainer);
+		.dependsOn(WILDFLY_CONTAINER);
 
 	protected void navigiere(String endpunkt)
 	{
-		var url = String.format("http://%s:%s/%s/%s",
-			"webapp",
-			"8080",
-			"TrainHarder",
-			endpunkt);
-		webseite().navigate().to(url);
+		webseite().navigate().to(String.format("http://%s:%s/%s/%s", "webapp", "8080", "TrainHarder", endpunkt));
 	}
 
 	protected RemoteWebDriver webseite()
@@ -90,10 +85,10 @@ abstract class Deployment
 		}
 
 		var props = new HashMap<String, Object>();
-		props.put("javax.persistence.jdbc.url", mariaDBContainer.getJdbcUrl());
-		props.put("javax.persistence.jdbc.driver", mariaDBContainer.getDriverClassName());
-		props.put("javax.persistence.jdbc.user", mariaDBContainer.getUsername());
-		props.put("javax.persistence.jdbc.password", mariaDBContainer.getPassword());
+		props.put("javax.persistence.jdbc.url", MARIA_DB_CONTAINER.getJdbcUrl());
+		props.put("javax.persistence.jdbc.driver", MARIA_DB_CONTAINER.getDriverClassName());
+		props.put("javax.persistence.jdbc.user", MARIA_DB_CONTAINER.getUsername());
+		props.put("javax.persistence.jdbc.password", MARIA_DB_CONTAINER.getPassword());
 		props.put("javax.persistence.schema-generation.database.action", "drop-and-create");
 		props.put("hibernate.show_sql", "true");
 
