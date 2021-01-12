@@ -11,6 +11,7 @@ import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import de.justinharder.trainharder.view.dto.NameDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -267,8 +268,7 @@ class BenutzerServiceSollte
 		var id = benutzer.getPrimaerschluessel().getId().toString();
 		var erwartet = new BenutzerDto(
 			id,
-			"Justin",
-			"Harder",
+			new NameDto("Justin", "Harder"),
 			LocalDate.of(1998, 12, 6),
 			"CLASS_5",
 			"MAENNLICH",

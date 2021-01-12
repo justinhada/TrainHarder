@@ -233,8 +233,7 @@ public class Testdaten
 
 		BENUTZER_DTO_JUSTIN
 			.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString())
-			.setVorname(BENUTZER_JUSTIN.getName().getVorname())
-			.setNachname(BENUTZER_JUSTIN.getName().getNachname())
+			.setName(new NameDto(BENUTZER_JUSTIN.getName().getVorname(), BENUTZER_JUSTIN.getName().getNachname()))
 			.setGeburtsdatum(BENUTZER_JUSTIN.getGeburtsdatum())
 			.setKraftlevel(BENUTZER_JUSTIN.getBenutzerangabe().getKraftlevel().name())
 			.setGeschlecht(BENUTZER_JUSTIN.getBenutzerangabe().getGeschlecht().name())
@@ -267,8 +266,7 @@ public class Testdaten
 
 		BENUTZER_DTO_EDUARD
 			.setPrimaerschluessel(BENUTZER_EDUARD.getPrimaerschluessel().getId().toString())
-			.setVorname(BENUTZER_EDUARD.getName().getVorname())
-			.setNachname(BENUTZER_EDUARD.getName().getNachname())
+			.setName(new NameDto(BENUTZER_EDUARD.getName().getVorname(), BENUTZER_EDUARD.getName().getNachname()))
 			.setGeburtsdatum(BENUTZER_EDUARD.getGeburtsdatum())
 			.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name())
 			.setGeschlecht(BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name())

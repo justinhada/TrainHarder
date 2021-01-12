@@ -15,8 +15,7 @@ public class BenutzerDto extends EntitaetDto
 {
 	private static final long serialVersionUID = 2341943957236551490L;
 
-	private String vorname;
-	private String nachname;
+	private NameDto name;
 	private LocalDate geburtsdatum;
 	private String kraftlevel;
 	private String geschlecht;
@@ -35,8 +34,7 @@ public class BenutzerDto extends EntitaetDto
 
 	public BenutzerDto(
 		@NonNull String primaerschluessel,
-		@NonNull String vorname,
-		@NonNull String nachname,
+		@NonNull NameDto name,
 		@NonNull LocalDate geburtsdatum,
 		@NonNull String kraftlevel,
 		@NonNull String geschlecht,
@@ -50,8 +48,7 @@ public class BenutzerDto extends EntitaetDto
 		@NonNull List<KoerpermessungDto> koerpermessungen)
 	{
 		super(primaerschluessel);
-		this.vorname = vorname;
-		this.nachname = nachname;
+		this.name = name;
 		this.geburtsdatum = geburtsdatum;
 		this.kraftlevel = kraftlevel;
 		this.geschlecht = geschlecht;
@@ -72,15 +69,9 @@ public class BenutzerDto extends EntitaetDto
 		return this;
 	}
 
-	public BenutzerDto setVorname(@NonNull String vorname)
+	public BenutzerDto setName(@NonNull NameDto name)
 	{
-		this.vorname = vorname;
-		return this;
-	}
-
-	public BenutzerDto setNachname(@NonNull String nachname)
-	{
-		this.nachname = nachname;
+		this.name = name;
 		return this;
 	}
 
@@ -169,10 +160,9 @@ public class BenutzerDto extends EntitaetDto
 		{
 			return false;
 		}
-		BenutzerDto that = (BenutzerDto) o;
+		var that = (BenutzerDto) o;
 		return Objects.equals(primaerschluessel, that.primaerschluessel)
-			&& Objects.equals(vorname, that.vorname)
-			&& Objects.equals(nachname, that.nachname)
+			&& Objects.equals(name, that.name)
 			&& Objects.equals(geburtsdatum, that.geburtsdatum)
 			&& Objects.equals(kraftlevel, that.kraftlevel)
 			&& Objects.equals(geschlecht, that.geschlecht)
@@ -189,7 +179,7 @@ public class BenutzerDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, vorname, nachname, geburtsdatum, kraftlevel, geschlecht, erfahrung,
-			ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit, authentifizierung, koerpermessungen);
+		return Objects.hash(primaerschluessel, name, geburtsdatum, kraftlevel, geschlecht, erfahrung, ernaehrung,
+			schlafqualitaet, stress, doping, regenerationsfaehigkeit, authentifizierung, koerpermessungen);
 	}
 }

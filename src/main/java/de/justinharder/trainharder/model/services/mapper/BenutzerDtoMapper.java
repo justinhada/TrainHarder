@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.NameDto;
 import lombok.NonNull;
 
 import javax.inject.Inject;
@@ -25,8 +26,7 @@ public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 	{
 		return new BenutzerDto(
 			benutzer.getPrimaerschluessel().getId().toString(),
-			benutzer.getName().getVorname(),
-			benutzer.getName().getNachname(),
+			new NameDto(benutzer.getName().getVorname(), benutzer.getName().getNachname()),
 			benutzer.getGeburtsdatum(),
 			benutzer.getBenutzerangabe().getKraftlevel().name(),
 			benutzer.getBenutzerangabe().getGeschlecht().name(),
