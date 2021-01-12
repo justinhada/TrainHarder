@@ -1,13 +1,13 @@
 package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
-import de.justinharder.trainharder.view.dto.Dto;
+import de.justinharder.trainharder.view.dto.EntitaetDto;
 import lombok.NonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface DtoMapper<T extends Entitaet, U extends Dto>
+public interface DtoMapper<T extends Entitaet, U extends EntitaetDto>
 {
 	default List<U> mappeAlle(@NonNull List<T> entitaeten)
 	{

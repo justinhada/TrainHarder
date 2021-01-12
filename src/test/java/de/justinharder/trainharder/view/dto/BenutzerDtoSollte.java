@@ -102,10 +102,10 @@ class BenutzerDtoSollte
 	void test03()
 	{
 		assertThat(sut).hasToString(
-			"BenutzerDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL
-				+ "), vorname=Justin, nachname=Harder, geburtsdatum=1998-12-06, kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=FORTGESCHRITTEN, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT, authentifizierung=AuthentifizierungDto(super=Dto(primaerschluessel="
+			"BenutzerDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL
+				+ "), vorname=Justin, nachname=Harder, geburtsdatum=1998-12-06, kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=FORTGESCHRITTEN, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT, authentifizierung=AuthentifizierungDto(super=EntitaetDto(primaerschluessel="
 				+ Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString()
-				+ "), mail=mail@justinharder.de, benutzername=harder), koerpermessungen=[KoerpermessungDto(super=Dto(primaerschluessel="
+				+ "), mail=mail@justinharder.de, benutzername=harder), koerpermessungen=[KoerpermessungDto(super=EntitaetDto(primaerschluessel="
 				+ Testdaten.KOERPERMESSUNG_JUSTIN_ID.getId().toString()
 				+ "), datum=29.07.2020, koerpermasse=KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=25.0, fettfreiesKoerpergewicht=67.50, bodyMassIndex=28.4, fatFreeMassIndex=21.4), kalorieneinnahme=2500, kalorienverbrauch=2900)])");
 	}

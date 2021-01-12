@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @ToString(callSuper = true)
-public class BelastungDto extends Dto
+public class BelastungDto extends EntitaetDto
 {
 	private static final long serialVersionUID = -2050880743329267381L;
 

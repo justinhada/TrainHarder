@@ -67,8 +67,8 @@ class UebungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("UebungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL
-			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=GRUNDUEBUNG, uebungskategorie=WETTKAMPF_BANKDRUECKEN, belastungsfaktor=BelastungDto(super=Dto(primaerschluessel="
+		assertThat(sut).hasToString("UebungDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL
+			+ "), name=Wettkampfbankdrücken (pausiert), uebungsart=GRUNDUEBUNG, uebungskategorie=WETTKAMPF_BANKDRUECKEN, belastungsfaktor=BelastungDto(super=EntitaetDto(primaerschluessel="
 			+ Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN.getPrimaerschluessel()
 			+ "), grunduebungBelastung=GrunduebungBelastungDto(squat=0.0, benchpress=1.0, deadlift=0.0), oberkoerperBelastung=OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1), unterkoerperBelastung=UnterkoerperBelastungDto(glutes=0.0, quads=0.0, hamstrings=0.0)))");
 	}

@@ -65,7 +65,7 @@ class BelastungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("BelastungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL +
+		assertThat(sut).hasToString("BelastungDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL +
 			"), grunduebungBelastung=GrunduebungBelastungDto(squat=1.0, benchpress=0.0, deadlift=0.0), oberkoerperBelastung=OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1), unterkoerperBelastung=UnterkoerperBelastungDto(glutes=1.0, quads=1.0, hamstrings=0.5))");
 	}
 

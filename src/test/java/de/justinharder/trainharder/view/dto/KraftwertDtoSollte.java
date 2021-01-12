@@ -62,7 +62,7 @@ class KraftwertDtoSollte
 	void test04()
 	{
 		assertThat(sut).hasToString(
-			"KraftwertDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), gewicht=100.00, koerpergewicht=75.00, datum=22.08.2020, wiederholungen=1RM)");
+			"KraftwertDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), gewicht=100.00, koerpergewicht=75.00, datum=22.08.2020, wiederholungen=1RM)");
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Getter
 @ToString(callSuper = true)
-public class KoerpermessungDto extends Dto
+public class KoerpermessungDto extends EntitaetDto
 {
 	private static final long serialVersionUID = 46915464001880978L;
 

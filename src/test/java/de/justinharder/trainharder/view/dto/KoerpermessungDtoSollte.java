@@ -66,7 +66,7 @@ class KoerpermessungDtoSollte
 	void test03()
 	{
 		assertThat(sut).hasToString(
-			"KoerpermessungDto(super=Dto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), datum=29.07.2020, koerpermasse=KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=20.0, fettfreiesKoerpergewicht=72.00, bodyMassIndex=28.4, fatFreeMassIndex=22.8), kalorieneinnahme=2500, kalorienverbrauch=2800)");
+			"KoerpermessungDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), datum=29.07.2020, koerpermasse=KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=20.0, fettfreiesKoerpergewicht=72.00, bodyMassIndex=28.4, fatFreeMassIndex=22.8), kalorieneinnahme=2500, kalorienverbrauch=2800)");
 	}
 
 	@Test

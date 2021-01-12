@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @ToString(callSuper = true)
-public class BenutzerDto extends Dto
+public class BenutzerDto extends EntitaetDto
 {
 	private static final long serialVersionUID = 2341943957236551490L;
 
