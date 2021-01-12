@@ -10,6 +10,7 @@ import de.justinharder.trainharder.model.repository.BenutzerRepository;
 import de.justinharder.trainharder.model.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.BenutzerangabeDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
 import de.justinharder.trainharder.view.dto.NameDto;
 import org.junit.jupiter.api.AfterEach;
@@ -270,14 +271,8 @@ class BenutzerServiceSollte
 			id,
 			new NameDto("Justin", "Harder"),
 			LocalDate.of(1998, 12, 6),
-			"CLASS_5",
-			"MAENNLICH",
-			"FORTGESCHRITTEN",
-			"GUT",
-			"GUT",
-			"MITTELMAESSIG",
-			"NEIN",
-			"GUT",
+			new BenutzerangabeDto("MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT")
+				.setKraftlevel("CLASS_5"),
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
 			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 		var benutzerdaten = new Benutzerdaten(

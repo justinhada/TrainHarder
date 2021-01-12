@@ -2,6 +2,7 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import de.justinharder.trainharder.view.dto.BenutzerangabeDto;
 import de.justinharder.trainharder.view.dto.NameDto;
 import lombok.NonNull;
 
@@ -28,14 +29,15 @@ public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 			benutzer.getPrimaerschluessel().getId().toString(),
 			new NameDto(benutzer.getName().getVorname(), benutzer.getName().getNachname()),
 			benutzer.getGeburtsdatum(),
-			benutzer.getBenutzerangabe().getKraftlevel().name(),
-			benutzer.getBenutzerangabe().getGeschlecht().name(),
-			benutzer.getBenutzerangabe().getErfahrung().name(),
-			benutzer.getBenutzerangabe().getErnaehrung().name(),
-			benutzer.getBenutzerangabe().getSchlafqualitaet().name(),
-			benutzer.getBenutzerangabe().getStress().name(),
-			benutzer.getBenutzerangabe().getDoping().name(),
-			benutzer.getBenutzerangabe().getRegenerationsfaehigkeit().name(),
+			new BenutzerangabeDto(
+				benutzer.getBenutzerangabe().getGeschlecht().name(),
+				benutzer.getBenutzerangabe().getErfahrung().name(),
+				benutzer.getBenutzerangabe().getErnaehrung().name(),
+				benutzer.getBenutzerangabe().getSchlafqualitaet().name(),
+				benutzer.getBenutzerangabe().getStress().name(),
+				benutzer.getBenutzerangabe().getDoping().name(),
+				benutzer.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+				.setKraftlevel(benutzer.getBenutzerangabe().getKraftlevel().name()),
 			authentifizierungDtoMapper.mappe(benutzer.getAuthentifizierung()),
 			koerpermessungDtoMapper.mappeAlle(benutzer.getKoerpermessungen()));
 	}

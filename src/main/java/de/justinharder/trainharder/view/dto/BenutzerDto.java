@@ -17,14 +17,7 @@ public class BenutzerDto extends EntitaetDto
 
 	private NameDto name;
 	private LocalDate geburtsdatum;
-	private String kraftlevel;
-	private String geschlecht;
-	private String erfahrung;
-	private String ernaehrung;
-	private String schlafqualitaet;
-	private String stress;
-	private String doping;
-	private String regenerationsfaehigkeit;
+	private BenutzerangabeDto benutzerangabe;
 	private AuthentifizierungDto authentifizierung;
 	@Setter(value = AccessLevel.NONE)
 	private List<KoerpermessungDto> koerpermessungen = new ArrayList<>();
@@ -36,28 +29,14 @@ public class BenutzerDto extends EntitaetDto
 		@NonNull String primaerschluessel,
 		@NonNull NameDto name,
 		@NonNull LocalDate geburtsdatum,
-		@NonNull String kraftlevel,
-		@NonNull String geschlecht,
-		@NonNull String erfahrung,
-		@NonNull String ernaehrung,
-		@NonNull String schlafqualitaet,
-		@NonNull String stress,
-		@NonNull String doping,
-		@NonNull String regenerationsfaehigkeit,
+		@NonNull BenutzerangabeDto benutzerangabe,
 		@NonNull AuthentifizierungDto authentifizierung,
 		@NonNull List<KoerpermessungDto> koerpermessungen)
 	{
 		super(primaerschluessel);
 		this.name = name;
 		this.geburtsdatum = geburtsdatum;
-		this.kraftlevel = kraftlevel;
-		this.geschlecht = geschlecht;
-		this.erfahrung = erfahrung;
-		this.ernaehrung = ernaehrung;
-		this.schlafqualitaet = schlafqualitaet;
-		this.stress = stress;
-		this.doping = doping;
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.benutzerangabe = benutzerangabe;
 		this.authentifizierung = authentifizierung;
 		this.koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
 	}
@@ -81,51 +60,9 @@ public class BenutzerDto extends EntitaetDto
 		return this;
 	}
 
-	public BenutzerDto setKraftlevel(@NonNull String kraftlevel)
+	public BenutzerDto setBenutzerangabe(@NonNull BenutzerangabeDto benutzerangabe)
 	{
-		this.kraftlevel = kraftlevel;
-		return this;
-	}
-
-	public BenutzerDto setGeschlecht(@NonNull String geschlecht)
-	{
-		this.geschlecht = geschlecht;
-		return this;
-	}
-
-	public BenutzerDto setErfahrung(@NonNull String erfahrung)
-	{
-		this.erfahrung = erfahrung;
-		return this;
-	}
-
-	public BenutzerDto setErnaehrung(@NonNull String ernaehrung)
-	{
-		this.ernaehrung = ernaehrung;
-		return this;
-	}
-
-	public BenutzerDto setSchlafqualitaet(@NonNull String schlafqualitaet)
-	{
-		this.schlafqualitaet = schlafqualitaet;
-		return this;
-	}
-
-	public BenutzerDto setStress(@NonNull String stress)
-	{
-		this.stress = stress;
-		return this;
-	}
-
-	public BenutzerDto setDoping(@NonNull String doping)
-	{
-		this.doping = doping;
-		return this;
-	}
-
-	public BenutzerDto setRegenerationsfaehigkeit(@NonNull String regenerationsfaehigkeit)
-	{
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
+		this.benutzerangabe = benutzerangabe;
 		return this;
 	}
 
@@ -164,14 +101,7 @@ public class BenutzerDto extends EntitaetDto
 		return Objects.equals(primaerschluessel, that.primaerschluessel)
 			&& Objects.equals(name, that.name)
 			&& Objects.equals(geburtsdatum, that.geburtsdatum)
-			&& Objects.equals(kraftlevel, that.kraftlevel)
-			&& Objects.equals(geschlecht, that.geschlecht)
-			&& Objects.equals(erfahrung, that.erfahrung)
-			&& Objects.equals(ernaehrung, that.ernaehrung)
-			&& Objects.equals(schlafqualitaet, that.schlafqualitaet)
-			&& Objects.equals(stress, that.stress)
-			&& Objects.equals(doping, that.doping)
-			&& Objects.equals(regenerationsfaehigkeit, that.regenerationsfaehigkeit)
+			&& Objects.equals(benutzerangabe, that.benutzerangabe)
 			&& Objects.equals(authentifizierung, that.authentifizierung)
 			&& Objects.equals(koerpermessungen, that.koerpermessungen);
 	}
@@ -179,7 +109,6 @@ public class BenutzerDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, name, geburtsdatum, kraftlevel, geschlecht, erfahrung, ernaehrung,
-			schlafqualitaet, stress, doping, regenerationsfaehigkeit, authentifizierung, koerpermessungen);
+		return Objects.hash(primaerschluessel, name, geburtsdatum, benutzerangabe, authentifizierung, koerpermessungen);
 	}
 }

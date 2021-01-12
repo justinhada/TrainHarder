@@ -235,14 +235,15 @@ public class Testdaten
 			.setPrimaerschluessel(BENUTZER_JUSTIN.getPrimaerschluessel().getId().toString())
 			.setName(new NameDto(BENUTZER_JUSTIN.getName().getVorname(), BENUTZER_JUSTIN.getName().getNachname()))
 			.setGeburtsdatum(BENUTZER_JUSTIN.getGeburtsdatum())
-			.setKraftlevel(BENUTZER_JUSTIN.getBenutzerangabe().getKraftlevel().name())
-			.setGeschlecht(BENUTZER_JUSTIN.getBenutzerangabe().getGeschlecht().name())
-			.setErfahrung(BENUTZER_JUSTIN.getBenutzerangabe().getErfahrung().name())
-			.setErnaehrung(BENUTZER_JUSTIN.getBenutzerangabe().getErnaehrung().name())
-			.setSchlafqualitaet(BENUTZER_JUSTIN.getBenutzerangabe().getSchlafqualitaet().name())
-			.setStress(BENUTZER_JUSTIN.getBenutzerangabe().getStress().name())
-			.setDoping(BENUTZER_JUSTIN.getBenutzerangabe().getDoping().name())
-			.setRegenerationsfaehigkeit(BENUTZER_JUSTIN.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+			.setBenutzerangabe(new BenutzerangabeDto(
+				BENUTZER_JUSTIN.getBenutzerangabe().getGeschlecht().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getErfahrung().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getErnaehrung().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getSchlafqualitaet().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getStress().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getDoping().name(),
+				BENUTZER_JUSTIN.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+				.setKraftlevel(BENUTZER_JUSTIN.getBenutzerangabe().getKraftlevel().name()))
 			.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_JUSTIN)
 			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_JUSTIN);
 
@@ -268,14 +269,15 @@ public class Testdaten
 			.setPrimaerschluessel(BENUTZER_EDUARD.getPrimaerschluessel().getId().toString())
 			.setName(new NameDto(BENUTZER_EDUARD.getName().getVorname(), BENUTZER_EDUARD.getName().getNachname()))
 			.setGeburtsdatum(BENUTZER_EDUARD.getGeburtsdatum())
-			.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name())
-			.setGeschlecht(BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name())
-			.setErfahrung(BENUTZER_EDUARD.getBenutzerangabe().getErfahrung().name())
-			.setErnaehrung(BENUTZER_EDUARD.getBenutzerangabe().getErnaehrung().name())
-			.setSchlafqualitaet(BENUTZER_EDUARD.getBenutzerangabe().getSchlafqualitaet().name())
-			.setStress(BENUTZER_EDUARD.getBenutzerangabe().getStress().name())
-			.setDoping(BENUTZER_EDUARD.getBenutzerangabe().getDoping().name())
-			.setRegenerationsfaehigkeit(BENUTZER_EDUARD.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+			.setBenutzerangabe(new BenutzerangabeDto(
+				BENUTZER_EDUARD.getBenutzerangabe().getGeschlecht().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getErfahrung().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getErnaehrung().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getSchlafqualitaet().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getStress().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getDoping().name(),
+				BENUTZER_EDUARD.getBenutzerangabe().getRegenerationsfaehigkeit().name())
+				.setKraftlevel(BENUTZER_EDUARD.getBenutzerangabe().getKraftlevel().name()))
 			.setAuthentifizierung(AUTHENTIFIZIERUNG_DTO_EDUARD)
 			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO_EDUARD);
 
