@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -48,17 +46,16 @@ class KontaktServiceSollte
 
 		sut.kontaktiere(kontaktformular);
 
-		verify(mailServer).sendeMail(new Mail(
-				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-				"Support-Anfrage von " + kontaktformular.getBenutzername(),
-				"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
-					+ "Benutzer:\n"
-					+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
-					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
-					+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
-					+ "Nachricht:\n"
-					+ "\t" + kontaktformular.getNachricht())
-				.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
-			StandardCharsets.UTF_8);
+		verify(mailServer).sende(new Mail(
+			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+			"Support-Anfrage von " + kontaktformular.getBenutzername(),
+			"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
+				+ "Benutzer:\n"
+				+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
+				+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
+				+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
+				+ "Nachricht:\n"
+				+ "\t" + kontaktformular.getNachricht())
+			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")));
 	}
 }

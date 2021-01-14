@@ -7,7 +7,6 @@ import de.justinharder.trainharder.view.dto.Kontaktformular;
 import lombok.NonNull;
 
 import javax.inject.Inject;
-import java.nio.charset.StandardCharsets;
 
 public class KontaktService
 {
@@ -21,18 +20,16 @@ public class KontaktService
 
 	public void kontaktiere(@NonNull Kontaktformular kontaktformular)
 	{
-		mailServer.sendeMail(
-			new Mail(
-				new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-				"Support-Anfrage von " + kontaktformular.getBenutzername(),
-				"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
-					+ "Benutzer:\n"
-					+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
-					+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
-					+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
-					+ "Nachricht:\n"
-					+ "\t" + kontaktformular.getNachricht())
-						.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")),
-			StandardCharsets.UTF_8);
+		mailServer.sende(new Mail(
+			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+			"Support-Anfrage von " + kontaktformular.getBenutzername(),
+			"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
+				+ "Benutzer:\n"
+				+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
+				+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
+				+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
+				+ "Nachricht:\n"
+				+ "\t" + kontaktformular.getNachricht())
+			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")));
 	}
 }

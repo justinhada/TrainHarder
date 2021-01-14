@@ -4,44 +4,38 @@ import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
 import lombok.NonNull;
 
 import javax.inject.Inject;
+import javax.mail.*;
 import javax.mail.Message.RecipientType;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Properties;
 
 public class MailServer
 {
-	private static final String MAIL_PROPERTY = "mail.smtp.host";
-	private static final String LOCALHOST = "localhost";
+	private static final String CHARSET = "utf-8";
 
 	private final Session session;
-	private final MailSender mailSender;
 
 	@Inject
 	public MailServer()
 	{
-		var properties = System.getProperties();
-		properties.setProperty(MAIL_PROPERTY, LOCALHOST);
-		session = Session.getDefaultInstance(properties);
-		mailSender = mimeMessage ->
+		var properties = new Properties();
+		properties.setProperty("mail.smtp.host", "localhost");
+		properties.setProperty("mail.smtp.auth", "true");
+		properties.setProperty("mail.smtp.port", "530");
+		session = Session.getInstance(properties, new Authenticator()
 		{
-			try
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication()
 			{
-				Transport.send(mimeMessage);
+				return new PasswordAuthentication("trainharder", "Justinharder#98");
 			}
-			catch (MessagingException e)
-			{
-				throw new MailServerException("Beim Versenden der Mail ist ein Fehler aufgetreten!", e);
-			}
-		};
+		});
 	}
 
-	public void sendeMail(@NonNull Mail mail, @NonNull Charset charset)
+	public void sende(@NonNull Mail mail)
 	{
 		try
 		{
@@ -51,10 +45,10 @@ public class MailServer
 			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleEmpfaenger(), RecipientType.TO, mimeMessage);
 			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInKopie(), RecipientType.CC, mimeMessage);
 			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInBlindkopie(), RecipientType.BCC, mimeMessage);
-			mimeMessage.setSubject(mail.getBetreff(), charset.name());
-			mimeMessage.setText(mail.getInhalt(), charset.name());
+			mimeMessage.setSubject(mail.getBetreff(), CHARSET);
+			mimeMessage.setText(mail.getInhalt(), CHARSET);
 
-			mailSender.sende(mimeMessage);
+			Transport.send(mimeMessage);
 		}
 		catch (MessagingException | UnsupportedEncodingException e)
 		{
@@ -62,20 +56,14 @@ public class MailServer
 		}
 	}
 
-	private void verarbeiteEmpfaengerMithilfeDesTypen(List<MailAdresse> mailAdressen, RecipientType recipientType,
-		MimeMessage mimeMessage)
+	private void verarbeiteEmpfaengerMithilfeDesTypen(
+		List<MailAdresse> mailAdressen,
+		RecipientType recipientType,
+		MimeMessage mimeMessage) throws MessagingException
 	{
-		mailAdressen
-			.forEach(mailAdresse ->
-			{
-				try
-				{
-					mimeMessage.addRecipient(recipientType, new InternetAddress(mailAdresse.getAdresse()));
-				}
-				catch (MessagingException e)
-				{
-					throw new MailServerException("Beim Hinzufügen eines Empfängers ist ein Fehler aufgetreten!", e);
-				}
-			});
+		for (var mailAdresse : mailAdressen)
+		{
+			mimeMessage.addRecipient(recipientType, new InternetAddress(mailAdresse.getAdresse()));
+		}
 	}
 }

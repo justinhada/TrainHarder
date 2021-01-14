@@ -32,9 +32,8 @@ dependencies {
             "org.mvc-spec.ozark:ozark-core:1.0.0-m04",
             "org.mvc-spec.ozark:ozark-resteasy:1.0.0-m04",
             "javax.mail:javax.mail-api:1.6.2",
-            "nl.jqno.equalsverifier:equalsverifier:3.4.3"
-
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+            "nl.jqno.equalsverifier:equalsverifier:3.4.3",
+            "com.icegreen:greenmail-junit5:1.6.1"
 
     integrationTestRuntimeOnly "org.hibernate:hibernate-core:5.4.12.Final",
             "org.mariadb.jdbc:mariadb-java-client:2.6.0"

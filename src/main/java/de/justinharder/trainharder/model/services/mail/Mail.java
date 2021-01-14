@@ -57,12 +57,12 @@ public class Mail
 			return false;
 		}
 		var mail = (Mail) o;
-		return sender.equals(mail.sender) &&
-			alleEmpfaenger.equals(mail.alleEmpfaenger) &&
-			alleInKopie.equals(mail.alleInKopie) &&
-			alleInBlindkopie.equals(mail.alleInBlindkopie) &&
-			betreff.equals(mail.betreff) &&
-			inhalt.equals(mail.inhalt);
+		return Objects.equals(sender, mail.sender)
+			&& Objects.equals(alleEmpfaenger, mail.alleEmpfaenger)
+			&& Objects.equals(alleInKopie, mail.alleInKopie)
+			&& Objects.equals(alleInBlindkopie, mail.alleInBlindkopie)
+			&& Objects.equals(betreff, mail.betreff)
+			&& Objects.equals(inhalt, mail.inhalt);
 	}
 
 	@Override
