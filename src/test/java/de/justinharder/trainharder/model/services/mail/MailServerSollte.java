@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MailServerSollte
 {
-	private static final GreenMail GREEN_MAIL = new GreenMail(new ServerSetup(530, "localhost", "smtp"));
+	private static final GreenMail GREEN_MAIL = new GreenMail(new ServerSetup(1530, "localhost", "smtp"));
 	private static final Mail MAIL = new Mail(
 		new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
 		"Betreff",

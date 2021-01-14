@@ -24,7 +24,7 @@ public class MailServer
 		var properties = new Properties();
 		properties.setProperty("mail.smtp.host", "localhost");
 		properties.setProperty("mail.smtp.auth", "true");
-		properties.setProperty("mail.smtp.port", "530");
+		properties.setProperty("mail.smtp.port", "1530");
 		session = Session.getInstance(properties, new Authenticator()
 		{
 			@Override
