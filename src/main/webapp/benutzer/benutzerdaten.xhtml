@@ -67,7 +67,7 @@
 							<div class="row">
 								<div class="col align-self-center text-right text-bold">Vorname</div>
 								<div class="col">
-									<input type="text" class="form-control" name="vorname" value="#{benutzer.vorname}" />
+									<input type="text" class="form-control" name="vorname" value="#{benutzer.name.vorname}" />
 								</div>
 							</div>
 						</div>
@@ -75,7 +75,7 @@
 							<div class="row">
 								<div class="col align-self-center text-right text-bold">Nachname</div>
 								<div class="col">
-									<input type="text" class="form-control" name="nachname" value="#{benutzer.nachname}" />
+									<input type="text" class="form-control" name="nachname" value="#{benutzer.name.nachname}" />
 								</div>
 							</div>
 						</div>
@@ -94,7 +94,7 @@
 									<div class="col align-self-center">CLASS_5</div>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{benutzer != null}">
-									<div class="col align-self-center">#{benutzer.kraftlevel}</div>
+									<div class="col align-self-center">#{benutzer.benutzerangabe.kraftlevel}</div>
 								</h:panelGroup>
 							</div>
 						</div>
@@ -105,10 +105,10 @@
 									<div class="row">
 										<div class="col align-self-center">
 											<div class="form-check">
-												<h:panelGroup rendered="#{benutzer == null || benutzer.geschlecht.equals('MAENNLICH')}">
+												<h:panelGroup rendered="#{benutzer == null || benutzer.benutzerangabe.geschlecht.equals('MAENNLICH')}">
 													<input type="radio" class="form-check-input" id="maennlich" name="geschlecht" value="MAENNLICH" checked="checked" />
 												</h:panelGroup>
-												<h:panelGroup rendered="#{benutzer.geschlecht.equals('WEIBLICH')}">
+												<h:panelGroup rendered="#{benutzer.benutzerangabe.geschlecht.equals('WEIBLICH')}">
 													<input type="radio" class="form-check-input" id="maennlich" name="geschlecht" value="MAENNLICH" />
 												</h:panelGroup>
 												<label class="form-check-label" for="maennlich">Männlich</label>
@@ -116,10 +116,10 @@
 										</div>
 										<div class="col align-self-center">
 											<div class="form-check">
-												<h:panelGroup rendered="#{benutzer == null || benutzer.geschlecht.equals('MAENNLICH')}">
+												<h:panelGroup rendered="#{benutzer == null || benutzer.benutzerangabe.geschlecht.equals('MAENNLICH')}">
 													<input type="radio" class="form-check-input" id="weiblich" name="geschlecht" value="WEIBLICH" />
 												</h:panelGroup>
-												<h:panelGroup rendered="#{benutzer.geschlecht.equals('WEIBLICH')}">
+												<h:panelGroup rendered="#{benutzer.benutzerangabe.geschlecht.equals('WEIBLICH')}">
 													<input type="radio" class="form-check-input" id="weiblich" name="geschlecht" value="WEIBLICH" checked="checked" />
 												</h:panelGroup>
 												<label class="form-check-label" for="weiblich">Weiblich</label>
@@ -137,28 +137,28 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.erfahrung.equals('BEGINNER')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.erfahrung.equals('BEGINNER')}">
 											<option value="BEGINNER" selected="selected">Beginner (&lt;4 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.erfahrung.equals('BEGINNER')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.erfahrung.equals('BEGINNER')}">
 											<option value="BEGINNER">Beginner (&lt;4 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.erfahrung.equals('FORTGESCHRITTEN')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.erfahrung.equals('FORTGESCHRITTEN')}">
 											<option value="FORTGESCHRITTEN" selected="selected">Fortgeschritten (4-8 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.erfahrung.equals('FORTGESCHRITTEN')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.erfahrung.equals('FORTGESCHRITTEN')}">
 											<option value="FORTGESCHRITTEN">Fortgeschritten (4-8 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
 											<option value="SEHR_FORTGESCHRITTEN" selected="selected">Sehr Fortgeschritten (8-12 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.erfahrung.equals('SEHR_FORTGESCHRITTEN')}">
 											<option value="SEHR_FORTGESCHRITTEN">Sehr Fortgeschritten (8-12 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.erfahrung.equals('EXPERTE')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.erfahrung.equals('EXPERTE')}">
 											<option value="EXPERTE" selected="selected">Experte (&gt;12 Jahre)</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.erfahrung.equals('EXPERTE')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.erfahrung.equals('EXPERTE')}">
 											<option value="EXPERTE">Experte (&gt;12 Jahre)</option>
 										</h:panelGroup>
 									</select>
@@ -173,22 +173,22 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.ernaehrung.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.ernaehrung.equals('SCHLECHT')}">
 											<option value="SCHLECHT" selected="selected">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.ernaehrung.equals('SCHLECHT')}">
 											<option value="SCHLECHT">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.ernaehrung.equals('DURCHSCHNITT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.equals('DURCHSCHNITT')}">
 											<option value="DURCHSCHNITT" selected="selected">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('DURCHSCHNITT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.ernaehrung.equals('DURCHSCHNITT')}">
 											<option value="DURCHSCHNITT">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.ernaehrung.equals('GUT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.ernaehrung.equals('GUT')}">
 											<option value="GUT" selected="selected">Gut</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.ernaehrung.equals('GUT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.ernaehrung.equals('GUT')}">
 											<option value="GUT">Gut</option>
 										</h:panelGroup>
 									</select>
@@ -203,22 +203,22 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.schlafqualitaet.equals('SCHLECHT')}">
 											<option value="SCHLECHT" selected="selected">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.schlafqualitaet.equals('SCHLECHT')}">
 											<option value="SCHLECHT">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('DURCHSCHNITT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.schlafqualitaet.equals('DURCHSCHNITT')}">
 											<option value="DURCHSCHNITT" selected="selected">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('DURCHSCHNITT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.schlafqualitaet.equals('DURCHSCHNITT')}">
 											<option value="DURCHSCHNITT">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.schlafqualitaet.equals('GUT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.schlafqualitaet.equals('GUT')}">
 											<option value="GUT" selected="selected">Gut</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.schlafqualitaet.equals('GUT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.schlafqualitaet.equals('GUT')}">
 											<option value="GUT">Gut</option>
 										</h:panelGroup>
 									</select>
@@ -233,22 +233,22 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.stress.equals('NIEDRIG')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.stress.equals('NIEDRIG')}">
 											<option value="NIEDRIG" selected="selected">Niedrig</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.stress.equals('NIEDRIG')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.stress.equals('NIEDRIG')}">
 											<option value="NIEDRIG">Niedrig</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.stress.equals('MITTELMAESSIG')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.stress.equals('MITTELMAESSIG')}">
 											<option value="MITTELMAESSIG" selected="selected">Mittelmäßig</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.stress.equals('MITTELMAESSIG')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.stress.equals('MITTELMAESSIG')}">
 											<option value="MITTELMAESSIG">Mittelmäßig</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.stress.equals('HOCH')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.stress.equals('HOCH')}">
 											<option value="HOCH" selected="selected">Hoch</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.stress.equals('HOCH')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.stress.equals('HOCH')}">
 											<option value="HOCH">Hoch</option>
 										</h:panelGroup>
 									</select>
@@ -263,16 +263,16 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.doping.equals('NEIN')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.doping.equals('NEIN')}">
 											<option value="NEIN" selected="selected">Nein</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.doping.equals('NEIN')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.doping.equals('NEIN')}">
 											<option value="NEIN">Nein</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.doping.equals('JA')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.doping.equals('JA')}">
 											<option value="JA" selected="selected">Ja</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.doping.equals('JA')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.doping.equals('JA')}">
 											<option value="JA">Ja</option>
 										</h:panelGroup>
 									</select>
@@ -287,34 +287,34 @@
 										<h:panelGroup rendered="#{benutzer == null}">
 											<option selected="selected">Bitte auswählen...</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.regenerationsfaehigkeit.equals('SCHLECHT')}">
 											<option value="SCHLECHT" selected="selected">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('SCHLECHT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.regenerationsfaehigkeit.equals('SCHLECHT')}">
 											<option value="SCHLECHT">Schlecht</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
 											<option value="UNTERDURCHSCHNITTLICH" selected="selected">Unterdurchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.regenerationsfaehigkeit.equals('UNTERDURCHSCHNITTLICH')}">
 											<option value="UNTERDURCHSCHNITTLICH">Unterdurchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
 											<option value="DURCHSCHNITTLICH" selected="selected">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.regenerationsfaehigkeit.equals('DURCHSCHNITTLICH')}">
 											<option value="DURCHSCHNITTLICH">Durchschnittlich</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('GUT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.regenerationsfaehigkeit.equals('GUT')}">
 											<option value="GUT" selected="selected">Gut</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('GUT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.regenerationsfaehigkeit.equals('GUT')}">
 											<option value="GUT">Gut</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{benutzer.regenerationsfaehigkeit.equals('PERFEKT')}">
+										<h:panelGroup rendered="#{benutzer.benutzerangabe.regenerationsfaehigkeit.equals('PERFEKT')}">
 											<option value="PERFEKT" selected="selected">Perfekt</option>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!benutzer.regenerationsfaehigkeit.equals('PERFEKT')}">
+										<h:panelGroup rendered="#{!benutzer.benutzerangabe.regenerationsfaehigkeit.equals('PERFEKT')}">
 											<option value="PERFEKT">Perfekt</option>
 										</h:panelGroup>
 									</select>
