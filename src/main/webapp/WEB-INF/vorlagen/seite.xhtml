@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
         <title><ui:insert name="title" /></title>
 
         <ui:include src="/WEB-INF/vorlagen/head.xhtml" />
-    </h:head>
-    <h:body>
-        <ui:include src="/WEB-INF/vorlagen/header.xhtml" />
+    </head>
 
-        <div class="title text-center font-weight-bold"><ui:insert name="heading" /></div>
+    <body>
+        <ui:include src="/WEB-INF/vorlagen/header.xhtml" />
 
         <ui:insert name="content" />
 
-        <ui:include src="/WEB-INF/vorlagen/footer.xhtml"></ui:include>
-    </h:body>
+        <ui:include src="/WEB-INF/vorlagen/footer.xhtml" />
+    </body>
 </html>

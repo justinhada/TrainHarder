@@ -1,58 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
->
+<ui:composition lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" template="/WEB-INF/vorlagen/no-nav.xhtml">
+    <ui:define name="title">Sign in – TrainHarder</ui:define>
 
-<h:head>
-	<title>Sign in – TrainHarder</title>
-	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
-	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
-	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
-</h:head>
+    <ui:define name="content">
+        <div class="center-container small-container">
+            <div class="wrapper text-left text-bold text-height">
+                <h1 id="heading" class="title text-center font-weight-bold">Sign in</h1>
 
-<h:body>
-	<div class="center-container small-container">
-		<a href="/TrainHarder/start" title="Startseite"><h:graphicImage styleClass="logo" value="#{resource['img/logo.png']}" alt="TrainHarder-Logo" /></a>
-	</div>
-	<div class="center-container small-container">
-		<div class="wrapper text-left text-bold text-height">
-			<form method="post" action="/TrainHarder/login">
-				<div class="title text-central">Sign in</div>
-				<h:panelGroup rendered="#{fehler != null}">
-					<div class="text-central text-bold text-height text-error">
-						#{fehler}
-						<br />
-					</div>
-				</h:panelGroup>
-				<label for="benutzername">Benutzername</label>
-				<br />
-				<div class="input-group mb-3">
-					<input id="benutzername" name="benutzername" class="form-control" />
-				</div>
-				<label>Passwort</label>
-				<br />
-				<div class="input-group mb-3">
-					<input type="password" id="passwort" name="passwort" class="form-control" />
-				</div>
-				<button class="btn btn-secondary btn-block active" type="submit">Sign in</button>
-			</form>
-			<div class="text-central">
-				<br />
-				<label>
-					<a class="link-inactive" href="/TrainHarder/login/reset" title="Passwort vergessen">Passwort vergessen</a>?
-				</label>
-			</div>
-		</div>
-		<br />
-		<div class="wrapper text-central text-bold text-height">
-			<span>Neu?</span> <span><a class="link-inactive" href="/TrainHarder/join" title="Erstelle einen Account">Starte mit TrainHarder</a>.</span>
-		</div>
-		<br />
-		<div class="attribution text-central">
-			<label>
-				Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-			</label>
-		</div>
-	</div>
-</h:body>
-</h:html>
+                <form method="post" action="/TrainHarder/login">
+                    <h:panelGroup rendered="#{fehler != null}">
+                        <div class="text-central text-bold text-height text-error">#{fehler}</div>
+                    </h:panelGroup>
+
+                    <label class="text-height" for="benutzername">Benutzername</label>
+
+                    <div class="input-group mb-3">
+                        <input type="text" id="benutzername" name="benutzername" class="form-control" />
+                    </div>
+
+                    <label class="text-height" for="passwort">Passwort</label>
+
+                    <div class="input-group mb-3">
+                        <input type="password" id="passwort" name="passwort" class="form-control" />
+                    </div>
+
+                    <button class="btn btn-secondary btn-block active" type="submit">Sign in</button>
+                </form>
+
+                <div class="text-central">
+                    <a class="link-inactive" href="/TrainHarder/login/reset" title="Passwort vergessen">Passwort vergessen</a>?
+                </div>
+            </div>
+
+            <div class="wrapper text-central text-bold text-height">
+                <span>Neu? <a class="link-inactive" href="/TrainHarder/join" title="Erstelle einen Account">Starte mit TrainHarder</a>.</span>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

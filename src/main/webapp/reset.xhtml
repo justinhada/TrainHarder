@@ -1,42 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<h:html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
->
+<ui:composition lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" template="/WEB-INF/vorlagen/no-nav.xhtml">
+    <ui:define name="title">Reset – TrainHarder</ui:define>
 
-<h:head>
-	<title>Reset – TrainHarder</title>
-	<link rel="icon" type="image/png" href="#{resource['img/icon.svg']}" />
-	<link rel="stylesheet" href="#{resource['css/bootstrap.min.css']}" />
-	<link rel="stylesheet" href="#{resource['css/allgemein.css']}" />
-</h:head>
+    <ui:define name="content">
+        <div class="center-container small-container">
+            <div class="wrapper text-left text-bold text-height">
+                <form method="post" action="/TrainHarder/login/reset">
+                    <h1 id="heading" class="title text-center font-weight-bold">Passwort zurücksetzen</h1>
 
-<h:body>
-	<div class="center-container small-container">
-		<a href="/TrainHarder/start" title="Startseite"><h:graphicImage styleClass="logo" value="#{resource['img/logo.png']}" alt="TrainHarder-Logo" /></a>
-	</div>
-	<div class="center-container small-container">
-		<div class="wrapper text-left text-bold text-height">
-			<form method="post" action="/TrainHarder/login/reset">
-				<div class="title text-central">Passwort zurücksetzen</div>
-				<label for="mail">E-Mail-Adresse</label>
-				<br />
-				<div class="input-group mb-3">
-					<input type="email" id="mail" name="mail" class="form-control" />
-				</div>
-				<br />
-				<button class="btn btn-secondary btn-block active" type="submit">Mail senden ❯</button>
-			</form>
-		</div>
-		<br />
-		<div class="wrapper text-central text-bold text-height">
-			<span><a class="link-inactive" href="/TrainHarder/login" title="Sign in">Das Passwort ist mir wieder eingefallen</a>.</span>
-		</div>
-		<br />
-		<div class="attribution">
-			<label>
-				Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-			</label>
-		</div>
-	</div>
-</h:body>
-</h:html>
+                    <label for="mail">E-Mail-Adresse</label>
+
+                    <div class="input-group mb-3">
+                        <input type="email" id="mail" name="mail" class="form-control" />
+                    </div>
+
+                    <button class="btn btn-secondary btn-block active" type="submit">Mail senden ❯</button>
+                </form>
+            </div>
+
+            <div class="wrapper text-central text-bold text-height mt-3">
+                <span><a class="link-inactive" href="/TrainHarder/login" title="Sign in">Das Passwort ist mir wieder eingefallen</a>.</span>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
