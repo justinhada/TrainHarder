@@ -15,18 +15,18 @@ import java.util.Objects;
 public class Kontaktformular
 {
 	@Email(message = "Ungültige E-Mail-Adresse!")
-	@FormParam("mail")
+	@FormParam(value = "mail")
 	private String mail;
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")
-	@FormParam("benutzername")
+	@FormParam(value = "benutzername")
 	private String benutzername;
 	@Size(min = 2, max = 255, message = "Ungültiger Vorname!")
-	@FormParam("vorname")
+	@FormParam(value = "vorname")
 	private String vorname;
 	@Size(min = 2, max = 255, message = "Ungültiger Nachname!")
-	@FormParam("nachname")
+	@FormParam(value = "nachname")
 	private String nachname;
-	@FormParam("nachricht")
+	@FormParam(value = "nachricht")
 	private String nachricht;
 
 	@Override
@@ -41,11 +41,11 @@ public class Kontaktformular
 			return false;
 		}
 		var that = (Kontaktformular) o;
-		return mail.equals(that.mail) &&
-			benutzername.equals(that.benutzername) &&
-			vorname.equals(that.vorname) &&
-			nachname.equals(that.nachname) &&
-			nachricht.equals(that.nachricht);
+		return Objects.equals(mail, that.mail)
+			&& Objects.equals(benutzername, that.benutzername)
+			&& Objects.equals(vorname, that.vorname)
+			&& Objects.equals(nachname, that.nachname)
+			&& Objects.equals(nachricht, that.nachricht);
 	}
 
 	@Override

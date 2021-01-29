@@ -11,10 +11,10 @@ import java.util.Objects;
 public class Login
 {
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")
-	@FormParam("benutzername")
+	@FormParam(value = "benutzername")
 	private String benutzername;
 	@Size(min = 12, max = 64, message = "Ungültiges Passwort!")
-	@FormParam("passwort")
+	@FormParam(value = "passwort")
 	private String passwort;
 
 	public Login()
