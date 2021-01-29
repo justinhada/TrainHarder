@@ -50,14 +50,16 @@ class MailServerSollte
 	@DisplayName("MailServerException werfen, wenn die Mail nicht gesendet werden kann")
 	void test01()
 	{
-		assertThrows(MailServerException.class, () -> new MailServer().sende(MAIL));
+		var mailServer = new MailServer(new Properties(), "trainharder", "Justinharder#98");
+		assertThrows(MailServerException.class, () -> mailServer.sende(MAIL));
 	}
 
 	@Test
 	@DisplayName("null validieren")
 	void test02()
 	{
-		assertThrows(NullPointerException.class, () -> new MailServer().sende(null));
+		var mailServer = new MailServer(new Properties(), "trainharder", "Justinharder#98");
+		assertThrows(NullPointerException.class, () -> mailServer.sende(null));
 	}
 
 	@Test
@@ -70,7 +72,7 @@ class MailServerSollte
 			() -> assertThat(GREEN_MAIL.waitForIncomingEmail(5000, 1)).isTrue(),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()).hasSize(1),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getContentType())
-				.isEqualTo("text/plain; charset=utf-8"),
+				.isEqualTo("text/plain; charset=UTF-8"),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("From")[0])
 				.isEqualTo("TrainHarder-Team <mail@justinharder.de>"),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("To")[0])

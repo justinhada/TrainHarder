@@ -37,23 +37,26 @@ class KontaktServiceSollte
 	@DisplayName("erfolgreich kontaktieren und Mail an MailServer weitergeben")
 	void test02()
 	{
+		var vorname = "Justin";
+		var nachname = "Harder";
 		var kontaktformular = new Kontaktformular(
 			"mail@justinharder.de",
 			"harder",
-			"Justin",
-			"Harder",
+			vorname,
+			nachname,
 			"Ich habe ein Problem.");
 
 		sut.kontaktiere(kontaktformular);
 
+		var name = vorname + " " + nachname;
 		verify(mailServer).sende(new Mail(
-			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-			"Support-Anfrage von " + kontaktformular.getBenutzername(),
-			"Eine Support-Anfrage von " + kontaktformular.getBenutzername() + "\n"
+			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
+			"Support-Anfrage von " + name,
+			"Eine Support-Anfrage von " + name + "\n"
 				+ "Benutzer:\n"
 				+ "\tBenutzername: " + kontaktformular.getBenutzername() + "\n"
 				+ "\tE-Mail-Adresse: " + kontaktformular.getMail() + "\n"
-				+ "\tName: " + kontaktformular.getVorname() + " " + kontaktformular.getNachname() + "\n"
+				+ "\tName: " + name + "\n"
 				+ "Nachricht:\n"
 				+ "\t" + kontaktformular.getNachricht())
 			.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder")));
