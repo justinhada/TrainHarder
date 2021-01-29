@@ -8,31 +8,39 @@ import javax.mail.*;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Properties;
 
 public class MailServer
 {
-	private static final String CHARSET = "utf-8";
+	private static final String CHARSET = "UTF-8";
 
 	private final Session session;
 
+	public MailServer(Properties properties, String benutzername, String passwort)
+	{
+		session = initialisiere(properties, MailAuthentifizierer.aus(benutzername, passwort));
+	}
+
 	@Inject
-	public MailServer()
+	public MailServer() throws NamingException
 	{
 		var properties = new Properties();
-		properties.setProperty("mail.smtp.host", "localhost");
+		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+		properties.setProperty("mail.smtp.port", "587");
 		properties.setProperty("mail.smtp.auth", "true");
-		properties.setProperty("mail.smtp.port", "1530");
-		session = Session.getInstance(properties, new Authenticator()
-		{
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication()
-			{
-				return new PasswordAuthentication("trainharder", "Justinharder#98");
-			}
-		});
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+
+		var initialContext = new InitialContext();
+		session = initialisiere(properties, MailAuthentifizierer.aus((String) initialContext.lookup("java:global/gmail-mail"), (String) initialContext.lookup("java:global/gmail-passwort")));
+	}
+
+	private Session initialisiere(Properties properties, Authenticator authenticator)
+	{
+		return Session.getInstance(properties, authenticator);
 	}
 
 	public void sende(@NonNull Mail mail)
@@ -42,9 +50,9 @@ public class MailServer
 			var mimeMessage = new MimeMessage(session);
 
 			mimeMessage.setFrom(new InternetAddress(mail.getSender().getAdresse(), mail.getSender().getName()));
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleEmpfaenger(), RecipientType.TO, mimeMessage);
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInKopie(), RecipientType.CC, mimeMessage);
-			verarbeiteEmpfaengerMithilfeDesTypen(mail.getAlleInBlindkopie(), RecipientType.BCC, mimeMessage);
+			empfaengerTyp(mail.getAlleEmpfaenger(), RecipientType.TO, mimeMessage);
+			empfaengerTyp(mail.getAlleInKopie(), RecipientType.CC, mimeMessage);
+			empfaengerTyp(mail.getAlleInBlindkopie(), RecipientType.BCC, mimeMessage);
 			mimeMessage.setSubject(mail.getBetreff(), CHARSET);
 			mimeMessage.setText(mail.getInhalt(), CHARSET);
 
@@ -56,10 +64,7 @@ public class MailServer
 		}
 	}
 
-	private void verarbeiteEmpfaengerMithilfeDesTypen(
-		List<MailAdresse> mailAdressen,
-		RecipientType recipientType,
-		MimeMessage mimeMessage) throws MessagingException
+	private void empfaengerTyp(List<MailAdresse> mailAdressen, RecipientType recipientType, MimeMessage mimeMessage) throws MessagingException
 	{
 		for (var mailAdresse : mailAdressen)
 		{

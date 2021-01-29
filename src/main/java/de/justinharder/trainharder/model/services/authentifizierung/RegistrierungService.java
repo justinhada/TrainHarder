@@ -78,7 +78,7 @@ public class RegistrierungService
 				new Passwort(salt, passwortHasher.hash(registrierung.getPasswort(), salt))));
 
 		var mail = new Mail(
-			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
 			"Willkommen bei TrainHarder!",
 			"Hallo " + authentifizierung.getBenutzername() + ",\n"
 				+ "wir heißen dich herzlich Willkommen bei TrainHarder!\n"
@@ -90,7 +90,7 @@ public class RegistrierungService
 			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
 
 		log.info("{}", mail);
-		// mailServer.sendeMail(mail, StandardCharsets.UTF_8);
+		mailServer.sende(mail);
 
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}

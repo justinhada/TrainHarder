@@ -69,7 +69,7 @@ public class LoginService
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung.setResetUuid(resetUuid));
 
 		var mail1 = new Mail(
-			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
+			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
 			"Anfrage der Passwort-Zurücksetzung",
 			"Hallo " + authentifizierung.getBenutzername() + ",\n"
 				+ "wir haben deine Anfrage der Passwort-Zurücksetzung erhalten.\n"
@@ -80,7 +80,7 @@ public class LoginService
 			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail()));
 
 		log.info("{}", mail1);
-		//	mailServer.sendeMail(mail1,StandardCharsets.UTF_8);
+		mailServer.sende(mail1);
 	}
 
 	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort) throws PasswortUnsicherException,
