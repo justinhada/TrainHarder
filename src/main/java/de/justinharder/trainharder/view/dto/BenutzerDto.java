@@ -19,7 +19,6 @@ public class BenutzerDto extends EntitaetDto
 	private LocalDate geburtsdatum;
 	private BenutzerangabeDto benutzerangabe;
 	private AuthentifizierungDto authentifizierung;
-	@Setter(value = AccessLevel.NONE)
 	private List<KoerpermessungDto> koerpermessungen = new ArrayList<>();
 
 	public BenutzerDto()
@@ -39,6 +38,11 @@ public class BenutzerDto extends EntitaetDto
 		this.benutzerangabe = benutzerangabe;
 		this.authentifizierung = authentifizierung;
 		this.koerpermessungen = sortiereKoerpermessungen(koerpermessungen);
+	}
+
+	public String getKoerpergewicht()
+	{
+		return koerpermessungen.get(koerpermessungen.size() - 1).getKoerpermasse().getKoerpergewicht();
 	}
 
 	@Override
@@ -97,13 +101,13 @@ public class BenutzerDto extends EntitaetDto
 		{
 			return false;
 		}
-		var that = (BenutzerDto) o;
-		return Objects.equals(primaerschluessel, that.primaerschluessel)
-			&& Objects.equals(name, that.name)
-			&& Objects.equals(geburtsdatum, that.geburtsdatum)
-			&& Objects.equals(benutzerangabe, that.benutzerangabe)
-			&& Objects.equals(authentifizierung, that.authentifizierung)
-			&& Objects.equals(koerpermessungen, that.koerpermessungen);
+		var benutzerDto = (BenutzerDto) o;
+		return Objects.equals(primaerschluessel, benutzerDto.primaerschluessel)
+			&& Objects.equals(name, benutzerDto.name)
+			&& Objects.equals(geburtsdatum, benutzerDto.geburtsdatum)
+			&& Objects.equals(benutzerangabe, benutzerDto.benutzerangabe)
+			&& Objects.equals(authentifizierung, benutzerDto.authentifizierung)
+			&& Objects.equals(koerpermessungen, benutzerDto.koerpermessungen);
 	}
 
 	@Override
