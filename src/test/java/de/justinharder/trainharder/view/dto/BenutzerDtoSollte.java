@@ -22,13 +22,16 @@ class BenutzerDtoSollte
 	private static final LocalDate GEBURTSDATUM = LocalDate.of(1998, 12, 6);
 	private static final BenutzerangabeDto BENUTZERANGABE_DTO = new BenutzerangabeDto("MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT")
 		.setKraftlevel("CLASS_5");
+	private static final KoerpermessungDto KOERPERMESSUNG_DTO =
+		new KoerpermessungDto(new Primaerschluessel().getId().toString(), "31.01.2021", new KoerpermasseDto("178", "90.00", "20.0", "72.00", "28.4", "22.8"), 2500, 2500);
 
 	private BenutzerDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
+		sut = new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN))
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO);
 	}
 
 	@Test
@@ -40,13 +43,15 @@ class BenutzerDtoSollte
 			.setName(NAME_DTO)
 			.setGeburtsdatum(GEBURTSDATUM)
 			.setBenutzerangabe(BENUTZERANGABE_DTO)
-			.setAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
+			.setAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN)
+			.fuegeKoerpermessungHinzu(KOERPERMESSUNG_DTO);
 
 		assertAll(
 			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
 			() -> assertThat(sut.getName()).isEqualTo(NAME_DTO),
 			() -> assertThat(sut.getGeburtsdatum()).isEqualTo(GEBURTSDATUM),
 			() -> assertThat(sut.getBenutzerangabe()).isEqualTo(BENUTZERANGABE_DTO),
+			() -> assertThat(sut.getKoerpergewicht()).isEqualTo(KOERPERMESSUNG_DTO.getKoerpermasse().getKoerpergewicht()),
 			() -> assertThat(sut.getAuthentifizierung()).isEqualTo(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN));
 	}
 
