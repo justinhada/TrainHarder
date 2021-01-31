@@ -62,8 +62,7 @@ class UnterkoerperBelastungDtoSollte
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> new UnterkoerperBelastungDto(null, QUADS, HAMSTRINGS)),
-			() -> assertThrows(NullPointerException.class, () -> new UnterkoerperBelastungDto(GLUTES, null,
-				HAMSTRINGS)),
+			() -> assertThrows(NullPointerException.class, () -> new UnterkoerperBelastungDto(GLUTES, null, HAMSTRINGS)),
 			() -> assertThrows(NullPointerException.class, () -> new UnterkoerperBelastungDto(GLUTES, QUADS, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGlutes(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setQuads(null)),

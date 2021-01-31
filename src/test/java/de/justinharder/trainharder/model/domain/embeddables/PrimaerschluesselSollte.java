@@ -34,9 +34,7 @@ class PrimaerschluesselSollte
 	@DisplayName("einen RequiredArgsConstructor und Getter besitzen")
 	void test02()
 	{
-		var primaerschluessel = new Primaerschluessel(sut.getId());
-
-		assertThat(primaerschluessel.getId()).isEqualTo(sut.getId());
+		assertThat(new Primaerschluessel(sut.getId()).getId()).isEqualTo(sut.getId());
 	}
 
 	@Test
@@ -65,8 +63,6 @@ class PrimaerschluesselSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test05()
 	{
-		var erwartet = "Primaerschluessel{ID=" + sut.getId().toString() + "}";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("Primaerschluessel{ID=" + sut.getId().toString() + "}");
 	}
 }

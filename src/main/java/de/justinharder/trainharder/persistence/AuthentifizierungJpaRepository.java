@@ -12,8 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @NoArgsConstructor
-public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>
-	implements AuthentifizierungRepository
+public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>	implements AuthentifizierungRepository
 {
 	@Override
 	public Optional<Authentifizierung> ermittleZuId(@NonNull Primaerschluessel id)

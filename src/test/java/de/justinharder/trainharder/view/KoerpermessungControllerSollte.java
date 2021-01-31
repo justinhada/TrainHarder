@@ -38,40 +38,27 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test01()
 	{
-		var erwartet = "redirect:login";
-
-		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index)).isEqualTo("redirect:login");
 	}
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "/koerpermessungen/index.xhtml";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put(
-			"fehler",
-			"Die Authentifizierung mit dem Benutzernamen \"" + authentifizierungDto.getBenutzername()
-				+ "\" existiert nicht!");
+		assertThat(super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto)).isEqualTo("/koerpermessungen/index.xhtml");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + authentifizierungDto.getBenutzername() + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("zur Benutzer-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		var erwartet = "/koerpermessungen/index.xhtml";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto)).isEqualTo("/koerpermessungen/index.xhtml");
 		verify(models).put("authentifizierung", authentifizierungDto);
 		verify(models).put("benutzer", benutzerDto);
 	}
@@ -80,11 +67,7 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn kein Benutzer angemeldet ist")
 	void test04()
 	{
-		var erwartet = "redirect:login";
-
-		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.koerpermessdaten("harder"));
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenOhneAngemeldetenBenutzer(() -> sut.koerpermessdaten("harder"))).isEqualTo("redirect:login");
 		verify(securityContext).getCallerPrincipal();
 	}
 
@@ -92,47 +75,32 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn der Benutzer nicht existiert")
 	void test05() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "redirect:login";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitServicefehler(
-			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
-			+ authentifizierungDto.getBenutzername() + "\" existiert nicht!");
+		assertThat(super.zurSeiteNavigierenMitServicefehler(() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto)).isEqualTo("redirect:login");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + authentifizierungDto.getBenutzername() + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
 	void test06() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "redirect:login";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitServicefehler(
-			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
-			+ authentifizierungDto.getBenutzername() + "\" existiert nicht!");
+		assertThat(super.zurSeiteNavigierenMitServicefehler(() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto)).isEqualTo("redirect:login");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + authentifizierungDto.getBenutzername() + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("zur Benutzerdaten-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test07() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		var koerpermessungDtos = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN);
 
-		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(
-			() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()),
-			authentifizierungDto,
-			benutzerDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenMitAngemeldetenBenutzer(() -> sut.koerpermessdaten(authentifizierungDto.getBenutzername()), authentifizierungDto, benutzerDto))
+			.isEqualTo("/koerpermessungen/benutzerdaten.xhtml");
 		verify(models).put("authentifizierung", authentifizierungDto);
 		verify(models).put("benutzer", benutzerDto);
 		verify(models).put("koerpermessungen", koerpermessungDtos);
@@ -151,40 +119,42 @@ class KoerpermessungControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Login-Seite weiterleiten, wenn die Authentifizierung nicht existiert")
 	void test09() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "redirect:login";
 		var benutzername = "harder";
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(benutzername);
 
-		var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
-		var ergebnis = sut.addKoerpermessung(koerpermessdaten);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put(
-			"fehler",
-			"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!");
+		assertThat(sut.addKoerpermessung(new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900))).isEqualTo("redirect:login");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("eine neue Koerpermessung erstellen")
 	void test10() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		var erwartet = "/koerpermessungen/benutzerdaten.xhtml";
 		var benutzername = "harder";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(new CallerPrincipal(benutzername));
-		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(benutzername,
-			authentifizierungDto);
-		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel(),
-			benutzerDto);
+		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(benutzername, authentifizierungDto);
+		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel(), benutzerDto);
 
 		var koerpermessdaten = new Koerpermessdaten("2020-06-29", 178, 90, 25, 2500, 2900);
-		var ergebnis = sut.addKoerpermessung(koerpermessdaten);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.addKoerpermessung(koerpermessdaten)).isEqualTo("/koerpermessungen/benutzerdaten.xhtml");
 		verify(authentifizierungService, times(2)).ermittleZuBenutzername(benutzername);
 		verify(benutzerService, times(2)).ermittleZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel());
 		verify(koerpermessungService).erstelleKoerpermessung(koerpermessdaten, benutzerDto.getPrimaerschluessel());
+	}
+
+	@Test
+	@DisplayName("null validieren")
+	void test11()
+	{
+		assertAll(
+			()->assertThrows(NullPointerException.class, () -> sut.setModels(null)),
+			()->assertThrows(NullPointerException.class, () -> sut.setSecurityContext(null)),
+			()->assertThrows(NullPointerException.class, () -> sut.setAuthentifizierungService(null)),
+			()->assertThrows(NullPointerException.class, () -> sut.setBenutzerService(null)),
+			()->assertThrows(NullPointerException.class, () -> sut.setKoerpermessungService(null)));
 	}
 }

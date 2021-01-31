@@ -23,6 +23,7 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	void setup()
 	{
 		sut = new KraftwertJpaRepository();
+
 		sut.setEntityManager(getEntityManager());
 	}
 
@@ -32,9 +33,7 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	{
 		assertAll(
 			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID))
-				.containsExactlyInAnyOrder(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-					Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-					Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
+				.containsExactlyInAnyOrder(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
 			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID)).isEmpty());
 	}
 
@@ -50,12 +49,9 @@ class KraftwertJpaRepositorySollte extends JpaRepositorySollte
 	void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID))
-				.hasValue(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE_ID))
-				.hasValue(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID))
-				.hasValue(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN));
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN_ID)).hasValue(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE_ID)).hasValue(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN_ID)).hasValue(Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test

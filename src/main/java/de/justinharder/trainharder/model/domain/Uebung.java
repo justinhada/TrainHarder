@@ -41,12 +41,7 @@ public class Uebung extends Entitaet
 	public Uebung()
 	{}
 
-	public Uebung(
-		@NonNull Primaerschluessel primaerschluessel,
-		@NonNull String name,
-		@NonNull Uebungsart uebungsart,
-		@NonNull Uebungskategorie uebungskategorie,
-		@NonNull Belastung belastung)
+	public Uebung(@NonNull Primaerschluessel primaerschluessel, @NonNull String name, @NonNull Uebungsart uebungsart, @NonNull Uebungskategorie uebungskategorie, @NonNull Belastung belastung)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.name = name;
@@ -94,9 +89,9 @@ public class Uebung extends Entitaet
 	}
 
 	@Override
-	public boolean equals(Object obj)
+	public boolean equals(Object o)
 	{
-		return super.equals(obj);
+		return super.equals(o);
 	}
 
 	@Override

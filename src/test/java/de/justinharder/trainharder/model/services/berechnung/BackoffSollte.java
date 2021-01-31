@@ -65,8 +65,6 @@ class BackoffSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test05()
 	{
-		var erwartet = "Backoff(oneRepMax=100, wiederholungen=5, repsInReserve=2, richtwert=82)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("Backoff(oneRepMax=100, wiederholungen=5, repsInReserve=2, richtwert=82)");
 	}
 }

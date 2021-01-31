@@ -20,32 +20,20 @@ class DiaetrechnerSollte
 	@DisplayName("die Diätzeit in Wochen berechnen")
 	void test01()
 	{
-		var erwartet = 16;
-
-		var ergebnis = sut.berechneDiaetInWochen(90.0, 22.5, 10.0);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.berechneDiaetInWochen(90.0, 22.5, 10.0)).isEqualTo(16);
 	}
 
 	@Test
 	@DisplayName("die Diätzeit in Tagen berechnen")
 	void test02()
 	{
-		var erwartet = 112;
-
-		var ergebnis = sut.berechneDiaetInTagen(90.0, 22.5, 10.0);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.berechneDiaetInTagen(90.0, 22.5, 10.0)).isEqualTo(112);
 	}
 
 	@Test
 	@DisplayName("den erwarteten Körperfettanteil berechnen")
 	void test03()
 	{
-		var erwartet = 15;
-
-		var ergebnis = sut.berechneGeschaetztenKoerperfettAnteil(90.0, 22.5, 12);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.berechneGeschaetztenKoerperfettAnteil(90.0, 22.5, 12)).isEqualTo(15);
 	}
 }

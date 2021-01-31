@@ -3,9 +3,7 @@ package de.justinharder.trainharder.view.navigation;
 import de.justinharder.trainharder.model.services.KontaktService;
 import de.justinharder.trainharder.view.AbstractController;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
-import lombok.AccessLevel;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -25,10 +23,8 @@ import java.util.stream.Collectors;
 public class KontaktController extends AbstractController
 {
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 	@Inject
 	private BindingResult bindingResult;

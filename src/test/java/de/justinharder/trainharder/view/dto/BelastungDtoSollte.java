@@ -14,23 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BelastungDtoSollte
 {
 	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
-	private static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO = new GrunduebungBelastungDto("1.0",
-		"0.0", "0.0");
-	private static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO = new OberkoerperBelastungDto("0.7",
-		"1.0", "0.0", "0.0", "0.0", "0.1");
-	private static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO = new UnterkoerperBelastungDto("1.0",
-		"1.0", "0.5");
+	private static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO = new GrunduebungBelastungDto("1.0", "0.0", "0.0");
+	private static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO = new OberkoerperBelastungDto("0.7", "1.0", "0.0", "0.0", "0.0", "0.1");
+	private static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO = new UnterkoerperBelastungDto("1.0", "1.0", "0.5");
 
 	private BelastungDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new BelastungDto(
-			PRIMAERSCHLUESSEL,
-			GRUNDUEBUNG_BELASTUNG_DTO,
-			OBERKOERPER_BELASTUNG_DTO,
-			UNTERKOERPER_BELASTUNG_DTO);
+		sut = new BelastungDto(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO);
 	}
 
 	@Test
@@ -74,14 +67,10 @@ class BelastungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(null,
-				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
-				null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
-				GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL,
-				GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(null, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL, null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),

@@ -61,8 +61,7 @@ class GrunduebungBelastungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new GrunduebungBelastungDto(null, BENCHPRESS,
-				DEADLIFT)),
+			() -> assertThrows(NullPointerException.class, () -> new GrunduebungBelastungDto(null, BENCHPRESS, DEADLIFT)),
 			() -> assertThrows(NullPointerException.class, () -> new GrunduebungBelastungDto(SQUAT, null, DEADLIFT)),
 			() -> assertThrows(NullPointerException.class, () -> new GrunduebungBelastungDto(SQUAT, BENCHPRESS, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setSquat(null)),

@@ -1,6 +1,5 @@
 package de.justinharder.trainharder.model.services;
 
-import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Benutzerangabe;
 import de.justinharder.trainharder.model.domain.embeddables.Name;
@@ -29,10 +28,7 @@ public class BenutzerService
 	private final BenutzerDtoMapper benutzerDtoMapper;
 
 	@Inject
-	public BenutzerService(
-		BenutzerRepository benutzerRepository,
-		AuthentifizierungRepository authentifizierungRepository,
-		BenutzerDtoMapper benutzerDtoMapper)
+	public BenutzerService(BenutzerRepository benutzerRepository, AuthentifizierungRepository authentifizierungRepository, BenutzerDtoMapper benutzerDtoMapper)
 	{
 		this.benutzerRepository = benutzerRepository;
 		this.authentifizierungRepository = authentifizierungRepository;
@@ -51,8 +47,7 @@ public class BenutzerService
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 	}
 
-	public BenutzerDto ermittleZuAuthentifizierung(@NonNull String authentifizierungId)
-		throws BenutzerNichtGefundenException
+	public BenutzerDto ermittleZuAuthentifizierung(@NonNull String authentifizierungId) throws BenutzerNichtGefundenException
 	{
 		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
 			.map(benutzerDtoMapper::mappe)
@@ -60,11 +55,9 @@ public class BenutzerService
 				.wirfBenutzerNichtGefundenException("der AuthentifizierungID", authentifizierungId));
 	}
 
-	public BenutzerDto erstelleBenutzer(@NonNull Benutzerdaten benutzerdaten, @NonNull String authentifizierungId)
-		throws AuthentifizierungNichtGefundenException
+	public BenutzerDto erstelleBenutzer(@NonNull Benutzerdaten benutzerdaten, @NonNull String authentifizierungId) throws AuthentifizierungNichtGefundenException
 	{
-		var authentifizierung = authentifizierungRepository
-			.ermittleZuId(new Primaerschluessel(authentifizierungId))
+		var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId))
 			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
 
 		var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
@@ -86,14 +79,9 @@ public class BenutzerService
 		return benutzerDtoMapper.mappe(benutzer);
 	}
 
-	public BenutzerDto aktualisiereBenutzer(String id, Benutzerdaten benutzerdaten)
-		throws BenutzerNichtGefundenException
+	public BenutzerDto aktualisiereBenutzer(@NonNull String id, @NonNull Benutzerdaten benutzerdaten) throws BenutzerNichtGefundenException
 	{
-		Preconditions.checkNotNull(id, "Die Aktualisierung des Benutzers benötigt eine gültige ID!");
-		Preconditions.checkNotNull(benutzerdaten, "Die Aktualisierung des Benutzers benötigt gültige Benutzerdaten!");
-
-		var benutzer = benutzerRepository
-			.ermittleZuId(new Primaerschluessel(id))
+		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
 
 		return benutzerDtoMapper.mappe(benutzerRepository.speichereBenutzer(benutzer
@@ -106,7 +94,6 @@ public class BenutzerService
 				Schlafqualitaet.zuWert(benutzerdaten.getSchlafqualitaet()),
 				Stress.zuWert(benutzerdaten.getStress()),
 				Doping.zuWert(benutzerdaten.getDoping()),
-				Regenerationsfaehigkeit
-					.zuWert(benutzerdaten.getRegenerationsfaehigkeit())))));
+				Regenerationsfaehigkeit.zuWert(benutzerdaten.getRegenerationsfaehigkeit())))));
 	}
 }

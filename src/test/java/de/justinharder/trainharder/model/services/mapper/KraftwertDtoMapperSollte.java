@@ -25,18 +25,8 @@ class KraftwertDtoMapperSollte
 	@DisplayName("alle Kraftwerte zu KraftwertDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(
-			Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var kraftwerte = List.of(
-			Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-
-		var ergebnis = sut.mappeAlle(kraftwerte);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.mappeAlle(List.of(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN)))
+			.isEqualTo(List.of(Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test

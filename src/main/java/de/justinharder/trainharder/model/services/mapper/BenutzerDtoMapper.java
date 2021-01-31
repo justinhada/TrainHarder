@@ -14,9 +14,7 @@ public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
 
 	@Inject
-	public BenutzerDtoMapper(
-		AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		KoerpermessungDtoMapper koerpermessungDtoMapper)
+	public BenutzerDtoMapper(AuthentifizierungDtoMapper authentifizierungDtoMapper, KoerpermessungDtoMapper koerpermessungDtoMapper)
 	{
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
 		this.koerpermessungDtoMapper = koerpermessungDtoMapper;

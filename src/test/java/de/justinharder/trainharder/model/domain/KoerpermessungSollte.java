@@ -20,8 +20,7 @@ class KoerpermessungSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
 	private static final LocalDate DATUM = LocalDate.of(2020, 7, 29);
-	private static final Koerpermasse KOERPERMASSE =
-		new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
+	private static final Koerpermasse KOERPERMASSE = new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
 	private static final int KALORIENEINNAHME = 2500;
 	private static final int KALORIENVERBRAUCH = 2500;
 
@@ -30,13 +29,7 @@ class KoerpermessungSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new Koerpermessung(
-			PRIMAERSCHLUESSEL,
-			DATUM,
-			KOERPERMASSE,
-			KALORIENEINNAHME,
-			KALORIENVERBRAUCH,
-			Testdaten.BENUTZER_JUSTIN);
+		sut = new Koerpermessung(PRIMAERSCHLUESSEL, DATUM, KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN);
 	}
 
 	@Test
@@ -84,14 +77,10 @@ class KoerpermessungSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(null, DATUM,
-				KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, null,
-				KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, DATUM,
-				null, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, DATUM,
-				KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(null, DATUM, KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, null, KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, DATUM, null, KALORIENEINNAHME, KALORIENVERBRAUCH, Testdaten.BENUTZER_JUSTIN)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermessung(PRIMAERSCHLUESSEL, DATUM, KOERPERMASSE, KALORIENEINNAHME, KALORIENVERBRAUCH, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpermasse(null)),

@@ -24,12 +24,7 @@ class UebungDtoSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new UebungDto(
-			PRIMAERSCHLUESSEL,
-			NAME,
-			UEBUNGSART,
-			UEBUNGSKATEGORIE,
-			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
+		sut = new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART, UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
 	}
 
 	@Test
@@ -48,8 +43,7 @@ class UebungDtoSollte
 			() -> assertThat(sut.getName()).isEqualTo(NAME),
 			() -> assertThat(sut.getUebungsart()).isEqualTo(UEBUNGSART),
 			() -> assertThat(sut.getUebungskategorie()).isEqualTo(UEBUNGSKATEGORIE),
-			() -> assertThat(sut.getBelastungsfaktor())
-				.isEqualTo(Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN));
+			() -> assertThat(sut.getBelastungsfaktor()).isEqualTo(Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
@@ -78,16 +72,11 @@ class UebungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(null, NAME, UEBUNGSART,
-				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, null, UEBUNGSART,
-				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, null,
-				UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART,
-				null, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART,
-				UEBUNGSKATEGORIE, null)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(null, NAME, UEBUNGSART, UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, null, UEBUNGSART, UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, null, UEBUNGSKATEGORIE, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART, null, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class, () -> new UebungDto(PRIMAERSCHLUESSEL, NAME, UEBUNGSART, UEBUNGSKATEGORIE, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),

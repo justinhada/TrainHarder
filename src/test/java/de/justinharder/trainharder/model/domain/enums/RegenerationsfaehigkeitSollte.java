@@ -14,11 +14,7 @@ class RegenerationsfaehigkeitSollte
 	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
-
-		var exception = assertThrows(EnumException.class, () -> Regenerationsfaehigkeit.zuWert("UNGUELTIG"));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(EnumException.class, () -> Regenerationsfaehigkeit.zuWert("UNGUELTIG"));
 	}
 
 	@Test
@@ -27,10 +23,8 @@ class RegenerationsfaehigkeitSollte
 	{
 		assertAll(
 			() -> assertThat(Regenerationsfaehigkeit.zuWert("SCHLECHT")).isEqualTo(Regenerationsfaehigkeit.SCHLECHT),
-			() -> assertThat(Regenerationsfaehigkeit.zuWert("UNTERDURCHSCHNITTLICH"))
-				.isEqualTo(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH),
-			() -> assertThat(Regenerationsfaehigkeit.zuWert("DURCHSCHNITTLICH"))
-				.isEqualTo(Regenerationsfaehigkeit.DURCHSCHNITTLICH),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("UNTERDURCHSCHNITTLICH")).isEqualTo(Regenerationsfaehigkeit.UNTERDURCHSCHNITTLICH),
+			() -> assertThat(Regenerationsfaehigkeit.zuWert("DURCHSCHNITTLICH")).isEqualTo(Regenerationsfaehigkeit.DURCHSCHNITTLICH),
 			() -> assertThat(Regenerationsfaehigkeit.zuWert("GUT")).isEqualTo(Regenerationsfaehigkeit.GUT),
 			() -> assertThat(Regenerationsfaehigkeit.zuWert("PERFEKT")).isEqualTo(Regenerationsfaehigkeit.PERFEKT));
 	}

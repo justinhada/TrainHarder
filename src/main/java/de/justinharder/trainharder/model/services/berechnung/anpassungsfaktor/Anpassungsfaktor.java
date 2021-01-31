@@ -106,23 +106,22 @@ public class Anpassungsfaktor
 			return false;
 		}
 		var that = (Anpassungsfaktor) o;
-		return alter == that.alter &&
-			koerpergewicht == that.koerpergewicht &&
-			koerpergroesse == that.koerpergroesse &&
-			kraftlevel == that.kraftlevel &&
-			geschlecht == that.geschlecht &&
-			erfahrung == that.erfahrung &&
-			ernaehrung == that.ernaehrung &&
-			schlafqualitaet == that.schlafqualitaet &&
-			stress == that.stress &&
-			doping == that.doping &&
-			regenerationsfaehigkeit == that.regenerationsfaehigkeit;
+		return alter == that.alter
+			&& koerpergewicht == that.koerpergewicht
+			&& koerpergroesse == that.koerpergroesse
+			&& kraftlevel == that.kraftlevel
+			&& geschlecht == that.geschlecht
+			&& erfahrung == that.erfahrung
+			&& ernaehrung == that.ernaehrung
+			&& schlafqualitaet == that.schlafqualitaet
+			&& stress == that.stress
+			&& doping == that.doping
+			&& regenerationsfaehigkeit == that.regenerationsfaehigkeit;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(alter, koerpergewicht, koerpergroesse, kraftlevel, geschlecht, erfahrung, ernaehrung,
-			schlafqualitaet, stress, doping, regenerationsfaehigkeit);
+		return Objects.hash(alter, koerpergewicht, koerpergroesse, kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit);
 	}
 }

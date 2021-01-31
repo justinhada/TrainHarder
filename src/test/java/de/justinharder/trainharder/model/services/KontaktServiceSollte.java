@@ -39,12 +39,7 @@ class KontaktServiceSollte
 	{
 		var vorname = "Justin";
 		var nachname = "Harder";
-		var kontaktformular = new Kontaktformular(
-			"mail@justinharder.de",
-			"harder",
-			vorname,
-			nachname,
-			"Ich habe ein Problem.");
+		var kontaktformular = new Kontaktformular("mail@justinharder.de", "harder", vorname, nachname, "Ich habe ein Problem.");
 
 		sut.kontaktiere(kontaktformular);
 

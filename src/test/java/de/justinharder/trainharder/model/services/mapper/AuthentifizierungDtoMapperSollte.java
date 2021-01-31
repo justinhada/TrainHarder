@@ -25,12 +25,8 @@ class AuthentifizierungDtoMapperSollte
 	@DisplayName("alle Authentifizierungen zu AuthentifizierungDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD);
-		var authentifizierungen = List.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_EDUARD);
-
-		var ergebnis = sut.mappeAlle(authentifizierungen);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.mappeAlle(List.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_EDUARD)))
+			.isEqualTo(List.of(Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD));
 	}
 
 	@Test

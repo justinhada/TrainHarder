@@ -14,13 +14,13 @@ import java.util.Objects;
 public class Registrierung
 {
 	@Email(message = "Ungültige E-Mail-Adresse!")
-	@FormParam("mail")
+	@FormParam(value = "mail")
 	private String mail;
 	@Size(min = 3, max = 30, message = "Ungültiger Benutzername!")
-	@FormParam("benutzername")
+	@FormParam(value = "benutzername")
 	private String benutzername;
 	@Size(min = 12, max = 64, message = "Ungültiges Passwort!")
-	@FormParam("passwort")
+	@FormParam(value = "passwort")
 	private String passwort;
 
 	public Registrierung()
@@ -63,7 +63,7 @@ public class Registrierung
 			return false;
 		}
 		var that = (Registrierung) o;
-		return mail.equals(that.mail) && benutzername.equals(that.benutzername) && passwort.equals(that.passwort);
+		return Objects.equals(mail, that.mail) && Objects.equals(benutzername, that.benutzername) && Objects.equals(passwort, that.passwort);
 	}
 
 	@Override

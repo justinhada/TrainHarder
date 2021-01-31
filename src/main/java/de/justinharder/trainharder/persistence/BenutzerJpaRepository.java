@@ -35,8 +35,7 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 			var criteriaQuery = criteriaBuilder.createQuery(Benutzer.class);
 			var root = criteriaQuery.from(Benutzer.class);
 			var joinAuthentifizierung = root.join("authentifizierung");
-			criteriaQuery.select(root).where(
-				criteriaBuilder.equal(joinAuthentifizierung.get("primaerschluessel"), authentifizierungId));
+			criteriaQuery.select(root).where(criteriaBuilder.equal(joinAuthentifizierung.get("primaerschluessel"), authentifizierungId));
 			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
 		}
 		catch (NoResultException e)

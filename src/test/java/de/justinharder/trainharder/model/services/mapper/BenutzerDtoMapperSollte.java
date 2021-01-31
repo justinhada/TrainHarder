@@ -32,16 +32,12 @@ class BenutzerDtoMapperSollte
 		sut = new BenutzerDtoMapper(authentifizierungDtoMapper, koerpermessungDtoMapper);
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
-		Authentifizierung authentifizierung,
-		AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
 	{
 		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(
-		List<Koerpermessung> koerpermessungen,
-		List<KoerpermessungDto> koerpermessungDtos)
+	private void angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List<Koerpermessung> koerpermessungen, List<KoerpermessungDto> koerpermessungDtos)
 	{
 		when(koerpermessungDtoMapper.mappeAlle(koerpermessungen)).thenReturn(koerpermessungDtos);
 	}
@@ -50,24 +46,14 @@ class BenutzerDtoMapperSollte
 	@DisplayName("alle Benutzer zu BenutzerDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(Testdaten.BENUTZER_DTO_EDUARD);
-		var benutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
-		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
-		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
-			Testdaten.AUTHENTIFIZIERUNG_EDUARD,
-			Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD);
-		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(
-			List.of(Testdaten.KOERPERMESSUNG_JUSTIN),
-			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
-		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(
-			List.of(Testdaten.KOERPERMESSUNG_EDUARD),
-			List.of(Testdaten.KOERPERMESSUNG_DTO_EDUARD));
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
+		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_EDUARD, Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD);
+		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List.of(Testdaten.KOERPERMESSUNG_JUSTIN), List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
+		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List.of(Testdaten.KOERPERMESSUNG_EDUARD), List.of(Testdaten.KOERPERMESSUNG_DTO_EDUARD));
 
-		var ergebnis = sut.mappeAlle(benutzer);
+		var ergebnis = sut.mappeAlle(List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD));
 
-		assertThat(ergebnis).containsAll(erwartet);
+		assertThat(ergebnis).containsAll(List.of(Testdaten.BENUTZER_DTO_EDUARD));
 		verify(authentifizierungDtoMapper).mappe(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
 		verify(koerpermessungDtoMapper).mappeAlle(List.of(Testdaten.KOERPERMESSUNG_EDUARD));
 	}

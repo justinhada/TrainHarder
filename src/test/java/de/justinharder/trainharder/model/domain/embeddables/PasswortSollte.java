@@ -56,9 +56,7 @@ class PasswortSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test04()
 	{
-		var erwartet = "Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("Passwort(salt=lhwMFKf4DTBEXnWG7tXvhA==, passwortHash=mNMZ8W5m2jf5TtSBnNfB/w==)");
 	}
 
 	@Test

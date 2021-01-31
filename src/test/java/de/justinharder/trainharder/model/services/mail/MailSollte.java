@@ -54,15 +54,13 @@ class MailSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		var erwartet = "Mail("
+		assertThat(sut).hasToString("Mail("
 			+ "sender=MailAdresse(adresse=mail@justinharder.de, name=Justin), "
 			+ "alleEmpfaenger=[MailAdresse(adresse=justinharder@t-online.de, name=Justin)], "
 			+ "alleInKopie=[MailAdresse(adresse=justinharder@t-online.de, name=Justin)], "
 			+ "alleInBlindkopie=[MailAdresse(adresse=justinharder@t-online.de, name=Justin)], "
 			+ "betreff=Betreff, "
-			+ "inhalt=Inhalt)";
-
-		assertThat(sut).hasToString(erwartet);
+			+ "inhalt=Inhalt)");
 	}
 
 	@Test

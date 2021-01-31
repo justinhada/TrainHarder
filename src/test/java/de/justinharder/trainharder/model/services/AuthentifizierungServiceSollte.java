@@ -35,8 +35,7 @@ class AuthentifizierungServiceSollte
 		sut = new AuthentifizierungService(authentifizierungRepository, authentifizierungDtoMapper);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(String id,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(String id, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(authentifizierung);
 	}
@@ -46,17 +45,14 @@ class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(id, Optional.empty());
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung,
-		AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
 	{
 		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(String benutzerId,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(String benutzerId, Optional<Authentifizierung> authentifizierung)
 	{
-		when(authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId)))
-			.thenReturn(authentifizierung);
+		when(authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId))).thenReturn(authentifizierung);
 	}
 
 	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(String benutzerId)
@@ -64,17 +60,14 @@ class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(benutzerId, Optional.empty());
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(String benutzername,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(String benutzername, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(
-		String benutzername)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(String benutzername)
 	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
-			Optional.empty());
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.empty());
 	}
 
 	@Test
@@ -94,10 +87,7 @@ class AuthentifizierungServiceSollte
 		var id = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZurId(id);
 
-		var exception = assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuId(id));
-
-		assertThat(exception.getMessage())
-			.isEqualTo("Die Authentifizierung mit der ID \"" + id + "\" existiert nicht!");
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuId(id));
 	}
 
 	@Test
@@ -110,9 +100,7 @@ class AuthentifizierungServiceSollte
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZurId(id, Optional.of(authentifizierung));
 		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		var ergebnis = sut.ermittleZuId(id);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -122,11 +110,7 @@ class AuthentifizierungServiceSollte
 		var benutzerId = new Primaerschluessel().getId().toString();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzer(benutzerId);
 
-		var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzer(benutzerId));
-
-		assertThat(exception.getMessage())
-			.isEqualTo("Die Authentifizierung mit der BenutzerID \"" + benutzerId + "\" existiert nicht!");
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzer(benutzerId));
 	}
 
 	@Test
@@ -136,13 +120,10 @@ class AuthentifizierungServiceSollte
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(benutzerId,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzer(benutzerId, Optional.of(authentifizierung));
 		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		var ergebnis = sut.ermittleZuBenutzer(benutzerId);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuBenutzer(benutzerId)).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -150,13 +131,9 @@ class AuthentifizierungServiceSollte
 	void test06()
 	{
 		var benutzername = "nichtbekannt";
-		var erwartet = "Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!";
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(benutzername);
 
-		var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzername(benutzername));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.ermittleZuBenutzername(benutzername));
 	}
 
 	@Test
@@ -166,12 +143,9 @@ class AuthentifizierungServiceSollte
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzername = "harder";
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.of(authentifizierung));
 		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
-		var ergebnis = sut.ermittleZuBenutzername(benutzername);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuBenutzername(benutzername)).isEqualTo(erwartet);
 	}
 }

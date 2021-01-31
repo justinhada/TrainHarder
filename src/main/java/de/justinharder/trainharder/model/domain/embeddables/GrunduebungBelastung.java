@@ -62,9 +62,7 @@ public class GrunduebungBelastung implements Serializable
 			return false;
 		}
 		var that = (GrunduebungBelastung) o;
-		return Double.compare(that.squat, squat) == 0
-			&& Double.compare(that.benchpress, benchpress) == 0
-			&& Double.compare(that.deadlift, deadlift) == 0;
+		return Double.compare(that.squat, squat) == 0 && Double.compare(that.benchpress, benchpress) == 0 && Double.compare(that.deadlift, deadlift) == 0;
 	}
 
 	@Override

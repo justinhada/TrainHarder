@@ -49,19 +49,16 @@ public class RegistrierungService
 	}
 
 	public AuthentifizierungDto registriere(@NonNull Registrierung registrierung)
-		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException,
-		NoSuchAlgorithmException
+		throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		if (authentifizierungRepository.ermittleZuMail(registrierung.getMail()).isPresent())
 		{
-			throw new MailVergebenException(
-				"Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!");
+			throw new MailVergebenException("Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!");
 		}
 
 		if (authentifizierungRepository.ermittleZuBenutzername(registrierung.getBenutzername()).isPresent())
 		{
-			throw new BenutzernameVergebenException(
-				"Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!");
+			throw new BenutzernameVergebenException("Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!");
 		}
 
 		if (passwortCheck.isUnsicher(registrierung.getPasswort()))
@@ -70,12 +67,11 @@ public class RegistrierungService
 		}
 
 		var salt = passwortHasher.generiereSalt(new byte[16]);
-		var authentifizierung = authentifizierungRepository
-			.speichereAuthentifizierung(new Authentifizierung(
-				new Primaerschluessel(),
-				registrierung.getMail(),
-				registrierung.getBenutzername(),
-				new Passwort(salt, passwortHasher.hash(registrierung.getPasswort(), salt))));
+		var authentifizierung = authentifizierungRepository.speichereAuthentifizierung(new Authentifizierung(
+			new Primaerschluessel(),
+			registrierung.getMail(),
+			registrierung.getBenutzername(),
+			new Passwort(salt, passwortHasher.hash(registrierung.getPasswort(), salt))));
 
 		var mail = new Mail(
 			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),

@@ -33,11 +33,7 @@ class BenutzerSollte
 		Regenerationsfaehigkeit.GUT)
 		.setKraftlevel(Kraftlevel.CLASS_5);
 	private static final Primaerschluessel PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG = new Primaerschluessel();
-	private static final Authentifizierung AUTHENTIFIZIERUNG = new Authentifizierung(
-		PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG,
-		"mail@justinharder.de",
-		"harder",
-		Testdaten.PASSWORT);
+	private static final Authentifizierung AUTHENTIFIZIERUNG = new Authentifizierung(PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG, "mail@justinharder.de", "harder", Testdaten.PASSWORT);
 
 	private Benutzer sut;
 
@@ -72,11 +68,9 @@ class BenutzerSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Benutzer.class)
-			.withPrefabValues(Authentifizierung.class, Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
-				Testdaten.AUTHENTIFIZIERUNG_EDUARD)
+			.withPrefabValues(Authentifizierung.class, Testdaten.AUTHENTIFIZIERUNG_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_EDUARD)
 			.withPrefabValues(Koerpermessung.class, Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD)
-			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -112,16 +106,11 @@ class BenutzerSollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(null, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, null, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, null, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, null, AUTHENTIFIZIERUNG)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Benutzer(null, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Benutzer(PRIMAERSCHLUESSEL, null, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Benutzer(PRIMAERSCHLUESSEL, NAME, null, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, null, AUTHENTIFIZIERUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeburtsdatum(null)),

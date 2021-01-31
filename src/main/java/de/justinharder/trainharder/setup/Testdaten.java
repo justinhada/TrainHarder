@@ -29,10 +29,8 @@ public class Testdaten
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_JUSTIN = new AuthentifizierungDto();
 	public static final AuthentifizierungDto AUTHENTIFIZIERUNG_DTO_EDUARD = new AuthentifizierungDto();
 
-	public static final Koerpermasse KOERPERMASSE_JUSTIN =
-		new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
-	public static final Koerpermasse KOERPERMASSE_EDUARD =
-		new Koerpermasse(new BigDecimal(182), new BigDecimal(64), new BigDecimal(9));
+	public static final Koerpermasse KOERPERMASSE_JUSTIN = new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25));
+	public static final Koerpermasse KOERPERMASSE_EDUARD = new Koerpermasse(new BigDecimal(182), new BigDecimal(64), new BigDecimal(9));
 
 	public static final KoerpermasseDto KOERPERMASSE_DTO_JUSTIN = new KoerpermasseDto();
 	public static final KoerpermasseDto KOERPERMASSE_DTO_EDUARD = new KoerpermasseDto();
@@ -60,19 +58,15 @@ public class Testdaten
 
 	public static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG_WETTKAMPFBANKDRUECKEN = new GrunduebungBelastung();
 	public static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG_LOWBAR_KNIEBEUGE = new GrunduebungBelastung();
-	public static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG_KONVENTIONELLES_KREUZHEBEN =
-		new GrunduebungBelastung();
+	public static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG_KONVENTIONELLES_KREUZHEBEN = new GrunduebungBelastung();
 
 	public static final OberkoerperBelastung OBERKOERPER_BELASTUNG_WETTKAMPFBANKDRUECKEN = new OberkoerperBelastung();
 	public static final OberkoerperBelastung OBERKOERPER_BELASTUNG_LOWBAR_KNIEBEUGE = new OberkoerperBelastung();
-	public static final OberkoerperBelastung OBERKOERPER_BELASTUNG_KONVENTIONELLES_KREUZHEBEN =
-		new OberkoerperBelastung();
+	public static final OberkoerperBelastung OBERKOERPER_BELASTUNG_KONVENTIONELLES_KREUZHEBEN = new OberkoerperBelastung();
 
-	public static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG_WETTKAMPFBANKDRUECKEN =
-		new UnterkoerperBelastung();
+	public static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG_WETTKAMPFBANKDRUECKEN = new UnterkoerperBelastung();
 	public static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG_LOWBAR_KNIEBEUGE = new UnterkoerperBelastung();
-	public static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG_KONVENTIONELLES_KREUZHEBEN =
-		new UnterkoerperBelastung();
+	public static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG_KONVENTIONELLES_KREUZHEBEN = new UnterkoerperBelastung();
 
 	public static final Primaerschluessel BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID = new Primaerschluessel();
 	public static final Primaerschluessel BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID = new Primaerschluessel();
@@ -82,26 +76,17 @@ public class Testdaten
 	public static final Belastung BELASTUNG_LOWBAR_KNIEBEUGE = new Belastung();
 	public static final Belastung BELASTUNG_KONVENTIONELLES_KREUZHEBEN = new Belastung();
 
-	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN =
-		new GrunduebungBelastungDto();
-	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_LOWBAR_KNIEBEUGE =
-		new GrunduebungBelastungDto();
-	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN =
-		new GrunduebungBelastungDto();
+	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN = new GrunduebungBelastungDto();
+	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_LOWBAR_KNIEBEUGE = new GrunduebungBelastungDto();
+	public static final GrunduebungBelastungDto GRUNDUEBUNG_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN = new GrunduebungBelastungDto();
 
-	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN =
-		new OberkoerperBelastungDto();
-	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE =
-		new OberkoerperBelastungDto();
-	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN =
-		new OberkoerperBelastungDto();
+	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN = new OberkoerperBelastungDto();
+	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE = new OberkoerperBelastungDto();
+	public static final OberkoerperBelastungDto OBERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN = new OberkoerperBelastungDto();
 
-	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN =
-		new UnterkoerperBelastungDto();
-	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE =
-		new UnterkoerperBelastungDto();
-	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN =
-		new UnterkoerperBelastungDto();
+	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN = new UnterkoerperBelastungDto();
+	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_LOWBAR_KNIEBEUGE = new UnterkoerperBelastungDto();
+	public static final UnterkoerperBelastungDto UNTERKOERPER_BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN = new UnterkoerperBelastungDto();
 
 	public static final BelastungDto BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN = new BelastungDto();
 	public static final BelastungDto BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE = new BelastungDto();

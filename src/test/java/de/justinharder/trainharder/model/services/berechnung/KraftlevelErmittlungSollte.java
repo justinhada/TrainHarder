@@ -30,12 +30,7 @@ class KraftlevelErmittlungSollte
 		sut = new KraftlevelErmittlung();
 	}
 
-	private Benutzer erstelleBenutzer(
-		BigDecimal koerpergewicht,
-		Geschlecht geschlecht,
-		BigDecimal kniebeuge,
-		BigDecimal bankdruecken,
-		BigDecimal kreuzheben)
+	private Benutzer erstelleBenutzer(BigDecimal koerpergewicht, Geschlecht geschlecht, BigDecimal kniebeuge, BigDecimal bankdruecken, BigDecimal kreuzheben)
 	{
 		var benutzer = new Benutzer();
 		return benutzer
@@ -82,14 +77,12 @@ class KraftlevelErmittlungSollte
 				benutzer));
 	}
 
-	private Benutzer erstelleMann(BigDecimal koerpergewicht, BigDecimal kniebeuge, BigDecimal bankdruecken,
-		BigDecimal kreuzheben)
+	private Benutzer erstelleMann(BigDecimal koerpergewicht, BigDecimal kniebeuge, BigDecimal bankdruecken, BigDecimal kreuzheben)
 	{
 		return erstelleBenutzer(koerpergewicht, Geschlecht.MAENNLICH, kniebeuge, bankdruecken, kreuzheben);
 	}
 
-	private Benutzer erstelleFrau(BigDecimal koerpergewicht, BigDecimal kniebeuge, BigDecimal bankdruecken,
-		BigDecimal kreuzheben)
+	private Benutzer erstelleFrau(BigDecimal koerpergewicht, BigDecimal kniebeuge, BigDecimal bankdruecken, BigDecimal kreuzheben)
 	{
 		return erstelleBenutzer(koerpergewicht, Geschlecht.WEIBLICH, kniebeuge, bankdruecken, kreuzheben);
 	}
@@ -99,30 +92,14 @@ class KraftlevelErmittlungSollte
 	void test01()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(110), new BigDecimal(95), new BigDecimal(140))))
-				.isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(150), new BigDecimal(110), new BigDecimal(170))))
-				.isEqualTo(Kraftlevel.CLASS_4),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(170), new BigDecimal(130), new BigDecimal(200))))
-				.isEqualTo(Kraftlevel.CLASS_3),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(200), new BigDecimal(145), new BigDecimal(230))))
-				.isEqualTo(Kraftlevel.CLASS_2),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(220), new BigDecimal(160), new BigDecimal(250))))
-				.isEqualTo(Kraftlevel.CLASS_1),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(240), new BigDecimal(170), new BigDecimal(270))))
-				.isEqualTo(Kraftlevel.MASTER),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(90), new BigDecimal(260), new BigDecimal(185), new BigDecimal(290))))
-				.isEqualTo(Kraftlevel.ELITE),
-			() -> assertThat(sut.ermittle(
-				erstelleMann(new BigDecimal(130), new BigDecimal(300), new BigDecimal(200), new BigDecimal(350))))
-				.isEqualTo(Kraftlevel.MASTER));
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(110), new BigDecimal(95), new BigDecimal(140)))).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(150), new BigDecimal(110), new BigDecimal(170)))).isEqualTo(Kraftlevel.CLASS_4),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(170), new BigDecimal(130), new BigDecimal(200)))).isEqualTo(Kraftlevel.CLASS_3),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(200), new BigDecimal(145), new BigDecimal(230)))).isEqualTo(Kraftlevel.CLASS_2),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(220), new BigDecimal(160), new BigDecimal(250)))).isEqualTo(Kraftlevel.CLASS_1),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(240), new BigDecimal(170), new BigDecimal(270)))).isEqualTo(Kraftlevel.MASTER),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(90), new BigDecimal(260), new BigDecimal(185), new BigDecimal(290)))).isEqualTo(Kraftlevel.ELITE),
+			() -> assertThat(sut.ermittle(erstelleMann(new BigDecimal(130), new BigDecimal(300), new BigDecimal(200), new BigDecimal(350)))).isEqualTo(Kraftlevel.MASTER));
 	}
 
 	@Test
@@ -130,27 +107,13 @@ class KraftlevelErmittlungSollte
 	void test02()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(100), new BigDecimal(50), new BigDecimal(110))))
-				.isEqualTo(Kraftlevel.CLASS_5),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(110), new BigDecimal(60), new BigDecimal(120))))
-				.isEqualTo(Kraftlevel.CLASS_4),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(120), new BigDecimal(70), new BigDecimal(130))))
-				.isEqualTo(Kraftlevel.CLASS_3),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(140), new BigDecimal(90), new BigDecimal(150))))
-				.isEqualTo(Kraftlevel.CLASS_2),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(150), new BigDecimal(100), new BigDecimal(160))))
-				.isEqualTo(Kraftlevel.CLASS_1),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(170), new BigDecimal(110), new BigDecimal(180))))
-				.isEqualTo(Kraftlevel.MASTER),
-			() -> assertThat(sut.ermittle(
-				erstelleFrau(new BigDecimal(90), new BigDecimal(200), new BigDecimal(120), new BigDecimal(220))))
-				.isEqualTo(Kraftlevel.ELITE));
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(100), new BigDecimal(50), new BigDecimal(110)))).isEqualTo(Kraftlevel.CLASS_5),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(110), new BigDecimal(60), new BigDecimal(120)))).isEqualTo(Kraftlevel.CLASS_4),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(120), new BigDecimal(70), new BigDecimal(130)))).isEqualTo(Kraftlevel.CLASS_3),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(140), new BigDecimal(90), new BigDecimal(150)))).isEqualTo(Kraftlevel.CLASS_2),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(150), new BigDecimal(100), new BigDecimal(160)))).isEqualTo(Kraftlevel.CLASS_1),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(170), new BigDecimal(110), new BigDecimal(180)))).isEqualTo(Kraftlevel.MASTER),
+			() -> assertThat(sut.ermittle(erstelleFrau(new BigDecimal(90), new BigDecimal(200), new BigDecimal(120), new BigDecimal(220)))).isEqualTo(Kraftlevel.ELITE));
 	}
 
 	@Test

@@ -61,12 +61,8 @@ class PasswortHasherSollte
 	void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.check(
-				new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="),
-				"Justinharder#98")).isTrue(),
-			() -> assertThat(sut.check(
-				new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="),
-				"NichtJustinharder#98")).isFalse());
+			() -> assertThat(sut.check(new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="), "Justinharder#98")).isTrue(),
+			() -> assertThat(sut.check(new Passwort("f1qvR4c6WNx0sW2PuQsu8g==", "ZDsH4I6vevFMzi4r010ScA=="), "NichtJustinharder#98")).isFalse());
 	}
 
 	@Test

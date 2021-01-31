@@ -26,7 +26,6 @@ class FettfreiesKoerpergewichtSollte
 	@DisplayName("berechnet werden")
 	void test02()
 	{
-		assertThat(FettfreiesKoerpergewicht.aus(new BigDecimal(90), new BigDecimal(25)))
-			.isEqualTo(new BigDecimal("67.50"));
+		assertThat(FettfreiesKoerpergewicht.aus(new BigDecimal(90), new BigDecimal(25)))			.isEqualTo(new BigDecimal("67.50"));
 	}
 }

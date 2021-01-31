@@ -47,8 +47,7 @@ public class LoginService
 		this.mailServer = mailServer;
 	}
 
-	public AuthentifizierungDto login(@NonNull String benutzername, @NonNull String passwort)
-		throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
+	public AuthentifizierungDto login(@NonNull String benutzername, @NonNull String passwort) throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
 	{
 		var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
 			.orElseThrow(() -> new LoginException(LOGIN_EXCEPTION));
@@ -61,8 +60,7 @@ public class LoginService
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid)
-		throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid) throws AuthentifizierungNichtGefundenException
 	{
 		var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
 			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der Mail", mail));
@@ -83,8 +81,8 @@ public class LoginService
 		mailServer.sende(mail1);
 	}
 
-	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort) throws PasswortUnsicherException,
-		AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
+	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort)
+		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		if (passwortCheck.isUnsicher(passwort))
 		{
@@ -92,8 +90,7 @@ public class LoginService
 		}
 
 		var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
-			.orElseThrow(FehlermeldungService
-				.wirfAuthentifizierungNichtGefundenException("der ResetUUID", resetUuid.toString()));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ResetUUID", resetUuid.toString()));
 
 		var salt = authentifizierung.getPasswort().getSalt();
 		authentifizierungRepository.speichereAuthentifizierung(authentifizierung

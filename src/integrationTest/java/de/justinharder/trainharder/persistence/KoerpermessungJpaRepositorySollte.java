@@ -32,10 +32,8 @@ class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	void test01()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID))
-				.containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_JUSTIN),
-			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID))
-				.containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_EDUARD));
+			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID)).containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_JUSTIN),
+			() -> assertThat(sut.ermittleAlleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID)).containsExactlyInAnyOrder(Testdaten.KOERPERMESSUNG_EDUARD));
 	}
 
 	@Test
@@ -50,10 +48,8 @@ class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID))
-				.hasValue(Testdaten.KOERPERMESSUNG_JUSTIN),
-			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID))
-				.hasValue(Testdaten.KOERPERMESSUNG_EDUARD));
+			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_JUSTIN_ID)).hasValue(Testdaten.KOERPERMESSUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.KOERPERMESSUNG_EDUARD_ID)).hasValue(Testdaten.KOERPERMESSUNG_EDUARD));
 	}
 
 	@Test
@@ -75,8 +71,8 @@ class KoerpermessungJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("Koerpermessung aktualisieren")
 	void test05()
 	{
-		var koerpermessung = Testdaten.KOERPERMESSUNG_JUSTIN;
-		koerpermessung.setKalorieneinnahme(1900);
+		var koerpermessung = Testdaten.KOERPERMESSUNG_JUSTIN
+			.setKalorieneinnahme(1900);
 
 		var ergebnis = sut.speichereKoerpermessung(koerpermessung);
 

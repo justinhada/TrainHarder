@@ -36,10 +36,7 @@ public class Koerpermasse implements Serializable
 	public Koerpermasse()
 	{}
 
-	public Koerpermasse(
-		@NonNull BigDecimal koerpergroesse,
-		@NonNull BigDecimal koerpergewicht,
-		@NonNull BigDecimal koerperfettAnteil)
+	public Koerpermasse(@NonNull BigDecimal koerpergroesse, @NonNull BigDecimal koerpergewicht, @NonNull BigDecimal koerperfettAnteil)
 	{
 		this.koerpergroesse = koerpergroesse;
 		this.koerpergewicht = koerpergewicht;
@@ -87,18 +84,17 @@ public class Koerpermasse implements Serializable
 			return false;
 		}
 		var that = (Koerpermasse) o;
-		return koerpergroesse.equals(that.koerpergroesse)
-			&& koerpergewicht.equals(that.koerpergewicht)
-			&& koerperfettAnteil.equals(that.koerperfettAnteil)
-			&& fettfreiesKoerpergewicht.equals(that.fettfreiesKoerpergewicht)
-			&& bodyMassIndex.equals(that.bodyMassIndex)
-			&& fatFreeMassIndex.equals(that.fatFreeMassIndex);
+		return Objects.equals(koerpergroesse, that.koerpergroesse)
+			&& Objects.equals(koerpergewicht, that.koerpergewicht)
+			&& Objects.equals(koerperfettAnteil, that.koerperfettAnteil)
+			&& Objects.equals(fettfreiesKoerpergewicht, that.fettfreiesKoerpergewicht)
+			&& Objects.equals(bodyMassIndex, that.bodyMassIndex)
+			&& Objects.equals(fatFreeMassIndex, that.fatFreeMassIndex);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(koerpergroesse, koerpergewicht, koerperfettAnteil, fettfreiesKoerpergewicht, bodyMassIndex,
-			fatFreeMassIndex);
+		return Objects.hash(koerpergroesse, koerpergewicht, koerperfettAnteil, fettfreiesKoerpergewicht, bodyMassIndex, fatFreeMassIndex);
 	}
 }

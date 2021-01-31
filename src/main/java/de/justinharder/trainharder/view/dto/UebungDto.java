@@ -20,12 +20,7 @@ public class UebungDto extends EntitaetDto
 	public UebungDto()
 	{}
 
-	public UebungDto(
-		@NonNull String primaerschluessel,
-		@NonNull String name,
-		@NonNull String uebungsart,
-		@NonNull String uebungskategorie,
-		@NonNull BelastungDto belastungsfaktor)
+	public UebungDto(@NonNull String primaerschluessel, @NonNull String name, @NonNull String uebungsart, @NonNull String uebungskategorie, @NonNull BelastungDto belastungsfaktor)
 	{
 		super(primaerschluessel);
 		this.name = name;
@@ -76,12 +71,12 @@ public class UebungDto extends EntitaetDto
 		{
 			return false;
 		}
-		var that = (UebungDto) o;
-		return primaerschluessel.equals(that.primaerschluessel) &&
-			name.equals(that.name) &&
-			uebungsart.equals(that.uebungsart) &&
-			uebungskategorie.equals(that.uebungskategorie) &&
-			belastungsfaktor.equals(that.belastungsfaktor);
+		var uebungDto = (UebungDto) o;
+		return Objects.equals(primaerschluessel, uebungDto.primaerschluessel)
+			&& Objects.equals(name, uebungDto.name)
+			&& Objects.equals(uebungsart, uebungDto.uebungsart)
+			&& Objects.equals(uebungskategorie, uebungDto.uebungskategorie)
+			&& Objects.equals(belastungsfaktor, uebungDto.belastungsfaktor);
 	}
 
 	@Override

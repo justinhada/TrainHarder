@@ -20,4 +20,3 @@ public abstract class EntitaetDto implements Serializable
 
 	public abstract int hashCode();
 }
-

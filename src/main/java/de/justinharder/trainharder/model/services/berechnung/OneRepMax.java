@@ -27,19 +27,13 @@ public class OneRepMax
 		Preconditions.checkArgument(wiederholungen > 0 && wiederholungen <= 8, "Ungültige Wiederholungen!");
 		Preconditions.checkArgument(repsInReserve >= 0 && repsInReserve <= 4, "Ungültige RepsInReserve!");
 
-		return new OneRepMax(
-			gewicht,
-			wiederholungen,
-			repsInReserve,
-			berechneRichtwert(gewicht, wiederholungen + repsInReserve));
+		return new OneRepMax(gewicht, wiederholungen, repsInReserve, berechneRichtwert(gewicht, wiederholungen + repsInReserve));
 	}
 
 	private static int berechneRichtwert(int gewicht, int index)
 	{
 		var prozentsatz = Konstanten.ONE_REP_MAX_UMRECHNUNG.get(index - 1);
-		return new BigDecimal(gewicht)
-			.divide(BigDecimal.valueOf(prozentsatz), RoundingMode.HALF_UP)
-			.intValue();
+		return new BigDecimal(gewicht).divide(BigDecimal.valueOf(prozentsatz), RoundingMode.HALF_UP).intValue();
 	}
 
 	@Override

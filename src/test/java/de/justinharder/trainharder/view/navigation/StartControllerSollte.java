@@ -27,38 +27,27 @@ class StartControllerSollte extends AbstractControllerSollte
 	@DisplayName("zur Start-Seite per GET navigieren ohne angemeldeten Benutzer")
 	void test01()
 	{
-		var erwartet = "/index.xhtml";
-
-		var ergebnis = super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenOhneAngemeldetenBenutzer(sut::index)).isEqualTo("/index.xhtml");
 	}
 
 	@Test
 	@DisplayName("zur Start-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "/index.xhtml";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \""
-			+ authentifizierungDto.getBenutzername() + "\" existiert nicht!");
+		assertThat(super.zurSeiteNavigierenMitServicefehler(sut::index, authentifizierungDto)).isEqualTo("/index.xhtml");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + authentifizierungDto.getBenutzername() + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("zur Start-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		var erwartet = "/index.xhtml";
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 
-		var ergebnis = super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(super.zurSeiteNavigierenMitAngemeldetenBenutzer(sut::index, authentifizierungDto, benutzerDto)).isEqualTo("/index.xhtml");
 		verify(models).put("authentifizierung", authentifizierungDto);
 		verify(models).put("benutzer", benutzerDto);
 	}

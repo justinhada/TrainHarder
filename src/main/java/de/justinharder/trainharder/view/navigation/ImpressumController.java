@@ -1,8 +1,6 @@
 package de.justinharder.trainharder.view.navigation;
 
 import de.justinharder.trainharder.view.AbstractController;
-import lombok.AccessLevel;
-import lombok.Setter;
 
 import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +14,8 @@ import javax.ws.rs.core.Context;
 public class ImpressumController extends AbstractController
 {
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 
 	@GET

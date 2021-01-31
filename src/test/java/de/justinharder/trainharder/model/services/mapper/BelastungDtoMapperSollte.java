@@ -25,18 +25,8 @@ class BelastungDtoMapperSollte
 	@DisplayName("alle Belastungsfaktoren zu BelastungsfaktorDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(
-			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var belastungsfaktoren = List.of(
-			Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
-
-		var ergebnis = sut.mappeAlle(belastungsfaktoren);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.mappeAlle(List.of(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE, Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN)))
+			.isEqualTo(List.of(Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE, Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test

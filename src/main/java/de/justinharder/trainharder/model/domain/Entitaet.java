@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.model.domain;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Entitaet implements Serializable
@@ -15,22 +15,18 @@ public abstract class Entitaet implements Serializable
 	public abstract Primaerschluessel getPrimaerschluessel();
 
 	@Override
-	public boolean equals(Object obj)
+	public boolean equals(Object o)
 	{
-		if (this == obj)
+		if (this == o)
 		{
 			return true;
 		}
-		if (obj == null)
+		if (!(o instanceof Entitaet))
 		{
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		var other = (Entitaet) obj;
-		return Objects.equal(getPrimaerschluessel().getId(), other.getPrimaerschluessel().getId());
+		var that = (Entitaet) o;
+		return Objects.equals(getPrimaerschluessel().getId(), that.getPrimaerschluessel().getId());
 	}
 
 	@Override

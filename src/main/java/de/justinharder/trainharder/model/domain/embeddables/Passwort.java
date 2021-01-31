@@ -53,8 +53,8 @@ public class Passwort implements Serializable
 		{
 			return false;
 		}
-		var that = (Passwort) o;
-		return salt.equals(that.salt) && passwortHash.equals(that.passwortHash);
+		var passwort = (Passwort) o;
+		return Objects.equals(salt, passwort.salt) && Objects.equals(passwortHash, passwort.passwortHash);
 	}
 
 	@Override

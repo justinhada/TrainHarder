@@ -33,19 +33,15 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("alle Uebungen ermitteln")
 	void test01()
 	{
-		assertThat(sut.ermittleAlle()).containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+		assertThat(sut.ermittleAlle()).containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test
 	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
 	void test02()
 	{
-		assertThat(sut.ermittleAlleZuUebungsart(Uebungsart.GRUNDUEBUNG)).containsExactlyInAnyOrder(
-			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+		assertThat(sut.ermittleAlleZuUebungsart(Uebungsart.GRUNDUEBUNG))
+			.containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test
@@ -53,12 +49,9 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 	void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN))
-				.containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE))
-				.containsExactlyInAnyOrder(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN))
-				.containsExactlyInAnyOrder(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)).containsExactlyInAnyOrder(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KNIEBEUGE)).containsExactlyInAnyOrder(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleAlleZuUebungskategorie(Uebungskategorie.WETTKAMPF_KREUZHEBEN)).containsExactlyInAnyOrder(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
@@ -73,12 +66,9 @@ class UebungJpaRepositorySollte extends JpaRepositorySollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID))
-				.hasValue(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE_ID))
-				.hasValue(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID))
-				.hasValue(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN_ID)).hasValue(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE_ID)).hasValue(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN_ID)).hasValue(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test

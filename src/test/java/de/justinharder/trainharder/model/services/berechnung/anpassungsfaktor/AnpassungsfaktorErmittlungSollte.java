@@ -29,8 +29,7 @@ class AnpassungsfaktorErmittlungSollte
 		sut = new AnpassungsfaktorErmittlung();
 	}
 
-	private Benutzer erstelleBenutzer(LocalDate geburtsdatum, Benutzerangabe benutzerangabe, Kraftlevel kraftlevel,
-		int koerpergroesse, int koerpergewicht)
+	private Benutzer erstelleBenutzer(LocalDate geburtsdatum, Benutzerangabe benutzerangabe, Kraftlevel kraftlevel, int koerpergroesse, int koerpergewicht)
 	{
 		var benutzer = new Benutzer(
 			new Primaerschluessel(),

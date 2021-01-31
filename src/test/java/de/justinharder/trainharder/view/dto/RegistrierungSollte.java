@@ -54,8 +54,7 @@ class RegistrierungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString(
-			"Registrierung(mail=mail@justinharder.de, benutzername=harder, passwort=Justinharder#98)");
+		assertThat(sut).hasToString(			"Registrierung(mail=mail@justinharder.de, benutzername=harder, passwort=Justinharder#98)");
 	}
 
 	@Test

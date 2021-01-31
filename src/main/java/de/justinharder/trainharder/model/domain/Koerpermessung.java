@@ -88,9 +88,9 @@ public class Koerpermessung extends Entitaet
 	}
 
 	@Override
-	public boolean equals(Object obj)
+	public boolean equals(Object o)
 	{
-		return super.equals(obj);
+		return super.equals(o);
 	}
 
 	@Override

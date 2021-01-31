@@ -61,8 +61,7 @@ class KraftwertDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test04()
 	{
-		assertThat(sut).hasToString(
-			"KraftwertDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), gewicht=100.00, koerpergewicht=75.00, datum=22.08.2020, wiederholungen=1RM)");
+		assertThat(sut).hasToString("KraftwertDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), gewicht=100.00, koerpergewicht=75.00, datum=22.08.2020, wiederholungen=1RM)");
 	}
 
 	@Test
@@ -70,16 +69,11 @@ class KraftwertDtoSollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(null, GEWICHT,
-				KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, null,
-				KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
-				null, DATUM, WIEDERHOLUNGEN)),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
-				KOERPERGEWICHT, null, WIEDERHOLUNGEN)),
-			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT,
-				KOERPERGEWICHT, DATUM, null)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(null, GEWICHT, KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, null, KOERPERGEWICHT, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT, null, DATUM, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT, KOERPERGEWICHT, null, WIEDERHOLUNGEN)),
+			() -> assertThrows(NullPointerException.class, () -> new KraftwertDto(PRIMAERSCHLUESSEL, GEWICHT, KOERPERGEWICHT, DATUM, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),

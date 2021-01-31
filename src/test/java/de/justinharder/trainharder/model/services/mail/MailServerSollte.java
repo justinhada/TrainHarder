@@ -14,10 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MailServerSollte
 {
 	private static final GreenMail GREEN_MAIL = new GreenMail(new ServerSetup(1530, "localhost", "smtp"));
-	private static final Mail MAIL = new Mail(
-		new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-		"Betreff",
-		"Inhalt.")
+	private static final Mail MAIL = new Mail(new MailAdresse("mail@justinharder.de", "TrainHarder-Team"), "Betreff", "Inhalt.")
 		.fuegeEmpfaengerHinzu(new MailAdresse("justinharder@t-online.de", "Justin Harder"));
 
 	private MailServer sut;
@@ -71,12 +68,9 @@ class MailServerSollte
 		assertAll(
 			() -> assertThat(GREEN_MAIL.waitForIncomingEmail(5000, 1)).isTrue(),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()).hasSize(1),
-			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getContentType())
-				.isEqualTo("text/plain; charset=UTF-8"),
-			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("From")[0])
-				.isEqualTo("TrainHarder-Team <mail@justinharder.de>"),
-			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("To")[0])
-				.isEqualTo("justinharder@t-online.de"),
+			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getContentType()).isEqualTo("text/plain; charset=UTF-8"),
+			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("From")[0]).isEqualTo("TrainHarder-Team <mail@justinharder.de>"),
+			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getHeader("To")[0]).isEqualTo("justinharder@t-online.de"),
 			() -> assertThat(GREEN_MAIL.getReceivedMessages()[0].getSubject()).isEqualTo("Betreff"),
 			() -> assertThat(((String) GREEN_MAIL.getReceivedMessages()[0].getContent()).trim()).isEqualTo("Inhalt."));
 	}

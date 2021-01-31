@@ -28,8 +28,7 @@ class UebungDtoMapperSollte
 		sut = new UebungDtoMapper(belastungsfaktorDtoMapper);
 	}
 
-	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-		Belastung belastung, BelastungDto belastungDto)
+	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastung belastung, BelastungDto belastungDto)
 	{
 		when(belastungsfaktorDtoMapper.mappe(belastung)).thenReturn(belastungDto);
 	}
@@ -38,27 +37,12 @@ class UebungDtoMapperSollte
 	@DisplayName("alle Uebungen zu UebungDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(
-			Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var uebungen = List.of(
-			Testdaten.UEBUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE,
-			Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);
-		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
-		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(
-			Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN,
-			Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
+		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE, Testdaten.BELASTUNGSFAKTOR_DTO_LOWBAR_KNIEBEUGE);
+		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN);
+		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN, Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN);
 
-		var ergebnis = sut.mappeAlle(uebungen);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.mappeAlle(List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN)))
+			.isEqualTo(List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN));
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE);
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
 		verify(belastungsfaktorDtoMapper).mappe(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN);

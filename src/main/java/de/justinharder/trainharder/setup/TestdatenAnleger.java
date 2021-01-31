@@ -16,8 +16,7 @@ public class TestdatenAnleger
 
 	public void loescheTestdaten(EntityManager entityManager, Consumer<String> logger)
 	{
-		var persistenceUnit =
-			entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
+		var persistenceUnit = entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
 		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
 		List.of(
 			Authentifizierung.class,

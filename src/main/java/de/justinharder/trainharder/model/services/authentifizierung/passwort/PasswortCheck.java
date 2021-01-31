@@ -13,8 +13,7 @@ public class PasswortCheck
 	private static final int GROSSBUCHSTABE_MAXIMALCODE = 'Z';
 	private static final int ZAHL_MINDESTCODE = '0';
 	private static final int ZAHL_MAXIMALCODE = '9';
-	private static final char[] ERLAUBTE_SONDERZEICHEN = new char[]
-		{ '$', '%', '&', '?', '#', '_' };
+	private static final char[] ERLAUBTE_SONDERZEICHEN = new char[] { '$', '%', '&', '?', '#', '_' };
 
 	private boolean hatKleinbuchstabe;
 	private boolean hatGrossbuchstabe;

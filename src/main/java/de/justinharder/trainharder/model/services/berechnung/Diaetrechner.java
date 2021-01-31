@@ -8,10 +8,7 @@ public class Diaetrechner
 	private static final double WOECHENTLICHES_ABNAHMEZIEL = 0.01;
 	private static final double ZU_HALTENDES_FETTFREIES_KOERPERGEWICHT = 0.97;
 
-	public int berechneDiaetInWochen(
-		double koerpergewichtIst,
-		double koerperfettAnteilIst,
-		double koerperfettAnteilSoll)
+	public int berechneDiaetInWochen(double koerpergewichtIst,double koerperfettAnteilIst,double koerperfettAnteilSoll)
 	{
 		koerperfettAnteilIst /= 100.0;
 		koerperfettAnteilSoll /= 100.0;
@@ -28,10 +25,7 @@ public class Diaetrechner
 		return berechneDiaetInWochen(koerpergewichtIst, koerperfettAnteilIst, koerperfettAnteilSoll) * 7;
 	}
 
-	public int berechneGeschaetztenKoerperfettAnteil(
-		double koerpergewichtIst,
-		double koerperfettAnteilIst,
-		int diaetWochen)
+	public int berechneGeschaetztenKoerperfettAnteil(double koerpergewichtIst, double koerperfettAnteilIst, int diaetWochen)
 	{
 		koerperfettAnteilIst /= 100.0;
 

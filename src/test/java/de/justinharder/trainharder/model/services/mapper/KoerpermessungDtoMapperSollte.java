@@ -38,14 +38,11 @@ class KoerpermessungDtoMapperSollte
 	@DisplayName("alle Koerpermessungen zu KoerpermessungDtos mappen")
 	void test01()
 	{
-		var erwartet = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN, Testdaten.KOERPERMESSUNG_DTO_EDUARD);
-		var koerpermessungen = List.of(Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD);
 		angenommenKoerpermasseDtoMapperMappt(Testdaten.KOERPERMASSE_JUSTIN, Testdaten.KOERPERMASSE_DTO_JUSTIN);
 		angenommenKoerpermasseDtoMapperMappt(Testdaten.KOERPERMASSE_EDUARD, Testdaten.KOERPERMASSE_DTO_EDUARD);
 
-		var ergebnis = sut.mappeAlle(koerpermessungen);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.mappeAlle(List.of(Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD)))
+			.isEqualTo(List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN, Testdaten.KOERPERMESSUNG_DTO_EDUARD));
 	}
 
 	@Test

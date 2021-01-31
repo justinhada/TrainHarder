@@ -30,11 +30,7 @@ public class KraftwertService
 	private final KraftwertDtoMapper kraftwertDtoMapper;
 
 	@Inject
-	public KraftwertService(
-		KraftwertRepository kraftwertRepository,
-		BenutzerRepository benutzerRepository,
-		UebungRepository uebungRepository,
-		KraftwertDtoMapper kraftwertDtoMapper)
+	public KraftwertService(KraftwertRepository kraftwertRepository, BenutzerRepository benutzerRepository, UebungRepository uebungRepository, KraftwertDtoMapper kraftwertDtoMapper)
 	{
 		this.kraftwertRepository = kraftwertRepository;
 		this.benutzerRepository = benutzerRepository;
@@ -44,8 +40,7 @@ public class KraftwertService
 
 	public List<KraftwertDto> ermittleAlleZuBenutzer(@NonNull String benutzerId)
 	{
-		return kraftwertDtoMapper
-			.mappeAlle(kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
+		return kraftwertDtoMapper.mappeAlle(kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
 	public KraftwertDto ermittleZuId(@NonNull String id) throws KraftwertNichtGefundenException
@@ -55,8 +50,7 @@ public class KraftwertService
 			.orElseThrow(FehlermeldungService.wirfKraftwertNichtGefundenException(ID, id));
 	}
 
-	public KraftwertDto speichereKraftwert(@NonNull KraftwertDto kraftwertDto, @NonNull String uebungId,
-		@NonNull String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	public KraftwertDto speichereKraftwert(@NonNull KraftwertDto kraftwertDto, @NonNull String uebungId, @NonNull String benutzerId) throws UebungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		var uebung = uebungRepository.ermittleZuId(new Primaerschluessel(uebungId))
 			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException(ID, uebungId));

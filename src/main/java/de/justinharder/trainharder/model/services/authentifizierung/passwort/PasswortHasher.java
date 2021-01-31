@@ -36,14 +36,12 @@ public class PasswortHasher
 		return Base64.getEncoder().encodeToString(salt);
 	}
 
-	public String hash(@NonNull String passwort, @NonNull String salt)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	public String hash(@NonNull String passwort, @NonNull String salt) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		return pbkdf2(passwort, salt);
 	}
 
-	public boolean check(@NonNull Passwort aktuellesPasswort, @NonNull String passwort)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	public boolean check(@NonNull Passwort aktuellesPasswort, @NonNull String passwort) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var hash = pbkdf2(passwort, aktuellesPasswort.getSalt());
 		return hash.equals(aktuellesPasswort.getPasswortHash());

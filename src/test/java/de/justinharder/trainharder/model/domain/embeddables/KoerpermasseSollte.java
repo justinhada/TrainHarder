@@ -59,8 +59,7 @@ class KoerpermasseSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString(
-			"Koerpermasse(koerpergroesse=178, koerpergewicht=90, koerperfettAnteil=25, fettfreiesKoerpergewicht=67.50, bodyMassIndex=28.41, fatFreeMassIndex=21.42)");
+		assertThat(sut).hasToString("Koerpermasse(koerpergroesse=178, koerpergewicht=90, koerperfettAnteil=25, fettfreiesKoerpergewicht=67.50, bodyMassIndex=28.41, fatFreeMassIndex=21.42)");
 	}
 
 	@Test
@@ -68,12 +67,9 @@ class KoerpermasseSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new Koerpermasse(null, KOERPERGEWICHT, KOERPERFETT_ANTEIL)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Koerpermasse(KOERPERGROESSE, null, KOERPERFETT_ANTEIL)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Koerpermasse(KOERPERGROESSE, KOERPERGEWICHT, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermasse(null, KOERPERGEWICHT, KOERPERFETT_ANTEIL)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermasse(KOERPERGROESSE, null, KOERPERFETT_ANTEIL)),
+			() -> assertThrows(NullPointerException.class, () -> new Koerpermasse(KOERPERGROESSE, KOERPERGEWICHT, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergroesse(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerperfettAnteil(null)));

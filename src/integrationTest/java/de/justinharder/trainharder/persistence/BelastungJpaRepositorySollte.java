@@ -41,12 +41,9 @@ class BelastungJpaRepositorySollte extends JpaRepositorySollte
 	void test02()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID))
-				.hasValue(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID))
-				.hasValue(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID))
-				.hasValue(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN));
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_WETTKAMPFBANKDRUECKEN_ID)).hasValue(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_LOWBAR_KNIEBEUGE_ID)).hasValue(Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.ermittleZuId(Testdaten.BELASTUNGSFAKTOR_KONVENTIONELLES_KREUZHEBEN_ID)).hasValue(Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test
@@ -58,12 +55,7 @@ class BelastungJpaRepositorySollte extends JpaRepositorySollte
 			new GrunduebungBelastung(0.0, 1.0, 0.0),
 			new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
 			new UnterkoerperBelastung(0.0, 0.0, 0.0));
-		belastungsfaktor.setUebung(new Uebung(
-			new Primaerschluessel(),
-			"Spoto Bankdrücken",
-			Uebungsart.GRUNDUEBUNG,
-			Uebungskategorie.BANKDRUECKEN_VARIATION,
-			belastungsfaktor));
+		belastungsfaktor.setUebung(new Uebung(new Primaerschluessel(), "Spoto Bankdrücken", Uebungsart.GRUNDUEBUNG, Uebungskategorie.BANKDRUECKEN_VARIATION, belastungsfaktor));
 
 		assertThat(sut.speichereBelastungsfaktor(belastungsfaktor)).isEqualTo(belastungsfaktor);
 	}

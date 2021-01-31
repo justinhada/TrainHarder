@@ -49,22 +49,21 @@ public class Benutzerdaten
 			return false;
 		}
 		var that = (Benutzerdaten) o;
-		return vorname.equals(that.vorname) &&
-			nachname.equals(that.nachname) &&
-			geburtsdatum.equals(that.geburtsdatum) &&
-			geschlecht.equals(that.geschlecht) &&
-			erfahrung.equals(that.erfahrung) &&
-			ernaehrung.equals(that.ernaehrung) &&
-			schlafqualitaet.equals(that.schlafqualitaet) &&
-			stress.equals(that.stress) &&
-			doping.equals(that.doping) &&
-			regenerationsfaehigkeit.equals(that.regenerationsfaehigkeit);
+		return Objects.equals(vorname, that.vorname)
+			&& Objects.equals(nachname, that.nachname)
+			&& Objects.equals(geburtsdatum, that.geburtsdatum)
+			&& Objects.equals(geschlecht, that.geschlecht)
+			&& Objects.equals(erfahrung, that.erfahrung)
+			&& Objects.equals(ernaehrung, that.ernaehrung)
+			&& Objects.equals(schlafqualitaet, that.schlafqualitaet)
+			&& Objects.equals(stress, that.stress)
+			&& Objects.equals(doping, that.doping)
+			&& Objects.equals(regenerationsfaehigkeit, that.regenerationsfaehigkeit);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(vorname, nachname, geburtsdatum, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress,
-			doping, regenerationsfaehigkeit);
+		return Objects.hash(vorname, nachname, geburtsdatum, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit);
 	}
 }

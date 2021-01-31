@@ -19,12 +19,9 @@ class FatFreeMassIndexSollte
 		var koerperfettAnteil = new BigDecimal(20);
 		var koerpergroesse = new BigDecimal(178);
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(null, koerperfettAnteil, koerpergroesse)),
-			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(koerpergewicht, null, koerpergroesse)),
-			() -> assertThrows(NullPointerException.class,
-				() -> FatFreeMassIndex.aus(koerpergewicht, koerperfettAnteil, null)));
+			() -> assertThrows(NullPointerException.class, () -> FatFreeMassIndex.aus(null, koerperfettAnteil, koerpergroesse)),
+			() -> assertThrows(NullPointerException.class, () -> FatFreeMassIndex.aus(koerpergewicht, null, koerpergroesse)),
+			() -> assertThrows(NullPointerException.class, () -> FatFreeMassIndex.aus(koerpergewicht, koerperfettAnteil, null)));
 	}
 
 	@Test

@@ -20,29 +20,20 @@ class VolumenrechnerSollte
 	@DisplayName("die richtigen Mittelwerte für alle drei Grundübungen in der Hypertrophie-Phase berechnen")
 	void test01()
 	{
-		var erwartet = new int[]
-			{ 20, 22, 17 };
-
-		assertThat(sut.getVolumenHypertrophiePhase()).isEqualTo(erwartet);
+		assertThat(sut.getVolumenHypertrophiePhase()).isEqualTo(new int[] { 20, 22, 17 });
 	}
 
 	@Test
 	@DisplayName("die richtigen Mittelwerte für alle drei Grundübungen in der Kraft-Phase berechnen")
 	void test02()
 	{
-		var erwartet = new int[]
-			{ 16, 19, 15 };
-
-		assertThat(sut.getVolumenKraftPhase()).isEqualTo(erwartet);
+		assertThat(sut.getVolumenKraftPhase()).isEqualTo(new int[] { 16, 19, 15 });
 	}
 
 	@Test
 	@DisplayName("die richtigen Mittelwerte für alle drei Grundübungen in der Peaking-Phase berechnen")
 	void test03()
 	{
-		var erwartet = new int[]
-			{ 14, 17, 13 };
-
-		assertThat(sut.getVolumenPeakingPhase()).isEqualTo(erwartet);
+		assertThat(sut.getVolumenPeakingPhase()).isEqualTo(new int[] { 14, 17, 13 });
 	}
 }

@@ -42,10 +42,8 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	void test02()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
-			() -> assertThat(sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
+			() -> assertThat(sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID)).hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuId(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID)).hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
 	}
 
 	@Test
@@ -60,10 +58,8 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
-			() -> assertThat(sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
+			() -> assertThat(sut.ermittleZuBenutzer(Testdaten.BENUTZER_JUSTIN_ID)).hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuBenutzer(Testdaten.BENUTZER_EDUARD_ID)).hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
 	}
 
 	@Test
@@ -78,10 +74,8 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	void test06()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail()))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
-			() -> assertThat(sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getMail()))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
+			() -> assertThat(sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail())).hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuMail(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getMail())).hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
 	}
 
 	@Test
@@ -96,10 +90,8 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	void test08()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername()))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
-			() -> assertThat(sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername()))
-				.hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
+			() -> assertThat(sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername())).hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN),
+			() -> assertThat(sut.ermittleZuBenutzername(Testdaten.AUTHENTIFIZIERUNG_EDUARD.getBenutzername())).hasValue(Testdaten.AUTHENTIFIZIERUNG_EDUARD));
 	}
 
 	@Test
@@ -113,19 +105,14 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("Authentifizierung zu ResetUUID ermitteln")
 	void test10()
 	{
-		assertThat(sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid()))
-			.hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
+		assertThat(sut.ermittleZuResetUuid(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getResetUuid())).hasValue(Testdaten.AUTHENTIFIZIERUNG_JUSTIN);
 	}
 
 	@Test
 	@DisplayName("Authentifizierung erstellen")
 	void test11()
 	{
-		var authentifizierung = new Authentifizierung(
-			new Primaerschluessel(),
-			"justinharder@t-online.de",
-			"lololol",
-			Testdaten.PASSWORT);
+		var authentifizierung = new Authentifizierung(new Primaerschluessel(), "justinharder@t-online.de", "lololol", Testdaten.PASSWORT);
 		authentifizierung.setBenutzer(new Benutzer(
 			new Primaerschluessel(),
 			new Name("Justin", "Harder"),
@@ -147,8 +134,8 @@ class AuthentifizierungJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("Authentifizierung aktualisieren")
 	void test12()
 	{
-		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		authentifizierung.setAktiv(true);
+		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN
+			.setAktiv(true);
 
 		var ergebnis = sut.speichereAuthentifizierung(authentifizierung);
 

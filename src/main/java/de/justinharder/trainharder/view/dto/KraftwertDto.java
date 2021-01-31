@@ -20,12 +20,7 @@ public class KraftwertDto extends EntitaetDto
 	public KraftwertDto()
 	{}
 
-	public KraftwertDto(
-		@NonNull String primaerschluessel,
-		@NonNull String gewicht,
-		@NonNull String koerpergewicht,
-		@NonNull String datum,
-		@NonNull String wiederholungen)
+	public KraftwertDto(@NonNull String primaerschluessel, @NonNull String gewicht, @NonNull String koerpergewicht, @NonNull String datum, @NonNull String wiederholungen)
 	{
 		super(primaerschluessel);
 		this.gewicht = gewicht;
@@ -77,9 +72,11 @@ public class KraftwertDto extends EntitaetDto
 			return false;
 		}
 		var that = (KraftwertDto) o;
-		return primaerschluessel.equals(that.primaerschluessel) && gewicht.equals(that.gewicht)
-			&& koerpergewicht.equals(that.koerpergewicht) && datum.equals(that.datum)
-			&& wiederholungen.equals(that.wiederholungen);
+		return Objects.equals(primaerschluessel, that.primaerschluessel)
+			&& Objects.equals(gewicht, that.gewicht)
+			&& Objects.equals(koerpergewicht, that.koerpergewicht)
+			&& Objects.equals(datum, that.datum)
+			&& Objects.equals(wiederholungen, that.wiederholungen);
 	}
 
 	@Override

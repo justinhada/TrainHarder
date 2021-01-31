@@ -8,6 +8,8 @@ import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherExcep
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
+import de.justinharder.trainharder.model.services.mail.Mail;
+import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -45,18 +47,15 @@ class LoginServiceSollte
 		passwortCheck = mock(PasswortCheck.class);
 		mailServer = mock(MailServer.class);
 
-		sut = new LoginService(authentifizierungRepository, authentifizierungDtoMapper, passwortHasher, passwortCheck,
-			mailServer);
+		sut = new LoginService(authentifizierungRepository, authentifizierungDtoMapper, passwortHasher, passwortCheck, mailServer);
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
-		Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
 	{
 		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(String mail,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(String mail, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuMail(mail)).thenReturn(authentifizierung);
 	}
@@ -71,40 +70,32 @@ class LoginServiceSollte
 		when(passwortCheck.isUnsicher(passwort)).thenReturn(unsicher);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(UUID resetUuid,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(UUID resetUuid, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuResetUuid(resetUuid)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(
-		UUID resetUuid)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(UUID resetUuid)
 	{
 		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.empty());
 	}
 
-	private void angenommenDerPasswortHasherChecktPasswort(Passwort aktuellesPasswort, String passwort,
-		boolean check) throws InvalidKeySpecException, NoSuchAlgorithmException
+	private void angenommenDerPasswortHasherChecktPasswort(Passwort aktuellesPasswort, String passwort, boolean check) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(passwortHasher.check(aktuellesPasswort, passwort)).thenReturn(check);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(
-		String benutzername,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(String benutzername, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(
-		String benutzername)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(String benutzername)
 	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
-			Optional.empty());
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.empty());
 	}
 
-	private void angenommenDerPasswortHasherHashtPasswort(String passwort, String salt, String hash)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	private void angenommenDerPasswortHasherHashtPasswort(String passwort, String salt, String hash) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);
 	}
@@ -127,14 +118,11 @@ class LoginServiceSollte
 	@DisplayName("LoginException werfen, wenn der Benutzername nicht existiert")
 	void test02()
 	{
-		var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
 		var passwort = "Justinharder#98";
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(benutzername);
 
-		var exception = assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
 		verify(authentifizierungRepository).ermittleZuBenutzername(benutzername);
 	}
 
@@ -142,17 +130,13 @@ class LoginServiceSollte
 	@DisplayName("LoginException werfen, wenn das Passwort falsch ist")
 	void test03() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		var erwartet = "Der Benutzername oder das Passwort ist leider falsch!";
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		var benutzername = authentifizierung.getBenutzername();
 		var passwort = "Justinharder#98";
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.of(authentifizierung));
 		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, false);
 
-		var exception = assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
 		verify(authentifizierungRepository).ermittleZuBenutzername(benutzername);
 		verify(passwortHasher).check(authentifizierung.getPasswort(), passwort);
 	}
@@ -165,8 +149,7 @@ class LoginServiceSollte
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
 		var passwort = "Justinharder#98";
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.of(authentifizierung));
 		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, true);
 		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
 
@@ -183,14 +166,10 @@ class LoginServiceSollte
 	void test05()
 	{
 		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
-		var erwartet = "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!";
+		var resetUuid = UUID.randomUUID();
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuMail(mail);
 
-		var resetUuid = UUID.randomUUID();
-		var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.sendeResetMail(mail, resetUuid));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.sendeResetMail(mail, resetUuid));
 		verify(authentifizierungRepository).ermittleZuMail(mail);
 	}
 
@@ -208,32 +187,27 @@ class LoginServiceSollte
 		assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid);
 		verify(authentifizierungRepository).ermittleZuMail(mail);
 		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
-		//		verify(mailServer).sendeMail(new Mail(
-		//			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-		//			"Anfrage der Passwort-Zurücksetzung",
-		//			"Hallo " + authentifizierung.getBenutzername() + ",\n"
-		//				+ "wir haben deine Anfrage der Passwort-Zurücksetzung erhalten.\n"
-		//				+ "Über folgenden Link kannst du dein Passwort zurücksetzen: \n"
-		//				+ "\thttps://www.trainharder.de/login/reset?id=" + resetUuid + "\n\n"
-		//				+ "Mit den besten Grüßen!\n"
-		//				+ "das TrainHarder-Team")
-		//					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())),
-		//			StandardCharsets.UTF_8);
+		verify(mailServer).sende(new Mail(
+			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
+			"Anfrage der Passwort-Zurücksetzung",
+			"Hallo " + authentifizierung.getBenutzername() + ",\n"
+				+ "wir haben deine Anfrage der Passwort-Zurücksetzung erhalten.\n"
+				+ "Über folgenden Link kannst du dein Passwort zurücksetzen: \n"
+				+ "\thttps://www.trainharder.de/login/reset/" + resetUuid.toString() + "\n\n"
+				+ "Mit den besten Grüßen!\n"
+				+ "das TrainHarder-Team")
+			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())));
 	}
 
 	@Test
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
 	void test07()
 	{
-		var erwartet = "Das Passwort ist unsicher!";
 		var passwort = "UnsicheresPasswort";
+		var resetUuid = UUID.randomUUID();
 		angenommenDasPasswortIstUnsicher(passwort, true);
 
-		var resetUuid = UUID.randomUUID();
-		var exception =
-			assertThrows(PasswortUnsicherException.class, () -> sut.resetPassword(resetUuid, passwort));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(PasswortUnsicherException.class, () -> sut.resetPassword(resetUuid, passwort));
 	}
 
 	@Test
@@ -241,21 +215,16 @@ class LoginServiceSollte
 	void test08()
 	{
 		var resetUuid = UUID.randomUUID();
-		var erwartet = "Die Authentifizierung mit der ResetUUID \"" + resetUuid + "\" existiert nicht!";
 		var passwort = "SicheresPasswort";
 		angenommenDasPasswortIstUnsicher(passwort, false);
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(resetUuid);
 
-		var exception =
-			assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.resetPassword(resetUuid, passwort));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.resetPassword(resetUuid, passwort));
 	}
 
 	@Test
 	@DisplayName("das Passwort zurücksetzen")
-	void test09() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
-		InvalidKeySpecException, NoSuchAlgorithmException
+	void test09() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var authentifizierung = new Authentifizierung(
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPrimaerschluessel(),
@@ -265,10 +234,8 @@ class LoginServiceSollte
 		var resetUuid = UUID.randomUUID();
 		var passwort = "Justinharder#98";
 		angenommenDasPasswortIstUnsicher(passwort, false);
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid,
-			Optional.of(authentifizierung));
-		angenommenDerPasswortHasherHashtPasswort(passwort, authentifizierung.getPasswort().getSalt(),
-			Testdaten.PASSWORT.getPasswortHash());
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.of(authentifizierung));
+		angenommenDerPasswortHasherHashtPasswort(passwort, authentifizierung.getPasswort().getSalt(), Testdaten.PASSWORT.getPasswortHash());
 
 		sut.resetPassword(resetUuid, passwort);
 

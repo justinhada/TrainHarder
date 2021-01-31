@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import de.justinharder.trainharder.model.UuidMapper;
 import lombok.Getter;
 
@@ -9,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -54,13 +54,13 @@ public class Primaerschluessel implements Serializable
 			return false;
 		}
 		var that = (Primaerschluessel) o;
-		return Objects.equal(getId(), that.getId());
+		return Objects.equals(id, that.id);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(getId());
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Primaerschluessel implements Serializable
 	{
 		return MoreObjects
 			.toStringHelper(this)
-			.add("ID", getId())
+			.add("ID", id)
 			.toString();
 	}
 }

@@ -13,46 +13,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AuthentifizierungDtoSollte
 {
-	private AuthentifizierungDto sut;
+	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
 
-	private String primaerschluessel;
+	private AuthentifizierungDto sut;
 
 	@BeforeEach
 	void setup()
 	{
-		primaerschluessel = new Primaerschluessel().getId().toString();
-
-		sut = new AuthentifizierungDto(primaerschluessel, "mail@justinharder.de", "harder");
-	}
-
-	@Test
-	@DisplayName("einen AllArgsConstructor und Getter besitzen")
-	void test01()
-	{
-		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
-			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
-			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"));
+		sut = new AuthentifizierungDto(PRIMAERSCHLUESSEL, "mail@justinharder.de", "harder");
 	}
 
 	@Test
 	@DisplayName("einen NoArgsConstructor und Setter besitzen")
-	void test02()
+	void test01()
 	{
 		sut = new AuthentifizierungDto()
-			.setPrimaerschluessel(primaerschluessel)
+			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
 			.setMail("mail@justinharder.de")
 			.setBenutzername("harder");
 
 		assertAll(
-			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(primaerschluessel),
+			() -> assertThat(sut.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
 			() -> assertThat(sut.getMail()).isEqualTo("mail@justinharder.de"),
 			() -> assertThat(sut.getBenutzername()).isEqualTo("harder"));
 	}
 
 	@Test
 	@DisplayName("sich vergleichen")
-	void test03()
+	void test02()
 	{
 		EqualsVerifier.forClass(AuthentifizierungDto.class)
 			.suppress(Warning.STRICT_INHERITANCE)
@@ -63,22 +51,19 @@ class AuthentifizierungDtoSollte
 
 	@Test
 	@DisplayName("eine toString()-Methode haben")
-	void test04()
+	void test03()
 	{
-		var erwartet = "AuthentifizierungDto(super=EntitaetDto(primaerschluessel=" + primaerschluessel
-			+ "), mail=mail@justinharder.de, benutzername=harder)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("AuthentifizierungDto(super=EntitaetDto(primaerschluessel=" + PRIMAERSCHLUESSEL + "), mail=mail@justinharder.de, benutzername=harder)");
 	}
 
 	@Test
 	@DisplayName("null validieren")
-	void test05()
+	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto(null,"mail","benutzername")),
-			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel",null,"benutzername")),
-			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel","mail",null)),
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto(null, "mail", "benutzername")),
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel", null, "benutzername")),
+			() -> assertThrows(NullPointerException.class, () -> new AuthentifizierungDto("primaerschluessel", "mail", null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)));

@@ -39,18 +39,17 @@ public class Koerpermessdaten
 			return false;
 		}
 		var that = (Koerpermessdaten) o;
-		return koerpergroesse == that.koerpergroesse &&
-			Double.compare(that.koerpergewicht, koerpergewicht) == 0 &&
-			Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0 &&
-			kalorieneinnahme == that.kalorieneinnahme &&
-			kalorienverbrauch == that.kalorienverbrauch &&
-			datum.equals(that.datum);
+		return koerpergroesse == that.koerpergroesse
+			&& Double.compare(that.koerpergewicht, koerpergewicht) == 0
+			&& Double.compare(that.koerperfettAnteil, koerperfettAnteil) == 0
+			&& kalorieneinnahme == that.kalorieneinnahme
+			&& kalorienverbrauch == that.kalorienverbrauch
+			&& Objects.equals(datum, that.datum);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(datum, koerpergroesse, koerpergewicht, koerperfettAnteil, kalorieneinnahme,
-			kalorienverbrauch);
+		return Objects.hash(datum, koerpergroesse, koerpergewicht, koerperfettAnteil, kalorieneinnahme, kalorienverbrauch);
 	}
 }

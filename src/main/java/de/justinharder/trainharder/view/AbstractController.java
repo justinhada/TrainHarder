@@ -6,13 +6,12 @@ import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
 import javax.security.enterprise.SecurityContext;
 
-@Setter
 public abstract class AbstractController
 {
 	@Inject
@@ -24,6 +23,26 @@ public abstract class AbstractController
 	protected AuthentifizierungService authentifizierungService;
 	@Inject
 	protected BenutzerService benutzerService;
+
+	public void setModels(@NonNull Models models)
+	{
+		this.models = models;
+	}
+
+	public void setSecurityContext(@NonNull SecurityContext securityContext)
+	{
+		this.securityContext = securityContext;
+	}
+
+	public void setAuthentifizierungService(@NonNull AuthentifizierungService authentifizierungService)
+	{
+		this.authentifizierungService = authentifizierungService;
+	}
+
+	public void setBenutzerService(@NonNull BenutzerService benutzerService)
+	{
+		this.benutzerService = benutzerService;
+	}
 
 	protected String initialisiere(String pfad)
 	{

@@ -57,7 +57,6 @@ class OberkoerperBelastungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut)
-			.hasToString("OberkoerperBelastung(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1)");
+		assertThat(sut).hasToString("OberkoerperBelastung(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1)");
 	}
 }

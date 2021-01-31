@@ -49,8 +49,8 @@ public class Login
 		{
 			return false;
 		}
-		var that = (Login) o;
-		return benutzername.equals(that.benutzername) && passwort.equals(that.passwort);
+		var login = (Login) o;
+		return Objects.equals(benutzername, login.benutzername) && Objects.equals(passwort, login.passwort);
 	}
 
 	@Override

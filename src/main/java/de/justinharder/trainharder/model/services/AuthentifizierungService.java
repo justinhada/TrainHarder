@@ -15,9 +15,7 @@ public class AuthentifizierungService
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
 
 	@Inject
-	public AuthentifizierungService(
-		AuthentifizierungRepository authentifizierungRepository,
-		AuthentifizierungDtoMapper authentifizierungDtoMapper)
+	public AuthentifizierungService(AuthentifizierungRepository authentifizierungRepository, AuthentifizierungDtoMapper authentifizierungDtoMapper)
 	{
 		this.authentifizierungRepository = authentifizierungRepository;
 		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
@@ -30,21 +28,17 @@ public class AuthentifizierungService
 			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ID", id));
 	}
 
-	public AuthentifizierungDto ermittleZuBenutzer(@NonNull String benutzerId)
-		throws AuthentifizierungNichtGefundenException
+	public AuthentifizierungDto ermittleZuBenutzer(@NonNull String benutzerId) throws AuthentifizierungNichtGefundenException
 	{
 		return authentifizierungRepository.ermittleZuBenutzer(new Primaerschluessel(benutzerId))
 			.map(authentifizierungDtoMapper::mappe)
-			.orElseThrow(
-				FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der BenutzerID", benutzerId));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der BenutzerID", benutzerId));
 	}
 
-	public AuthentifizierungDto ermittleZuBenutzername(@NonNull String benutzername)
-		throws AuthentifizierungNichtGefundenException
+	public AuthentifizierungDto ermittleZuBenutzername(@NonNull String benutzername) throws AuthentifizierungNichtGefundenException
 	{
 		return authentifizierungRepository.ermittleZuBenutzername(benutzername)
 			.map(authentifizierungDtoMapper::mappe)
-			.orElseThrow(
-				FehlermeldungService.wirfAuthentifizierungNichtGefundenException("dem Benutzernamen", benutzername));
+			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("dem Benutzernamen", benutzername));
 	}
 }

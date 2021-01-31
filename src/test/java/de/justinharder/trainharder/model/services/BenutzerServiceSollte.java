@@ -67,11 +67,9 @@ class BenutzerServiceSollte
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.empty());
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId, Optional<Authentifizierung> authentifizierung)
 	{
-		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId)))
-			.thenReturn(authentifizierung);
+		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId))).thenReturn(authentifizierung);
 	}
 
 	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung(String authentifizierungId)
@@ -89,21 +87,17 @@ class BenutzerServiceSollte
 		when(benutzerDtoMapper.mappe(benutzer)).thenReturn(benutzerDto);
 	}
 
-	private void angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(String authentifizierungId,
-		Optional<Benutzer> benutzer)
+	private void angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(String authentifizierungId, Optional<Benutzer> benutzer)
 	{
-		when(benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId)))
-			.thenReturn(benutzer);
+		when(benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))).thenReturn(benutzer);
 	}
 
-	private void angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(
-		String authentifizierungId)
+	private void angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(String authentifizierungId)
 	{
 		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.empty());
 	}
 
-	private void angenommenDerBenutzerDtoMapperMapptAlleZuBenutzerDtos(List<Benutzer> benutzer,
-		List<BenutzerDto> benutzerDtos)
+	private void angenommenDerBenutzerDtoMapperMapptAlleZuBenutzerDtos(List<Benutzer> benutzer, List<BenutzerDto> benutzerDtos)
 	{
 		when(benutzerDtoMapper.mappeAlle(benutzer)).thenReturn(benutzerDtos);
 	}
@@ -117,9 +111,7 @@ class BenutzerServiceSollte
 		angenommenDasBenutzerRepositoryErmitteltAlle(benutzer);
 		angenommenDerBenutzerDtoMapperMapptAlleZuBenutzerDtos(benutzer, erwartet);
 
-		var ergebnis = sut.ermittleAlle();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleAlle()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -143,9 +135,7 @@ class BenutzerServiceSollte
 		var id = new Primaerschluessel().getId().toString();
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
 
-		var exception = assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuId(id));
-
-		assertThat(exception.getMessage()).isEqualTo("Der Benutzer mit der ID \"" + id + "\" existiert nicht!");
+		assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuId(id));
 		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(id));
 	}
 
@@ -159,9 +149,7 @@ class BenutzerServiceSollte
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
 		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
 
-		var ergebnis = sut.ermittleZuId(id);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
 		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(id));
 		verify(benutzerDtoMapper).mappe(benutzer);
 	}
@@ -171,13 +159,9 @@ class BenutzerServiceSollte
 	void test05()
 	{
 		var authentifizierungId = new Primaerschluessel().getId().toString();
-		var erwartet = "Der Benutzer mit der AuthentifizierungID \"" + authentifizierungId + "\" existiert nicht!";
 		angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(authentifizierungId);
 
-		var exception = assertThrows(BenutzerNichtGefundenException.class,
-			() -> sut.ermittleZuAuthentifizierung(authentifizierungId));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuAuthentifizierung(authentifizierungId));
 		verify(benutzerRepository).ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId));
 	}
 
@@ -188,13 +172,10 @@ class BenutzerServiceSollte
 		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId,
-			Optional.of(benutzer));
+		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.of(benutzer));
 		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
 
-		var ergebnis = sut.ermittleZuAuthentifizierung(authentifizierungId);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuAuthentifizierung(authentifizierungId)).isEqualTo(erwartet);
 		verify(benutzerRepository).ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId));
 		verify(benutzerDtoMapper).mappe(benutzer);
 	}
@@ -204,13 +185,9 @@ class BenutzerServiceSollte
 	void test07()
 	{
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
-		var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
 		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung(authentifizierungId);
 
-		var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
-			() -> sut.erstelleBenutzer(new Benutzerdaten(), authentifizierungId));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), authentifizierungId));
 		verify(authentifizierungRepository).ermittleZuId(new Primaerschluessel(authentifizierungId));
 	}
 
@@ -220,27 +197,14 @@ class BenutzerServiceSollte
 	{
 		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
 		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		var benutzerdaten = new Benutzerdaten(
-			"Justin",
-			"Harder",
-			"1998-12-06",
-			"MAENNLICH",
-			"BEGINNER",
-			"GUT",
-			"GUT",
-			"MITTELMAESSIG",
-			"NEIN",
-			"GUT");
+		var benutzerdaten = new Benutzerdaten("Justin", "Harder", "1998-12-06", "MAENNLICH", "BEGINNER", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT");
 		var authentifizierungId = Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID.getId().toString();
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId, Optional.of(authentifizierung));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
 		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
 
-		var ergebnis = sut.erstelleBenutzer(benutzerdaten, authentifizierungId);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.erstelleBenutzer(benutzerdaten, authentifizierungId)).isEqualTo(erwartet);
 		verify(authentifizierungRepository).ermittleZuId(new Primaerschluessel(authentifizierungId));
 		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
 		verify(benutzerDtoMapper).mappe(benutzer);
@@ -251,13 +215,9 @@ class BenutzerServiceSollte
 	void test09()
 	{
 		var id = Testdaten.BENUTZER_JUSTIN_ID.getId().toString();
-		var erwartet = "Der Benutzer mit der ID \"" + id + "\" existiert nicht!";
 		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
 
-		var exception = assertThrows(BenutzerNichtGefundenException.class,
-			() -> sut.aktualisiereBenutzer(id, new Benutzerdaten()));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(BenutzerNichtGefundenException.class, () -> sut.aktualisiereBenutzer(id, new Benutzerdaten()));
 		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(id));
 	}
 
@@ -275,24 +235,12 @@ class BenutzerServiceSollte
 				.setKraftlevel("CLASS_5"),
 			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
 			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
-		var benutzerdaten = new Benutzerdaten(
-			"Justin",
-			"Harder",
-			"1998-12-06",
-			"MAENNLICH",
-			"FORTGESCHRITTEN",
-			"GUT",
-			"GUT",
-			"MITTELMAESSIG",
-			"NEIN",
-			"GUT");
+		var benutzerdaten = new Benutzerdaten("Justin", "Harder", "1998-12-06", "MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT");
 		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
 		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
 		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
 
-		var ergebnis = sut.aktualisiereBenutzer(id, benutzerdaten);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.aktualisiereBenutzer(id, benutzerdaten)).isEqualTo(erwartet);
 		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(id));
 		verify(benutzerRepository).speichereBenutzer(benutzer);
 		verify(benutzerDtoMapper).mappe(benutzer);

@@ -53,8 +53,8 @@ public class Name implements Serializable
 		{
 			return false;
 		}
-		var that = (Name) o;
-		return vorname.equals(that.vorname) && nachname.equals(that.nachname);
+		var name = (Name) o;
+		return Objects.equals(vorname, name.vorname) && Objects.equals(nachname, name.nachname);
 	}
 
 	@Override
@@ -63,7 +63,3 @@ public class Name implements Serializable
 		return Objects.hash(vorname, nachname);
 	}
 }
-
-
-
-

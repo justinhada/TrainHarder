@@ -4,9 +4,7 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
-import lombok.AccessLevel;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.mvc.Controller;
 import javax.servlet.ServletException;
@@ -24,11 +22,14 @@ public class BenutzerController extends AbstractController
 	private static final String REDIRECT_TO_ERROR = "redirect:error";
 
 	@Context
-	@Setter(value = AccessLevel.PUBLIC)
 	private HttpServletRequest request;
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
+
+	public void setRequest(@NonNull HttpServletRequest request)
+	{
+		this.request = request;
+	}
 
 	@GET
 	@Override
@@ -74,8 +75,7 @@ public class BenutzerController extends AbstractController
 		}
 	}
 
-	private void aendereOderErstelle(Benutzerdaten benutzerdaten, AuthentifizierungDto authentifizierungDto)
-		throws AuthentifizierungNichtGefundenException
+	private void aendereOderErstelle(Benutzerdaten benutzerdaten, AuthentifizierungDto authentifizierungDto)		throws AuthentifizierungNichtGefundenException
 	{
 		try
 		{

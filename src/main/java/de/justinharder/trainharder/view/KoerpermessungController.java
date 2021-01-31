@@ -4,9 +4,7 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.model.services.KoerpermessungService;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
-import lombok.AccessLevel;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
-@Setter
 @Controller
 @Path(value = "/koerpermessungen")
 public class KoerpermessungController extends AbstractController
@@ -23,14 +20,17 @@ public class KoerpermessungController extends AbstractController
 	private static final String REDIRECT_TO_LOGIN = "redirect:login";
 
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletRequest request;
 	@Context
-	@Setter(value = AccessLevel.NONE)
 	private HttpServletResponse response;
 
 	@Inject
 	private KoerpermessungService koerpermessungService;
+
+	public void setKoerpermessungService(@NonNull KoerpermessungService koerpermessungService)
+	{
+		this.koerpermessungService = koerpermessungService;
+	}
 
 	@GET
 	@Override

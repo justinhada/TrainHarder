@@ -64,10 +64,8 @@ class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID))
-				.hasValue(Testdaten.BENUTZER_JUSTIN),
-			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID))
-				.hasValue(Testdaten.BENUTZER_EDUARD));
+			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_JUSTIN_ID)).hasValue(Testdaten.BENUTZER_JUSTIN),
+			() -> assertThat(sut.ermittleZuAuthentifizierung(Testdaten.AUTHENTIFIZIERUNG_EDUARD_ID)).hasValue(Testdaten.BENUTZER_EDUARD));
 	}
 
 	@Test
@@ -99,8 +97,8 @@ class BenutzerJpaRepositorySollte extends JpaRepositorySollte
 	@DisplayName("Benutzer aktualisieren")
 	void test07()
 	{
-		var benutzer = Testdaten.BENUTZER_EDUARD;
-		benutzer.setGeburtsdatum(LocalDate.of(1997, 12, 6));
+		var benutzer = Testdaten.BENUTZER_EDUARD
+			.setGeburtsdatum(LocalDate.of(1997, 12, 6));
 
 		var ergebnis = sut.speichereBenutzer(benutzer);
 

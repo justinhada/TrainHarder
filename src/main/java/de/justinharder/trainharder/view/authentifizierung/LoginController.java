@@ -5,7 +5,6 @@ import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherExcep
 import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
 import de.justinharder.trainharder.view.dto.Login;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -25,7 +24,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Setter
 @Controller
 @Path(value = "/login")
 public class LoginController
@@ -46,6 +44,36 @@ public class LoginController
 
 	@Inject
 	private LoginService loginService;
+
+	public void setRequest(@NonNull HttpServletRequest request)
+	{
+		this.request = request;
+	}
+
+	public void setResponse(@NonNull HttpServletResponse response)
+	{
+		this.response = response;
+	}
+
+	public void setModels(@NonNull Models models)
+	{
+		this.models = models;
+	}
+
+	public void setBindingResult(@NonNull BindingResult bindingResult)
+	{
+		this.bindingResult = bindingResult;
+	}
+
+	public void setSecurityContext(@NonNull SecurityContext securityContext)
+	{
+		this.securityContext = securityContext;
+	}
+
+	public void setLoginService(@NonNull LoginService loginService)
+	{
+		this.loginService = loginService;
+	}
 
 	@GET
 	public String index()
@@ -70,11 +98,7 @@ public class LoginController
 		}
 
 		var credential = new UsernamePasswordCredential(login.getBenutzername(), login.getPasswort());
-		var authenticationStatus = securityContext.authenticate(request, response,
-			AuthenticationParameters
-				.withParams()
-				.credential(credential)
-				.newAuthentication(true));
+		var authenticationStatus = securityContext.authenticate(request, response, AuthenticationParameters.withParams().credential(credential).newAuthentication(true));
 
 		if (authenticationStatus.equals(AuthenticationStatus.SUCCESS))
 		{
@@ -134,16 +158,14 @@ public class LoginController
 
 	@POST
 	@Path(value = "/reset/{id}")
-	public String resetPassword(@NonNull @PathParam(value = "id") String resetUuid,
-		@NonNull @FormParam(value = "passwort") String passwort)
+	public String resetPassword(@NonNull @PathParam(value = "id") String resetUuid, @NonNull @FormParam(value = "passwort") String passwort)
 	{
 		try
 		{
 			loginService.resetPassword(UUID.fromString(resetUuid), passwort);
 			return "/reset-password-success.xhtml";
 		}
-		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException | InvalidKeySpecException
-			| NoSuchAlgorithmException e)
+		catch (PasswortUnsicherException | AuthentifizierungNichtGefundenException | InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			models.put(FEHLER, e.getMessage());
 			return resetPasswordView(resetUuid);

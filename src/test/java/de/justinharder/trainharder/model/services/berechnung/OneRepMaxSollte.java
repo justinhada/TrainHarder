@@ -68,8 +68,6 @@ class OneRepMaxSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test05()
 	{
-		var erwartet = "OneRepMax(gewicht=100, wiederholungen=5, repsInReserve=2, richtwert=122)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString("OneRepMax(gewicht=100, wiederholungen=5, repsInReserve=2, richtwert=122)");
 	}
 }

@@ -56,9 +56,7 @@ public class AuthentifizierungDto extends EntitaetDto
 			return false;
 		}
 		var that = (AuthentifizierungDto) o;
-		return primaerschluessel.equals(that.primaerschluessel) &&
-			mail.equals(that.mail) &&
-			benutzername.equals(that.benutzername);
+		return Objects.equals(primaerschluessel, that.primaerschluessel) && Objects.equals(mail, that.mail) && Objects.equals(benutzername, that.benutzername);
 	}
 
 	@Override

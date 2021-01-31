@@ -63,9 +63,7 @@ class AnpassungsfaktorSollte
 	@DisplayName("eine toString()-Methode besitzen")
 	void test03()
 	{
-		var erwartet =
-			"Anpassungsfaktor(alter=-2, koerpergewicht=2, koerpergroesse=4, kraftlevel=-3, geschlecht=5, erfahrung=-1, ernaehrung=1, schlafqualitaet=-3, stress=1, doping=3, regenerationsfaehigkeit=2)";
-
-		assertThat(sut).hasToString(erwartet);
+		assertThat(sut).hasToString(
+			"Anpassungsfaktor(alter=-2, koerpergewicht=2, koerpergroesse=4, kraftlevel=-3, geschlecht=5, erfahrung=-1, ernaehrung=1, schlafqualitaet=-3, stress=1, doping=3, regenerationsfaehigkeit=2)");
 	}
 }

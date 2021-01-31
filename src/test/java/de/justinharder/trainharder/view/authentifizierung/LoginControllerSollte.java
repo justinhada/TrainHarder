@@ -73,24 +73,18 @@ class LoginControllerSollte
 
 	private void angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus authenticationStatus)
 	{
-		when(securityContext.authenticate(any(HttpServletRequest.class), any(HttpServletResponse.class),
-			any(AuthenticationParameters.class))).thenReturn(authenticationStatus);
+		when(securityContext.authenticate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(AuthenticationParameters.class))).thenReturn(authenticationStatus);
 	}
 
-	private void angenommenDerLoginServiceWirftAuthentifizierungNichtGefundenException(String mail)
-		throws AuthentifizierungNichtGefundenException
+	private void angenommenDerLoginServiceWirftAuthentifizierungNichtGefundenException(String mail) throws AuthentifizierungNichtGefundenException
 	{
-		doThrow(new AuthentifizierungNichtGefundenException(
-			"Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!")).when(loginService)
-			.sendeResetMail(anyString(), any(UUID.class));
+		doThrow(new AuthentifizierungNichtGefundenException("Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!")).when(loginService).sendeResetMail(anyString(), any(UUID.class));
 	}
 
 	private void angenommenDerLoginServiceWirftPasswortUnsicherException(UUID resetUuid, String passwort)
-		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException,
-		NoSuchAlgorithmException
+		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		doThrow(new PasswortUnsicherException("Das Passwort ist unsicher!")).when(loginService).resetPassword(resetUuid,
-			passwort);
+		doThrow(new PasswortUnsicherException("Das Passwort ist unsicher!")).when(loginService).resetPassword(resetUuid, passwort);
 	}
 
 	@Test
@@ -98,12 +92,9 @@ class LoginControllerSollte
 	void test01()
 	{
 		var callerPrincipal = new CallerPrincipal("harder");
-		var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 
-		var ergebnis = sut.index();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.index()).isEqualTo("redirect:benutzer/" + callerPrincipal.getName());
 		verify(securityContext, times(2)).getCallerPrincipal();
 	}
 
@@ -111,12 +102,9 @@ class LoginControllerSollte
 	@DisplayName("zur Login-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
 	void test02()
 	{
-		var erwartet = "/login.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		var ergebnis = sut.index();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.index()).isEqualTo("/login.xhtml");
 		verify(securityContext).getCallerPrincipal();
 	}
 
@@ -125,6 +113,12 @@ class LoginControllerSollte
 	void test03()
 	{
 		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.setModels(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setSecurityContext(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setLoginService(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setRequest(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setResponse(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBindingResult(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.login(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.resetMail(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.resetPasswordView(null)),
@@ -136,12 +130,9 @@ class LoginControllerSollte
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Login-Seite navigieren")
 	void test04()
 	{
-		var erwartet = "/login.xhtml";
 		angenommenDasBindingResultFailed();
 
-		var ergebnis = sut.login(new Login("harder", "Justinharder#98"));
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.login(new Login("harder", "Justinharder#98"))).isEqualTo("/login.xhtml");
 		verify(bindingResult).isFailed();
 		verify(models).put("fehler", new ArrayList<>());
 	}
@@ -164,12 +155,9 @@ class LoginControllerSollte
 	@DisplayName("zur Start-Seite navigieren, wenn der Login erfolgreich ist")
 	void test06()
 	{
-		var erwartet = "redirect:start";
 		angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus.SUCCESS);
 
-		var ergebnis = sut.login(new Login("harder", "Justinharder#98"));
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.login(new Login("harder", "Justinharder#98"))).isEqualTo("redirect:start");
 		verify(bindingResult).isFailed();
 	}
 
@@ -177,12 +165,9 @@ class LoginControllerSollte
 	@DisplayName("bei unerwartetem Ergebnis zurück zur Login-Seite navigieren")
 	void test07()
 	{
-		var erwartet = "/login.xhtml";
 		angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus.NOT_DONE);
 
-		var ergebnis = sut.login(new Login("harder", "Justinharder#98"));
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.login(new Login("harder", "Justinharder#98"))).isEqualTo("/login.xhtml");
 		verify(bindingResult).isFailed();
 		verify(models).put("unerwartet", "Unerwarteter Fehler während des Logins: NOT_DONE");
 	}
@@ -192,12 +177,9 @@ class LoginControllerSollte
 	void test08()
 	{
 		var callerPrincipal = new CallerPrincipal("harder");
-		var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 
-		var ergebnis = sut.resetMailView();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetMailView()).isEqualTo("redirect:benutzer/" + callerPrincipal.getName());
 		verify(securityContext, times(2)).getCallerPrincipal();
 	}
 
@@ -205,12 +187,9 @@ class LoginControllerSollte
 	@DisplayName("zur Reset-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
 	void test09()
 	{
-		var erwartet = "/reset.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		var ergebnis = sut.resetMailView();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetMailView()).isEqualTo("/reset.xhtml");
 		verify(securityContext).getCallerPrincipal();
 	}
 
@@ -218,13 +197,10 @@ class LoginControllerSollte
 	@DisplayName("bei fehlerhafter Mail zurück zur Reset-Seite navigieren")
 	void test10() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "/reset.xhtml";
 		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		angenommenDerLoginServiceWirftAuthentifizierungNichtGefundenException(mail);
 
-		var ergebnis = sut.resetMail(mail);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetMail(mail)).isEqualTo("/reset.xhtml");
 		verify(loginService).sendeResetMail(eq(mail), any(UUID.class));
 		verify(models).put("fehler", "Die Authentifizierung mit der Mail \"" + mail + "\" existiert nicht!");
 	}
@@ -233,12 +209,9 @@ class LoginControllerSollte
 	@DisplayName("bei erfolgreichem Senden der Reset-Mail zur Reset-Success-Seite navigieren")
 	void test11() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "/reset-success.xhtml";
-
 		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
-		var ergebnis = sut.resetMail(mail);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetMail(mail)).isEqualTo("/reset-success.xhtml");
 		verify(loginService).sendeResetMail(eq(mail), any(UUID.class));
 	}
 
@@ -247,12 +220,9 @@ class LoginControllerSollte
 	void test12()
 	{
 		var callerPrincipal = new CallerPrincipal("harder");
-		var erwartet = "redirect:benutzer/" + callerPrincipal.getName();
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 
-		var ergebnis = sut.resetPasswordView(UUID.randomUUID().toString());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetPasswordView(UUID.randomUUID().toString())).isEqualTo("redirect:benutzer/" + callerPrincipal.getName());
 		verify(securityContext, times(2)).getCallerPrincipal();
 	}
 
@@ -260,44 +230,33 @@ class LoginControllerSollte
 	@DisplayName("zur Reset-Password-Seite per GET navigieren, wenn kein Benutzer angemeldet ist")
 	void test13()
 	{
-		var erwartet = "/reset-password.xhtml";
 		angenommenDerSecurityContextGibtKeinCallerPrincipalZurueck();
 
-		var ergebnis = sut.resetPasswordView(UUID.randomUUID().toString());
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetPasswordView(UUID.randomUUID().toString())).isEqualTo("/reset-password.xhtml");
 		verify(securityContext).getCallerPrincipal();
 	}
 
 	@Test
 	@DisplayName("bei fehlerhaftem Passwort zurück zur Reset-Password-Seite navigieren")
-	void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
-		InvalidKeySpecException, NoSuchAlgorithmException
+	void test14() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		var erwartet = "/reset-password.xhtml";
 		var resetUuid = UUID.randomUUID();
 		var passwort = "UnsicheresPasswort";
 		angenommenDerLoginServiceWirftPasswortUnsicherException(resetUuid, passwort);
 
-		var ergebnis = sut.resetPassword(resetUuid.toString(), passwort);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetPassword(resetUuid.toString(), passwort)).isEqualTo("/reset-password.xhtml");
 		verify(loginService).resetPassword(resetUuid, passwort);
 		verify(models).put("fehler", "Das Passwort ist unsicher!");
 	}
 
 	@Test
 	@DisplayName("bei erfolgreichem Password-Reset zur Reset-Password-Success-Seite navigieren")
-	void test15() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException,
-		InvalidKeySpecException, NoSuchAlgorithmException
+	void test15() throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		var erwartet = "/reset-password-success.xhtml";
-
 		var resetUuid = UUID.randomUUID();
 		var passwort = "UnsicheresPasswort";
-		var ergebnis = sut.resetPassword(resetUuid.toString(), passwort);
 
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.resetPassword(resetUuid.toString(), passwort)).isEqualTo("/reset-password-success.xhtml");
 		verify(loginService).resetPassword(resetUuid, passwort);
 	}
 }

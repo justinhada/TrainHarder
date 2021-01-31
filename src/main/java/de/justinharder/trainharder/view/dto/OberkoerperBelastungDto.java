@@ -23,13 +23,7 @@ public class OberkoerperBelastungDto implements Serializable
 	public OberkoerperBelastungDto()
 	{}
 
-	public OberkoerperBelastungDto(
-		@NonNull String triceps,
-		@NonNull String chest,
-		@NonNull String core,
-		@NonNull String back,
-		@NonNull String biceps,
-		@NonNull String shoulder)
+	public OberkoerperBelastungDto(@NonNull String triceps, @NonNull String chest, @NonNull String core, @NonNull String back, @NonNull String biceps, @NonNull String shoulder)
 	{
 		this.triceps = triceps;
 		this.chest = chest;

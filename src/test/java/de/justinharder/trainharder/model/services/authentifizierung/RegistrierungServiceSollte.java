@@ -9,6 +9,8 @@ import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherExcep
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortCheck;
 import de.justinharder.trainharder.model.services.authentifizierung.passwort.PasswortHasher;
+import de.justinharder.trainharder.model.services.mail.Mail;
+import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.setup.Testdaten;
@@ -47,12 +49,7 @@ class RegistrierungServiceSollte
 		passwortCheck = mock(PasswortCheck.class);
 		mailServer = mock(MailServer.class);
 
-		sut = new RegistrierungService(
-			authentifizierungRepository,
-			authentifizierungDtoMapper,
-			passwortHasher,
-			passwortCheck,
-			mailServer);
+		sut = new RegistrierungService(authentifizierungRepository, authentifizierungDtoMapper, passwortHasher, passwortCheck, mailServer);
 	}
 
 	private void angenommenDieMailIstVergeben(String mail, Optional<Authentifizierung> authentifizierung)
@@ -60,8 +57,7 @@ class RegistrierungServiceSollte
 		when(authentifizierungRepository.ermittleZuMail(mail)).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDerBenutzernameIstVergeben(String benutzername,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDerBenutzernameIstVergeben(String benutzername, Optional<Authentifizierung> authentifizierung)
 	{
 		when(authentifizierungRepository.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierung);
 	}
@@ -76,29 +72,24 @@ class RegistrierungServiceSollte
 		when(passwortHasher.generiereSalt(bytes)).thenReturn(salt);
 	}
 
-	private void angenommenDerPasswortHasherHasht(String passwort, String salt, String hash)
-		throws InvalidKeySpecException, NoSuchAlgorithmException
+	private void angenommenDerPasswortHasherHasht(String passwort, String salt, String hash) throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);
 	}
 
 	private void angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(Authentifizierung authentifizierung)
 	{
-		when(authentifizierungRepository.speichereAuthentifizierung(any(Authentifizierung.class)))
-			.thenReturn(authentifizierung);
+		when(authentifizierungRepository.speichereAuthentifizierung(any(Authentifizierung.class))).thenReturn(authentifizierung);
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(
-		Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
+	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
 	{
 		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId,
-		Optional<Authentifizierung> authentifizierung)
+	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId, Optional<Authentifizierung> authentifizierung)
 	{
-		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId)))
-			.thenReturn(authentifizierung);
+		when(authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId))).thenReturn(authentifizierung);
 	}
 
 	@Test
@@ -115,12 +106,9 @@ class RegistrierungServiceSollte
 	void test02()
 	{
 		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		var erwartet = "Die Mail \"" + registrierung.getMail() + "\" ist bereits vergeben!";
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
-		var exception = assertThrows(MailVergebenException.class, () -> sut.registriere(registrierung));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(MailVergebenException.class, () -> sut.registriere(registrierung));
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 	}
 
@@ -129,14 +117,10 @@ class RegistrierungServiceSollte
 	void test03()
 	{
 		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
-		var erwartet = "Der Benutzername \"" + registrierung.getBenutzername() + "\" ist bereits vergeben!";
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
-		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(),
-			Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
+		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.of(Testdaten.AUTHENTIFIZIERUNG_JUSTIN));
 
-		var exception = assertThrows(BenutzernameVergebenException.class, () -> sut.registriere(registrierung));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(BenutzernameVergebenException.class, () -> sut.registriere(registrierung));
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 	}
@@ -145,15 +129,12 @@ class RegistrierungServiceSollte
 	@DisplayName("PasswortUnsicherException werfen, wenn das Passwort unsicher ist")
 	void test04()
 	{
-		var erwartet = "Das Passwort ist unsicher!";
 		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
 		angenommenDieMailIstVergeben(registrierung.getMail(), Optional.empty());
 		angenommenDerBenutzernameIstVergeben(registrierung.getBenutzername(), Optional.empty());
 		angenommenDasPasswortIstUnsicher(registrierung.getPasswort(), true);
 
-		var exception = assertThrows(PasswortUnsicherException.class, () -> sut.registriere(registrierung));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(PasswortUnsicherException.class, () -> sut.registriere(registrierung));
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
@@ -161,8 +142,7 @@ class RegistrierungServiceSollte
 
 	@Test
 	@DisplayName("einen Benutzer registrieren")
-	void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException,
-		InvalidKeySpecException, NoSuchAlgorithmException
+	void test05() throws MailVergebenException, BenutzernameVergebenException, PasswortUnsicherException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var registrierung = new Registrierung("mail@justinharder.de", "harder", "Justinharder#98");
@@ -182,18 +162,17 @@ class RegistrierungServiceSollte
 		verify(authentifizierungRepository).ermittleZuMail(registrierung.getMail());
 		verify(authentifizierungRepository).ermittleZuBenutzername(registrierung.getBenutzername());
 		verify(passwortCheck).isUnsicher(registrierung.getPasswort());
-		//		verify(mailServer).sendeMail(new Mail(
-		//			new MailAdresse("mail@justinharder.de", "TrainHarder-Team"),
-		//			"Willkommen bei TrainHarder!",
-		//			"Hallo " + authentifizierung.getBenutzername() + ",\n"
-		//				+ "wir heißen dich herzlich Willkommen bei TrainHarder!\n"
-		//				+ "Über folgenden Link kannst du deine E-Mail-Adresse bestätigen: \n"
-		//				+ "\thttps://www.trainharder.de/join/" + authentifizierung.getPrimaerschluessel().getId().toString()
-		//				+ "\n\n"
-		//				+ "Mit den besten Grüßen!\n"
-		//				+ "das TrainHarder-Team")
-		//					.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())),
-		//			StandardCharsets.UTF_8);
+		verify(mailServer).sende(new Mail(
+			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
+			"Willkommen bei TrainHarder!",
+			"Hallo " + authentifizierung.getBenutzername() + ",\n"
+				+ "wir heißen dich herzlich Willkommen bei TrainHarder!\n"
+				+ "Über folgenden Link kannst du deine E-Mail-Adresse bestätigen: \n"
+				+ "\thttps://www.trainharder.de/join/" + authentifizierung.getPrimaerschluessel().getId().toString()
+				+ "\n\n"
+				+ "Mit den besten Grüßen!\n"
+				+ "das TrainHarder-Team")
+			.fuegeEmpfaengerHinzu(new MailAdresse(authentifizierung.getMail())));
 		verify(authentifizierungDtoMapper).mappe(authentifizierung);
 	}
 
@@ -202,12 +181,8 @@ class RegistrierungServiceSollte
 	void test06()
 	{
 		var authentifizierungId = new Primaerschluessel().getId().toString();
-		var erwartet = "Die Authentifizierung mit der ID \"" + authentifizierungId + "\" existiert nicht!";
 
-		var exception = assertThrows(AuthentifizierungNichtGefundenException.class,
-			() -> sut.aktiviere(authentifizierungId));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.aktiviere(authentifizierungId));
 	}
 
 	@Test
@@ -216,8 +191,7 @@ class RegistrierungServiceSollte
 	{
 		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
 		var authentifizierungId = authentifizierung.getPrimaerschluessel().getId().toString();
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId,
-			Optional.of(authentifizierung));
+		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId, Optional.of(authentifizierung));
 		angenommenDasAuthentifizierungRepositorySpeichertAuthentifizierung(authentifizierung);
 
 		sut.aktiviere(authentifizierungId);

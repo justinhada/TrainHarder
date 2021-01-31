@@ -28,20 +28,16 @@ public class Authentifizierung extends Entitaet
 	@Column(name = "Aktiv", nullable = false)
 	private boolean aktiv;
 	@Convert(converter = UuidMapper.class)
-	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)", nullable = true)
+	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)")
 	private UUID resetUuid;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "BenutzerID", nullable = true)
+	@JoinColumn(name = "BenutzerID")
 	private Benutzer benutzer;
 
 	public Authentifizierung()
 	{}
 
-	public Authentifizierung(
-		@NonNull Primaerschluessel primaerschluessel,
-		@NonNull String mail,
-		@NonNull String benutzername,
-		@NonNull Passwort passwort)
+	public Authentifizierung(@NonNull Primaerschluessel primaerschluessel, @NonNull String mail, @NonNull String benutzername, @NonNull Passwort passwort)
 	{
 		this.primaerschluessel = primaerschluessel;
 		this.mail = mail;
@@ -93,9 +89,9 @@ public class Authentifizierung extends Entitaet
 	}
 
 	@Override
-	public boolean equals(Object obj)
+	public boolean equals(Object o)
 	{
-		return super.equals(obj);
+		return super.equals(o);
 	}
 
 	@Override

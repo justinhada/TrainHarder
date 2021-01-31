@@ -19,9 +19,7 @@ public class BelastungsfaktorService
 	private final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
 
 	@Inject
-	public BelastungsfaktorService(
-		BelastungsfaktorRepository belastungsfaktorRepository,
-		BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
+	public BelastungsfaktorService(BelastungsfaktorRepository belastungsfaktorRepository, BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
 	{
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
 		this.belastungsfaktorDtoMapper = belastungsfaktorDtoMapper;
@@ -36,23 +34,22 @@ public class BelastungsfaktorService
 
 	public BelastungDto speichereBelastungsfaktor(@NonNull BelastungDto belastungDto)
 	{
-		return belastungsfaktorDtoMapper.mappe(belastungsfaktorRepository
-			.speichereBelastungsfaktor(new Belastung(
-				new Primaerschluessel(),
-				new GrunduebungBelastung(
-					Double.parseDouble(belastungDto.getGrunduebungBelastung().getSquat()),
-					Double.parseDouble(belastungDto.getGrunduebungBelastung().getBenchpress()),
-					Double.parseDouble(belastungDto.getGrunduebungBelastung().getDeadlift())),
-				new OberkoerperBelastung(
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getTriceps()),
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getChest()),
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getCore()),
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getBack()),
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getBiceps()),
-					Double.parseDouble(belastungDto.getOberkoerperBelastung().getShoulder())),
-				new UnterkoerperBelastung(
-					Double.parseDouble(belastungDto.getUnterkoerperBelastung().getGlutes()),
-					Double.parseDouble(belastungDto.getUnterkoerperBelastung().getQuads()),
-					Double.parseDouble(belastungDto.getUnterkoerperBelastung().getHamstrings())))));
+		return belastungsfaktorDtoMapper.mappe(belastungsfaktorRepository.speichereBelastungsfaktor(new Belastung(
+			new Primaerschluessel(),
+			new GrunduebungBelastung(
+				Double.parseDouble(belastungDto.getGrunduebungBelastung().getSquat()),
+				Double.parseDouble(belastungDto.getGrunduebungBelastung().getBenchpress()),
+				Double.parseDouble(belastungDto.getGrunduebungBelastung().getDeadlift())),
+			new OberkoerperBelastung(
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getTriceps()),
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getChest()),
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getCore()),
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getBack()),
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getBiceps()),
+				Double.parseDouble(belastungDto.getOberkoerperBelastung().getShoulder())),
+			new UnterkoerperBelastung(
+				Double.parseDouble(belastungDto.getUnterkoerperBelastung().getGlutes()),
+				Double.parseDouble(belastungDto.getUnterkoerperBelastung().getQuads()),
+				Double.parseDouble(belastungDto.getUnterkoerperBelastung().getHamstrings())))));
 	}
 }

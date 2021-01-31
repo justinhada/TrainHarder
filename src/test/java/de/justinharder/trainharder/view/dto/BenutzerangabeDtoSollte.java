@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BenutzerangabeDtoSollte
 {
-	private BenutzerangabeDto sut;
-
 	private static final String KRAFTLEVEL = "CLASS_5";
 	private static final String GESCHLECHT = "MAENNLICH";
 	private static final String ERFAHRUNG = "BEGINNER";
@@ -23,17 +21,12 @@ class BenutzerangabeDtoSollte
 	private static final String DOPING = "NEIN";
 	private static final String REGENERATIONSFAEHIGKEIT = "GUT";
 
+	private BenutzerangabeDto sut;
+
 	@BeforeEach
 	void setup()
 	{
-		sut = new BenutzerangabeDto(
-			GESCHLECHT,
-			ERFAHRUNG,
-			ERNAEHRUNG,
-			SCHLAFQUALITAET,
-			STRESS,
-			DOPING,
-			REGENERATIONSFAEHIGKEIT);
+		sut = new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT);
 	}
 
 	@Test
@@ -75,7 +68,8 @@ class BenutzerangabeDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("BenutzerangabeDto(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)");
+		assertThat(sut).hasToString(
+			"BenutzerangabeDto(kraftlevel=CLASS_5, geschlecht=MAENNLICH, erfahrung=BEGINNER, ernaehrung=GUT, schlafqualitaet=GUT, stress=MITTELMAESSIG, doping=NEIN, regenerationsfaehigkeit=GUT)");
 	}
 
 	@Test
@@ -83,20 +77,13 @@ class BenutzerangabeDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(null, ERFAHRUNG, ERNAEHRUNG,
-				SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, null,
-				ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, null,
-				SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG,
-				ERNAEHRUNG, null, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG,
-				ERNAEHRUNG, SCHLAFQUALITAET, null, DOPING, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG,
-				ERNAEHRUNG, SCHLAFQUALITAET, STRESS, null, REGENERATIONSFAEHIGKEIT)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG,
-				ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, null)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(null, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, null, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, null, SCHLAFQUALITAET, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, null, STRESS, DOPING, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, null, DOPING, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, null, REGENERATIONSFAEHIGKEIT)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerangabeDto(GESCHLECHT, ERFAHRUNG, ERNAEHRUNG, SCHLAFQUALITAET, STRESS, DOPING, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKraftlevel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeschlecht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setErfahrung(null)),

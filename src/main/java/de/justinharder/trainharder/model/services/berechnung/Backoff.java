@@ -25,11 +25,7 @@ public class Backoff
 		Preconditions.checkArgument(wiederholungen > 0, "Ungültige Wiederholungen!");
 		Preconditions.checkArgument(repsInReserve >= 0, "Ungültige RepsInReserve!");
 
-		return new Backoff(
-			oneRepMax,
-			wiederholungen,
-			repsInReserve,
-			berechneRichtwert(oneRepMax, wiederholungen, repsInReserve));
+		return new Backoff(oneRepMax, wiederholungen, repsInReserve, berechneRichtwert(oneRepMax, wiederholungen, repsInReserve));
 	}
 
 	private static int berechneRichtwert(int oneRepMax, int wiederholungen, int repsInReserve)

@@ -20,14 +20,7 @@ class BenutzerDtoSollte
 	private static final String PRIMAERSCHLUESSEL = new Primaerschluessel().getId().toString();
 	private static final NameDto NAME_DTO = new NameDto("Justin", "Harder");
 	private static final LocalDate GEBURTSDATUM = LocalDate.of(1998, 12, 6);
-	private static final BenutzerangabeDto BENUTZERANGABE_DTO = new BenutzerangabeDto(
-		"MAENNLICH",
-		"FORTGESCHRITTEN",
-		"GUT",
-		"GUT",
-		"MITTELMAESSIG",
-		"NEIN",
-		"GUT")
+	private static final BenutzerangabeDto BENUTZERANGABE_DTO = new BenutzerangabeDto("MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT")
 		.setKraftlevel("CLASS_5");
 
 	private BenutzerDto sut;
@@ -35,13 +28,7 @@ class BenutzerDtoSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new BenutzerDto(
-			PRIMAERSCHLUESSEL,
-			NAME_DTO,
-			GEBURTSDATUM,
-			BENUTZERANGABE_DTO,
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
-			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
+		sut = new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
 	}
 
 	@Test
@@ -93,18 +80,13 @@ class BenutzerDtoSollte
 	{
 		var koerpermessungDtos = List.of(new KoerpermessungDto());
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(null, NAME_DTO,
-				GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, null,
-				GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
-				null, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
-				GEBURTSDATUM, null, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
-				GEBURTSDATUM, BENUTZERANGABE_DTO, null, koerpermessungDtos)),
-			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO,
-				GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, null)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(null, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, null, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
+				koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, null, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, null, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, null, koerpermessungDtos)),
+			() -> assertThrows(NullPointerException.class, () -> new BenutzerDto(PRIMAERSCHLUESSEL, NAME_DTO, GEBURTSDATUM, BENUTZERANGABE_DTO, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeburtsdatum(null)),

@@ -176,20 +176,17 @@ public class AnpassungsfaktorErmittlung
 
 	private int koerpergroesse(BigDecimal koerpergroesse, Geschlecht geschlecht)
 	{
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 160 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 170)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 160 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 170)
 		{
 			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 167 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 183)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 167 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 183)
 		{
 			return 1;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 175 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 195)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergroesse.intValueExact() < 175 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergroesse.intValueExact() < 195)
 		{
 			return -1;
 		}
@@ -199,20 +196,17 @@ public class AnpassungsfaktorErmittlung
 
 	private int koerpergewicht(BigDecimal koerpergewicht, Geschlecht geschlecht)
 	{
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 57 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 74)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 57 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 74)
 		{
 			return 4;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 74 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 105)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 74 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 105)
 		{
 			return 2;
 		}
 
-		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 84 ||
-			geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 120)
+		if (geschlecht.equals(Geschlecht.WEIBLICH) && koerpergewicht.doubleValue() < 84 || geschlecht.equals(Geschlecht.MAENNLICH) && koerpergewicht.doubleValue() < 120)
 		{
 			return -2;
 		}

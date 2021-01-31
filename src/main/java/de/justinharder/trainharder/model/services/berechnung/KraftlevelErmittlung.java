@@ -18,9 +18,7 @@ public class KraftlevelErmittlung
 {
 	public Kraftlevel ermittle(@NonNull Benutzer benutzer)
 	{
-		var gewichtsklasse = ermittleGewichtsklasse(
-			benutzer.getBenutzerangabe().getGeschlecht(),
-			benutzer.getKoerpergewicht());
+		var gewichtsklasse = ermittleGewichtsklasse(benutzer.getBenutzerangabe().getGeschlecht(), benutzer.getKoerpergewicht());
 		var total = ermittleTotal(benutzer.getKraftwerte());
 		var totals = ermittleTotals(benutzer.getBenutzerangabe().getGeschlecht(), gewichtsklasse);
 		var uebertroffeneTotals = totals.keySet().stream()
@@ -49,8 +47,7 @@ public class KraftlevelErmittlung
 
 	private Map<Integer, Kraftlevel> ermittleTotals(Geschlecht geschlecht, int gewichtsklasse)
 	{
-		return (geschlecht.equals(Geschlecht.WEIBLICH) ? Konstanten.TOTALS_FRAUEN : Konstanten.TOTALS_MAENNER)
-			.get(gewichtsklasse);
+		return (geschlecht.equals(Geschlecht.WEIBLICH) ? Konstanten.TOTALS_FRAUEN : Konstanten.TOTALS_MAENNER).get(gewichtsklasse);
 	}
 
 	private int ermittleGewichtsklasse(Geschlecht geschlecht, BigDecimal koerpergewicht)
@@ -62,7 +59,6 @@ public class KraftlevelErmittlung
 
 	private List<Integer> ermittleGewichtsklassen(Geschlecht geschlecht)
 	{
-		return geschlecht.equals(Geschlecht.WEIBLICH)
-			? Konstanten.GEWICHTSKLASSEN_FRAUEN : Konstanten.GEWICHTSKLASSEN_MAENNER;
+		return geschlecht.equals(Geschlecht.WEIBLICH) ? Konstanten.GEWICHTSKLASSEN_FRAUEN : Konstanten.GEWICHTSKLASSEN_MAENNER;
 	}
 }

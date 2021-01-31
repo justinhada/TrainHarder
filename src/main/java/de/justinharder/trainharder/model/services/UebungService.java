@@ -22,10 +22,7 @@ public class UebungService
 	private final UebungDtoMapper uebungDtoMapper;
 
 	@Inject
-	public UebungService(
-		UebungRepository uebungRepository,
-		BelastungsfaktorRepository belastungsfaktorRepository,
-		UebungDtoMapper uebungDtoMapper)
+	public UebungService(UebungRepository uebungRepository, BelastungsfaktorRepository belastungsfaktorRepository, UebungDtoMapper uebungDtoMapper)
 	{
 		this.uebungRepository = uebungRepository;
 		this.belastungsfaktorRepository = belastungsfaktorRepository;
@@ -44,8 +41,7 @@ public class UebungService
 
 	public List<UebungDto> ermittleZuUebungskategorie(@NonNull String uebungskategorie)
 	{
-		return uebungDtoMapper
-			.mappeAlle(uebungRepository.ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie)));
+		return uebungDtoMapper.mappeAlle(uebungRepository.ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie)));
 	}
 
 	public UebungDto ermittleZuId(@NonNull String id) throws UebungNichtGefundenException
@@ -55,11 +51,9 @@ public class UebungService
 			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException("der ID", id));
 	}
 
-	public UebungDto speichereUebung(@NonNull UebungDto uebungDto, @NonNull String belastungsfaktorId)
-		throws BelastungsfaktorNichtGefundenException
+	public UebungDto speichereUebung(@NonNull UebungDto uebungDto, @NonNull String belastungsfaktorId) throws BelastungsfaktorNichtGefundenException
 	{
-		var belastungsfaktor = belastungsfaktorRepository
-			.ermittleZuId(new Primaerschluessel(belastungsfaktorId))
+		var belastungsfaktor = belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(belastungsfaktorId))
 			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", belastungsfaktorId));
 
 		return uebungDtoMapper.mappe(uebungRepository.speichereUebung(new Uebung(

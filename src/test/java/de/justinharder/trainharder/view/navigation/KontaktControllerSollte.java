@@ -61,22 +61,19 @@ class KontaktControllerSollte
 		when(securityContext.getCallerPrincipal()).thenReturn(principal);
 	}
 
-	private void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(String benutzername)
-		throws AuthentifizierungNichtGefundenException
+	private void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(String benutzername) throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername))
-			.thenThrow(new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
+			.thenThrow(new AuthentifizierungNichtGefundenException("Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
 	}
 
-	private void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(String benutzername,
-		AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
+	private void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(String benutzername, AuthentifizierungDto authentifizierungDto)
+		throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierungDto);
 	}
 
-	private void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(String authentifizierungId,
-		BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
+	private void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(String authentifizierungId, BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuAuthentifizierung(authentifizierungId)).thenReturn(benutzerDto);
 	}
@@ -90,48 +87,33 @@ class KontaktControllerSollte
 	@DisplayName("zur Kontakt-Seite per GET navigieren ohne angemeldeten Benutzer")
 	void test01()
 	{
-		var erwartet = "/kontakt.xhtml";
-
-		var ergebnis = sut.index();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.index()).isEqualTo("/kontakt.xhtml");
 	}
 
 	@Test
 	@DisplayName("zur Kontakt-Seite per GET navigieren mit Servicefehler")
 	void test02() throws AuthentifizierungNichtGefundenException
 	{
-		var erwartet = "/kontakt.xhtml";
 		var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
 		angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(callerPrincipal.getName());
 
-		var ergebnis = sut.index();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
-		verify(models).put("fehler",
-			"Die Authentifizierung mit dem Benutzernamen \"" + callerPrincipal.getName() + "\" existiert nicht!");
+		assertThat(sut.index()).isEqualTo("/kontakt.xhtml");
+		verify(models).put("fehler", "Die Authentifizierung mit dem Benutzernamen \"" + callerPrincipal.getName() + "\" existiert nicht!");
 	}
 
 	@Test
 	@DisplayName("zur Kontakt-Seite per GET navigieren mit angemeldeten Benutzer")
 	void test03() throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
-		var erwartet = "/kontakt.xhtml";
 		var callerPrincipal = new CallerPrincipal(Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername());
 		var authentifizierungDto = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
 		var benutzerDto = Testdaten.BENUTZER_DTO_JUSTIN;
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
-		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(
-			callerPrincipal.getName(),
-			authentifizierungDto);
-		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(
-			authentifizierungDto.getPrimaerschluessel(),
-			benutzerDto);
+		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(callerPrincipal.getName(), authentifizierungDto);
+		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel(), benutzerDto);
 
-		var ergebnis = sut.index();
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.index()).isEqualTo("/kontakt.xhtml");
 		verify(models).put("authentifizierung", authentifizierungDto);
 		verify(models).put("benutzer", benutzerDto);
 	}
@@ -150,13 +132,9 @@ class KontaktControllerSollte
 	@DisplayName("bei fehlgeschlagenem BindingResult zurück zur Kontakt-Seite navigieren")
 	void test05()
 	{
-		var erwartet = "/kontakt.xhtml";
 		angenommenDasBindingResultFailed();
 
-		var ergebnis = sut.kontaktiere(
-			new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Nachrichtentext..."));
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.kontaktiere(new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Nachrichtentext..."))).isEqualTo("/kontakt.xhtml");
 		verify(models).put("fehler", new ArrayList<>());
 	}
 
@@ -164,13 +142,9 @@ class KontaktControllerSollte
 	@DisplayName("bei erfolgreichem Kontaktieren zur Kontaktiert-Seite per GET navigieren")
 	void test06()
 	{
-		var erwartet = "/kontaktiert.xhtml";
+		var kontaktformular = new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Nachrichtentext...");
 
-		var kontaktformular =
-			new Kontaktformular("mail@justinharder.de", "harder", "Justin", "Harder", "Nachrichtentext...");
-		var ergebnis = sut.kontaktiere(kontaktformular);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.kontaktiere(kontaktformular)).isEqualTo("/kontaktiert.xhtml");
 		verify(kontaktService).kontaktiere(kontaktformular);
 		verify(models).put("kontaktformular", kontaktformular);
 	}

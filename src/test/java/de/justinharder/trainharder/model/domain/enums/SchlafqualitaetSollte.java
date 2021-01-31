@@ -14,11 +14,7 @@ class SchlafqualitaetSollte
 	@DisplayName("EnumException werfen, wenn der Wert nicht existiert")
 	void test01()
 	{
-		var erwartet = "Der Wert \"UNGUELTIG\" existiert nicht!";
-
-		var exception = assertThrows(EnumException.class, () -> Schlafqualitaet.zuWert("UNGUELTIG"));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(EnumException.class, () -> Schlafqualitaet.zuWert("UNGUELTIG"));
 	}
 
 	@Test

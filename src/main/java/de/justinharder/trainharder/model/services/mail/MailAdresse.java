@@ -36,7 +36,7 @@ public class MailAdresse
 			return false;
 		}
 		var that = (MailAdresse) o;
-		return adresse.equals(that.adresse) && name.equals(that.name);
+		return Objects.equals(adresse, that.adresse) && Objects.equals(name, that.name);
 	}
 
 	@Override

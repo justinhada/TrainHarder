@@ -24,13 +24,7 @@ class KoerpermasseDtoSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new KoerpermasseDto(
-			KOERPERGROESSE,
-			KOERPERGEWICHT,
-			KOERPERFETT_ANTEIL,
-			FETTFREIES_KOERPERGEWICHT,
-			BODY_MASS_INDEX,
-			FAT_FREE_MASS_INDEX);
+		sut = new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT, BODY_MASS_INDEX, FAT_FREE_MASS_INDEX);
 	}
 
 	@Test
@@ -69,8 +63,7 @@ class KoerpermasseDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString(
-			"KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=20.0, fettfreiesKoerpergewicht=72.00, bodyMassIndex=28.4, fatFreeMassIndex=22.8)");
+		assertThat(sut).hasToString("KoerpermasseDto(koerpergroesse=178, koerpergewicht=90.00, koerperfettAnteil=20.0, fettfreiesKoerpergewicht=72.00, bodyMassIndex=28.4, fatFreeMassIndex=22.8)");
 	}
 
 	@Test
@@ -78,24 +71,12 @@ class KoerpermasseDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(null, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT,
-					BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(KOERPERGROESSE, null, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT,
-					BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, null, FETTFREIES_KOERPERGEWICHT,
-					BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, null, BODY_MASS_INDEX,
-					FAT_FREE_MASS_INDEX)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT,
-					null, FAT_FREE_MASS_INDEX)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT,
-					BODY_MASS_INDEX, null)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(null, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT, BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(KOERPERGROESSE, null, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT, BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, null, FETTFREIES_KOERPERGEWICHT, BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, null, BODY_MASS_INDEX, FAT_FREE_MASS_INDEX)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT, null, FAT_FREE_MASS_INDEX)),
+			() -> assertThrows(NullPointerException.class, () -> new KoerpermasseDto(KOERPERGROESSE, KOERPERGEWICHT, KOERPERFETT_ANTEIL, FETTFREIES_KOERPERGEWICHT, BODY_MASS_INDEX, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergroesse(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerperfettAnteil(null)),

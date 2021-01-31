@@ -24,7 +24,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.stream.Collectors;
 
-@Setter
 @Controller
 @Path(value = "/join")
 public class RegistrierungController
@@ -46,6 +45,26 @@ public class RegistrierungController
 
 	@Inject
 	private RegistrierungService registrierungService;
+
+	public void setModels(@NonNull Models models)
+	{
+		this.models = models;
+	}
+
+	public void setBindingResult(@NonNull BindingResult bindingResult)
+	{
+		this.bindingResult = bindingResult;
+	}
+
+	public void setSecurityContext(@NonNull SecurityContext securityContext)
+	{
+		this.securityContext = securityContext;
+	}
+
+	public void setRegistrierungService(@NonNull RegistrierungService registrierungService)
+	{
+		this.registrierungService = registrierungService;
+	}
 
 	@GET
 	public String index()
@@ -74,8 +93,7 @@ public class RegistrierungController
 			models.put("authentifizierung", registrierungService.registriere(registrierung));
 			return erfolgreich();
 		}
-		catch (MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException
-			| InvalidKeySpecException | NoSuchAlgorithmException e)
+		catch (MailVergebenException | BenutzernameVergebenException | PasswortUnsicherException | InvalidKeySpecException | NoSuchAlgorithmException e)
 		{
 			models.put(FEHLER, e.getMessage());
 			return index();

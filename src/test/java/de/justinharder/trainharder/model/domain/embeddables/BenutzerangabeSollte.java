@@ -17,14 +17,7 @@ class BenutzerangabeSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new Benutzerangabe(
-			Geschlecht.MAENNLICH,
-			Erfahrung.BEGINNER,
-			Ernaehrung.GUT,
-			Schlafqualitaet.GUT,
-			Stress.MITTELMAESSIG,
-			Doping.NEIN,
-			Regenerationsfaehigkeit.GUT);
+		sut = new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.GUT, Schlafqualitaet.GUT, Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.GUT);
 	}
 
 	@Test
@@ -71,29 +64,21 @@ class BenutzerangabeSollte
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(null, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
-					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN,
+				() -> new Benutzerangabe(null, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, null, Ernaehrung.DURCHSCHNITT, Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN,
 					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, null, Ernaehrung.DURCHSCHNITT,
-					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, null, Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, null, Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, Schlafqualitaet.DURCHSCHNITT, null, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, null,
 					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, null, Schlafqualitaet.DURCHSCHNITT,
-					Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, null,
-					Stress.MITTELMAESSIG, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
-					Schlafqualitaet.DURCHSCHNITT, null, Doping.NEIN, Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
-					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, null,
-					Regenerationsfaehigkeit.DURCHSCHNITTLICH)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT,
-					Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN, null)),
+				() -> new Benutzerangabe(Geschlecht.MAENNLICH, Erfahrung.BEGINNER, Ernaehrung.DURCHSCHNITT, Schlafqualitaet.DURCHSCHNITT, Stress.MITTELMAESSIG, Doping.NEIN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKraftlevel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeschlecht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setErfahrung(null)),

@@ -17,12 +17,7 @@ public class KoerpermessungDto extends EntitaetDto
 
 	public KoerpermessungDto() {}
 
-	public KoerpermessungDto(
-		@NonNull String primaerschluessel,
-		@NonNull String datum,
-		@NonNull KoerpermasseDto koerpermasse,
-		int kalorieneinnahme,
-		int kalorienverbrauch)
+	public KoerpermessungDto(@NonNull String primaerschluessel, @NonNull String datum, @NonNull KoerpermasseDto koerpermasse, int kalorieneinnahme, int kalorienverbrauch)
 	{
 		super(primaerschluessel);
 		this.datum = datum;
@@ -74,11 +69,11 @@ public class KoerpermessungDto extends EntitaetDto
 			return false;
 		}
 		var that = (KoerpermessungDto) o;
-		return primaerschluessel.equals(that.primaerschluessel)
+		return Objects.equals(primaerschluessel, that.primaerschluessel)
 			&& kalorieneinnahme == that.kalorieneinnahme
 			&& kalorienverbrauch == that.kalorienverbrauch
-			&& datum.equals(that.datum)
-			&& koerpermasse.equals(that.koerpermasse);
+			&& Objects.equals(datum, that.datum)
+			&& Objects.equals(koerpermasse, that.koerpermasse);
 	}
 
 	@Override

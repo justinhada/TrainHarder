@@ -19,8 +19,7 @@ class BelastungSollte
 {
 	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
 	private static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG = new GrunduebungBelastung(1.0, 0.0, 0.0);
-	private static final OberkoerperBelastung OBERKOERPER_BELASTUNG = new OberkoerperBelastung(0.7, 1.0, 0.0,
-		0.0, 0.0, 0.1);
+	private static final OberkoerperBelastung OBERKOERPER_BELASTUNG = new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1);
 	private static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG = new UnterkoerperBelastung(1.0, 1.0, 0.5);
 
 	private Belastung sut;
@@ -28,11 +27,7 @@ class BelastungSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new Belastung(
-			PRIMAERSCHLUESSEL,
-			GRUNDUEBUNG_BELASTUNG,
-			OBERKOERPER_BELASTUNG,
-			UNTERKOERPER_BELASTUNG);
+		sut = new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG);
 	}
 
 	@Test
@@ -78,14 +73,10 @@ class BelastungSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Belastung(null, GRUNDUEBUNG_BELASTUNG,
-				OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, null,
-				OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG,
-				null, UNTERKOERPER_BELASTUNG)),
-			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG,
-				OBERKOERPER_BELASTUNG, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(null, GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, null, OBERKOERPER_BELASTUNG, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG, null, UNTERKOERPER_BELASTUNG)),
+			() -> assertThrows(NullPointerException.class, () -> new Belastung(PRIMAERSCHLUESSEL, GRUNDUEBUNG_BELASTUNG, OBERKOERPER_BELASTUNG, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),

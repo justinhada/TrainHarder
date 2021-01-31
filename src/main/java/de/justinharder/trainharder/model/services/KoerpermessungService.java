@@ -27,10 +27,7 @@ public class KoerpermessungService
 	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
 
 	@Inject
-	public KoerpermessungService(
-		KoerpermessungRepository koerpermessungRepository,
-		BenutzerRepository benutzerRepository,
-		KoerpermessungDtoMapper koerpermessungDtoMapper)
+	public KoerpermessungService(KoerpermessungRepository koerpermessungRepository, BenutzerRepository benutzerRepository, KoerpermessungDtoMapper koerpermessungDtoMapper)
 	{
 		this.koerpermessungRepository = koerpermessungRepository;
 		this.benutzerRepository = benutzerRepository;
@@ -39,8 +36,7 @@ public class KoerpermessungService
 
 	public List<KoerpermessungDto> ermittleAlleZuBenutzer(@NonNull String benutzerId)
 	{
-		return koerpermessungDtoMapper
-			.mappeAlle(koerpermessungRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
+		return koerpermessungDtoMapper.mappeAlle(koerpermessungRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
 	}
 
 	public KoerpermessungDto ermittleZuId(@NonNull String id) throws KoerpermessungNichtGefundenException
@@ -50,8 +46,7 @@ public class KoerpermessungService
 			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
 	}
 
-	public KoerpermessungDto erstelleKoerpermessung(@NonNull Koerpermessdaten koerpermessdaten,
-		@NonNull String benutzerId) throws BenutzerNichtGefundenException
+	public KoerpermessungDto erstelleKoerpermessung(@NonNull Koerpermessdaten koerpermessdaten, @NonNull String benutzerId) throws BenutzerNichtGefundenException
 	{
 		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
 			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
@@ -68,8 +63,7 @@ public class KoerpermessungService
 			benutzer)));
 	}
 
-	public KoerpermessungDto aktualisiereKoerpermessung(@NonNull String id, @NonNull Koerpermessdaten koerpermessdaten)
-		throws KoerpermessungNichtGefundenException
+	public KoerpermessungDto aktualisiereKoerpermessung(@NonNull String id, @NonNull Koerpermessdaten koerpermessdaten) throws KoerpermessungNichtGefundenException
 	{
 		var koerpermessung = koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
 			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));

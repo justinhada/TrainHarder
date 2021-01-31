@@ -35,8 +35,7 @@ class BelastungServiceSollte
 		sut = new BelastungsfaktorService(belastungsfaktorRepository, belastungsfaktorDtoMapper);
 	}
 
-	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String id,
-		Optional<Belastung> belastungsfaktor)
+	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String id, Optional<Belastung> belastungsfaktor)
 	{
 		when(belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(belastungsfaktor);
 	}
@@ -48,12 +47,10 @@ class BelastungServiceSollte
 
 	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(Belastung belastung)
 	{
-		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastung.class)))
-			.thenReturn(belastung);
+		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastung.class))).thenReturn(belastung);
 	}
 
-	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastung belastung,
-		BelastungDto belastungDto)
+	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastung belastung, BelastungDto belastungDto)
 	{
 		when(belastungsfaktorDtoMapper.mappe(belastung)).thenReturn(belastungDto);
 	}
@@ -72,12 +69,9 @@ class BelastungServiceSollte
 	void test02()
 	{
 		var id = new Primaerschluessel().getId().toString();
-		var erwartet = "Der Belastungsfaktor mit der ID \"" + id + "\" existiert nicht!";
 		angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(id);
 
-		var exception = assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.ermittleZuId(id));
-
-		assertThat(exception.getMessage()).isEqualTo(erwartet);
+		assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.ermittleZuId(id));
 		verify(belastungsfaktorRepository).ermittleZuId(new Primaerschluessel(id));
 	}
 
@@ -91,9 +85,7 @@ class BelastungServiceSollte
 		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.of(belastungsfaktor));
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
 
-		var ergebnis = sut.ermittleZuId(id);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
 		verify(belastungsfaktorRepository).ermittleZuId(new Primaerschluessel(id));
 		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
 	}
@@ -107,9 +99,7 @@ class BelastungServiceSollte
 		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
 		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
 
-		var ergebnis = sut.speichereBelastungsfaktor(erwartet);
-
-		assertThat(ergebnis).isEqualTo(erwartet);
+		assertThat(sut.speichereBelastungsfaktor(erwartet)).isEqualTo(erwartet);
 		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
 	}
 }

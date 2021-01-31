@@ -76,14 +76,10 @@ class AuthentifizierungSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(PRIMAERSCHLUESSEL, null, BENUTZERNAME, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, null, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, null)),
+			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, null, BENUTZERNAME, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, null, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)),

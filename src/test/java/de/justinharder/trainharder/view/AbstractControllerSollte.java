@@ -46,23 +46,19 @@ public abstract class AbstractControllerSollte
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(null);
 	}
 
-	protected void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(
-		String benutzername) throws AuthentifizierungNichtGefundenException
+	protected void angenommenDerAuthentifizierungServiceWirftAuthentifizierungNichtGefundenException(String benutzername) throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername))
-			.thenThrow(new AuthentifizierungNichtGefundenException(
-				"Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
+			.thenThrow(new AuthentifizierungNichtGefundenException("Die Authentifizierung mit dem Benutzernamen \"" + benutzername + "\" existiert nicht!"));
 	}
 
-	protected void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(String benutzername,
-		AuthentifizierungDto authentifizierungDto)
+	protected void angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(String benutzername, AuthentifizierungDto authentifizierungDto)
 		throws AuthentifizierungNichtGefundenException
 	{
 		when(authentifizierungService.ermittleZuBenutzername(benutzername)).thenReturn(authentifizierungDto);
 	}
 
-	protected void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(String authentifizierungId,
-		BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
+	protected void angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(String authentifizierungId, BenutzerDto benutzerDto) throws BenutzerNichtGefundenException
 	{
 		when(benutzerService.ermittleZuAuthentifizierung(authentifizierungId)).thenReturn(benutzerDto);
 	}
@@ -74,8 +70,7 @@ public abstract class AbstractControllerSollte
 		return methode.get();
 	}
 
-	protected String zurSeiteNavigierenMitServicefehler(Supplier<String> methode,
-		AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
+	protected String zurSeiteNavigierenMitServicefehler(Supplier<String> methode, AuthentifizierungDto authentifizierungDto) throws AuthentifizierungNichtGefundenException
 	{
 		var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
@@ -84,18 +79,13 @@ public abstract class AbstractControllerSollte
 		return methode.get();
 	}
 
-	protected String zurSeiteNavigierenMitAngemeldetenBenutzer(Supplier<String> methode,
-		AuthentifizierungDto authentifizierungDto, BenutzerDto benutzerDto)
+	protected String zurSeiteNavigierenMitAngemeldetenBenutzer(Supplier<String> methode, AuthentifizierungDto authentifizierungDto, BenutzerDto benutzerDto)
 		throws AuthentifizierungNichtGefundenException, BenutzerNichtGefundenException
 	{
 		var callerPrincipal = new CallerPrincipal(authentifizierungDto.getBenutzername());
 		angenommenDerSecurityContextGibtCallerPrincipalZurueck(callerPrincipal);
-		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(
-			callerPrincipal.getName(),
-			authentifizierungDto);
-		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(
-			authentifizierungDto.getPrimaerschluessel(),
-			benutzerDto);
+		angenommenDerAuthentifizierungServiceErmitteltAuthentifizierungDtoZuBenutzername(callerPrincipal.getName(), authentifizierungDto);
+		angenommenDerBenutzerServiceErmitteltBenutzerDtoZuAuthentifizierung(authentifizierungDto.getPrimaerschluessel(), benutzerDto);
 
 		return methode.get();
 	}

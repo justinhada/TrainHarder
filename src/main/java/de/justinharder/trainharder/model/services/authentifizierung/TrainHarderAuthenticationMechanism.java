@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @AutoApplySession
-@LoginToContinue(
-	loginPage = "/trainharder/login",
-	useForwardToLogin = false)
+@LoginToContinue(loginPage = "/trainharder/login", useForwardToLogin = false)
 @ApplicationScoped
 public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMechanism
 {
@@ -29,8 +27,7 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 	}
 
 	@Override
-	public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response,
-		HttpMessageContext httpMessageContext)
+	public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext httpMessageContext)
 	{
 		var credential = httpMessageContext.getAuthParameters().getCredential();
 
@@ -42,8 +39,7 @@ public class TrainHarderAuthenticationMechanism implements HttpAuthenticationMec
 	}
 
 	@Override
-	public void cleanSubject(HttpServletRequest request, HttpServletResponse response,
-		HttpMessageContext httpMessageContext)
+	public void cleanSubject(HttpServletRequest request, HttpServletResponse response, HttpMessageContext httpMessageContext)
 	{
 		HttpAuthenticationMechanism.super.cleanSubject(request, response, httpMessageContext);
 	}

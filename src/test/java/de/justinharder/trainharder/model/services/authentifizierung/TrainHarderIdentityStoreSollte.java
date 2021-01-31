@@ -35,14 +35,12 @@ class TrainHarderIdentityStoreSollte
 		sut.setLoginService(loginService);
 	}
 
-	private void angenommenDerAuthentifizierungServiceWirftLoginExcepion()
-		throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	private void angenommenDerAuthentifizierungServiceWirftLoginExcepion() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(loginService.login(anyString(), anyString())).thenThrow(LoginException.class);
 	}
 
-	private void angenommenDerAuthentifizierungServiceLoggtEin(AuthentifizierungDto authentifizierungDto)
-		throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
+	private void angenommenDerAuthentifizierungServiceLoggtEin(AuthentifizierungDto authentifizierungDto) throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		when(loginService.login(anyString(), anyString())).thenReturn(authentifizierungDto);
 	}
@@ -65,8 +63,7 @@ class TrainHarderIdentityStoreSollte
 	{
 		var erwartet = CredentialValidationResult.NOT_VALIDATED_RESULT;
 
-		var ergebnis = sut.validate(new Credential()
-		{});
+		var ergebnis = sut.validate(new Credential() {});
 
 		assertThat(ergebnis.getStatus()).isEqualTo(erwartet.getStatus());
 	}

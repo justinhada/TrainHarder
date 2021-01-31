@@ -62,8 +62,7 @@ class OberkoerperBelastungDtoSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString(
-			"OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1)");
+		assertThat(sut).hasToString("OberkoerperBelastungDto(triceps=0.7, chest=1.0, core=0.0, back=0.0, biceps=0.0, shoulder=0.1)");
 	}
 
 	@Test
@@ -71,18 +70,12 @@ class OberkoerperBelastungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(null, CHEST, CORE, BACK,
-				BICEPS, SHOULDER)),
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, null, CORE, BACK,
-				BICEPS, SHOULDER)),
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, null, BACK,
-				BICEPS, SHOULDER)),
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, null,
-				BICEPS, SHOULDER)),
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, BACK,
-				null, SHOULDER)),
-			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, BACK,
-				BICEPS, null)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(null, CHEST, CORE, BACK, BICEPS, SHOULDER)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, null, CORE, BACK, BICEPS, SHOULDER)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, null, BACK, BICEPS, SHOULDER)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, null, BICEPS, SHOULDER)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, BACK, null, SHOULDER)),
+			() -> assertThrows(NullPointerException.class, () -> new OberkoerperBelastungDto(TRICEPS, CHEST, CORE, BACK, BICEPS, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setTriceps(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setChest(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setCore(null)),
