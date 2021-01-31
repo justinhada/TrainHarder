@@ -56,7 +56,7 @@ abstract class Deployment
 		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withSharedMemorySize(21474836L)
-		.withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_FAILING, new File("./build"))
+		.withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_FAILING, new File("./build/vnc"))
 		.withCapabilities(new ChromeOptions())
 		.dependsOn(WILDFLY_CONTAINER);
 
