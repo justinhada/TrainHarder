@@ -17,6 +17,13 @@ repositories {
     apply from: "gradle/${it}.gradle"
 }
 
+war {
+    archiveFileName = 'TrainHarder.war'
+}
+
+configurations {
+    testContainerAgent
+}
 
 dependencies {
     api "org.apache.commons:commons-math3:3.6.1"
@@ -38,25 +45,35 @@ dependencies {
     integrationTestRuntimeOnly "org.hibernate:hibernate-core:5.4.12.Final",
             "org.mariadb.jdbc:mariadb-java-client:2.6.0"
 
+    testContainerAgent "org.jacoco:org.jacoco.agent:0.8.5:runtime"
+
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 }
 
 jacoco {
     toolVersion = "0.8.5"
-    reportsDir = file("$buildDir/jacoco")
+    reportsDir = file("${buildDir}/jacoco")
 }
 
 task mergeJacocoReports(type: JacocoReport) {
     dependsOn test, integrationTest
     sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
     classDirectories.setFrom files(sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: '.', include: '**/build/jacoco/*.exec')
+    executionData.setFrom project.fileTree(dir: '.', include: '${buildDir}/jacoco/*.exec')
     reports {
         xml.enabled true
         csv.enabled false
         html.enabled true
         html.destination file("${buildDir}/jacoco/merge")
         xml.destination file("${buildDir}/jacoco/merge.xml")
+    }
+}
+
+task kopiereJacocoAgent(type: Copy) {
+    from configurations.testContainerAgent
+    into "${buildDir}/jacocoAgent"
+    rename { String fileName ->
+        "org.jacoco.agent.jar"
     }
 }
 
@@ -69,6 +86,7 @@ sonarqube {
     }
 }
 
+tasks['integrationTest'].dependsOn kopiereJacocoAgent
 tasks['sonarqube'].dependsOn mergeJacocoReports
 
 version = '0.0.2'
