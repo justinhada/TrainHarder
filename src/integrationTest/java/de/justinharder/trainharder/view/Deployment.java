@@ -7,10 +7,7 @@ import org.junit.ClassRule;
 import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.MariaDBContainer;
-import org.testcontainers.containers.Network;
+import org.testcontainers.containers.*;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -51,8 +48,8 @@ abstract class Deployment
 		.withNetworkAliases("webapp")
 		.withExposedPorts(8080)
 		.waitingFor(Wait.forHttp("/"))
-		.withFileSystemBind("build/jacocoit", "/jacocoReport")
-		.withFileSystemBind("build/jacocoAgent", "/jacocoAgent")
+		.withFileSystemBind("build/jacocoit", "/jacocoReport", BindMode.READ_WRITE)
+		.withFileSystemBind("build/jacocoAgent", "/jacocoAgent", BindMode.READ_WRITE)
 		.withEnv("JAVA_TOOL_OPTIONS", "-javaagent:/jacocoAgent/org.jacoco.agent.jar=destfile=/jacocoReport/jacoco-docker.exec")
 		.dependsOn(MARIA_DB_CONTAINER);
 
