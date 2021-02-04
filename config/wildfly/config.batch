@@ -1,9 +1,26 @@
 batch
 
-/subsystem=naming/binding=java\:global\/de\/justinharder\/trainharder\/stage:add(binding-type=simple, type=java.lang.String, value=DEVELOPMENT)
+# Stage: DEVELOPMENT
+/subsystem=naming/binding=java\:global\/stage:add(binding-type=simple, type=java.lang.String, value=DEVELOPMENT)
 
-module add --name=com.mariadb --resources=/var/mariadb-connector-java.jar --dependencies=javax.api
+# Google Mail
+/subsystem=naming/binding=java\:global\/gmail-mail:add(binding-type=simple, type=java.lang.String, value=trainharder2021@gmail.com)
+/subsystem=naming/binding=java\:global\/gmail-passwort:add(binding-type=simple, type=java.lang.String, value=nichtDasEchtePasswort)
+
+# MariaDB-Treiber hinzufuegen
+module add --name=com.mariadb --resources=/opt/jboss/dependencies/mariadb-connector-java.jar --dependencies=javax.api
 /subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=com.mariadb)
-data-source add --jndi-name=java:/TestRepoPU --name=TestRepoPU --connection-url=jdbc:mariadb://mariadbhost:3306/trainharderTest --driver-name=mariadb --user-name=powerlifter --password=passwort
+
+# DataSource anlegen
+data-source add --name=TrainHarder --driver-name=mariadb --driver-class=org.mariadb.jdbc.Driver --connection-url="jdbc:mariadb://host.docker.internal:3306/trainharder" --jndi-name=java:jboss/jdbc/trainharder --user-name=powerlifter --password=passwort
+data-source add --name=TestPU --driver-name=mariadb --driver-class=org.mariadb.jdbc.Driver --connection-url="jdbc:mariadb://mariadbhost:3306/trainharderTest" --jndi-name=java:jboss/jdbc/trainharderTest --user-name=powerlifter --password=passwort
+
+# Reconnect im Fehlerfall aktivieren
+/subsystem=datasources/data-source=TrainHarder:write-attribute(name=validate-on-match,value=true)
+/subsystem=datasources/data-source=TrainHarder:write-attribute(name=check-valid-connection-sql,value="select 1")
+/subsystem=datasources/data-source=TrainHarder:write-attribute(name=exception-sorter-class-name,value="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter")
+/subsystem=datasources/data-source=TestPU:write-attribute(name=validate-on-match,value=true)
+/subsystem=datasources/data-source=TestPU:write-attribute(name=check-valid-connection-sql,value="select 1")
+/subsystem=datasources/data-source=TestPU:write-attribute(name=exception-sorter-class-name,value="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter")
 
 run-batch
