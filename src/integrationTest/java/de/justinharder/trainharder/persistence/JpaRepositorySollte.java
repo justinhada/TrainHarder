@@ -20,7 +20,7 @@ import java.util.HashMap;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 abstract class JpaRepositorySollte
 {
-	private static final String PERSISTENCE_UNIT_NAME = "TestPU";
+	private static final String PERSISTENCE_UNIT_NAME = "TestRepoPU";
 
 	@Container
 	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
