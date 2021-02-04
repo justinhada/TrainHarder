@@ -60,7 +60,9 @@ class BenutzerSollte
 			() -> assertThat(benutzer.getName()).isEqualTo(NAME),
 			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(GEBURTSDATUM),
 			() -> assertThat(benutzer.getBenutzerangabe()).isEqualTo(BENUTZERANGABE),
-			() -> assertThat(benutzer.getAuthentifizierung()).isEqualTo(AUTHENTIFIZIERUNG));
+			() -> assertThat(benutzer.getAuthentifizierung()).isEqualTo(AUTHENTIFIZIERUNG),
+			() -> assertThat(new Benutzer().getKoerpergewicht()).isNull(),
+			() -> assertThat(new Benutzer().getKoerpergroesse()).isNull());
 	}
 
 	@Test
