@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.ClassRule;
+import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -25,11 +26,14 @@ import java.nio.file.Paths;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 abstract class Deployment
 {
+	private static final String PERSISTENCE_UNIT_NAME = "TestPU";
+
 	@ClassRule
 	private static final Network NETZWERK = Network.newNetwork();
 
 	@Container
-	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
+	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(
+		DockerImageName.parse("mariadb"))
 		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("mariadbhost")
@@ -41,13 +45,17 @@ abstract class Deployment
 	@Container
 	private static final GenericContainer<?> WILDFLY_CONTAINER = new GenericContainer<>(
 		new ImageFromDockerfile()
-			.withFileFromPath("build/libs/TrainHarder-0.0.2.war", Paths.get("build/libs/TrainHarder-0.0.2.war"))
+			.withFileFromPath("build/libs/TrainHarder.war", Paths.get("build/libs/TrainHarder.war"))
 			.withFileFromPath("config/wildfly", Paths.get("config/wildfly"))
 			.withFileFromPath("Dockerfile", Paths.get("Dockerfile")))
 		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
 		.withNetworkAliases("webapp")
+		.withExposedPorts(8080)
 		.waitingFor(Wait.forHttp("/"))
+		.withFileSystemBind("build/jacocoit", "/jacocoReport")
+		.withFileSystemBind("build/jacocoAgent", "/jacocoAgent")
+		.withEnv("JAVA_TOOL_OPTIONS", "-javaagent:/jacocoAgent/org.jacoco.agent.jar=destfile=/jacocoReport/jacoco-docker.exec")
 		.dependsOn(MARIA_DB_CONTAINER);
 
 	@Container
@@ -55,18 +63,75 @@ abstract class Deployment
 		DockerImageName.parse("selenium/standalone-chrome-debug"))
 		.withLogConsumer(new Slf4jLogConsumer(log))
 		.withNetwork(NETZWERK)
-		.withSharedMemorySize(21474836L)
+		.withSharedMemorySize(3221225472L)
 		.withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_FAILING, new File("./build/vnc"))
 		.withCapabilities(new ChromeOptions())
 		.dependsOn(WILDFLY_CONTAINER);
 
 	protected void navigiere(String endpunkt)
 	{
-		webseite().navigate().to(String.format("http://%s:%s/%s/%s", "webapp", "8080", "TrainHarder", endpunkt));
+		webseite().navigate().to(String.format("http://webapp:8080/TrainHarder/%s", endpunkt));
 	}
 
 	protected RemoteWebDriver webseite()
 	{
 		return chromeContainer.getWebDriver();
 	}
+
+//	@BeforeAll
+//	static void legeTestdatenAn()
+//	{
+//		erzeugeTestdaten();
+//	}
+
+	@AfterAll
+	static void beendeWildflyJvmFreundlich()
+	{
+		WILDFLY_CONTAINER
+			.getDockerClient()
+			.stopContainerCmd(WILDFLY_CONTAINER.getContainerId())
+			.withTimeout(60)
+			.exec();
+	}
+
+//	private static EntityManager entityManager;
+
+//	protected static EntityManager getEntityManager()
+//	{
+//		if (entityManager != null)
+//		{
+//			return entityManager;
+//		}
+//
+//		var props = new HashMap<String, Object>();
+//		props.put("javax.persistence.jdbc.url", MARIA_DB_CONTAINER.getJdbcUrl());
+//		props.put("javax.persistence.jdbc.driver", MARIA_DB_CONTAINER.getDriverClassName());
+//		props.put("javax.persistence.jdbc.user", MARIA_DB_CONTAINER.getUsername());
+//		props.put("javax.persistence.jdbc.password", MARIA_DB_CONTAINER.getPassword());
+//		props.put("javax.persistence.schema-generation.database.action", "drop-and-create");
+//		props.put("hibernate.show_sql", "true");
+//
+//		entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, props).createEntityManager();
+//		return entityManager;
+//	}
+//
+//	protected static void schliesseEntityManager()
+//	{
+//		if (entityManager.getTransaction().isActive())
+//		{
+//			entityManager.getTransaction().rollback();
+//		}
+//		entityManager.close();
+//		entityManager = null;
+//	}
+
+//	protected static void erzeugeTestdaten()
+//	{
+//		getEntityManager();
+
+//		var transaction = entityManager.getTransaction();
+//		transaction.begin();
+//		new TestdatenAnleger().legeTestdatenAn();
+//		transaction.commit();
+//	}
 }
