@@ -59,7 +59,11 @@ task mergeJacocoReports(type: JacocoReport) {
     dependsOn test, integrationTest
     sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
     classDirectories.setFrom files(sourceSets.main.output)
-    executionData.setFrom project.fileTree(dir: '.', include: '${buildDir}/jacoco/*.exec')
+    executionData(
+            file("${buildDir}/jacoco/test.exec"),
+            file("${buildDir}/jacoco/integrationTest.exec"),
+            file("${buildDir}/jacocoit/jacoco-docker.exec")
+    )
     reports {
         xml.enabled true
         csv.enabled false

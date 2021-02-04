@@ -26,8 +26,6 @@ import java.nio.file.Paths;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 abstract class Deployment
 {
-	private static final String PERSISTENCE_UNIT_NAME = "TestPU";
-
 	@ClassRule
 	private static final Network NETZWERK = Network.newNetwork();
 
@@ -78,12 +76,6 @@ abstract class Deployment
 		return chromeContainer.getWebDriver();
 	}
 
-//	@BeforeAll
-//	static void legeTestdatenAn()
-//	{
-//		erzeugeTestdaten();
-//	}
-
 	@AfterAll
 	static void beendeWildflyJvmFreundlich()
 	{
@@ -93,45 +85,4 @@ abstract class Deployment
 			.withTimeout(60)
 			.exec();
 	}
-
-//	private static EntityManager entityManager;
-
-//	protected static EntityManager getEntityManager()
-//	{
-//		if (entityManager != null)
-//		{
-//			return entityManager;
-//		}
-//
-//		var props = new HashMap<String, Object>();
-//		props.put("javax.persistence.jdbc.url", MARIA_DB_CONTAINER.getJdbcUrl());
-//		props.put("javax.persistence.jdbc.driver", MARIA_DB_CONTAINER.getDriverClassName());
-//		props.put("javax.persistence.jdbc.user", MARIA_DB_CONTAINER.getUsername());
-//		props.put("javax.persistence.jdbc.password", MARIA_DB_CONTAINER.getPassword());
-//		props.put("javax.persistence.schema-generation.database.action", "drop-and-create");
-//		props.put("hibernate.show_sql", "true");
-//
-//		entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, props).createEntityManager();
-//		return entityManager;
-//	}
-//
-//	protected static void schliesseEntityManager()
-//	{
-//		if (entityManager.getTransaction().isActive())
-//		{
-//			entityManager.getTransaction().rollback();
-//		}
-//		entityManager.close();
-//		entityManager = null;
-//	}
-
-//	protected static void erzeugeTestdaten()
-//	{
-//		getEntityManager();
-
-//		var transaction = entityManager.getTransaction();
-//		transaction.begin();
-//		new TestdatenAnleger().legeTestdatenAn();
-//		transaction.commit();
-//	}
 }
