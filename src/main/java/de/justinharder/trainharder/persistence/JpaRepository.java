@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 @NoArgsConstructor
 public abstract class JpaRepository<T extends Entitaet>
 {
-	@PersistenceContext
+	@PersistenceContext(unitName = "TrainHarder")
 	protected EntityManager entityManager;
 
 	public void setEntityManager(@NonNull EntityManager entityManager)

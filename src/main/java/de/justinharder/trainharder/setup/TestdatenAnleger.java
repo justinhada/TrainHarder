@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -14,10 +16,18 @@ public class TestdatenAnleger
 {
 	private static final String PERSISTENCE_UNIT_NAME = "hibernate.ejb.persistenceUnitName";
 
+	@PersistenceContext(unitName = "TestPU")
+	private EntityManager entityManager;
+
+	@Transactional
+	public void legeTestdatenAn()
+	{
+		speichereTestdaten(entityManager, log::info);
+	}
+
 	public void loescheTestdaten(EntityManager entityManager, Consumer<String> logger)
 	{
-		var persistenceUnit = entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString();
-		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + persistenceUnit);
+		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString());
 		List.of(
 			Authentifizierung.class,
 			Belastung.class,

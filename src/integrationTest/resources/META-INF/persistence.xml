@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="TestRepoPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jar-file>build/libs/TrainHarder-0.0.2.war</jar-file>
+    <persistence-unit name="TestPU" transaction-type="JTA">
+        <jta-data-source>java:jboss/jdbc/trainharderTest</jta-data-source>
+        <jar-file>build/libs/TrainHarder.war</jar-file>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
+        </properties>
     </persistence-unit>
 </persistence>
