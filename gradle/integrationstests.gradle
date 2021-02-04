@@ -14,7 +14,7 @@ configurations {
 dependencies {
     integrationTestImplementation configurations.testImplementation
 
-    integrationTestImplementation platform('org.testcontainers:testcontainers-bom:1.15.0')
+    integrationTestImplementation platform('org.testcontainers:testcontainers-bom:1.15.1')
     integrationTestImplementation "org.testcontainers:junit-jupiter",
             "org.testcontainers:testcontainers",
             "org.testcontainers:selenium",
