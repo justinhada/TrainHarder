@@ -63,7 +63,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         run:
-          docker run --rm -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock ./gradlew build mergeJacocoReports sonarqube --info
+          docker run -it -v /var/run/docker.sock:/var/run/docker.sock ./gradlew build mergeJacocoReports sonarqube --info
 
       - name: Shutdown Ubuntu MySQL (SUDO)
         run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
