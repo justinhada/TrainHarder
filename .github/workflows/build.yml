@@ -9,7 +9,8 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  in_docker_tests:
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -21,14 +22,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-
-      - uses: getong/mariadb-action@v1.1
-        with:
-          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
-          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
-          mysql database: 'trainharderTest' # Optional, default value is "test". The specified database which will be create
-          mysql user: 'powerlifter' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: 'passwort' # Required if "mysql user" exists. The password for the "mysql user"
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
@@ -56,15 +49,10 @@ jobs:
       - name: Grant all permissions for build-Folder
         run: chmod 777 -R build/
 
-#      - name: Mount Docker-Socket, build and analyze
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-#        run:
-#          docker run -it --rm -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock
-
       - name: Build with Gradle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           docker run -i --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
@@ -73,6 +61,3 @@ jobs:
             -w "$PWD" \
             adoptopenjdk/openjdk11:alpine \
             ./gradlew build mergeJacocoReports sonarqube --info
-
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
