@@ -60,4 +60,7 @@ jobs:
             -v "$PWD:$PWD" \
             -w "$PWD" \
             adoptopenjdk/openjdk11:alpine \
-            ./gradlew build mergeJacocoReports sonarqube --info
+            ./gradlew build --info
+
+      - name: Merge Jacoco Reports and Analyse
+        run: ./gradlew mergeJacocoReports sonarqube
