@@ -71,7 +71,7 @@ jobs:
             -v "$HOME:$HOME" \
             -v "$PWD:$PWD" \
             -w "$PWD" \
-            openjdk:8-jdk-alpine \
+            adoptopenjdk/openjdk11:alpine \
             ./gradlew build mergeJacocoReports sonarqube --info
 
       - name: Shutdown Ubuntu MySQL (SUDO)
