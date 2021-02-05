@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'war'
     id 'jacoco'
-    id "org.sonarqube" version '3.0'
+    id "org.sonarqube" version '3.1.1'
 }
 
 repositories {
@@ -80,6 +80,7 @@ task kopiereJacocoAgent(type: Copy) {
         "org.jacoco.agent.jar"
     }
 }
+
 
 sonarqube {
     properties {
