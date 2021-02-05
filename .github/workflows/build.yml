@@ -63,8 +63,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         run:
-          docker run -i --rm \
-            -v /var/run/docker.sock:/var/run/docker.sock \
+          docker run -v /var/run/docker.sock:/var/run/docker.sock \
             -v "$HOME:$HOME" \
             -v "$PWD:$PWD" \
             -w "$PWD" \
