@@ -57,15 +57,14 @@ jobs:
       - name: Grant all permissions for build-Folder
         run: chmod 777 -R build/
 
-      - name: Mount Docker-Socket
-        run: docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock
-
-      - name: Build and analyze
+      - name: Mount Docker-Socket, build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        run: ./gradlew build mergeJacocoReports sonarqube --info
+        run:
+          docker run -i --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            ./gradlew build mergeJacocoReports sonarqube --info
 
       - name: Shutdown Ubuntu MySQL (SUDO)
         run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
