@@ -48,8 +48,8 @@ abstract class Deployment
 		.withNetworkAliases("webapp")
 		.withExposedPorts(8080)
 		.waitingFor(Wait.forHttp("/"))
-		.withFileSystemBind("build/jacocoit", "/jacocoReport", BindMode.READ_WRITE)
-		.withFileSystemBind("build/jacocoAgent", "/jacocoAgent", BindMode.READ_WRITE)
+		.withFileSystemBind("build/jacocoit", "/jacocoReport")
+		.withFileSystemBind("build/jacocoAgent", "/jacocoAgent")
 		.withEnv("JAVA_TOOL_OPTIONS", "-javaagent:/jacocoAgent/org.jacoco.agent.jar=destfile=/jacocoReport/jacoco-docker.exec")
 		.dependsOn(MARIA_DB_CONTAINER);
 
