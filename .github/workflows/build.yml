@@ -9,8 +9,7 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  build:
-    name: Build
+  in_docker_tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -57,13 +56,23 @@ jobs:
       - name: Grant all permissions for build-Folder
         run: chmod 777 -R build/
 
-      - name: Mount Docker-Socket, build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        run:
-          docker run -it --rm -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock ./gradlew build mergeJacocoReports sonarqube --info
+#      - name: Mount Docker-Socket, build and analyze
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+#        run:
+#          docker run -it --rm -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock
+
+      - name: Build with Gradle
+        run: |
+          docker run -i --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$HOME:$HOME" \
+            -v "$PWD:$PWD" \
+            -w "$PWD" \
+            openjdk:8-jdk-alpine \
+            ./gradlew build mergeJacocoReports sonarqube --info
 
       - name: Shutdown Ubuntu MySQL (SUDO)
         run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
