@@ -91,6 +91,5 @@ sonarqube {
 }
 
 tasks['integrationTest'].dependsOn kopiereJacocoAgent
-tasks['sonarqube'].dependsOn mergeJacocoReports
 
 version = '0.0.2'
