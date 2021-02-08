@@ -50,12 +50,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.12"
 }
 
-configurations.all {
-    resolutionStrategy {
-        force("org.sonarsource.scanner.api:sonar-scanner-api:2.16.0.226")
-    }
-}
-
 jacoco {
     toolVersion = "0.8.5"
     reportsDir = file("${buildDir}/jacoco")
