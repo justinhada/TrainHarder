@@ -60,4 +60,4 @@ jobs:
             -v "$PWD:$PWD" \
             -w "$PWD" \
             adoptopenjdk/openjdk11:latest \
-            ./gradlew build mergeJacocoReports --info
+            ./gradlew build mergeJacocoReports sonarqube --info
