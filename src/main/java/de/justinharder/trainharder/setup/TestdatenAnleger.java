@@ -14,9 +14,7 @@ import java.util.function.Consumer;
 @ApplicationScoped
 public class TestdatenAnleger
 {
-	private static final String PERSISTENCE_UNIT_NAME = "hibernate.ejb.persistenceUnitName";
-
-	@PersistenceContext(unitName = "TestPU")
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Transactional
@@ -25,27 +23,8 @@ public class TestdatenAnleger
 		speichereTestdaten(entityManager, log::info);
 	}
 
-	public void loescheTestdaten(EntityManager entityManager, Consumer<String> logger)
-	{
-		logger.accept("Beginne mit dem Löschen aller Testdatensätze für PU: " + entityManager.getEntityManagerFactory().getProperties().get(PERSISTENCE_UNIT_NAME).toString());
-		List.of(
-			Authentifizierung.class,
-			Belastung.class,
-			Koerpermessung.class,
-			Kraftwert.class,
-			Uebung.class,
-			Benutzer.class)
-			.forEach(tabelle ->
-			{
-				logger.accept("Lösche Inhalte der Tabelle \"" + tabelle + "\".");
-				var query = "DELETE FROM ".concat(tabelle.getSimpleName());
-				entityManager.createNativeQuery(query, tabelle).executeUpdate();
-			});
-	}
-
 	public void speichereTestdaten(EntityManager entityManager, Consumer<String> logger)
 	{
-		loescheTestdaten(entityManager, logger);
 		List.of(
 			Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
 			Testdaten.AUTHENTIFIZIERUNG_EDUARD,

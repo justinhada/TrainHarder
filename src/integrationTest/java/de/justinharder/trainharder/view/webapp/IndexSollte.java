@@ -14,7 +14,7 @@ public class IndexSollte extends SeiteSollte
 	}
 
 	@Test
-	@DisplayName("Grundstruktur einhalten")
+	@DisplayName("Grundstruktur einer Seite mit Navigation einhalten")
 	void test01()
 	{
 		testeTitel("TrainHarder");

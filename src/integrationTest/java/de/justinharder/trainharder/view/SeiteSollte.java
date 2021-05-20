@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class SeiteSollte extends Deployment
 {
@@ -32,5 +33,12 @@ public class SeiteSollte extends Deployment
 		navigiere(seite);
 
 		assertThat(webseite().getTitle()).isEqualTo(erwartet);
+	}
+
+	protected void testeHeader()
+	{
+		navigiere(seite);
+
+		assertAll();
 	}
 }

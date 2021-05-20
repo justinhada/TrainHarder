@@ -9,9 +9,9 @@ JBOSS_MODE="standalone"
 JBOSS_CONFIG="standalone.xml"
 
 function wait_for_server() {
-  until $($JBOSS_CLI -c ":read-attribute(name=server-state)" 2>/dev/null | grep -q running); do
-    sleep 1
-  done
+ until `$JBOSS_CLI -c ":read-attribute(name=server-state)" 2> /dev/null | grep -q running`; do
+   sleep 1
+ done
 }
 
 echo "=> Starte JBoss Server"

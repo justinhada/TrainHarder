@@ -9,8 +9,10 @@ RUN /opt/jboss/config/jboss-init.sh "/opt/jboss/wildfly" "/opt/jboss/config/conf
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
 RUN chmod 0777 /opt/jboss -R
 
-COPY --chown=jboss:jboss build/libs/TrainHarder.war /opt/jboss/wildfly/standalone/deployments/
+COPY --chown=jboss:jboss build/libs/TrainHarder.war /opt/jboss/wildfly/standalone/deployments/TrainHarder.war
 
 RUN /opt/jboss/wildfly/bin/add-user.sh -u admin -p admin
+
+ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]

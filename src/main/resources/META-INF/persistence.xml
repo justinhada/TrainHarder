@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
     <persistence-unit name="TrainHarder" transaction-type="JTA">
         <jta-data-source>java:jboss/jdbc/trainharder</jta-data-source>
         <jar-file>build/libs/TrainHarder.war</jar-file>
         <properties>
             <property name="hibernate.show_sql" value="true" />
-<!--            <property name="hibernate.hbm2ddl.auto" value="create"/>-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
-        </properties>
-    </persistence-unit>
-    <persistence-unit name="TestPU" transaction-type="JTA">
-        <jta-data-source>java:jboss/jdbc/trainharderTest</jta-data-source>
-        <jar-file>build/libs/TrainHarder.war</jar-file>
-        <properties>
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
         </properties>

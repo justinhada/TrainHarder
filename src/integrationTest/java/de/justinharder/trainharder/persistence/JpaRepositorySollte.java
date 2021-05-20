@@ -26,7 +26,7 @@ abstract class JpaRepositorySollte
 	private static final MariaDBContainer<?> MARIA_DB_CONTAINER = new MariaDBContainer<>(DockerImageName.parse("mariadb"))
 		.withExposedPorts(3306)
 		.withDatabaseName("trainharderTest")
-		.withUsername("powerlifter")
+		.withUsername("trainharder")
 		.withPassword("passwort");
 
 	private static EntityManager entityManager;

@@ -1,25 +1,26 @@
 version: "2.1"
 services:
-  TrainHarder:
-    image: trainharder:latest
+  trainharder:
+    build: .
     volumes:
-      - ./build/libs:/opt/jboss/wildfly/standalone/deployments
+      - .\build\libs:/opt/jboss/wildfly/standalone/deployments
     environment:
-      - DBURL=jdbc:mariadb://mariadbhost:3306/trainharderTest
-      - DBUSER=powerlifter
+      - DBURL=jdbc:mariadb://mariadbhost:3306/trainharder
+      - DBUSER=trainharder
       - DBPASSWORD=passwort
     ports:
-      - "18080:8080"
-      - "19990:9990"
+      - "8080:8080"
+      - "9990:9990"
     depends_on:
       mariadbhost:
         condition: service_healthy
+
   mariadbhost:
-    image: mariadb
+    image: mariadb/server:10.3
+    environment:
+      - MARIADB_ALLOW_EMPTY_PASSWORD=true
     volumes:
       - ./config/sql:/docker-entrypoint-initdb.d
-    environment:
-      - MARIADB_ROOT_PASSWORT=passwort
     ports:
       - "3306:3306"
     healthcheck:
