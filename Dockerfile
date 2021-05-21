@@ -9,7 +9,7 @@ RUN /opt/jboss/config/jboss-init.sh "/opt/jboss/wildfly" "/opt/jboss/config/conf
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
 RUN chmod 0777 /opt/jboss -R
 
-COPY --chown=jboss:jboss build/libs/TrainHarder.war /opt/jboss/wildfly/standalone/deployments/TrainHarder.war
+ADD build/libs/TrainHarder.war /opt/jboss/wildfly/standalone/deployments/TrainHarder.war
 
 RUN /opt/jboss/wildfly/bin/add-user.sh -u admin -p admin
 

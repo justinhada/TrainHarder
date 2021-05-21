@@ -7,7 +7,7 @@ services:
     environment:
       - DBURL=jdbc:mariadb://mariadbhost:3306/trainharder
       - DBUSER=trainharder
-      - DBPASSWORD=passwort
+      - DBPASSWORT=passwort
     ports:
       - "8080:8080"
       - "9990:9990"
