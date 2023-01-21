@@ -8,8 +8,8 @@ batch
 /subsystem=naming/binding=java\:global\/gmail-passwort:add(binding-type=simple, type=java.lang.String, value=passwort)
 
 # MariaDB-Treiber hinzufuegen
-module add --name=com.mariadb.jdbc --resources=/opt/jboss/dependencies/mariadb-connector-java.jar --dependencies=javax.api
-/subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=com.mariadb.jdbc,driver-class-name:org.mariadb.jdbc.Driver)
+module add --name=org.mariadb.jdbc --resources=/opt/jboss/dependencies/mariadb-connector-java.jar --dependencies=javax.api
+/subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb.jdbc,driver-class-name=org.mariadb.jdbc.Driver)
 
 # DataSource anlegen
 data-source add --name=TrainHarder --driver-name=mariadb --driver-class=org.mariadb.jdbc.Driver --connection-url="${env.DBURL}" --jndi-name=java:jboss/jdbc/trainharder --user-name="${env.DBUSER}" --password="${env.DBPASSWORT}"

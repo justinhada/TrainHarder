@@ -2,7 +2,7 @@ FROM jboss/wildfly
 
 COPY --chown=jboss:jboss config/wildfly /opt/jboss/config/
 RUN mkdir /opt/jboss/dependencies
-ADD --chown=jboss:jboss https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.1/mariadb-java-client-2.7.1.jar /opt/jboss/dependencies/mariadb-connector-java.jar
+ADD --chown=jboss:jboss https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.3/mariadb-java-client-2.7.3.jar /opt/jboss/dependencies/mariadb-connector-java.jar
 RUN chmod +x /opt/jboss/config/*.sh
 RUN sed -i 's/<resolve-parameter-values>false<\/resolve-parameter-values>/<resolve-parameter-values>true<\/resolve-parameter-values>/g' /opt/jboss/wildfly/bin/jboss-cli.xml
 RUN /opt/jboss/config/jboss-init.sh "/opt/jboss/wildfly" "/opt/jboss/config/config.batch"
