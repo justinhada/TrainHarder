@@ -5,11 +5,11 @@ import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefunden
 import de.justinharder.trainharder.model.services.KoerpermessungService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
+import jakarta.security.enterprise.CallerPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.security.enterprise.CallerPrincipal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

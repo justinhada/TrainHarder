@@ -2,9 +2,9 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Koerpermessung;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
-import javax.inject.Inject;
 import java.time.format.DateTimeFormatter;
 
 public class KoerpermessungDtoMapper implements DtoMapper<Koerpermessung, KoerpermessungDto>

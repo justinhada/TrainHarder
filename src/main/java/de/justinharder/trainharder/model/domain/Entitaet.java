@@ -2,8 +2,8 @@ package de.justinharder.trainharder.model.domain;
 
 import com.google.common.base.MoreObjects;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import jakarta.persistence.MappedSuperclass;
 
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Objects;
 

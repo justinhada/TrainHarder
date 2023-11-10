@@ -4,9 +4,8 @@ import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.BenutzerangabeDto;
 import de.justinharder.trainharder.view.dto.NameDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
-
-import javax.inject.Inject;
 
 public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 {

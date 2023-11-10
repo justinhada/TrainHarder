@@ -1,6 +1,8 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.setup.TestdatenAnleger;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +13,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import java.util.HashMap;
 
 @Slf4j

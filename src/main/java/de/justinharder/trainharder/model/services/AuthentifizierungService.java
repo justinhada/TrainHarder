@@ -5,9 +5,8 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.model.services.mapper.AuthentifizierungDtoMapper;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
-
-import javax.inject.Inject;
 
 public class AuthentifizierungService
 {

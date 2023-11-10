@@ -5,10 +5,10 @@ import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.enums.Uebungsart;
 import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
 import de.justinharder.trainharder.model.repository.UebungRepository;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

@@ -4,10 +4,9 @@ import de.justinharder.trainharder.model.domain.embeddables.GrunduebungBelastung
 import de.justinharder.trainharder.model.domain.embeddables.OberkoerperBelastung;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.domain.embeddables.UnterkoerperBelastung;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
-
-import javax.persistence.*;
 
 @Getter
 @Entity

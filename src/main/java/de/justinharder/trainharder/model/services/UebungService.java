@@ -10,9 +10,9 @@ import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import de.justinharder.trainharder.model.services.mapper.UebungDtoMapper;
 import de.justinharder.trainharder.view.dto.UebungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
-import javax.inject.Inject;
 import java.util.List;
 
 public class UebungService

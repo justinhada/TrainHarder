@@ -1,14 +1,14 @@
 package de.justinharder.trainharder.model.domain.embeddables;
 
 import de.justinharder.trainharder.model.domain.enums.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.io.Serializable;
 import java.util.Objects;
 

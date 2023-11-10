@@ -2,11 +2,11 @@ package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.model.domain.Entitaet;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;

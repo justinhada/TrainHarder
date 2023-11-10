@@ -10,9 +10,9 @@ import de.justinharder.trainharder.model.repository.KoerpermessungRepository;
 import de.justinharder.trainharder.model.services.mapper.KoerpermessungDtoMapper;
 import de.justinharder.trainharder.view.dto.Koerpermessdaten;
 import de.justinharder.trainharder.view.dto.KoerpermessungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

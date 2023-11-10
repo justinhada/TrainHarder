@@ -3,10 +3,10 @@ package de.justinharder.trainharder.persistence;
 import de.justinharder.trainharder.model.domain.Kraftwert;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.KraftwertRepository;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

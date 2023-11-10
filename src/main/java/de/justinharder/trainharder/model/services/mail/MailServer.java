@@ -1,9 +1,9 @@
 package de.justinharder.trainharder.model.services.mail;
 
 import de.justinharder.trainharder.model.domain.exceptions.MailServerException;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
-import javax.inject.Inject;
 import javax.mail.*;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;

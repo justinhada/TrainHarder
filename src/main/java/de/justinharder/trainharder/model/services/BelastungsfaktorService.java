@@ -9,9 +9,8 @@ import de.justinharder.trainharder.model.domain.exceptions.BelastungsfaktorNicht
 import de.justinharder.trainharder.model.repository.BelastungsfaktorRepository;
 import de.justinharder.trainharder.model.services.mapper.BelastungsfaktorDtoMapper;
 import de.justinharder.trainharder.view.dto.BelastungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
-
-import javax.inject.Inject;
 
 public class BelastungsfaktorService
 {

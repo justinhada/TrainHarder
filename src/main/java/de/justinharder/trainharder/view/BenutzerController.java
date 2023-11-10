@@ -4,14 +4,13 @@ import de.justinharder.trainharder.model.domain.exceptions.AuthentifizierungNich
 import de.justinharder.trainharder.model.domain.exceptions.BenutzerNichtGefundenException;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.Benutzerdaten;
+import jakarta.mvc.Controller;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import lombok.NonNull;
-
-import javax.mvc.Controller;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 
 @Controller
 @Path(value = "/benutzer")

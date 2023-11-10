@@ -4,10 +4,9 @@ import de.justinharder.trainharder.model.services.mail.Mail;
 import de.justinharder.trainharder.model.services.mail.MailAdresse;
 import de.justinharder.trainharder.model.services.mail.MailServer;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.inject.Inject;
 
 @Slf4j
 public class KontaktService

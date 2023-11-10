@@ -51,6 +51,7 @@ class KoerpermasseSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Koerpermasse.class)
+			.suppress(Warning.BIGDECIMAL_EQUALITY)
 			.suppress(Warning.NULL_FIELDS)
 			.verify();
 	}

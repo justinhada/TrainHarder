@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3"
 services:
   trainharder:
     build: .
@@ -16,15 +16,15 @@ services:
         condition: service_healthy
 
   mariadbhost:
-    image: mariadb/server:10.3
+    image: mariadb:10.2
     environment:
-      - MARIADB_ALLOW_EMPTY_PASSWORD=true
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
     volumes:
-      - ./config/sql:/docker-entrypoint-initdb.d
+      - ./config/sql/:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     healthcheck:
-      test: "mysqladmin ping -hmariadbhost"
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root' ]
+      timeout: 20s
+      retries: 10
       interval: 2s
-      timeout: 5s
-      retries: 30

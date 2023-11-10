@@ -2,9 +2,8 @@ package de.justinharder.trainharder.model.services.mapper;
 
 import de.justinharder.trainharder.model.domain.Uebung;
 import de.justinharder.trainharder.view.dto.UebungDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
-
-import javax.inject.Inject;
 
 public class UebungDtoMapper implements DtoMapper<Uebung,UebungDto>
 {

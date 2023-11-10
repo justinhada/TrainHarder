@@ -5,18 +5,18 @@ import de.justinharder.trainharder.model.domain.exceptions.PasswortUnsicherExcep
 import de.justinharder.trainharder.model.services.authentifizierung.LoginService;
 import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.Login;
+import jakarta.mvc.Models;
+import jakarta.mvc.binding.BindingResult;
+import jakarta.security.enterprise.AuthenticationStatus;
+import jakarta.security.enterprise.CallerPrincipal;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.mvc.Models;
-import javax.mvc.binding.BindingResult;
-import javax.security.enterprise.AuthenticationStatus;
-import javax.security.enterprise.CallerPrincipal;
-import javax.security.enterprise.SecurityContext;
-import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
@@ -73,7 +73,8 @@ class LoginControllerSollte
 
 	private void angenommenDerSecurityContextGibtAuthenticationStatusZurueck(AuthenticationStatus authenticationStatus)
 	{
-		when(securityContext.authenticate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(AuthenticationParameters.class))).thenReturn(authenticationStatus);
+		when(securityContext.authenticate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(
+			AuthenticationParameters.class))).thenReturn(authenticationStatus);
 	}
 
 	private void angenommenDerLoginServiceWirftAuthentifizierungNichtGefundenException(String mail) throws AuthentifizierungNichtGefundenException

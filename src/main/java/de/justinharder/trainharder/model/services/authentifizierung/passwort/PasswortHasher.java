@@ -1,11 +1,11 @@
 package de.justinharder.trainharder.model.services.authentifizierung.passwort;
 
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;

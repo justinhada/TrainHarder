@@ -3,12 +3,12 @@ package de.justinharder.trainharder.model.domain.embeddables;
 import de.justinharder.trainharder.model.services.berechnung.koerpermasse.BodyMassIndex;
 import de.justinharder.trainharder.model.services.berechnung.koerpermasse.FatFreeMassIndex;
 import de.justinharder.trainharder.model.services.berechnung.koerpermasse.FettfreiesKoerpergewicht;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;

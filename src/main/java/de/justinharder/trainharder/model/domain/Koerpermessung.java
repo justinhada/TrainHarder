@@ -2,10 +2,10 @@ package de.justinharder.trainharder.model.domain;
 
 import de.justinharder.trainharder.model.domain.embeddables.Koerpermasse;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter

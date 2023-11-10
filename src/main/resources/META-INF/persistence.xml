@@ -9,7 +9,7 @@
         <properties>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB53Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect" />
         </properties>
     </persistence-unit>
 </persistence>

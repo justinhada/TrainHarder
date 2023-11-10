@@ -11,9 +11,9 @@ import de.justinharder.trainharder.model.repository.KraftwertRepository;
 import de.justinharder.trainharder.model.repository.UebungRepository;
 import de.justinharder.trainharder.model.services.mapper.KraftwertDtoMapper;
 import de.justinharder.trainharder.view.dto.KraftwertDto;
+import jakarta.inject.Inject;
 import lombok.NonNull;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

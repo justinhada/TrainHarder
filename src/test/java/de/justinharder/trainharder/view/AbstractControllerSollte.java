@@ -6,10 +6,10 @@ import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import jakarta.mvc.Models;
+import jakarta.security.enterprise.CallerPrincipal;
+import jakarta.security.enterprise.SecurityContext;
 
-import javax.mvc.Models;
-import javax.security.enterprise.CallerPrincipal;
-import javax.security.enterprise.SecurityContext;
 import java.security.Principal;
 import java.util.function.Supplier;
 

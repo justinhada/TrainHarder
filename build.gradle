@@ -1,12 +1,13 @@
 plugins {
-    id 'java-library'
+    id 'java'
     id 'war'
     id 'jacoco'
-    id "org.sonarqube" version '3.1.1'
+    id "org.sonarqube" version '3.3'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+    mavenLocal()
 }
 
 [
@@ -26,32 +27,31 @@ configurations {
 }
 
 dependencies {
-    api "org.apache.commons:commons-math3:3.6.1"
-
-    implementation "org.projectlombok:lombok:1.18.22",
-            "com.google.guava:guava:28.0-jre",
-            "javax.xml.bind:jaxb-api:2.3.1",
-            "org.primefaces:primefaces:7.0",
-            "javax.servlet:javax.servlet-api:3.1.0",
-            "javax:javaee-api:8.0",
-            "javax.security.enterprise:javax.security.enterprise-api:1.0",
-            "javax.mvc:javax.mvc-api:1.0.0",
+    implementation "org.projectlombok:lombok:1.18.30",
+            "org.apache.commons:commons-math3:3.6.1",
+            "com.google.guava:guava:30.0-jre",
+            "org.primefaces:primefaces:13.0.2",
+            "jakarta.platform:jakarta.jakartaee-api:10.0.0",
+            "jakarta.xml.bind:jakarta.xml.bind-api:4.0.1",
+            "jakarta.servlet:jakarta.servlet-api:6.0.0",
+            "jakarta.security.enterprise:jakarta.security.enterprise-api:3.0.0",
+            "jakarta.mvc:jakarta.mvc-api:2.1.0",
             "org.mvc-spec.ozark:ozark-core:1.0.0-m04",
             "org.mvc-spec.ozark:ozark-resteasy:1.0.0-m04",
-            "javax.mail:javax.mail-api:1.6.2",
-            "nl.jqno.equalsverifier:equalsverifier:3.4.3",
+            "jakarta.mail:jakarta.mail-api:2.1.2",
+            "nl.jqno.equalsverifier:equalsverifier:3.15.3",
             "com.icegreen:greenmail-junit5:1.6.1"
 
-    integrationTestRuntimeOnly "org.hibernate:hibernate-core:5.4.12.Final",
+    integrationTestRuntimeOnly 'org.hibernate:hibernate-core:5.4.24.Final',
             "org.mariadb.jdbc:mariadb-java-client:2.6.0"
 
-    testContainerAgent "org.jacoco:org.jacoco.agent:0.8.5:runtime"
+    testContainerAgent "org.jacoco:org.jacoco.agent:0.8.8:runtime"
 
-    annotationProcessor "org.projectlombok:lombok:1.18.22"
+    annotationProcessor "org.projectlombok:lombok:1.18.30"
 }
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.8"
     reportsDir = file("${buildDir}/jacoco")
 }
 
@@ -88,6 +88,24 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/merge.xml"
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+compileIntegrationTestJava {
+    options.encoding = 'UTF-8'
 }
 
 tasks['integrationTest'].dependsOn kopiereJacocoAgent

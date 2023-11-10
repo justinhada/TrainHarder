@@ -3,11 +3,11 @@ package de.justinharder.trainharder.persistence;
 import de.justinharder.trainharder.model.domain.Benutzer;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.model.repository.BenutzerRepository;
+import jakarta.persistence.NoResultException;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

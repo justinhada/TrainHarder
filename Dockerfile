@@ -1,4 +1,4 @@
-FROM jboss/wildfly
+FROM jboss/wildfly:25.0.0.Final
 
 COPY --chown=jboss:jboss config/wildfly /opt/jboss/config/
 RUN mkdir /opt/jboss/dependencies

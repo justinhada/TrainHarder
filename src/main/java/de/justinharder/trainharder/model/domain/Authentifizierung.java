@@ -3,10 +3,10 @@ package de.justinharder.trainharder.model.domain;
 import de.justinharder.trainharder.model.UuidMapper;
 import de.justinharder.trainharder.model.domain.embeddables.Passwort;
 import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Getter

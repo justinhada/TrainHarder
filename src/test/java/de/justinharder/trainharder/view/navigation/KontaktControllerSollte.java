@@ -9,14 +9,14 @@ import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
 import de.justinharder.trainharder.view.dto.Kontaktformular;
+import jakarta.mvc.Models;
+import jakarta.mvc.binding.BindingResult;
+import jakarta.security.enterprise.CallerPrincipal;
+import jakarta.security.enterprise.SecurityContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.mvc.Models;
-import javax.mvc.binding.BindingResult;
-import javax.security.enterprise.CallerPrincipal;
-import javax.security.enterprise.SecurityContext;
 import java.security.Principal;
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
 package de.justinharder.trainharder.view.dto;
 
+import jakarta.validation.constraints.Size;
+import jakarta.ws.rs.FormParam;
 import lombok.*;
 
-import javax.validation.constraints.Size;
-import javax.ws.rs.FormParam;
 import java.util.Objects;
 
 @Getter

@@ -2,11 +2,11 @@ package de.justinharder.trainharder.model.domain.embeddables;
 
 import com.google.common.base.MoreObjects;
 import de.justinharder.trainharder.model.UuidMapper;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;

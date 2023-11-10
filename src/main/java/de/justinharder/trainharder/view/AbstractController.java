@@ -6,11 +6,10 @@ import de.justinharder.trainharder.model.services.AuthentifizierungService;
 import de.justinharder.trainharder.model.services.BenutzerService;
 import de.justinharder.trainharder.view.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.view.dto.BenutzerDto;
+import jakarta.inject.Inject;
+import jakarta.mvc.Models;
+import jakarta.security.enterprise.SecurityContext;
 import lombok.NonNull;
-
-import javax.inject.Inject;
-import javax.mvc.Models;
-import javax.security.enterprise.SecurityContext;
 
 public abstract class AbstractController
 {
