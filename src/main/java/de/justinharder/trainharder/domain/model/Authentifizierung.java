@@ -1,102 +1,66 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.UuidMapper;
+import de.justinharder.trainharder.domain.UUIDMapping;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Passwort;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NonNull;
+import io.quarkus.security.jpa.Roles;
+import io.quarkus.security.jpa.UserDefinition;
+import io.quarkus.security.jpa.Username;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import lombok.*;
 
+import java.io.Serial;
 import java.util.UUID;
 
-@Getter
 @Entity
-@Table(name = "Authentifizierung")
+@Getter
+@UserDefinition
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Authentifizierung extends Entitaet
 {
+	@Serial
 	private static final long serialVersionUID = 1607570632256351984L;
 
-	@EmbeddedId
-	@Column(name = "ID")
-	private Primaerschluessel primaerschluessel;
+	@Setter
+	@NonNull
 	@Column(name = "Mail", unique = true, nullable = false)
 	private String mail;
+
+	@Setter
+	@NonNull
+	@Username
 	@Column(name = "Benutzername", unique = true, nullable = false)
 	private String benutzername;
+
+	@Setter
+	@NonNull
 	@Embedded
 	private Passwort passwort;
+
+	@Setter
 	@Column(name = "Aktiv", nullable = false)
-	private boolean aktiv;
-	@Convert(converter = UuidMapper.class)
-	@Column(name = "ResetUuid", columnDefinition = "VARCHAR(36)")
+	private boolean aktiv = false;
+
+	@Setter
+	@Convert(converter = UUIDMapping.class)
+	@Column(name = "ResetUUID", columnDefinition = "VARCHAR(36)")
 	private UUID resetUuid;
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "BenutzerID")
-	private Benutzer benutzer;
 
-	public Authentifizierung()
-	{}
+	@Roles
+	private final String rolle = "";
 
-	public Authentifizierung(@NonNull Primaerschluessel primaerschluessel, @NonNull String mail, @NonNull String benutzername, @NonNull Passwort passwort)
+	public Authentifizierung(
+		ID id,
+		@NonNull String mail,
+		@NonNull String benutzername,
+		@NonNull Passwort passwort)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(id);
 		this.mail = mail;
 		this.benutzername = benutzername;
 		this.passwort = passwort;
-		aktiv = false;
-	}
-
-	public Authentifizierung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public Authentifizierung setMail(@NonNull String mail)
-	{
-		this.mail = mail;
-		return this;
-	}
-
-	public Authentifizierung setBenutzername(@NonNull String benutzername)
-	{
-		this.benutzername = benutzername;
-		return this;
-	}
-
-	public Authentifizierung setPasswort(@NonNull Passwort passwort)
-	{
-		this.passwort = passwort;
-		return this;
-	}
-
-	public Authentifizierung setAktiv(boolean aktiv)
-	{
-		this.aktiv = aktiv;
-		return this;
-	}
-
-	public Authentifizierung setResetUuid(UUID resetUuid)
-	{
-		this.resetUuid = resetUuid;
-		return this;
-	}
-
-	public Authentifizierung setBenutzer(@NonNull Benutzer benutzer)
-	{
-		this.benutzer = benutzer;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		return super.equals(o);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return super.hashCode();
 	}
 }

@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -14,9 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class AuthentifizierungSollte
+@DisplayName("Authentifizierung sollte")
+class AuthentifizierungTest
 {
-	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
+	private static final ID ID = new ID();
 	private static final String MAIL = "mail@justinharder.de";
 	private static final String BENUTZERNAME = "harder";
 
@@ -25,7 +26,7 @@ class AuthentifizierungSollte
 	@BeforeEach
 	void setup()
 	{
-		sut = new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, Testdaten.PASSWORT);
+		sut = new Authentifizierung(ID, MAIL, BENUTZERNAME, Testdaten.PASSWORT);
 	}
 
 	@Test
@@ -34,22 +35,18 @@ class AuthentifizierungSollte
 	{
 		var resetUuid = UUID.randomUUID();
 		var authentifizierung = new Authentifizierung()
-			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
 			.setMail(MAIL)
 			.setBenutzername(BENUTZERNAME)
 			.setPasswort(Testdaten.PASSWORT)
 			.setAktiv(true)
-			.setResetUuid(resetUuid)
-			.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+			.setResetUuid(resetUuid);
 
 		assertAll(
-			() -> assertThat(authentifizierung.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
 			() -> assertThat(authentifizierung.getMail()).isEqualTo(MAIL),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo(BENUTZERNAME),
 			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
 			() -> assertThat(authentifizierung.isAktiv()).isTrue(),
-			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid),
-			() -> assertThat(authentifizierung.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid));
 	}
 
 	@Test
@@ -68,7 +65,7 @@ class AuthentifizierungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Authentifizierung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
+		assertThat(sut).hasToString("Authentifizierung{ID=" + sut.getId().getWert() + "}");
 	}
 
 	@Test
@@ -76,14 +73,16 @@ class AuthentifizierungSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, null, BENUTZERNAME, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, null, Testdaten.PASSWORT)),
-			() -> assertThrows(NullPointerException.class, () -> new Authentifizierung(PRIMAERSCHLUESSEL, MAIL, BENUTZERNAME, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(ID, null, BENUTZERNAME, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(ID, MAIL, null, Testdaten.PASSWORT)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Authentifizierung(ID, MAIL, BENUTZERNAME, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzername(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPasswort(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzer(null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.setPasswort(null)));
 	}
 }

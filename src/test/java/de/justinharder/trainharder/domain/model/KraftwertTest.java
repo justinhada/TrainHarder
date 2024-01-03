@@ -1,8 +1,6 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.domain.model.enums.Wiederholungen;
-import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,13 +10,16 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static de.justinharder.trainharder.domain.model.enums.Wiederholungen.ONE_REP_MAX;
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class KraftwertSollte
+@DisplayName("Kraftwert sollte")
+class KraftwertTest
 {
-	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
+	private static final ID ID = new ID();
 	private static final BigDecimal GEWICHT = new BigDecimal(100);
 	private static final LocalDate DATUM = LocalDate.now();
 
@@ -28,13 +29,12 @@ class KraftwertSollte
 	void setup()
 	{
 		sut = new Kraftwert(
-			PRIMAERSCHLUESSEL,
-			GEWICHT,
-			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
+			ID,
 			DATUM,
-			Wiederholungen.ONE_REP_MAX,
-			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BENUTZER_JUSTIN);
+			GEWICHT,
+			ONE_REP_MAX,
+			UEBUNG_WETTKAMPFBANKDRUECKEN,
+			BENUTZER_JUSTIN);
 	}
 
 	@Test
@@ -42,22 +42,18 @@ class KraftwertSollte
 	void test01()
 	{
 		var kraftwert = new Kraftwert()
-			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
-			.setGewicht(GEWICHT)
-			.setKoerpergewicht(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht())
 			.setDatum(DATUM)
-			.setWiederholungen(Wiederholungen.ONE_REP_MAX)
-			.setUebung(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN)
-			.setBenutzer(Testdaten.BENUTZER_JUSTIN);
+			.setGewicht(GEWICHT)
+			.setWiederholungen(ONE_REP_MAX)
+			.setUebung(UEBUNG_WETTKAMPFBANKDRUECKEN)
+			.setBenutzer(BENUTZER_JUSTIN);
 
 		assertAll(
-			() -> assertThat(kraftwert.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
-			() -> assertThat(kraftwert.getGewicht()).isEqualTo(GEWICHT),
-			() -> assertThat(kraftwert.getKoerpergewicht()).isEqualTo(Testdaten.BENUTZER_JUSTIN.getKoerpergewicht()),
 			() -> assertThat(kraftwert.getDatum()).isEqualTo(DATUM),
-			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(Wiederholungen.ONE_REP_MAX),
-			() -> assertThat(kraftwert.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(Testdaten.BENUTZER_JUSTIN));
+			() -> assertThat(kraftwert.getGewicht()).isEqualTo(GEWICHT),
+			() -> assertThat(kraftwert.getWiederholungen()).isEqualTo(ONE_REP_MAX),
+			() -> assertThat(kraftwert.getUebung()).isEqualTo(UEBUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(kraftwert.getBenutzer()).isEqualTo(BENUTZER_JUSTIN));
 	}
 
 	@Test
@@ -65,8 +61,8 @@ class KraftwertSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Kraftwert.class)
-			.withPrefabValues(Uebung.class, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
-			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
+			.withPrefabValues(Uebung.class, UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Benutzer.class, BENUTZER_JUSTIN, BENUTZER_EDUARD)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -77,31 +73,27 @@ class KraftwertSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Kraftwert{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
+		assertThat(sut).hasToString("Kraftwert{ID=" + sut.getId().getWert() + "}");
 	}
 
 	@Test
 	@DisplayName("null validieren")
 	void test04()
 	{
-		var koerpergewicht = Testdaten.BENUTZER_JUSTIN.getKoerpergewicht();
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(null, GEWICHT, koerpergewicht, DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+				() -> new Kraftwert(null, DATUM, GEWICHT, ONE_REP_MAX, UEBUNG_WETTKAMPFBANKDRUECKEN, BENUTZER_JUSTIN)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(PRIMAERSCHLUESSEL, null, koerpergewicht, DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+				() -> new Kraftwert(ID, null, GEWICHT, ONE_REP_MAX, UEBUNG_WETTKAMPFBANKDRUECKEN, BENUTZER_JUSTIN)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, null, DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+				() -> new Kraftwert(ID, DATUM, null, ONE_REP_MAX, UEBUNG_WETTKAMPFBANKDRUECKEN, BENUTZER_JUSTIN)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, koerpergewicht, null, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
+				() -> new Kraftwert(ID, DATUM, GEWICHT, null, UEBUNG_WETTKAMPFBANKDRUECKEN, BENUTZER_JUSTIN)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, koerpergewicht, DATUM, null, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BENUTZER_JUSTIN)),
-			() -> assertThrows(NullPointerException.class, () -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, koerpergewicht, DATUM, Wiederholungen.ONE_REP_MAX, null, Testdaten.BENUTZER_JUSTIN)),
+				() -> new Kraftwert(ID, DATUM, GEWICHT, ONE_REP_MAX, null, BENUTZER_JUSTIN)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Kraftwert(PRIMAERSCHLUESSEL, GEWICHT, koerpergewicht, DATUM, Wiederholungen.ONE_REP_MAX, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+				() -> new Kraftwert(ID, DATUM, GEWICHT, ONE_REP_MAX, UEBUNG_WETTKAMPFBANKDRUECKEN, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGewicht(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpergewicht(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setWiederholungen(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebung(null)),

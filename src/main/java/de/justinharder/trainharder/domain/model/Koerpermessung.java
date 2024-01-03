@@ -1,101 +1,54 @@
 package de.justinharder.trainharder.domain.model;
 
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NonNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import lombok.*;
 
+import java.io.Serial;
 import java.time.LocalDate;
 
-@Getter
 @Entity
-@Table(name = "Koerpermessung")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Koerpermessung extends Entitaet
 {
+	@Serial
 	private static final long serialVersionUID = -6355583837778945437L;
 
-	@EmbeddedId
-	@Column(name = "ID")
-	private Primaerschluessel primaerschluessel;
+	@Setter
+	@NonNull
 	@Column(name = "Datum")
 	private LocalDate datum;
+
+	@Setter
+	@NonNull
 	@Embedded
 	private Koerpermasse koerpermasse;
-	@Column(name = "Kalorieneinnahme")
-	private int kalorieneinnahme;
-	@Column(name = "Kalorienverbrauch")
-	private int kalorienverbrauch;
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BenutzerID", nullable = false)
-	private Benutzer benutzer;
 
-	public Koerpermessung()
-	{}
+	@Setter
+	@NonNull
+	@Column(name = "Kalorieneinnahme")
+	private Integer kalorieneinnahme;
+
+	@Setter
+	@NonNull
+	@Column(name = "Kalorienverbrauch")
+	private Integer kalorienverbrauch;
 
 	public Koerpermessung(
-		@NonNull Primaerschluessel primaerschluessel,
+		ID id,
 		@NonNull LocalDate datum,
 		@NonNull Koerpermasse koerpermasse,
-		int kalorieneinnahme,
-		int kalorienverbrauch,
-		@NonNull Benutzer benutzer)
+		@NonNull Integer kalorieneinnahme,
+		@NonNull Integer kalorienverbrauch)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(id);
 		this.datum = datum;
 		this.koerpermasse = koerpermasse;
 		this.kalorieneinnahme = kalorieneinnahme;
 		this.kalorienverbrauch = kalorienverbrauch;
-		this.benutzer = benutzer;
-
-		benutzer.fuegeKoerpermessungHinzu(this);
-	}
-
-	public Koerpermessung setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public Koerpermessung setDatum(@NonNull LocalDate datum)
-	{
-		this.datum = datum;
-		return this;
-	}
-
-	public Koerpermessung setKoerpermasse(@NonNull Koerpermasse koerpermasse)
-	{
-		this.koerpermasse = koerpermasse;
-		return this;
-	}
-
-	public Koerpermessung setKalorieneinnahme(int kalorieneinnahme)
-	{
-		this.kalorieneinnahme = kalorieneinnahme;
-		return this;
-	}
-
-	public Koerpermessung setKalorienverbrauch(int kalorienverbrauch)
-	{
-		this.kalorienverbrauch = kalorienverbrauch;
-		return this;
-	}
-
-	public Koerpermessung setBenutzer(@NonNull Benutzer benutzer)
-	{
-		this.benutzer = benutzer;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		return super.equals(o);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return super.hashCode();
 	}
 }

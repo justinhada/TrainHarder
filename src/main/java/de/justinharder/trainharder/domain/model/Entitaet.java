@@ -1,18 +1,34 @@
 package de.justinharder.trainharder.domain.model;
 
 import com.google.common.base.MoreObjects;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
 @MappedSuperclass
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Entitaet implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 790786817201854580L;
 
-	public abstract Primaerschluessel getPrimaerschluessel();
+	@NonNull
+	@EmbeddedId
+	protected final ID id;
+
+	protected Entitaet()
+	{
+		id = new ID();
+	}
 
 	@Override
 	public boolean equals(Object o)
@@ -21,18 +37,18 @@ public abstract class Entitaet implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof Entitaet))
+		if (o == null || getClass() != o.getClass())
 		{
 			return false;
 		}
-		var that = (Entitaet) o;
-		return Objects.equals(getPrimaerschluessel().getId(), that.getPrimaerschluessel().getId());
+		var entitaet = (Entitaet) o;
+		return Objects.equals(id, entitaet.id);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(getPrimaerschluessel().getId());
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -40,7 +56,7 @@ public abstract class Entitaet implements Serializable
 	{
 		return MoreObjects
 			.toStringHelper(this)
-			.add("ID", getPrimaerschluessel().getId())
+			.add("ID", id)
 			.toString();
 	}
 }

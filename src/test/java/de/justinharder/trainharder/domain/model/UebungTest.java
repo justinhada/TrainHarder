@@ -1,34 +1,31 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.domain.model.enums.Uebungsart;
-import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
-import de.justinharder.trainharder.domain.model.enums.Wiederholungen;
-import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
+import static de.justinharder.trainharder.domain.model.enums.Uebungsart.GRUNDUEBUNG;
+import static de.justinharder.trainharder.domain.model.enums.Uebungskategorie.WETTKAMPF_BANKDRUECKEN;
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class UebungSollte
+@DisplayName("Uebung sollte")
+class UebungTest
 {
-	private static final Primaerschluessel PRIMAERSCHLUESSEL = new Primaerschluessel();
-	private static final String NAME = "Wettkampfbankdrücken (pausiert)";
+	private static final ID ID = new ID();
+	private static final String BEZEICHNUNG = "Wettkampfbankdrücken (pausiert)";
 
 	private Uebung sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new Uebung(PRIMAERSCHLUESSEL, NAME, Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
+		sut = new Uebung(ID, BEZEICHNUNG, GRUNDUEBUNG, WETTKAMPF_BANKDRUECKEN, BELASTUNG_WETTKAMPFBANKDRUECKEN);
 	}
 
 	@Test
@@ -36,18 +33,16 @@ class UebungSollte
 	void test01()
 	{
 		var uebung = new Uebung()
-			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
-			.setName(NAME)
-			.setUebungsart(Uebungsart.GRUNDUEBUNG)
-			.setUebungskategorie(Uebungskategorie.WETTKAMPF_BANKDRUECKEN)
-			.setBelastung(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN);
+			.setBezeichnung(BEZEICHNUNG)
+			.setUebungsart(GRUNDUEBUNG)
+			.setUebungskategorie(WETTKAMPF_BANKDRUECKEN)
+			.setBelastung(BELASTUNG_WETTKAMPFBANKDRUECKEN);
 
 		assertAll(
-			() -> assertThat(uebung.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
-			() -> assertThat(uebung.getName()).isEqualTo(NAME),
-			() -> assertThat(uebung.getUebungsart()).isEqualTo(Uebungsart.GRUNDUEBUNG),
-			() -> assertThat(uebung.getUebungskategorie()).isEqualTo(Uebungskategorie.WETTKAMPF_BANKDRUECKEN),
-			() -> assertThat(uebung.getBelastung()).isEqualTo(Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN));
+			() -> assertThat(uebung.getBezeichnung()).isEqualTo(BEZEICHNUNG),
+			() -> assertThat(uebung.getUebungsart()).isEqualTo(GRUNDUEBUNG),
+			() -> assertThat(uebung.getUebungskategorie()).isEqualTo(WETTKAMPF_BANKDRUECKEN),
+			() -> assertThat(uebung.getBelastung()).isEqualTo(BELASTUNG_WETTKAMPFBANKDRUECKEN));
 	}
 
 	@Test
@@ -55,8 +50,8 @@ class UebungSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Uebung.class)
-			.withPrefabValues(Belastung.class, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN, Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE)
-			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Belastung.class, BELASTUNG_WETTKAMPFBANKDRUECKEN, BELASTUNG_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Kraftwert.class, KRAFTWERT_WETTKAMPFBANKDRUECKEN, KRAFTWERT_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -67,24 +62,7 @@ class UebungSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Uebung{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
-	}
-
-	@Test
-	@DisplayName("einen Kraftwert hinzufügen können")
-	void test04()
-	{
-		var kraftwert = new Kraftwert(
-			new Primaerschluessel(),
-			new BigDecimal(100),
-			Testdaten.BENUTZER_JUSTIN.getKoerpergewicht(),
-			LocalDate.now(),
-			Wiederholungen.ONE_REP_MAX,
-			sut,
-			Testdaten.BENUTZER_JUSTIN);
-		sut.fuegeKraftwertHinzu(kraftwert);
-
-		assertThat(sut.getKraftwerte()).contains(kraftwert);
+		assertThat(sut).hasToString("Uebung{ID=" + sut.getId().getWert() + "}");
 	}
 
 	@Test
@@ -92,17 +70,20 @@ class UebungSollte
 	void test05()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new Uebung(null, NAME, Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, null, Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN,
-				Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME, null, Uebungskategorie.WETTKAMPF_BANKDRUECKEN, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME, Uebungsart.GRUNDUEBUNG, null, Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN)),
-			() -> assertThrows(NullPointerException.class, () -> new Uebung(PRIMAERSCHLUESSEL, NAME, Uebungsart.GRUNDUEBUNG, Uebungskategorie.WETTKAMPF_BANKDRUECKEN, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(null, BEZEICHNUNG, GRUNDUEBUNG, WETTKAMPF_BANKDRUECKEN,
+					BELASTUNG_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(ID, null, GRUNDUEBUNG, WETTKAMPF_BANKDRUECKEN, BELASTUNG_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(ID, BEZEICHNUNG, null, WETTKAMPF_BANKDRUECKEN, BELASTUNG_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(ID, BEZEICHNUNG, GRUNDUEBUNG, null, BELASTUNG_WETTKAMPFBANKDRUECKEN)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new Uebung(ID, BEZEICHNUNG, GRUNDUEBUNG, WETTKAMPF_BANKDRUECKEN, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.setBezeichnung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungsart(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setUebungskategorie(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setBelastung(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.fuegeKraftwertHinzu(null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.setBelastung(null)));
 	}
 }

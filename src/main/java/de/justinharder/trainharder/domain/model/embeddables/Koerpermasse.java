@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -18,18 +19,24 @@ import java.util.Objects;
 @Embeddable
 public class Koerpermasse implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 3836150830695827628L;
 
 	@Column(name = "Koerpergroesse", precision = 7, scale = 2)
 	private BigDecimal koerpergroesse;
+
 	@Column(name = "Koerpergewicht", precision = 7, scale = 2)
 	private BigDecimal koerpergewicht;
+
 	@Column(name = "KoerperfettAnteil", precision = 7, scale = 2)
 	private BigDecimal koerperfettAnteil;
+
 	@Column(name = "FettfreiesKoerpergewicht", precision = 7, scale = 2)
 	private BigDecimal fettfreiesKoerpergewicht;
+
 	@Column(name = "BodyMassIndex", precision = 7, scale = 2)
 	private BigDecimal bodyMassIndex;
+
 	@Column(name = "FatFreeMassIndex", precision = 7, scale = 2)
 	private BigDecimal fatFreeMassIndex;
 

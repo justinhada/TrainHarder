@@ -1,10 +1,9 @@
 package de.justinharder.trainharder.domain.model;
 
 import de.justinharder.trainharder.domain.model.embeddables.Benutzerangabe;
-import de.justinharder.trainharder.domain.model.embeddables.Name;
 import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.trainharder.domain.model.embeddables.Name;
 import de.justinharder.trainharder.domain.model.enums.*;
-import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +12,15 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BenutzerSollte
+@DisplayName("Benutzer sollte")
+class BenutzerTest
 {
-	private static final ID PRIMAERSCHLUESSEL = new ID();
+	private static final ID ID = new ID();
 	private static final Name NAME = new Name("Justin", "Harder");
 	private static final LocalDate GEBURTSDATUM = LocalDate.of(1998, 12, 6);
 	private static final Benutzerangabe BENUTZERANGABE = new Benutzerangabe(
@@ -31,17 +32,16 @@ class BenutzerSollte
 		Doping.NEIN,
 		Regenerationsfaehigkeit.GUT)
 		.setKraftlevel(Kraftlevel.CLASS_5);
-	private static final ID PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG = new ID();
+	private static final ID ID_AUTHENTIFIZIERUNG = new ID();
 	private static final Authentifizierung AUTHENTIFIZIERUNG =
-		new Authentifizierung(PRIMAERSCHLUESSEL_AUTHENTIFIZIERUNG, "mail@justinharder.de", "harder",
-			Testdaten.PASSWORT);
+		new Authentifizierung(ID_AUTHENTIFIZIERUNG, "mail@justinharder.de", "harder", PASSWORT);
 
 	private Benutzer sut;
 
 	@BeforeEach
 	void setup()
 	{
-		sut = new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG);
+		sut = new Benutzer(ID, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG);
 	}
 
 	@Test
@@ -49,14 +49,12 @@ class BenutzerSollte
 	void test01()
 	{
 		var benutzer = new Benutzer()
-			.setPrimaerschluessel(PRIMAERSCHLUESSEL)
 			.setName(NAME)
 			.setGeburtsdatum(GEBURTSDATUM)
 			.setBenutzerangabe(BENUTZERANGABE)
 			.setAuthentifizierung(AUTHENTIFIZIERUNG);
 
 		assertAll(
-			() -> assertThat(benutzer.getPrimaerschluessel()).isEqualTo(PRIMAERSCHLUESSEL),
 			() -> assertThat(benutzer.getName()).isEqualTo(NAME),
 			() -> assertThat(benutzer.getGeburtsdatum()).isEqualTo(GEBURTSDATUM),
 			() -> assertThat(benutzer.getBenutzerangabe()).isEqualTo(BENUTZERANGABE),
@@ -70,11 +68,8 @@ class BenutzerSollte
 	void test02()
 	{
 		EqualsVerifier.forClass(Benutzer.class)
-			.withPrefabValues(Authentifizierung.class, Testdaten.AUTHENTIFIZIERUNG_JUSTIN,
-				Testdaten.AUTHENTIFIZIERUNG_EDUARD)
-			.withPrefabValues(Koerpermessung.class, Testdaten.KOERPERMESSUNG_JUSTIN, Testdaten.KOERPERMESSUNG_EDUARD)
-			.withPrefabValues(Kraftwert.class, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Authentifizierung.class, AUTHENTIFIZIERUNG_JUSTIN, AUTHENTIFIZIERUNG_EDUARD)
+			.withPrefabValues(Koerpermessung.class, KOERPERMESSUNG_JUSTIN, KOERPERMESSUNG_EDUARD)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -85,7 +80,7 @@ class BenutzerSollte
 	@DisplayName("eine toString()-Methode haben")
 	void test03()
 	{
-		assertThat(sut).hasToString("Benutzer{ID=" + sut.getPrimaerschluessel().getId().toString() + "}");
+		assertThat(sut).hasToString("Benutzer{ID=" + sut.getId().getWert() + "}");
 	}
 
 	@DisplayName("null validieren")
@@ -95,14 +90,13 @@ class BenutzerSollte
 			() -> assertThrows(NullPointerException.class,
 				() -> new Benutzer(null, NAME, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, null, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
+				() -> new Benutzer(ID, null, GEBURTSDATUM, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, null, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
+				() -> new Benutzer(ID, NAME, null, BENUTZERANGABE, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, null, AUTHENTIFIZIERUNG)),
+				() -> new Benutzer(ID, NAME, GEBURTSDATUM, null, AUTHENTIFIZIERUNG)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Benutzer(PRIMAERSCHLUESSEL, NAME, GEBURTSDATUM, BENUTZERANGABE, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.setPrimaerschluessel(null)),
+				() -> new Benutzer(ID, NAME, GEBURTSDATUM, BENUTZERANGABE, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setName(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGeburtsdatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setBenutzerangabe(null)),

@@ -1,112 +1,63 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.enums.Wiederholungen;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
 @Entity
-@Table(name = "Kraftwert")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Kraftwert extends Entitaet
 {
+	@Serial
 	private static final long serialVersionUID = -1203157961547955006L;
 
-	@EmbeddedId
-	@Column(name = "ID")
-	private Primaerschluessel primaerschluessel;
-	@Column(name = "Gewicht", precision = 7, scale = 2)
-	private BigDecimal gewicht;
-	@Column(name = "Koerpergewicht", precision = 7, scale = 2)
-	private BigDecimal koerpergewicht;
+	@Setter
+	@NonNull
 	@Column(name = "Datum")
 	private LocalDate datum;
-	@Column(name = "Wiederholungen")
+
+	@Setter
+	@NonNull
+	@Column(name = "Gewicht", precision = 7, scale = 2)
+	private BigDecimal gewicht;
+
+	@Setter
+	@NonNull
 	@Enumerated(EnumType.STRING)
+	@Column(name = "Wiederholungen")
 	private Wiederholungen wiederholungen;
+
+	@Setter
+	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
+
+	@Setter
+	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
 
-	public Kraftwert()
-	{}
-
 	public Kraftwert(
-		@NonNull Primaerschluessel primaerschluessel,
-		@NonNull BigDecimal gewicht,
-		@NonNull BigDecimal koerpergewicht,
+		ID id,
 		@NonNull LocalDate datum,
+		@NonNull BigDecimal gewicht,
 		@NonNull Wiederholungen wiederholungen,
 		@NonNull Uebung uebung,
 		@NonNull Benutzer benutzer)
 	{
-		this.primaerschluessel = primaerschluessel;
-		this.gewicht = gewicht;
-		this.koerpergewicht = koerpergewicht;
+		super(id);
 		this.datum = datum;
+		this.gewicht = gewicht;
 		this.wiederholungen = wiederholungen;
 		this.uebung = uebung;
 		this.benutzer = benutzer;
-	}
-
-	public Kraftwert setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public Kraftwert setGewicht(@NonNull BigDecimal gewicht)
-	{
-		this.gewicht = gewicht;
-		return this;
-	}
-
-	public Kraftwert setKoerpergewicht(@NonNull BigDecimal koerpergewicht)
-	{
-		this.koerpergewicht = koerpergewicht;
-		return this;
-	}
-
-	public Kraftwert setDatum(@NonNull LocalDate datum)
-	{
-		this.datum = datum;
-		return this;
-	}
-
-	public Kraftwert setWiederholungen(@NonNull Wiederholungen wiederholungen)
-	{
-		this.wiederholungen = wiederholungen;
-		return this;
-	}
-
-	public Kraftwert setUebung(@NonNull Uebung uebung)
-	{
-		this.uebung = uebung;
-		return this;
-	}
-
-	public Kraftwert setBenutzer(@NonNull Benutzer benutzer)
-	{
-		this.benutzer = benutzer;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		return super.equals(o);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return super.hashCode();
 	}
 }

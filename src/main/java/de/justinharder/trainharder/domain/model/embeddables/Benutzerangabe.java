@@ -5,112 +5,64 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
+@Setter
 @ToString
 @Embeddable
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Accessors(chain = true)
 public class Benutzerangabe implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 9094368590669673429L;
 
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Kraftlevel")
 	private Kraftlevel kraftlevel = Kraftlevel.CLASS_5;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Geschlecht")
 	private Geschlecht geschlecht;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Erfahrung")
 	private Erfahrung erfahrung;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Ernaehrung")
 	private Ernaehrung ernaehrung;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Schlafqualitaet")
 	private Schlafqualitaet schlafqualitaet;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Stress")
 	private Stress stress;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Doping")
 	private Doping doping;
+
+	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Regenerationsfaehigkeit")
 	private Regenerationsfaehigkeit regenerationsfaehigkeit;
-
-	public Benutzerangabe() {}
-
-	public Benutzerangabe(
-		@NonNull Geschlecht geschlecht,
-		@NonNull Erfahrung erfahrung,
-		@NonNull Ernaehrung ernaehrung,
-		@NonNull Schlafqualitaet schlafqualitaet,
-		@NonNull Stress stress,
-		@NonNull Doping doping,
-		@NonNull Regenerationsfaehigkeit regenerationsfaehigkeit)
-	{
-		this.geschlecht = geschlecht;
-		this.erfahrung = erfahrung;
-		this.ernaehrung = ernaehrung;
-		this.schlafqualitaet = schlafqualitaet;
-		this.stress = stress;
-		this.doping = doping;
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
-	}
-
-	public Benutzerangabe setKraftlevel(@NonNull Kraftlevel kraftlevel)
-	{
-		this.kraftlevel = kraftlevel;
-		return this;
-	}
-
-	public Benutzerangabe setGeschlecht(@NonNull Geschlecht geschlecht)
-	{
-		this.geschlecht = geschlecht;
-		return this;
-	}
-
-	public Benutzerangabe setErfahrung(@NonNull Erfahrung erfahrung)
-	{
-		this.erfahrung = erfahrung;
-		return this;
-	}
-
-	public Benutzerangabe setErnaehrung(@NonNull Ernaehrung ernaehrung)
-	{
-		this.ernaehrung = ernaehrung;
-		return this;
-	}
-
-	public Benutzerangabe setSchlafqualitaet(@NonNull Schlafqualitaet schlafqualitaet)
-	{
-		this.schlafqualitaet = schlafqualitaet;
-		return this;
-	}
-
-	public Benutzerangabe setStress(@NonNull Stress stress)
-	{
-		this.stress = stress;
-		return this;
-	}
-
-	public Benutzerangabe setDoping(@NonNull Doping doping)
-	{
-		this.doping = doping;
-		return this;
-	}
-
-	public Benutzerangabe setRegenerationsfaehigkeit(@NonNull Regenerationsfaehigkeit regenerationsfaehigkeit)
-	{
-		this.regenerationsfaehigkeit = regenerationsfaehigkeit;
-		return this;
-	}
 
 	@Override
 	public boolean equals(Object o)
@@ -119,11 +71,10 @@ public class Benutzerangabe implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof Benutzerangabe))
+		if (!(o instanceof Benutzerangabe that))
 		{
 			return false;
 		}
-		var that = (Benutzerangabe) o;
 		return kraftlevel == that.kraftlevel
 			&& geschlecht == that.geschlecht
 			&& erfahrung == that.erfahrung
@@ -137,6 +88,7 @@ public class Benutzerangabe implements Serializable
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit);
+		return Objects.hash(kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping,
+			regenerationsfaehigkeit);
 	}
 }

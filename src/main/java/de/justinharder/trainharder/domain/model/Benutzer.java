@@ -1,68 +1,68 @@
 package de.justinharder.trainharder.domain.model;
 
 import de.justinharder.trainharder.domain.model.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Name;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Entity
-@Table(name = "Benutzer")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Benutzer extends Entitaet
 {
+	@Serial
 	private static final long serialVersionUID = 2411974948424821755L;
 
-	@EmbeddedId
-	@Column(name = "ID")
-	private Primaerschluessel primaerschluessel;
+	@Setter
+	@NonNull
 	@Embedded
 	private Name name;
+
+	@Setter
+	@NonNull
 	@Column(name = "Geburtsdatum")
 	private LocalDate geburtsdatum;
+
+	@Setter
+	@NonNull
 	@Embedded
 	private Benutzerangabe benutzerangabe;
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.MERGE)
+
+	@Setter
+	@NonNull
+	@OneToOne(optional = false)
 	@JoinColumn(name = "AuthentifizierungID", nullable = false)
 	private Authentifizierung authentifizierung;
-	@Setter(value = AccessLevel.NONE)
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "benutzer", cascade = CascadeType.ALL)
-	private List<Koerpermessung> koerpermessungen = new ArrayList<>();
-	@Setter(value = AccessLevel.NONE)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "benutzer")
-	private List<Kraftwert> kraftwerte = new ArrayList<>();
 
-	public Benutzer()
-	{}
+	@OneToMany
+	@JoinColumn(name = "BenutzerID")
+	private final List<Koerpermessung> koerpermessungen = new ArrayList<>();
 
 	public Benutzer(
-		@NonNull Primaerschluessel primaerschluessel,
+		ID id,
 		@NonNull Name name,
 		@NonNull LocalDate geburtsdatum,
 		@NonNull Benutzerangabe benutzerangabe,
 		@NonNull Authentifizierung authentifizierung)
 	{
-		this.primaerschluessel = primaerschluessel;
+		super(id);
 		this.name = name;
 		this.geburtsdatum = geburtsdatum;
 		this.benutzerangabe = benutzerangabe;
 		this.authentifizierung = authentifizierung;
-
-		authentifizierung.setBenutzer(this);
 	}
 
-	public int getAlter()
+	public int getAlter(@NonNull LocalDate datum)
 	{
-		return Period.between(geburtsdatum, LocalDate.now()).getYears();
+		return Period.between(geburtsdatum, datum).getYears();
 	}
 
 	public BigDecimal getKoerpergewicht()
@@ -81,57 +81,9 @@ public class Benutzer extends Entitaet
 			.orElseGet(() -> null);
 	}
 
-	public Benutzer setPrimaerschluessel(@NonNull Primaerschluessel primaerschluessel)
-	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public Benutzer setName(@NonNull Name name)
-	{
-		this.name = name;
-		return this;
-	}
-
-	public Benutzer setGeburtsdatum(@NonNull LocalDate geburtsdatum)
-	{
-		this.geburtsdatum = geburtsdatum;
-		return this;
-	}
-
-	public Benutzer setBenutzerangabe(@NonNull Benutzerangabe benutzerangabe)
-	{
-		this.benutzerangabe = benutzerangabe;
-		return this;
-	}
-
-	public Benutzer setAuthentifizierung(@NonNull Authentifizierung authentifizierung)
-	{
-		this.authentifizierung = authentifizierung;
-		return this;
-	}
-
-	public Benutzer fuegeKraftwertHinzu(@NonNull Kraftwert kraftwert)
-	{
-		kraftwerte.add(kraftwert);
-		return this;
-	}
-
 	public Benutzer fuegeKoerpermessungHinzu(@NonNull Koerpermessung koerpermessung)
 	{
 		koerpermessungen.add(koerpermessung);
 		return this;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		return super.equals(o);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return super.hashCode();
 	}
 }
