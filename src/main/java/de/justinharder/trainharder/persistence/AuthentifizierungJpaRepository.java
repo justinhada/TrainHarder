@@ -1,36 +1,36 @@
 package de.justinharder.trainharder.persistence;
 
-import de.justinharder.trainharder.model.domain.Authentifizierung;
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.repository.AuthentifizierungRepository;
-import lombok.NoArgsConstructor;
+import de.justinharder.trainharder.domain.model.Authentifizierung;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.trainharder.domain.repository.AuthentifizierungRepository;
+import jakarta.enterprise.context.Dependent;
+import jakarta.persistence.NoResultException;
 import lombok.NonNull;
 
-import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
-@NoArgsConstructor
-public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>	implements AuthentifizierungRepository
+@Dependent
+public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizierung>
+	implements AuthentifizierungRepository
 {
-	@Override
-	public Optional<Authentifizierung> ermittleZuId(@NonNull Primaerschluessel id)
+	public AuthentifizierungJpaRepository()
 	{
-		return super.ermittleZuId(Authentifizierung.class, id);
+		super(Authentifizierung.class);
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzer(@NonNull Primaerschluessel benutzerId)
+	public Optional<Authentifizierung> findeMitBenutzer(@NonNull ID benutzerId)
 	{
 		try
 		{
-			var criteriaBuilder = entityManager.getCriteriaBuilder();
-			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			var root = criteriaQuery.from(Authentifizierung.class);
-			var joinBenutzer = root.join("benutzer");
-			criteriaQuery.select(root).where(criteriaBuilder.equal(joinBenutzer.get("primaerschluessel"), benutzerId));
-			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery("""
+						SELECT benutzer.authentifizierung
+						FROM Benutzer benutzer
+						WHERE benutzer.id = :benutzerId""",
+					Authentifizierung.class)
+				.setParameter("benutzerId", benutzerId)
+				.getSingleResult());
 		}
 		catch (NoResultException e)
 		{
@@ -39,15 +39,17 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuMail(@NonNull String mail)
+	public Optional<Authentifizierung> findeMitMail(@NonNull String mail)
 	{
 		try
 		{
-			var criteriaBuilder = entityManager.getCriteriaBuilder();
-			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			var root = criteriaQuery.from(Authentifizierung.class);
-			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("mail"), mail));
-			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery("""
+						SELECT authentifizierung
+						FROM Authentifizierung authentifizierung
+						WHERE authentifizierung.mail = :mail""",
+					Authentifizierung.class)
+				.setParameter("mail", mail)
+				.getSingleResult());
 		}
 		catch (NoResultException e)
 		{
@@ -56,15 +58,17 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuBenutzername(@NonNull String benutzername)
+	public Optional<Authentifizierung> findeMitBenutzername(@NonNull String benutzername)
 	{
 		try
 		{
-			var criteriaBuilder = entityManager.getCriteriaBuilder();
-			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			var root = criteriaQuery.from(Authentifizierung.class);
-			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("benutzername"), benutzername));
-			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery("""
+						SELECT authentifizierung
+						FROM Authentifizierung authentifizierung
+						WHERE authentifizierung.benutzername = :benutzername""",
+					Authentifizierung.class)
+				.setParameter("benutzername", benutzername)
+				.getSingleResult());
 		}
 		catch (NoResultException e)
 		{
@@ -73,26 +77,21 @@ public class AuthentifizierungJpaRepository extends JpaRepository<Authentifizier
 	}
 
 	@Override
-	public Optional<Authentifizierung> ermittleZuResetUuid(@NonNull UUID resetUuid)
+	public Optional<Authentifizierung> findeMitResetUuid(@NonNull UUID resetUuid)
 	{
 		try
 		{
-			var criteriaBuilder = entityManager.getCriteriaBuilder();
-			var criteriaQuery = criteriaBuilder.createQuery(Authentifizierung.class);
-			var root = criteriaQuery.from(Authentifizierung.class);
-			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("resetUuid"), resetUuid));
-			return Optional.of(entityManager.createQuery(criteriaQuery).getSingleResult());
+			return Optional.of(entityManager.createQuery("""
+						SELECT authentifizierung
+						FROM Authentifizierung authentifizierung
+						WHERE authentifizierung.resetUuid = :resetUuid""",
+					Authentifizierung.class)
+				.setParameter("resetUuid", resetUuid)
+				.getSingleResult());
 		}
 		catch (NoResultException e)
 		{
 			return Optional.empty();
 		}
-	}
-
-	@Override
-	@Transactional
-	public Authentifizierung speichereAuthentifizierung(@NonNull Authentifizierung authentifizierung)
-	{
-		return super.speichereEntitaet(Authentifizierung.class, authentifizierung);
 	}
 }

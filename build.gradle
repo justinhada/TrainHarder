@@ -1,83 +1,69 @@
 plugins {
-    id 'java-library'
-    id 'war'
+    id 'java'
+    id 'io.quarkus'
     id 'jacoco'
-    id "org.sonarqube" version '3.1.1'
+    id "org.sonarqube" version '3.3'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+    mavenLocal()
 }
 
 [
-        "integrationstests",
         "tests",
-        "slf4j",
+        "integrationstests"
 ].each {
     apply from: "gradle/${it}.gradle"
 }
 
-war {
-    archiveFileName = 'TrainHarder.war'
-}
-
-configurations {
-    testContainerAgent
-}
-
 dependencies {
-    api "org.apache.commons:commons-math3:3.6.1"
+    implementation enforcedPlatform("io.quarkus:quarkus-bom:$project.quarkusVersion")
 
-    implementation "org.projectlombok:lombok:1.18.22",
-            "com.google.guava:guava:28.0-jre",
-            "javax.xml.bind:jaxb-api:2.3.1",
-            "org.primefaces:primefaces:7.0",
-            "javax.servlet:javax.servlet-api:3.1.0",
-            "javax:javaee-api:8.0",
-            "javax.security.enterprise:javax.security.enterprise-api:1.0",
-            "javax.mvc:javax.mvc-api:1.0.0",
-            "org.mvc-spec.ozark:ozark-core:1.0.0-m04",
-            "org.mvc-spec.ozark:ozark-resteasy:1.0.0-m04",
-            "javax.mail:javax.mail-api:1.6.2",
-            "nl.jqno.equalsverifier:equalsverifier:3.4.3",
-            "com.icegreen:greenmail-junit5:1.6.1"
+    implementation "io.quarkus:quarkus-hibernate-orm",
+            "io.quarkus:quarkus-hibernate-orm-panache",
+            "io.quarkus:quarkus-jdbc-mariadb",
+            "io.quarkus:quarkus-jdbc-h2",
+            "io.quarkus:quarkus-agroal",
+            "io.quarkus:quarkus-resteasy",
+            'io.quarkus:quarkus-resteasy-multipart',
+            "io.quarkus:quarkus-resteasy-jsonb",
+            "io.quarkus:quarkus-smallrye-openapi",
+            "io.quarkus:quarkus-smallrye-jwt",
+            "io.quarkus:quarkus-smallrye-jwt-build",
+            "io.quarkus:quarkus-arc",
+            "io.quarkus:quarkus-test-common",
+            "io.quarkus:quarkus-security-jpa",
+            "io.quarkus:quarkus-swagger-ui",
+            "io.quarkus:quarkus-hibernate-validator:$project.hibernateVersion",
+            "org.projectlombok:lombok:$project.lombokVersion",
+            "com.google.guava:guava:$project.guavaVersion",
+            "commons-validator:commons-validator:$project.apacheVersion",
+            "com.prowidesoftware:pw-swift-core:$project.swiftVersion",
+            "com.icegreen:greenmail-junit5:2.0.0"
 
-    integrationTestRuntimeOnly "org.hibernate:hibernate-core:5.4.12.Final",
-            "org.mariadb.jdbc:mariadb-java-client:2.6.0"
-
-    testContainerAgent "org.jacoco:org.jacoco.agent:0.8.5:runtime"
-
-    annotationProcessor "org.projectlombok:lombok:1.18.22"
+    annotationProcessor "org.projectlombok:lombok:$project.lombokVersion"
 }
 
 jacoco {
-    toolVersion = "0.8.5"
-    reportsDir = file("${buildDir}/jacoco")
+    toolVersion = "0.8.11"
+    reportsDirectory = file("${buildDir}/jacoco")
 }
 
 task mergeJacocoReports(type: JacocoReport) {
-    dependsOn test, integrationTest
+    dependsOn test
     sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
     classDirectories.setFrom files(sourceSets.main.output)
     executionData(
             file("${buildDir}/jacoco/test.exec"),
-            file("${buildDir}/jacoco/integrationTest.exec")
-//            file("${buildDir}/jacocoit/jacoco-docker.exec")
+            file("${project.buildDir}/jacoco-quarkus.exec")
     )
     reports {
-        xml.enabled true
-        csv.enabled false
-        html.enabled true
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
         html.destination file("${buildDir}/jacoco/merge")
         xml.destination file("${buildDir}/jacoco/merge.xml")
-    }
-}
-
-task kopiereJacocoAgent(type: Copy) {
-    from configurations.testContainerAgent
-    into "${buildDir}/jacocoAgent"
-    rename { String fileName ->
-        "org.jacoco.agent.jar"
     }
 }
 
@@ -86,10 +72,32 @@ sonarqube {
         property "sonar.projectKey", "justinhada_TrainHarder"
         property "sonar.organization", "justinhada"
         property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.login", System.getenv("SONAR_TOKEN")
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/merge.xml"
     }
 }
 
-tasks['integrationTest'].dependsOn kopiereJacocoAgent
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
-version = '0.0.2'
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+compileIntegrationTestJava {
+    options.encoding = 'UTF-8'
+}
+
+group 'de.justinharder.trainharder'
+version '1.0.1'
+
+project.tasks['sonarqube'].dependsOn jacocoTestReport
+project.tasks['integrationTest'].dependsOn quarkusBuild
+project.tasks['check'].dependsOn integrationTest

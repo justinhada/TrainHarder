@@ -1,11 +1,9 @@
 dependencies {
-    testImplementation "org.hamcrest:hamcrest-library:2.2",
-            "org.junit.jupiter:junit-jupiter-engine:5.7.0",
-            "org.junit.jupiter:junit-jupiter-api:5.7.0",
-            "org.junit.jupiter:junit-jupiter-params:5.7.0",
-            "org.assertj:assertj-core:3.15.0",
-            "org.mockito:mockito-core:2.7.19",
-            "com.google.code.bean-matchers:bean-matchers:0.12"
+    testImplementation "io.quarkus:quarkus-junit5",
+            "io.quarkus:quarkus-jacoco",
+            "org.assertj:assertj-core:$project.assertjVersion",
+            "org.mockito:mockito-core:$project.mockitoVersion",
+            "nl.jqno.equalsverifier:equalsverifier:3.15.3"
 }
 
 configurations {

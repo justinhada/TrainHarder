@@ -1,0 +1,86 @@
+@startuml
+entity Authentifizierung
+{
+    * **ID <<PK>>**
+    * E-Mail-Adresse
+    * Benutzername
+    * Salt
+    * PasswortHash
+    * Aktiv
+    * ResetUUID
+    * **BenutzerID <<FK>>**
+}
+
+entity Benutzer
+{
+    * **ID <<PK>>**
+    * Nachname
+    * Vorname
+    * Geburtsdatum
+    * Geschlecht
+    * Kraftlevel
+    * Erfahrung
+    * Ernaehrung
+    * Schlafqualitaet
+    * Stress
+    * Doping
+    * Regenerationsfaehigkeit
+}
+
+entity Uebung
+{
+    * **ID <<PK>>**
+    * Bezeichnung
+    * Uebungsart
+    * Uebungskategorie
+    * **BelastungID <<FK>>**
+}
+
+entity Belastung
+{
+    * **ID <<PK>>**
+    * Squat
+    * Benchpress
+    * Deadlift
+    * Triceps
+    * Chest
+    * Core
+    * Back
+    * Biceps
+    * Shoulder
+    * Glutes
+    * Quads
+    * Hamstrings
+}
+
+entity Kraftwert
+{
+    * **ID <<PK>>**
+    * Datum
+    * Gewicht
+    * Wiederholungen
+    * **BenutzerID <<FK>>**
+    * **UebungID <<FK>>**
+}
+
+entity Koerpermessung
+{
+    * **ID <<PK>>**
+    * Datum
+    * Koerpergroesse
+    * Koerpergewicht
+    * KoerperfettAnteil
+    * FettfreiesKoerpergewicht
+    * BodyMassIndex
+    * FatFreeMassIndex
+    * Kalorieneinnahme
+    * Kalorienverbrauch
+    * **BenutzerID <<FK>>**
+}
+
+Benutzer ||--|| Authentifizierung
+Uebung ||--|| Belastung
+Uebung ||--o{ Kraftwert
+Benutzer ||--o{ Kraftwert
+Benutzer ||--o{ Koerpermessung
+@enduml

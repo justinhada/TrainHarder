@@ -1,41 +1,29 @@
-sourceSets {
-    integrationTest {
-        compileClasspath += sourceSets.main.output + sourceSets.test.output
-        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
-    }
+dependencies {
+    integrationTestImplementation "io.rest-assured:rest-assured"
 }
 
 configurations {
     integrationTestAnnotationProcessor.extendsFrom annotationProcessor
-    integrationTestImplementation.extendsFrom implementation
-    integrationTestRuntimeOnly.extendsFrom runtimeOnly
-}
-
-dependencies {
-    integrationTestImplementation configurations.testImplementation
-
-    integrationTestImplementation platform('org.testcontainers:testcontainers-bom:1.15.1')
-    integrationTestImplementation "org.testcontainers:junit-jupiter",
-            "org.testcontainers:testcontainers",
-            "org.testcontainers:selenium",
-            "org.testcontainers:mariadb"
-    integrationTestImplementation "org.seleniumhq.selenium:selenium-remote-driver:3.141.59",
-            "org.seleniumhq.selenium:selenium-chrome-driver:3.141.59"
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 task integrationTest(type: Test) {
     group = 'verification'
-    description = 'Runs the integration tests.'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     shouldRunAfter test
+}
+
+integrationTest {
     useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+    }
+    jacoco {
+        excludeClassLoaders = ["*QuarkusClassLoader"]
+        destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
+    }
 }
-
-tasks.withType(Test) {
-    testLogging.exceptionFormat = 'full'
-    reports.html.destination = file("${reporting.baseDir}/${name}")
-}
-
-check.dependsOn integrationTest
-integrationTest.dependsOn assemble
