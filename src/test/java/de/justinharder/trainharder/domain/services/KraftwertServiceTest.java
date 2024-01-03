@@ -1,18 +1,14 @@
 package de.justinharder.trainharder.domain.services;
 
-import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.Kraftwert;
-import de.justinharder.trainharder.domain.model.Uebung;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.domain.model.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.KraftwertNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.UebungNichtGefundenException;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.model.exceptions.KraftwertException;
+import de.justinharder.trainharder.domain.model.exceptions.UebungException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.repository.KraftwertRepository;
 import de.justinharder.trainharder.domain.repository.UebungRepository;
-import de.justinharder.trainharder.domain.services.dto.KraftwertDto;
 import de.justinharder.trainharder.domain.services.mapper.KraftwertDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,13 +16,14 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class KraftwertServiceSollte
+@DisplayName("KraftwertService sollte")
+class KraftwertServiceTest
 {
 	private KraftwertService sut;
 
@@ -46,164 +43,107 @@ class KraftwertServiceSollte
 		sut = new KraftwertService(kraftwertRepository, benutzerRepository, uebungRepository, kraftwertDtoMapper);
 	}
 
-	private void angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(String benutzerId,
-		List<Kraftwert> kraftwerte)
-	{
-		when(kraftwertRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId))).thenReturn(kraftwerte);
-	}
-
-	private void angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(String id, Optional<Kraftwert> kraftwert)
-	{
-		when(kraftwertRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(kraftwert);
-	}
-
-	private void angenommenDasKraftwertRepositoryGibtNullZurueck(String id)
-	{
-		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(id, Optional.empty());
-	}
-
-	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(String benutzerId, Optional<Uebung> uebung)
-	{
-		when(uebungRepository.ermittleZuId(new Primaerschluessel(benutzerId))).thenReturn(uebung);
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(String benutzerId, Optional<Benutzer> benutzer)
-	{
-		when(benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))).thenReturn(benutzer);
-	}
-
-	private void angenommenDasUebungRepositoryErmitteltKeineUebung(String id)
-	{
-		angenommenDasUebungRepositoryGibtEineUebungZurueck(id, Optional.empty());
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer(String benutzerId)
-	{
-		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzerId, Optional.empty());
-	}
-
-	private void angenommenDasKraftwertRepositorySpeichertKraftwert(Kraftwert kraftwert)
-	{
-		when(kraftwertRepository.speichereKraftwert(any(Kraftwert.class))).thenReturn(kraftwert);
-	}
-
-	private void angenommenDerKraftwertDtoMapperMapptAlleZuKraftwertDto(List<Kraftwert> kraftwerte,
-		List<KraftwertDto> kraftwertDtos)
-	{
-		when(kraftwertDtoMapper.mappeAlle(kraftwerte)).thenReturn(kraftwertDtos);
-	}
-
-	private void angenommenDerKraftwertDtoMapperMapptZuKraftwertDto(Kraftwert kraftwert, KraftwertDto kraftwertDto)
-	{
-		when(kraftwertDtoMapper.mappe(kraftwert)).thenReturn(kraftwertDto);
-	}
-
 	@Test
 	@DisplayName("null validieren")
 	void test01()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlleMitBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
 			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(null, "uebungId", "benutzerId")),
+				() -> sut.speichere(null, "uebungId", "benutzerId")),
 			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, null, "benutzerId")),
+				() -> sut.speichere(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, null, "benutzerId")),
 			() -> assertThrows(NullPointerException.class,
-				() -> sut.speichereKraftwert(Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, "uebungId", null)));
+				() -> sut.speichere(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, "uebungId", null)));
 	}
 
 	@Test
 	@DisplayName("alle Kraftwerte zu Benutzer ermitteln")
 	void test02()
 	{
-		var erwartet = List.of(Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var kraftwerte = List.of(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE,
-			Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-		var benutzerId = new Primaerschluessel().getId().toString();
-		angenommenDasKraftwertRepositoryGibtAlleKraftwerteZuBenutzerZurueck(benutzerId, kraftwerte);
-		angenommenDerKraftwertDtoMapperMapptAlleZuKraftwertDto(kraftwerte, erwartet);
+		var erwartet = List.of(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, KRAFTWERT_DTO_LOWBAR_KNIEBEUGE,
+			KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN);
+		var kraftwerte =
+			List.of(KRAFTWERT_WETTKAMPFBANKDRUECKEN, KRAFTWERT_LOWBAR_KNIEBEUGE, KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
+		var benutzerId = new ID().getWert().toString();
+		when(kraftwertRepository.findeAlleMitBenutzer(new ID(benutzerId))).thenReturn(kraftwerte);
+		when(kraftwertDtoMapper.mappeAlle(kraftwerte)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleAlleZuBenutzer(benutzerId)).isEqualTo(erwartet);
-		verify(kraftwertRepository).ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId));
+		assertThat(sut.findeAlleMitBenutzer(benutzerId)).isEqualTo(erwartet);
+		verify(kraftwertRepository).findeAlleMitBenutzer(new ID(benutzerId));
 		verify(kraftwertDtoMapper).mappeAlle(kraftwerte);
 	}
 
 	@Test
-	@DisplayName("KraftwertNichtGefundenException werfen, wenn ID zu keinem Kraftwert gehört")
+	@DisplayName("KraftwertException werfen, wenn ID zu keinem Kraftwert gehört")
 	void test03()
 	{
-		var id = new Primaerschluessel().getId().toString();
-		angenommenDasKraftwertRepositoryGibtNullZurueck(id);
+		var id = new ID().getWert().toString();
+		when(kraftwertRepository.finde(new ID(id))).thenReturn(Optional.empty());
 
-		assertThrows(KraftwertNichtGefundenException.class, () -> sut.ermittleZuId(id));
-		verify(kraftwertRepository).ermittleZuId(new Primaerschluessel(id));
+		assertThrows(KraftwertException.class, () -> sut.finde(id));
+		verify(kraftwertRepository).finde(new ID(id));
 	}
 
 	@Test
 	@DisplayName("einen Kraftwert zur ID ermitteln")
-	void test04() throws KraftwertNichtGefundenException
+	void test04() throws KraftwertException
 	{
-		var erwartet = Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
-		var kraftwert = Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE;
-		var id = new Primaerschluessel().getId().toString();
-		angenommenDasKraftwertRepositoryGibtEinenKraftwertZurueck(id, Optional.of(kraftwert));
-		angenommenDerKraftwertDtoMapperMapptZuKraftwertDto(kraftwert, erwartet);
+		var erwartet = KRAFTWERT_DTO_LOWBAR_KNIEBEUGE;
+		var kraftwert = KRAFTWERT_LOWBAR_KNIEBEUGE;
+		var id = new ID().getWert().toString();
+		when(kraftwertRepository.finde(new ID(id))).thenReturn(Optional.of(kraftwert));
+		when(kraftwertDtoMapper.mappe(kraftwert)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
-		verify(kraftwertRepository).ermittleZuId(new Primaerschluessel(id));
+		assertThat(sut.finde(id)).isEqualTo(erwartet);
+		verify(kraftwertRepository).finde(new ID(id));
 		verify(kraftwertDtoMapper).mappe(kraftwert);
 	}
 
 	@Test
-	@DisplayName("UebungNichtGefundenException werfen, wenn die Uebung nicht gefunden werden kann")
+	@DisplayName("UebungException werfen, wenn die Uebung nicht gefunden werden kann")
 	void test05()
 	{
-		var uebungId = new Primaerschluessel().getId().toString();
-		angenommenDasUebungRepositoryErmitteltKeineUebung(uebungId);
+		var uebungId = new ID().getWert().toString();
+		when(uebungRepository.finde(new ID(uebungId))).thenReturn(Optional.empty());
 
-		assertThrows(UebungNichtGefundenException.class,
-			() -> sut.speichereKraftwert(Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN, uebungId,
-				new Primaerschluessel().getId().toString()));
-		verify(uebungRepository).ermittleZuId(new Primaerschluessel(uebungId));
+		assertThrows(UebungException.class,
+			() -> sut.speichere(KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN, uebungId,
+				new ID().getWert().toString()));
+		verify(uebungRepository).finde(new ID(uebungId));
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn der Benutzer nicht gefunden werden kann")
+	@DisplayName("BenutzerException werfen, wenn der Benutzer nicht gefunden werden kann")
 	void test06()
 	{
-		var benutzerId = new Primaerschluessel().getId().toString();
-		var uebungId = new Primaerschluessel().getId().toString();
-		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebungId,
-			Optional.of(Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN));
-		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzer(benutzerId);
+		when(uebungRepository.finde(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getId())).thenReturn(
+			Optional.of(UEBUNG_KONVENTIONELLES_KREUZHEBEN));
+		when(benutzerRepository.finde(BENUTZER_JUSTIN.getId())).thenReturn(Optional.empty());
 
-		assertThrows(BenutzerNichtGefundenException.class,
-			() -> sut.speichereKraftwert(Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN, uebungId, benutzerId));
-		verify(uebungRepository).ermittleZuId(new Primaerschluessel(uebungId));
-		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(benutzerId));
+		assertThrows(BenutzerException.class,
+			() -> sut.speichere(KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN, UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN.getId(),
+				BENUTZER_DTO_JUSTIN.getId()));
+		verify(uebungRepository).finde(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getId());
+		verify(benutzerRepository).finde(BENUTZER_JUSTIN.getId());
 	}
 
 	@Test
 	@DisplayName("einen Kraftwert erstellen")
-	void test07() throws UebungNichtGefundenException, BenutzerNichtGefundenException
+	void test07() throws UebungException, BenutzerException
 	{
-		var erwartet = Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN;
-		var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN;
-		var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
-		var uebungId = new Primaerschluessel().getId().toString();
-		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		var benutzerId = new Primaerschluessel().getId().toString();
-		angenommenDasUebungRepositoryGibtEineUebungZurueck(uebungId, Optional.of(uebung));
-		angenommenDasBenutzerRepositoryGibtEinenBenutzerZurueck(benutzerId, Optional.of(benutzer));
-		angenommenDasKraftwertRepositorySpeichertKraftwert(kraftwert);
-		angenommenDerKraftwertDtoMapperMapptZuKraftwertDto(kraftwert, erwartet);
+		when(uebungRepository.finde(UEBUNG_WETTKAMPFBANKDRUECKEN.getId())).thenReturn(
+			Optional.of(UEBUNG_WETTKAMPFBANKDRUECKEN));
+		when(benutzerRepository.finde(BENUTZER_JUSTIN.getId())).thenReturn(Optional.of(BENUTZER_JUSTIN));
+		when(kraftwertDtoMapper.mappe(any(Kraftwert.class))).thenReturn(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN);
 
-		assertThat(sut.speichereKraftwert(erwartet, uebung.getPrimaerschluessel().getId().toString(),
-			benutzer.getPrimaerschluessel().getId().toString())).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleZuId(new Primaerschluessel(uebungId));
-		verify(benutzerRepository).ermittleZuId(new Primaerschluessel(benutzerId));
-		verify(kraftwertDtoMapper).mappe(kraftwert);
+		assertThat(sut.speichere(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
+			UEBUNG_WETTKAMPFBANKDRUECKEN.getId().getWert().toString(),
+			BENUTZER_JUSTIN.getId().getWert().toString())).isEqualTo(KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN);
+		verify(uebungRepository).finde(new ID(UEBUNG_WETTKAMPFBANKDRUECKEN.getId().getWert().toString()));
+		verify(benutzerRepository).finde(new ID(BENUTZER_JUSTIN.getId().getWert().toString()));
+		verify(kraftwertRepository).speichere(any(Kraftwert.class));
+		verify(kraftwertDtoMapper).mappe(any(Kraftwert.class));
 	}
 }

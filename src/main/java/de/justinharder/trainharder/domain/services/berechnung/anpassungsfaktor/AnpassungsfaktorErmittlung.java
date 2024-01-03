@@ -6,17 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 public class AnpassungsfaktorErmittlung
 {
-	public Anpassungsfaktor berechneAnpassungsfaktor(@NonNull Benutzer benutzer)
+	public Anpassungsfaktor berechneAnpassungsfaktor(@NonNull Benutzer benutzer, @NonNull LocalDate datum)
 	{
 		var benutzerangabe = benutzer.getBenutzerangabe();
 		var geschlecht = benutzerangabe.getGeschlecht();
 
 		return new Anpassungsfaktor()
-			.mitAlter(alter(benutzer.getAlter()))
+			.mitAlter(alter(benutzer.getAlter(datum)))
 			.mitKoerpergewicht(koerpergewicht(benutzer.getKoerpergewicht(), geschlecht))
 			.mitKoerpergroesse(koerpergroesse(benutzer.getKoerpergroesse(), geschlecht))
 			.mitKraftlevel(kraftlevel(benutzerangabe.getKraftlevel()))

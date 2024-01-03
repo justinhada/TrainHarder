@@ -9,22 +9,22 @@ import lombok.NonNull;
 @Dependent
 public class UebungDtoMapper implements DtoMapper<Uebung,UebungDto>
 {
-	private final BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
+	private final BelastungDtoMapper belastungDtoMapper;
 
 	@Inject
-	public UebungDtoMapper(BelastungsfaktorDtoMapper belastungsfaktorDtoMapper)
+	public UebungDtoMapper(BelastungDtoMapper belastungDtoMapper)
 	{
-		this.belastungsfaktorDtoMapper = belastungsfaktorDtoMapper;
+		this.belastungDtoMapper = belastungDtoMapper;
 	}
 
 	@Override
 	public UebungDto mappe(@NonNull Uebung uebung)
 	{
 		return new UebungDto(
-			uebung.getPrimaerschluessel().getId().toString(),
-			uebung.getName(),
+			uebung.getId().getWert().toString(),
+			uebung.getBezeichnung(),
 			uebung.getUebungsart().name(),
 			uebung.getUebungskategorie().name(),
-			belastungsfaktorDtoMapper.mappe(uebung.getBelastung()));
+			belastungDtoMapper.mappe(uebung.getBelastung()));
 	}
 }

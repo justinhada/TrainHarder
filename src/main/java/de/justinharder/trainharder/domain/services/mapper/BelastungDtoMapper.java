@@ -9,7 +9,7 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
 @Dependent
-public class BelastungsfaktorDtoMapper implements DtoMapper<Belastung, BelastungDto>
+public class BelastungDtoMapper implements DtoMapper<Belastung, BelastungDto>
 {
 	@Override
 	public BelastungDto mappe(@NonNull Belastung belastung)

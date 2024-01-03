@@ -1,68 +1,71 @@
 package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Uebung;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.enums.Uebungsart;
 import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
-import de.justinharder.trainharder.domain.model.exceptions.BelastungsfaktorNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.UebungNichtGefundenException;
-import de.justinharder.trainharder.domain.repository.BelastungsfaktorRepository;
+import de.justinharder.trainharder.domain.model.exceptions.BelastungException;
+import de.justinharder.trainharder.domain.model.exceptions.UebungException;
+import de.justinharder.trainharder.domain.repository.BelastungRepository;
 import de.justinharder.trainharder.domain.repository.UebungRepository;
-import de.justinharder.trainharder.domain.services.mapper.UebungDtoMapper;
 import de.justinharder.trainharder.domain.services.dto.UebungDto;
+import de.justinharder.trainharder.domain.services.mapper.UebungDtoMapper;
 import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Dependent
+@RequiredArgsConstructor
 public class UebungService
 {
+	@NonNull
 	private final UebungRepository uebungRepository;
-	private final BelastungsfaktorRepository belastungsfaktorRepository;
+
+	@NonNull
+	private final BelastungRepository belastungRepository;
+
+	@NonNull
 	private final UebungDtoMapper uebungDtoMapper;
 
-	@Inject
-	public UebungService(UebungRepository uebungRepository, BelastungsfaktorRepository belastungsfaktorRepository, UebungDtoMapper uebungDtoMapper)
+	public List<UebungDto> findeAlle()
 	{
-		this.uebungRepository = uebungRepository;
-		this.belastungsfaktorRepository = belastungsfaktorRepository;
-		this.uebungDtoMapper = uebungDtoMapper;
+		return uebungDtoMapper.mappeAlle(uebungRepository.findeAlle());
 	}
 
-	public List<UebungDto> ermittleAlle()
+	public List<UebungDto> findeAlleMitUebungsart(@NonNull String uebungsart)
 	{
-		return uebungDtoMapper.mappeAlle(uebungRepository.ermittleAlle());
+		return uebungDtoMapper.mappeAlle(uebungRepository.findeAlleMitUebungsart(Uebungsart.zuWert(uebungsart)));
 	}
 
-	public List<UebungDto> ermittleZuUebungsart(@NonNull String uebungsart)
+	public List<UebungDto> findeAlleMitUebungskategorie(@NonNull String uebungskategorie)
 	{
-		return uebungDtoMapper.mappeAlle(uebungRepository.ermittleAlleZuUebungsart(Uebungsart.zuWert(uebungsart)));
+		return uebungDtoMapper.mappeAlle(
+			uebungRepository.findeAlleMitUebungskategorie(Uebungskategorie.zuWert(uebungskategorie)));
 	}
 
-	public List<UebungDto> ermittleZuUebungskategorie(@NonNull String uebungskategorie)
+	public UebungDto finde(@NonNull String id) throws UebungException
 	{
-		return uebungDtoMapper.mappeAlle(uebungRepository.ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie)));
-	}
-
-	public UebungDto ermittleZuId(@NonNull String id) throws UebungNichtGefundenException
-	{
-		return uebungRepository.ermittleZuId(new Primaerschluessel(id))
+		return uebungRepository.finde(new ID(id))
 			.map(uebungDtoMapper::mappe)
-			.orElseThrow(FehlermeldungService.wirfUebungNichtGefundenException("der ID", id));
+			.orElseThrow(() -> new UebungException("Die Uebung mit der ID %s existiert nicht!".formatted(id)));
 	}
 
-	public UebungDto speichereUebung(@NonNull UebungDto uebungDto, @NonNull String belastungsfaktorId) throws BelastungsfaktorNichtGefundenException
+	public UebungDto erstelle(@NonNull UebungDto uebungDto, @NonNull String belastungId) throws
+		BelastungException
 	{
-		var belastungsfaktor = belastungsfaktorRepository.ermittleZuId(new Primaerschluessel(belastungsfaktorId))
-			.orElseThrow(FehlermeldungService.wirfBelastungsfaktorNichtGefundenException("der ID", belastungsfaktorId));
-
-		return uebungDtoMapper.mappe(uebungRepository.speichereUebung(new Uebung(
-			new Primaerschluessel(),
+		var uebung = new Uebung(
+			new ID(),
 			uebungDto.getName(),
 			Uebungsart.zuWert(uebungDto.getUebungsart()),
 			Uebungskategorie.zuWert(uebungDto.getUebungskategorie()),
-			belastungsfaktor)));
+			belastungRepository.finde(new ID(belastungId))
+				.orElseThrow(() -> new BelastungException(
+					"Die Belastung mit der ID %s existiert nicht!".formatted(belastungId))));
+
+		uebungRepository.speichere(uebung);
+
+		return uebungDtoMapper.mappe(uebung);
 	}
 }

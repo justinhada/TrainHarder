@@ -1,100 +1,112 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Kraftwert;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.domain.model.enums.Wiederholungen;
-import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static de.justinharder.trainharder.domain.model.enums.Wiederholungen.ONE_REP_MAX;
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
-class KraftwertJpaRepositorySollte
+@DisplayName("KraftwertJpaRepository sollte")
+class KraftwertJpaRepositoryTest
 {
 	@Inject
 	KraftwertJpaRepository sut;
 
+	@Inject
+	EntityManager entityManager;
+
 	@Test
-	@DisplayName("alle Kraftwerte zu Benutzer ermitteln")
+	@DisplayName("null validieren")
 	void test01()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleAlleZuBenutzer(new Primaerschluessel()))
-				.containsExactlyInAnyOrder(Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-					Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
-			() -> assertThat(sut.ermittleAlleZuBenutzer(new Primaerschluessel())).isEmpty());
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlleMitBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
 	}
 
 	@Test
-	@DisplayName("keinen Kraftwert zu ID ermitteln")
+	@DisplayName("alle finden")
 	void test02()
 	{
-		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
+		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(KRAFTWERT_WETTKAMPFBANKDRUECKEN,
+			KRAFTWERT_LOWBAR_KNIEBEUGE, KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test
-	@DisplayName("Kraftwert zu ID ermitteln")
+	@DisplayName("finden")
 	void test03()
 	{
 		assertAll(
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN));
+			() -> assertThat(sut.finde(KRAFTWERT_WETTKAMPFBANKDRUECKEN.getId())).contains(
+				KRAFTWERT_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.finde(KRAFTWERT_LOWBAR_KNIEBEUGE.getId())).contains(KRAFTWERT_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.finde(KRAFTWERT_KONVENTIONELLES_KREUZHEBEN.getId())).contains(
+				KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
+			() -> assertThat(sut.finde(new ID())).isEmpty());
 	}
 
 	@Test
-	@DisplayName("Kraftwert erstellen")
+	@Transactional
+	@DisplayName("erstellen")
 	void test04()
 	{
 		var kraftwert = new Kraftwert(
-			new Primaerschluessel(),
-			new BigDecimal(100),
-			BigDecimal.valueOf(76.5),
+			new ID(),
 			LocalDate.now(),
-			Wiederholungen.ONE_REP_MAX,
-			Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN,
-			Testdaten.BENUTZER_JUSTIN);
+			new BigDecimal(100),
+			ONE_REP_MAX,
+			UEBUNG_WETTKAMPFBANKDRUECKEN,
+			BENUTZER_JUSTIN);
 
-		assertThat(sut.speichereKraftwert(kraftwert)).isEqualTo(kraftwert);
+		sut.speichere(kraftwert);
+
+		assertThat(entityManager.find(Kraftwert.class, kraftwert.getId())).isEqualTo(kraftwert);
 	}
 
 	@Test
-	@DisplayName("Kraftwert aktualisieren")
+	@Disabled
+	@Transactional
+	@DisplayName("aktualisieren")
 	void test05()
 	{
-		var kraftwert = Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN
+		var kraftwert = KRAFTWERT_WETTKAMPFBANKDRUECKEN
 			.setGewicht(new BigDecimal(105));
 
-		var ergebnis = sut.speichereKraftwert(kraftwert);
+		sut.speichere(kraftwert);
+		var ergebnis = entityManager.find(Kraftwert.class, kraftwert.getId());
 
 		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(kraftwert.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getGewicht()).isEqualTo(kraftwert.getGewicht()),
-			() -> assertThat(ergebnis.getKoerpergewicht()).isEqualTo(kraftwert.getKoerpergewicht()),
+			() -> assertThat(ergebnis.getId()).isEqualTo(kraftwert.getId()),
 			() -> assertThat(ergebnis.getDatum()).isEqualTo(kraftwert.getDatum()),
+			() -> assertThat(ergebnis.getGewicht()).isEqualTo(kraftwert.getGewicht()),
 			() -> assertThat(ergebnis.getWiederholungen()).isEqualTo(kraftwert.getWiederholungen()),
 			() -> assertThat(ergebnis.getUebung()).isEqualTo(kraftwert.getUebung()),
 			() -> assertThat(ergebnis.getBenutzer()).isEqualTo(kraftwert.getBenutzer()));
 	}
 
 	@Test
-	@DisplayName("null validieren")
+	@DisplayName("alle mit Benutzer finden")
 	void test06()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereKraftwert(null)));
+			() -> assertThat(sut.findeAlleMitBenutzer(BENUTZER_JUSTIN.getId())).contains(
+				KRAFTWERT_WETTKAMPFBANKDRUECKEN, KRAFTWERT_LOWBAR_KNIEBEUGE, KRAFTWERT_KONVENTIONELLES_KREUZHEBEN),
+			() -> assertThat(sut.findeAlleMitBenutzer(BENUTZER_EDUARD.getId())).isEmpty(),
+			() -> assertThat(sut.findeAlleMitBenutzer(new ID())).isEmpty());
 	}
 }

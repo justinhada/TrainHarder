@@ -12,7 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MailSollte
+@DisplayName("Mail sollte")
+class MailTest
 {
 	private static final MailAdresse MAIL_ADRESSE = new MailAdresse("justinharder@t-online.de", "Justin");
 

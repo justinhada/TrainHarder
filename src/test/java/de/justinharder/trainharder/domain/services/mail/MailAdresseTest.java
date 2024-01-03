@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MailAdresseSollte
+@DisplayName("MailAdresse sollte")
+class MailAdresseTest
 {
 	@Test
 	@DisplayName("sich vergleichen")

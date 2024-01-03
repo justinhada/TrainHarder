@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.domain.model.exceptions;
 
-public class AuthentifizierungNichtGefundenException extends Exception
+public class AuthentifizierungException extends Exception
 {
 	private static final long serialVersionUID = 5139676572509720030L;
 
-	public AuthentifizierungNichtGefundenException(String nachricht)
+	public AuthentifizierungException(String nachricht)
 	{
 		super(nachricht);
 	}

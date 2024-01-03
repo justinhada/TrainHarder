@@ -1,22 +1,19 @@
 package de.justinharder.trainharder.domain.services.mapper;
 
-import de.justinharder.trainharder.domain.model.Authentifizierung;
-import de.justinharder.trainharder.domain.model.Koerpermessung;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.domain.services.dto.AuthentifizierungDto;
-import de.justinharder.trainharder.domain.services.dto.KoerpermessungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class BenutzerDtoMapperSollte
+@DisplayName("BenutzerDtoMapper sollte")
+class BenutzerDtoMapperTest
 {
 	private BenutzerDtoMapper sut;
 
@@ -32,30 +29,22 @@ class BenutzerDtoMapperSollte
 		sut = new BenutzerDtoMapper(authentifizierungDtoMapper, koerpermessungDtoMapper);
 	}
 
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
-	{
-		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
-	}
-
-	private void angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List<Koerpermessung> koerpermessungen, List<KoerpermessungDto> koerpermessungDtos)
-	{
-		when(koerpermessungDtoMapper.mappeAlle(koerpermessungen)).thenReturn(koerpermessungDtos);
-	}
-
 	@Test
-	@DisplayName("alle Benutzer zu BenutzerDtos mappen")
+	@DisplayName("alle mappen")
 	void test01()
 	{
-		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_JUSTIN, Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN);
-		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Testdaten.AUTHENTIFIZIERUNG_EDUARD, Testdaten.AUTHENTIFIZIERUNG_DTO_EDUARD);
-		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List.of(Testdaten.KOERPERMESSUNG_JUSTIN), List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
-		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDto(List.of(Testdaten.KOERPERMESSUNG_EDUARD), List.of(Testdaten.KOERPERMESSUNG_DTO_EDUARD));
+		when(authentifizierungDtoMapper.mappe(AUTHENTIFIZIERUNG_JUSTIN)).thenReturn(AUTHENTIFIZIERUNG_DTO_JUSTIN);
+		when(authentifizierungDtoMapper.mappe(AUTHENTIFIZIERUNG_EDUARD)).thenReturn(AUTHENTIFIZIERUNG_DTO_EDUARD);
+		when(koerpermessungDtoMapper.mappeAlle(List.of(KOERPERMESSUNG_JUSTIN))).thenReturn(
+			List.of(KOERPERMESSUNG_DTO_JUSTIN));
+		when(koerpermessungDtoMapper.mappeAlle(List.of(KOERPERMESSUNG_EDUARD))).thenReturn(
+			List.of(KOERPERMESSUNG_DTO_EDUARD));
 
-		var ergebnis = sut.mappeAlle(List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD));
+		var ergebnis = sut.mappeAlle(List.of(BENUTZER_JUSTIN, BENUTZER_EDUARD));
 
-		assertThat(ergebnis).containsAll(List.of(Testdaten.BENUTZER_DTO_EDUARD));
-		verify(authentifizierungDtoMapper).mappe(Testdaten.AUTHENTIFIZIERUNG_EDUARD);
-		verify(koerpermessungDtoMapper).mappeAlle(List.of(Testdaten.KOERPERMESSUNG_EDUARD));
+		assertThat(ergebnis).containsAll(List.of(BENUTZER_DTO_EDUARD));
+		verify(authentifizierungDtoMapper).mappe(AUTHENTIFIZIERUNG_EDUARD);
+		verify(koerpermessungDtoMapper).mappeAlle(List.of(KOERPERMESSUNG_EDUARD));
 	}
 
 	@Test

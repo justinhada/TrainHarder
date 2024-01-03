@@ -25,7 +25,8 @@ public class Anpassungsfaktor
 
 	public int werteAus()
 	{
-		return alter + koerpergewicht + koerpergroesse + kraftlevel + geschlecht + erfahrung + ernaehrung + schlafqualitaet + stress + doping + regenerationsfaehigkeit;
+		return alter + koerpergewicht + koerpergroesse + kraftlevel + geschlecht + erfahrung + ernaehrung
+			+ schlafqualitaet + stress + doping + regenerationsfaehigkeit;
 	}
 
 	public Anpassungsfaktor mitAlter(int alter)
@@ -101,11 +102,10 @@ public class Anpassungsfaktor
 		{
 			return true;
 		}
-		if (!(o instanceof Anpassungsfaktor))
+		if (!(o instanceof Anpassungsfaktor that))
 		{
 			return false;
 		}
-		var that = (Anpassungsfaktor) o;
 		return alter == that.alter
 			&& koerpergewicht == that.koerpergewicht
 			&& koerpergroesse == that.koerpergroesse
@@ -122,6 +122,7 @@ public class Anpassungsfaktor
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(alter, koerpergewicht, koerpergroesse, kraftlevel, geschlecht, erfahrung, ernaehrung, schlafqualitaet, stress, doping, regenerationsfaehigkeit);
+		return Objects.hash(alter, koerpergewicht, koerpergroesse, kraftlevel, geschlecht, erfahrung, ernaehrung,
+			schlafqualitaet, stress, doping, regenerationsfaehigkeit);
 	}
 }

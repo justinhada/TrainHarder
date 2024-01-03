@@ -1,58 +1,35 @@
 package de.justinharder.trainharder.domain.services;
 
-import de.justinharder.trainharder.domain.model.Belastung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.exceptions.BelastungsfaktorNichtGefundenException;
-import de.justinharder.trainharder.domain.repository.BelastungsfaktorRepository;
-import de.justinharder.trainharder.domain.services.mapper.BelastungsfaktorDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.domain.services.dto.BelastungDto;
+import de.justinharder.trainharder.domain.model.exceptions.BelastungException;
+import de.justinharder.trainharder.domain.repository.BelastungRepository;
+import de.justinharder.trainharder.domain.services.mapper.BelastungDtoMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class BelastungServiceSollte
+@DisplayName("BelastungService sollte")
+class BelastungServiceTest
 {
-	private BelastungsfaktorService sut;
+	private BelastungService sut;
 
-	private BelastungsfaktorRepository belastungsfaktorRepository;
-	private BelastungsfaktorDtoMapper belastungsfaktorDtoMapper;
+	private BelastungRepository belastungRepository;
+	private BelastungDtoMapper belastungDtoMapper;
 
 	@BeforeEach
 	void setup()
 	{
-		belastungsfaktorRepository = mock(BelastungsfaktorRepository.class);
-		belastungsfaktorDtoMapper = mock(BelastungsfaktorDtoMapper.class);
+		belastungRepository = mock(BelastungRepository.class);
+		belastungDtoMapper = mock(BelastungDtoMapper.class);
 
-		sut = new BelastungsfaktorService(belastungsfaktorRepository, belastungsfaktorDtoMapper);
-	}
-
-	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String id, Optional<Belastung> belastungsfaktor)
-	{
-		when(belastungsfaktorRepository.ermittleZuId(new ID(id))).thenReturn(belastungsfaktor);
-	}
-
-	private void angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(String id)
-	{
-		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.empty());
-	}
-
-	private void angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(Belastung belastung)
-	{
-		when(belastungsfaktorRepository.speichereBelastungsfaktor(any(Belastung.class))).thenReturn(belastung);
-	}
-
-	private void angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(Belastung belastung, BelastungDto belastungDto)
-	{
-		when(belastungsfaktorDtoMapper.mappe(belastung)).thenReturn(belastungDto);
+		sut = new BelastungService(belastungRepository, belastungDtoMapper);
 	}
 
 	@Test
@@ -60,46 +37,45 @@ class BelastungServiceSollte
 	void test01()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
 	}
 
 	@Test
-	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn ID zu keinem Belastungsfaktor gehört")
+	@DisplayName("BelastungException werfen, wenn ID zu keiner Belastung gehört")
 	void test02()
 	{
-		var id = new ID().getId().toString();
-		angenommenDasBelastungsfaktorRepositoryGibtNullZurueck(id);
+		when(belastungRepository.finde(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getId())).thenReturn(Optional.empty());
 
-		assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.ermittleZuId(id));
-		verify(belastungsfaktorRepository).ermittleZuId(new ID(id));
+		assertThrows(BelastungException.class, () -> sut.finde(BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN.getId()));
+		verify(belastungRepository).finde(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getId());
 	}
 
 	@Test
-	@DisplayName("einen Belastungsfaktor zur ID ermitteln")
-	void test03() throws BelastungsfaktorNichtGefundenException
+	@DisplayName("eine Belastung zur ID ermitteln")
+	void test03() throws BelastungException
 	{
-		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_KONVENTIONELLES_KREUZHEBEN;
-		var belastungsfaktor = Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN;
-		var id = new ID().getId().toString();
-		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(id, Optional.of(belastungsfaktor));
-		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
+		when(belastungRepository.finde(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getId())).thenReturn(
+			Optional.of(BELASTUNG_KONVENTIONELLES_KREUZHEBEN));
+		when(belastungDtoMapper.mappe(BELASTUNG_KONVENTIONELLES_KREUZHEBEN)).thenReturn(
+			BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 
-		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
-		verify(belastungsfaktorRepository).ermittleZuId(new ID(id));
-		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
+		assertThat(sut.finde(BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN.getId())).isEqualTo(
+			BELASTUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		verify(belastungRepository).finde(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getId());
+		verify(belastungDtoMapper).mappe(BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test
-	@DisplayName("einen Belastungsfaktor speichern")
+	@DisplayName("eine Belastung speichern")
 	void test04()
 	{
-		var erwartet = Testdaten.BELASTUNGSFAKTOR_DTO_WETTKAMPFBANKDRUECKEN;
-		var belastungsfaktor = Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN;
-		angenommenDasBelastungsfaktorRepositorySpeichertBelastungsfaktor(belastungsfaktor);
-		angenommenDerBelastungsfaktorDtoMapperMapptZuBelastungsfaktorDto(belastungsfaktor, erwartet);
+		when(belastungRepository.finde(BELASTUNG_WETTKAMPFBANKDRUECKEN.getId())).thenReturn(
+			Optional.of(BELASTUNG_WETTKAMPFBANKDRUECKEN));
+		when(belastungDtoMapper.mappe(BELASTUNG_WETTKAMPFBANKDRUECKEN)).thenReturn(BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN);
 
-		assertThat(sut.speichereBelastungsfaktor(erwartet)).isEqualTo(erwartet);
-		verify(belastungsfaktorDtoMapper).mappe(belastungsfaktor);
+		assertThat(sut.speichere(BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN)).isEqualTo(BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN);
+		verify(belastungRepository).speichere(BELASTUNG_WETTKAMPFBANKDRUECKEN);
+		verify(belastungDtoMapper).mappe(BELASTUNG_WETTKAMPFBANKDRUECKEN);
 	}
 }

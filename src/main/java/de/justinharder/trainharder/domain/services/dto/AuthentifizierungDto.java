@@ -20,17 +20,17 @@ public class AuthentifizierungDto extends EntitaetDto
 	public AuthentifizierungDto()
 	{}
 
-	public AuthentifizierungDto(@NonNull String primaerschluessel, @NonNull String mail, @NonNull String benutzername)
+	public AuthentifizierungDto(@NonNull String id, @NonNull String mail, @NonNull String benutzername)
 	{
-		super(primaerschluessel);
+		super(id);
 		this.mail = mail;
 		this.benutzername = benutzername;
 	}
 
 	@Override
-	public AuthentifizierungDto setPrimaerschluessel(@NonNull String primaerschluessel)
+	public AuthentifizierungDto setId(@NonNull String id)
 	{
-		this.primaerschluessel = primaerschluessel;
+		this.id = id;
 		return this;
 	}
 
@@ -58,12 +58,12 @@ public class AuthentifizierungDto extends EntitaetDto
 			return false;
 		}
 		var that = (AuthentifizierungDto) o;
-		return Objects.equals(primaerschluessel, that.primaerschluessel) && Objects.equals(mail, that.mail) && Objects.equals(benutzername, that.benutzername);
+		return Objects.equals(id, that.id) && Objects.equals(mail, that.mail) && Objects.equals(benutzername, that.benutzername);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, mail, benutzername);
+		return Objects.hash(id, mail, benutzername);
 	}
 }

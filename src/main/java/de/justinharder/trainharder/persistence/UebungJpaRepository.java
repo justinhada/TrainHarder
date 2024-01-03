@@ -1,56 +1,43 @@
 package de.justinharder.trainharder.persistence;
 
-import de.justinharder.trainharder.model.domain.Uebung;
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.model.domain.enums.Uebungsart;
-import de.justinharder.trainharder.model.domain.enums.Uebungskategorie;
-import de.justinharder.trainharder.model.repository.UebungRepository;
-import jakarta.transaction.Transactional;
-import lombok.NoArgsConstructor;
+import de.justinharder.trainharder.domain.model.Uebung;
+import de.justinharder.trainharder.domain.model.enums.Uebungsart;
+import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
+import de.justinharder.trainharder.domain.repository.UebungRepository;
+import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Optional;
 
-@NoArgsConstructor
+@Dependent
 public class UebungJpaRepository extends JpaRepository<Uebung> implements UebungRepository
 {
-	@Override
-	public List<Uebung> ermittleAlle()
+	public UebungJpaRepository()
 	{
-		return super.ermittleAlle(Uebung.class);
+		super(Uebung.class);
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungsart(@NonNull Uebungsart uebungsart)
+	public List<Uebung> findeAlleMitUebungsart(@NonNull Uebungsart uebungsart)
 	{
-		var criteriaBuilder = entityManager.getCriteriaBuilder();
-		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
-		var root = criteriaQuery.from(Uebung.class);
-		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungsart"), uebungsart));
-		return entityManager.createQuery(criteriaQuery).getResultList();
+		return entityManager.createQuery("""
+					SELECT uebung
+					FROM Uebung uebung
+					WHERE uebung.uebungsart = :uebungsart""",
+			Uebung.class)
+			.setParameter("uebungsart", uebungsart)
+			.getResultList();
 	}
 
 	@Override
-	public List<Uebung> ermittleAlleZuUebungskategorie(@NonNull Uebungskategorie uebungskategorie)
+	public List<Uebung> findeAlleMitUebungskategorie(@NonNull Uebungskategorie uebungskategorie)
 	{
-		var criteriaBuilder = entityManager.getCriteriaBuilder();
-		var criteriaQuery = criteriaBuilder.createQuery(Uebung.class);
-		var root = criteriaQuery.from(Uebung.class);
-		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("uebungskategorie"), uebungskategorie));
-		return entityManager.createQuery(criteriaQuery).getResultList();
-	}
-
-	@Override
-	public Optional<Uebung> ermittleZuId(@NonNull Primaerschluessel id)
-	{
-		return super.ermittleZuId(Uebung.class, id);
-	}
-
-	@Override
-	@Transactional
-	public Uebung speichereUebung(@NonNull Uebung uebung)
-	{
-		return super.speichereEntitaet(Uebung.class, uebung);
+		return entityManager.createQuery("""
+					SELECT uebung
+					FROM Uebung uebung
+					WHERE uebung.uebungskategorie = :uebungskategorie""",
+				Uebung.class)
+			.setParameter("uebungskategorie", uebungskategorie)
+			.getResultList();
 	}
 }

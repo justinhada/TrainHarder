@@ -1,18 +1,18 @@
 package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Koerpermessung;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
-import de.justinharder.trainharder.domain.model.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.KoerpermessungNichtGefundenException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.model.exceptions.KoerpermessungException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.repository.KoerpermessungRepository;
-import de.justinharder.trainharder.domain.services.mapper.KoerpermessungDtoMapper;
 import de.justinharder.trainharder.domain.services.dto.Koerpermessdaten;
 import de.justinharder.trainharder.domain.services.dto.KoerpermessungDto;
+import de.justinharder.trainharder.domain.services.mapper.KoerpermessungDtoMapper;
 import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,63 +20,71 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Dependent
+@RequiredArgsConstructor
 public class KoerpermessungService
 {
-	private static final String ID = "der ID";
-
+	@NonNull
 	private final KoerpermessungRepository koerpermessungRepository;
+
+	@NonNull
 	private final BenutzerRepository benutzerRepository;
+
+	@NonNull
 	private final KoerpermessungDtoMapper koerpermessungDtoMapper;
 
-	@Inject
-	public KoerpermessungService(KoerpermessungRepository koerpermessungRepository, BenutzerRepository benutzerRepository, KoerpermessungDtoMapper koerpermessungDtoMapper)
+	public List<KoerpermessungDto> findeAlleMitBenutzer(@NonNull String benutzerId)
 	{
-		this.koerpermessungRepository = koerpermessungRepository;
-		this.benutzerRepository = benutzerRepository;
-		this.koerpermessungDtoMapper = koerpermessungDtoMapper;
+		return koerpermessungDtoMapper.mappeAlle(koerpermessungRepository.findeAlleMitBenutzer(new ID(benutzerId)));
 	}
 
-	public List<KoerpermessungDto> ermittleAlleZuBenutzer(@NonNull String benutzerId)
+	public KoerpermessungDto finde(@NonNull String id) throws KoerpermessungException
 	{
-		return koerpermessungDtoMapper.mappeAlle(koerpermessungRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId)));
-	}
-
-	public KoerpermessungDto ermittleZuId(@NonNull String id) throws KoerpermessungNichtGefundenException
-	{
-		return koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
+		return koerpermessungRepository.finde(new ID(id))
 			.map(koerpermessungDtoMapper::mappe)
-			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
+			.orElseThrow(
+				() -> new KoerpermessungException("Die Koerpermessung mit der ID %s existiert nicht!".formatted(id)));
 	}
 
-	public KoerpermessungDto erstelleKoerpermessung(@NonNull Koerpermessdaten koerpermessdaten, @NonNull String benutzerId) throws BenutzerNichtGefundenException
+	public KoerpermessungDto erstelle(@NonNull Koerpermessdaten koerpermessdaten, @NonNull String benutzerId)
+		throws BenutzerException
 	{
-		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, benutzerId));
+		var benutzer = benutzerRepository.finde(new ID(benutzerId))
+			.orElseThrow(
+				() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(benutzerId)));
 
-		return koerpermessungDtoMapper.mappe(koerpermessungRepository.speichereKoerpermessung(new Koerpermessung(
-			new Primaerschluessel(),
+		var koepermessung = new Koerpermessung(
+			new ID(),
 			LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE),
 			new Koerpermasse(
 				new BigDecimal(koerpermessdaten.getKoerpergroesse()),
 				BigDecimal.valueOf(koerpermessdaten.getKoerpergewicht()),
 				BigDecimal.valueOf(koerpermessdaten.getKoerperfettAnteil())),
 			koerpermessdaten.getKalorieneinnahme(),
-			koerpermessdaten.getKalorienverbrauch(),
-			benutzer)));
+			koerpermessdaten.getKalorienverbrauch());
+
+		koerpermessungRepository.speichere(koepermessung);
+		benutzer.fuegeKoerpermessungHinzu(koepermessung);
+		benutzerRepository.speichere(benutzer);
+
+		return koerpermessungDtoMapper.mappe(koepermessung);
 	}
 
-	public KoerpermessungDto aktualisiereKoerpermessung(@NonNull String id, @NonNull Koerpermessdaten koerpermessdaten) throws KoerpermessungNichtGefundenException
+	public KoerpermessungDto aktualisiere(@NonNull String id, @NonNull Koerpermessdaten koerpermessdaten)
+		throws KoerpermessungException
 	{
-		var koerpermessung = koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(FehlermeldungService.wirfKoerpermessungNichtGefundenException(ID, id));
-
-		return koerpermessungDtoMapper.mappe(koerpermessungRepository.speichereKoerpermessung(koerpermessung
+		var koerpermessung = koerpermessungRepository.finde(new ID(id))
+			.orElseThrow(
+				() -> new KoerpermessungException("Die Koerpermessung mit der ID %s existiert nicht!".formatted(id)))
 			.setDatum(LocalDate.parse(koerpermessdaten.getDatum(), DateTimeFormatter.ISO_DATE))
 			.setKoerpermasse(new Koerpermasse(
 				new BigDecimal(koerpermessdaten.getKoerpergroesse()),
 				BigDecimal.valueOf(koerpermessdaten.getKoerpergewicht()),
 				BigDecimal.valueOf(koerpermessdaten.getKoerperfettAnteil())))
 			.setKalorieneinnahme(koerpermessdaten.getKalorieneinnahme())
-			.setKalorienverbrauch(koerpermessdaten.getKalorienverbrauch())));
+			.setKalorienverbrauch(koerpermessdaten.getKalorienverbrauch());
+
+		koerpermessungRepository.speichere(koerpermessung);
+
+		return koerpermessungDtoMapper.mappe(koerpermessung);
 	}
 }

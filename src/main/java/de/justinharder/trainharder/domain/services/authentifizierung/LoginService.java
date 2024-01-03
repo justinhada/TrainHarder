@@ -1,21 +1,20 @@
 package de.justinharder.trainharder.domain.services.authentifizierung;
 
 import de.justinharder.trainharder.domain.model.embeddables.Passwort;
-import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungNichtGefundenException;
+import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.model.exceptions.PasswortUnsicherException;
 import de.justinharder.trainharder.domain.repository.AuthentifizierungRepository;
-import de.justinharder.trainharder.domain.services.FehlermeldungService;
 import de.justinharder.trainharder.domain.services.authentifizierung.passwort.PasswortCheck;
 import de.justinharder.trainharder.domain.services.authentifizierung.passwort.PasswortHasher;
+import de.justinharder.trainharder.domain.services.dto.AuthentifizierungDto;
 import de.justinharder.trainharder.domain.services.mail.Mail;
 import de.justinharder.trainharder.domain.services.mail.MailAdresse;
 import de.justinharder.trainharder.domain.services.mail.MailServer;
 import de.justinharder.trainharder.domain.services.mapper.AuthentifizierungDtoMapper;
-import de.justinharder.trainharder.domain.services.dto.AuthentifizierungDto;
 import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.NoSuchAlgorithmException;
@@ -24,49 +23,44 @@ import java.util.UUID;
 
 @Slf4j
 @Dependent
+@RequiredArgsConstructor
 public class LoginService
 {
-	private static final String LOGIN_EXCEPTION = "Der Benutzername oder das Passwort ist leider falsch!";
-
+	@NonNull
 	private final AuthentifizierungRepository authentifizierungRepository;
+
+	@NonNull
 	private final AuthentifizierungDtoMapper authentifizierungDtoMapper;
+
+	@NonNull
 	private final PasswortHasher passwortHasher;
+
+	@NonNull
 	private final PasswortCheck passwortCheck;
+
+	@NonNull
 	private final MailServer mailServer;
 
-	@Inject
-	public LoginService(
-		AuthentifizierungRepository authentifizierungRepository,
-		AuthentifizierungDtoMapper authentifizierungDtoMapper,
-		PasswortHasher passwortHasher,
-		PasswortCheck passwortCheck,
-		MailServer mailServer)
+	public AuthentifizierungDto login(@NonNull String benutzername, @NonNull String passwort)
+		throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
 	{
-		this.authentifizierungRepository = authentifizierungRepository;
-		this.authentifizierungDtoMapper = authentifizierungDtoMapper;
-		this.passwortHasher = passwortHasher;
-		this.passwortCheck = passwortCheck;
-		this.mailServer = mailServer;
-	}
-
-	public AuthentifizierungDto login(@NonNull String benutzername, @NonNull String passwort) throws InvalidKeySpecException, NoSuchAlgorithmException, LoginException
-	{
-		var authentifizierung = authentifizierungRepository.ermittleZuBenutzername(benutzername)
-			.orElseThrow(() -> new LoginException(LOGIN_EXCEPTION));
+		var authentifizierung = authentifizierungRepository.findeMitBenutzername(benutzername)
+			.orElseThrow(() -> new LoginException("Der Benutzername oder das Passwort ist leider falsch!"));
 
 		if (!passwortHasher.check(authentifizierung.getPasswort(), passwort))
 		{
-			throw new LoginException(LOGIN_EXCEPTION);
+			throw new LoginException("Der Benutzername oder das Passwort ist leider falsch!");
 		}
 
 		return authentifizierungDtoMapper.mappe(authentifizierung);
 	}
 
-	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid) throws AuthentifizierungNichtGefundenException
+	public void sendeResetMail(@NonNull String mail, @NonNull UUID resetUuid) throws AuthentifizierungException
 	{
-		var authentifizierung = authentifizierungRepository.ermittleZuMail(mail)
-			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der Mail", mail));
-		authentifizierungRepository.speichereAuthentifizierung(authentifizierung.setResetUuid(resetUuid));
+		var authentifizierung = authentifizierungRepository.findeMitMail(mail)
+			.orElseThrow(() -> new AuthentifizierungException(
+				"Die Authentifizierung mit der Mail %s existiert nicht!".formatted(mail)));
+		authentifizierungRepository.speichere(authentifizierung.setResetUuid(resetUuid));
 
 		var mail1 = new Mail(
 			new MailAdresse("trainharder2021@gmail.com", "TrainHarder-Team"),
@@ -84,18 +78,19 @@ public class LoginService
 	}
 
 	public void resetPassword(@NonNull UUID resetUuid, @NonNull String passwort)
-		throws PasswortUnsicherException, AuthentifizierungNichtGefundenException, InvalidKeySpecException, NoSuchAlgorithmException
+		throws PasswortUnsicherException, AuthentifizierungException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		if (passwortCheck.isUnsicher(passwort))
 		{
 			throw new PasswortUnsicherException("Das Passwort ist unsicher!");
 		}
 
-		var authentifizierung = authentifizierungRepository.ermittleZuResetUuid(resetUuid)
-			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException("der ResetUUID", resetUuid.toString()));
+		var authentifizierung = authentifizierungRepository.findeMitResetUuid(resetUuid)
+			.orElseThrow(() -> new AuthentifizierungException(
+				"Die Authentifizierung mit der ResetUUID %s existiert nicht!".formatted(resetUuid)));
 
 		var salt = authentifizierung.getPasswort().getSalt();
-		authentifizierungRepository.speichereAuthentifizierung(authentifizierung
+		authentifizierungRepository.speichere(authentifizierung
 			.setPasswort(new Passwort(salt, passwortHasher.hash(passwort, salt)))
 			.setResetUuid(null));
 	}

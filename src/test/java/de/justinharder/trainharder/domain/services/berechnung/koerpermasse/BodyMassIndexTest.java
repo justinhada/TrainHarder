@@ -9,7 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BodyMassIndexSollte
+@DisplayName("BodyMassIndex sollte")
+class BodyMassIndexTest
 {
 	@Test
 	@DisplayName("null validieren")

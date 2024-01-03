@@ -1,18 +1,16 @@
 package de.justinharder.trainharder.domain.services;
 
-import de.justinharder.trainharder.domain.model.Authentifizierung;
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
-import de.justinharder.trainharder.domain.services.mapper.BenutzerDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.domain.services.dto.BenutzerDto;
 import de.justinharder.trainharder.domain.services.dto.BenutzerangabeDto;
 import de.justinharder.trainharder.domain.services.dto.Benutzerdaten;
 import de.justinharder.trainharder.domain.services.dto.NameDto;
+import de.justinharder.trainharder.domain.services.mapper.BenutzerDtoMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,13 +20,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class BenutzerServiceSollte
+@DisplayName("BenutzerService sollte")
+class BenutzerServiceTest
 {
 	private BenutzerService sut;
 
@@ -49,69 +48,19 @@ class BenutzerServiceSollte
 	@AfterEach
 	void reset()
 	{
-		Testdaten.BENUTZER_JUSTIN.setBenutzerangabe(Testdaten.BENUTZERANGABE_JUSTIN);
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltAlle(List<Benutzer> benutzer)
-	{
-		when(benutzerRepository.ermittleAlle()).thenReturn(benutzer);
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(String id, Optional<Benutzer> benutzer)
-	{
-		when(benutzerRepository.ermittleZuId(new ID(id))).thenReturn(benutzer);
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(String id)
-	{
-		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.empty());
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(String authentifizierungId, Optional<Authentifizierung> authentifizierung)
-	{
-		when(authentifizierungRepository.ermittleZuId(new ID(authentifizierungId))).thenReturn(authentifizierung);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung(String authentifizierungId)
-	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId, Optional.empty());
-	}
-
-	private void angenommenDasBenutzerRepositorySpeichertBenutzer(Benutzer benutzer)
-	{
-		when(benutzerRepository.speichereBenutzer(any(Benutzer.class))).thenReturn(benutzer);
-	}
-
-	private void angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(Benutzer benutzer, BenutzerDto benutzerDto)
-	{
-		when(benutzerDtoMapper.mappe(benutzer)).thenReturn(benutzerDto);
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(String authentifizierungId, Optional<Benutzer> benutzer)
-	{
-		when(benutzerRepository.ermittleZuAuthentifizierung(new ID(authentifizierungId))).thenReturn(benutzer);
-	}
-
-	private void angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(String authentifizierungId)
-	{
-		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.empty());
-	}
-
-	private void angenommenDerBenutzerDtoMapperMapptAlleZuBenutzerDtos(List<Benutzer> benutzer, List<BenutzerDto> benutzerDtos)
-	{
-		when(benutzerDtoMapper.mappeAlle(benutzer)).thenReturn(benutzerDtos);
+		BENUTZER_JUSTIN.setBenutzerangabe(BENUTZERANGABE_JUSTIN);
 	}
 
 	@Test
-	@DisplayName("alle Benutzer ermitteln")
+	@DisplayName("alle finden")
 	void test01()
 	{
-		var erwartet = List.of(Testdaten.BENUTZER_DTO_JUSTIN, Testdaten.BENUTZER_DTO_EDUARD);
-		var benutzer = List.of(Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD);
-		angenommenDasBenutzerRepositoryErmitteltAlle(benutzer);
-		angenommenDerBenutzerDtoMapperMapptAlleZuBenutzerDtos(benutzer, erwartet);
+		var erwartet = List.of(BENUTZER_DTO_JUSTIN, BENUTZER_DTO_EDUARD);
+		var benutzer = List.of(BENUTZER_JUSTIN, BENUTZER_EDUARD);
+		when(benutzerRepository.findeAlle()).thenReturn(benutzer);
+		when(benutzerDtoMapper.mappeAlle(benutzer)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleAlle()).isEqualTo(erwartet);
+		assertThat(sut.findeAlle()).isEqualTo(erwartet);
 	}
 
 	@Test
@@ -120,129 +69,152 @@ class BenutzerServiceSollte
 	{
 		var benutzerdaten = new Benutzerdaten();
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuAuthentifizierung(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(null, "authenfitizierungId")),
-			() -> assertThrows(NullPointerException.class, () -> sut.erstelleBenutzer(benutzerdaten, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer(null, benutzerdaten)),
-			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereBenutzer("id", null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeMitAuthentifizierung(null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.erstelle(null, AUTHENTIFIZIERUNG_DTO_JUSTIN.getId())),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelle(benutzerdaten, null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiere(null, benutzerdaten)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiere(BENUTZER_DTO_JUSTIN.getId(), null)));
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zu ID ermittelt wird")
+	@DisplayName("BenutzerException werfen, wenn kein Benutzer zu ID ermittelt wird")
 	void test03()
 	{
-		var id = new ID().getId().toString();
-		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
+		var id = new ID().getWert().toString();
+		when(benutzerRepository.finde(new ID(id))).thenReturn(Optional.empty());
 
-		assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuId(id));
-		verify(benutzerRepository).ermittleZuId(new ID(id));
+		assertThrows(BenutzerException.class, () -> sut.finde(id));
+		verify(benutzerRepository).finde(new ID(id));
 	}
 
 	@Test
-	@DisplayName("einen Benutzer zu ID ermitteln")
-	void test04() throws BenutzerNichtGefundenException
+	@DisplayName("finden")
+	void test04() throws BenutzerException
 	{
-		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
-		var id = new ID().getId().toString();
-		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
-		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
+		when(benutzerRepository.finde(BENUTZER_JUSTIN.getId())).thenReturn(Optional.of(BENUTZER_JUSTIN));
+		when(benutzerDtoMapper.mappe(BENUTZER_JUSTIN)).thenReturn(BENUTZER_DTO_JUSTIN);
 
-		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
-		verify(benutzerRepository).ermittleZuId(new ID(id));
-		verify(benutzerDtoMapper).mappe(benutzer);
+		assertThat(sut.finde(BENUTZER_DTO_JUSTIN.getId())).isEqualTo(BENUTZER_DTO_JUSTIN);
+		verify(benutzerRepository).finde(BENUTZER_JUSTIN.getId());
+		verify(benutzerDtoMapper).mappe(BENUTZER_JUSTIN);
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
+	@DisplayName("BenutzerException werfen, wenn kein Benutzer zur Authentifizierung ermittelt werden kann")
 	void test05()
 	{
-		var authentifizierungId = new ID().getId().toString();
-		angenommenDasBenutzerRepositoryGibtKeinenBenutzerZurAuthentifizierungZurueck(authentifizierungId);
+		var authentifizierungId = new ID().getWert().toString();
+		when(benutzerRepository.findeMitAuthentifizierung(new ID(authentifizierungId))).thenReturn(Optional.empty());
 
-		assertThrows(BenutzerNichtGefundenException.class, () -> sut.ermittleZuAuthentifizierung(authentifizierungId));
-		verify(benutzerRepository).ermittleZuAuthentifizierung(new ID(authentifizierungId));
+		assertThrows(BenutzerException.class, () -> sut.findeMitAuthentifizierung(authentifizierungId));
+		verify(benutzerRepository).findeMitAuthentifizierung(new ID(authentifizierungId));
 	}
 
 	@Test
 	@DisplayName("einen Benutzer zur AuthentifizierungID ermitteln")
-	void test06() throws BenutzerNichtGefundenException
+	void test06() throws BenutzerException
 	{
-		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
-		var authentifizierungId = new ID().getId().toString();
-		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		angenommenDasBenutzerRepositoryGibtBenutzerZuAuthentifizierungZurueck(authentifizierungId, Optional.of(benutzer));
-		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
+		var authentifizierungId = new ID().getWert().toString();
+		when(benutzerRepository.findeMitAuthentifizierung(new ID(authentifizierungId))).thenReturn(
+			Optional.of(BENUTZER_JUSTIN));
+		when(benutzerDtoMapper.mappe(BENUTZER_JUSTIN)).thenReturn(BENUTZER_DTO_JUSTIN);
 
-		assertThat(sut.ermittleZuAuthentifizierung(authentifizierungId)).isEqualTo(erwartet);
-		verify(benutzerRepository).ermittleZuAuthentifizierung(new ID(authentifizierungId));
-		verify(benutzerDtoMapper).mappe(benutzer);
+		assertThat(sut.findeMitAuthentifizierung(authentifizierungId)).isEqualTo(BENUTZER_DTO_JUSTIN);
+		verify(benutzerRepository).findeMitAuthentifizierung(new ID(authentifizierungId));
+		verify(benutzerDtoMapper).mappe(BENUTZER_JUSTIN);
 	}
 
 	@Test
-	@DisplayName("AuthentifizierungNichtGefundenException werfen, wenn die AuthentifizierungID nicht existiert")
+	@DisplayName("AuthentifizierungException werfen, wenn die AuthentifizierungID nicht existiert")
 	void test07()
 	{
-		var authentifizierungId = new ID().getId().toString();
-		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierung(authentifizierungId);
+		when(authentifizierungRepository.finde(AUTHENTIFIZIERUNG_JUSTIN.getId())).thenReturn(Optional.empty());
 
-		assertThrows(AuthentifizierungNichtGefundenException.class, () -> sut.erstelleBenutzer(new Benutzerdaten(), authentifizierungId));
-		verify(authentifizierungRepository).ermittleZuId(new ID(authentifizierungId));
+		assertThrows(AuthentifizierungException.class, () -> sut.erstelle(
+			new Benutzerdaten(
+				"Justin",
+				"Harder",
+				"1998-12-06",
+				"MAENNLICH",
+				"BEGINNER",
+				"GUT",
+				"GUT",
+				"MITTELMAESSIG",
+				"NEIN",
+				"GUT"),
+			AUTHENTIFIZIERUNG_DTO_JUSTIN.getId()));
+		verify(authentifizierungRepository).finde(AUTHENTIFIZIERUNG_JUSTIN.getId());
 	}
 
 	@Test
 	@DisplayName("einen neuen Benutzer erstellen")
-	void test08() throws AuthentifizierungNichtGefundenException
+	void test08() throws AuthentifizierungException
 	{
-		var erwartet = Testdaten.BENUTZER_DTO_JUSTIN;
-		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		var benutzerdaten = new Benutzerdaten("Justin", "Harder", "1998-12-06", "MAENNLICH", "BEGINNER", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT");
-		var authentifizierungId = new ID().getId().toString();
-		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuId(authentifizierungId, Optional.of(authentifizierung));
-		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
-		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
+		var benutzerdaten = new Benutzerdaten(
+			"Justin",
+			"Harder",
+			"1998-12-06",
+			"MAENNLICH",
+			"BEGINNER",
+			"GUT",
+			"GUT",
+			"MITTELMAESSIG",
+			"NEIN",
+			"GUT");
+		when(authentifizierungRepository.finde(AUTHENTIFIZIERUNG_JUSTIN.getId())).thenReturn(
+			Optional.of(AUTHENTIFIZIERUNG_JUSTIN));
+		when(benutzerDtoMapper.mappe(any(Benutzer.class))).thenReturn(BENUTZER_DTO_JUSTIN);
 
-		assertThat(sut.erstelleBenutzer(benutzerdaten, authentifizierungId)).isEqualTo(erwartet);
-		verify(authentifizierungRepository).ermittleZuId(new ID(authentifizierungId));
-		verify(authentifizierungRepository).speichereAuthentifizierung(authentifizierung);
-		verify(benutzerDtoMapper).mappe(benutzer);
+		assertThat(sut.erstelle(benutzerdaten, AUTHENTIFIZIERUNG_DTO_JUSTIN.getId())).isEqualTo(BENUTZER_DTO_JUSTIN);
+		verify(authentifizierungRepository).finde(AUTHENTIFIZIERUNG_JUSTIN.getId());
+		verify(benutzerRepository).speichere(any(Benutzer.class));
+		verify(benutzerDtoMapper).mappe(any(Benutzer.class));
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
+	@DisplayName("BenutzerException werfen, wenn die BenutzerID nicht existiert")
 	void test09()
 	{
-		var id = new ID().getId().toString();
-		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(id);
+		var id = new ID().getWert().toString();
+		when(benutzerRepository.finde(new ID(id))).thenReturn(Optional.empty());
 
-		assertThrows(BenutzerNichtGefundenException.class, () -> sut.aktualisiereBenutzer(id, new Benutzerdaten()));
-		verify(benutzerRepository).ermittleZuId(new ID(id));
+		assertThrows(BenutzerException.class, () -> sut.aktualisiere(id, new Benutzerdaten()));
+		verify(benutzerRepository).finde(new ID(id));
 	}
 
 	@Test
 	@DisplayName("einen Benutzer aktualisieren")
-	void test10() throws BenutzerNichtGefundenException
+	void test10() throws BenutzerException
 	{
-		var benutzer = Testdaten.BENUTZER_JUSTIN;
-		var id = benutzer.getId().getId().toString();
+		var benutzer = BENUTZER_JUSTIN;
+		var id = benutzer.getId().getWert().toString();
 		var erwartet = new BenutzerDto(
 			id,
 			new NameDto("Justin", "Harder"),
 			LocalDate.of(1998, 12, 6),
 			new BenutzerangabeDto("MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT")
 				.setKraftlevel("CLASS_5"),
-			Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN,
-			List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN));
-		var benutzerdaten = new Benutzerdaten("Justin", "Harder", "1998-12-06", "MAENNLICH", "FORTGESCHRITTEN", "GUT", "GUT", "MITTELMAESSIG", "NEIN", "GUT");
-		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(id, Optional.of(benutzer));
-		angenommenDasBenutzerRepositorySpeichertBenutzer(benutzer);
-		angenommenDerBenutzerDtoMapperMapptZuBenutzerDto(benutzer, erwartet);
+			AUTHENTIFIZIERUNG_DTO_JUSTIN,
+			List.of(KOERPERMESSUNG_DTO_JUSTIN));
+		var benutzerdaten = new Benutzerdaten(
+			"Justin",
+			"Harder",
+			"1998-12-06",
+			"MAENNLICH",
+			"FORTGESCHRITTEN",
+			"GUT",
+			"GUT",
+			"MITTELMAESSIG",
+			"NEIN",
+			"GUT");
+		when(benutzerRepository.finde(new ID(id))).thenReturn(Optional.of(benutzer));
+		when(benutzerDtoMapper.mappe(benutzer)).thenReturn(erwartet);
 
-		assertThat(sut.aktualisiereBenutzer(id, benutzerdaten)).isEqualTo(erwartet);
-		verify(benutzerRepository).ermittleZuId(new ID(id));
-		verify(benutzerRepository).speichereBenutzer(benutzer);
+		assertThat(sut.aktualisiere(id, benutzerdaten)).isEqualTo(erwartet);
+		verify(benutzerRepository).finde(new ID(id));
+		verify(benutzerRepository).speichere(benutzer);
 		verify(benutzerDtoMapper).mappe(benutzer);
 	}
 }

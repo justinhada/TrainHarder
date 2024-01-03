@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class VolumenrechnerSollte
+@DisplayName("Volumenrechner sollte")
+class VolumenrechnerTest
 {
 	private Volumenrechner sut;
 

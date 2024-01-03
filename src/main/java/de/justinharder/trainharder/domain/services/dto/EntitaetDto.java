@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.domain.services.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.io.Serial;
@@ -9,14 +10,16 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class EntitaetDto implements Serializable
 {
 	@Serial
 	private static final long serialVersionUID = -2922797523319378504L;
 
-	protected String primaerschluessel;
+	@NonNull
+	protected String id;
 
-	public abstract EntitaetDto setPrimaerschluessel(@NonNull String primaerschluessel);
+	public abstract EntitaetDto setId(@NonNull String id);
 
 	public abstract boolean equals(Object o);
 

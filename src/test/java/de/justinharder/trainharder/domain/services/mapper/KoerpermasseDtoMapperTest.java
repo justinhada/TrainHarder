@@ -1,15 +1,16 @@
 package de.justinharder.trainharder.domain.services.mapper;
 
-import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class KoerpermasseDtoMapperSollte
+@DisplayName("KoerpermasseDtoMapper sollte")
+class KoerpermasseDtoMapperTest
 {
 	private KoerpermasseDtoMapper sut;
 
@@ -20,12 +21,12 @@ class KoerpermasseDtoMapperSollte
 	}
 
 	@Test
-	@DisplayName("Koerpermasse zu KoerpermasseDto mappen")
+	@DisplayName("mappen")
 	void test01()
 	{
 		assertAll(
-			() -> assertThat(sut.mappe(Testdaten.KOERPERMASSE_JUSTIN)).isEqualTo(Testdaten.KOERPERMASSE_DTO_JUSTIN),
-			() -> assertThat(sut.mappe(Testdaten.KOERPERMASSE_EDUARD)).isEqualTo(Testdaten.KOERPERMASSE_DTO_EDUARD));
+			() -> assertThat(sut.mappe(KOERPERMASSE_JUSTIN)).isEqualTo(KOERPERMASSE_DTO_JUSTIN),
+			() -> assertThat(sut.mappe(KOERPERMASSE_EDUARD)).isEqualTo(KOERPERMASSE_DTO_EDUARD));
 	}
 
 	@Test

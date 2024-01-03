@@ -23,7 +23,7 @@ public class KoerpermessungDtoMapper implements DtoMapper<Koerpermessung, Koerpe
 	public KoerpermessungDto mappe(@NonNull Koerpermessung koerpermessung)
 	{
 		return new KoerpermessungDto(
-			koerpermessung.getPrimaerschluessel().getId().toString(),
+			koerpermessung.getId().getWert().toString(),
 			koerpermessung.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			koerpermasseDtoMapper.mappe(koerpermessung.getKoerpermasse()),
 			koerpermessung.getKalorieneinnahme(),

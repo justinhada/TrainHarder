@@ -11,9 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class KraftwertDtoSollte
+@DisplayName("KraftwertDto sollte")
+class KraftwertDtoTest
 {
-	private static final String ID = new ID().getId().toString();
+	private static final String ID = new ID().getWert().toString();
 	private static final String DATUM = "22.08.2020";
 	private static final String GEWICHT = "100.00";
 	private static final String WIEDERHOLUNGEN = "1RM";

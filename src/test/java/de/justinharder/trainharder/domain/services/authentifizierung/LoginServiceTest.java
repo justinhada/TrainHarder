@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.domain.services.authentifizierung;
 
 import de.justinharder.trainharder.domain.model.Authentifizierung;
-import de.justinharder.trainharder.domain.model.embeddables.Passwort;
 import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.model.exceptions.PasswortUnsicherException;
@@ -12,8 +11,6 @@ import de.justinharder.trainharder.domain.services.mail.Mail;
 import de.justinharder.trainharder.domain.services.mail.MailAdresse;
 import de.justinharder.trainharder.domain.services.mail.MailServer;
 import de.justinharder.trainharder.domain.services.mapper.AuthentifizierungDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.domain.services.dto.AuthentifizierungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,12 +20,14 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-class LoginServiceSollte
+@DisplayName("LoginService sollte")
+class LoginServiceTest
 {
 	private LoginService sut;
 
@@ -47,57 +46,12 @@ class LoginServiceSollte
 		passwortCheck = mock(PasswortCheck.class);
 		mailServer = mock(MailServer.class);
 
-		sut = new LoginService(authentifizierungRepository, authentifizierungDtoMapper, passwortHasher, passwortCheck, mailServer);
-	}
-
-	private void angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(Authentifizierung authentifizierung, AuthentifizierungDto authentifizierungDto)
-	{
-		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(authentifizierungDto);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(String mail, Optional<Authentifizierung> authentifizierung)
-	{
-		when(authentifizierungRepository.findeMitMail(mail)).thenReturn(authentifizierung);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuMail(String mail)
-	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(mail, Optional.empty());
-	}
-
-	private void angenommenDasPasswortIstUnsicher(String passwort, boolean unsicher)
-	{
-		when(passwortCheck.isUnsicher(passwort)).thenReturn(unsicher);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(UUID resetUuid, Optional<Authentifizierung> authentifizierung)
-	{
-		when(authentifizierungRepository.findeMitResetUuid(resetUuid)).thenReturn(authentifizierung);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(UUID resetUuid)
-	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.empty());
-	}
-
-	private void angenommenDerPasswortHasherChecktPasswort(Passwort aktuellesPasswort, String passwort, boolean check) throws InvalidKeySpecException, NoSuchAlgorithmException
-	{
-		when(passwortHasher.check(aktuellesPasswort, passwort)).thenReturn(check);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(String benutzername, Optional<Authentifizierung> authentifizierung)
-	{
-		when(authentifizierungRepository.findeMitBenutzername(benutzername)).thenReturn(authentifizierung);
-	}
-
-	private void angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(String benutzername)
-	{
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.empty());
-	}
-
-	private void angenommenDerPasswortHasherHashtPasswort(String passwort, String salt, String hash) throws InvalidKeySpecException, NoSuchAlgorithmException
-	{
-		when(passwortHasher.hash(passwort, salt)).thenReturn(hash);
+		sut = new LoginService(
+			authentifizierungRepository,
+			authentifizierungDtoMapper,
+			passwortHasher,
+			passwortCheck,
+			mailServer);
 	}
 
 	@Test
@@ -118,9 +72,9 @@ class LoginServiceSollte
 	@DisplayName("LoginException werfen, wenn der Benutzername nicht existiert")
 	void test02()
 	{
-		var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
+		var benutzername = AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
 		var passwort = "Justinharder#98";
-		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuBenutzername(benutzername);
+		when(authentifizierungRepository.findeMitBenutzername(benutzername)).thenReturn(Optional.empty());
 
 		assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
 		verify(authentifizierungRepository).findeMitBenutzername(benutzername);
@@ -130,11 +84,11 @@ class LoginServiceSollte
 	@DisplayName("LoginException werfen, wenn das Passwort falsch ist")
 	void test03() throws InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var authentifizierung = AUTHENTIFIZIERUNG_JUSTIN;
 		var benutzername = authentifizierung.getBenutzername();
 		var passwort = "Justinharder#98";
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.of(authentifizierung));
-		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, false);
+		when(authentifizierungRepository.findeMitBenutzername(benutzername)).thenReturn(Optional.of(authentifizierung));
+		when(passwortHasher.check(authentifizierung.getPasswort(), passwort)).thenReturn(false);
 
 		assertThrows(LoginException.class, () -> sut.login(benutzername, passwort));
 		verify(authentifizierungRepository).findeMitBenutzername(benutzername);
@@ -145,13 +99,13 @@ class LoginServiceSollte
 	@DisplayName("einen Benutzer einloggen")
 	void test04() throws LoginException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		var erwartet = Testdaten.AUTHENTIFIZIERUNG_DTO_JUSTIN;
-		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
-		var benutzername = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
+		var erwartet = AUTHENTIFIZIERUNG_DTO_JUSTIN;
+		var authentifizierung = AUTHENTIFIZIERUNG_JUSTIN;
+		var benutzername = AUTHENTIFIZIERUNG_JUSTIN.getBenutzername();
 		var passwort = "Justinharder#98";
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuBenutzername(benutzername, Optional.of(authentifizierung));
-		angenommenDerPasswortHasherChecktPasswort(authentifizierung.getPasswort(), passwort, true);
-		angenommenDerAuthentifizierungDtoMapperMapptZuAuthentifizierungDto(authentifizierung, erwartet);
+		when(authentifizierungRepository.findeMitBenutzername(benutzername)).thenReturn(Optional.of(authentifizierung));
+		when(passwortHasher.check(authentifizierung.getPasswort(), passwort)).thenReturn(true);
+		when(authentifizierungDtoMapper.mappe(authentifizierung)).thenReturn(erwartet);
 
 		var ergebnis = sut.login(benutzername, passwort);
 
@@ -165,9 +119,9 @@ class LoginServiceSollte
 	@DisplayName("AuthentifizierungException werfen, wenn die Mail nicht existiert")
 	void test05()
 	{
-		var mail = Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail();
+		var mail = AUTHENTIFIZIERUNG_JUSTIN.getMail();
 		var resetUuid = UUID.randomUUID();
-		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuMail(mail);
+		when(authentifizierungRepository.findeMitMail(mail)).thenReturn(Optional.empty());
 
 		assertThrows(AuthentifizierungException.class, () -> sut.sendeResetMail(mail, resetUuid));
 		verify(authentifizierungRepository).findeMitMail(mail);
@@ -177,9 +131,9 @@ class LoginServiceSollte
 	@DisplayName("die Reset-Mail senden")
 	void test06() throws AuthentifizierungException
 	{
-		var authentifizierung = Testdaten.AUTHENTIFIZIERUNG_JUSTIN;
+		var authentifizierung = AUTHENTIFIZIERUNG_JUSTIN;
 		var mail = authentifizierung.getMail();
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuMail(mail, Optional.of(authentifizierung));
+		when(authentifizierungRepository.findeMitMail(mail)).thenReturn(Optional.of(authentifizierung));
 
 		var resetUuid = UUID.randomUUID();
 		sut.sendeResetMail(mail, resetUuid);
@@ -205,7 +159,7 @@ class LoginServiceSollte
 	{
 		var passwort = "UnsicheresPasswort";
 		var resetUuid = UUID.randomUUID();
-		angenommenDasPasswortIstUnsicher(passwort, true);
+		when(passwortCheck.isUnsicher(passwort)).thenReturn(true);
 
 		assertThrows(PasswortUnsicherException.class, () -> sut.resetPassword(resetUuid, passwort));
 	}
@@ -216,30 +170,32 @@ class LoginServiceSollte
 	{
 		var resetUuid = UUID.randomUUID();
 		var passwort = "SicheresPasswort";
-		angenommenDasPasswortIstUnsicher(passwort, false);
-		angenommenDasAuthentifizierungRepositoryErmitteltKeineAuthentifizierungZuResetUuid(resetUuid);
+		when(passwortCheck.isUnsicher(passwort)).thenReturn(false);
+		when(authentifizierungRepository.findeMitResetUuid(resetUuid)).thenReturn(Optional.empty());
 
 		assertThrows(AuthentifizierungException.class, () -> sut.resetPassword(resetUuid, passwort));
 	}
 
 	@Test
 	@DisplayName("das Passwort zurücksetzen")
-	void test09() throws PasswortUnsicherException, AuthentifizierungException, InvalidKeySpecException, NoSuchAlgorithmException
+	void test09()
+		throws PasswortUnsicherException, AuthentifizierungException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
 		var authentifizierung = new Authentifizierung(
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getId(),
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getMail(),
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
-			Testdaten.AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
+			AUTHENTIFIZIERUNG_JUSTIN.getId(),
+			AUTHENTIFIZIERUNG_JUSTIN.getMail(),
+			AUTHENTIFIZIERUNG_JUSTIN.getBenutzername(),
+			AUTHENTIFIZIERUNG_JUSTIN.getPasswort());
 		var resetUuid = UUID.randomUUID();
 		var passwort = "Justinharder#98";
-		angenommenDasPasswortIstUnsicher(passwort, false);
-		angenommenDasAuthentifizierungRepositoryErmitteltAuthentifizierungZuResetUuid(resetUuid, Optional.of(authentifizierung));
-		angenommenDerPasswortHasherHashtPasswort(passwort, authentifizierung.getPasswort().getSalt(), Testdaten.PASSWORT.getPasswortHash());
+		when(passwortCheck.isUnsicher(passwort)).thenReturn(false);
+		when(authentifizierungRepository.findeMitResetUuid(resetUuid)).thenReturn(Optional.of(authentifizierung));
+		when(passwortHasher.hash(passwort, authentifizierung.getPasswort().getSalt())).thenReturn(
+			PASSWORT.getPasswortHash());
 
 		sut.resetPassword(resetUuid, passwort);
 
-		assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT);
+		assertThat(authentifizierung.getPasswort()).isEqualTo(PASSWORT);
 		verify(passwortCheck).isUnsicher(passwort);
 		verify(authentifizierungRepository).findeMitResetUuid(resetUuid);
 		verify(passwortHasher).hash(passwort, authentifizierung.getPasswort().getSalt());

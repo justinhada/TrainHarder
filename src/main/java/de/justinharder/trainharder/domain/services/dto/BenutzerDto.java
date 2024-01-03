@@ -27,14 +27,14 @@ public class BenutzerDto extends EntitaetDto
 	{}
 
 	public BenutzerDto(
-		@NonNull String primaerschluessel,
+		@NonNull String id,
 		@NonNull NameDto name,
 		@NonNull LocalDate geburtsdatum,
 		@NonNull BenutzerangabeDto benutzerangabe,
 		@NonNull AuthentifizierungDto authentifizierung,
 		@NonNull List<KoerpermessungDto> koerpermessungen)
 	{
-		super(primaerschluessel);
+		super(id);
 		this.name = name;
 		this.geburtsdatum = geburtsdatum;
 		this.benutzerangabe = benutzerangabe;
@@ -48,9 +48,9 @@ public class BenutzerDto extends EntitaetDto
 	}
 
 	@Override
-	public BenutzerDto setPrimaerschluessel(@NonNull String primaerschluessel)
+	public BenutzerDto setId(@NonNull String id)
 	{
-		this.primaerschluessel = primaerschluessel;
+		this.id = id;
 		return this;
 	}
 
@@ -104,7 +104,7 @@ public class BenutzerDto extends EntitaetDto
 			return false;
 		}
 		var benutzerDto = (BenutzerDto) o;
-		return Objects.equals(primaerschluessel, benutzerDto.primaerschluessel)
+		return Objects.equals(id, benutzerDto.id)
 			&& Objects.equals(name, benutzerDto.name)
 			&& Objects.equals(geburtsdatum, benutzerDto.geburtsdatum)
 			&& Objects.equals(benutzerangabe, benutzerDto.benutzerangabe)
@@ -115,6 +115,6 @@ public class BenutzerDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, name, geburtsdatum, benutzerangabe, authentifizierung, koerpermessungen);
+		return Objects.hash(id, name, geburtsdatum, benutzerangabe, authentifizierung, koerpermessungen);
 	}
 }

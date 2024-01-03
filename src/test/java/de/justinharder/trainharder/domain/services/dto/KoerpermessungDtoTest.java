@@ -14,9 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class KoerpermessungDtoSollte
+@DisplayName("KoerpermessungDto sollte")
+class KoerpermessungDtoTest
 {
-	private static final String ID = new ID().getId().toString();
+	private static final String ID = new ID().getWert().toString();
 	private static final String DATUM = LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 	private static final KoerpermasseDto
 		KOERPERMASSE_DTO = new KoerpermasseDto("178", "90.00", "20.0", "72.00", "28.4", "22.8");
@@ -74,9 +75,12 @@ class KoerpermessungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(null, DATUM, KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
-			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(ID, null, KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
-			() -> assertThrows(NullPointerException.class, () -> new KoerpermessungDto(ID, DATUM, null, KALORIENEINNAHME, KALORIENVERBRAUCH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new KoerpermessungDto(null, DATUM, KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new KoerpermessungDto(ID, null, KOERPERMASSE_DTO, KALORIENEINNAHME, KALORIENVERBRAUCH)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new KoerpermessungDto(ID, DATUM, null, KALORIENEINNAHME, KALORIENVERBRAUCH)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setId(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setDatum(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setKoerpermasse(null)));

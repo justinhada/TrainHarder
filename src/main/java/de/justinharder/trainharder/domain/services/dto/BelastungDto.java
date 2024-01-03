@@ -22,21 +22,21 @@ public class BelastungDto extends EntitaetDto
 	{}
 
 	public BelastungDto(
-		@NonNull String primaerschluessel,
+		@NonNull String id,
 		@NonNull GrunduebungBelastungDto grunduebungBelastung,
 		@NonNull OberkoerperBelastungDto oberkoerperBelastung,
 		@NonNull UnterkoerperBelastungDto unterkoerperBelastung)
 	{
-		super(primaerschluessel);
+		super(id);
 		this.grunduebungBelastung = grunduebungBelastung;
 		this.oberkoerperBelastung = oberkoerperBelastung;
 		this.unterkoerperBelastung = unterkoerperBelastung;
 	}
 
 	@Override
-	public BelastungDto setPrimaerschluessel(@NonNull String primaerschluessel)
+	public BelastungDto setId(@NonNull String id)
 	{
-		this.primaerschluessel = primaerschluessel;
+		this.id = id;
 		return this;
 	}
 
@@ -70,7 +70,7 @@ public class BelastungDto extends EntitaetDto
 			return false;
 		}
 		var that = (BelastungDto) o;
-		return Objects.equals(primaerschluessel, that.primaerschluessel)
+		return Objects.equals(id, that.id)
 			&& Objects.equals(grunduebungBelastung, that.grunduebungBelastung)
 			&& Objects.equals(oberkoerperBelastung, that.oberkoerperBelastung)
 			&& Objects.equals(unterkoerperBelastung, that.unterkoerperBelastung);
@@ -79,6 +79,6 @@ public class BelastungDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, grunduebungBelastung, oberkoerperBelastung, unterkoerperBelastung);
+		return Objects.hash(id, grunduebungBelastung, oberkoerperBelastung, unterkoerperBelastung);
 	}
 }

@@ -1,25 +1,21 @@
 package de.justinharder.trainharder.domain.services;
 
+import de.justinharder.trainharder.domain.services.dto.Kontaktformular;
 import de.justinharder.trainharder.domain.services.mail.Mail;
 import de.justinharder.trainharder.domain.services.mail.MailAdresse;
 import de.justinharder.trainharder.domain.services.mail.MailServer;
-import de.justinharder.trainharder.domain.services.dto.Kontaktformular;
 import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Dependent
+@RequiredArgsConstructor
 public class KontaktService
 {
+	@NonNull
 	private final MailServer mailServer;
-
-	@Inject
-	public KontaktService(MailServer mailServer)
-	{
-		this.mailServer = mailServer;
-	}
 
 	public void kontaktiere(@NonNull Kontaktformular kontaktformular)
 	{

@@ -22,9 +22,9 @@ public class UebungDto extends EntitaetDto
 	public UebungDto()
 	{}
 
-	public UebungDto(@NonNull String primaerschluessel, @NonNull String name, @NonNull String uebungsart, @NonNull String uebungskategorie, @NonNull BelastungDto belastungsfaktor)
+	public UebungDto(@NonNull String id, @NonNull String name, @NonNull String uebungsart, @NonNull String uebungskategorie, @NonNull BelastungDto belastungsfaktor)
 	{
-		super(primaerschluessel);
+		super(id);
 		this.name = name;
 		this.uebungsart = uebungsart;
 		this.uebungskategorie = uebungskategorie;
@@ -32,9 +32,9 @@ public class UebungDto extends EntitaetDto
 	}
 
 	@Override
-	public UebungDto setPrimaerschluessel(@NonNull String primaerschluessel)
+	public UebungDto setId(@NonNull String id)
 	{
-		this.primaerschluessel = primaerschluessel;
+		this.id = id;
 		return this;
 	}
 
@@ -74,7 +74,7 @@ public class UebungDto extends EntitaetDto
 			return false;
 		}
 		var uebungDto = (UebungDto) o;
-		return Objects.equals(primaerschluessel, uebungDto.primaerschluessel)
+		return Objects.equals(id, uebungDto.id)
 			&& Objects.equals(name, uebungDto.name)
 			&& Objects.equals(uebungsart, uebungDto.uebungsart)
 			&& Objects.equals(uebungskategorie, uebungDto.uebungskategorie)
@@ -84,6 +84,6 @@ public class UebungDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, name, uebungsart, uebungskategorie, belastungsfaktor);
+		return Objects.hash(id, name, uebungsart, uebungskategorie, belastungsfaktor);
 	}
 }

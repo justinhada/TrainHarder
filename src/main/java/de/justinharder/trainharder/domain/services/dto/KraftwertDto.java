@@ -14,51 +14,31 @@ public class KraftwertDto extends EntitaetDto
 	@Serial
 	private static final long serialVersionUID = -5177169492291346152L;
 
-	private String gewicht;
-	private String koerpergewicht;
-	private String datum;
-	private String wiederholungen;
+	@NonNull
+	private final String datum;
 
-	public KraftwertDto()
-	{}
+	@NonNull
+	private final String gewicht;
 
-	public KraftwertDto(@NonNull String primaerschluessel, @NonNull String gewicht, @NonNull String koerpergewicht, @NonNull String datum, @NonNull String wiederholungen)
+	@NonNull
+	private final String wiederholungen;
+
+	public KraftwertDto(
+		String id,
+		@NonNull String datum,
+		@NonNull String gewicht,
+		@NonNull String wiederholungen)
 	{
-		super(primaerschluessel);
-		this.gewicht = gewicht;
-		this.koerpergewicht = koerpergewicht;
+		super(id);
 		this.datum = datum;
+		this.gewicht = gewicht;
 		this.wiederholungen = wiederholungen;
 	}
 
 	@Override
-	public KraftwertDto setPrimaerschluessel(@NonNull String primaerschluessel)
+	public KraftwertDto setId(@NonNull String id)
 	{
-		this.primaerschluessel = primaerschluessel;
-		return this;
-	}
-
-	public KraftwertDto setGewicht(@NonNull String gewicht)
-	{
-		this.gewicht = gewicht;
-		return this;
-	}
-
-	public KraftwertDto setKoerpergewicht(@NonNull String koerpergewicht)
-	{
-		this.koerpergewicht = koerpergewicht;
-		return this;
-	}
-
-	public KraftwertDto setDatum(@NonNull String datum)
-	{
-		this.datum = datum;
-		return this;
-	}
-
-	public KraftwertDto setWiederholungen(@NonNull String wiederholungen)
-	{
-		this.wiederholungen = wiederholungen;
+		this.id = id;
 		return this;
 	}
 
@@ -69,14 +49,12 @@ public class KraftwertDto extends EntitaetDto
 		{
 			return true;
 		}
-		if (!(o instanceof KraftwertDto))
+		if (!(o instanceof KraftwertDto that))
 		{
 			return false;
 		}
-		var that = (KraftwertDto) o;
-		return Objects.equals(primaerschluessel, that.primaerschluessel)
+		return Objects.equals(id, that.id)
 			&& Objects.equals(gewicht, that.gewicht)
-			&& Objects.equals(koerpergewicht, that.koerpergewicht)
 			&& Objects.equals(datum, that.datum)
 			&& Objects.equals(wiederholungen, that.wiederholungen);
 	}
@@ -84,6 +62,6 @@ public class KraftwertDto extends EntitaetDto
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(primaerschluessel, gewicht, koerpergewicht, datum, wiederholungen);
+		return Objects.hash(id, gewicht, datum, wiederholungen);
 	}
 }

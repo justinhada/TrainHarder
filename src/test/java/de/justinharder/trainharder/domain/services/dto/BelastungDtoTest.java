@@ -11,9 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BelastungDtoSollte
+@DisplayName("BelastungDto sollte")
+class BelastungDtoTest
 {
-	private static final String ID = new ID().getId().toString();
+	private static final String ID = new ID().getWert().toString();
 	private static final GrunduebungBelastungDto
 		GRUNDUEBUNG_BELASTUNG_DTO = new GrunduebungBelastungDto("1.0", "0.0", "0.0");
 	private static final OberkoerperBelastungDto
@@ -70,10 +71,15 @@ class BelastungDtoSollte
 	void test04()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(null, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(ID, null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(ID, GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
-			() -> assertThrows(NullPointerException.class, () -> new BelastungDto(ID, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new BelastungDto(null, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO,
+					UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new BelastungDto(ID, null, OBERKOERPER_BELASTUNG_DTO, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new BelastungDto(ID, GRUNDUEBUNG_BELASTUNG_DTO, null, UNTERKOERPER_BELASTUNG_DTO)),
+			() -> assertThrows(NullPointerException.class,
+				() -> new BelastungDto(ID, GRUNDUEBUNG_BELASTUNG_DTO, OBERKOERPER_BELASTUNG_DTO, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setId(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setGrunduebungBelastung(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setOberkoerperBelastung(null)),

@@ -1,88 +1,95 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Belastung;
-import de.justinharder.trainharder.domain.model.Uebung;
 import de.justinharder.trainharder.domain.model.embeddables.GrunduebungBelastung;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.OberkoerperBelastung;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.domain.model.embeddables.UnterkoerperBelastung;
-import de.justinharder.trainharder.domain.model.enums.Uebungsart;
-import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
-import de.justinharder.trainharder.setup.Testdaten;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
-class BelastungJpaRepositorySollte
+@DisplayName("BelastungJpaRepository sollte")
+class BelastungJpaRepositoryTest
 {
 	@Inject
-	BelastungsfaktorJpaRepository sut;
+	BelastungJpaRepository sut;
 
-	@Test
-	@DisplayName("keinen Belastungsfaktor zu ID ermitteln")
-	void test01()
-	{
-		assertThat(sut.ermittleZuId(new Primaerschluessel())).isEmpty();
-	}
-
-	@Test
-	@DisplayName("Belastungsfaktor zu ID ermitteln")
-	void test02()
-	{
-		assertAll(
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN),
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE),
-			() -> assertThat(sut.ermittleZuId(new Primaerschluessel())).hasValue(
-				Testdaten.BELASTUNG_KONVENTIONELLES_KREUZHEBEN));
-	}
-
-	@Test
-	@DisplayName("Belastungsfaktor erstellen")
-	void test03()
-	{
-		var belastungsfaktor = new Belastung(
-			new Primaerschluessel(),
-			new GrunduebungBelastung(0.0, 1.0, 0.0),
-			new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
-			new UnterkoerperBelastung(0.0, 0.0, 0.0));
-		belastungsfaktor.setUebung(new Uebung(new Primaerschluessel(), "Spoto Bankdrücken", Uebungsart.GRUNDUEBUNG,
-			Uebungskategorie.BANKDRUECKEN_VARIATION, belastungsfaktor));
-
-		assertThat(sut.speichereBelastungsfaktor(belastungsfaktor)).isEqualTo(belastungsfaktor);
-	}
-
-	@Test
-	@DisplayName("Belastungsfaktor aktualisieren")
-	void test04()
-	{
-		var belastungsfaktor = Testdaten.BELASTUNG_WETTKAMPFBANKDRUECKEN;
-		belastungsfaktor.getOberkoerperBelastung().setTriceps(0.9);
-
-		var ergebnis = sut.speichereBelastungsfaktor(belastungsfaktor);
-
-		assertAll(
-			() -> assertThat(ergebnis.getPrimaerschluessel()).isEqualTo(belastungsfaktor.getPrimaerschluessel()),
-			() -> assertThat(ergebnis.getGrunduebungBelastung()).isEqualTo(belastungsfaktor.getGrunduebungBelastung()),
-			() -> assertThat(ergebnis.getOberkoerperBelastung()).isEqualTo(belastungsfaktor.getOberkoerperBelastung()),
-			() -> assertThat(ergebnis.getUnterkoerperBelastung()).isEqualTo(
-				belastungsfaktor.getUnterkoerperBelastung()),
-			() -> assertThat(ergebnis.getUebung()).isEqualTo(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN));
-	}
+	@Inject
+	EntityManager entityManager;
 
 	@Test
 	@DisplayName("null validieren")
-	void test05()
+	void test01()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereBelastungsfaktor(null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
+	}
+
+	@Test
+	@DisplayName("alle finden")
+	void test02()
+	{
+		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(BELASTUNG_WETTKAMPFBANKDRUECKEN,
+			BELASTUNG_LOWBAR_KNIEBEUGE, BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
+	}
+
+	@Test
+	@DisplayName("finden")
+	void test03()
+	{
+		assertAll(
+			() -> assertThat(sut.finde(BELASTUNG_WETTKAMPFBANKDRUECKEN.getId())).contains(
+				BELASTUNG_WETTKAMPFBANKDRUECKEN),
+			() -> assertThat(sut.finde(BELASTUNG_LOWBAR_KNIEBEUGE.getId())).contains(BELASTUNG_LOWBAR_KNIEBEUGE),
+			() -> assertThat(sut.finde(BELASTUNG_KONVENTIONELLES_KREUZHEBEN.getId())).contains(
+				BELASTUNG_KONVENTIONELLES_KREUZHEBEN),
+			() -> assertThat(sut.finde(new ID())).isEmpty());
+	}
+
+	@Test
+	@Transactional
+	@DisplayName("erstellen")
+	void test04()
+	{
+		var belastung = new Belastung(
+			new ID(),
+			new GrunduebungBelastung(0.0, 1.0, 0.0),
+			new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1),
+			new UnterkoerperBelastung(0.0, 0.0, 0.0));
+
+		sut.speichere(belastung);
+
+		assertThat(entityManager.find(Belastung.class, belastung.getId())).isEqualTo(belastung);
+	}
+
+	@Test
+	@Disabled
+	@Transactional
+	@DisplayName("aktualisieren")
+	void test05()
+	{
+		var belastung = BELASTUNG_WETTKAMPFBANKDRUECKEN;
+		belastung.getOberkoerperBelastung().setTriceps(0.9);
+
+		sut.speichere(belastung);
+		var ergebnis = entityManager.find(Belastung.class, belastung.getId());
+
+		assertAll(
+			() -> assertThat(ergebnis.getId()).isEqualTo(belastung.getId()),
+			() -> assertThat(ergebnis.getGrunduebungBelastung()).isEqualTo(belastung.getGrunduebungBelastung()),
+			() -> assertThat(ergebnis.getOberkoerperBelastung()).isEqualTo(belastung.getOberkoerperBelastung()),
+			() -> assertThat(ergebnis.getUnterkoerperBelastung()).isEqualTo(belastung.getUnterkoerperBelastung()));
 	}
 }

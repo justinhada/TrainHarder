@@ -1,19 +1,12 @@
 package de.justinharder.trainharder.domain.repository;
 
 import de.justinharder.trainharder.domain.model.Benutzer;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import lombok.NonNull;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface BenutzerRepository
+public interface BenutzerRepository extends Repository<Benutzer>
 {
-	List<Benutzer> ermittleAlle();
-
-	Optional<Benutzer> ermittleZuId(@NonNull Primaerschluessel id);
-
-	Optional<Benutzer> ermittleZuAuthentifizierung(@NonNull Primaerschluessel authentifizierungId);
-
-	Benutzer speichereBenutzer(@NonNull Benutzer benutzer);
+	Optional<Benutzer> findeMitAuthentifizierung(@NonNull ID authentifizierungId);
 }

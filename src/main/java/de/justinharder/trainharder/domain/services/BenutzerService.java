@@ -2,68 +2,63 @@ package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Name;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.domain.model.enums.*;
-import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.BenutzerNichtGefundenException;
+import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
-import de.justinharder.trainharder.domain.services.mapper.BenutzerDtoMapper;
 import de.justinharder.trainharder.domain.services.dto.BenutzerDto;
 import de.justinharder.trainharder.domain.services.dto.Benutzerdaten;
+import de.justinharder.trainharder.domain.services.mapper.BenutzerDtoMapper;
 import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Dependent
+@RequiredArgsConstructor
 public class BenutzerService
 {
-	private static final String ID = "der ID";
-
+	@NonNull
 	private final BenutzerRepository benutzerRepository;
+
+	@NonNull
 	private final AuthentifizierungRepository authentifizierungRepository;
+
+	@NonNull
 	private final BenutzerDtoMapper benutzerDtoMapper;
 
-	@Inject
-	public BenutzerService(BenutzerRepository benutzerRepository, AuthentifizierungRepository authentifizierungRepository, BenutzerDtoMapper benutzerDtoMapper)
+	public List<BenutzerDto> findeAlle()
 	{
-		this.benutzerRepository = benutzerRepository;
-		this.authentifizierungRepository = authentifizierungRepository;
-		this.benutzerDtoMapper = benutzerDtoMapper;
+		return benutzerDtoMapper.mappeAlle(benutzerRepository.findeAlle());
 	}
 
-	public List<BenutzerDto> ermittleAlle()
+	public BenutzerDto finde(@NonNull String id) throws BenutzerException
 	{
-		return benutzerDtoMapper.mappeAlle(benutzerRepository.ermittleAlle());
-	}
-
-	public BenutzerDto ermittleZuId(@NonNull String id) throws BenutzerNichtGefundenException
-	{
-		return benutzerRepository.ermittleZuId(new Primaerschluessel(id))
+		return benutzerRepository.finde(new ID(id))
 			.map(benutzerDtoMapper::mappe)
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
+			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id)));
 	}
 
-	public BenutzerDto ermittleZuAuthentifizierung(@NonNull String authentifizierungId) throws BenutzerNichtGefundenException
+	public BenutzerDto findeMitAuthentifizierung(@NonNull String authentifizierungId)
+		throws BenutzerException
 	{
-		return benutzerRepository.ermittleZuAuthentifizierung(new Primaerschluessel(authentifizierungId))
+		return benutzerRepository.findeMitAuthentifizierung(new ID(authentifizierungId))
 			.map(benutzerDtoMapper::mappe)
-			.orElseThrow(FehlermeldungService
-				.wirfBenutzerNichtGefundenException("der AuthentifizierungID", authentifizierungId));
+			.orElseThrow(() -> new BenutzerException(
+				"Der Benutzer mit der AuthentifizierungID %s existiert nicht!".formatted(authentifizierungId)));
 	}
 
-	public BenutzerDto erstelleBenutzer(@NonNull Benutzerdaten benutzerdaten, @NonNull String authentifizierungId) throws AuthentifizierungNichtGefundenException
+	public BenutzerDto erstelle(@NonNull Benutzerdaten benutzerdaten, @NonNull String authentifizierungId)
+		throws AuthentifizierungException
 	{
-		var authentifizierung = authentifizierungRepository.ermittleZuId(new Primaerschluessel(authentifizierungId))
-			.orElseThrow(FehlermeldungService.wirfAuthentifizierungNichtGefundenException(ID, authentifizierungId));
-
-		var benutzer = benutzerRepository.speichereBenutzer(new Benutzer(
-			new Primaerschluessel(),
+		var benutzer = new Benutzer(
+			new ID(),
 			new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()),
 			LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE),
 			new Benutzerangabe(
@@ -74,19 +69,20 @@ public class BenutzerService
 				Stress.zuWert(benutzerdaten.getStress()),
 				Doping.zuWert(benutzerdaten.getDoping()),
 				Regenerationsfaehigkeit.zuWert(benutzerdaten.getRegenerationsfaehigkeit())),
-			authentifizierung));
+			authentifizierungRepository.finde(new ID(authentifizierungId))
+				.orElseThrow(() -> new AuthentifizierungException(
+					"Die Authentifizierung mit der ID %s existiert nicht!".formatted(authentifizierungId))));
 
-		authentifizierungRepository.speichereAuthentifizierung(authentifizierung);
+		benutzerRepository.speichere(benutzer);
 
 		return benutzerDtoMapper.mappe(benutzer);
 	}
 
-	public BenutzerDto aktualisiereBenutzer(@NonNull String id, @NonNull Benutzerdaten benutzerdaten) throws BenutzerNichtGefundenException
+	public BenutzerDto aktualisiere(@NonNull String id, @NonNull Benutzerdaten benutzerdaten)
+		throws BenutzerException
 	{
-		var benutzer = benutzerRepository.ermittleZuId(new Primaerschluessel(id))
-			.orElseThrow(FehlermeldungService.wirfBenutzerNichtGefundenException(ID, id));
-
-		return benutzerDtoMapper.mappe(benutzerRepository.speichereBenutzer(benutzer
+		var benutzer = benutzerRepository.finde(new ID(id))
+			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id)))
 			.setName(new Name(benutzerdaten.getVorname(), benutzerdaten.getNachname()))
 			.setGeburtsdatum(LocalDate.parse(benutzerdaten.getGeburtsdatum(), DateTimeFormatter.ISO_DATE))
 			.setBenutzerangabe(new Benutzerangabe(
@@ -96,6 +92,10 @@ public class BenutzerService
 				Schlafqualitaet.zuWert(benutzerdaten.getSchlafqualitaet()),
 				Stress.zuWert(benutzerdaten.getStress()),
 				Doping.zuWert(benutzerdaten.getDoping()),
-				Regenerationsfaehigkeit.zuWert(benutzerdaten.getRegenerationsfaehigkeit())))));
+				Regenerationsfaehigkeit.zuWert(benutzerdaten.getRegenerationsfaehigkeit())));
+
+		benutzerRepository.speichere(benutzer);
+
+		return benutzerDtoMapper.mappe(benutzer);
 	}
 }

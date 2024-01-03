@@ -1,17 +1,18 @@
 package de.justinharder.trainharder.domain.services.mapper;
 
-import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class KraftwertDtoMapperSollte
+@DisplayName("KraftwertDtoMapper sollte")
+class KraftwertDtoMapperTest
 {
 	private KraftwertDtoMapper sut;
 
@@ -22,11 +23,13 @@ class KraftwertDtoMapperSollte
 	}
 
 	@Test
-	@DisplayName("alle Kraftwerte zu KraftwertDtos mappen")
+	@DisplayName("alle  mappen")
 	void test01()
 	{
-		assertThat(sut.mappeAlle(List.of(Testdaten.KRAFTWERT_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_KONVENTIONELLES_KREUZHEBEN)))
-			.isEqualTo(List.of(Testdaten.KRAFTWERT_DTO_LOWBAR_KNIEBEUGE, Testdaten.KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN));
+		assertThat(sut.mappeAlle(
+			List.of(KRAFTWERT_LOWBAR_KNIEBEUGE, KRAFTWERT_WETTKAMPFBANKDRUECKEN, KRAFTWERT_KONVENTIONELLES_KREUZHEBEN)))
+			.isEqualTo(List.of(KRAFTWERT_DTO_LOWBAR_KNIEBEUGE, KRAFTWERT_DTO_WETTKAMPFBANKDRUECKEN,
+				KRAFTWERT_DTO_KONVENTIONELLES_KREUZHEBEN));
 	}
 
 	@Test

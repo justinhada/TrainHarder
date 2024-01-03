@@ -4,19 +4,19 @@ import de.justinharder.trainharder.domain.model.Authentifizierung;
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.Koerpermessung;
 import de.justinharder.trainharder.domain.model.embeddables.Benutzerangabe;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
 import de.justinharder.trainharder.domain.model.embeddables.Name;
-import de.justinharder.trainharder.domain.model.embeddables.Primaerschluessel;
 import de.justinharder.trainharder.domain.model.enums.*;
-import de.justinharder.trainharder.domain.model.exceptions.BenutzerNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.KoerpermessungNichtGefundenException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.model.exceptions.KoerpermessungException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.repository.KoerpermessungRepository;
-import de.justinharder.trainharder.domain.services.mapper.KoerpermessungDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
 import de.justinharder.trainharder.domain.services.dto.KoerpermasseDto;
 import de.justinharder.trainharder.domain.services.dto.Koerpermessdaten;
 import de.justinharder.trainharder.domain.services.dto.KoerpermessungDto;
+import de.justinharder.trainharder.domain.services.mapper.KoerpermessungDtoMapper;
+import de.justinharder.trainharder.setup.Testdaten;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,13 +27,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class KoerpermessungServiceSollte
+@DisplayName("KoerpermessungService sollte")
+class KoerpermessungServiceTest
 {
 	private KoerpermessungService sut;
 
@@ -51,133 +53,89 @@ class KoerpermessungServiceSollte
 		sut = new KoerpermessungService(koerpermessungRepository, benutzerRepository, koerpermessungDtoMapper);
 	}
 
-	private void angenommenDasKoerpermessungRepositoryErmitteltAlleKoerpermessungenZuBenutzer(String benutzerId, List<Koerpermessung> koerpermessungen)
-	{
-		when(koerpermessungRepository.ermittleAlleZuBenutzer(new Primaerschluessel(benutzerId))).thenReturn(koerpermessungen);
-	}
-
-	private void angenommenDasKoerpermessungRepositoryErmitteltKoerpermessungZuId(String id, Optional<Koerpermessung> koerpermessung)
-	{
-		when(koerpermessungRepository.ermittleZuId(new Primaerschluessel(id))).thenReturn(koerpermessung);
-	}
-
-	private void angenommenDasKoerpermessungRepositoryErmitteltKeineKoerpermessungZuId(String id)
-	{
-		angenommenDasKoerpermessungRepositoryErmitteltKoerpermessungZuId(id, Optional.empty());
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(String benutzerId, Optional<Benutzer> benutzer)
-	{
-		when(benutzerRepository.ermittleZuId(new Primaerschluessel(benutzerId))).thenReturn(benutzer);
-	}
-
-	private void angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(String benutzerId)
-	{
-		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(benutzerId, Optional.empty());
-	}
-
-	private void angenommenDasKoerpermessungRepositorySpeichertKoerpermessung(Koerpermessung koerpermessung)
-	{
-		when(koerpermessungRepository.speichereKoerpermessung(any(Koerpermessung.class))).thenReturn(koerpermessung);
-	}
-
-	private void angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDtos(List<Koerpermessung> koerpermessungen, List<KoerpermessungDto> koerpermessungDtos)
-	{
-		when(koerpermessungDtoMapper.mappeAlle(koerpermessungen)).thenReturn(koerpermessungDtos);
-	}
-
-	private void angenommenDerKoerpermessungDtoMapperMapptZuKoerpermessungDto(Koerpermessung koerpermessung, KoerpermessungDto koerpermessungDto)
-	{
-		when(koerpermessungDtoMapper.mappe(koerpermessung)).thenReturn(koerpermessungDto);
-	}
-
 	@Test
 	@DisplayName("null validieren")
 	void test01()
 	{
 		var koerpermessdaten = new Koerpermessdaten();
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleAlleZuBenutzer(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(null, "benutzerId")),
-			() -> assertThrows(NullPointerException.class, () -> sut.erstelleKoerpermessung(koerpermessdaten, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung(null, koerpermessdaten)),
-			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiereKoerpermessung("id", null)));
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlleMitBenutzer(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelle(null,
+				BENUTZER_DTO_JUSTIN.getId())),
+			() -> assertThrows(NullPointerException.class, () -> sut.erstelle(koerpermessdaten, null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.aktualisiere(null, koerpermessdaten)),
+			() -> assertThrows(NullPointerException.class, () -> sut.aktualisiere(
+				KOERPERMESSUNG_DTO_JUSTIN.getId(), null)));
 	}
 
 	@Test
 	@DisplayName("alle Koerpermessungen zu Benutzer ermitteln")
 	void test02()
 	{
-		var erwartet = List.of(Testdaten.KOERPERMESSUNG_DTO_JUSTIN);
-		var benutzerId = new Primaerschluessel();
-		var koerpermessungen = List.of(Testdaten.KOERPERMESSUNG_JUSTIN);
-		angenommenDasKoerpermessungRepositoryErmitteltAlleKoerpermessungenZuBenutzer(benutzerId.getId().toString(), koerpermessungen);
-		angenommenDerKoerpermessungDtoMapperMapptAlleZuKoerpermessungDtos(koerpermessungen, erwartet);
+		var erwartet = List.of(KOERPERMESSUNG_DTO_JUSTIN);
+		var benutzerId = new ID();
+		var koerpermessungen = List.of(KOERPERMESSUNG_JUSTIN);
+		when(koerpermessungRepository.findeAlleMitBenutzer(new ID(benutzerId.getWert().toString()))).thenReturn(
+			koerpermessungen);
+		when(koerpermessungDtoMapper.mappeAlle(koerpermessungen)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleAlleZuBenutzer(benutzerId.getId().toString())).isEqualTo(erwartet);
-		verify(koerpermessungRepository).ermittleAlleZuBenutzer(benutzerId);
+		assertThat(sut.findeAlleMitBenutzer(benutzerId.getWert().toString())).isEqualTo(erwartet);
+		verify(koerpermessungRepository).findeAlleMitBenutzer(benutzerId);
 		verify(koerpermessungDtoMapper).mappeAlle(koerpermessungen);
 	}
 
 	@Test
-	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
+	@DisplayName("KoerpermessungException werfen, wenn die KoerpermessungID nicht existiert")
 	void test03()
 	{
-		var id = new Primaerschluessel();
-		angenommenDasKoerpermessungRepositoryErmitteltKeineKoerpermessungZuId(id.getId().toString());
+		var id = new ID();
+		when(koerpermessungRepository.finde(new ID(id.getWert().toString()))).thenReturn(Optional.empty());
 
-		assertThrows(KoerpermessungNichtGefundenException.class, () -> sut.ermittleZuId(id.getId().toString()));
-		verify(koerpermessungRepository).ermittleZuId(id);
+		assertThrows(KoerpermessungException.class, () -> sut.finde(id.getWert().toString()));
+		verify(koerpermessungRepository).finde(id);
 	}
 
 	@Test
 	@DisplayName("Koerpermessung zu KoerpermessungID ermitteln")
-	void test04() throws KoerpermessungNichtGefundenException
+	void test04() throws KoerpermessungException
 	{
-		var erwartet = Testdaten.KOERPERMESSUNG_DTO_JUSTIN;
-		var id = new Primaerschluessel();
-		var koerpermessung = Testdaten.KOERPERMESSUNG_JUSTIN;
-		angenommenDasKoerpermessungRepositoryErmitteltKoerpermessungZuId(id.getId().toString(), Optional.of(koerpermessung));
-		angenommenDerKoerpermessungDtoMapperMapptZuKoerpermessungDto(koerpermessung, erwartet);
+		var erwartet = KOERPERMESSUNG_DTO_JUSTIN;
+		var id = new ID();
+		var koerpermessung = KOERPERMESSUNG_JUSTIN;
+		when(koerpermessungRepository.finde(new ID(id.getWert().toString()))).thenReturn(Optional.of(koerpermessung));
+		when(koerpermessungDtoMapper.mappe(any(Koerpermessung.class))).thenReturn(erwartet);
 
-		assertThat(sut.ermittleZuId(id.getId().toString())).isEqualTo(erwartet);
-		verify(koerpermessungRepository).ermittleZuId(id);
+		assertThat(sut.finde(id.getWert().toString())).isEqualTo(erwartet);
+		verify(koerpermessungRepository).finde(id);
 		verify(koerpermessungDtoMapper).mappe(koerpermessung);
 	}
 
 	@Test
-	@DisplayName("BenutzerNichtGefundenException werfen, wenn die BenutzerID nicht existiert")
+	@DisplayName("BenutzerException werfen, wenn die BenutzerID nicht existiert")
 	void test05()
 	{
-		var benutzerId = new Primaerschluessel();
-		angenommenDasBenutzerRepositoryErmitteltKeinenBenutzerZuId(benutzerId.getId().toString());
+		var benutzerId = new ID();
+		when(benutzerRepository.finde(new ID(benutzerId.getWert().toString()))).thenReturn(Optional.empty());
 
-		assertThrows(BenutzerNichtGefundenException.class, () -> sut.erstelleKoerpermessung(new Koerpermessdaten(), benutzerId.getId().toString()));
-		verify(benutzerRepository).ermittleZuId(benutzerId);
+		assertThrows(BenutzerException.class,
+			() -> sut.erstelle(new Koerpermessdaten(), benutzerId.getWert().toString()));
+		verify(benutzerRepository).finde(benutzerId);
 	}
 
 	@Test
 	@DisplayName("eine Koerpermessung erstellen")
-	void test06() throws BenutzerNichtGefundenException
+	void test06() throws BenutzerException
 	{
-		var id = new Primaerschluessel();
-		var erwartet = new KoerpermessungDto(
-			id.getId().toString(),
-			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
-			new KoerpermasseDto("178", "90.00", "25.0", "67.50", "28.4", "21.8"),
-			2500,
-			2900);
 		var koerpermessung = new Koerpermessung(
-			id,
+			new ID(),
 			LocalDate.of(2020, 6, 29),
 			new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25)),
 			2500,
-			2900,
-			new Benutzer());
-		var benutzerId = new Primaerschluessel();
+			2900);
 		var benutzer = new Benutzer(
-			benutzerId,
+			new ID(),
 			new Name("Justin", "Harder"),
 			LocalDate.of(2020, 12, 6),
 			new Benutzerangabe(
@@ -188,33 +146,43 @@ class KoerpermessungServiceSollte
 				Stress.MITTELMAESSIG,
 				Doping.NEIN,
 				Regenerationsfaehigkeit.PERFEKT),
-			new Authentifizierung(new Primaerschluessel(), "mail@justinharder.de", "harder", Testdaten.PASSWORT));
-		angenommenDasBenutzerRepositoryErmitteltBenutzerZuId(benutzerId.getId().toString(), Optional.of(benutzer));
-		angenommenDasKoerpermessungRepositorySpeichertKoerpermessung(koerpermessung);
-		angenommenDerKoerpermessungDtoMapperMapptZuKoerpermessungDto(koerpermessung, erwartet);
+			new Authentifizierung(new ID(), "mail@justinharder.de", "harder", Testdaten.PASSWORT));
+		var erwartet = new KoerpermessungDto(
+			koerpermessung.getId().getWert().toString(),
+			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+			new KoerpermasseDto("178", "90.00", "25.0", "67.50", "28.4", "21.8"),
+			2500,
+			2900);
+		when(benutzerRepository.finde(new ID(benutzer.getId().getWert().toString()))).thenReturn(Optional.of(benutzer));
+		when(koerpermessungDtoMapper.mappe(any(Koerpermessung.class))).thenReturn(erwartet);
 
-		assertThat(sut.erstelleKoerpermessung(new Koerpermessdaten("2020-07-29", 178, 90, 25, 2500, 2900), benutzerId.getId().toString())).isEqualTo(erwartet);
-		verify(benutzerRepository).ermittleZuId(benutzerId);
-		verify(koerpermessungDtoMapper).mappe(koerpermessung);
+		assertThat(sut.erstelle(
+			new Koerpermessdaten("2020-07-29", 178, 90, 25, 2500, 2900),
+			benutzer.getId().getWert().toString()))
+			.isEqualTo(erwartet);
+		verify(benutzerRepository).finde(benutzer.getId());
+		verify(koerpermessungRepository).speichere(any(Koerpermessung.class));
+		verify(koerpermessungDtoMapper).mappe(any(Koerpermessung.class));
 	}
 
 	@Test
-	@DisplayName("KoerpermessungNichtGefundenException werfen, wenn die KoerpermessungID nicht existiert")
+	@DisplayName("KoerpermessungException werfen, wenn die KoerpermessungID nicht existiert")
 	void test07()
 	{
-		var id = new Primaerschluessel();
+		var id = new ID();
 
-		assertThrows(KoerpermessungNichtGefundenException.class, () -> sut.aktualisiereKoerpermessung(id.getId().toString(), new Koerpermessdaten()));
-		verify(koerpermessungRepository).ermittleZuId(id);
+		assertThrows(KoerpermessungException.class,
+			() -> sut.aktualisiere(id.getWert().toString(), new Koerpermessdaten()));
+		verify(koerpermessungRepository).finde(id);
 	}
 
 	@Test
 	@DisplayName("eine Koerpermessung aktualisieren")
-	void test08() throws KoerpermessungNichtGefundenException
+	void test08() throws KoerpermessungException
 	{
-		var id = new Primaerschluessel();
+		var id = new ID();
 		var erwartet = new KoerpermessungDto(
-			id.getId().toString(),
+			id.getWert().toString(),
 			LocalDate.of(2020, 7, 29).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			new KoerpermasseDto("178", "90.00", "25.0", "67.50", "28.4", "21.8"),
 			2500,
@@ -225,14 +193,13 @@ class KoerpermessungServiceSollte
 			LocalDate.of(2020, 6, 29),
 			new Koerpermasse(new BigDecimal(178), new BigDecimal(90), new BigDecimal(25)),
 			2500,
-			2900,
-			new Benutzer());
-		angenommenDasKoerpermessungRepositoryErmitteltKoerpermessungZuId(id.getId().toString(), Optional.of(koerpermessung));
-		angenommenDasKoerpermessungRepositorySpeichertKoerpermessung(koerpermessung);
-		angenommenDerKoerpermessungDtoMapperMapptZuKoerpermessungDto(koerpermessung, erwartet);
+			2900);
+		when(koerpermessungRepository.finde(new ID(id.getWert().toString()))).thenReturn(Optional.of(koerpermessung));
+		when(koerpermessungDtoMapper.mappe(any(Koerpermessung.class))).thenReturn(erwartet);
 
-		assertThat(sut.aktualisiereKoerpermessung(id.getId().toString(), new Koerpermessdaten("2020-07-29", 178, 90, 25, 2500, 3500))).isEqualTo(erwartet);
-		verify(koerpermessungRepository).speichereKoerpermessung(koerpermessung);
+		assertThat(sut.aktualisiere(id.getWert().toString(),
+			new Koerpermessdaten("2020-07-29", 178, 90, 25, 2500, 3500))).isEqualTo(erwartet);
+		verify(koerpermessungRepository).speichere(koerpermessung);
 		verify(koerpermessungDtoMapper).mappe(koerpermessung);
 	}
 }

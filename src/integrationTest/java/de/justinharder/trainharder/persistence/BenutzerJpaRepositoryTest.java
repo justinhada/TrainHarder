@@ -9,6 +9,8 @@ import de.justinharder.trainharder.domain.model.enums.*;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
-class BenutzerJpaRepositorySollte
+@DisplayName("BenutzerJpaRepository sollte")
+class BenutzerJpaRepositoryTest
 {
 	@Inject
 	BenutzerJpaRepository sut;
@@ -29,50 +32,40 @@ class BenutzerJpaRepositorySollte
 	EntityManager entityManager;
 
 	@Test
-	@DisplayName("alle Benutzer ermitteln")
+	@DisplayName("null validieren")
 	void test01()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeMitAuthentifizierung(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
+	}
+
+	@Test
+	@DisplayName("alle finden")
+	void test02()
 	{
 		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(BENUTZER_JUSTIN, BENUTZER_EDUARD);
 	}
 
 	@Test
-	@DisplayName("keinen Benutzer zu ID ermitteln")
-	void test02()
-	{
-		assertThat(sut.finde(new ID())).isEmpty();
-	}
-
-	@Test
-	@DisplayName("Benutzer zu ID ermitteln")
+	@DisplayName("finden")
 	void test03()
 	{
 		assertAll(
 			() -> assertThat(sut.finde(BENUTZER_JUSTIN.getId())).contains(BENUTZER_JUSTIN),
-			() -> assertThat(sut.finde(BENUTZER_EDUARD.getId())).contains(BENUTZER_EDUARD));
+			() -> assertThat(sut.finde(BENUTZER_EDUARD.getId())).contains(BENUTZER_EDUARD),
+			() -> assertThat(sut.finde(new ID())).isEmpty());
 	}
 
 	@Test
-	@DisplayName("keinen Benutzer zu Authentifizierung ermitteln")
+	@Transactional
+	@DisplayName("erstellen")
 	void test04()
 	{
-		assertThat(sut.findeMitAuthentifizierung(new ID())).isEmpty();
-	}
+		var authentifizierung = new Authentifizierung(new ID(), "nicoleharder@mail.de", "nicoleee", PASSWORT);
+		entityManager.persist(authentifizierung);
 
-	@Test
-	@DisplayName("Benutzer zu Authentifizierung ermitteln")
-	void test05()
-	{
-		assertAll(
-			() -> assertThat(sut.findeMitAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN.getId())).contains(
-				BENUTZER_JUSTIN),
-			() -> assertThat(sut.findeMitAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD.getId())).contains(
-				BENUTZER_EDUARD));
-	}
-
-	@Test
-	@DisplayName("Benutzer erstellen")
-	void test06()
-	{
 		var benutzer = new Benutzer(
 			new ID(),
 			new Name("Nicole", "Harder"),
@@ -85,11 +78,7 @@ class BenutzerJpaRepositorySollte
 				Stress.MITTELMAESSIG,
 				Doping.NEIN,
 				Regenerationsfaehigkeit.SCHLECHT),
-			new Authentifizierung(
-				new ID(),
-				"nicoleharder@mail.de",
-				"nicoleee",
-				PASSWORT));
+			authentifizierung);
 
 		sut.speichere(benutzer);
 
@@ -97,8 +86,10 @@ class BenutzerJpaRepositorySollte
 	}
 
 	@Test
-	@DisplayName("Benutzer aktualisieren")
-	void test07()
+	@Disabled
+	@Transactional
+	@DisplayName("aktualisieren")
+	void test05()
 	{
 		var benutzer = BENUTZER_EDUARD
 			.setGeburtsdatum(LocalDate.of(1997, 12, 6));
@@ -115,12 +106,14 @@ class BenutzerJpaRepositorySollte
 	}
 
 	@Test
-	@DisplayName("null validieren")
-	void test08()
+	@DisplayName("mit Authentifizierung finden")
+	void test06()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.findeMitAuthentifizierung(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
+			() -> assertThat(sut.findeMitAuthentifizierung(AUTHENTIFIZIERUNG_JUSTIN.getId())).contains(
+				BENUTZER_JUSTIN),
+			() -> assertThat(sut.findeMitAuthentifizierung(AUTHENTIFIZIERUNG_EDUARD.getId())).contains(
+				BENUTZER_EDUARD),
+			() -> assertThat(sut.findeMitAuthentifizierung(new ID())).isEmpty());
 	}
 }

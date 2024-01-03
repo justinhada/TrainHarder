@@ -3,15 +3,15 @@ package de.justinharder.trainharder.domain.services.berechnung;
 import com.google.common.base.Preconditions;
 import de.justinharder.trainharder.domain.model.Konstanten;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
 @ToString
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Backoff
 {
 	private final int oneRepMax;
@@ -25,13 +25,16 @@ public class Backoff
 		Preconditions.checkArgument(wiederholungen > 0, "Ungültige Wiederholungen!");
 		Preconditions.checkArgument(repsInReserve >= 0, "Ungültige RepsInReserve!");
 
-		return new Backoff(oneRepMax, wiederholungen, repsInReserve, berechneRichtwert(oneRepMax, wiederholungen, repsInReserve));
+		return new Backoff(
+			oneRepMax,
+			wiederholungen,
+			repsInReserve,
+			berechneRichtwert(oneRepMax, wiederholungen, repsInReserve));
 	}
 
 	private static int berechneRichtwert(int oneRepMax, int wiederholungen, int repsInReserve)
 	{
-		var prozentsatz = Konstanten.PROZENTE.get(repsInReserve).get(wiederholungen - 1);
-		return (int) Math.round(prozentsatz * oneRepMax);
+		return (int) Math.round(Konstanten.PROZENTE.get(repsInReserve).get(wiederholungen - 1) * oneRepMax);
 	}
 
 	@Override
@@ -41,12 +44,14 @@ public class Backoff
 		{
 			return true;
 		}
-		if (!(o instanceof Backoff))
+		if (!(o instanceof Backoff backoff))
 		{
 			return false;
 		}
-		Backoff backoff = (Backoff) o;
-		return oneRepMax == backoff.oneRepMax && wiederholungen == backoff.wiederholungen && repsInReserve == backoff.repsInReserve && richtwert == backoff.richtwert;
+		return oneRepMax == backoff.oneRepMax
+			&& wiederholungen == backoff.wiederholungen
+			&& repsInReserve == backoff.repsInReserve
+			&& richtwert == backoff.richtwert;
 	}
 
 	@Override

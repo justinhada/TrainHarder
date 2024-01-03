@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.domain.model.exceptions;
 
-public class BelastungsfaktorNichtGefundenException extends Exception
+public class BelastungException extends Exception
 {
 	private static final long serialVersionUID = 8618700706284780379L;
 
-	public BelastungsfaktorNichtGefundenException(String nachricht)
+	public BelastungException(String nachricht)
 	{
 		super(nachricht);
 	}

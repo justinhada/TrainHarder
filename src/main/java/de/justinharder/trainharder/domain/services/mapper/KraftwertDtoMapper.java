@@ -12,16 +12,13 @@ import java.time.format.DateTimeFormatter;
 @Dependent
 public class KraftwertDtoMapper implements DtoMapper<Kraftwert, KraftwertDto>
 {
-	private static final DateTimeFormatter DATUMFORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
 	@Override
 	public KraftwertDto mappe(@NonNull Kraftwert kraftwert)
 	{
 		return new KraftwertDto(
-			kraftwert.getPrimaerschluessel().getId().toString(),
+			kraftwert.getId().getWert().toString(),
+			kraftwert.getDatum().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
 			praezision(kraftwert.getGewicht()),
-			praezision(kraftwert.getKoerpergewicht()),
-			kraftwert.getDatum().format(DATUMFORMAT),
 			kraftwert.getWiederholungen().getWert());
 	}
 

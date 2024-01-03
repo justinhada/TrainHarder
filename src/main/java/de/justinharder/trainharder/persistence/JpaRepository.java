@@ -1,57 +1,47 @@
 package de.justinharder.trainharder.persistence;
 
-import de.justinharder.trainharder.model.domain.Entitaet;
-import de.justinharder.trainharder.model.domain.embeddables.Primaerschluessel;
+import de.justinharder.trainharder.domain.model.Entitaet;
+import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.trainharder.domain.repository.Repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
-@NoArgsConstructor
-public abstract class JpaRepository<T extends Entitaet>
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	public void setEntityManager(@NonNull EntityManager entityManager)
+	private final Class<T> entitaet;
+
+	@Override
+	public List<T> findeAlle()
 	{
-		this.entityManager = entityManager;
+		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entitaet);
+		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet))).getResultList();
 	}
 
-	protected List<T> ermittleAlle(Class<T> clazz)
+	@Override
+	public Optional<T> finde(@NonNull ID id)
 	{
-		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(clazz);
-		criteriaQuery.select(criteriaQuery.from(clazz));
-		return entityManager.createQuery(criteriaQuery).getResultList();
+		return Optional.ofNullable(entityManager.find(entitaet, id));
 	}
 
-	protected Optional<T> ermittleZuId(Class<T> clazz, Primaerschluessel id)
+	@Override
+	public void speichere(@NonNull T entitaet)
 	{
-		return Optional.ofNullable(entityManager.find(clazz, id));
+		entityManager.persist(entitaet);
 	}
 
-	protected T speichereEntitaet(Class<T> clazz, T entitaet)
+	@Override
+	public void loesche(@NonNull T entitaet)
 	{
-		return ermittleZuId(clazz, entitaet.getPrimaerschluessel())
-			.map(ungenutzt -> aktualisiereEntitaet(entitaet))
-			.orElseGet(erstelleEntitaet(entitaet));
-	}
-
-	private T aktualisiereEntitaet(T entitaet)
-	{
-		return entityManager.merge(entitaet);
-	}
-
-	private Supplier<? extends T> erstelleEntitaet(T entitaet)
-	{
-		return () ->
-		{
-			entityManager.persist(entitaet);
-			return entitaet;
-		};
+		entityManager.remove(entitaet);
 	}
 }

@@ -12,7 +12,7 @@ public class AuthentifizierungDtoMapper implements DtoMapper<Authentifizierung, 
 	public AuthentifizierungDto mappe(@NonNull Authentifizierung authentifizierung)
 	{
 		return new AuthentifizierungDto(
-			authentifizierung.getPrimaerschluessel().getId().toString(),
+			authentifizierung.getId().getWert().toString(),
 			authentifizierung.getMail(),
 			authentifizierung.getBenutzername());
 	}

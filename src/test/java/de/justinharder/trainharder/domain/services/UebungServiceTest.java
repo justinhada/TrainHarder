@@ -1,17 +1,13 @@
 package de.justinharder.trainharder.domain.services;
 
-import de.justinharder.trainharder.domain.model.Belastung;
 import de.justinharder.trainharder.domain.model.Uebung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.enums.Uebungsart;
 import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
-import de.justinharder.trainharder.domain.model.exceptions.BelastungsfaktorNichtGefundenException;
-import de.justinharder.trainharder.domain.model.exceptions.UebungNichtGefundenException;
-import de.justinharder.trainharder.domain.repository.BelastungsfaktorRepository;
+import de.justinharder.trainharder.domain.model.exceptions.BelastungException;
+import de.justinharder.trainharder.domain.model.exceptions.UebungException;
+import de.justinharder.trainharder.domain.repository.BelastungRepository;
 import de.justinharder.trainharder.domain.repository.UebungRepository;
 import de.justinharder.trainharder.domain.services.mapper.UebungDtoMapper;
-import de.justinharder.trainharder.setup.Testdaten;
-import de.justinharder.trainharder.domain.services.dto.UebungDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,91 +15,44 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class UebungServiceSollte
+@DisplayName("UebungService sollte")
+class UebungServiceTest
 {
 	private UebungService sut;
 
 	private UebungRepository uebungRepository;
-	private BelastungsfaktorRepository belastungsfaktorRepository;
+	private BelastungRepository belastungRepository;
 	private UebungDtoMapper uebungDtoMapper;
 
 	@BeforeEach
 	void setup()
 	{
 		uebungRepository = mock(UebungRepository.class);
-		belastungsfaktorRepository = mock(BelastungsfaktorRepository.class);
+		belastungRepository = mock(BelastungRepository.class);
 		uebungDtoMapper = mock(UebungDtoMapper.class);
 
-		sut = new UebungService(uebungRepository, belastungsfaktorRepository, uebungDtoMapper);
-	}
-
-	private void angenommenDasUebungRepositoryGibtAlleUebungenZurueck(List<Uebung> uebungen)
-	{
-		when(uebungRepository.ermittleAlle()).thenReturn(uebungen);
-	}
-
-	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(String uebungsart, List<Uebung> uebungen)
-	{
-		when(uebungRepository.ermittleAlleZuUebungsart(Uebungsart.zuWert(uebungsart))).thenReturn(uebungen);
-	}
-
-	private void angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(String uebungskategorie, List<Uebung> uebungen)
-	{
-		when(uebungRepository.ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie))).thenReturn(uebungen);
-	}
-
-	private void angenommenDasUebungRepositoryGibtEineUebungZurueck(String id, Optional<Uebung> uebung)
-	{
-		when(uebungRepository.ermittleZuId(new ID(id))).thenReturn(uebung);
-	}
-
-	private void angenommenDasUebungRepositoryGibtNullZurueck(String id)
-	{
-		angenommenDasUebungRepositoryGibtEineUebungZurueck(id, Optional.empty());
-	}
-
-	private void angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(String belastungsfaktorId, Optional<Belastung> belastungsfaktor)
-	{
-		when(belastungsfaktorRepository.ermittleZuId(new ID(belastungsfaktorId))).thenReturn(belastungsfaktor);
-	}
-
-	private void angenommenDasBelastungsfaktorRepositoryErmitteltKeinenBelastungsfaktor(String belastungsfaktorId)
-	{
-		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(belastungsfaktorId, Optional.empty());
-	}
-
-	private void angenommenDasUebungRepositorySpeichertUebung(Uebung uebung)
-	{
-		when(uebungRepository.speichereUebung(any(Uebung.class))).thenReturn(uebung);
-	}
-
-	private void angenommenDerUebungDtoMapperMapptAlleUebungDtos(List<Uebung> uebungen, List<UebungDto> uebungDtos)
-	{
-		when(uebungDtoMapper.mappeAlle(uebungen)).thenReturn(uebungDtos);
-	}
-
-	private void angenommenDerUebungDtoMapperMapptUebungDto(Uebung uebung, UebungDto uebungDto)
-	{
-		when(uebungDtoMapper.mappe(uebung)).thenReturn(uebungDto);
+		sut = new UebungService(uebungRepository, belastungRepository, uebungDtoMapper);
 	}
 
 	@Test
-	@DisplayName("alle Uebungen ermitteln")
+	@DisplayName("alle finden")
 	void test01()
 	{
-		var erwartet = List.of(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var uebungen = List.of(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-		angenommenDasUebungRepositoryGibtAlleUebungenZurueck(uebungen);
-		angenommenDerUebungDtoMapperMapptAlleUebungDtos(uebungen, erwartet);
+		var erwartet = List.of(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		var uebungen =
+			List.of(UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE, UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+		when(uebungRepository.findeAlle()).thenReturn(uebungen);
+		when(uebungDtoMapper.mappeAlle(uebungen)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleAlle()).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleAlle();
+		assertThat(sut.findeAlle()).isEqualTo(erwartet);
+		verify(uebungRepository).findeAlle();
 		verify(uebungDtoMapper).mappeAlle(uebungen);
 	}
 
@@ -112,94 +61,96 @@ class UebungServiceSollte
 	void test02()
 	{
 		assertAll(
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungsart(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuUebungskategorie(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.ermittleZuId(null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, null)),
-			() -> assertThrows(NullPointerException.class, () -> sut.speichereUebung(null, "belastungsfaktorId")));
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlleMitUebungsart(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlleMitUebungskategorie(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.erstelle(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, null)),
+			() -> assertThrows(NullPointerException.class,
+				() -> sut.erstelle(null, BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN.getId())));
 	}
 
 	@Test
-	@DisplayName("alle Uebungen zu Uebungsart ermitteln")
+	@DisplayName("alle mit Uebungsart finden")
 	void test03()
 	{
-		var erwartet = List.of(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var uebungen = List.of(Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE, Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN);
+		var erwartet = List.of(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, UEBUNG_DTO_LOWBAR_KNIEBEUGE,
+			UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		var uebungen =
+			List.of(UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE, UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 		var uebungsart = "GRUNDUEBUNG";
-		angenommenDasUebungRepositoryGibtAlleUebungenZuUebungsartZurueck(uebungsart, uebungen);
-		angenommenDerUebungDtoMapperMapptAlleUebungDtos(uebungen, erwartet);
+		when(uebungRepository.findeAlleMitUebungsart(Uebungsart.zuWert(uebungsart))).thenReturn(uebungen);
+		when(uebungDtoMapper.mappeAlle(uebungen)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleZuUebungsart(uebungsart)).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleAlleZuUebungsart(Uebungsart.zuWert(uebungsart));
+		assertThat(sut.findeAlleMitUebungsart(uebungsart)).isEqualTo(erwartet);
+		verify(uebungRepository).findeAlleMitUebungsart(Uebungsart.zuWert(uebungsart));
 		verify(uebungDtoMapper).mappeAlle(uebungen);
 	}
 
 	@Test
-	@DisplayName("alle Uebungen zu Uebungskategorie ermitteln")
+	@DisplayName("alle mit Uebungskategorie finden")
 	void test04()
 	{
-		var erwartet = List.of(Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE);
-		var uebungen = List.of(Testdaten.UEBUNG_LOWBAR_KNIEBEUGE);
+		var erwartet = List.of(UEBUNG_DTO_LOWBAR_KNIEBEUGE);
+		var uebungen = List.of(UEBUNG_LOWBAR_KNIEBEUGE);
 		var uebungskategorie = "WETTKAMPF_KNIEBEUGE";
-		angenommenDasUebungRepositoryGibtAlleUebungenZuUebungskategorieZurueck(uebungskategorie, uebungen);
-		angenommenDerUebungDtoMapperMapptAlleUebungDtos(uebungen, erwartet);
+		when(uebungRepository.findeAlleMitUebungskategorie(Uebungskategorie.zuWert(uebungskategorie))).thenReturn(
+			uebungen);
+		when(uebungDtoMapper.mappeAlle(uebungen)).thenReturn(erwartet);
 
-		assertThat(sut.ermittleZuUebungskategorie(uebungskategorie)).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleAlleZuUebungskategorie(Uebungskategorie.zuWert(uebungskategorie));
+		assertThat(sut.findeAlleMitUebungskategorie(uebungskategorie)).isEqualTo(erwartet);
+		verify(uebungRepository).findeAlleMitUebungskategorie(Uebungskategorie.zuWert(uebungskategorie));
 		verify(uebungDtoMapper).mappeAlle(uebungen);
 	}
 
 	@Test
-	@DisplayName("UebungNichtGefundenException werfen, wenn die UebungID nicht existiert")
+	@DisplayName("UebungException werfen, wenn die UebungID nicht existiert")
 	void test05()
 	{
-		var id = new ID().getId().toString();
-		angenommenDasUebungRepositoryGibtNullZurueck(id);
+		when(uebungRepository.finde(UEBUNG_WETTKAMPFBANKDRUECKEN.getId())).thenReturn(Optional.empty());
 
-		assertThrows(UebungNichtGefundenException.class, () -> sut.ermittleZuId(id));
-		verify(uebungRepository).ermittleZuId(new ID(id));
+		assertThrows(UebungException.class, () -> sut.finde(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN.getId()));
+		verify(uebungRepository).finde(UEBUNG_WETTKAMPFBANKDRUECKEN.getId());
 	}
 
 	@Test
-	@DisplayName("eine Uebung zur ID ermitteln")
-	void test06() throws UebungNichtGefundenException
+	@DisplayName("finden")
+	void test06() throws UebungException
 	{
-		var erwartet = Testdaten.UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN;
-		var uebung = Testdaten.UEBUNG_KONVENTIONELLES_KREUZHEBEN;
-		var id = new ID().getId().toString();
-		angenommenDasUebungRepositoryGibtEineUebungZurueck(id, Optional.of(uebung));
-		angenommenDerUebungDtoMapperMapptUebungDto(uebung, erwartet);
+		when(uebungRepository.finde(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getId())).thenReturn(
+			Optional.of(UEBUNG_KONVENTIONELLES_KREUZHEBEN));
+		when(uebungDtoMapper.mappe(UEBUNG_KONVENTIONELLES_KREUZHEBEN)).thenReturn(
+			UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
 
-		assertThat(sut.ermittleZuId(id)).isEqualTo(erwartet);
-		verify(uebungRepository).ermittleZuId(new ID(id));
-		verify(uebungDtoMapper).mappe(uebung);
+		assertThat(sut.finde(UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN.getId())).isEqualTo(
+			UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
+		verify(uebungRepository).finde(UEBUNG_KONVENTIONELLES_KREUZHEBEN.getId());
+		verify(uebungDtoMapper).mappe(UEBUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test
-	@DisplayName("BelastungsfaktorNichtGefundenException werfen, wenn die BelastungsfaktorID nicht existiert")
+	@DisplayName("BelastungException werfen, wenn die BelastungID nicht existiert")
 	void test07()
 	{
-		var belastungsfaktorId = new ID().getId().toString();
-		angenommenDasBelastungsfaktorRepositoryErmitteltKeinenBelastungsfaktor(belastungsfaktorId);
+		when(belastungRepository.finde(BELASTUNG_WETTKAMPFBANKDRUECKEN.getId())).thenReturn(Optional.empty());
 
-		assertThrows(BelastungsfaktorNichtGefundenException.class, () -> sut.speichereUebung(Testdaten.UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, belastungsfaktorId));
-		verify(belastungsfaktorRepository).ermittleZuId(new ID(belastungsfaktorId));
+		assertThrows(BelastungException.class,
+			() -> sut.erstelle(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, BELASTUNG_DTO_WETTKAMPFBANKDRUECKEN.getId()));
+		verify(belastungRepository).finde(BELASTUNG_WETTKAMPFBANKDRUECKEN.getId());
 	}
 
 	@Test
-	@DisplayName("eine Uebung erstellen")
-	void test08() throws BelastungsfaktorNichtGefundenException
+	@DisplayName("erstellen")
+	void test08() throws BelastungException
 	{
-		var erwartet = Testdaten.UEBUNG_DTO_LOWBAR_KNIEBEUGE;
-		var uebung = Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
-		var belastungsfaktor = Testdaten.BELASTUNG_LOWBAR_KNIEBEUGE;
-		var belastungsfaktorId = new ID().getId().toString();
-		angenommenDasBelastungsfaktorRepositoryGibtEinenBelastungsfaktorZurueck(belastungsfaktorId, Optional.of(belastungsfaktor));
-		angenommenDasUebungRepositorySpeichertUebung(uebung);
-		angenommenDerUebungDtoMapperMapptUebungDto(uebung, erwartet);
+		when(belastungRepository.finde(BELASTUNG_LOWBAR_KNIEBEUGE.getId())).thenReturn(
+			Optional.of(BELASTUNG_LOWBAR_KNIEBEUGE));
+		when(uebungDtoMapper.mappe(any(Uebung.class))).thenReturn(UEBUNG_DTO_LOWBAR_KNIEBEUGE);
 
-		assertThat(sut.speichereUebung(erwartet, belastungsfaktorId)).isEqualTo(erwartet);
-		verify(belastungsfaktorRepository).ermittleZuId(new ID(belastungsfaktorId));
-		verify(uebungDtoMapper).mappe(uebung);
+		assertThat(sut.erstelle(UEBUNG_DTO_LOWBAR_KNIEBEUGE, BELASTUNG_DTO_LOWBAR_KNIEBEUGE.getId())).isEqualTo(
+			UEBUNG_DTO_LOWBAR_KNIEBEUGE);
+		verify(belastungRepository).finde(BELASTUNG_LOWBAR_KNIEBEUGE.getId());
+		verify(uebungRepository).speichere(any(Uebung.class));
+		verify(uebungDtoMapper).mappe(any(Uebung.class));
 	}
 }

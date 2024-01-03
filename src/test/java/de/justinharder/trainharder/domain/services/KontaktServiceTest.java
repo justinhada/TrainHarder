@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class KontaktServiceSollte
+@DisplayName("KontaktService sollte")
+class KontaktServiceTest
 {
 	private KontaktService sut;
 

@@ -25,7 +25,7 @@ public class BenutzerDtoMapper implements DtoMapper<Benutzer, BenutzerDto>
 	public BenutzerDto mappe(@NonNull Benutzer benutzer)
 	{
 		return new BenutzerDto(
-			benutzer.getPrimaerschluessel().getId().toString(),
+			benutzer.getId().getWert().toString(),
 			new NameDto(benutzer.getName().getVorname(), benutzer.getName().getNachname()),
 			benutzer.getGeburtsdatum(),
 			new BenutzerangabeDto(
