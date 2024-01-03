@@ -6,7 +6,7 @@ import jakarta.persistence.Converter;
 import java.util.UUID;
 
 @Converter(autoApply = true)
-public class UuidMapper implements AttributeConverter<UUID, String>
+public class UUIDMapping implements AttributeConverter<UUID, String>
 {
 	@Override
 	public String convertToDatabaseColumn(UUID uuid)

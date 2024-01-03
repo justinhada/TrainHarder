@@ -9,7 +9,8 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class UUIDMappingSollte
+@DisplayName("UUIDMapping sollte")
+class UUIDMappingTest
 {
 	private UUIDMapping sut;
 
