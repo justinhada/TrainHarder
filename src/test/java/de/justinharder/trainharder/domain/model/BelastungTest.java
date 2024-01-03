@@ -4,13 +4,14 @@ import de.justinharder.trainharder.domain.model.embeddables.GrunduebungBelastung
 import de.justinharder.trainharder.domain.model.embeddables.ID;
 import de.justinharder.trainharder.domain.model.embeddables.OberkoerperBelastung;
 import de.justinharder.trainharder.domain.model.embeddables.UnterkoerperBelastung;
-import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static de.justinharder.trainharder.setup.Testdaten.UEBUNG_LOWBAR_KNIEBEUGE;
+import static de.justinharder.trainharder.setup.Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,10 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BelastungTest
 {
 	private static final ID ID = new ID();
-	private static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG = new GrunduebungBelastung(1.0, 0.0, 0.0);
+	private static final GrunduebungBelastung GRUNDUEBUNG_BELASTUNG =
+		new GrunduebungBelastung(1.0, 0.0, 0.0);
 	private static final OberkoerperBelastung OBERKOERPER_BELASTUNG =
 		new OberkoerperBelastung(0.7, 1.0, 0.0, 0.0, 0.0, 0.1);
-	private static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG = new UnterkoerperBelastung(1.0, 1.0, 0.5);
+	private static final UnterkoerperBelastung UNTERKOERPER_BELASTUNG =
+		new UnterkoerperBelastung(1.0, 1.0, 0.5);
 
 	private Belastung sut;
 
@@ -52,7 +55,7 @@ class BelastungTest
 	void test02()
 	{
 		EqualsVerifier.forClass(Belastung.class)
-			.withPrefabValues(Uebung.class, Testdaten.UEBUNG_WETTKAMPFBANKDRUECKEN, Testdaten.UEBUNG_LOWBAR_KNIEBEUGE)
+			.withPrefabValues(Uebung.class, UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)

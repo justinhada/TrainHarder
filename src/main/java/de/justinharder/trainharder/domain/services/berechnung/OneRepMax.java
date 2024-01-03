@@ -27,7 +27,8 @@ public class OneRepMax
 		Preconditions.checkArgument(wiederholungen > 0 && wiederholungen <= 8, "Ungültige Wiederholungen!");
 		Preconditions.checkArgument(repsInReserve >= 0 && repsInReserve <= 4, "Ungültige RepsInReserve!");
 
-		return new OneRepMax(gewicht, wiederholungen, repsInReserve, berechneRichtwert(gewicht, wiederholungen + repsInReserve));
+		return new OneRepMax(gewicht, wiederholungen, repsInReserve,
+			berechneRichtwert(gewicht, wiederholungen + repsInReserve));
 	}
 
 	private static int berechneRichtwert(int gewicht, int index)
@@ -43,12 +44,14 @@ public class OneRepMax
 		{
 			return true;
 		}
-		if (!(o instanceof OneRepMax))
+		if (!(o instanceof OneRepMax oneRepMax))
 		{
 			return false;
 		}
-		OneRepMax oneRepMax = (OneRepMax) o;
-		return gewicht == oneRepMax.gewicht && wiederholungen == oneRepMax.wiederholungen && repsInReserve == oneRepMax.repsInReserve && richtwert == oneRepMax.richtwert;
+		return gewicht == oneRepMax.gewicht
+			&& wiederholungen == oneRepMax.wiederholungen
+			&& repsInReserve == oneRepMax.repsInReserve
+			&& richtwert == oneRepMax.richtwert;
 	}
 
 	@Override

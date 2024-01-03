@@ -27,17 +27,29 @@ public class Volumenrechner
 
 	public int[] getVolumenHypertrophiePhase()
 	{
-		return new int[] { mappeZuInt(empfehlungen[0][0]), mappeZuInt(empfehlungen[0][1]), mappeZuInt(empfehlungen[0][2]) };
+		return new int[] {
+			mappeZuInt(empfehlungen[0][0]),
+			mappeZuInt(empfehlungen[0][1]),
+			mappeZuInt(empfehlungen[0][2])
+		};
 	}
 
 	public int[] getVolumenKraftPhase()
 	{
-		return new int[] { mappeZuInt(empfehlungen[1][0]), mappeZuInt(empfehlungen[1][1]), mappeZuInt(empfehlungen[1][2]) };
+		return new int[] {
+			mappeZuInt(empfehlungen[1][0]),
+			mappeZuInt(empfehlungen[1][1]),
+			mappeZuInt(empfehlungen[1][2])
+		};
 	}
 
 	public int[] getVolumenPeakingPhase()
 	{
-		return new int[] { mappeZuInt(empfehlungen[2][0]), mappeZuInt(empfehlungen[2][1]), mappeZuInt(empfehlungen[2][2]) };
+		return new int[] {
+			mappeZuInt(empfehlungen[2][0]),
+			mappeZuInt(empfehlungen[2][1]),
+			mappeZuInt(empfehlungen[2][2])
+		};
 	}
 
 	private int mappeZuInt(double zahl)

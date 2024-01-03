@@ -1,7 +1,6 @@
 package de.justinharder.trainharder.domain.model;
 
 import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.setup.Testdaten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static de.justinharder.trainharder.setup.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ class AuthentifizierungTest
 	@BeforeEach
 	void setup()
 	{
-		sut = new Authentifizierung(ID, MAIL, BENUTZERNAME, Testdaten.PASSWORT);
+		sut = new Authentifizierung(ID, MAIL, BENUTZERNAME, PASSWORT);
 	}
 
 	@Test
@@ -37,14 +37,14 @@ class AuthentifizierungTest
 		var authentifizierung = new Authentifizierung()
 			.setMail(MAIL)
 			.setBenutzername(BENUTZERNAME)
-			.setPasswort(Testdaten.PASSWORT)
+			.setPasswort(PASSWORT)
 			.setAktiv(true)
 			.setResetUuid(resetUuid);
 
 		assertAll(
 			() -> assertThat(authentifizierung.getMail()).isEqualTo(MAIL),
 			() -> assertThat(authentifizierung.getBenutzername()).isEqualTo(BENUTZERNAME),
-			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(Testdaten.PASSWORT),
+			() -> assertThat(authentifizierung.getPasswort()).isEqualTo(PASSWORT),
 			() -> assertThat(authentifizierung.isAktiv()).isTrue(),
 			() -> assertThat(authentifizierung.getResetUuid()).isEqualTo(resetUuid));
 	}
@@ -54,7 +54,7 @@ class AuthentifizierungTest
 	void test02()
 	{
 		EqualsVerifier.forClass(Authentifizierung.class)
-			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
+			.withPrefabValues(Benutzer.class, BENUTZER_JUSTIN, BENUTZER_EDUARD)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
@@ -74,11 +74,11 @@ class AuthentifizierungTest
 	{
 		assertAll(
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(null, MAIL, BENUTZERNAME, Testdaten.PASSWORT)),
+				() -> new Authentifizierung(null, MAIL, BENUTZERNAME, PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(ID, null, BENUTZERNAME, Testdaten.PASSWORT)),
+				() -> new Authentifizierung(ID, null, BENUTZERNAME, PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
-				() -> new Authentifizierung(ID, MAIL, null, Testdaten.PASSWORT)),
+				() -> new Authentifizierung(ID, MAIL, null, PASSWORT)),
 			() -> assertThrows(NullPointerException.class,
 				() -> new Authentifizierung(ID, MAIL, BENUTZERNAME, null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.setMail(null)),

@@ -1,8 +1,7 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
 import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.setup.Testdaten;
+import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static de.justinharder.trainharder.setup.Testdaten.BENUTZER_EDUARD;
+import static de.justinharder.trainharder.setup.Testdaten.BENUTZER_JUSTIN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,7 +57,7 @@ class KoerpermessungTest
 	void test02()
 	{
 		EqualsVerifier.forClass(Koerpermessung.class)
-			.withPrefabValues(Benutzer.class, Testdaten.BENUTZER_JUSTIN, Testdaten.BENUTZER_EDUARD)
+			.withPrefabValues(Benutzer.class, BENUTZER_JUSTIN, BENUTZER_EDUARD)
 			.suppress(Warning.STRICT_INHERITANCE)
 			.suppress(Warning.SURROGATE_KEY)
 			.suppress(Warning.NULL_FIELDS)
