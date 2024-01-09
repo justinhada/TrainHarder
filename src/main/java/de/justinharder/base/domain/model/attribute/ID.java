@@ -1,6 +1,6 @@
 package de.justinharder.base.domain.model.attribute;
 
-import de.justinharder.trainharder.domain.UUIDMapping;
+import de.justinharder.old.domain.UUIDMapping;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
