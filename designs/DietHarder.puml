@@ -1,0 +1,24 @@
+@startuml
+entity Benutzer
+
+entity Messung
+{
+    * **ID <<PK>>**
+    * Datum
+    * Koerpergewicht
+    * KoerperfettAnteil
+    * **BenutzerID <<FK>>**
+}
+
+entity Ziel
+{
+    * **ID <<PK>>**
+    * Datum
+    * Koerpergewicht
+    * KoerperfettAnteil
+    * **BenutzerID <<FK>>**
+}
+
+Benutzer ||--o{ Messung
+Benutzer ||--o{ Ziel
+@enduml
