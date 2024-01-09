@@ -1,7 +1,8 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
+import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Koerpermasse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

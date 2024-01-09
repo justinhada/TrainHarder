@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Koerpermessung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Koerpermasse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.KoerpermessungException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;

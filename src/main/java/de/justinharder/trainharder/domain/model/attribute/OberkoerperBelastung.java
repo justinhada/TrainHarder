@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.domain.model.embeddables;
+package de.justinharder.trainharder.domain.model.attribute;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

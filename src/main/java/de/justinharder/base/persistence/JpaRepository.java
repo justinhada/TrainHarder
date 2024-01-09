@@ -1,8 +1,8 @@
-package de.justinharder.trainharder.persistence;
+package de.justinharder.base.persistence;
 
-import de.justinharder.trainharder.domain.model.Entitaet;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.repository.Repository;
+import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.base.domain.repository.Repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.AccessLevel;

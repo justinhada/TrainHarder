@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.domain.model.embeddables;
+package de.justinharder.trainharder.domain.model.attribute;
 
 import de.justinharder.trainharder.domain.services.berechnung.koerpermasse.BodyMassIndex;
 import de.justinharder.trainharder.domain.services.berechnung.koerpermasse.FatFreeMassIndex;

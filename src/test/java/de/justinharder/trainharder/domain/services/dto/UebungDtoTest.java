@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.dto;
 
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;

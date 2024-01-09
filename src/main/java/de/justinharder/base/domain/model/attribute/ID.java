@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.domain.model.embeddables;
+package de.justinharder.base.domain.model.attribute;
 
 import de.justinharder.trainharder.domain.UUIDMapping;
 import jakarta.persistence.Column;

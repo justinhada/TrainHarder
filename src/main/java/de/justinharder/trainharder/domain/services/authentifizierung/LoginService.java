@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.authentifizierung;
 
-import de.justinharder.trainharder.domain.model.embeddables.Passwort;
+import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.model.exceptions.PasswortUnsicherException;

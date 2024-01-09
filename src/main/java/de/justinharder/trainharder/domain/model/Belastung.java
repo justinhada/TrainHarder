@@ -1,9 +1,10 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.GrunduebungBelastung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.OberkoerperBelastung;
-import de.justinharder.trainharder.domain.model.embeddables.UnterkoerperBelastung;
+import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.trainharder.domain.model.attribute.GrunduebungBelastung;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.OberkoerperBelastung;
+import de.justinharder.trainharder.domain.model.attribute.UnterkoerperBelastung;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.*;

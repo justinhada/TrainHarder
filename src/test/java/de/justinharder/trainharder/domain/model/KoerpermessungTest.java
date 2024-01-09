@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.domain.model;
 
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Koerpermasse;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeEach;

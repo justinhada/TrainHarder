@@ -1,7 +1,8 @@
 package de.justinharder.trainharder.persistence;
 
+import de.justinharder.base.persistence.JpaRepository;
 import de.justinharder.trainharder.domain.model.Kraftwert;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.repository.KraftwertRepository;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;

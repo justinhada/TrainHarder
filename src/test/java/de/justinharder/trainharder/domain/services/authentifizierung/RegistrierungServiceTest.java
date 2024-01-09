@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.domain.services.authentifizierung;
 
 import de.justinharder.trainharder.domain.model.Authentifizierung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzernameVergebenException;
 import de.justinharder.trainharder.domain.model.exceptions.MailVergebenException;

@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Uebung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.model.enums.Uebungsart;
 import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;
 import de.justinharder.trainharder.domain.model.exceptions.BelastungException;

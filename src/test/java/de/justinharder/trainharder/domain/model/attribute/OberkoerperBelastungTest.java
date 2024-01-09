@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.domain.model.embeddables;
+package de.justinharder.trainharder.domain.model.attribute;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;

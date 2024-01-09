@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.mapper;
 
-import de.justinharder.trainharder.domain.model.Entitaet;
+import de.justinharder.base.domain.model.Entitaet;
 import de.justinharder.trainharder.domain.services.dto.EntitaetDto;
 import lombok.NonNull;
 

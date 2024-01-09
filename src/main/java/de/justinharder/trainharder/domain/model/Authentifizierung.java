@@ -1,8 +1,9 @@
 package de.justinharder.trainharder.domain.model;
 
+import de.justinharder.base.domain.model.Entitaet;
 import de.justinharder.trainharder.domain.UUIDMapping;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Passwort;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;

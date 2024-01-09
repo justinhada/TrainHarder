@@ -1,5 +1,6 @@
 package de.justinharder.trainharder.domain.repository;
 
+import de.justinharder.base.domain.repository.Repository;
 import de.justinharder.trainharder.domain.model.Uebung;
 import de.justinharder.trainharder.domain.model.enums.Uebungsart;
 import de.justinharder.trainharder.domain.model.enums.Uebungskategorie;

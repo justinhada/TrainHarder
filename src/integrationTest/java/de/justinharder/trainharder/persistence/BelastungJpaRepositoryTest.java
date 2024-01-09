@@ -1,10 +1,10 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Belastung;
-import de.justinharder.trainharder.domain.model.embeddables.GrunduebungBelastung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.OberkoerperBelastung;
-import de.justinharder.trainharder.domain.model.embeddables.UnterkoerperBelastung;
+import de.justinharder.trainharder.domain.model.attribute.GrunduebungBelastung;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.OberkoerperBelastung;
+import de.justinharder.trainharder.domain.model.attribute.UnterkoerperBelastung;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

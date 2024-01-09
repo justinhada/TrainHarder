@@ -1,7 +1,7 @@
-package de.justinharder.trainharder.domain.repository;
+package de.justinharder.base.domain.repository;
 
-import de.justinharder.trainharder.domain.model.Entitaet;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.base.domain.model.attribute.ID;
 import lombok.NonNull;
 
 import java.util.List;

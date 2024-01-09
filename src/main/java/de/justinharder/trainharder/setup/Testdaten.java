@@ -1,7 +1,8 @@
 package de.justinharder.trainharder.setup;
 
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.model.*;
-import de.justinharder.trainharder.domain.model.embeddables.*;
+import de.justinharder.trainharder.domain.model.attribute.*;
 import de.justinharder.trainharder.domain.model.enums.*;
 import de.justinharder.trainharder.domain.services.dto.*;
 import lombok.AccessLevel;

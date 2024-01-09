@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.trainharder.domain.model.Kraftwert;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.KraftwertException;
 import de.justinharder.trainharder.domain.model.exceptions.UebungException;

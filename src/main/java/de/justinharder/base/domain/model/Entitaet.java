@@ -1,7 +1,7 @@
-package de.justinharder.trainharder.domain.model;
+package de.justinharder.base.domain.model;
 
 import com.google.common.base.MoreObjects;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AccessLevel;

@@ -2,9 +2,9 @@ package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Authentifizierung;
 import de.justinharder.trainharder.domain.model.Benutzer;
-import de.justinharder.trainharder.domain.model.embeddables.Benutzerangabe;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Name;
+import de.justinharder.trainharder.domain.model.attribute.Benutzerangabe;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Name;
 import de.justinharder.trainharder.domain.model.enums.*;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;

@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.mapper;
 
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
+import de.justinharder.trainharder.domain.model.attribute.Koerpermasse;
 import de.justinharder.trainharder.domain.services.dto.KoerpermasseDto;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;

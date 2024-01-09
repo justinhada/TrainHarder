@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services;
 
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.trainharder.domain.model.exceptions.AuthentifizierungException;
 import de.justinharder.trainharder.domain.repository.AuthentifizierungRepository;
 import de.justinharder.trainharder.domain.services.dto.AuthentifizierungDto;

@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.authentifizierung.passwort;
 
-import de.justinharder.trainharder.domain.model.embeddables.Passwort;
+import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.NonNull;

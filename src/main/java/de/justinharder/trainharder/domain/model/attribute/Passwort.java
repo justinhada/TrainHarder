@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.domain.model.embeddables;
+package de.justinharder.trainharder.domain.model.attribute;
 
 import io.quarkus.security.jpa.Password;
 import jakarta.persistence.Column;

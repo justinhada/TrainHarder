@@ -1,6 +1,6 @@
 package de.justinharder.trainharder.domain.services.authentifizierung.passwort;
 
-import de.justinharder.trainharder.domain.model.embeddables.Passwort;
+import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Koerpermessung;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
-import de.justinharder.trainharder.domain.model.embeddables.Koerpermasse;
+import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.trainharder.domain.model.attribute.Koerpermasse;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

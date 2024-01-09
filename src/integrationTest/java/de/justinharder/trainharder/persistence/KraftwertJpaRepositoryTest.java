@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.persistence;
 
 import de.justinharder.trainharder.domain.model.Kraftwert;
-import de.justinharder.trainharder.domain.model.embeddables.ID;
+import de.justinharder.base.domain.model.attribute.ID;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
