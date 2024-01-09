@@ -1,7 +1,10 @@
 package de.justinharder.trainharder.domain.model.exceptions;
 
-public class BenutzerException extends Exception
+import java.io.Serial;
+
+public class BenutzerException extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = -8124391141573256519L;
 
 	public BenutzerException(String nachricht)

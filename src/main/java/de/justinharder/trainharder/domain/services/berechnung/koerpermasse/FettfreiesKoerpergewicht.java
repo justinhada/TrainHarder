@@ -12,6 +12,7 @@ public class FettfreiesKoerpergewicht
 {
 	public static BigDecimal aus(@NonNull BigDecimal koerpergewicht, @NonNull BigDecimal koerperfettAnteil)
 	{
-		return koerpergewicht.subtract(koerpergewicht.multiply(Berechnung.dividiereBasis(koerperfettAnteil))).setScale(2, RoundingMode.HALF_EVEN);
+		return koerpergewicht.subtract(koerpergewicht.multiply(Berechnung.dividiereBasis(koerperfettAnteil)))
+			.setScale(2, RoundingMode.HALF_EVEN);
 	}
 }
