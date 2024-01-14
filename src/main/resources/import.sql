@@ -41,3 +41,7 @@ VALUES ('fce7ffb5-7aa3-49db-bfe4-7b52a0e234d0', '2020-07-29', 178.00, 90.00, 25.
         '7c4a9562-a165-40b9-a645-4cf2cee9a1e3'),
        ('36903e76-d888-4994-bfa2-d1f373d12ed7', '2020-07-29', 182.00, 64.00, 9.00, 58.24, 19.3, 17.50, 2500, 2900,
         '9341a123-6b75-4b89-9454-d096b9ed2bd2');
+
+INSERT INTO Messung(ID, Datum, Koerpergewicht, KoerperfettAnteil, BenutzerID)
+VALUES ('c6ee66cf-bc61-4539-b5da-832a0d57b62e', '2024-01-05', 88.50, 15.60, '7c4a9562-a165-40b9-a645-4cf2cee9a1e3'),
+       ('53ec77cb-849e-497d-9864-8f2c88618326', '2024-01-06', 89.05, 15.80, '7c4a9562-a165-40b9-a645-4cf2cee9a1e3');
