@@ -24,12 +24,12 @@ public class Passwort implements Serializable
 
 	@NonNull
 	@Column(name = "Salt", nullable = false)
-	private String salt;
+	private String salt; // TODO: WertOjekt<String>
 
 	@NonNull
 	@Password
 	@Column(name = "PasswortHash", nullable = false)
-	private String passwortHash;
+	private String passwortHash; // TODO: Umbenennen zu Hash (WertObjekt<String>)
 
 	@Override
 	public boolean equals(Object o)
