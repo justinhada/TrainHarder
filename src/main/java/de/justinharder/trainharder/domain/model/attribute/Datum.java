@@ -1,5 +1,6 @@
-package de.justinharder.base.domain.model.attribute;
+package de.justinharder.trainharder.domain.model.attribute;
 
+import de.justinharder.base.domain.model.attribute.WertObjekt;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.*;

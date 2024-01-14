@@ -29,7 +29,7 @@ public class ID extends WertObjekt<UUID>
 		this(UUID.randomUUID());
 	}
 
-	public ID(String wert)
+	public ID(@NonNull String wert)
 	{
 		this(UUID.fromString(wert));
 	}

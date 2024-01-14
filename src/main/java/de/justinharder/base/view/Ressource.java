@@ -1,18 +1,20 @@
 package de.justinharder.base.view;
 
-import de.justinharder.base.domain.services.dto.DTO;
+import de.justinharder.base.domain.services.dto.AktualisiertesDTO;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
+import de.justinharder.base.domain.services.dto.NeuesDTO;
 import jakarta.ws.rs.core.Response;
+import lombok.NonNull;
 
-public interface Ressource<T extends GespeichertesDTO<?>, U extends DTO<?>, V extends DTO<?>>
+public interface Ressource<T extends GespeichertesDTO<?>, U extends NeuesDTO<?>, V extends AktualisiertesDTO<?>>
 {
 	Response findeAlle();
 
-	Response finde(String id);
+	Response finde(@NonNull String id);
 
-	Response erstelle(U neuesDto);
+	Response erstelle(@NonNull U neuesDto);
 
-	Response aktualisiere(String id, V aktualisiertesDto);
+	Response aktualisiere(@NonNull String id, @NonNull V aktualisiertesDto);
 
-	Response loesche(String id);
+	Response loesche(@NonNull String id);
 }
