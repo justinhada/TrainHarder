@@ -2,6 +2,7 @@ package de.justinharder.dietharder.view;
 
 import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.ZielService;
+import de.justinharder.trainharder.domain.service.BenutzerService;
 import de.justinharder.trainharder.view.BenutzerRessource;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -11,14 +12,22 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.NonNull;
 
-import javax.inject.Inject;
-
 public class DietHarderBenutzerRessource extends BenutzerRessource
 {
-	@Inject
-	public DietHarderBenutzerRessource(@NonNull MessungService messungService, @NonNull ZielService zielService)
+	@NonNull
+	private final MessungService messungService;
+
+	@NonNull
+	private final ZielService zielService;
+
+	public DietHarderBenutzerRessource(
+		BenutzerService benutzerService,
+		@NonNull MessungService messungService,
+		@NonNull ZielService zielService)
 	{
-		super(messungService, zielService);
+		super(benutzerService);
+		this.messungService = messungService;
+		this.zielService = zielService;
 	}
 
 	@GET

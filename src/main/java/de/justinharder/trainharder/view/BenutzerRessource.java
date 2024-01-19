@@ -1,8 +1,8 @@
 package de.justinharder.trainharder.view;
 
 import de.justinharder.base.view.Ressource;
-import de.justinharder.dietharder.domain.services.MessungService;
-import de.justinharder.dietharder.domain.services.ZielService;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.service.BenutzerService;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
@@ -19,17 +19,17 @@ import lombok.RequiredArgsConstructor;
 public class BenutzerRessource implements Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer>
 {
 	@NonNull
-	protected final MessungService messungService;
-
-	@NonNull
-	protected final ZielService zielService;
+	protected final BenutzerService benutzerService;
 
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeAlle()
 	{
-		return null;
+		return Response
+			.ok(benutzerService.findeAlle())
+			.header("Access-Control-Allow-Origin", "*")
+			.build();
 	}
 
 	@GET
@@ -38,7 +38,19 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response finde(@PathParam("id") @NonNull String id)
 	{
-		return null;
+		try
+		{
+			return Response
+				.ok(benutzerService.finde(id))
+				.header("Access-Control-Allow-Origin", "*")
+				.build();
+		}
+		catch (BenutzerException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
 	}
 
 	@POST
@@ -47,7 +59,10 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response erstelle(@NonNull NeuerBenutzer neuerBenutzer)
 	{
-		return null;
+		return Response
+			.ok(benutzerService.erstelle(neuerBenutzer))
+			.header("Access-Control-Allow-Origin", "*")
+			.build();
 	}
 
 	@PUT
@@ -59,7 +74,19 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 		@PathParam("id") @NonNull String id,
 		@NonNull AktualisierterBenutzer aktualisierterBenutzer)
 	{
-		return null;
+		try
+		{
+			return Response
+				.ok(benutzerService.aktualisiere(id, aktualisierterBenutzer))
+				.header("Access-Control-Allow-Origin", "*")
+				.build();
+		}
+		catch (BenutzerException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
 	}
 
 	@DELETE
@@ -67,6 +94,39 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 	@Path("/{id}")
 	public Response loesche(@PathParam("id") @NonNull String id)
 	{
-		return null;
+		try
+		{
+			benutzerService.loesche(id);
+
+			return Response
+				.ok()
+				.header("Access-Control-Allow-Origin", "*")
+				.build();
+		}
+		catch (BenutzerException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeMitLogin(@QueryParam("loginId") @NonNull String loginId)
+	{
+		try
+		{
+			return Response
+				.ok(benutzerService.findeMitLogin(loginId))
+				.header("Access-Control-Allow-Origin", "*")
+				.build();
+		}
+		catch (BenutzerException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
 	}
 }
