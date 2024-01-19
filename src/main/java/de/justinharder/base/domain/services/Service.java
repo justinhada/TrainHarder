@@ -12,11 +12,11 @@ public interface Service<T extends Entitaet, U extends GespeichertesDTO<?>, V ex
 {
 	List<U> findeAlle();
 
-	U finde(@NonNull String id);
+	U finde(@NonNull String id) throws Exception;
 
-	U erstelle(@NonNull V neuesDto);
+	U erstelle(@NonNull V neuesDto) throws Exception;
 
-	U aktualisiere(@NonNull String id, @NonNull W aktualisiertesDto);
+	U aktualisiere(@NonNull String id, @NonNull W aktualisiertesDto) throws Exception;
 
-	void loesche(@NonNull String id);
+	void loesche(@NonNull String id) throws Exception;
 }

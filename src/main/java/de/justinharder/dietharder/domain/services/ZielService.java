@@ -42,7 +42,7 @@ public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, 
 	}
 
 	@Override
-	public GespeichertesZiel finde(@NonNull String id)
+	public GespeichertesZiel finde(@NonNull String id) throws ZielException
 	{
 		return zielRepository.finde(new ID(id))
 			.map(zielMapping::mappe)
@@ -50,7 +50,7 @@ public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, 
 	}
 
 	@Override
-	public GespeichertesZiel erstelle(@NonNull NeuesZiel neuesZiel)
+	public GespeichertesZiel erstelle(@NonNull NeuesZiel neuesZiel) throws BenutzerException
 	{
 		var ziel = new Ziel(
 			new ID(),
@@ -68,6 +68,7 @@ public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, 
 
 	@Override
 	public GespeichertesZiel aktualisiere(@NonNull String id, @NonNull AktualisiertesZiel aktualisiertesZiel)
+		throws ZielException
 	{
 		var ziel = zielRepository.finde(new ID(id))
 			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id)))
@@ -81,7 +82,7 @@ public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, 
 	}
 
 	@Override
-	public void loesche(@NonNull String id)
+	public void loesche(@NonNull String id) throws ZielException
 	{
 		zielRepository.loesche(zielRepository.finde(new ID(id))
 			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id))));

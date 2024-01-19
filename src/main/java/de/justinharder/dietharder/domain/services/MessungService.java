@@ -42,7 +42,7 @@ public class MessungService implements Service<Messung, GespeicherteMessung, Neu
 	}
 
 	@Override
-	public GespeicherteMessung finde(@NonNull String id)
+	public GespeicherteMessung finde(@NonNull String id) throws MessungException
 	{
 		return messungRepository.finde(new ID(id))
 			.map(messungMapping::mappe)
@@ -50,7 +50,7 @@ public class MessungService implements Service<Messung, GespeicherteMessung, Neu
 	}
 
 	@Override
-	public GespeicherteMessung erstelle(@NonNull NeueMessung neueMessung)
+	public GespeicherteMessung erstelle(@NonNull NeueMessung neueMessung) throws BenutzerException
 	{
 		var messung = new Messung(
 			new ID(),
@@ -68,6 +68,7 @@ public class MessungService implements Service<Messung, GespeicherteMessung, Neu
 
 	@Override
 	public GespeicherteMessung aktualisiere(@NonNull String id, @NonNull AktualisierteMessung aktualisierteMessung)
+		throws MessungException
 	{
 		var messung = messungRepository.finde(new ID(id))
 			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id)))
@@ -81,7 +82,7 @@ public class MessungService implements Service<Messung, GespeicherteMessung, Neu
 	}
 
 	@Override
-	public void loesche(@NonNull String id)
+	public void loesche(@NonNull String id) throws MessungException
 	{
 		messungRepository.loesche(messungRepository.finde(new ID(id))
 			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id))));

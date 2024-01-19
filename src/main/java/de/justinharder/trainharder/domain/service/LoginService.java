@@ -43,7 +43,7 @@ public class LoginService implements Service<Login, GespeicherterLogin, NeuerLog
 	}
 
 	@Override
-	public GespeicherterLogin finde(@NonNull String id)
+	public GespeicherterLogin finde(@NonNull String id) throws LoginException
 	{
 		return loginRepository.finde(new ID(id))
 			.map(loginMapping::mappe)
@@ -51,7 +51,7 @@ public class LoginService implements Service<Login, GespeicherterLogin, NeuerLog
 	}
 
 	@Override
-	public GespeicherterLogin erstelle(@NonNull NeuerLogin neuerLogin)
+	public GespeicherterLogin erstelle(@NonNull NeuerLogin neuerLogin) throws BenutzerException
 	{
 		var salt = Salt.random();
 		var login = new Login(
@@ -71,6 +71,7 @@ public class LoginService implements Service<Login, GespeicherterLogin, NeuerLog
 
 	@Override
 	public GespeicherterLogin aktualisiere(@NonNull String id, @NonNull AktualisierterLogin aktualisierterLogin)
+		throws LoginException
 	{
 		var login = loginRepository.finde(new ID(id))
 			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id)));
@@ -85,7 +86,7 @@ public class LoginService implements Service<Login, GespeicherterLogin, NeuerLog
 	}
 
 	@Override
-	public void loesche(@NonNull String id)
+	public void loesche(@NonNull String id) throws LoginException
 	{
 		loginRepository.loesche(loginRepository.finde(new ID(id))
 			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id))));

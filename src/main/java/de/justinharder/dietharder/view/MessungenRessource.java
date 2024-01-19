@@ -6,7 +6,7 @@ import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
-import de.justinharder.old.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -67,7 +67,7 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
-		catch (MessungException | BenutzerException e)
+		catch (BenutzerException e)
 		{
 			return Response
 				.status(Response.Status.NOT_FOUND)
@@ -91,7 +91,7 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
-		catch (MessungException | BenutzerException e)
+		catch (MessungException e)
 		{
 			return Response
 				.status(Response.Status.NOT_FOUND)

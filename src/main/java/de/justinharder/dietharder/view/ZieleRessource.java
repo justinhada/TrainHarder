@@ -6,7 +6,7 @@ import de.justinharder.dietharder.domain.services.ZielService;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
-import de.justinharder.old.domain.model.exceptions.BenutzerException;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -67,7 +67,7 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
-		catch (ZielException | BenutzerException e)
+		catch (BenutzerException e)
 		{
 			return Response
 				.status(Response.Status.NOT_FOUND)
@@ -89,7 +89,7 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
-		catch (ZielException | BenutzerException e)
+		catch (ZielException e)
 		{
 			return Response
 				.status(Response.Status.NOT_FOUND)

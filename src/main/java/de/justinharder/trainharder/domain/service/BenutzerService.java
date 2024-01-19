@@ -38,7 +38,7 @@ public class BenutzerService implements Service<Benutzer, GespeicherterBenutzer,
 	}
 
 	@Override
-	public GespeicherterBenutzer finde(@NonNull String id)
+	public GespeicherterBenutzer finde(@NonNull String id) throws BenutzerException
 	{
 		return benutzerRepository.finde(new ID(id))
 			.map(benutzerMapping::mappe)
@@ -63,7 +63,7 @@ public class BenutzerService implements Service<Benutzer, GespeicherterBenutzer,
 	@Override
 	public GespeicherterBenutzer aktualisiere(
 		@NonNull String id,
-		@NonNull AktualisierterBenutzer aktualisierterBenutzer)
+		@NonNull AktualisierterBenutzer aktualisierterBenutzer) throws BenutzerException
 	{
 		var benutzer = benutzerRepository.finde(new ID(id))
 			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id)))
@@ -78,13 +78,13 @@ public class BenutzerService implements Service<Benutzer, GespeicherterBenutzer,
 	}
 
 	@Override
-	public void loesche(@NonNull String id)
+	public void loesche(@NonNull String id) throws BenutzerException
 	{
 		benutzerRepository.loesche(benutzerRepository.finde(new ID(id))
 			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id))));
 	}
 
-	public GespeicherterBenutzer findeMitLogin(@NonNull String loginId)
+	public GespeicherterBenutzer findeMitLogin(@NonNull String loginId) throws BenutzerException
 	{
 		return benutzerRepository.findeMit(new ID(loginId))
 			.map(benutzerMapping::mappe)
