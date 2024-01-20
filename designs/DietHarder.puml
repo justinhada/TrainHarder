@@ -19,6 +19,22 @@ entity Ziel
     * **BenutzerID <<FK>>**
 }
 
+entity Hautfaltendicke
+{
+    * **ID <<PK>>**
+    * Datum
+    * Brustfalte
+    * Bauchfalte
+    * Beinfalte
+    * Hueftfalte
+    * Achselfalte
+    * Trizepsfalte
+    * Rueckenfalte
+    * KoerperfettAnteil
+    * **BenutzerID <<FK>>**
+}
+
 Benutzer ||--o{ Messung
 Benutzer ||--o{ Ziel
+Benutzer ||--o{ Hautfaltendicke
 @enduml
