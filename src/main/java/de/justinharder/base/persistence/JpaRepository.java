@@ -23,8 +23,21 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	@Override
 	public List<T> findeAlle()
 	{
+		entityManager.clear();
 		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entitaet);
-		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet))).getResultList();
+		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet)))
+			.getResultList();
+	}
+
+	@Override
+	public List<T> findeAlle(@NonNull Long page, @NonNull Long pageSize)
+	{
+		entityManager.clear();
+		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entitaet);
+		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet)))
+			.setFirstResult(Math.toIntExact((page - 1) * pageSize))
+			.setMaxResults(Math.toIntExact(pageSize))
+			.getResultList();
 	}
 
 	@Override

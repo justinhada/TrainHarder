@@ -11,6 +11,8 @@ public interface Repository<T extends Entitaet>
 {
 	List<T> findeAlle();
 
+	List<T> findeAlle(@NonNull Long page, @NonNull Long pageSize);
+
 	Optional<T> finde(@NonNull ID id);
 
 	void speichere(@NonNull T entitaet);

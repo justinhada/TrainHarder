@@ -12,6 +12,8 @@ import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
+import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationRequest;
+import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationResponse;
 import de.justinharder.trainharder.domain.service.mapping.BenutzerMapping;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
@@ -21,7 +23,8 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class BenutzerService implements Service<Benutzer, GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer>
+public class BenutzerService implements
+	Service<Benutzer, GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
 {
 	@NonNull
 	private final BenutzerRepository benutzerRepository;
@@ -35,6 +38,14 @@ public class BenutzerService implements Service<Benutzer, GespeicherterBenutzer,
 		return benutzerRepository.findeAlle().stream()
 			.map(benutzerMapping::mappe)
 			.toList();
+	}
+
+	@Override
+	public BenutzerPaginationResponse findeAlle(BenutzerPaginationRequest benutzerPaginationRequest)
+	{
+		return benutzerMapping.mappe(benutzerRepository.findeAlle(
+			benutzerPaginationRequest.getPage(),
+			benutzerPaginationRequest.getPageSize()));
 	}
 
 	@Override

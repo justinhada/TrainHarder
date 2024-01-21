@@ -6,6 +6,8 @@ import de.justinharder.trainharder.domain.service.BenutzerService;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
+import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationRequest;
+import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -16,7 +18,8 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/benutzer")
 @RequiredArgsConstructor
-public class BenutzerRessource implements Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer>
+public class BenutzerRessource implements
+	Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
 {
 	@NonNull
 	protected final BenutzerService benutzerService;
@@ -28,7 +31,18 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 	{
 		return Response
 			.ok(benutzerService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
+			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+			.build();
+	}
+
+	@GET
+	@Override
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeAlle(@NonNull BenutzerPaginationRequest benutzerPaginationRequest)
+	{
+		return Response
+			.ok(benutzerService.findeAlle(benutzerPaginationRequest))
+			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 			.build();
 	}
 
@@ -42,7 +56,7 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 		{
 			return Response
 				.ok(benutzerService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -61,7 +75,7 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 	{
 		return Response
 			.ok(benutzerService.erstelle(neuerBenutzer))
-			.header("Access-Control-Allow-Origin", "*")
+			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 			.build();
 	}
 
@@ -78,7 +92,7 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 		{
 			return Response
 				.ok(benutzerService.aktualisiere(id, aktualisierterBenutzer))
-				.header("Access-Control-Allow-Origin", "*")
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -100,7 +114,7 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 
 			return Response
 				.ok()
-				.header("Access-Control-Allow-Origin", "*")
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -119,7 +133,7 @@ public class BenutzerRessource implements Ressource<GespeicherterBenutzer, Neuer
 		{
 			return Response
 				.ok(benutzerService.findeMitLogin(loginId))
-				.header("Access-Control-Allow-Origin", "*")
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)

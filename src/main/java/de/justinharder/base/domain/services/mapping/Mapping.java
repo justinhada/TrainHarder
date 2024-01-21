@@ -2,9 +2,14 @@ package de.justinharder.base.domain.services.mapping;
 
 import de.justinharder.base.domain.model.Entitaet;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import lombok.NonNull;
 
-public interface Mapping<T extends Entitaet, U extends GespeichertesDTO<?>>
+import java.util.List;
+
+public interface Mapping<T extends Entitaet, U extends GespeichertesDTO<?>, V extends PaginationResponse<?>>
 {
 	U mappe(@NonNull T entitaet);
+
+	V mappe(@NonNull List<T> entitaeten);
 }
