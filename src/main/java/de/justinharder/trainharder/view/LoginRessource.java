@@ -7,6 +7,8 @@ import de.justinharder.trainharder.domain.service.LoginService;
 import de.justinharder.trainharder.domain.service.dto.login.AktualisierterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.NeuerLogin;
+import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationRequest;
+import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -17,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/login")
 @RequiredArgsConstructor
-public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin>
+public class LoginRessource implements
+	Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin, LoginPaginationRequest, LoginPaginationResponse>
 {
 	@NonNull
 	private final LoginService loginService;
@@ -29,7 +32,16 @@ public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin,
 	{
 		return Response
 			.ok(loginService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
+			.build();
+	}
+
+	@GET
+	@Override
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeAlle(@NonNull LoginPaginationRequest loginPaginationRequest)
+	{
+		return Response
+			.ok(loginService.findeAlle(loginPaginationRequest))
 			.build();
 	}
 

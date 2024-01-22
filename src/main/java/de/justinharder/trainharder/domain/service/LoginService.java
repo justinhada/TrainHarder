@@ -14,6 +14,8 @@ import de.justinharder.trainharder.domain.repository.LoginRepository;
 import de.justinharder.trainharder.domain.service.dto.login.AktualisierterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.NeuerLogin;
+import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationRequest;
+import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationResponse;
 import de.justinharder.trainharder.domain.service.mapping.LoginMapping;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
@@ -23,7 +25,8 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class LoginService implements Service<Login, GespeicherterLogin, NeuerLogin, AktualisierterLogin>
+public class LoginService implements
+	Service<Login, GespeicherterLogin, NeuerLogin, AktualisierterLogin, LoginPaginationRequest, LoginPaginationResponse>
 {
 	@NonNull
 	private final LoginRepository loginRepository;
@@ -40,6 +43,14 @@ public class LoginService implements Service<Login, GespeicherterLogin, NeuerLog
 		return loginRepository.findeAlle().stream()
 			.map(loginMapping::mappe)
 			.toList();
+	}
+
+	@Override
+	public LoginPaginationResponse findeAlle(LoginPaginationRequest loginPaginationRequest)
+	{
+		return loginMapping.mappe(loginRepository.findeAlle(
+			loginPaginationRequest.getPage(),
+			loginPaginationRequest.getPageSize()));
 	}
 
 	@Override
