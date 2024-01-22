@@ -9,6 +9,8 @@ import de.justinharder.dietharder.domain.repository.HautfaltendickeRepository;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.AktualisierteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.HautfaltendickeMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -21,8 +23,8 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class HautfaltendickeService
-	implements Service<Hautfaltendicke, GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke>
+public class HautfaltendickeService implements
+	Service<Hautfaltendicke, GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;
@@ -39,6 +41,15 @@ public class HautfaltendickeService
 		return hautfaltendickeRepository.findeAlle().stream()
 			.map(hautfaltendickeMapping::mappe)
 			.toList();
+	}
+
+	@Override
+	public HautfaltendickePaginationResponse findeAlle(
+		@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+	{
+		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
+			hautfaltendickePaginationRequest.getPage(),
+			hautfaltendickePaginationRequest.getPageSize()));
 	}
 
 	@Override

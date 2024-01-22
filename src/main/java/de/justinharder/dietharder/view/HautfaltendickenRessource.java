@@ -6,6 +6,8 @@ import de.justinharder.dietharder.domain.services.HautfaltendickeService;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.AktualisierteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -17,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @RequiredArgsConstructor
 @Path("/hautfaltendicken")
-public class HautfaltendickenRessource
-	implements Ressource<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke>
+public class HautfaltendickenRessource implements
+	Ressource<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeService hautfaltendickeService;
@@ -30,6 +32,14 @@ public class HautfaltendickenRessource
 	{
 		return Response
 			.ok(hautfaltendickeService.findeAlle())
+			.build();
+	}
+
+	@Override
+	public Response findeAlle(@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+	{
+		return Response
+			.ok(hautfaltendickeService.findeAlle(hautfaltendickePaginationRequest))
 			.build();
 	}
 
