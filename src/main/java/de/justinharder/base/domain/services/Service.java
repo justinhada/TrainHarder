@@ -14,7 +14,7 @@ public interface Service<T extends Entitaet, U extends GespeichertesDTO<?>, V ex
 {
 	List<U> findeAlle();
 
-	Y findeAlle(X paginationRequest);
+	Y findeAlle(@NonNull X paginationRequest);
 
 	U finde(@NonNull String id) throws Exception;
 

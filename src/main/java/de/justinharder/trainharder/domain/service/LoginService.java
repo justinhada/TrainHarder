@@ -46,7 +46,7 @@ public class LoginService implements
 	}
 
 	@Override
-	public LoginPaginationResponse findeAlle(LoginPaginationRequest loginPaginationRequest)
+	public LoginPaginationResponse findeAlle(@NonNull LoginPaginationRequest loginPaginationRequest)
 	{
 		return loginMapping.mappe(loginRepository.findeAlle(
 			loginPaginationRequest.getPage(),

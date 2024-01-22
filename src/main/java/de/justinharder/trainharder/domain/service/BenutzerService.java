@@ -41,7 +41,7 @@ public class BenutzerService implements
 	}
 
 	@Override
-	public BenutzerPaginationResponse findeAlle(BenutzerPaginationRequest benutzerPaginationRequest)
+	public BenutzerPaginationResponse findeAlle(@NonNull BenutzerPaginationRequest benutzerPaginationRequest)
 	{
 		return benutzerMapping.mappe(benutzerRepository.findeAlle(
 			benutzerPaginationRequest.getPage(),
