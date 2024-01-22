@@ -25,7 +25,6 @@ public class BenutzerRessource
 	{
 		return Response
 			.ok(benutzerService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 }

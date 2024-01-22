@@ -10,8 +10,6 @@ import lombok.NonNull;
 
 public interface Ressource<T extends GespeichertesDTO<?>, U extends NeuesDTO<?>, V extends AktualisiertesDTO<?>, W extends PaginationRequest<?>, X extends PaginationResponse<?>>
 {
-	String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
-
 	Response findeAlle();
 
 	Response findeAlle(@NonNull W paginationRequest);

@@ -29,7 +29,6 @@ public class AuthentifizierungRessource
 		{
 			return Response
 				.ok(authentifizierungService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (AuthentifizierungException e)

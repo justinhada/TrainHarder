@@ -30,7 +30,6 @@ public class HautfaltendickenRessource
 	{
 		return Response
 			.ok(hautfaltendickeService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 
@@ -44,7 +43,6 @@ public class HautfaltendickenRessource
 		{
 			return Response
 				.ok(hautfaltendickeService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (HautfaltendickeException e)
@@ -65,7 +63,6 @@ public class HautfaltendickenRessource
 		{
 			return Response
 				.ok(hautfaltendickeService.erstelle(neueHautfaltendicke))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -89,7 +86,6 @@ public class HautfaltendickenRessource
 		{
 			return Response
 				.ok(hautfaltendickeService.aktualisiere(id, aktualisierteHautfaltendicke))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (HautfaltendickeException e)
@@ -111,7 +107,6 @@ public class HautfaltendickenRessource
 
 			return Response
 				.ok()
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (HautfaltendickeException e)

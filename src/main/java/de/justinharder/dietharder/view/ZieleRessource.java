@@ -29,7 +29,6 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 	{
 		return Response
 			.ok(zielService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 
@@ -43,7 +42,6 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 		{
 			return Response
 				.ok(zielService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (ZielException e)
@@ -64,7 +62,6 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 		{
 			return Response
 				.ok(zielService.erstelle(neuesZiel))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -86,7 +83,6 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 		{
 			return Response
 				.ok(zielService.aktualisiere(id, aktualisiertesZiel))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (ZielException e)
@@ -108,7 +104,6 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 
 			return Response
 				.ok()
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (ZielException e)

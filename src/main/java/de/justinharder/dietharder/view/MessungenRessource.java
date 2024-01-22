@@ -29,7 +29,6 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 	{
 		return Response
 			.ok(messungService.findeAlle())
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 
@@ -43,7 +42,6 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 		{
 			return Response
 				.ok(messungService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (MessungException e)
@@ -64,7 +62,6 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 		{
 			return Response
 				.ok(messungService.erstelle(neueMessung))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -88,7 +85,6 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 		{
 			return Response
 				.ok(messungService.aktualisiere(id, aktualisierteMessung))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (MessungException e)
@@ -110,7 +106,6 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 
 			return Response
 				.ok()
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (MessungException e)

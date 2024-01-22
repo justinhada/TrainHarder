@@ -43,7 +43,6 @@ public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin,
 		{
 			return Response
 				.ok(loginService.finde(id))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (LoginException e)
@@ -64,7 +63,6 @@ public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin,
 		{
 			return Response
 				.ok(loginService.erstelle(neuerLogin))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -86,7 +84,6 @@ public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin,
 		{
 			return Response
 				.ok(loginService.aktualisiere(id, aktualisierterLogin))
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (LoginException e)
@@ -108,7 +105,6 @@ public class LoginRessource implements Ressource<GespeicherterLogin, NeuerLogin,
 
 			return Response
 				.ok()
-				.header("Access-Control-Allow-Origin", "*")
 				.build();
 		}
 		catch (LoginException e)

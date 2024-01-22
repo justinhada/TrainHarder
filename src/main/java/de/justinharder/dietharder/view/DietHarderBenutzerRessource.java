@@ -43,7 +43,6 @@ public class DietHarderBenutzerRessource extends BenutzerRessource
 	{
 		return Response
 			.ok(messungService.findeAlle(id))
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 
@@ -54,7 +53,6 @@ public class DietHarderBenutzerRessource extends BenutzerRessource
 	{
 		return Response
 			.ok(zielService.findeAlle(id))
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 
@@ -65,7 +63,6 @@ public class DietHarderBenutzerRessource extends BenutzerRessource
 	{
 		return Response
 			.ok(hautfaltendickeService.findeAlle(id))
-			.header("Access-Control-Allow-Origin", "*")
 			.build();
 	}
 }
