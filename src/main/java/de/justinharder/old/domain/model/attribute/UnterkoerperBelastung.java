@@ -5,6 +5,7 @@ import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,12 +14,15 @@ import java.util.Objects;
 @Embeddable
 public class UnterkoerperBelastung implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 9052323312691799570L;
 
 	@Column(name = "Glutes", nullable = false)
 	private double glutes;
+
 	@Column(name = "Quads", nullable = false)
 	private double quads;
+
 	@Column(name = "Hamstrings", nullable = false)
 	private double hamstrings;
 
@@ -57,11 +61,10 @@ public class UnterkoerperBelastung implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof UnterkoerperBelastung))
+		if (!(o instanceof UnterkoerperBelastung that))
 		{
 			return false;
 		}
-		var that = (UnterkoerperBelastung) o;
 		return Double.compare(that.glutes, glutes) == 0
 			&& Double.compare(that.quads, quads) == 0
 			&& Double.compare(that.hamstrings, hamstrings) == 0;

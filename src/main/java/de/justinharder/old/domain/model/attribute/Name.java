@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,10 +15,12 @@ import java.util.Objects;
 @Embeddable
 public class Name implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 5815817146290998651L;
 
 	@Column(name = "Vorname")
 	private String vorname;
+
 	@Column(name = "Nachname")
 	private String nachname;
 
@@ -49,11 +52,10 @@ public class Name implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof Name))
+		if (!(o instanceof Name name))
 		{
 			return false;
 		}
-		var name = (Name) o;
 		return Objects.equals(vorname, name.vorname) && Objects.equals(nachname, name.nachname);
 	}
 

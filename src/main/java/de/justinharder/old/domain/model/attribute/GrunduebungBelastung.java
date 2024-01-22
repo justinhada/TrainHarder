@@ -5,6 +5,7 @@ import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,12 +14,15 @@ import java.util.Objects;
 @Embeddable
 public class GrunduebungBelastung implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 7260418704311243824L;
 
 	@Column(name = "Squat", nullable = false)
 	private double squat;
+
 	@Column(name = "Benchpress", nullable = false)
 	private double benchpress;
+
 	@Column(name = "Deadlift", nullable = false)
 	private double deadlift;
 
@@ -57,12 +61,13 @@ public class GrunduebungBelastung implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof GrunduebungBelastung))
+		if (!(o instanceof GrunduebungBelastung that))
 		{
 			return false;
 		}
-		var that = (GrunduebungBelastung) o;
-		return Double.compare(that.squat, squat) == 0 && Double.compare(that.benchpress, benchpress) == 0 && Double.compare(that.deadlift, deadlift) == 0;
+		return Double.compare(that.squat, squat) == 0
+			&& Double.compare(that.benchpress, benchpress) == 0
+			&& Double.compare(that.deadlift, deadlift) == 0;
 	}
 
 	@Override

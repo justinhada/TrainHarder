@@ -31,7 +31,6 @@ public class BenutzerRessource implements
 	{
 		return Response
 			.ok(benutzerService.findeAlle())
-			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 			.build();
 	}
 
@@ -42,7 +41,6 @@ public class BenutzerRessource implements
 	{
 		return Response
 			.ok(benutzerService.findeAlle(benutzerPaginationRequest))
-			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 			.build();
 	}
 
@@ -56,7 +54,6 @@ public class BenutzerRessource implements
 		{
 			return Response
 				.ok(benutzerService.finde(id))
-				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -75,7 +72,6 @@ public class BenutzerRessource implements
 	{
 		return Response
 			.ok(benutzerService.erstelle(neuerBenutzer))
-			.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 			.build();
 	}
 
@@ -92,7 +88,6 @@ public class BenutzerRessource implements
 		{
 			return Response
 				.ok(benutzerService.aktualisiere(id, aktualisierterBenutzer))
-				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -114,7 +109,6 @@ public class BenutzerRessource implements
 
 			return Response
 				.ok()
-				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)
@@ -133,7 +127,6 @@ public class BenutzerRessource implements
 		{
 			return Response
 				.ok(benutzerService.findeMitLogin(loginId))
-				.header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
 				.build();
 		}
 		catch (BenutzerException e)

@@ -5,6 +5,7 @@ import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,18 +14,24 @@ import java.util.Objects;
 @Embeddable
 public class OberkoerperBelastung implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 4162901587327777222L;
 
 	@Column(name = "Triceps", nullable = false)
 	private double triceps;
+
 	@Column(name = "Chest", nullable = false)
 	private double chest;
+
 	@Column(name = "Core", nullable = false)
 	private double core;
+
 	@Column(name = "Back", nullable = false)
 	private double back;
+
 	@Column(name = "Biceps", nullable = false)
 	private double biceps;
+
 	@Column(name = "Shoulder", nullable = false)
 	private double shoulder;
 
@@ -84,11 +91,10 @@ public class OberkoerperBelastung implements Serializable
 		{
 			return true;
 		}
-		if (!(o instanceof OberkoerperBelastung))
+		if (!(o instanceof OberkoerperBelastung that))
 		{
 			return false;
 		}
-		var that = (OberkoerperBelastung) o;
 		return Double.compare(that.triceps, triceps) == 0
 			&& Double.compare(that.chest, chest) == 0
 			&& Double.compare(that.core, core) == 0
