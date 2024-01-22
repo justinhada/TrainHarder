@@ -10,6 +10,8 @@ import de.justinharder.dietharder.domain.repository.ZielRepository;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
+import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.ZielMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -22,7 +24,8 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, AktualisiertesZiel>
+public class ZielService implements
+	Service<Ziel, GespeichertesZiel, NeuesZiel, AktualisiertesZiel, ZielPaginationRequest, ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielRepository zielRepository;
@@ -39,6 +42,14 @@ public class ZielService implements Service<Ziel, GespeichertesZiel, NeuesZiel, 
 		return zielRepository.findeAlle().stream()
 			.map(zielMapping::mappe)
 			.toList();
+	}
+
+	@Override
+	public ZielPaginationResponse findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
+	{
+		return zielMapping.mappe(zielRepository.findeAlle(
+			zielPaginationRequest.getPage(),
+			zielPaginationRequest.getPageSize()));
 	}
 
 	@Override

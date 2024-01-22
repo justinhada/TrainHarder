@@ -2,7 +2,7 @@ package de.justinharder.dietharder.domain.services.dto.ziel;
 
 import de.justinharder.dietharder.domain.services.dto.datensatz.GespeicherterDatensatz;
 
-public class GespeichertesZiel extends GespeicherterDatensatz
+public class GespeichertesZiel extends GespeicherterDatensatz<GespeichertesZiel>
 {
 	public GespeichertesZiel(String id, String datum, String koerpergewicht, String koerperfettAnteil)
 	{

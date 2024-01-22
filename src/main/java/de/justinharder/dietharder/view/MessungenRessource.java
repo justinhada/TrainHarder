@@ -6,6 +6,8 @@ import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
+import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -17,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/messungen")
 @RequiredArgsConstructor
-public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMessung, AktualisierteMessung>
+public class MessungenRessource implements
+	Ressource<GespeicherteMessung, NeueMessung, AktualisierteMessung, MessungPaginationRequest, MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungService messungService;
@@ -29,6 +32,16 @@ public class MessungenRessource implements Ressource<GespeicherteMessung, NeueMe
 	{
 		return Response
 			.ok(messungService.findeAlle())
+			.build();
+	}
+
+	@GET
+	@Override
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
+	{
+		return Response
+			.ok(messungService.findeAlle(messungPaginationRequest))
 			.build();
 	}
 

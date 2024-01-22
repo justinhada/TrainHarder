@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NeuerDatensatz extends NeuesDTO<NeuerDatensatz>
+public abstract class NeuerDatensatz<T extends NeuerDatensatz<T>> extends NeuesDTO<T>
 {
 	@JsonProperty(value = "datum", required = true)
 	private String datum;

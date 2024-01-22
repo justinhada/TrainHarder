@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public abstract class GespeicherterDatensatz extends GespeichertesDTO<GespeicherterDatensatz>
+public abstract class GespeicherterDatensatz<T extends GespeicherterDatensatz<T>> extends GespeichertesDTO<T>
 {
 	@NonNull
 	private final String datum;

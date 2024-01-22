@@ -6,6 +6,8 @@ import de.justinharder.dietharder.domain.services.ZielService;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
+import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -17,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/ziele")
 @RequiredArgsConstructor
-public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, AktualisiertesZiel>
+public class ZieleRessource implements
+	Ressource<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, ZielPaginationRequest, ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielService zielService;
@@ -29,6 +32,16 @@ public class ZieleRessource implements Ressource<GespeichertesZiel, NeuesZiel, A
 	{
 		return Response
 			.ok(zielService.findeAlle())
+			.build();
+	}
+
+	@GET
+	@Override
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
+	{
+		return Response
+			.ok(zielService.findeAlle(zielPaginationRequest))
 			.build();
 	}
 

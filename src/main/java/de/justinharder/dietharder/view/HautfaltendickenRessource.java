@@ -35,7 +35,9 @@ public class HautfaltendickenRessource implements
 			.build();
 	}
 
+	@GET
 	@Override
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeAlle(@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
 	{
 		return Response

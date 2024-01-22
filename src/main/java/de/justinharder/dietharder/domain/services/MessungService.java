@@ -10,6 +10,8 @@ import de.justinharder.dietharder.domain.repository.MessungRepository;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
+import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
+import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.MessungMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -22,7 +24,8 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class MessungService implements Service<Messung, GespeicherteMessung, NeueMessung, AktualisierteMessung>
+public class MessungService implements
+	Service<Messung, GespeicherteMessung, NeueMessung, AktualisierteMessung, MessungPaginationRequest, MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungRepository messungRepository;
@@ -39,6 +42,14 @@ public class MessungService implements Service<Messung, GespeicherteMessung, Neu
 		return messungRepository.findeAlle().stream()
 			.map(messungMapping::mappe)
 			.toList();
+	}
+
+	@Override
+	public MessungPaginationResponse findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
+	{
+		return messungMapping.mappe(messungRepository.findeAlle(
+			messungPaginationRequest.getPage(),
+			messungPaginationRequest.getPageSize()));
 	}
 
 	@Override
