@@ -3,8 +3,10 @@ package de.justinharder.trainharder.domain.service.dto.benutzer;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 @Getter
+@ToString(callSuper = true)
 public class GespeicherterBenutzer extends GespeichertesDTO<GespeicherterBenutzer>
 {
 	@NonNull

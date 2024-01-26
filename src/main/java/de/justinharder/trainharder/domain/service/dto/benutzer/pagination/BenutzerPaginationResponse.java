@@ -3,10 +3,12 @@ package de.justinharder.trainharder.domain.service.dto.benutzer.pagination;
 import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import jakarta.annotation.Nullable;
+import lombok.ToString;
 
 import java.net.URL;
 import java.util.List;
 
+@ToString(callSuper = true)
 public class BenutzerPaginationResponse extends PaginationResponse<GespeicherterBenutzer>
 {
 	public BenutzerPaginationResponse(Integer count, List<GespeicherterBenutzer> results)
