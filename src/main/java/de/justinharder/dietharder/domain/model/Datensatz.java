@@ -6,7 +6,10 @@ import de.justinharder.dietharder.domain.model.attribute.KoerperfettAnteil;
 import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
-import jakarta.persistence.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 
 import java.io.Serial;
@@ -35,7 +38,7 @@ public abstract class Datensatz extends Entitaet
 	protected KoerperfettAnteil koerperfettAnteil;
 
 	@NonNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	protected Benutzer benutzer;
 

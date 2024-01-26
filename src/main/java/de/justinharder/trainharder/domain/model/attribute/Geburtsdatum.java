@@ -19,7 +19,7 @@ public class Geburtsdatum extends WertObjekt<LocalDate>
 	private static final long serialVersionUID = -2601851527447173145L;
 
 	@NonNull
-	@Column(name = "Datum", nullable = false)
+	@Column(name = "Geburtsdatum", nullable = false)
 	private LocalDate wert;
 
 	public Geburtsdatum(@NonNull String wert)
