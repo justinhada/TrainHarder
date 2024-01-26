@@ -110,6 +110,7 @@ public class BenutzerRessource implements
 	}
 
 	@GET
+	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeMitLogin(@QueryParam("loginId") @NonNull String loginId)
 	{

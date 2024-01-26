@@ -4,10 +4,12 @@ import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.trainharder.domain.model.Login;
 import de.justinharder.trainharder.domain.service.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationResponse;
+import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
 import java.util.List;
 
+@Dependent
 public class LoginMapping implements Mapping<Login, GespeicherterLogin, LoginPaginationResponse>
 {
 	@Override
