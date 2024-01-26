@@ -27,17 +27,7 @@ public class BenutzerRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle()
-	{
-		return Response
-			.ok(benutzerService.findeAlle())
-			.build();
-	}
-
-	@GET
-	@Override
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull BenutzerPaginationRequest benutzerPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull BenutzerPaginationRequest benutzerPaginationRequest)
 	{
 		return Response
 			.ok(benutzerService.findeAlle(benutzerPaginationRequest))

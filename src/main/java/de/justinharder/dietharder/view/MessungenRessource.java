@@ -28,16 +28,6 @@ public class MessungenRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle()
-	{
-		return Response
-			.ok(messungService.findeAlle())
-			.build();
-	}
-
-	@GET
-	@Override
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
 	{
 		return Response

@@ -28,16 +28,6 @@ public class HautfaltendickenRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle()
-	{
-		return Response
-			.ok(hautfaltendickeService.findeAlle())
-			.build();
-	}
-
-	@GET
-	@Override
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeAlle(@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
 	{
 		return Response

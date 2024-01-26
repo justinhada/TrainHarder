@@ -28,16 +28,6 @@ public class ZieleRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle()
-	{
-		return Response
-			.ok(zielService.findeAlle())
-			.build();
-	}
-
-	@GET
-	@Override
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
 	{
 		return Response
