@@ -9,32 +9,29 @@ import lombok.*;
 
 import java.io.Serial;
 
-@Entity
+//@Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Uebung extends Entitaet
 {
 	@Serial
 	private static final long serialVersionUID = -452069613203642245L;
 
-	@Setter
 	@NonNull
 	@Column(name = "Bezeichnung", unique = true)
 	private String bezeichnung;
 
-	@Setter
 	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Uebungsart")
 	private Uebungsart uebungsart;
 
-	@Setter
 	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Uebungskategorie")
 	private Uebungskategorie uebungskategorie;
 
-	@Setter
 	@NonNull
 	@OneToOne(optional = false)
 	@JoinColumn(name = "BelastungID", nullable = false)

@@ -1,9 +1,9 @@
 package de.justinharder.old.domain.model;
 
 import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.attribute.Benutzerangabe;
 import de.justinharder.old.domain.model.attribute.Name;
-import de.justinharder.base.domain.model.attribute.ID;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Benutzer extends Entitaet

@@ -1,22 +1,21 @@
 package de.justinharder.old.domain.model;
 
 import de.justinharder.base.domain.model.Entitaet;
-import de.justinharder.old.domain.model.attribute.Passwort;
-import de.justinharder.old.domain.UUIDMapping;
 import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.old.domain.UUIDMapping;
+import de.justinharder.old.domain.model.attribute.Passwort;
 import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.Serial;
 import java.util.UUID;
 
-@Entity
+//@Entity
 @Getter
 @UserDefinition
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

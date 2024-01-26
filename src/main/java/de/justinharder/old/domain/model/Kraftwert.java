@@ -10,37 +10,33 @@ import java.io.Serial;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
+//@Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Kraftwert extends Entitaet
 {
 	@Serial
 	private static final long serialVersionUID = -1203157961547955006L;
 
-	@Setter
 	@NonNull
 	@Column(name = "Datum")
 	private LocalDate datum;
 
-	@Setter
 	@NonNull
 	@Column(name = "Gewicht", precision = 7, scale = 2)
 	private BigDecimal gewicht;
 
-	@Setter
 	@NonNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Wiederholungen")
 	private Wiederholungen wiederholungen;
 
-	@Setter
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UebungID", nullable = false)
 	private Uebung uebung;
 
-	@Setter
 	@NonNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BenutzerID", nullable = false)

@@ -5,36 +5,32 @@ import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.attribute.Koerpermasse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.Serial;
 import java.time.LocalDate;
 
-@Entity
+//@Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Koerpermessung extends Entitaet
 {
 	@Serial
 	private static final long serialVersionUID = -6355583837778945437L;
 
-	@Setter
 	@NonNull
 	@Column(name = "Datum")
 	private LocalDate datum;
 
-	@Setter
 	@NonNull
 	@Embedded
 	private Koerpermasse koerpermasse;
 
-	@Setter
 	@NonNull
 	@Column(name = "Kalorieneinnahme")
 	private Integer kalorieneinnahme;
 
-	@Setter
 	@NonNull
 	@Column(name = "Kalorienverbrauch")
 	private Integer kalorienverbrauch;
