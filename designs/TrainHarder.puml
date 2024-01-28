@@ -1,5 +1,5 @@
 @startuml
-entity Authentifizierung
+entity Login
 {
     * **ID <<PK>>**
     * E-Mail-Adresse
@@ -18,5 +18,5 @@ entity Benutzer
     * Geburtsdatum
 }
 
-Benutzer ||--|| Authentifizierung
+Benutzer ||--|| Login
 @enduml
