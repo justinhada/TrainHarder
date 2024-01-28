@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Bauchfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = -7750433390256334939L;
 
 	@NonNull
 	@Column(name = "Bauchfalte", nullable = false)

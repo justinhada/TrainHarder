@@ -1,6 +1,7 @@
 package de.justinharder.dietharder.domain.model;
 
 import de.justinharder.base.domain.model.Entitaet;
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.dietharder.domain.model.attribute.KoerperfettAnteil;
 import de.justinharder.dietharder.domain.model.attribute.hautfaltendicke.*;
 import de.justinharder.trainharder.domain.model.Benutzer;
@@ -15,7 +16,6 @@ import java.io.Serial;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Hautfaltendicke extends Entitaet
 {
@@ -71,4 +71,30 @@ public class Hautfaltendicke extends Entitaet
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "BenutzerID", nullable = false)
 	private Benutzer benutzer;
+
+	public Hautfaltendicke(
+		ID id,
+		@NonNull Datum datum,
+		@NonNull Brustfalte brustfalte,
+		@NonNull Bauchfalte bauchfalte,
+		@NonNull Beinfalte beinfalte,
+		@NonNull Hueftfalte hueftfalte,
+		@NonNull Achselfalte achselfalte,
+		@NonNull Trizepsfalte trizepsfalte,
+		@NonNull Rueckenfalte rueckenfalte,
+		@NonNull KoerperfettAnteil koerperfettAnteil,
+		@NonNull Benutzer benutzer)
+	{
+		super(id);
+		this.datum = datum;
+		this.brustfalte = brustfalte;
+		this.bauchfalte = bauchfalte;
+		this.beinfalte = beinfalte;
+		this.hueftfalte = hueftfalte;
+		this.achselfalte = achselfalte;
+		this.trizepsfalte = trizepsfalte;
+		this.rueckenfalte = rueckenfalte;
+		this.koerperfettAnteil = koerperfettAnteil;
+		this.benutzer = benutzer;
+	}
 }

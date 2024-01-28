@@ -66,6 +66,7 @@ public class HautfaltendickeService implements
 		throws BenutzerException
 	{
 		var hautfaltendicke = new Hautfaltendicke(
+			new ID(),
 			new Datum(neueHautfaltendicke.getDatum()),
 			new Brustfalte(neueHautfaltendicke.getBrustfalte()),
 			new Bauchfalte(neueHautfaltendicke.getBauchfalte()),

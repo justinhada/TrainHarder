@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Rueckenfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = -8292153689968847707L;
 
 	@NonNull
 	@Column(name = "Rueckenfalte", nullable = false)

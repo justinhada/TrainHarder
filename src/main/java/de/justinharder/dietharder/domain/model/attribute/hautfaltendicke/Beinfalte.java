@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Beinfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = 4839632105916472824L;
 
 	@NonNull
 	@Column(name = "Beinfalte", nullable = false)

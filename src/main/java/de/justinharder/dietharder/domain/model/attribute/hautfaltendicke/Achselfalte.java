@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Achselfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = 5041501362992281659L;
 
 	@NonNull
 	@Column(name = "Achselfalte", nullable = false)

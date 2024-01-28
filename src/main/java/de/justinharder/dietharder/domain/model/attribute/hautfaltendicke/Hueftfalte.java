@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Hueftfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = 5158941426379887658L;
 
 	@NonNull
 	@Column(name = "Hueftfalte", nullable = false)

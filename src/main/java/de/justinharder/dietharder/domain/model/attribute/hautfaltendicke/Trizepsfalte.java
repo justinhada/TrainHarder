@@ -17,7 +17,7 @@ import java.io.Serial;
 public class Trizepsfalte extends WertObjekt<Integer>
 {
 	@Serial
-	private static final long serialVersionUID = 195070276521997819L;
+	private static final long serialVersionUID = -4207488188639497007L;
 
 	@NonNull
 	@Column(name = "Trizepsfalte", nullable = false)
