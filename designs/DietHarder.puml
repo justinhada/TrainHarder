@@ -34,7 +34,28 @@ entity Hautfaltendicke
     * **BenutzerID <<FK>>**
 }
 
+entity Umfaenge
+{
+    * **ID <<PK>>**
+    * Datum
+    * HalsUmfang
+    * SchulterUmfang
+    * BrustRueckenUmfang
+    * LinkerOberarmUmfang
+    * RechterOberarmUmfang
+    * LinkerUnterarmUmfang
+    * RechterUnterarmUmfang
+    * BauchUmfang
+    * HueftUmfang
+    * LinkerOberschenkelUmfang
+    * RechterOberschenkelUmfang
+    * LinkerUnterschenkelUmfang
+    * RechterUnterschenkelUmfang
+    * **BenutzerID <<FK>>**
+}
+
 Benutzer ||--o{ Messung
 Benutzer ||--o{ Ziel
 Benutzer ||--o{ Hautfaltendicke
+Benutzer ||--o{ Umfaenge
 @enduml
