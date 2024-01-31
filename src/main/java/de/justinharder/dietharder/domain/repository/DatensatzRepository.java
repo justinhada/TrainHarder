@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface DatensatzRepository<T extends Datensatz> extends Repository<T>
 {
-	List<T> findeAlle(@NonNull ID benutzerId);
+	List<T> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize);
 }

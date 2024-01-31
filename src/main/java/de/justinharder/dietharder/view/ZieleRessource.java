@@ -28,7 +28,7 @@ public class ZieleRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull ZielPaginationRequest zielPaginationRequest)
 	{
 		return Response
 			.ok(zielService.findeAlle(zielPaginationRequest))
@@ -59,7 +59,7 @@ public class ZieleRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeuesZiel neuesZiel)
+	public Response erstelle(@BeanParam @NonNull NeuesZiel neuesZiel)
 	{
 		try
 		{
@@ -80,7 +80,9 @@ public class ZieleRessource implements
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(@PathParam("id") @NonNull String id, @NonNull AktualisiertesZiel aktualisiertesZiel)
+	public Response aktualisiere(
+		@PathParam("id") @NonNull String id,
+		@BeanParam @NonNull AktualisiertesZiel aktualisiertesZiel)
 	{
 		try
 		{

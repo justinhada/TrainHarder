@@ -28,7 +28,7 @@ public class MessungenRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull MessungPaginationRequest messungPaginationRequest)
 	{
 		return Response
 			.ok(messungService.findeAlle(messungPaginationRequest))
@@ -59,7 +59,7 @@ public class MessungenRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeueMessung neueMessung)
+	public Response erstelle(@BeanParam @NonNull NeueMessung neueMessung)
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class MessungenRessource implements
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response aktualisiere(
 		@PathParam("id") @NonNull String id,
-		@NonNull AktualisierteMessung aktualisierteMessung)
+		@BeanParam @NonNull AktualisierteMessung aktualisierteMessung)
 	{
 		try
 		{

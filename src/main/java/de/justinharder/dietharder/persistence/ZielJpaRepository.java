@@ -18,7 +18,7 @@ public class ZielJpaRepository extends JpaRepository<Ziel> implements ZielReposi
 	}
 
 	@Override
-	public List<Ziel> findeAlle(@NonNull ID benutzerId)
+	public List<Ziel> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
 	{
 		return entityManager.createQuery("""
 					SELECT ziel
@@ -26,6 +26,8 @@ public class ZielJpaRepository extends JpaRepository<Ziel> implements ZielReposi
 					WHERE ziel.benutzer.id = :benutzerId""",
 				Ziel.class)
 			.setParameter("benutzerId", benutzerId)
+			.setFirstResult((page - 1) * pageSize)
+			.setMaxResults(pageSize)
 			.getResultList();
 	}
 }

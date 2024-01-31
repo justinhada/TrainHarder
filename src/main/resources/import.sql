@@ -24,3 +24,12 @@ VALUES ('497539ef-af2b-452f-a9d8-55fbbfe8b7c0', '2023-07-22', 11.00, 25.00, 19.0
         '82f4bf94-9f6e-43f7-a6c2-867949e7d4f7'),
        ('20bbfdb2-6bf4-4a46-9016-cdb2777a8c26', '2024-01-05', 9.00, 15.00, 13.00, 23.00, 6.00, 12.00, 14.00, 14.00,
         '82f4bf94-9f6e-43f7-a6c2-867949e7d4f7');
+
+INSERT INTO Umfaenge(ID, Datum, HalsUmfang, SchulterUmfang, BrustRueckenUmfang, LinkerOberarmUmfang,
+                     RechterOberarmUmfang, LinkerUnterarmUmfang, RechterUnterarmUmfang, BauchUmfang, HueftUmfang,
+                     LinkerOberschenkelUmfang, RechterOberschenkelUmfang, LinkerUnterschenkelUmfang,
+                     RechterUnterschenkelUmfang, BenutzerID)
+VALUES ('6d195e7a-c309-4c03-a870-6841ccafbea9', '2022-04-03', 52.00, 120.00, 106.00, 39.00, 39.50, 31.00, 31.00, 93.00,
+        98.00, 66.00, 66.00, 40.00, 39.50, '82f4bf94-9f6e-43f7-a6c2-867949e7d4f7'),
+       ('bcd1d15d-39b3-4eb1-87a2-c8fa47ed3bd2', '2022-07-15', 50.00, 118.50, 106.50, 37.80, 38.50, 30.00, 30.00, 86.00,
+        95.00, 62.00, 62.00, 39.90, 38.00, '82f4bf94-9f6e-43f7-a6c2-867949e7d4f7');

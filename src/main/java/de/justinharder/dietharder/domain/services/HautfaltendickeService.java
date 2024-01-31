@@ -116,10 +116,13 @@ public class HautfaltendickeService implements
 				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(id))));
 	}
 
-	public List<GespeicherteHautfaltendicke> findeAlle(String benutzerId)
+	public HautfaltendickePaginationResponse findeAlle(
+		@NonNull String benutzerId,
+		@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
 	{
-		return hautfaltendickeRepository.findeAlle(new ID(benutzerId)).stream()
-			.map(hautfaltendickeMapping::mappe)
-			.toList();
+		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
+			new ID(benutzerId),
+			hautfaltendickePaginationRequest.getPage(),
+			hautfaltendickePaginationRequest.getPageSize()));
 	}
 }

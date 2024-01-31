@@ -99,9 +99,14 @@ public class MessungService implements
 			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id))));
 	}
 
-	public List<GespeicherteMessung> findeAlle(String benutzerId)
+	public List<GespeicherteMessung> findeAlle(
+		@NonNull String benutzerId,
+		@NonNull MessungPaginationRequest messungPaginationRequest)
 	{
-		return messungRepository.findeAlle(new ID(benutzerId)).stream()
+		return messungRepository.findeAlle(
+				new ID(benutzerId),
+				messungPaginationRequest.getPage(),
+				messungPaginationRequest.getPageSize()).stream()
 			.map(messungMapping::mappe)
 			.toList();
 	}

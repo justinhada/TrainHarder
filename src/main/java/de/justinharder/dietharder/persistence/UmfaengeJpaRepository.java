@@ -18,7 +18,7 @@ public class UmfaengeJpaRepository extends JpaRepository<Umfaenge> implements Um
 	}
 
 	@Override
-	public List<Umfaenge> findeAlle(@NonNull ID benutzerId)
+	public List<Umfaenge> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
 	{
 		return entityManager.createQuery("""
 					SELECT umfaenge
@@ -26,6 +26,8 @@ public class UmfaengeJpaRepository extends JpaRepository<Umfaenge> implements Um
 					WHERE umfaenge.benutzer.id = :benutzerId""",
 				Umfaenge.class)
 			.setParameter("benutzerId", benutzerId)
+			.setFirstResult((page - 1) * pageSize)
+			.setMaxResults(pageSize)
 			.getResultList();
 	}
 }

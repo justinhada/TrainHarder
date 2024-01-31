@@ -99,10 +99,13 @@ public class ZielService implements
 			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id))));
 	}
 
-	public List<GespeichertesZiel> findeAlle(String benutzerId)
+	public ZielPaginationResponse findeAlle(
+		@NonNull String benutzerId,
+		@NonNull ZielPaginationRequest zielPaginationRequest)
 	{
-		return zielRepository.findeAlle(new ID(benutzerId)).stream()
-			.map(zielMapping::mappe)
-			.toList();
+		return zielMapping.mappe(zielRepository.findeAlle(
+			new ID(benutzerId),
+			zielPaginationRequest.getPage(),
+			zielPaginationRequest.getPageSize()));
 	}
 }

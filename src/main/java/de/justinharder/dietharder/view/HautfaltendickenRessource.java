@@ -28,7 +28,7 @@ public class HautfaltendickenRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
 	{
 		return Response
 			.ok(hautfaltendickeService.findeAlle(hautfaltendickePaginationRequest))
@@ -59,7 +59,7 @@ public class HautfaltendickenRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeueHautfaltendicke neueHautfaltendicke)
+	public Response erstelle(@BeanParam @NonNull NeueHautfaltendicke neueHautfaltendicke)
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class HautfaltendickenRessource implements
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response aktualisiere(
 		@PathParam("id") @NonNull String id,
-		@NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke)
+		@BeanParam @NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke)
 	{
 		try
 		{

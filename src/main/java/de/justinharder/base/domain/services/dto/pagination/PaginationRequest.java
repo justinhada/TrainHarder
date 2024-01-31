@@ -20,17 +20,19 @@ public abstract class PaginationRequest<T extends GespeichertesDTO<T>> extends P
 	@Positive
 	@DefaultValue("1")
 	@QueryParam("page")
-	protected Long page;
+	protected Integer page;
 
 	@NonNull
 	@Positive
 	@DefaultValue("10")
 	@QueryParam("page_size")
-	protected Long pageSize;
+	protected Integer pageSize;
 
 	@Valid
 	@Nullable
 	protected Ordering<T> ordering; // TODO: Wie genau soll das implementiert werden?
+
+	// TODO: Filtering<T> filtering; Wie genau soll das implementiert werden?
 
 	protected String search;
 }

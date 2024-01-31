@@ -28,7 +28,7 @@ public class UmfaengeRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull UmfaengePaginationRequest umfaengePaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull UmfaengePaginationRequest umfaengePaginationRequest)
 	{
 		return Response
 			.ok(umfaengeService.findeAlle(umfaengePaginationRequest))
@@ -59,7 +59,7 @@ public class UmfaengeRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeueUmfaenge neueUmfaenge)
+	public Response erstelle(@BeanParam @NonNull NeueUmfaenge neueUmfaenge)
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class UmfaengeRessource implements
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response aktualisiere(
 		@PathParam("id") @NonNull String id,
-		@NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
+		@BeanParam @NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
 	{
 		try
 		{

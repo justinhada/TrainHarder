@@ -58,7 +58,7 @@ public class BenutzerRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeuerBenutzer neuerBenutzer)
+	public Response erstelle(@BeanParam @NonNull NeuerBenutzer neuerBenutzer)
 	{
 		return Response
 			.ok(benutzerService.erstelle(neuerBenutzer))
@@ -72,7 +72,7 @@ public class BenutzerRessource implements
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response aktualisiere(
 		@PathParam("id") @NonNull String id,
-		@NonNull AktualisierterBenutzer aktualisierterBenutzer)
+		@BeanParam @NonNull AktualisierterBenutzer aktualisierterBenutzer)
 	{
 		try
 		{

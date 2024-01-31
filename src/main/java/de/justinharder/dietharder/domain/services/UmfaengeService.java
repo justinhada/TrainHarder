@@ -123,10 +123,13 @@ public class UmfaengeService implements
 			.orElseThrow(() -> new UmfaengeException("Die Umfaenge mit der ID %s existieren nicht!".formatted(id))));
 	}
 
-	public List<GespeicherteUmfaenge> findeAlle(String benutzerId)
+	public UmfaengePaginationResponse findeAlle(
+		@NonNull String benutzerId,
+		@NonNull UmfaengePaginationRequest umfaengePaginationRequest)
 	{
-		return umfaengeRepository.findeAlle(new ID(benutzerId)).stream()
-			.map(umfaengeMapping::mappe)
-			.toList();
+		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(
+			new ID(benutzerId),
+			umfaengePaginationRequest.getPage(),
+			umfaengePaginationRequest.getPageSize()));
 	}
 }

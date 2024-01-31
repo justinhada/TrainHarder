@@ -18,7 +18,7 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 	}
 
 	@Override
-	public List<Messung> findeAlle(@NonNull ID benutzerId)
+	public List<Messung> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
 	{
 		return entityManager.createQuery("""
 					SELECT messung
@@ -26,6 +26,8 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 					WHERE messung.benutzer.id = :benutzerId""",
 				Messung.class)
 			.setParameter("benutzerId", benutzerId)
+			.setFirstResult((page - 1) * pageSize)
+			.setMaxResults(pageSize)
 			.getResultList();
 	}
 }

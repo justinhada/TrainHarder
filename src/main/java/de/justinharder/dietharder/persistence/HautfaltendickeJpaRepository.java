@@ -18,7 +18,7 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 	}
 
 	@Override
-	public List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId)
+	public List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
 	{
 		return entityManager.createQuery("""
 					SELECT hautfaltendicke
@@ -26,6 +26,8 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 					WHERE hautfaltendicke.benutzer.id = :benutzerId""",
 				Hautfaltendicke.class)
 			.setParameter("benutzerId", benutzerId)
+			.setFirstResult((page - 1) * pageSize)
+			.setMaxResults(pageSize)
 			.getResultList();
 	}
 }
