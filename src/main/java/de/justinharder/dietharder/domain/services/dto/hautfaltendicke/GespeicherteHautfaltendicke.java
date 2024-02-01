@@ -3,8 +3,10 @@ package de.justinharder.dietharder.domain.services.dto.hautfaltendicke;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 @Getter
+@ToString(callSuper = true)
 public class GespeicherteHautfaltendicke extends GespeichertesDTO<GespeicherteHautfaltendicke>
 {
 	@NonNull
