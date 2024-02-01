@@ -4,6 +4,7 @@ import de.justinharder.base.view.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.MessungException;
 import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
+import de.justinharder.dietharder.domain.services.dto.messung.GeloeschteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Path("/messungen")
 @RequiredArgsConstructor
 public class MessungenRessource implements
-	Ressource<GespeicherteMessung, NeueMessung, AktualisierteMessung, MessungPaginationRequest, MessungPaginationResponse>
+	Ressource<GespeicherteMessung, NeueMessung, AktualisierteMessung, GeloeschteMessung, MessungPaginationRequest, MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungService messungService;
@@ -105,10 +106,8 @@ public class MessungenRessource implements
 	{
 		try
 		{
-			messungService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(messungService.loesche(id))
 				.build();
 		}
 		catch (MessungException e)

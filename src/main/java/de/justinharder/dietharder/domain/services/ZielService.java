@@ -8,6 +8,7 @@ import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
 import de.justinharder.dietharder.domain.model.exceptions.ZielException;
 import de.justinharder.dietharder.domain.repository.ZielRepository;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
+import de.justinharder.dietharder.domain.services.dto.ziel.GeloeschtesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
@@ -25,7 +26,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class ZielService implements
-	Service<Ziel, GespeichertesZiel, NeuesZiel, AktualisiertesZiel, ZielPaginationRequest, ZielPaginationResponse>
+	Service<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, GeloeschtesZiel, ZielPaginationRequest, ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielRepository zielRepository;
@@ -93,10 +94,12 @@ public class ZielService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws ZielException
+	public GeloeschtesZiel loesche(@NonNull String id) throws ZielException
 	{
 		zielRepository.loesche(zielRepository.finde(new ID(id))
 			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id))));
+
+		return new GeloeschtesZiel(id);
 	}
 
 	public ZielPaginationResponse findeAlle(

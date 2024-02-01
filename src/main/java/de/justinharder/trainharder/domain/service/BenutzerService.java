@@ -10,6 +10,7 @@ import de.justinharder.trainharder.domain.model.attribute.Vorname;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
+import de.justinharder.trainharder.domain.service.dto.benutzer.GeloeschterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationRequest;
@@ -24,7 +25,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class BenutzerService implements
-	Service<Benutzer, GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
+	Service<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, GeloeschterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
 {
 	@NonNull
 	private final BenutzerRepository benutzerRepository;
@@ -89,10 +90,12 @@ public class BenutzerService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws BenutzerException
+	public GeloeschterBenutzer loesche(@NonNull String id) throws BenutzerException
 	{
 		benutzerRepository.loesche(benutzerRepository.finde(new ID(id))
 			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id))));
+
+		return new GeloeschterBenutzer(id);
 	}
 
 	public GespeicherterBenutzer findeMitLogin(@NonNull String loginId) throws BenutzerException

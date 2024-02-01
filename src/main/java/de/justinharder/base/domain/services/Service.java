@@ -1,7 +1,7 @@
 package de.justinharder.base.domain.services;
 
-import de.justinharder.base.domain.model.Entitaet;
 import de.justinharder.base.domain.services.dto.AktualisiertesDTO;
+import de.justinharder.base.domain.services.dto.GeloeschtesDTO;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
 import de.justinharder.base.domain.services.dto.NeuesDTO;
 import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
@@ -10,17 +10,17 @@ import lombok.NonNull;
 
 import java.util.List;
 
-public interface Service<T extends Entitaet, U extends GespeichertesDTO<?>, V extends NeuesDTO<?>, W extends AktualisiertesDTO<?>, X extends PaginationRequest<?>, Y extends PaginationResponse<?>>
+public interface Service<T extends GespeichertesDTO<?>, U extends NeuesDTO<?>, V extends AktualisiertesDTO<?>, W extends GeloeschtesDTO<?>, X extends PaginationRequest<?>, Y extends PaginationResponse<?>>
 {
-	List<U> findeAlle();
+	List<T> findeAlle();
 
 	Y findeAlle(@NonNull X paginationRequest);
 
-	U finde(@NonNull String id) throws Exception;
+	T finde(@NonNull String id) throws Exception;
 
-	U erstelle(@NonNull V neuesDto) throws Exception;
+	T erstelle(@NonNull U neuesDto) throws Exception;
 
-	U aktualisiere(@NonNull String id, @NonNull W aktualisiertesDto) throws Exception;
+	T aktualisiere(@NonNull String id, @NonNull V aktualisiertesDto) throws Exception;
 
-	void loesche(@NonNull String id) throws Exception;
+	W loesche(@NonNull String id) throws Exception;
 }

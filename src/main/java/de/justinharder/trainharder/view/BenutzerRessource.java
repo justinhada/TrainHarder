@@ -4,6 +4,7 @@ import de.justinharder.base.view.Ressource;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.service.BenutzerService;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
+import de.justinharder.trainharder.domain.service.dto.benutzer.GeloeschterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationRequest;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Path("/benutzer")
 @RequiredArgsConstructor
 public class BenutzerRessource implements
-	Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
+	Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, GeloeschterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
 {
 	@NonNull
 	protected final BenutzerService benutzerService;
@@ -95,10 +96,8 @@ public class BenutzerRessource implements
 	{
 		try
 		{
-			benutzerService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(benutzerService.loesche(id))
 				.build();
 		}
 		catch (BenutzerException e)

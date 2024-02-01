@@ -7,6 +7,7 @@ import de.justinharder.dietharder.domain.model.attribute.umfaenge.*;
 import de.justinharder.dietharder.domain.model.exceptions.UmfaengeException;
 import de.justinharder.dietharder.domain.repository.UmfaengeRepository;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.AktualisierteUmfaenge;
+import de.justinharder.dietharder.domain.services.dto.umfaenge.GeloeschteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.GespeicherteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.NeueUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.pagination.UmfaengePaginationRequest;
@@ -24,7 +25,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class UmfaengeService implements
-	Service<Umfaenge, GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
+	Service<GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, GeloeschteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
 {
 	@NonNull
 	private final UmfaengeRepository umfaengeRepository;
@@ -117,10 +118,12 @@ public class UmfaengeService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws UmfaengeException
+	public GeloeschteUmfaenge loesche(@NonNull String id) throws UmfaengeException
 	{
 		umfaengeRepository.loesche(umfaengeRepository.finde(new ID(id))
 			.orElseThrow(() -> new UmfaengeException("Die Umfaenge mit der ID %s existieren nicht!".formatted(id))));
+
+		return new GeloeschteUmfaenge(id);
 	}
 
 	public UmfaengePaginationResponse findeAlle(

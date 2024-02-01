@@ -8,6 +8,7 @@ import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
 import de.justinharder.dietharder.domain.model.exceptions.MessungException;
 import de.justinharder.dietharder.domain.repository.MessungRepository;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
+import de.justinharder.dietharder.domain.services.dto.messung.GeloeschteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
@@ -25,7 +26,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class MessungService implements
-	Service<Messung, GespeicherteMessung, NeueMessung, AktualisierteMessung, MessungPaginationRequest, MessungPaginationResponse>
+	Service<GespeicherteMessung, NeueMessung, AktualisierteMessung, GeloeschteMessung, MessungPaginationRequest, MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungRepository messungRepository;
@@ -93,10 +94,12 @@ public class MessungService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws MessungException
+	public GeloeschteMessung loesche(@NonNull String id) throws MessungException
 	{
 		messungRepository.loesche(messungRepository.finde(new ID(id))
 			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id))));
+
+		return new GeloeschteMessung(id);
 	}
 
 	public List<GespeicherteMessung> findeAlle(

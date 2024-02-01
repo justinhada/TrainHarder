@@ -4,6 +4,7 @@ import de.justinharder.base.view.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.ZielException;
 import de.justinharder.dietharder.domain.services.ZielService;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
+import de.justinharder.dietharder.domain.services.dto.ziel.GeloeschtesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Path("/ziele")
 @RequiredArgsConstructor
 public class ZieleRessource implements
-	Ressource<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, ZielPaginationRequest, ZielPaginationResponse>
+	Ressource<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, GeloeschtesZiel, ZielPaginationRequest, ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielService zielService;
@@ -105,10 +106,8 @@ public class ZieleRessource implements
 	{
 		try
 		{
-			zielService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(zielService.loesche(id))
 				.build();
 		}
 		catch (ZielException e)

@@ -4,6 +4,7 @@ import de.justinharder.base.view.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.UmfaengeException;
 import de.justinharder.dietharder.domain.services.UmfaengeService;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.AktualisierteUmfaenge;
+import de.justinharder.dietharder.domain.services.dto.umfaenge.GeloeschteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.GespeicherteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.NeueUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.pagination.UmfaengePaginationRequest;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Path("/umfaenge")
 public class UmfaengeRessource implements
-	Ressource<GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
+	Ressource<GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, GeloeschteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
 {
 	@NonNull
 	private final UmfaengeService umfaengeService;
@@ -105,10 +106,8 @@ public class UmfaengeRessource implements
 	{
 		try
 		{
-			umfaengeService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(umfaengeService.loesche(id))
 				.build();
 		}
 		catch (UmfaengeException e)

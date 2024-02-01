@@ -4,6 +4,7 @@ import de.justinharder.base.view.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.HautfaltendickeException;
 import de.justinharder.dietharder.domain.services.HautfaltendickeService;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.AktualisierteHautfaltendicke;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GeloeschteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Path("/hautfaltendicken")
 public class HautfaltendickenRessource implements
-	Ressource<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
+	Ressource<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, GeloeschteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeService hautfaltendickeService;
@@ -105,10 +106,8 @@ public class HautfaltendickenRessource implements
 	{
 		try
 		{
-			hautfaltendickeService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(hautfaltendickeService.loesche(id))
 				.build();
 		}
 		catch (HautfaltendickeException e)

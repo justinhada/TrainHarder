@@ -7,6 +7,7 @@ import de.justinharder.dietharder.domain.model.attribute.hautfaltendicke.*;
 import de.justinharder.dietharder.domain.model.exceptions.HautfaltendickeException;
 import de.justinharder.dietharder.domain.repository.HautfaltendickeRepository;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.AktualisierteHautfaltendicke;
+import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GeloeschteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
@@ -24,7 +25,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class HautfaltendickeService implements
-	Service<Hautfaltendicke, GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
+	Service<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, GeloeschteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;
@@ -109,11 +110,13 @@ public class HautfaltendickeService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws HautfaltendickeException
+	public GeloeschteHautfaltendicke loesche(@NonNull String id) throws HautfaltendickeException
 	{
 		hautfaltendickeRepository.loesche(hautfaltendickeRepository.finde(new ID(id))
 			.orElseThrow(() -> new HautfaltendickeException(
 				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(id))));
+
+		return new GeloeschteHautfaltendicke(id);
 	}
 
 	public HautfaltendickePaginationResponse findeAlle(

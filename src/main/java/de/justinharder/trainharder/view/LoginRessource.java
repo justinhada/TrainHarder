@@ -5,6 +5,7 @@ import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.service.LoginService;
 import de.justinharder.trainharder.domain.service.dto.login.AktualisierterLogin;
+import de.justinharder.trainharder.domain.service.dto.login.GeloeschterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.NeuerLogin;
 import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationRequest;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Path("/login")
 @RequiredArgsConstructor
 public class LoginRessource implements
-	Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin, LoginPaginationRequest, LoginPaginationResponse>
+	Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin, GeloeschterLogin, LoginPaginationRequest, LoginPaginationResponse>
 {
 	@NonNull
 	private final LoginService loginService;
@@ -103,10 +104,8 @@ public class LoginRessource implements
 	{
 		try
 		{
-			loginService.loesche(id);
-
 			return Response
-				.ok()
+				.ok(loginService.loesche(id))
 				.build();
 		}
 		catch (LoginException e)

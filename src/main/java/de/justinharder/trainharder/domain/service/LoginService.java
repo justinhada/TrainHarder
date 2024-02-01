@@ -12,6 +12,7 @@ import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.repository.LoginRepository;
 import de.justinharder.trainharder.domain.service.dto.login.AktualisierterLogin;
+import de.justinharder.trainharder.domain.service.dto.login.GeloeschterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.service.dto.login.NeuerLogin;
 import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationRequest;
@@ -26,7 +27,7 @@ import java.util.List;
 @Dependent
 @RequiredArgsConstructor
 public class LoginService implements
-	Service<Login, GespeicherterLogin, NeuerLogin, AktualisierterLogin, LoginPaginationRequest, LoginPaginationResponse>
+	Service<GespeicherterLogin, NeuerLogin, AktualisierterLogin, GeloeschterLogin, LoginPaginationRequest, LoginPaginationResponse>
 {
 	@NonNull
 	private final LoginRepository loginRepository;
@@ -97,9 +98,11 @@ public class LoginService implements
 	}
 
 	@Override
-	public void loesche(@NonNull String id) throws LoginException
+	public GeloeschterLogin loesche(@NonNull String id) throws LoginException
 	{
 		loginRepository.loesche(loginRepository.finde(new ID(id))
 			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id))));
+
+		return new GeloeschterLogin(id);
 	}
 }
