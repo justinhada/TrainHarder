@@ -32,7 +32,9 @@ public abstract class PaginationRequest<T extends GespeichertesDTO<T>> extends P
 	@Nullable
 	protected Ordering<T> ordering; // TODO: Wie genau soll das implementiert werden?
 
-	// TODO: Filtering<T> filtering; Wie genau soll das implementiert werden?
+	@Valid
+	@Nullable
+	protected Filtering<T> filtering; // TODO: Wie genau soll das implementiert werden?
 
 	protected String search;
 }
