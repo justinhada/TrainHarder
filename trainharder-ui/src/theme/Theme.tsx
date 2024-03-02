@@ -13,26 +13,12 @@ const theme = createTheme({
       hover: "#8d99ae",
     },
   },
+  typography: {
+    fontFamily: ["League Spartan", "serif"].join(","),
+  },
   components: {
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          fontFamily: ["League Spartan", "serif"].join(","),
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontFamily: ["League Spartan", "serif"].join(","),
-        },
-      },
-    },
     MuiTypography: {
       styleOverrides: {
-        root: {
-          fontFamily: ["League Spartan", "serif"].join(","),
-        },
         caption: {
           color: "#70809080",
           fontSize: 16,
