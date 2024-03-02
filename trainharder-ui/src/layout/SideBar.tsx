@@ -84,7 +84,6 @@ const SideBar = () => {
   return (
     <Container
       component="aside"
-      maxWidth={false}
       sx={{
         backgroundColor: theme.palette.primary.main,
         display: "flex",
@@ -98,92 +97,116 @@ const SideBar = () => {
 
       <MenuList>
         <Box marginBottom={2}>
-          <Ueberschrift title="PlanHarder" link="planharder" />
+          <Ueberschrift
+            title="PlanHarder"
+            link="planharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {
               title: "Kalender",
               icon: <CalendarMonthOutlinedIcon />,
-              link: "kalender",
+              link: "planharder/kalender",
             },
           ])}
         </Box>
 
         <Box marginBottom={2}>
-          <Ueberschrift title="DietHarder" link="dietharder" />
+          <Ueberschrift
+            title="DietHarder"
+            link="dietharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {
               title: "Körpergewicht",
               icon: <ScaleOutlinedIcon />,
-              link: "koerpergewicht",
+              link: "dietharder/koerpergewicht",
             },
             {
               title: "KFA",
               icon: <PercentOutlinedIcon />,
-              link: "kfa",
+              link: "dietharder/kfa",
             },
             {
               title: "Umfänge",
               icon: <StraightenOutlinedIcon />,
-              link: "umfaenge",
+              link: "dietharder/umfaenge",
             },
           ])}
         </Box>
 
         <Box marginBottom={2}>
-          <Ueberschrift title="EatHarder" link="eatharder" />
+          <Ueberschrift
+            title="EatHarder"
+            link="eatharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {
               title: "Ernährungsplan",
               icon: <RestaurantOutlinedIcon />,
-              link: "ernaehrungsplan",
+              link: "eatharder/ernaehrungsplan",
             },
           ])}
         </Box>
 
         <Box marginBottom={2}>
-          <Ueberschrift title="SuppHarder" link="suppharder" />
+          <Ueberschrift
+            title="SuppHarder"
+            link="suppharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {
               title: "Supplements",
               icon: <AddBoxOutlinedIcon />,
-              link: "supplements",
+              link: "suppharder/supplements",
             },
           ])}
         </Box>
 
         <Box marginBottom={2}>
-          <Ueberschrift title="WorkHarder" link="workharder" />
+          <Ueberschrift
+            title="WorkHarder"
+            link="workharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {
               title: "Übungen",
               icon: <FitnessCenterOutlinedIcon />,
-              link: "uebungen",
+              link: "workharder/uebungen",
             },
             {
               title: "Trainingspläne",
               icon: <NewspaperOutlinedIcon />,
-              link: "trainingsplaene",
+              link: "workharder/trainingsplaene",
             },
             {
               title: "Tagebuch",
               icon: <AssignmentOutlinedIcon />,
-              link: "tagebuch",
+              link: "workharder/tagebuch",
             },
             {
               title: "Kraftwerte",
               icon: <MovingOutlinedIcon />,
-              link: "kraftwerte",
+              link: "workharder/kraftwerte",
             },
           ])}
         </Box>
 
         <Box marginBottom={2}>
-          <Ueberschrift title="TrainHarder" link="trainharder" />
+          <Ueberschrift
+            title="TrainHarder"
+            link="trainharder"
+            onClick={() => setSelectedMenuItem("")}
+          />
 
           {displaySideBarLinks([
             {

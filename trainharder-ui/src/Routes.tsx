@@ -19,7 +19,7 @@ import Tagebuch from "./pages/workharder/Tagebuch.tsx";
 import Kraftwerte from "./pages/workharder/Kraftwerte.tsx";
 import TrainHarder from "./pages/trainharder/TrainHarder.tsx";
 import Login from "./pages/trainharder/Login.tsx";
-import PasswortZuruecksetzen from "./pages/trainharder/PasswortZuruecksetzen.tsx";
+import PasswortVergessen from "./pages/trainharder/PasswortVergessen.tsx";
 import Registrierung from "./pages/trainharder/Registrierung.tsx";
 import Benutzer from "./pages/trainharder/Benutzer.tsx";
 import Logout from "./pages/trainharder/Logout.tsx";
@@ -38,34 +38,55 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Home /> },
-      /* PlanHarder */
-      { path: "planharder", element: <PlanHarder /> },
-      { path: "kalender", element: <Kalender /> },
-      /* DietHarder */
-      { path: "dietharder", element: <DietHarder /> },
-      { path: "koerpergewicht", element: <Koerpergewicht /> },
-      { path: "kfa", element: <KFA /> },
-      { path: "umfaenge", element: <Umfaenge /> },
-      /* EatHarder */
-      { path: "eatharder", element: <EatHarder /> },
-      { path: "ernaehrungsplan", element: <Ernaehrungsplan /> },
-      /* SuppHarder */
-      { path: "suppharder", element: <SuppHarder /> },
-      { path: "supplements", element: <Supplements /> },
-      /* WorkHarder */
-      { path: "workharder", element: <WorkHarder /> },
-      { path: "uebungen", element: <Uebungen /> },
-      { path: "trainingsplaene", element: <Trainingsplaene /> },
-      { path: "tagebuch", element: <Tagebuch /> },
-      { path: "kraftwerte", element: <Kraftwerte /> },
-      /* TrainHarder */
+      {
+        path: "planharder",
+        children: [
+          { index: true, element: <PlanHarder /> },
+          { path: "kalender", element: <Kalender /> },
+        ],
+      },
+      {
+        path: "dietharder",
+        children: [
+          { index: true, element: <DietHarder /> },
+          { path: "koerpergewicht", element: <Koerpergewicht /> },
+          { path: "kfa", element: <KFA /> },
+          { path: "umfaenge", element: <Umfaenge /> },
+        ],
+      },
+      {
+        path: "eatharder",
+        children: [
+          { index: true, element: <EatHarder /> },
+          {
+            path: "ernaehrungsplan",
+            element: <Ernaehrungsplan />,
+          },
+        ],
+      },
+      {
+        path: "suppharder",
+        children: [
+          { index: true, element: <SuppHarder /> },
+          { path: "supplements", element: <Supplements /> },
+        ],
+      },
+      {
+        path: "workharder",
+        children: [
+          { element: <WorkHarder /> },
+          { path: "uebungen", element: <Uebungen /> },
+          { path: "trainingsplaene", element: <Trainingsplaene /> },
+          { path: "tagebuch", element: <Tagebuch /> },
+          { path: "kraftwerte", element: <Kraftwerte /> },
+        ],
+      },
       { path: "trainharder", element: <TrainHarder /> },
       { path: "login", element: <Login /> },
-      { path: "passwort-zuruecksetzen", element: <PasswortZuruecksetzen /> },
+      { path: "passwort-vergessen", element: <PasswortVergessen /> },
       { path: "registrierung", element: <Registrierung /> },
       { path: "benutzer", element: <Benutzer /> },
       { path: "logout", element: <Logout /> },
-      /* BaseHarder */
       { path: "einstellungen", element: <Einstellungen /> },
       { path: "impressum", element: <Impressum /> },
       { path: "datenschutz", element: <Datenschutz /> },

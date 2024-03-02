@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography/Typography";
 import { SxProps } from "@mui/material";
 
 interface Props {
-  sx: SxProps;
+  sx?: SxProps;
 }
 
 const Copyright = ({ sx }: Props) => {
