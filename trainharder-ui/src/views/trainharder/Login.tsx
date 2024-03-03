@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "../../layout/Copyright.tsx";
+import PasswortInput from "../../components/PasswortInput.tsx";
 
 const Login = () => {
   return (
@@ -30,7 +31,7 @@ const Login = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ margin: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ margin: 2, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
 
@@ -39,7 +40,7 @@ const Login = () => {
         </Typography>
 
         <Box marginTop={1}>
-          <Form method="POST" onSubmit={() => {}}>
+          <Form method="POST" action="/login" onSubmit={() => {}}>
             <TextField
               id="benutzername"
               name="benutzername"
@@ -52,17 +53,7 @@ const Login = () => {
               autoFocus={true}
             />
 
-            <TextField
-              id="passwort"
-              name="passwort"
-              label="Passwort"
-              type="password"
-              color="secondary"
-              margin="normal"
-              required={true}
-              fullWidth={true}
-              autoComplete="current-password"
-            />
+            <PasswortInput />
 
             <FormControlLabel
               control={<Checkbox value="angemeldetBleiben" color="secondary" />}

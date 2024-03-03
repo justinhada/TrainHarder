@@ -1,12 +1,10 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Copyright from "../../../layout/Copyright.tsx";
 import { Logo } from "../../../layout/Logo.tsx";
-import EMailAdresseInput from "../../../components/EMailAdresseInput.tsx";
+import PasswortInput from "../../../components/PasswortInput.tsx";
 
-const EMailAdresse = () => {
-  const navigate = useNavigate();
-
+const Passwort = () => {
   return (
     <Container
       sx={{
@@ -28,24 +26,29 @@ const EMailAdresse = () => {
         />
 
         <Typography component="h1" variant="h4">
-          Mit TrainHarder durchstarten
+          Passwort erstellen
+        </Typography>
+
+        <Typography variant="body2" marginTop={2}>
+          Die E-Mail-Adresse scheint noch nicht vergeben zu sein.
+        </Typography>
+
+        <Typography variant="body2" marginTop={2}>
+          Gib das Kennwort ein, das du für deinen Benutzer verwenden möchtest.
         </Typography>
 
         <Box marginTop={1}>
-          <Form method="POST">
-            <EMailAdresseInput autoFocus={true} />
+          <Form method="POST" onSubmit={() => {}}>
+            <PasswortInput />
 
             <Button
-              type="button"
-              onClick={() => {
-                navigate("/registrierung/passwort");
-              }}
+              type="submit"
               fullWidth={true}
               variant="contained"
               color="secondary"
               sx={{ marginTop: 3, marginBottom: 2 }}
             >
-              Mit E-Mail-Adresse registrieren
+              Mit Passwort registrieren
             </Button>
 
             <Grid container={true} justifyContent="flex-end">
@@ -64,4 +67,4 @@ const EMailAdresse = () => {
   );
 };
 
-export default EMailAdresse;
+export default Passwort;

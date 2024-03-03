@@ -20,12 +20,14 @@ import Kraftwerte from "./views/workharder/Kraftwerte.tsx";
 import TrainHarder from "./views/trainharder/TrainHarder.tsx";
 import Login from "./views/trainharder/Login.tsx";
 import PasswortVergessen from "./views/trainharder/PasswortVergessen.tsx";
-import Registrierung from "./views/trainharder/Registrierung.tsx";
+import EMailAdresse from "./views/trainharder/Registrierung/EMailAdresse.tsx";
 import Benutzer from "./views/trainharder/Benutzer.tsx";
 import Logout from "./views/trainharder/Logout.tsx";
 import Einstellungen from "./views/baseharder/Einstellungen.tsx";
 import Impressum from "./views/baseharder/Impressum.tsx";
 import Datenschutz from "./views/baseharder/Datenschutz.tsx";
+import Passwort from "./views/trainharder/Registrierung/Passwort.tsx";
+import Stammdaten from "./views/trainharder/Registrierung/Stammdaten.tsx";
 
 const router = createBrowserRouter([
   {
@@ -84,7 +86,14 @@ const router = createBrowserRouter([
       { path: "trainharder", element: <TrainHarder /> },
       { path: "login", element: <Login /> },
       { path: "passwort-vergessen", element: <PasswortVergessen /> },
-      { path: "registrierung", element: <Registrierung /> },
+      {
+        path: "registrierung",
+        children: [
+          { index: true, element: <EMailAdresse /> },
+          { path: "passwort", element: <Passwort /> },
+          { path: ":id", element: <Stammdaten /> },
+        ],
+      },
       { path: "benutzer", element: <Benutzer /> },
       { path: "logout", element: <Logout /> },
       { path: "einstellungen", element: <Einstellungen /> },
