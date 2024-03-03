@@ -18,7 +18,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequestScoped
-@Path("/login")
+@Path("/logins")
 @RequiredArgsConstructor
 public class LoginRessource implements
 	Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin, GeloeschterLogin, LoginPaginationRequest, LoginPaginationResponse>
@@ -29,7 +29,7 @@ public class LoginRessource implements
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@NonNull LoginPaginationRequest loginPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull LoginPaginationRequest loginPaginationRequest)
 	{
 		return Response
 			.ok(loginService.findeAlle(loginPaginationRequest))
@@ -60,7 +60,7 @@ public class LoginRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@NonNull NeuerLogin neuerLogin)
+	public Response erstelle(@BeanParam @NonNull NeuerLogin neuerLogin)
 	{
 		try
 		{
@@ -81,7 +81,9 @@ public class LoginRessource implements
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(@PathParam("id") @NonNull String id, @NonNull AktualisierterLogin aktualisierterLogin)
+	public Response aktualisiere(
+		@PathParam("id") @NonNull String id,
+		@BeanParam @NonNull AktualisierterLogin aktualisierterLogin)
 	{
 		try
 		{
