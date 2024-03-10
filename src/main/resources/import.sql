@@ -5,9 +5,9 @@ VALUES ('82f4bf94-9f6e-43f7-a6c2-867949e7d4f7', 'Harder', 'Justin', 'MAENNLICH',
        ('2dd931bf-b9f3-441a-8851-e33d1e323827', 'Harder', 'Lilia', 'WEIBLICH', '1978-07-22');
 
 INSERT INTO Registrierung(ID, EMailAdresse, Salt, Passwort)
-VALUES ('db355cd1-1ba0-427d-9621-fefe2b1f832d', 'mail@justinharder.de', 'lhwMFKf4DTBEXnWG7tXvhA==',
+VALUES ('db355cd1-1ba0-427d-9621-fefe2b1f832d', 'mail2@justinharder.de', 'lhwMFKf4DTBEXnWG7tXvhA==',
         'mNMZ8W5m2jf5TtSBnNfB/w=='),
-       ('b77d1156-1494-49b5-b773-5a08273c988f', 'mail@nicoleharder.de', 'lhwMFKf4DTBEXnWG7tXvhA==',
+       ('b77d1156-1494-49b5-b773-5a08273c988f', 'mail2@nicoleharder.de', 'lhwMFKf4DTBEXnWG7tXvhA==',
         'mNMZ8W5m2jf5TtSBnNfB/w==');
 
 INSERT INTO Login(ID, EMailAdresse, Benutzername, Salt, Passwort, BenutzerID)

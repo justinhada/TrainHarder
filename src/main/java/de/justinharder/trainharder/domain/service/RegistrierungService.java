@@ -16,6 +16,7 @@ import de.justinharder.trainharder.domain.service.dto.registrierung.pagination.R
 import de.justinharder.trainharder.domain.service.dto.registrierung.pagination.RegistrierungPaginationResponse;
 import de.justinharder.trainharder.domain.service.mapping.RegistrierungMapping;
 import jakarta.enterprise.context.Dependent;
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -59,6 +60,7 @@ public class RegistrierungService implements
 	}
 
 	@Override
+	@Transactional
 	public GespeicherteRegistrierung erstelle(@NonNull NeueRegistrierung neueRegistrierung)
 	{
 		var salt = Salt.random();
@@ -98,5 +100,18 @@ public class RegistrierungService implements
 				() -> new RegistrierungException("Die Registrierung mit der ID %s existiert nicht!".formatted(id))));
 
 		return new GeloeschteRegistrierung(id);
+	}
+
+	public GespeicherteRegistrierung findeMitEMailAdresse(String eMailAdresse) throws RegistrierungException
+	{
+		return registrierungRepository.findeMit(new EMailAdresse(eMailAdresse))
+			.map(registrierungMapping::mappe)
+			.orElseThrow(() -> new RegistrierungException(
+				"Die Registrierung mit der E-Mail-Adresse %s existiert nicht!".formatted(eMailAdresse)));
+	}
+
+	public boolean isEMailAdresseVergeben(@NonNull String eMailAdresse)
+	{
+		return registrierungRepository.findeMit(new EMailAdresse(eMailAdresse)).isPresent();
 	}
 }

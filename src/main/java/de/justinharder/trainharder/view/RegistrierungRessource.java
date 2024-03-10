@@ -2,6 +2,7 @@ package de.justinharder.trainharder.view;
 
 import de.justinharder.base.view.Ressource;
 import de.justinharder.trainharder.domain.model.exceptions.RegistrierungException;
+import de.justinharder.trainharder.domain.service.LoginService;
 import de.justinharder.trainharder.domain.service.RegistrierungService;
 import de.justinharder.trainharder.domain.service.dto.registrierung.AktualisierteRegistrierung;
 import de.justinharder.trainharder.domain.service.dto.registrierung.GeloeschteRegistrierung;
@@ -24,6 +25,9 @@ public class RegistrierungRessource implements
 {
 	@NonNull
 	private final RegistrierungService registrierungService;
+
+	@NonNull
+	private final LoginService loginService;
 
 	@GET
 	@Override
@@ -59,7 +63,7 @@ public class RegistrierungRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeueRegistrierung neueRegistrierung)
+	public Response erstelle(@NonNull NeueRegistrierung neueRegistrierung)
 	{
 		return Response
 			.ok(registrierungService.erstelle(neueRegistrierung))
@@ -73,7 +77,7 @@ public class RegistrierungRessource implements
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response aktualisiere(
 		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
+		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
 	{
 		try
 		{
@@ -106,5 +110,32 @@ public class RegistrierungRessource implements
 				.status(Response.Status.NOT_FOUND)
 				.build();
 		}
+	}
+
+	//	@GET
+	//	@Path("/e-mail-adresse/{eMailAdresse}")
+	//	@Produces(MediaType.APPLICATION_JSON)
+	//	public Response findeMitEMailAdresse(@PathParam("eMailAdresse") @NonNull String eMailAdresse)
+	//	{
+	//		try
+	//		{
+	//			return Response
+	//				.ok(registrierungService.findeMitEMailAdresse(eMailAdresse))
+	//				.build();
+	//		}
+	//		catch (RegistrierungException e)
+	//		{
+	//			return Response
+	//				.status(Response.Status.NOT_FOUND)
+	//				.build();
+	//		}
+	//	}
+
+	@GET
+	@Path("/check-email/{eMailAdresse}")
+	public boolean isEMailAdresseVergeben(@PathParam("eMailAdresse") @NonNull String eMailAdresse)
+	{
+		return loginService.isEMailAdresseVergeben(eMailAdresse)
+			|| registrierungService.isEMailAdresseVergeben(eMailAdresse);
 	}
 }
