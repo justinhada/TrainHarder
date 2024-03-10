@@ -59,7 +59,7 @@ public class LoginService implements
 	{
 		return loginRepository.finde(new ID(id))
 			.map(loginMapping::mappe)
-			.orElseThrow(() -> new LoginException("Der Benutzer mit der ID %s existiert nicht!".formatted(id)));
+			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id)));
 	}
 
 	@Override
@@ -104,5 +104,18 @@ public class LoginService implements
 			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id))));
 
 		return new GeloeschterLogin(id);
+	}
+
+	public GespeicherterLogin findeMitEMailAdresse(@NonNull String eMailAdresse) throws LoginException
+	{
+		return loginRepository.findeMit(new EMailAdresse(eMailAdresse))
+			.map(loginMapping::mappe)
+			.orElseThrow(() -> new LoginException(
+				"Der Login mit der E-Mail-Adresse %s existiert nicht!".formatted(eMailAdresse)));
+	}
+
+	public boolean isEMailAdresseVergeben(@NonNull String eMailAdresse)
+	{
+		return loginRepository.findeMit(new EMailAdresse(eMailAdresse)).isPresent();
 	}
 }

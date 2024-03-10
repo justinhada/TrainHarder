@@ -60,7 +60,7 @@ public class LoginRessource implements
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeuerLogin neuerLogin)
+	public Response erstelle(@NonNull NeuerLogin neuerLogin)
 	{
 		try
 		{
@@ -81,9 +81,7 @@ public class LoginRessource implements
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierterLogin aktualisierterLogin)
+	public Response aktualisiere(@PathParam("id") @NonNull String id, @NonNull AktualisierterLogin aktualisierterLogin)
 	{
 		try
 		{
@@ -108,6 +106,24 @@ public class LoginRessource implements
 		{
 			return Response
 				.ok(loginService.loesche(id))
+				.build();
+		}
+		catch (LoginException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeMitEMailAdresse(@QueryParam("eMailAdresse") @NonNull String eMailAdresse)
+	{
+		try
+		{
+			return Response
+				.ok(loginService.findeMitEMailAdresse(eMailAdresse))
 				.build();
 		}
 		catch (LoginException e)
