@@ -1,10 +1,33 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { Form, Link } from "react-router-dom";
+import { Alert, Box, Container, Grid, Typography } from "@mui/material";
+import { Form, Link, useNavigate } from "react-router-dom";
 import Copyright from "../../../layout/Copyright.tsx";
 import { Logo } from "../../../layout/Logo.tsx";
 import PasswortInput from "../../../components/PasswortInput.tsx";
+import { useState } from "react";
+import CheckIcon from "@mui/icons-material/Check";
+import { usePostRegistrierungen } from "../../../hooks/useRegistrierung.ts";
+import { LoadingButton } from "@mui/lab";
 
-const Passwort = () => {
+interface Props {
+  eMailAdresse: string;
+}
+
+const Passwort = ({ eMailAdresse }: Props) => {
+  const navigate = useNavigate();
+  const [passwort, setPasswort] = useState("");
+  const [meldung, setMeldung] = useState("");
+
+  const { isPending, isSuccess, mutate } = usePostRegistrierungen();
+
+  if (isSuccess) navigate("/registrierung/erfolgreich");
+
+  const hasLowerCase = (passwort: string) => passwort.toUpperCase() != passwort;
+  const hasUpperCase = (passwort: string) => passwort.toLowerCase() != passwort;
+  const hasNumber = (passwort: string) => /\d/.test(passwort);
+  const hasSpecialCharacter = (passwort: string) =>
+    /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(passwort);
+  const hasLength = (passwort: string) => passwort.length >= 12;
+
   return (
     <Container
       sx={{
@@ -21,35 +44,73 @@ const Passwort = () => {
           alignItems: "center",
         }}
       >
-        <Logo
-          cssProperties={{ margin: 2, backgroundColor: "secondary.main" }}
-        />
+        {/*<IconButton>*/}
+        {/*  <ArrowBackIcon />*/}
+        {/*</IconButton>*/}
 
-        <Typography component="h1" variant="h4">
+        <Logo sx={{ margin: 2, backgroundColor: "secondary.main" }} />
+
+        <Typography component="h1" variant="h4" marginBottom={2}>
           Passwort erstellen
         </Typography>
 
-        <Typography variant="body2" marginTop={2}>
-          Die E-Mail-Adresse scheint noch nicht vergeben zu sein.
-        </Typography>
+        <Alert icon={<CheckIcon fontSize="inherit" />} severity="info">
+          {eMailAdresse} ist nicht registriert und kann verwendet werden!
+        </Alert>
 
         <Typography variant="body2" marginTop={2}>
-          Gib das Kennwort ein, das du für deinen Benutzer verwenden möchtest.
+          Gib das Passwort ein, das du für deinen Benutzer verwenden möchtest.
         </Typography>
 
         <Box marginTop={1}>
-          <Form method="POST" onSubmit={() => {}}>
-            <PasswortInput />
+          <Form>
+            <PasswortInput
+              autoFocus={true}
+              value={passwort}
+              onChange={(event) => {
+                event.preventDefault();
 
-            <Button
+                const value = event.target.value;
+                setPasswort(value);
+
+                if (value === "") {
+                  setMeldung("Das Passwort darf nicht leer sein!");
+                  return;
+                }
+
+                if (
+                  !hasLowerCase(value) ||
+                  !hasUpperCase(value) ||
+                  !hasNumber(value) ||
+                  !hasSpecialCharacter(value) ||
+                  !hasLength(value)
+                ) {
+                  setMeldung("Das Passwort ist ungültig!");
+                  return;
+                }
+
+                setMeldung("");
+              }}
+              error={meldung !== ""}
+              helperText={meldung}
+            />
+
+            <LoadingButton
               type="submit"
+              sx={{ marginTop: 3, marginBottom: 2 }}
               fullWidth={true}
               variant="contained"
               color="secondary"
-              sx={{ marginTop: 3, marginBottom: 2 }}
+              loading={isPending}
+              disabled={meldung !== ""}
+              onClick={(event) => {
+                event.preventDefault();
+
+                mutate({ EMailAdresse: eMailAdresse, passwort: passwort });
+              }}
             >
               Mit Passwort registrieren
-            </Button>
+            </LoadingButton>
 
             <Grid container={true} justifyContent="flex-end">
               <Grid item={true}>

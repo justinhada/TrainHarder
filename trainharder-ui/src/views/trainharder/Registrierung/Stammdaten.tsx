@@ -1,5 +1,4 @@
 import { Form, Link, useParams } from "react-router-dom";
-import useRegistrierung from "../../../hooks/useRegistrierung.ts";
 import {
   Avatar,
   Box,
@@ -19,6 +18,7 @@ import { FormEvent } from "react";
 import { Logo } from "../../../layout/Logo.tsx";
 import Copyright from "../../../layout/Copyright.tsx";
 import EMailAdresseInput from "../../../components/EMailAdresseInput.tsx";
+import { useRegistrierung } from "../../../hooks/useRegistrierung.ts";
 
 const Stammdaten = () => {
   const { id } = useParams();
@@ -135,9 +135,7 @@ const Stammdaten = () => {
             alignItems: "center",
           }}
         >
-          <Logo
-            cssProperties={{ margin: 2, backgroundColor: "secondary.main" }}
-          />
+          <Logo sx={{ margin: 2, backgroundColor: "secondary.main" }} />
 
           <Typography component="h1" variant="h4">
             Registrierung abschließen

@@ -1,11 +1,22 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Link, useNavigate } from "react-router-dom";
 import Copyright from "../../../layout/Copyright.tsx";
 import { Logo } from "../../../layout/Logo.tsx";
 import EMailAdresseInput from "../../../components/EMailAdresseInput.tsx";
+import { useRegistrierungCheckEMail } from "../../../hooks/useRegistrierung.ts";
+import { useState } from "react";
+import { LoadingButton } from "@mui/lab";
 
-const EMailAdresse = () => {
+interface Props {
+  eMailAdresse: string;
+  setEMailAdresse: (value: string) => void;
+}
+
+const EMailAdresse = ({ eMailAdresse, setEMailAdresse }: Props) => {
   const navigate = useNavigate();
+  const { isLoading, refetch, isRefetching } =
+    useRegistrierungCheckEMail(eMailAdresse);
+  const [meldung, setMeldung] = useState("");
 
   return (
     <Container
@@ -23,30 +34,61 @@ const EMailAdresse = () => {
           alignItems: "center",
         }}
       >
-        <Logo
-          cssProperties={{ margin: 2, backgroundColor: "secondary.main" }}
-        />
+        <Logo sx={{ margin: 2, backgroundColor: "secondary.main" }} />
 
         <Typography component="h1" variant="h4">
           Mit TrainHarder durchstarten
         </Typography>
 
         <Box marginTop={1}>
-          <Form method="POST">
-            <EMailAdresseInput autoFocus={true} />
+          <Form>
+            <EMailAdresseInput
+              autoFocus={true}
+              value={eMailAdresse}
+              onChange={(event) => {
+                event.preventDefault();
 
-            <Button
-              type="button"
-              onClick={() => {
-                navigate("/registrierung/passwort");
+                const value = event.target.value;
+                setEMailAdresse(value);
+
+                if (value === "") {
+                  setMeldung("Die E-Mail-Adresse darf nicht leer sein!");
+                  return;
+                }
+
+                if (!value.includes("@")) {
+                  setMeldung("Die E-Mail-Adresse muss ein '@' enthalten!");
+                  return;
+                }
+
+                setMeldung("");
               }}
+              error={meldung !== ""}
+              helperText={meldung}
+            />
+
+            <LoadingButton
+              type="submit"
+              sx={{ marginTop: 3, marginBottom: 2 }}
               fullWidth={true}
               variant="contained"
               color="secondary"
-              sx={{ marginTop: 3, marginBottom: 2 }}
+              loading={isRefetching || isLoading}
+              disabled={meldung !== ""}
+              onClick={(event) => {
+                event.preventDefault();
+
+                refetch().then(({ data: checkEMail }) => {
+                  if (checkEMail!.data) {
+                    setMeldung("Die E-Mail-Adresse ist bereits registriert!");
+                  } else {
+                    navigate("/registrierung/passwort");
+                  }
+                });
+              }}
             >
               Mit E-Mail-Adresse registrieren
-            </Button>
+            </LoadingButton>
 
             <Grid container={true} justifyContent="flex-end">
               <Grid item={true}>

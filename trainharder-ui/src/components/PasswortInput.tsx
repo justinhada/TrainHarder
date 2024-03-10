@@ -1,8 +1,22 @@
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-const PasswortInput = () => {
+interface Props {
+  autoFocus?: boolean;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  helperText?: string;
+}
+
+const PasswortInput = ({
+  autoFocus,
+  value,
+  onChange,
+  error,
+  helperText,
+}: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -16,10 +30,14 @@ const PasswortInput = () => {
       label="Passwort"
       type={showPassword ? "text" : "password"}
       color="secondary"
-      margin="normal"
+      margin="dense"
       required={true}
       fullWidth={true}
-      autoComplete="current-password"
+      error={error}
+      helperText={helperText}
+      autoFocus={autoFocus}
+      value={value}
+      onChange={onChange}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

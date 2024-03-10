@@ -1,9 +1,9 @@
 import { UUID } from "node:crypto";
 
 export default interface Registrierung {
-  id: UUID;
+  id?: UUID;
   EMailAdresse: string;
-  benutzername: string;
+  benutzername?: string;
   passwort: string;
-  benutzerId: string;
+  benutzerId?: string;
 }
