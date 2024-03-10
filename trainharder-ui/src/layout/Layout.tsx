@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import SideBar from "./SideBar.tsx";
 import { Outlet } from "react-router-dom";
 import { ReactNode } from "react";
@@ -11,17 +11,18 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <Grid container={true} spacing={0}>
-      <Grid item={true} xs={2}>
+      <Grid item={true} xs={12} sm={4} md={3} lg={2} height="100%">
         <SideBar />
       </Grid>
 
-      <Grid item={true} xs={10}>
-        <Grid container={true} spacing={0} direction="column">
+      <Grid item={true} xs={12} sm={8} md={9} lg={10}>
+        <Grid container={true} spacing={0} display="flex" direction="column">
           <Grid component="header" item={true}>
             <NavigationBar />
           </Grid>
 
           <Grid
+            component="main"
             item={true}
             sx={{
               display: "flex",
@@ -31,7 +32,7 @@ const Layout = ({ children }: Props) => {
               marginTop: 10,
             }}
           >
-            <Box component="main">{children ?? <Outlet />}</Box>
+            {children ?? <Outlet />}
           </Grid>
         </Grid>
       </Grid>
