@@ -28,6 +28,7 @@ const NavigationBar = () => {
             TrainHarder
           </Typography>
         </Box>
+
         <Box
           sx={{
             display: "flex",

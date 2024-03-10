@@ -1,13 +1,13 @@
 import { CSSProperties } from "react";
 
 interface Props {
-  cssProperties?: CSSProperties;
+  sx?: CSSProperties;
 }
 
-export const Logo = ({ cssProperties }: Props) => {
+export const Logo = ({ sx }: Props) => {
   return (
     <img
-      style={cssProperties}
+      style={sx}
       src="/src/assets/icon.svg"
       alt="TrainHarder-Logo"
       height={96}

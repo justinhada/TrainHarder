@@ -93,7 +93,7 @@ const SideBar = () => {
     >
       <Link to="/" title="Startseite" onClick={() => setSelectedMenuItem("")}>
         <Logo
-          cssProperties={{
+          sx={{
             marginLeft: "auto",
             marginRight: "auto",
             display: "block",
