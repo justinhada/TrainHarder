@@ -1,10 +1,18 @@
 import {
   Box,
+  Button,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
   ListItemIcon,
   ListItemText,
   MenuItem,
   MenuList,
+  Snackbar,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -27,59 +35,167 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import MovingOutlinedIcon from "@mui/icons-material/MovingOutlined";
 import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "./Logo.tsx";
 import Ueberschrift from "./Ueberschrift.tsx";
 import Copyright from "./Copyright.tsx";
+import { useAuth } from "../provider/AuthProvider.tsx";
+import { jwtDecode } from "jwt-decode";
 
 const SideBar = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { token, setToken } = useAuth();
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>("");
 
-  const displaySideBarLinks = (sideBarLinks: SideBarLink[]) => {
-    return sideBarLinks.map((value) => {
-      return (
-        <MenuItem
-          key={value.link}
-          component={Link}
-          to={value.link}
-          title={value.title}
-          sx={{
-            ...{
-              menuItems: {
-                "&.MuiMenuItem-root": {
-                  borderRadius: "10px",
-                  height: "45px",
-                  "&:hover": {
-                    backgroundColor: "action.hover",
-                  },
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  const displaySideBarLinks = (sideBarLinks: SideBarLink[]) =>
+    sideBarLinks.map((value) => (
+      <MenuItem
+        key={value.link}
+        component={Link}
+        to={value.link}
+        title={value.title}
+        sx={{
+          ...{
+            menuItems: {
+              "&.MuiMenuItem-root": {
+                borderRadius: "10px",
+                height: "45px",
+                "&:hover": {
+                  backgroundColor: "action.hover",
                 },
               },
-            }.menuItems,
-            backgroundColor:
-              selectedMenuItem === value.link ? "action.hover" : "",
-            color: selectedMenuItem === value.link ? "white" : "black",
-            "&:hover": {
+            },
+          }.menuItems,
+          backgroundColor:
+            selectedMenuItem === value.link ? "action.hover" : "",
+          color: selectedMenuItem === value.link ? "white" : "black",
+          "&:hover": {
+            color: "white",
+            ".MuiListItemIcon-root": {
               color: "white",
-              ".MuiListItemIcon-root": {
-                color: "white",
+            },
+          },
+        }}
+        onClick={() => setSelectedMenuItem(value.link)}
+      >
+        <ListItemIcon
+          sx={{
+            color: selectedMenuItem === value.link ? "white" : "black",
+          }}
+        >
+          {value.icon}
+        </ListItemIcon>
+
+        <ListItemText>{value.title}</ListItemText>
+      </MenuItem>
+    ));
+
+  const LogoutMenuItem = () => (
+    <MenuItem
+      title="Logout"
+      sx={{
+        ...{
+          menuItems: {
+            "&.MuiMenuItem-root": {
+              borderRadius: "10px",
+              height: "45px",
+              "&:hover": {
+                backgroundColor: "action.hover",
               },
             },
+          },
+        }.menuItems,
+        backgroundColor: selectedMenuItem === "logout" ? "action.hover" : "",
+        color: selectedMenuItem === "logout" ? "white" : "black",
+        "&:hover": {
+          color: "white",
+          ".MuiListItemIcon-root": {
+            color: "white",
+          },
+        },
+      }}
+      onClick={handleOpenDialog}
+    >
+      <ListItemIcon
+        sx={{
+          color: selectedMenuItem === "logout" ? "white" : "black",
+        }}
+      >
+        <LogoutOutlinedIcon />
+      </ListItemIcon>
+
+      <ListItemText>Logout</ListItemText>
+    </MenuItem>
+  );
+
+  const LogoutDialog = () => (
+    <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <DialogTitle>Logout</DialogTitle>
+
+      <DialogContent>
+        <DialogContentText>
+          Möchtest du dich wirklich ausloggen?
+        </DialogContentText>
+      </DialogContent>
+
+      <DialogActions>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={(event) => {
+            event.preventDefault();
+
+            setToken("");
+            // navigate("/", { replace: true });
+
+            handleOpenSnackbar();
+
+            handleCloseDialog();
           }}
-          onClick={() => setSelectedMenuItem(value.link)}
+          autoFocus={true}
         >
-          <ListItemIcon
-            sx={{
-              color: selectedMenuItem === value.link ? "white" : "black",
-            }}
-          >
-            {value.icon}
-          </ListItemIcon>
-          <ListItemText>{value.title}</ListItemText>
-        </MenuItem>
-      );
-    });
-  };
+          Logout
+        </Button>
+
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={handleCloseDialog}
+        >
+          Abbrechen
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+
+  const LogoutSnackbar = () => (
+    <Snackbar
+      open={openSnackbar}
+      autoHideDuration={6000}
+      onClose={handleCloseSnackbar}
+      message="Du hast dich erfolgreich abgemeldet."
+      action={
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleCloseSnackbar}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      }
+    />
+  );
 
   return (
     <Container
@@ -102,110 +218,114 @@ const SideBar = () => {
       </Link>
 
       <MenuList>
-        <Box marginBottom={2}>
-          <Ueberschrift
-            title="PlanHarder"
-            link="planharder"
-            onClick={() => setSelectedMenuItem("")}
-          />
+        {token && (
+          <Box>
+            <Box marginBottom={2}>
+              <Ueberschrift
+                title="PlanHarder"
+                link="planharder"
+                onClick={() => setSelectedMenuItem("")}
+              />
 
-          {displaySideBarLinks([
-            {
-              title: "Kalender",
-              icon: <CalendarMonthOutlinedIcon />,
-              link: "planharder/kalender",
-            },
-          ])}
-        </Box>
+              {displaySideBarLinks([
+                {
+                  title: "Kalender",
+                  icon: <CalendarMonthOutlinedIcon />,
+                  link: "planharder/kalender",
+                },
+              ])}
+            </Box>
 
-        <Box marginBottom={2}>
-          <Ueberschrift
-            title="DietHarder"
-            link="dietharder"
-            onClick={() => setSelectedMenuItem("")}
-          />
+            <Box marginBottom={2}>
+              <Ueberschrift
+                title="DietHarder"
+                link="dietharder"
+                onClick={() => setSelectedMenuItem("")}
+              />
 
-          {displaySideBarLinks([
-            {
-              title: "Körpergewicht",
-              icon: <ScaleOutlinedIcon />,
-              link: "dietharder/koerpergewicht",
-            },
-            {
-              title: "KFA",
-              icon: <PercentOutlinedIcon />,
-              link: "dietharder/kfa",
-            },
-            {
-              title: "Umfänge",
-              icon: <StraightenOutlinedIcon />,
-              link: "dietharder/umfaenge",
-            },
-          ])}
-        </Box>
+              {displaySideBarLinks([
+                {
+                  title: "Körpergewicht",
+                  icon: <ScaleOutlinedIcon />,
+                  link: "dietharder/koerpergewicht",
+                },
+                {
+                  title: "KFA",
+                  icon: <PercentOutlinedIcon />,
+                  link: "dietharder/kfa",
+                },
+                {
+                  title: "Umfänge",
+                  icon: <StraightenOutlinedIcon />,
+                  link: "dietharder/umfaenge",
+                },
+              ])}
+            </Box>
 
-        <Box marginBottom={2}>
-          <Ueberschrift
-            title="EatHarder"
-            link="eatharder"
-            onClick={() => setSelectedMenuItem("")}
-          />
+            <Box marginBottom={2}>
+              <Ueberschrift
+                title="EatHarder"
+                link="eatharder"
+                onClick={() => setSelectedMenuItem("")}
+              />
 
-          {displaySideBarLinks([
-            {
-              title: "Ernährungsplan",
-              icon: <RestaurantOutlinedIcon />,
-              link: "eatharder/ernaehrungsplan",
-            },
-          ])}
-        </Box>
+              {displaySideBarLinks([
+                {
+                  title: "Ernährungsplan",
+                  icon: <RestaurantOutlinedIcon />,
+                  link: "eatharder/ernaehrungsplan",
+                },
+              ])}
+            </Box>
 
-        <Box marginBottom={2}>
-          <Ueberschrift
-            title="SuppHarder"
-            link="suppharder"
-            onClick={() => setSelectedMenuItem("")}
-          />
+            <Box marginBottom={2}>
+              <Ueberschrift
+                title="SuppHarder"
+                link="suppharder"
+                onClick={() => setSelectedMenuItem("")}
+              />
 
-          {displaySideBarLinks([
-            {
-              title: "Supplements",
-              icon: <AddBoxOutlinedIcon />,
-              link: "suppharder/supplements",
-            },
-          ])}
-        </Box>
+              {displaySideBarLinks([
+                {
+                  title: "Supplements",
+                  icon: <AddBoxOutlinedIcon />,
+                  link: "suppharder/supplements",
+                },
+              ])}
+            </Box>
 
-        <Box marginBottom={2}>
-          <Ueberschrift
-            title="WorkHarder"
-            link="workharder"
-            onClick={() => setSelectedMenuItem("")}
-          />
+            <Box marginBottom={2}>
+              <Ueberschrift
+                title="WorkHarder"
+                link="workharder"
+                onClick={() => setSelectedMenuItem("")}
+              />
 
-          {displaySideBarLinks([
-            {
-              title: "Übungen",
-              icon: <FitnessCenterOutlinedIcon />,
-              link: "workharder/uebungen",
-            },
-            {
-              title: "Trainingspläne",
-              icon: <NewspaperOutlinedIcon />,
-              link: "workharder/trainingsplaene",
-            },
-            {
-              title: "Tagebuch",
-              icon: <AssignmentOutlinedIcon />,
-              link: "workharder/tagebuch",
-            },
-            {
-              title: "Kraftwerte",
-              icon: <MovingOutlinedIcon />,
-              link: "workharder/kraftwerte",
-            },
-          ])}
-        </Box>
+              {displaySideBarLinks([
+                {
+                  title: "Übungen",
+                  icon: <FitnessCenterOutlinedIcon />,
+                  link: "workharder/uebungen",
+                },
+                {
+                  title: "Trainingspläne",
+                  icon: <NewspaperOutlinedIcon />,
+                  link: "workharder/trainingsplaene",
+                },
+                {
+                  title: "Tagebuch",
+                  icon: <AssignmentOutlinedIcon />,
+                  link: "workharder/tagebuch",
+                },
+                {
+                  title: "Kraftwerte",
+                  icon: <MovingOutlinedIcon />,
+                  link: "workharder/kraftwerte",
+                },
+              ])}
+            </Box>
+          </Box>
+        )}
 
         <Box marginBottom={2}>
           <Ueberschrift
@@ -214,30 +334,36 @@ const SideBar = () => {
             onClick={() => setSelectedMenuItem("")}
           />
 
-          {displaySideBarLinks([
-            {
-              title: "Benutzer",
-              icon: <PersonOutlinedIcon />,
-              link: "benutzer",
-            },
-            {
-              title: "Logout",
-              icon: <LogoutOutlinedIcon />,
-              link: "logout",
-            },
-          ])}
-          {displaySideBarLinks([
-            {
-              title: "Login",
-              icon: <LoginOutlinedIcon />,
-              link: "login",
-            },
-            {
-              title: "Registrierung",
-              icon: <PersonAddAltOutlinedIcon />,
-              link: "registrierung",
-            },
-          ])}
+          {token &&
+            displaySideBarLinks([
+              {
+                title: `@${jwtDecode(token).sub!}`,
+                icon: <PersonOutlinedIcon />,
+                link: `benutzer/@${jwtDecode(token).sub!}`,
+              },
+            ])}
+
+          {token && (
+            <Box>
+              <LogoutMenuItem />
+              <LogoutDialog />
+              <LogoutSnackbar />
+            </Box>
+          )}
+
+          {!token &&
+            displaySideBarLinks([
+              {
+                title: "Login",
+                icon: <LoginOutlinedIcon />,
+                link: "login",
+              },
+              {
+                title: "Registrierung",
+                icon: <PersonAddAltOutlinedIcon />,
+                link: "registrierung",
+              },
+            ])}
         </Box>
       </MenuList>
 
@@ -245,23 +371,36 @@ const SideBar = () => {
         <Typography variant="caption">Base</Typography>
 
         <MenuList>
-          {displaySideBarLinks([
-            {
-              title: "Einstellungen",
-              icon: <SettingsOutlinedIcon />,
-              link: "einstellungen",
-            },
-            {
-              title: "Impressum",
-              icon: <PolicyOutlinedIcon />,
-              link: "impressum",
-            },
-            {
-              title: "Datenschutz",
-              icon: <SecurityOutlinedIcon />,
-              link: "datenschutz",
-            },
-          ])}
+          {token
+            ? displaySideBarLinks([
+                {
+                  title: "Einstellungen",
+                  icon: <SettingsOutlinedIcon />,
+                  link: "einstellungen",
+                },
+                {
+                  title: "Impressum",
+                  icon: <PolicyOutlinedIcon />,
+                  link: "impressum",
+                },
+                {
+                  title: "Datenschutz",
+                  icon: <SecurityOutlinedIcon />,
+                  link: "datenschutz",
+                },
+              ])
+            : displaySideBarLinks([
+                {
+                  title: "Impressum",
+                  icon: <PolicyOutlinedIcon />,
+                  link: "impressum",
+                },
+                {
+                  title: "Datenschutz",
+                  icon: <SecurityOutlinedIcon />,
+                  link: "datenschutz",
+                },
+              ])}
         </MenuList>
       </Box>
 
