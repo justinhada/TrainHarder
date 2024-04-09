@@ -1,9 +1,11 @@
-import { UUID } from "node:crypto";
+import { Dayjs } from "dayjs";
 
 export default interface Registrierung {
-  id?: UUID;
-  EMailAdresse: string;
+  EMailAdresse?: string;
   benutzername?: string;
-  passwort: string;
-  benutzerId?: string;
+  passwort?: string;
+  vorname?: string;
+  nachname?: string;
+  geschlecht?: string;
+  geburtsdatum?: Dayjs;
 }

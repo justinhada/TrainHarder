@@ -8,7 +8,10 @@ import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import de.justinharder.trainharder.domain.model.attribute.Salt;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.Serial;
 
@@ -20,7 +23,6 @@ public class Registrierung extends Entitaet
 	@Serial
 	private static final long serialVersionUID = 6108543866037307371L;
 
-	@Setter
 	@NonNull
 	@Embedded
 	private EMailAdresse eMailAdresse;
@@ -29,7 +31,6 @@ public class Registrierung extends Entitaet
 	@Embedded
 	private Salt salt;
 
-	@Setter
 	@NonNull
 	@Embedded
 	private Passwort passwort;

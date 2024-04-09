@@ -10,7 +10,7 @@ interface Props {
   helperText?: string;
 }
 
-const EMailAdresseInput = ({
+const BenutzernameInput = ({
   autoFocus,
   value,
   disabled,
@@ -19,10 +19,10 @@ const EMailAdresseInput = ({
   helperText,
 }: Props) => (
   <Input
-    id="eMailAdresse"
-    name="eMailAdresse"
-    label="E-Mail-Adresse"
-    type="email"
+    id="benutzername"
+    name="benutzername"
+    label="Benutzername"
+    type="text"
     error={error}
     helperText={helperText}
     autoFocus={autoFocus}
@@ -32,4 +32,4 @@ const EMailAdresseInput = ({
   />
 );
 
-export default EMailAdresseInput;
+export default BenutzernameInput;

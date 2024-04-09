@@ -7,26 +7,18 @@ import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { usePostRegistrierungen } from "../../../hooks/useRegistrierung.ts";
 import { LoadingButton } from "@mui/lab";
+import isGueltig from "../../../utils/PasswortUtils.ts";
 
 interface Props {
   eMailAdresse: string;
 }
 
 const Passwort = ({ eMailAdresse }: Props) => {
-  const navigate = useNavigate();
   const [passwort, setPasswort] = useState("");
   const [meldung, setMeldung] = useState("");
 
-  const { isPending, isSuccess, mutate } = usePostRegistrierungen();
-
-  if (isSuccess) navigate("/registrierung/erfolgreich");
-
-  const hasLowerCase = (passwort: string) => passwort.toUpperCase() != passwort;
-  const hasUpperCase = (passwort: string) => passwort.toLowerCase() != passwort;
-  const hasNumber = (passwort: string) => /\d/.test(passwort);
-  const hasSpecialCharacter = (passwort: string) =>
-    /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(passwort);
-  const hasLength = (passwort: string) => passwort.length >= 12;
+  const navigate = useNavigate();
+  const { isPending, mutateAsync } = usePostRegistrierungen();
 
   return (
     <Container
@@ -78,13 +70,7 @@ const Passwort = ({ eMailAdresse }: Props) => {
                   return;
                 }
 
-                if (
-                  !hasLowerCase(value) ||
-                  !hasUpperCase(value) ||
-                  !hasNumber(value) ||
-                  !hasSpecialCharacter(value) ||
-                  !hasLength(value)
-                ) {
+                if (!isGueltig(value)) {
                   setMeldung("Das Passwort ist ungültig!");
                   return;
                 }
@@ -102,11 +88,17 @@ const Passwort = ({ eMailAdresse }: Props) => {
               variant="contained"
               color="secondary"
               loading={isPending}
-              disabled={meldung !== ""}
-              onClick={(event) => {
+              disabled={meldung !== "" || passwort === ""}
+              onClick={async (event) => {
                 event.preventDefault();
 
-                mutate({ EMailAdresse: eMailAdresse, passwort: passwort });
+                await mutateAsync({
+                  EMailAdresse: eMailAdresse,
+                  passwort: passwort,
+                }).then((response) => {
+                  if (response.status === 200)
+                    navigate("/registrierung/erfolgreich");
+                });
               }}
             >
               Mit Passwort registrieren

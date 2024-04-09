@@ -2,10 +2,8 @@ package de.justinharder.trainharder.domain.service.dto.benutzer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.justinharder.base.domain.services.dto.NeuesDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import de.justinharder.trainharder.domain.service.dto.registrierung.AktualisierteRegistrierung;
+import lombok.*;
 
 @Getter
 @Setter
@@ -24,4 +22,13 @@ public class NeuerBenutzer extends NeuesDTO<NeuerBenutzer>
 
 	@JsonProperty(value = "geburtsdatum", required = true)
 	private String geburtsdatum;
+
+	public static NeuerBenutzer aus(@NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
+	{
+		return new NeuerBenutzer(
+			aktualisierteRegistrierung.getVorname(),
+			aktualisierteRegistrierung.getNachname(),
+			aktualisierteRegistrierung.getGeschlecht(),
+			aktualisierteRegistrierung.getGeburtsdatum());
+	}
 }

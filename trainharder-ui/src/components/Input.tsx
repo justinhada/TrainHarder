@@ -1,35 +1,50 @@
 import { ChangeEvent } from "react";
-import Input from "./Input.tsx";
+import { InputProps, TextField } from "@mui/material";
 
 interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type: string;
   autoFocus?: boolean;
   value?: string;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
   helperText?: string;
+  InputProps?: InputProps;
 }
 
-const EMailAdresseInput = ({
+const Input = ({
+  id,
+  name,
+  label,
+  type,
   autoFocus,
   value,
   disabled,
   onChange,
   error,
   helperText,
+  InputProps,
 }: Props) => (
-  <Input
-    id="eMailAdresse"
-    name="eMailAdresse"
-    label="E-Mail-Adresse"
-    type="email"
+  <TextField
+    id={id}
+    name={name}
+    label={label}
+    type={type}
+    color="secondary"
+    margin="dense"
+    required={true}
+    fullWidth={true}
     error={error}
     helperText={helperText}
     autoFocus={autoFocus}
     disabled={disabled}
     value={value}
     onChange={onChange}
+    InputProps={InputProps}
   />
 );
 
-export default EMailAdresseInput;
+export default Input;

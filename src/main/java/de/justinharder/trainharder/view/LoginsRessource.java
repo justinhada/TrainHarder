@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/logins")
 @RequiredArgsConstructor
-public class LoginRessource implements
+public class LoginsRessource implements
 	Ressource<GespeicherterLogin, NeuerLogin, AktualisierterLogin, GeloeschterLogin, LoginPaginationRequest, LoginPaginationResponse>
 {
 	@NonNull

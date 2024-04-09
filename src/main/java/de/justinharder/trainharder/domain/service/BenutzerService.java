@@ -65,7 +65,7 @@ public class BenutzerService implements
 			new Nachname(neuerBenutzer.getNachname()),
 			new Vorname(neuerBenutzer.getVorname()),
 			Geschlecht.aus(neuerBenutzer.getGeschlecht()),
-			new Geburtsdatum(neuerBenutzer.getGeburtsdatum()));
+			new Geburtsdatum(neuerBenutzer.getGeburtsdatum().substring(0, 10)));
 
 		benutzerRepository.speichere(benutzer);
 

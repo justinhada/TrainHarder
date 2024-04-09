@@ -16,6 +16,18 @@ public class AktualisierteRegistrierung extends AktualisiertesDTO<AktualisierteR
 	@JsonProperty(value = "eMailAdresse", required = true)
 	private String eMailAdresse;
 
-	@JsonProperty(value = "passwort", required = true)
-	private String passwort;
+	@JsonProperty(value = "benutzername", required = true)
+	private String benutzername;
+
+	@JsonProperty(value = "vorname", required = true)
+	private String vorname;
+
+	@JsonProperty(value = "nachname", required = true)
+	private String nachname;
+
+	@JsonProperty(value = "geschlecht", required = true)
+	private String geschlecht;
+
+	@JsonProperty(value = "geburtsdatum", required = true)
+	private String geburtsdatum;
 }

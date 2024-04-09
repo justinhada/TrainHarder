@@ -24,7 +24,7 @@ public class Geburtsdatum extends WertObjekt<LocalDate>
 
 	public Geburtsdatum(@NonNull String wert)
 	{
-		this(LocalDate.parse(wert, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+		this(LocalDate.parse(wert, DateTimeFormatter.ISO_DATE));
 	}
 
 	@Override

@@ -1,8 +1,7 @@
-import { UUID } from "node:crypto";
 import { Geschlecht } from "../attribute/Geschlecht.ts";
 
 export default interface Benutzer {
-  id: UUID;
+  id: string;
   nachname: string;
   vorname: string;
   geschlecht: Geschlecht;

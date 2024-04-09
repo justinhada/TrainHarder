@@ -26,6 +26,7 @@ dependencies {
             "io.quarkus:quarkus-jdbc-mariadb",
             "io.quarkus:quarkus-jdbc-h2",
             "io.quarkus:quarkus-agroal",
+            "io.quarkus:quarkus-mailer",
             "io.quarkus:quarkus-resteasy",
             'io.quarkus:quarkus-resteasy-multipart',
             "io.quarkus:quarkus-resteasy-jsonb",

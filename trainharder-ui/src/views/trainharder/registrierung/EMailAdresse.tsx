@@ -13,10 +13,11 @@ interface Props {
 }
 
 const EMailAdresse = ({ eMailAdresse, setEMailAdresse }: Props) => {
+  const [meldung, setMeldung] = useState("");
+
   const navigate = useNavigate();
   const { isLoading, refetch, isRefetching } =
     useRegistrierungCheckEMail(eMailAdresse);
-  const [meldung, setMeldung] = useState("");
 
   return (
     <Container
@@ -42,30 +43,34 @@ const EMailAdresse = ({ eMailAdresse, setEMailAdresse }: Props) => {
 
         <Box marginTop={1}>
           <Form>
-            <EMailAdresseInput
-              autoFocus={true}
-              value={eMailAdresse}
-              onChange={(event) => {
-                event.preventDefault();
+            <Grid container spacing={1}>
+              <Grid item={true} xs={12}>
+                <EMailAdresseInput
+                  autoFocus={true}
+                  value={eMailAdresse}
+                  onChange={(event) => {
+                    event.preventDefault();
 
-                const value = event.target.value;
-                setEMailAdresse(value);
+                    const value = event.target.value;
+                    setEMailAdresse(value);
 
-                if (value === "") {
-                  setMeldung("Die E-Mail-Adresse darf nicht leer sein!");
-                  return;
-                }
+                    if (value === "") {
+                      setMeldung("Die E-Mail-Adresse darf nicht leer sein!");
+                      return;
+                    }
 
-                if (!value.includes("@")) {
-                  setMeldung("Die E-Mail-Adresse muss ein '@' enthalten!");
-                  return;
-                }
+                    if (!value.includes("@")) {
+                      setMeldung("Die E-Mail-Adresse muss ein '@' enthalten!");
+                      return;
+                    }
 
-                setMeldung("");
-              }}
-              error={meldung !== ""}
-              helperText={meldung}
-            />
+                    setMeldung("");
+                  }}
+                  error={meldung !== ""}
+                  helperText={meldung}
+                />
+              </Grid>
+            </Grid>
 
             <LoadingButton
               type="submit"
@@ -74,7 +79,7 @@ const EMailAdresse = ({ eMailAdresse, setEMailAdresse }: Props) => {
               variant="contained"
               color="secondary"
               loading={isRefetching || isLoading}
-              disabled={meldung !== ""}
+              disabled={meldung !== "" || eMailAdresse === ""}
               onClick={(event) => {
                 event.preventDefault();
 

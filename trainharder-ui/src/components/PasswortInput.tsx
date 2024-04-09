@@ -1,6 +1,7 @@
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { ChangeEvent, useState } from "react";
+import Input from "./Input.tsx";
 
 interface Props {
   autoFocus?: boolean;
@@ -24,15 +25,11 @@ const PasswortInput = ({
   };
 
   return (
-    <TextField
+    <Input
       id="passwort"
       name="passwort"
       label="Passwort"
       type={showPassword ? "text" : "password"}
-      color="secondary"
-      margin="dense"
-      required={true}
-      fullWidth={true}
       error={error}
       helperText={helperText}
       autoFocus={autoFocus}

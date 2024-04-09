@@ -1,8 +1,9 @@
 import { Grid } from "@mui/material";
 import SideBar from "./SideBar.tsx";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 import NavigationBar from "./NavigationBar.tsx";
+import { useAuth } from "../provider/AuthProvider.tsx";
 
 interface Props {
   readonly children?: ReactNode;
@@ -40,4 +41,16 @@ const Layout = ({ children }: Props) => {
   );
 };
 
-export default Layout;
+export const PublicLayout = ({ children }: Props) => (
+  <Layout>{children ?? <Outlet />}</Layout>
+);
+
+export const ProtectedLayout = ({ children }: Props) => {
+  const { token } = useAuth();
+  const { pathname } = useLocation();
+
+  if (!token)
+    return <Navigate to="/login" state={{ previousPath: pathname }} />;
+
+  return <Layout>{children ?? <Outlet />}</Layout>;
+};

@@ -6,8 +6,11 @@ import de.justinharder.trainharder.domain.model.Registrierung;
 import de.justinharder.trainharder.domain.model.attribute.EMailAdresse;
 import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import de.justinharder.trainharder.domain.model.attribute.Salt;
+import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.RegistrierungException;
 import de.justinharder.trainharder.domain.repository.RegistrierungRepository;
+import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
+import de.justinharder.trainharder.domain.service.dto.login.NeuerLogin;
 import de.justinharder.trainharder.domain.service.dto.registrierung.AktualisierteRegistrierung;
 import de.justinharder.trainharder.domain.service.dto.registrierung.GeloeschteRegistrierung;
 import de.justinharder.trainharder.domain.service.dto.registrierung.GespeicherteRegistrierung;
@@ -32,6 +35,15 @@ public class RegistrierungService implements
 
 	@NonNull
 	private final RegistrierungMapping registrierungMapping;
+
+	@NonNull
+	private final BenutzerService benutzerService;
+
+	@NonNull
+	private final LoginService loginService;
+
+	@NonNull
+	private final MailService mailService;
 
 	@Override
 	public List<GespeicherteRegistrierung> findeAlle()
@@ -72,22 +84,27 @@ public class RegistrierungService implements
 
 		registrierungRepository.speichere(registrierung);
 
+		mailService.sendeNachErsterRegistrierung(registrierung);
+
 		return registrierungMapping.mappe(registrierung);
 	}
 
+	// TODO: Auch AktualisierteRegistrierung zurückgeben (allgemein immer rein und raus gleich halten)
 	@Override
+	@Transactional
 	public GespeicherteRegistrierung aktualisiere(
 		@NonNull String id,
-		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung) throws RegistrierungException
+		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung) throws RegistrierungException, BenutzerException
 	{
 		var registrierung = registrierungRepository.finde(new ID(id))
 			.orElseThrow(
 				() -> new RegistrierungException("Die Registrierung mit der ID %s existiert nicht!".formatted(id)));
 
-		registrierung.setEMailAdresse(new EMailAdresse(aktualisierteRegistrierung.getEMailAdresse()))
-			.setPasswort(Passwort.aus(registrierung.getSalt(), aktualisierteRegistrierung.getPasswort()));
+		var gespeicherterBenutzer = benutzerService.erstelle(NeuerBenutzer.aus(aktualisierteRegistrierung));
+		var gespeicherterLogin = loginService.erstelle(
+			NeuerLogin.aus(registrierung, aktualisierteRegistrierung, gespeicherterBenutzer));
 
-		registrierungRepository.speichere(registrierung);
+		registrierungRepository.loesche(registrierung);
 
 		return registrierungMapping.mappe(registrierung);
 	}
@@ -100,14 +117,6 @@ public class RegistrierungService implements
 				() -> new RegistrierungException("Die Registrierung mit der ID %s existiert nicht!".formatted(id))));
 
 		return new GeloeschteRegistrierung(id);
-	}
-
-	public GespeicherteRegistrierung findeMitEMailAdresse(String eMailAdresse) throws RegistrierungException
-	{
-		return registrierungRepository.findeMit(new EMailAdresse(eMailAdresse))
-			.map(registrierungMapping::mappe)
-			.orElseThrow(() -> new RegistrierungException(
-				"Die Registrierung mit der E-Mail-Adresse %s existiert nicht!".formatted(eMailAdresse)));
 	}
 
 	public boolean isEMailAdresseVergeben(@NonNull String eMailAdresse)
