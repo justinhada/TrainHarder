@@ -25,7 +25,7 @@ const NavigationBar = () => {
           }}
         >
           <Typography variant="h4" sx={{ color: theme.palette.primary.main }}>
-            TrainHarder
+            TrainHarder{/*TODO: Badge: Basic, Pro, Coach, ...*/}
           </Typography>
         </Box>
 
