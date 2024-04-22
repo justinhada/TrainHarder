@@ -3,10 +3,7 @@ package de.justinharder.trainharder.domain.service;
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
 import de.justinharder.trainharder.domain.model.Benutzer;
-import de.justinharder.trainharder.domain.model.attribute.Geburtsdatum;
-import de.justinharder.trainharder.domain.model.attribute.Geschlecht;
-import de.justinharder.trainharder.domain.model.attribute.Nachname;
-import de.justinharder.trainharder.domain.model.attribute.Vorname;
+import de.justinharder.trainharder.domain.model.attribute.*;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.repository.BenutzerRepository;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;
@@ -102,7 +99,15 @@ public class BenutzerService implements
 	{
 		return benutzerRepository.findeMit(new ID(loginId))
 			.map(benutzerMapping::mappe)
-			.orElseThrow(
-				() -> new BenutzerException("Der Benutzer mit der LoginID %s existiert nicht!".formatted(loginId)));
+			.orElseThrow(() -> new BenutzerException(
+				"Der Benutzer mit der LoginID %s existiert nicht!".formatted(loginId)));
+	}
+
+	public GespeicherterBenutzer findeMitBenutzername(@NonNull String benutzername) throws BenutzerException
+	{
+		return benutzerRepository.findeMit(new Benutzername(benutzername))
+			.map(benutzerMapping::mappe)
+			.orElseThrow(() -> new BenutzerException(
+				"Der Benutzer mit dem Benutzernamen %s existiert nicht!".formatted(benutzername)));
 	}
 }

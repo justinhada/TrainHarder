@@ -1,18 +1,10 @@
 import {
   Box,
-  Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
   ListItemIcon,
   ListItemText,
   MenuItem,
   MenuList,
-  Snackbar,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -22,7 +14,6 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
@@ -35,18 +26,19 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import MovingOutlinedIcon from "@mui/icons-material/MovingOutlined";
 import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import CloseIcon from "@mui/icons-material/Close";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Logo } from "./Logo.tsx";
 import Ueberschrift from "./Ueberschrift.tsx";
 import Copyright from "./Copyright.tsx";
 import { useAuth } from "../provider/AuthProvider.tsx";
 import { jwtDecode } from "jwt-decode";
+import LogoutDialog from "../components/logout/LogoutDialog.tsx";
+import LogoutMenuItem from "../components/logout/LogoutMenuItem.tsx";
+import LogoutSnackbar from "../components/logout/LogoutSnackbar.tsx";
 
 const SideBar = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const { token, setToken } = useAuth();
+  const { token } = useAuth();
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>("");
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -99,103 +91,6 @@ const SideBar = () => {
         <ListItemText>{value.title}</ListItemText>
       </MenuItem>
     ));
-
-  const LogoutMenuItem = () => (
-    <MenuItem
-      title="Logout"
-      sx={{
-        ...{
-          menuItems: {
-            "&.MuiMenuItem-root": {
-              borderRadius: "10px",
-              height: "45px",
-              "&:hover": {
-                backgroundColor: "action.hover",
-              },
-            },
-          },
-        }.menuItems,
-        backgroundColor: selectedMenuItem === "logout" ? "action.hover" : "",
-        color: selectedMenuItem === "logout" ? "white" : "black",
-        "&:hover": {
-          color: "white",
-          ".MuiListItemIcon-root": {
-            color: "white",
-          },
-        },
-      }}
-      onClick={handleOpenDialog}
-    >
-      <ListItemIcon
-        sx={{
-          color: selectedMenuItem === "logout" ? "white" : "black",
-        }}
-      >
-        <LogoutOutlinedIcon />
-      </ListItemIcon>
-
-      <ListItemText>Logout</ListItemText>
-    </MenuItem>
-  );
-
-  const LogoutDialog = () => (
-    <Dialog open={openDialog} onClose={handleCloseDialog}>
-      <DialogTitle>Logout</DialogTitle>
-
-      <DialogContent>
-        <DialogContentText>
-          Möchtest du dich wirklich ausloggen?
-        </DialogContentText>
-      </DialogContent>
-
-      <DialogActions>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={(event) => {
-            event.preventDefault();
-
-            setToken("");
-            // navigate("/", { replace: true });
-
-            handleOpenSnackbar();
-
-            handleCloseDialog();
-          }}
-          autoFocus={true}
-        >
-          Logout
-        </Button>
-
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={handleCloseDialog}
-        >
-          Abbrechen
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-
-  const LogoutSnackbar = () => (
-    <Snackbar
-      open={openSnackbar}
-      autoHideDuration={6000}
-      onClose={handleCloseSnackbar}
-      message="Du hast dich erfolgreich abgemeldet."
-      action={
-        <IconButton
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={handleCloseSnackbar}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      }
-    />
-  );
 
   return (
     <Container
@@ -345,9 +240,21 @@ const SideBar = () => {
 
           {token && (
             <Box>
-              <LogoutMenuItem />
-              <LogoutDialog />
-              <LogoutSnackbar />
+              <LogoutMenuItem
+                selectedMenuItem={selectedMenuItem}
+                handleOpenDialog={handleOpenDialog}
+              />
+
+              <LogoutDialog
+                open={openDialog}
+                handleClose={handleCloseDialog}
+                handleOpenSnackbar={handleOpenSnackbar}
+              />
+
+              <LogoutSnackbar
+                open={openSnackbar}
+                handleClose={handleCloseSnackbar}
+              />
             </Box>
           )}
 
@@ -371,36 +278,27 @@ const SideBar = () => {
         <Typography variant="caption">Base</Typography>
 
         <MenuList>
-          {token
-            ? displaySideBarLinks([
-                {
-                  title: "Einstellungen",
-                  icon: <SettingsOutlinedIcon />,
-                  link: "einstellungen",
-                },
-                {
-                  title: "Impressum",
-                  icon: <PolicyOutlinedIcon />,
-                  link: "impressum",
-                },
-                {
-                  title: "Datenschutz",
-                  icon: <SecurityOutlinedIcon />,
-                  link: "datenschutz",
-                },
-              ])
-            : displaySideBarLinks([
-                {
-                  title: "Impressum",
-                  icon: <PolicyOutlinedIcon />,
-                  link: "impressum",
-                },
-                {
-                  title: "Datenschutz",
-                  icon: <SecurityOutlinedIcon />,
-                  link: "datenschutz",
-                },
-              ])}
+          {token &&
+            displaySideBarLinks([
+              {
+                title: "Einstellungen",
+                icon: <SettingsOutlinedIcon />,
+                link: "einstellungen",
+              },
+            ])}
+
+          {displaySideBarLinks([
+            {
+              title: "Impressum",
+              icon: <PolicyOutlinedIcon />,
+              link: "impressum",
+            },
+            {
+              title: "Datenschutz",
+              icon: <SecurityOutlinedIcon />,
+              link: "datenschutz",
+            },
+          ])}
         </MenuList>
       </Box>
 

@@ -9,6 +9,7 @@ import de.justinharder.trainharder.domain.service.dto.benutzer.GespeicherterBenu
 import de.justinharder.trainharder.domain.service.dto.benutzer.NeuerBenutzer;
 import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationRequest;
 import de.justinharder.trainharder.domain.service.dto.benutzer.pagination.BenutzerPaginationResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -117,6 +118,26 @@ public class BenutzerRessource implements
 		{
 			return Response
 				.ok(benutzerService.findeMitLogin(loginId))
+				.build();
+		}
+		catch (BenutzerException e)
+		{
+			return Response
+				.status(Response.Status.NOT_FOUND)
+				.build();
+		}
+	}
+
+	@GET
+	@RolesAllowed("BENUTZER")
+	@Path("/benutzername/{benutzername}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findeMitBenutzername(@PathParam("benutzername") @NonNull String benutzername)
+	{
+		try
+		{
+			return Response
+				.ok(benutzerService.findeMitBenutzername(benutzername))
 				.build();
 		}
 		catch (BenutzerException e)
