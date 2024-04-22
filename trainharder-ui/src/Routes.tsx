@@ -153,7 +153,7 @@ const Routes = () => {
         {
           path: "workharder",
           children: [
-            { element: <WorkHarder /> },
+            { index: true, element: <WorkHarder /> },
             { path: "uebungen", element: <Uebungen /> },
             { path: "trainingsplaene", element: <Trainingsplaene /> },
             { path: "tagebuch", element: <Tagebuch /> },
