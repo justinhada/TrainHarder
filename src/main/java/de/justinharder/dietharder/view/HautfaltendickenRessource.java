@@ -20,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @RequiredArgsConstructor
 @Path("/hautfaltendicken")
-public class HautfaltendickenRessource implements
-	Ressource<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, GeloeschteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
+public class HautfaltendickenRessource implements Ressource<
+	GespeicherteHautfaltendicke,
+	NeueHautfaltendicke,
+	AktualisierteHautfaltendicke,
+	GeloeschteHautfaltendicke,
+	HautfaltendickePaginationRequest,
+	HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeService hautfaltendickeService;

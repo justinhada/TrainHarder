@@ -20,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @RequiredArgsConstructor
 @Path("/umfaenge")
-public class UmfaengeRessource implements
-	Ressource<GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, GeloeschteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
+public class UmfaengeRessource implements Ressource<
+	GespeicherteUmfaenge,
+	NeueUmfaenge,
+	AktualisierteUmfaenge,
+	GeloeschteUmfaenge,
+	UmfaengePaginationRequest,
+	UmfaengePaginationResponse>
 {
 	@NonNull
 	private final UmfaengeService umfaengeService;

@@ -21,12 +21,15 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
-public class ZielService implements
-	Service<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, GeloeschtesZiel, ZielPaginationRequest, ZielPaginationResponse>
+public class ZielService implements Service<
+	GespeichertesZiel,
+	NeuesZiel,
+	AktualisiertesZiel,
+	GeloeschtesZiel,
+	ZielPaginationRequest,
+	ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielRepository zielRepository;

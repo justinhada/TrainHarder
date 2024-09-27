@@ -9,7 +9,13 @@ import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import jakarta.ws.rs.core.Response;
 import lombok.NonNull;
 
-public interface Ressource<T extends GespeichertesDTO<?>, U extends NeuesDTO<?>, V extends AktualisiertesDTO<?>, W extends GeloeschtesDTO<?>, X extends PaginationRequest<?>, Y extends PaginationResponse<?>>
+public interface Ressource<
+	T extends GespeichertesDTO<?>,
+	U extends NeuesDTO<?>,
+	V extends AktualisiertesDTO<?>,
+	W extends GeloeschtesDTO<?>,
+	X extends PaginationRequest<?>,
+	Y extends PaginationResponse<?>>
 {
 	Response findeAlle(@NonNull X paginationRequest);
 

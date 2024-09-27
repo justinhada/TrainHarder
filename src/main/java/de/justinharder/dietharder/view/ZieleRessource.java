@@ -20,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/ziele")
 @RequiredArgsConstructor
-public class ZieleRessource implements
-	Ressource<GespeichertesZiel, NeuesZiel, AktualisiertesZiel, GeloeschtesZiel, ZielPaginationRequest, ZielPaginationResponse>
+public class ZieleRessource implements Ressource<
+	GespeichertesZiel,
+	NeuesZiel,
+	AktualisiertesZiel,
+	GeloeschtesZiel,
+	ZielPaginationRequest,
+	ZielPaginationResponse>
 {
 	@NonNull
 	private final ZielService zielService;

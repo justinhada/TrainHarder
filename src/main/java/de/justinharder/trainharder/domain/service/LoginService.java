@@ -25,13 +25,17 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.List;
 import java.util.Set;
 
 @Dependent
 @RequiredArgsConstructor
-public class LoginService implements
-	Service<GespeicherterLogin, NeuerLogin, AktualisierterLogin, GeloeschterLogin, LoginPaginationRequest, LoginPaginationResponse>
+public class LoginService implements Service<
+	GespeicherterLogin,
+	NeuerLogin,
+	AktualisierterLogin,
+	GeloeschterLogin,
+	LoginPaginationRequest,
+	LoginPaginationResponse>
 {
 	@NonNull
 	private final LoginRepository loginRepository;

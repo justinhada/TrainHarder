@@ -10,8 +10,10 @@ import lombok.NonNull;
 import java.util.List;
 
 @Dependent
-public class HautfaltendickeMapping
-	implements Mapping<Hautfaltendicke, GespeicherteHautfaltendicke, HautfaltendickePaginationResponse>
+public class HautfaltendickeMapping implements Mapping<
+	Hautfaltendicke,
+	GespeicherteHautfaltendicke,
+	HautfaltendickePaginationResponse>
 {
 	@Override
 	public GespeicherteHautfaltendicke mappe(@NonNull Hautfaltendicke hautfaltendicke)

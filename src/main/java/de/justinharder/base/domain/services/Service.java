@@ -8,9 +8,13 @@ import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import lombok.NonNull;
 
-import java.util.List;
-
-public interface Service<T extends GespeichertesDTO<?>, U extends NeuesDTO<?>, V extends AktualisiertesDTO<?>, W extends GeloeschtesDTO<?>, X extends PaginationRequest<?>, Y extends PaginationResponse<?>>
+public interface Service<
+	T extends GespeichertesDTO<?>,
+	U extends NeuesDTO<?>,
+	V extends AktualisiertesDTO<?>,
+	W extends GeloeschtesDTO<?>,
+	X extends PaginationRequest<?>,
+	Y extends PaginationResponse<?>>
 {
 	List<T> findeAlle();
 

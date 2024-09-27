@@ -20,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/benutzer")
 @RequiredArgsConstructor
-public class BenutzerRessource implements
-	Ressource<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, GeloeschterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
+public class BenutzerRessource implements Ressource<
+	GespeicherterBenutzer,
+	NeuerBenutzer,
+	AktualisierterBenutzer,
+	GeloeschterBenutzer,
+	BenutzerPaginationRequest,
+	BenutzerPaginationResponse>
 {
 	@NonNull
 	protected final BenutzerService benutzerService;

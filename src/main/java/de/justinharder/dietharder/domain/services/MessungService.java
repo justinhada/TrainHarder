@@ -25,8 +25,13 @@ import java.util.List;
 
 @Dependent
 @RequiredArgsConstructor
-public class MessungService implements
-	Service<GespeicherteMessung, NeueMessung, AktualisierteMessung, GeloeschteMessung, MessungPaginationRequest, MessungPaginationResponse>
+public class MessungService implements Service<
+	GespeicherteMessung,
+	NeueMessung,
+	AktualisierteMessung,
+	GeloeschteMessung,
+	MessungPaginationRequest,
+	MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungRepository messungRepository;

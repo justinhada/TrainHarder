@@ -21,8 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @RequiredArgsConstructor
 @Path("/registrierungen")
-public class RegistrierungenRessource implements
-	Ressource<GespeicherteRegistrierung, NeueRegistrierung, AktualisierteRegistrierung, GeloeschteRegistrierung, RegistrierungPaginationRequest, RegistrierungPaginationResponse>
+public class RegistrierungenRessource implements Ressource<
+	GespeicherteRegistrierung,
+	NeueRegistrierung,
+	AktualisierteRegistrierung,
+	GeloeschteRegistrierung,
+	RegistrierungPaginationRequest,
+	RegistrierungPaginationResponse>
 {
 	@NonNull
 	private final RegistrierungService registrierungService;

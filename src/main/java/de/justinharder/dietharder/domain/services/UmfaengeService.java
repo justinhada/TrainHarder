@@ -20,12 +20,15 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
-public class UmfaengeService implements
-	Service<GespeicherteUmfaenge, NeueUmfaenge, AktualisierteUmfaenge, GeloeschteUmfaenge, UmfaengePaginationRequest, UmfaengePaginationResponse>
+public class UmfaengeService implements Service<
+	GespeicherteUmfaenge,
+	NeueUmfaenge,
+	AktualisierteUmfaenge,
+	GeloeschteUmfaenge,
+	UmfaengePaginationRequest,
+	UmfaengePaginationResponse>
 {
 	@NonNull
 	private final UmfaengeRepository umfaengeRepository;

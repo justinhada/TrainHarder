@@ -20,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequestScoped
 @Path("/messungen")
 @RequiredArgsConstructor
-public class MessungenRessource implements
-	Ressource<GespeicherteMessung, NeueMessung, AktualisierteMessung, GeloeschteMessung, MessungPaginationRequest, MessungPaginationResponse>
+public class MessungenRessource implements Ressource<
+	GespeicherteMessung,
+	NeueMessung,
+	AktualisierteMessung,
+	GeloeschteMessung,
+	MessungPaginationRequest,
+	MessungPaginationResponse>
 {
 	@NonNull
 	private final MessungService messungService;

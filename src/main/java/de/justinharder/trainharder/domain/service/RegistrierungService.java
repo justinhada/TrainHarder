@@ -23,12 +23,15 @@ import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
-public class RegistrierungService implements
-	Service<GespeicherteRegistrierung, NeueRegistrierung, AktualisierteRegistrierung, GeloeschteRegistrierung, RegistrierungPaginationRequest, RegistrierungPaginationResponse>
+public class RegistrierungService implements Service<
+	GespeicherteRegistrierung,
+	NeueRegistrierung,
+	AktualisierteRegistrierung,
+	GeloeschteRegistrierung,
+	RegistrierungPaginationRequest,
+	RegistrierungPaginationResponse>
 {
 	@NonNull
 	private final RegistrierungRepository registrierungRepository;

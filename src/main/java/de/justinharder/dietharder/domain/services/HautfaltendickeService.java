@@ -20,12 +20,15 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
-public class HautfaltendickeService implements
-	Service<GespeicherteHautfaltendicke, NeueHautfaltendicke, AktualisierteHautfaltendicke, GeloeschteHautfaltendicke, HautfaltendickePaginationRequest, HautfaltendickePaginationResponse>
+public class HautfaltendickeService implements Service<
+	GespeicherteHautfaltendicke,
+	NeueHautfaltendicke,
+	AktualisierteHautfaltendicke,
+	GeloeschteHautfaltendicke,
+	HautfaltendickePaginationRequest,
+	HautfaltendickePaginationResponse>
 {
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;

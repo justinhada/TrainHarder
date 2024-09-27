@@ -17,12 +17,15 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
-public class BenutzerService implements
-	Service<GespeicherterBenutzer, NeuerBenutzer, AktualisierterBenutzer, GeloeschterBenutzer, BenutzerPaginationRequest, BenutzerPaginationResponse>
+public class BenutzerService implements Service<
+	GespeicherterBenutzer,
+	NeuerBenutzer,
+	AktualisierterBenutzer,
+	GeloeschterBenutzer,
+	BenutzerPaginationRequest,
+	BenutzerPaginationResponse>
 {
 	@NonNull
 	private final BenutzerRepository benutzerRepository;
