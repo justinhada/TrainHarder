@@ -71,7 +71,7 @@ public class HautfaltendickeService implements Service<
 			new Achselfalte(neueHautfaltendicke.getAchselfalte()),
 			new Trizepsfalte(neueHautfaltendicke.getTrizepsfalte()),
 			new Rueckenfalte(neueHautfaltendicke.getRueckenfalte()),
-			null, // TODO: Berechnung des KFA mithilfe aller Falten.
+			null, // TODO: Berechnung des KFAs mithilfe aller Falten.
 			benutzerRepository.finde(new ID(neueHautfaltendicke.getBenutzerId()))
 				.orElseThrow(() -> new BenutzerException(
 					"Der Benutzer mit der ID %s existiert nicht!".formatted(neueHautfaltendicke.getBenutzerId()))));
@@ -97,7 +97,7 @@ public class HautfaltendickeService implements Service<
 			.setAchselfalte(new Achselfalte(aktualisierteHautfaltendicke.getAchselfalte()))
 			.setTrizepsfalte(new Trizepsfalte(aktualisierteHautfaltendicke.getTrizepsfalte()))
 			.setRueckenfalte(new Rueckenfalte(aktualisierteHautfaltendicke.getRueckenfalte()))
-			.setKoerperfettAnteil(null); // TODO: Berechnung des KFA mithilfe aller Falten.
+			.setKoerperfettAnteil(null); // TODO: Berechnung des KFAs mithilfe aller Falten.
 
 		hautfaltendickeRepository.speichere(hautfaltendicke);
 

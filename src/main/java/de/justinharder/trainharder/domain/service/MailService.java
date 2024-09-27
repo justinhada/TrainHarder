@@ -20,13 +20,13 @@ public class MailService
 	{
 		var text = """
 			Hallo!
-						
+			
 			Mit dieser E-Mail senden wir dir deinen Bestätigungslink.
 			Du kannst deine Registrierung über diesen Link abschließen.
 			Viel Spaß!
-						
+			
 			http://localhost:5173/registrierung/%s
-						
+			
 			Mit sportlichen Grüßen
 			dein TrainHarder-Team
 			""".formatted(registrierung.getId().getWert());
@@ -38,13 +38,13 @@ public class MailService
 	{
 		var text = """
 			Hallo %s %s!
-						
+			
 			Mit dieser E-Mail bestätigen wir, dass du deine Registrierung abgeschlossen hast.
 			Du kannst dich jetzt über den folgenden Link mit deinem Benutzernamen und Passwort einloggen.
 			Viel Spaß mit TrainHarder!
-						
+			
 			http://localhost:5173/login
-						
+			
 			Mit sportlichen Grüßen
 			dein TrainHarder-Team
 			""".formatted(login.getBenutzer().getVorname(), login.getBenutzer().getNachname());
