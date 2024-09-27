@@ -41,6 +41,16 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	}
 
 	@Override
+	public Integer zaehleAlle()
+	{
+		var criteriaBuilder = entityManager.getCriteriaBuilder();
+		var criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		return Math.toIntExact(
+			entityManager.createQuery(criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(entitaet))))
+				.getSingleResult());
+	}
+
+	@Override
 	public Optional<T> finde(@NonNull ID id)
 	{
 		return Optional.ofNullable(entityManager.find(entitaet, id));

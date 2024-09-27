@@ -13,6 +13,8 @@ public interface Repository<T extends Entitaet>
 
 	List<T> findeAlle(@NonNull Integer page, @NonNull Integer pageSize);
 
+	Integer zaehleAlle();
+
 	Optional<T> finde(@NonNull ID id);
 
 	void speichere(@NonNull T entitaet);
