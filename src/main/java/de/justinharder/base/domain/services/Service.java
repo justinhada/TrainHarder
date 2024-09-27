@@ -16,8 +16,6 @@ public interface Service<
 	X extends PaginationRequest<?>,
 	Y extends PaginationResponse<?>>
 {
-	List<T> findeAlle();
-
 	Y findeAlle(@NonNull X paginationRequest);
 
 	T finde(@NonNull String id) throws Exception;

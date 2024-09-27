@@ -40,14 +40,6 @@ public class UmfaengeService implements Service<
 	private final UmfaengeMapping umfaengeMapping;
 
 	@Override
-	public List<GespeicherteUmfaenge> findeAlle()
-	{
-		return umfaengeRepository.findeAlle().stream()
-			.map(umfaengeMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public UmfaengePaginationResponse findeAlle(@NonNull UmfaengePaginationRequest umfaengePaginationRequest)
 	{
 		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(

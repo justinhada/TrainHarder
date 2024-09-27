@@ -50,14 +50,6 @@ public class LoginService implements Service<
 	private final MailService mailService;
 
 	@Override
-	public List<GespeicherterLogin> findeAlle()
-	{
-		return loginRepository.findeAlle().stream()
-			.map(loginMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public LoginPaginationResponse findeAlle(@NonNull LoginPaginationRequest loginPaginationRequest)
 	{
 		return loginMapping.mappe(loginRepository.findeAlle(

@@ -34,14 +34,6 @@ public class BenutzerService implements Service<
 	private final BenutzerMapping benutzerMapping;
 
 	@Override
-	public List<GespeicherterBenutzer> findeAlle()
-	{
-		return benutzerRepository.findeAlle().stream()
-			.map(benutzerMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public BenutzerPaginationResponse findeAlle(@NonNull BenutzerPaginationRequest benutzerPaginationRequest)
 	{
 		return benutzerMapping.mappe(benutzerRepository.findeAlle(

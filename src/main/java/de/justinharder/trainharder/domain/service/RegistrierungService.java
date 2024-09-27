@@ -49,14 +49,6 @@ public class RegistrierungService implements Service<
 	private final MailService mailService;
 
 	@Override
-	public List<GespeicherteRegistrierung> findeAlle()
-	{
-		return registrierungRepository.findeAlle().stream()
-			.map(registrierungMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public RegistrierungPaginationResponse findeAlle(
 		@NonNull RegistrierungPaginationRequest registrierungPaginationRequest)
 	{

@@ -40,14 +40,6 @@ public class HautfaltendickeService implements Service<
 	private final HautfaltendickeMapping hautfaltendickeMapping;
 
 	@Override
-	public List<GespeicherteHautfaltendicke> findeAlle()
-	{
-		return hautfaltendickeRepository.findeAlle().stream()
-			.map(hautfaltendickeMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public HautfaltendickePaginationResponse findeAlle(
 		@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
 	{

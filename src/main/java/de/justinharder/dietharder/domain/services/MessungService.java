@@ -43,14 +43,6 @@ public class MessungService implements Service<
 	private final MessungMapping messungMapping;
 
 	@Override
-	public List<GespeicherteMessung> findeAlle()
-	{
-		return messungRepository.findeAlle().stream()
-			.map(messungMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public MessungPaginationResponse findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
 	{
 		return messungMapping.mappe(messungRepository.findeAlle(

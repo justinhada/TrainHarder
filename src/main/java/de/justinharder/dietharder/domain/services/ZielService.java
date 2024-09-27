@@ -41,14 +41,6 @@ public class ZielService implements Service<
 	private final ZielMapping zielMapping;
 
 	@Override
-	public List<GespeichertesZiel> findeAlle()
-	{
-		return zielRepository.findeAlle().stream()
-			.map(zielMapping::mappe)
-			.toList();
-	}
-
-	@Override
 	public ZielPaginationResponse findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
 	{
 		return zielMapping.mappe(zielRepository.findeAlle(
