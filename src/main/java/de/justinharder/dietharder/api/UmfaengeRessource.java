@@ -1,6 +1,6 @@
-package de.justinharder.dietharder.view;
+package de.justinharder.dietharder.api;
 
-import de.justinharder.base.view.Ressource;
+import de.justinharder.base.api.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.UmfaengeException;
 import de.justinharder.dietharder.domain.services.UmfaengeService;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.AktualisierteUmfaenge;

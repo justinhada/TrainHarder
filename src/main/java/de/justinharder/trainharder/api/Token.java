@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.view;
+package de.justinharder.trainharder.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,6 +1,6 @@
-package de.justinharder.trainharder.view;
+package de.justinharder.trainharder.api;
 
-import de.justinharder.base.view.Ressource;
+import de.justinharder.base.api.Ressource;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.service.BenutzerService;
 import de.justinharder.trainharder.domain.service.dto.benutzer.AktualisierterBenutzer;

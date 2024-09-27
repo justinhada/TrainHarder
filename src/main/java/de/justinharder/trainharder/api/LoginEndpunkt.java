@@ -1,4 +1,4 @@
-package de.justinharder.trainharder.view;
+package de.justinharder.trainharder.api;
 
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.service.LoginService;

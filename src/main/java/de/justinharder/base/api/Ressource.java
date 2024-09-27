@@ -1,4 +1,4 @@
-package de.justinharder.base.view;
+package de.justinharder.base.api;
 
 import de.justinharder.base.domain.services.dto.AktualisiertesDTO;
 import de.justinharder.base.domain.services.dto.GeloeschtesDTO;

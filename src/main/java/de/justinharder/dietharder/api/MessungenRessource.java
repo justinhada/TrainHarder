@@ -1,6 +1,6 @@
-package de.justinharder.dietharder.view;
+package de.justinharder.dietharder.api;
 
-import de.justinharder.base.view.Ressource;
+import de.justinharder.base.api.Ressource;
 import de.justinharder.dietharder.domain.model.exceptions.MessungException;
 import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;

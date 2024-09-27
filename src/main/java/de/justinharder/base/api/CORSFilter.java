@@ -1,4 +1,4 @@
-package de.justinharder.base.view;
+package de.justinharder.base.api;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;

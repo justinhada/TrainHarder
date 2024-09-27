@@ -1,4 +1,4 @@
-package de.justinharder.dietharder.view;
+package de.justinharder.dietharder.api;
 
 import de.justinharder.dietharder.domain.services.HautfaltendickeService;
 import de.justinharder.dietharder.domain.services.MessungService;

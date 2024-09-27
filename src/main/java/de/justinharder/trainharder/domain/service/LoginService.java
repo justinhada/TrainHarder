@@ -2,6 +2,8 @@ package de.justinharder.trainharder.domain.service;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.trainharder.api.LoginDaten;
+import de.justinharder.trainharder.api.Token;
 import de.justinharder.trainharder.domain.model.Login;
 import de.justinharder.trainharder.domain.model.attribute.*;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -16,8 +18,6 @@ import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPagi
 import de.justinharder.trainharder.domain.service.dto.login.pagination.LoginPaginationResponse;
 import de.justinharder.trainharder.domain.service.mapping.LoginMapping;
 import de.justinharder.trainharder.utils.TokenUtils;
-import de.justinharder.trainharder.view.LoginDaten;
-import de.justinharder.trainharder.view.Token;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
