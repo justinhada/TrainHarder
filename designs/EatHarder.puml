@@ -1,0 +1,157 @@
+@startuml
+entity Benutzer
+
+entity Mahlzeit
+{
+    * **ID <<PK>>**
+    * Bezeichnung
+    * Zeitpunkt
+    * **BenutzerID <<FK>>**
+}
+
+entity MahlzeitLebensmittel
+{
+    * **ID <<PK>>**
+    * **MahlzeitID <<FK>>**
+    * **LebensmittelID <<FK>>**
+    * Portionsgroesse
+}
+
+entity Lebensmittel
+{
+    * **ID <<PK>>**
+    * Bezeichnung
+    * Kategorie
+    * Barcode
+    * Einheit
+    * **HerstellerID <<FK>>**
+    * **NaehrstoffeID <<FK>>**
+}
+
+entity Hersteller
+{
+    * **ID <<PK>>**
+    * Bezeichnung
+    * URL
+}
+
+entity Naehrstoffe
+{
+    * **ID <<PK>>**
+    * **MakroNaehrstoffeID <<FK>>**
+    * **MikroNaehrstoffeID <<FK>>**
+}
+
+entity MakroNaehrstoffe
+{
+    * **ID <<PK>>**
+    * Kalorien
+    * Fett
+    * GesaettigteFettsaeuren
+    * EinfachUngesaettigteFettsaeuren
+    * MehrfachUngesaettigteFettsaeuren
+    * Kohlenhydrate
+    * Zucker
+    * Ballaststoffe
+    * Eiweiss / Protein
+    * Alkohol
+    * Salz
+    * Koffein
+    * Cholesterin
+}
+
+entity MikroNaehrstoffe
+{
+    * **ID <<PK>>**
+    * **VitamineID <<FK>>**
+    * **MineralstoffeID <<FK>>**
+}
+
+entity Vitamine
+{
+    * **ID <<PK>>**
+    * **FettloeslicheVitamineID <<FK>>**
+    * **WasserloeslicheVitamineID <<FK>>**
+}
+
+entity FettloeslicheVitamine
+{
+    * **ID <<PK>>**
+    * VitaminA
+    * VitaminD
+    * VitaminE
+    * VitaminK
+}
+
+entity WasserloeslicheVitamine
+{
+    * **ID <<PK>>**
+    * VitaminB1 / Thiamin
+    * VitaminB2 / Riboflavin
+    * VitaminB3 / Niacin
+    * VitaminB5 / Pantothensaeure
+    * VitaminB6
+    * VitaminB7 / Biotin
+    * VitaminB9 / Folsäure
+    * VitaminB12
+    * VitaminC
+}
+
+entity Mineralstoffe
+{
+    * **ID <<PK>>**
+    * **MengenelementeID <<FK>>**
+    * **SpurenelementeID <<FK>>**
+}
+
+entity Mengenelemente
+{
+    * **ID <<PK>>**
+    * Calcium
+    * Chlor
+    * Kalium
+    * Magnesium
+    * Natrium
+    * Phosphor
+    * Schwefel
+}
+
+entity Spurenelemente
+{
+    * **ID <<PK>>**
+    * Arsen
+    * Bor
+    * Brom
+    * Chrom
+    * Cobalt
+    * Eisen
+    * Fluor
+    * Iod
+    * Kupfer
+    * Lithium
+    * Mangan
+    * Molybdaen
+    * Nickel
+    * Rubidium
+    * Selen
+    * Silicium
+    * Vanadium
+    * Zink
+    * Zinn
+}
+
+Benutzer ||-o{ Mahlzeit
+Mahlzeit ||-o{ MahlzeitLebensmittel
+Lebensmittel ||--o{ MahlzeitLebensmittel
+
+Hersteller ||-o{ Lebensmittel
+Lebensmittel ||-|| Naehrstoffe
+Naehrstoffe ||-|| MakroNaehrstoffe
+Naehrstoffe ||--|| MikroNaehrstoffe
+MikroNaehrstoffe ||-|| Vitamine
+MikroNaehrstoffe ||--|| Mineralstoffe
+Vitamine ||-|| FettloeslicheVitamine
+Vitamine ||--|| WasserloeslicheVitamine
+Mineralstoffe ||-|| Mengenelemente
+Mineralstoffe ||--|| Spurenelemente
+@enduml

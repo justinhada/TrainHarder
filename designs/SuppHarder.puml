@@ -1,0 +1,15 @@
+@startuml
+entity Hersteller
+
+entity Supplement
+{
+    * **ID <<PK>>**
+    * URL
+    * Kategorie
+    * **LebensmittelID <<FK>>**
+    * **HerstellerID <<FK>>**
+}
+
+Hersteller ||-o{ Supplement
+Supplement ||-|| Lebensmittel
+@enduml
