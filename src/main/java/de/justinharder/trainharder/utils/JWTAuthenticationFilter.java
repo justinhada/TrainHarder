@@ -4,11 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.interceptor.Interceptor;
 import jakarta.ws.rs.Priorities;
-import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -35,15 +33,15 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter
 		var token = extractToken(containerRequestContext.getHeaderString(HttpHeaders.AUTHORIZATION));
 
 		// Validate and process the JWT token
-		if (token != null && jwt.verify(token))
-		{
-			// Token is valid, proceed with the request
-		}
-		else
-		{
-			// Token is invalid or missing, abort the request
-			throw new WebApplicationException("Invalid JWT token", Response.Status.UNAUTHORIZED);
-		}
+		//if (token != null && jwt.verify(token))
+		//{
+		// Token is valid, proceed with the request
+		//}
+		//else
+		//{
+		// Token is invalid or missing, abort the request
+		//    throw new WebApplicationException("Invalid JWT token", Response.Status.UNAUTHORIZED);
+		//}
 	}
 
 	private String extractToken(String authorizationHeader)

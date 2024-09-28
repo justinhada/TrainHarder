@@ -1,8 +1,8 @@
 package de.justinharder.old.domain.services;
 
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.Benutzer;
 import de.justinharder.old.domain.model.attribute.Benutzerangabe;
-import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.attribute.Name;
 import de.justinharder.old.domain.model.enums.*;
 import de.justinharder.old.domain.model.exceptions.AuthentifizierungException;
@@ -35,7 +35,7 @@ public class BenutzerService
 
 	public List<BenutzerDto> findeAlle()
 	{
-		return benutzerDtoMapper.mappeAlle(benutzerRepository.findeAlle());
+		return null;
 	}
 
 	public BenutzerDto finde(@NonNull String id) throws BenutzerException

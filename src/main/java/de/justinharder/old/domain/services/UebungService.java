@@ -1,15 +1,15 @@
 package de.justinharder.old.domain.services;
 
-import de.justinharder.old.domain.repository.BelastungRepository;
-import de.justinharder.old.domain.repository.UebungRepository;
-import de.justinharder.old.domain.services.dto.UebungDto;
-import de.justinharder.old.domain.services.mapper.UebungDtoMapper;
-import de.justinharder.old.domain.model.Uebung;
 import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.old.domain.model.Uebung;
 import de.justinharder.old.domain.model.enums.Uebungsart;
 import de.justinharder.old.domain.model.enums.Uebungskategorie;
 import de.justinharder.old.domain.model.exceptions.BelastungException;
 import de.justinharder.old.domain.model.exceptions.UebungException;
+import de.justinharder.old.domain.repository.BelastungRepository;
+import de.justinharder.old.domain.repository.UebungRepository;
+import de.justinharder.old.domain.services.dto.UebungDto;
+import de.justinharder.old.domain.services.mapper.UebungDtoMapper;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UebungService
 
 	public List<UebungDto> findeAlle()
 	{
-		return uebungDtoMapper.mappeAlle(uebungRepository.findeAlle());
+		return null;
 	}
 
 	public List<UebungDto> findeAlleMitUebungsart(@NonNull String uebungsart)
