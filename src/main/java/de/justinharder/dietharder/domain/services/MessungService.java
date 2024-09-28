@@ -30,6 +30,7 @@ public class MessungService implements Service<
 	GeloeschteMessung>
 {
 	private static final String ENDPUNKT = "messungen";
+	private static final String BENUTZER_ENDPUNKT = "messungen/%s";
 
 	@NonNull
 	private final MessungRepository messungRepository;
@@ -107,9 +108,9 @@ public class MessungService implements Service<
 		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
 		return messungMapping.mappe(
-			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			paginationRequest,
 			messungRepository.findeAlle(new ID(benutzerId), paginationRequest),
-			messungRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
-			paginationRequest);
+			messungRepository.zaehleAlle(new ID(benutzerId)),
+			BENUTZER_ENDPUNKT.formatted(benutzerId));
 	}
 }

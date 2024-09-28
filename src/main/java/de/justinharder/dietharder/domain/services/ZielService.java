@@ -30,6 +30,7 @@ public class ZielService implements Service<
 	GeloeschtesZiel>
 {
 	private static final String ENDPUNKT = "ziele";
+	private static final String BENUTZER_ENDPUNKT = "ziele/%s";
 
 	@NonNull
 	private final ZielRepository zielRepository;
@@ -106,9 +107,9 @@ public class ZielService implements Service<
 		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
 		return zielMapping.mappe(
-			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			paginationRequest,
 			zielRepository.findeAlle(new ID(benutzerId), paginationRequest),
-			zielRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
-			paginationRequest);
+			zielRepository.zaehleAlle(new ID(benutzerId)),
+			BENUTZER_ENDPUNKT.formatted(benutzerId));
 	}
 }

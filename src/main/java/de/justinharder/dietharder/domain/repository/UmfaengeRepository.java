@@ -11,4 +11,6 @@ import java.util.List;
 public interface UmfaengeRepository extends Repository<Umfaenge>
 {
 	List<Umfaenge> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest);
+
+	Integer zaehleAlle(ID benutzerId);
 }

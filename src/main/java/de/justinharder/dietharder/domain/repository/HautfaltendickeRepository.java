@@ -11,4 +11,6 @@ import java.util.List;
 public interface HautfaltendickeRepository extends Repository<Hautfaltendicke>
 {
 	List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest);
+
+	Integer zaehleAlle(@NonNull ID benutzerId);
 }

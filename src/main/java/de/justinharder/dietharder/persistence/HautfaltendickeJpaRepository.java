@@ -33,4 +33,18 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
+
+	@Override
+	public Integer zaehleAlle(@NonNull ID benutzerId)
+	{
+		entityManager.clear();
+
+		return Math.toIntExact(entityManager.createQuery("""
+					SELECT COUNT(hautfaltendicke)
+					FROM Hautfaltendicke hautfaltendicke
+					WHERE hautfaltendicke.benutzer.id = :benutzerId""",
+				Long.class)
+			.setParameter("benutzerId", benutzerId)
+			.getSingleResult());
+	}
 }

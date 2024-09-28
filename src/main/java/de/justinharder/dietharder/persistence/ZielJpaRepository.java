@@ -33,4 +33,18 @@ public class ZielJpaRepository extends JpaRepository<Ziel> implements ZielReposi
 			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
+
+	@Override
+	public Integer zaehleAlle(@NonNull ID benutzerId)
+	{
+		entityManager.clear();
+
+		return Math.toIntExact(entityManager.createQuery("""
+					SELECT COUNT(ziel)
+					FROM Ziel ziel
+					WHERE ziel.benutzer.id = :benutzerId""",
+				Long.class)
+			.setParameter("benutzerId", benutzerId)
+			.getSingleResult());
+	}
 }

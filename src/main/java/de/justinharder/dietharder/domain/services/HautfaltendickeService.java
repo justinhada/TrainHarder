@@ -29,6 +29,7 @@ public class HautfaltendickeService implements Service<
 	GeloeschteHautfaltendicke>
 {
 	private static final String ENDPUNKT = "hautfaltendicken";
+	private static final String BENUTZER_ENDPUNKT = "hautfaltendicken/%s";
 
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;
@@ -121,9 +122,9 @@ public class HautfaltendickeService implements Service<
 		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
 		return hautfaltendickeMapping.mappe(
-			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			paginationRequest,
 			hautfaltendickeRepository.findeAlle(new ID(benutzerId), paginationRequest),
-			hautfaltendickeRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
-			paginationRequest);
+			hautfaltendickeRepository.zaehleAlle(new ID(benutzerId)),
+			BENUTZER_ENDPUNKT.formatted(benutzerId));
 	}
 }

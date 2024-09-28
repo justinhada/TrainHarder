@@ -33,4 +33,18 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
+
+	@Override
+	public Integer zaehleAlle(@NonNull ID benutzerId)
+	{
+		entityManager.clear();
+
+		return Math.toIntExact(entityManager.createQuery("""
+					SELECT COUNT(messung)
+					FROM Messung messung
+					WHERE messung.benutzer.id = :benutzerId""",
+				Long.class)
+			.setParameter("benutzerId", benutzerId)
+			.getSingleResult());
+	}
 }

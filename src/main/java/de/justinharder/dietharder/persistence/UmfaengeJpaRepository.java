@@ -33,4 +33,18 @@ public class UmfaengeJpaRepository extends JpaRepository<Umfaenge> implements Um
 			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
+
+	@Override
+	public Integer zaehleAlle(ID benutzerId)
+	{
+		entityManager.clear();
+
+		return Math.toIntExact(entityManager.createQuery("""
+					SELECT COUNT(umfaenge)
+					FROM Umfaenge umfaenge
+					WHERE umfaenge.benutzer.id = :benutzerId""",
+				Long.class)
+			.setParameter("benutzerId", benutzerId)
+			.getSingleResult());
+	}
 }
