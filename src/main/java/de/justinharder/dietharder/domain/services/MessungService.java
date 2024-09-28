@@ -45,10 +45,10 @@ public class MessungService implements Service<
 		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
 		return messungMapping.mappe(
-			ENDPUNKT,
+			paginationRequest,
 			messungRepository.findeAlle(paginationRequest),
 			messungRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

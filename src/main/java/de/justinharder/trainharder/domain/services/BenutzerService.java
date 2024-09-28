@@ -25,6 +25,8 @@ public class BenutzerService implements Service<
 	AktualisierterBenutzer,
 	GeloeschterBenutzer>
 {
+	private static final String ENDPUNKT = "benutzer";
+
 	@NonNull
 	private final BenutzerRepository benutzerRepository;
 
@@ -36,10 +38,10 @@ public class BenutzerService implements Service<
 		@NonNull PaginationRequest<GespeicherterBenutzer> paginationRequest)
 	{
 		return benutzerMapping.mappe(
-			"benutzer",
+			paginationRequest,
 			benutzerRepository.findeAlle(paginationRequest),
 			benutzerRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

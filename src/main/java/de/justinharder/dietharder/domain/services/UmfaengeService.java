@@ -44,10 +44,10 @@ public class UmfaengeService implements Service<
 		@NonNull PaginationRequest<GespeicherteUmfaenge> paginationRequest)
 	{
 		return umfaengeMapping.mappe(
-			ENDPUNKT,
+			paginationRequest,
 			umfaengeRepository.findeAlle(paginationRequest),
 			umfaengeRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

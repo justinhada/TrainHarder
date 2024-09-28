@@ -15,10 +15,10 @@ public interface Mapping<T extends Entitaet, U extends GespeichertesDTO<U>>
 	U mappe(@NonNull T entitaet);
 
 	default PaginationResponse<U> mappe(
-		@NonNull String endpunkt,
+		@NonNull PaginationRequest<?> paginationRequest,
 		@NonNull List<T> entitaeten,
 		@NonNull Integer size,
-		@NonNull PaginationRequest<?> paginationRequest)
+		@NonNull String endpunkt)
 	{
 		var page = paginationRequest.getPage();
 		var pageSize = paginationRequest.getPageSize();

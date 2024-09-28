@@ -35,6 +35,8 @@ public class LoginService implements Service<
 	AktualisierterLogin,
 	GeloeschterLogin>
 {
+	private static final String ENDPUNKT = "logins";
+	
 	@NonNull
 	private final LoginRepository loginRepository;
 
@@ -52,10 +54,10 @@ public class LoginService implements Service<
 		@NonNull PaginationRequest<GespeicherterLogin> paginationRequest)
 	{
 		return loginMapping.mappe(
-			"logins",
+			paginationRequest,
 			loginRepository.findeAlle(paginationRequest),
 			loginRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

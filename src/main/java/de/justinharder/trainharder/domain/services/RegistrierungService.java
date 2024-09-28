@@ -31,6 +31,8 @@ public class RegistrierungService implements Service<
 	AktualisierteRegistrierung,
 	GeloeschteRegistrierung>
 {
+	private static final String ENDPUNKT = "registrierungen";
+
 	@NonNull
 	private final RegistrierungRepository registrierungRepository;
 
@@ -51,10 +53,10 @@ public class RegistrierungService implements Service<
 		@NonNull PaginationRequest<GespeicherteRegistrierung> paginationRequest)
 	{
 		return registrierungMapping.mappe(
-			"registrierungen",
+			paginationRequest,
 			registrierungRepository.findeAlle(paginationRequest),
 			registrierungRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

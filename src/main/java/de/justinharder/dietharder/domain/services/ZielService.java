@@ -45,10 +45,10 @@ public class ZielService implements Service<
 		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
 		return zielMapping.mappe(
-			ENDPUNKT,
+			paginationRequest,
 			zielRepository.findeAlle(paginationRequest),
 			zielRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override

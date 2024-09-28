@@ -44,10 +44,10 @@ public class HautfaltendickeService implements Service<
 		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
 		return hautfaltendickeMapping.mappe(
-			ENDPUNKT,
+			paginationRequest,
 			hautfaltendickeRepository.findeAlle(paginationRequest),
 			hautfaltendickeRepository.zaehleAlle(),
-			paginationRequest);
+			ENDPUNKT);
 	}
 
 	@Override
