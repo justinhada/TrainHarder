@@ -22,6 +22,8 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 	@Override
 	public Optional<Benutzer> findeMit(@NonNull ID loginId)
 	{
+		entityManager.clear();
+		
 		try
 		{
 			return Optional.of(entityManager.createQuery("""
@@ -41,6 +43,8 @@ public class BenutzerJpaRepository extends JpaRepository<Benutzer> implements Be
 	@Override
 	public Optional<Benutzer> findeMit(@NonNull Benutzername benutzername)
 	{
+		entityManager.clear();
+
 		try
 		{
 			return Optional.of(entityManager.createQuery("""

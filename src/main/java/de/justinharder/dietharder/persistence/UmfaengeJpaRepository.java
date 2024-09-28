@@ -21,6 +21,8 @@ public class UmfaengeJpaRepository extends JpaRepository<Umfaenge> implements Um
 	@Override
 	public List<Umfaenge> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
+		entityManager.clear();
+
 		return entityManager.createQuery("""
 					SELECT umfaenge
 					FROM Umfaenge umfaenge

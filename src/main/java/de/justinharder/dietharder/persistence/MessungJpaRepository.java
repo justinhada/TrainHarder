@@ -21,6 +21,8 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 	@Override
 	public List<Messung> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
+		entityManager.clear();
+
 		return entityManager.createQuery("""
 					SELECT messung
 					FROM Messung messung

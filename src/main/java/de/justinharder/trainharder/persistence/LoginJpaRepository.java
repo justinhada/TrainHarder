@@ -23,6 +23,8 @@ public class LoginJpaRepository extends JpaRepository<Login> implements LoginRep
 	@Override
 	public Optional<Login> findeMit(@NonNull ID benutzerId)
 	{
+		entityManager.clear();
+
 		try
 		{
 			return Optional.of(entityManager.createQuery("""
@@ -42,6 +44,8 @@ public class LoginJpaRepository extends JpaRepository<Login> implements LoginRep
 	@Override
 	public Optional<Login> findeMit(@NonNull EMailAdresse eMailAdresse)
 	{
+		entityManager.clear();
+
 		try
 		{
 			return Optional.of(entityManager.createQuery("""
@@ -61,6 +65,8 @@ public class LoginJpaRepository extends JpaRepository<Login> implements LoginRep
 	@Override
 	public Optional<Login> findeMit(@NonNull Benutzername benutzername)
 	{
+		entityManager.clear();
+
 		try
 		{
 			return Optional.of(entityManager.createQuery("""

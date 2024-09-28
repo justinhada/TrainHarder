@@ -21,6 +21,8 @@ public class RegistrierungJpaRepository extends JpaRepository<Registrierung> imp
 	@Override
 	public Optional<Registrierung> findeMit(@NonNull EMailAdresse eMailAdresse)
 	{
+		entityManager.clear();
+		
 		try
 		{
 			return Optional.of(entityManager.createQuery("""

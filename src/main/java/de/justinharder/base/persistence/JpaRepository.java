@@ -36,6 +36,8 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	@Override
 	public Integer zaehleAlle()
 	{
+		entityManager.clear();
+
 		var criteriaBuilder = entityManager.getCriteriaBuilder();
 		var criteriaQuery = criteriaBuilder.createQuery(Long.class);
 		return Math.toIntExact(
@@ -46,18 +48,24 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	@Override
 	public Optional<T> finde(@NonNull ID id)
 	{
+		entityManager.clear();
+
 		return Optional.ofNullable(entityManager.find(entitaet, id));
 	}
 
 	@Override
 	public void speichere(@NonNull T entitaet)
 	{
+		entityManager.clear();
+
 		entityManager.persist(entitaet);
 	}
 
 	@Override
 	public void loesche(@NonNull T entitaet)
 	{
+		entityManager.clear();
+
 		entityManager.remove(entitaet);
 	}
 }

@@ -21,6 +21,8 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 	@Override
 	public List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
+		entityManager.clear();
+
 		return entityManager.createQuery("""
 					SELECT hautfaltendicke
 					FROM Hautfaltendicke hautfaltendicke

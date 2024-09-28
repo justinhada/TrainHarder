@@ -21,6 +21,8 @@ public class ZielJpaRepository extends JpaRepository<Ziel> implements ZielReposi
 	@Override
 	public List<Ziel> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
+		entityManager.clear();
+
 		return entityManager.createQuery("""
 					SELECT ziel
 					FROM Ziel ziel
