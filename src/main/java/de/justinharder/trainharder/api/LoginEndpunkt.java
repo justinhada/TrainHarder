@@ -1,7 +1,7 @@
 package de.justinharder.trainharder.api;
 
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
-import de.justinharder.trainharder.domain.service.LoginService;
+import de.justinharder.trainharder.domain.services.LoginService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
