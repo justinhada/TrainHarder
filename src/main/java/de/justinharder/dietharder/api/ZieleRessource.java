@@ -83,14 +83,12 @@ public class ZieleRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisiertesZiel aktualisiertesZiel)
+	public Response aktualisiere(@BeanParam @NonNull AktualisiertesZiel aktualisiertesZiel)
 	{
 		try
 		{
 			return Response
-				.ok(zielService.aktualisiere(id, aktualisiertesZiel))
+				.ok(zielService.aktualisiere(aktualisiertesZiel))
 				.build();
 		}
 		catch (ZielException e)
@@ -104,12 +102,12 @@ public class ZieleRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschtesZiel geloeschtesZiel)
 	{
 		try
 		{
 			return Response
-				.ok(zielService.loesche(id))
+				.ok(zielService.loesche(geloeschtesZiel))
 				.build();
 		}
 		catch (ZielException e)

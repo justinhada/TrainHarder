@@ -5,7 +5,7 @@ import de.justinharder.trainharder.domain.model.Registrierung;
 import de.justinharder.trainharder.domain.model.attribute.EMailAdresse;
 import de.justinharder.trainharder.domain.model.attribute.Passwort;
 import de.justinharder.trainharder.domain.model.attribute.Salt;
-import de.justinharder.trainharder.domain.services.dto.benutzer.GespeicherterBenutzer;
+import de.justinharder.trainharder.domain.services.dto.benutzer.NeuerBenutzer;
 import de.justinharder.trainharder.domain.services.dto.registrierung.AktualisierteRegistrierung;
 import lombok.*;
 
@@ -29,13 +29,13 @@ public class NeuerLogin extends NeuesDTO<NeuerLogin>
 	public static NeuerLogin aus(
 		@NonNull Registrierung registrierung,
 		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung,
-		@NonNull GespeicherterBenutzer gespeicherterBenutzer)
+		@NonNull NeuerBenutzer neuerBenutzer)
 	{
 		return new NeuerLogin(
 			registrierung.getEMailAdresse(),
 			aktualisierteRegistrierung.getBenutzername(),
 			registrierung.getSalt(),
 			registrierung.getPasswort(),
-			gespeicherterBenutzer.getId());
+			neuerBenutzer.getId());
 	}
 }

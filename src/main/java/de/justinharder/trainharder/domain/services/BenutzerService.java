@@ -49,7 +49,7 @@ public class BenutzerService implements Service<
 	}
 
 	@Override
-	public GespeicherterBenutzer erstelle(@NonNull NeuerBenutzer neuerBenutzer)
+	public NeuerBenutzer erstelle(@NonNull NeuerBenutzer neuerBenutzer)
 	{
 		var benutzer = new Benutzer(
 			new ID(),
@@ -60,16 +60,16 @@ public class BenutzerService implements Service<
 
 		benutzerRepository.speichere(benutzer);
 
-		return benutzerMapping.mappe(benutzer);
+		return neuerBenutzer;
 	}
 
 	@Override
-	public GespeicherterBenutzer aktualisiere(
-		@NonNull String id,
-		@NonNull AktualisierterBenutzer aktualisierterBenutzer) throws BenutzerException
+	public AktualisierterBenutzer aktualisiere(@NonNull AktualisierterBenutzer aktualisierterBenutzer)
+		throws BenutzerException
 	{
-		var benutzer = benutzerRepository.finde(new ID(id))
-			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id)))
+		var benutzer = benutzerRepository.finde(new ID(aktualisierterBenutzer.getId()))
+			.orElseThrow(() -> new BenutzerException(
+				"Der Benutzer mit der ID %s existiert nicht!".formatted(aktualisierterBenutzer.getId())))
 			.setNachname(new Nachname(aktualisierterBenutzer.getNachname()))
 			.setVorname(new Vorname(aktualisierterBenutzer.getVorname()))
 			.setGeschlecht(Geschlecht.aus(aktualisierterBenutzer.getGeschlecht()))
@@ -77,16 +77,17 @@ public class BenutzerService implements Service<
 
 		benutzerRepository.speichere(benutzer);
 
-		return benutzerMapping.mappe(benutzer);
+		return aktualisierterBenutzer;
 	}
 
 	@Override
-	public GeloeschterBenutzer loesche(@NonNull String id) throws BenutzerException
+	public GeloeschterBenutzer loesche(@NonNull GeloeschterBenutzer geloeschterBenutzer) throws BenutzerException
 	{
-		benutzerRepository.loesche(benutzerRepository.finde(new ID(id))
-			.orElseThrow(() -> new BenutzerException("Der Benutzer mit der ID %s existiert nicht!".formatted(id))));
+		benutzerRepository.loesche(benutzerRepository.finde(new ID(geloeschterBenutzer.getId()))
+			.orElseThrow(() -> new BenutzerException(
+				"Der Benutzer mit der ID %s existiert nicht!".formatted(geloeschterBenutzer.getId()))));
 
-		return new GeloeschterBenutzer(id);
+		return geloeschterBenutzer;
 	}
 
 	public GespeicherterBenutzer findeMitLogin(@NonNull String loginId) throws BenutzerException

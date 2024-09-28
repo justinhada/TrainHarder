@@ -56,7 +56,7 @@ public class ZielService implements Service<
 	}
 
 	@Override
-	public GespeichertesZiel erstelle(@NonNull NeuesZiel neuesZiel) throws BenutzerException
+	public NeuesZiel erstelle(@NonNull NeuesZiel neuesZiel) throws BenutzerException
 	{
 		var ziel = new Ziel(
 			new ID(),
@@ -69,31 +69,32 @@ public class ZielService implements Service<
 
 		zielRepository.speichere(ziel);
 
-		return zielMapping.mappe(ziel);
+		return neuesZiel;
 	}
 
 	@Override
-	public GespeichertesZiel aktualisiere(@NonNull String id, @NonNull AktualisiertesZiel aktualisiertesZiel)
-		throws ZielException
+	public AktualisiertesZiel aktualisiere(@NonNull AktualisiertesZiel aktualisiertesZiel) throws ZielException
 	{
-		var ziel = zielRepository.finde(new ID(id))
-			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id)))
+		var ziel = zielRepository.finde(new ID(aktualisiertesZiel.getId()))
+			.orElseThrow(() -> new ZielException(
+				"Das Ziel mit der ID %s existiert nicht!".formatted(aktualisiertesZiel.getId())))
 			.setDatum(new Datum(aktualisiertesZiel.getDatum()))
 			.setKoerpergewicht(new Koerpergewicht(aktualisiertesZiel.getKoerpergewicht()))
 			.setKoerperfettAnteil(new KoerperfettAnteil(aktualisiertesZiel.getKoerperfettAnteil()));
 
 		zielRepository.speichere(ziel);
 
-		return zielMapping.mappe(ziel);
+		return aktualisiertesZiel;
 	}
 
 	@Override
-	public GeloeschtesZiel loesche(@NonNull String id) throws ZielException
+	public GeloeschtesZiel loesche(@NonNull GeloeschtesZiel geloeschtesZiel) throws ZielException
 	{
-		zielRepository.loesche(zielRepository.finde(new ID(id))
-			.orElseThrow(() -> new ZielException("Das Ziel mit der ID %s existiert nicht!".formatted(id))));
+		zielRepository.loesche(zielRepository.finde(new ID(geloeschtesZiel.getId()))
+			.orElseThrow(() -> new ZielException(
+				"Das Ziel mit der ID %s existiert nicht!".formatted(geloeschtesZiel.getId()))));
 
-		return new GeloeschtesZiel(id);
+		return geloeschtesZiel;
 	}
 
 	public PaginationResponse<GespeichertesZiel> findeAlle(

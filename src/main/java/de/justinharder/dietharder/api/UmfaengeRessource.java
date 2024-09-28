@@ -83,14 +83,12 @@ public class UmfaengeRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
+	public Response aktualisiere(@BeanParam @NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
 	{
 		try
 		{
 			return Response
-				.ok(umfaengeService.aktualisiere(id, aktualisierteUmfaenge))
+				.ok(umfaengeService.aktualisiere(aktualisierteUmfaenge))
 				.build();
 		}
 		catch (UmfaengeException e)
@@ -104,12 +102,12 @@ public class UmfaengeRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschteUmfaenge geloeschteUmfaenge)
 	{
 		try
 		{
 			return Response
-				.ok(umfaengeService.loesche(id))
+				.ok(umfaengeService.loesche(geloeschteUmfaenge))
 				.build();
 		}
 		catch (UmfaengeException e)

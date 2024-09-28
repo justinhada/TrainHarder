@@ -74,14 +74,12 @@ public class BenutzerRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierterBenutzer aktualisierterBenutzer)
+	public Response aktualisiere(@BeanParam @NonNull AktualisierterBenutzer aktualisierterBenutzer)
 	{
 		try
 		{
 			return Response
-				.ok(benutzerService.aktualisiere(id, aktualisierterBenutzer))
+				.ok(benutzerService.aktualisiere(aktualisierterBenutzer))
 				.build();
 		}
 		catch (BenutzerException e)
@@ -95,12 +93,12 @@ public class BenutzerRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschterBenutzer geloeschterBenutzer)
 	{
 		try
 		{
 			return Response
-				.ok(benutzerService.loesche(id))
+				.ok(benutzerService.loesche(geloeschterBenutzer))
 				.build();
 		}
 		catch (BenutzerException e)

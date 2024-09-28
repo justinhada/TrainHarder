@@ -83,12 +83,12 @@ public class LoginsRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(@PathParam("id") @NonNull String id, @NonNull AktualisierterLogin aktualisierterLogin)
+	public Response aktualisiere(@NonNull AktualisierterLogin aktualisierterLogin)
 	{
 		try
 		{
 			return Response
-				.ok(loginService.aktualisiere(id, aktualisierterLogin))
+				.ok(loginService.aktualisiere(aktualisierterLogin))
 				.build();
 		}
 		catch (LoginException e)
@@ -102,12 +102,12 @@ public class LoginsRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschterLogin geloeschterLogin)
 	{
 		try
 		{
 			return Response
-				.ok(loginService.loesche(id))
+				.ok(loginService.loesche(geloeschterLogin))
 				.build();
 		}
 		catch (LoginException e)

@@ -65,7 +65,7 @@ public class LoginService implements Service<
 	}
 
 	@Override
-	public GespeicherterLogin erstelle(@NonNull NeuerLogin neuerLogin) throws BenutzerException
+	public NeuerLogin erstelle(@NonNull NeuerLogin neuerLogin) throws BenutzerException
 	{
 		var salt = Salt.random();
 		var login = new Login(
@@ -82,15 +82,15 @@ public class LoginService implements Service<
 
 		mailService.sendeNachVollstaendigerRegistrierung(login);
 
-		return loginMapping.mappe(login);
+		return neuerLogin;
 	}
 
 	@Override
-	public GespeicherterLogin aktualisiere(@NonNull String id, @NonNull AktualisierterLogin aktualisierterLogin)
-		throws LoginException
+	public AktualisierterLogin aktualisiere(@NonNull AktualisierterLogin aktualisierterLogin) throws LoginException
 	{
-		var login = loginRepository.finde(new ID(id))
-			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id)));
+		var login = loginRepository.finde(new ID(aktualisierterLogin.getId()))
+			.orElseThrow(() -> new LoginException(
+				"Der Login mit der ID %s existiert nicht!".formatted(aktualisierterLogin.getId())));
 
 		login.setEMailAdresse(new EMailAdresse(aktualisierterLogin.getEMailAdresse()))
 			.setBenutzername(new Benutzername(aktualisierterLogin.getBenutzername()))
@@ -98,16 +98,17 @@ public class LoginService implements Service<
 
 		loginRepository.speichere(login);
 
-		return loginMapping.mappe(login);
+		return aktualisierterLogin;
 	}
 
 	@Override
-	public GeloeschterLogin loesche(@NonNull String id) throws LoginException
+	public GeloeschterLogin loesche(@NonNull GeloeschterLogin geloeschterLogin) throws LoginException
 	{
-		loginRepository.loesche(loginRepository.finde(new ID(id))
-			.orElseThrow(() -> new LoginException("Der Login mit der ID %s existiert nicht!".formatted(id))));
+		loginRepository.loesche(loginRepository.finde(new ID(geloeschterLogin.getId()))
+			.orElseThrow(() -> new LoginException(
+				"Der Login mit der ID %s existiert nicht!".formatted(geloeschterLogin.getId()))));
 
-		return new GeloeschterLogin(id);
+		return geloeschterLogin;
 	}
 
 	public GespeicherterLogin findeMitEMailAdresse(@NonNull String eMailAdresse) throws LoginException

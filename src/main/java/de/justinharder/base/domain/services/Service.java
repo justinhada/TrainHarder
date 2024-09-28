@@ -18,9 +18,9 @@ public interface Service<
 
 	T finde(@NonNull String id) throws Exception;
 
-	T erstelle(@NonNull U neuesDto) throws Exception;
+	U erstelle(@NonNull U neuesDto) throws Exception;
 
-	T aktualisiere(@NonNull String id, @NonNull V aktualisiertesDto) throws Exception;
+	V aktualisiere(@NonNull V aktualisiertesDto) throws Exception;
 
-	W loesche(@NonNull String id) throws Exception;
+	W loesche(@NonNull W geloeschtesDto) throws Exception;
 }

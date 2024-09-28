@@ -20,7 +20,7 @@ public interface Ressource<
 
 	Response erstelle(@NonNull U neuesDto);
 
-	Response aktualisiere(@NonNull String id, @NonNull V aktualisiertesDto);
+	Response aktualisiere(@NonNull V aktualisiertesDto);
 
-	Response loesche(@NonNull String id);
+	Response loesche(@NonNull W geloeschtesDto);
 }

@@ -78,14 +78,12 @@ public class RegistrierungenRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
+	public Response aktualisiere(@NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
 	{
 		try
 		{
 			return Response
-				.ok(registrierungService.aktualisiere(id, aktualisierteRegistrierung))
+				.ok(registrierungService.aktualisiere(aktualisierteRegistrierung))
 				.build();
 		}
 		catch (RegistrierungException | BenutzerException e)
@@ -99,12 +97,12 @@ public class RegistrierungenRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschteRegistrierung geloeschteRegistrierung)
 	{
 		try
 		{
 			return Response
-				.ok(registrierungService.loesche(id))
+				.ok(registrierungService.loesche(geloeschteRegistrierung))
 				.build();
 		}
 		catch (RegistrierungException e)

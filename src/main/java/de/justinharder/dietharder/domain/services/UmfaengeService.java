@@ -55,7 +55,7 @@ public class UmfaengeService implements Service<
 	}
 
 	@Override
-	public GespeicherteUmfaenge erstelle(@NonNull NeueUmfaenge neueUmfaenge) throws BenutzerException
+	public NeueUmfaenge erstelle(@NonNull NeueUmfaenge neueUmfaenge) throws BenutzerException
 	{
 		var umfaenge = new Umfaenge(
 			new ID(),
@@ -79,15 +79,16 @@ public class UmfaengeService implements Service<
 
 		umfaengeRepository.speichere(umfaenge);
 
-		return umfaengeMapping.mappe(umfaenge);
+		return neueUmfaenge;
 	}
 
 	@Override
-	public GespeicherteUmfaenge aktualisiere(@NonNull String id, @NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
+	public AktualisierteUmfaenge aktualisiere(@NonNull AktualisierteUmfaenge aktualisierteUmfaenge)
 		throws UmfaengeException
 	{
-		var umfaenge = umfaengeRepository.finde(new ID(id))
-			.orElseThrow(() -> new UmfaengeException("Die Umfaenge mit der ID %s existieren nicht!".formatted(id)))
+		var umfaenge = umfaengeRepository.finde(new ID(aktualisierteUmfaenge.getId()))
+			.orElseThrow(() -> new UmfaengeException(
+				"Die Umfaenge mit der ID %s existieren nicht!".formatted(aktualisierteUmfaenge.getId())))
 			.setHalsUmfang(new HalsUmfang(aktualisierteUmfaenge.getHalsUmfang()))
 			.setSchulterUmfang(new SchulterUmfang(aktualisierteUmfaenge.getSchulterUmfang()))
 			.setBrustRueckenUmfang(new BrustRueckenUmfang(aktualisierteUmfaenge.getBrustRueckenUmfang()))
@@ -108,16 +109,17 @@ public class UmfaengeService implements Service<
 
 		umfaengeRepository.speichere(umfaenge);
 
-		return umfaengeMapping.mappe(umfaenge);
+		return aktualisierteUmfaenge;
 	}
 
 	@Override
-	public GeloeschteUmfaenge loesche(@NonNull String id) throws UmfaengeException
+	public GeloeschteUmfaenge loesche(@NonNull GeloeschteUmfaenge geloeschteUmfaenge) throws UmfaengeException
 	{
-		umfaengeRepository.loesche(umfaengeRepository.finde(new ID(id))
-			.orElseThrow(() -> new UmfaengeException("Die Umfaenge mit der ID %s existieren nicht!".formatted(id))));
+		umfaengeRepository.loesche(umfaengeRepository.finde(new ID(geloeschteUmfaenge.getId()))
+			.orElseThrow(() -> new UmfaengeException(
+				"Die Umfaenge mit der ID %s existieren nicht!".formatted(geloeschteUmfaenge.getId()))));
 
-		return new GeloeschteUmfaenge(id);
+		return geloeschteUmfaenge;
 	}
 
 	public PaginationResponse<GespeicherteUmfaenge> findeAlle(

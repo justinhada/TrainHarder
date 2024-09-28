@@ -56,7 +56,7 @@ public class MessungService implements Service<
 	}
 
 	@Override
-	public GespeicherteMessung erstelle(@NonNull NeueMessung neueMessung) throws BenutzerException
+	public NeueMessung erstelle(@NonNull NeueMessung neueMessung) throws BenutzerException
 	{
 		var messung = new Messung(
 			new ID(),
@@ -69,31 +69,33 @@ public class MessungService implements Service<
 
 		messungRepository.speichere(messung);
 
-		return messungMapping.mappe(messung);
+		return neueMessung;
 	}
 
 	@Override
-	public GespeicherteMessung aktualisiere(@NonNull String id, @NonNull AktualisierteMessung aktualisierteMessung)
+	public AktualisierteMessung aktualisiere(@NonNull AktualisierteMessung aktualisierteMessung)
 		throws MessungException
 	{
-		var messung = messungRepository.finde(new ID(id))
-			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id)))
+		var messung = messungRepository.finde(new ID(aktualisierteMessung.getId()))
+			.orElseThrow(() -> new MessungException(
+				"Die Messung mit der ID %s existiert nicht!".formatted(aktualisierteMessung.getId())))
 			.setDatum(new Datum(aktualisierteMessung.getDatum()))
 			.setKoerpergewicht(new Koerpergewicht(aktualisierteMessung.getKoerpergewicht()))
 			.setKoerperfettAnteil(new KoerperfettAnteil(aktualisierteMessung.getKoerperfettAnteil()));
 
 		messungRepository.speichere(messung);
 
-		return messungMapping.mappe(messung);
+		return aktualisierteMessung;
 	}
 
 	@Override
-	public GeloeschteMessung loesche(@NonNull String id) throws MessungException
+	public GeloeschteMessung loesche(@NonNull GeloeschteMessung geloeschteMessung) throws MessungException
 	{
-		messungRepository.loesche(messungRepository.finde(new ID(id))
-			.orElseThrow(() -> new MessungException("Die Messung mit der ID %s existiert nicht!".formatted(id))));
+		messungRepository.loesche(messungRepository.finde(new ID(geloeschteMessung.getId()))
+			.orElseThrow(() -> new MessungException(
+				"Die Messung mit der ID %s existiert nicht!".formatted(geloeschteMessung.getId()))));
 
-		return new GeloeschteMessung(id);
+		return geloeschteMessung;
 	}
 
 	public PaginationResponse<GespeicherteMessung> findeAlle(

@@ -56,7 +56,7 @@ public class HautfaltendickeService implements Service<
 	}
 
 	@Override
-	public GespeicherteHautfaltendicke erstelle(@NonNull NeueHautfaltendicke neueHautfaltendicke)
+	public NeueHautfaltendicke erstelle(@NonNull NeueHautfaltendicke neueHautfaltendicke)
 		throws BenutzerException
 	{
 		var hautfaltendicke = new Hautfaltendicke(
@@ -76,17 +76,16 @@ public class HautfaltendickeService implements Service<
 
 		hautfaltendickeRepository.speichere(hautfaltendicke);
 
-		return hautfaltendickeMapping.mappe(hautfaltendicke);
+		return neueHautfaltendicke;
 	}
 
 	@Override
-	public GespeicherteHautfaltendicke aktualisiere(
-		@NonNull String id,
-		@NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke) throws HautfaltendickeException
+	public AktualisierteHautfaltendicke aktualisiere(@NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke)
+		throws HautfaltendickeException
 	{
-		var hautfaltendicke = hautfaltendickeRepository.finde(new ID(id))
+		var hautfaltendicke = hautfaltendickeRepository.finde(new ID(aktualisierteHautfaltendicke.getId()))
 			.orElseThrow(() -> new HautfaltendickeException(
-				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(id)))
+				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(aktualisierteHautfaltendicke.getId())))
 			.setDatum(new Datum(aktualisierteHautfaltendicke.getDatum()))
 			.setBrustfalte(new Brustfalte(aktualisierteHautfaltendicke.getBrustfalte()))
 			.setBauchfalte(new Bauchfalte(aktualisierteHautfaltendicke.getBauchfalte()))

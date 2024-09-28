@@ -66,7 +66,7 @@ public class RegistrierungService implements Service<
 
 	@Override
 	@Transactional
-	public GespeicherteRegistrierung erstelle(@NonNull NeueRegistrierung neueRegistrierung)
+	public NeueRegistrierung erstelle(@NonNull NeueRegistrierung neueRegistrierung)
 	{
 		var salt = Salt.random();
 		var registrierung = new Registrierung(
@@ -79,37 +79,36 @@ public class RegistrierungService implements Service<
 
 		mailService.sendeNachErsterRegistrierung(registrierung);
 
-		return registrierungMapping.mappe(registrierung);
+		return neueRegistrierung;
 	}
 
-	// TODO: Auch AktualisierteRegistrierung zurückgeben (allgemein immer rein und raus gleich halten)
 	@Override
 	@Transactional
-	public GespeicherteRegistrierung aktualisiere(
-		@NonNull String id,
-		@NonNull AktualisierteRegistrierung aktualisierteRegistrierung) throws RegistrierungException, BenutzerException
+	public AktualisierteRegistrierung aktualisiere(@NonNull AktualisierteRegistrierung aktualisierteRegistrierung)
+		throws RegistrierungException, BenutzerException
 	{
-		var registrierung = registrierungRepository.finde(new ID(id))
-			.orElseThrow(
-				() -> new RegistrierungException("Die Registrierung mit der ID %s existiert nicht!".formatted(id)));
+		var registrierung = registrierungRepository.finde(new ID(aktualisierteRegistrierung.getId()))
+			.orElseThrow(() -> new RegistrierungException(
+				"Die Registrierung mit der ID %s existiert nicht!".formatted(aktualisierteRegistrierung.getId())));
 
-		var gespeicherterBenutzer = benutzerService.erstelle(NeuerBenutzer.aus(aktualisierteRegistrierung));
+		var neuerBenutzer = benutzerService.erstelle(NeuerBenutzer.aus(aktualisierteRegistrierung));
 		var gespeicherterLogin = loginService.erstelle(
-			NeuerLogin.aus(registrierung, aktualisierteRegistrierung, gespeicherterBenutzer));
+			NeuerLogin.aus(registrierung, aktualisierteRegistrierung, neuerBenutzer));
 
 		registrierungRepository.loesche(registrierung);
 
-		return registrierungMapping.mappe(registrierung);
+		return aktualisierteRegistrierung;
 	}
 
 	@Override
-	public GeloeschteRegistrierung loesche(@NonNull String id) throws RegistrierungException
+	public GeloeschteRegistrierung loesche(@NonNull GeloeschteRegistrierung geloeschteRegistrierung)
+		throws RegistrierungException
 	{
-		registrierungRepository.loesche(registrierungRepository.finde(new ID(id))
-			.orElseThrow(
-				() -> new RegistrierungException("Die Registrierung mit der ID %s existiert nicht!".formatted(id))));
+		registrierungRepository.loesche(registrierungRepository.finde(new ID(geloeschteRegistrierung.getId()))
+			.orElseThrow(() -> new RegistrierungException(
+				"Die Registrierung mit der ID %s existiert nicht!".formatted(geloeschteRegistrierung.getId()))));
 
-		return new GeloeschteRegistrierung(id);
+		return geloeschteRegistrierung;
 	}
 
 	public boolean isEMailAdresseVergeben(@NonNull String eMailAdresse)
