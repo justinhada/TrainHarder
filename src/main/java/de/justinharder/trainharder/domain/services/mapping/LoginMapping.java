@@ -3,14 +3,11 @@ package de.justinharder.trainharder.domain.services.mapping;
 import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.trainharder.domain.model.Login;
 import de.justinharder.trainharder.domain.services.dto.login.GespeicherterLogin;
-import de.justinharder.trainharder.domain.services.dto.login.pagination.LoginPaginationResponse;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Dependent
-public class LoginMapping implements Mapping<Login, GespeicherterLogin, LoginPaginationResponse>
+public class LoginMapping implements Mapping<Login, GespeicherterLogin>
 {
 	@Override
 	public GespeicherterLogin mappe(@NonNull Login login)

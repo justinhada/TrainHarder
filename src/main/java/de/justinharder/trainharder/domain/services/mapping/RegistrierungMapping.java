@@ -3,15 +3,11 @@ package de.justinharder.trainharder.domain.services.mapping;
 import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.trainharder.domain.model.Registrierung;
 import de.justinharder.trainharder.domain.services.dto.registrierung.GespeicherteRegistrierung;
-import de.justinharder.trainharder.domain.services.dto.registrierung.pagination.RegistrierungPaginationResponse;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Dependent
-public class RegistrierungMapping
-	implements Mapping<Registrierung, GespeicherteRegistrierung, RegistrierungPaginationResponse>
+public class RegistrierungMapping implements Mapping<Registrierung, GespeicherteRegistrierung>
 {
 	@Override
 	public GespeicherteRegistrierung mappe(@NonNull Registrierung registrierung)

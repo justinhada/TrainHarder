@@ -1,14 +1,13 @@
 package de.justinharder.dietharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.dietharder.domain.model.exceptions.ZielException;
 import de.justinharder.dietharder.domain.services.ZielService;
 import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GeloeschtesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
-import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -24,9 +23,7 @@ public class ZieleRessource implements Ressource<
 	GespeichertesZiel,
 	NeuesZiel,
 	AktualisiertesZiel,
-	GeloeschtesZiel,
-	ZielPaginationRequest,
-	ZielPaginationResponse>
+	GeloeschtesZiel>
 {
 	@NonNull
 	private final ZielService zielService;
@@ -34,10 +31,10 @@ public class ZieleRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull ZielPaginationRequest zielPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
 		return Response
-			.ok(zielService.findeAlle(zielPaginationRequest))
+			.ok(zielService.findeAlle(paginationRequest))
 			.build();
 	}
 

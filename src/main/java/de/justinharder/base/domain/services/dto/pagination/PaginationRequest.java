@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class PaginationRequest<T extends GespeichertesDTO<T>> extends Pagination<T>
+public class PaginationRequest<T extends GespeichertesDTO<T>> extends Pagination<T>
 {
 	@NonNull
 	@Positive

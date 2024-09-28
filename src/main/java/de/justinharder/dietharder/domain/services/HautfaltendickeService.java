@@ -2,6 +2,8 @@ package de.justinharder.dietharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.dietharder.domain.model.Hautfaltendicke;
 import de.justinharder.dietharder.domain.model.attribute.hautfaltendicke.*;
 import de.justinharder.dietharder.domain.model.exceptions.HautfaltendickeException;
@@ -10,8 +12,6 @@ import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.Aktualisie
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GeloeschteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
-import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.HautfaltendickeMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -26,9 +26,7 @@ public class HautfaltendickeService implements Service<
 	GespeicherteHautfaltendicke,
 	NeueHautfaltendicke,
 	AktualisierteHautfaltendicke,
-	GeloeschteHautfaltendicke,
-	HautfaltendickePaginationRequest,
-	HautfaltendickePaginationResponse>
+	GeloeschteHautfaltendicke>
 {
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;
@@ -40,8 +38,8 @@ public class HautfaltendickeService implements Service<
 	private final HautfaltendickeMapping hautfaltendickeMapping;
 
 	@Override
-	public HautfaltendickePaginationResponse findeAlle(
-		@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+	public PaginationResponse<GespeicherteHautfaltendicke> findeAlle(
+		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
 		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
 			hautfaltendickePaginationRequest.getPage(),
@@ -114,9 +112,9 @@ public class HautfaltendickeService implements Service<
 		return new GeloeschteHautfaltendicke(id);
 	}
 
-	public HautfaltendickePaginationResponse findeAlle(
+	public PaginationResponse<GespeicherteHautfaltendicke> findeAlle(
 		@NonNull String benutzerId,
-		@NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
 		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
 			new ID(benutzerId),

@@ -3,14 +3,11 @@ package de.justinharder.trainharder.domain.services.mapping;
 import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.GespeicherterBenutzer;
-import de.justinharder.trainharder.domain.services.dto.benutzer.pagination.BenutzerPaginationResponse;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Dependent
-public class BenutzerMapping implements Mapping<Benutzer, GespeicherterBenutzer, BenutzerPaginationResponse>
+public class BenutzerMapping implements Mapping<Benutzer, GespeicherterBenutzer>
 {
 	@Override
 	public GespeicherterBenutzer mappe(@NonNull Benutzer benutzer)

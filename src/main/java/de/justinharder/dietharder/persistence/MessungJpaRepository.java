@@ -1,6 +1,7 @@
 package de.justinharder.dietharder.persistence;
 
 import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.base.persistence.JpaRepository;
 import de.justinharder.dietharder.domain.model.Messung;
 import de.justinharder.dietharder.domain.repository.MessungRepository;
@@ -18,7 +19,7 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 	}
 
 	@Override
-	public List<Messung> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
+	public List<Messung> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
 		return entityManager.createQuery("""
 					SELECT messung
@@ -26,8 +27,8 @@ public class MessungJpaRepository extends JpaRepository<Messung> implements Mess
 					WHERE messung.benutzer.id = :benutzerId""",
 				Messung.class)
 			.setParameter("benutzerId", benutzerId)
-			.setFirstResult((page - 1) * pageSize)
-			.setMaxResults(pageSize)
+			.setFirstResult((paginationRequest.getPage() - 1) * paginationRequest.getPageSize())
+			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
 }

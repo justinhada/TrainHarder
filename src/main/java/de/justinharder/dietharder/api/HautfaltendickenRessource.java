@@ -1,14 +1,13 @@
 package de.justinharder.dietharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.dietharder.domain.model.exceptions.HautfaltendickeException;
 import de.justinharder.dietharder.domain.services.HautfaltendickeService;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.AktualisierteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GeloeschteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.NeueHautfaltendicke;
-import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -24,9 +23,7 @@ public class HautfaltendickenRessource implements Ressource<
 	GespeicherteHautfaltendicke,
 	NeueHautfaltendicke,
 	AktualisierteHautfaltendicke,
-	GeloeschteHautfaltendicke,
-	HautfaltendickePaginationRequest,
-	HautfaltendickePaginationResponse>
+	GeloeschteHautfaltendicke>
 {
 	@NonNull
 	private final HautfaltendickeService hautfaltendickeService;
@@ -34,10 +31,10 @@ public class HautfaltendickenRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull HautfaltendickePaginationRequest hautfaltendickePaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
 		return Response
-			.ok(hautfaltendickeService.findeAlle(hautfaltendickePaginationRequest))
+			.ok(hautfaltendickeService.findeAlle(paginationRequest))
 			.build();
 	}
 
@@ -86,14 +83,12 @@ public class HautfaltendickenRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke)
+	public Response aktualisiere(@BeanParam @NonNull AktualisierteHautfaltendicke aktualisierteHautfaltendicke)
 	{
 		try
 		{
 			return Response
-				.ok(hautfaltendickeService.aktualisiere(id, aktualisierteHautfaltendicke))
+				.ok(hautfaltendickeService.aktualisiere(aktualisierteHautfaltendicke))
 				.build();
 		}
 		catch (HautfaltendickeException e)
@@ -107,12 +102,12 @@ public class HautfaltendickenRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschteHautfaltendicke geloeschteHautfaltendicke)
 	{
 		try
 		{
 			return Response
-				.ok(hautfaltendickeService.loesche(id))
+				.ok(hautfaltendickeService.loesche(geloeschteHautfaltendicke))
 				.build();
 		}
 		catch (HautfaltendickeException e)

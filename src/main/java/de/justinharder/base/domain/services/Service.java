@@ -9,14 +9,12 @@ import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import lombok.NonNull;
 
 public interface Service<
-	T extends GespeichertesDTO<?>,
-	U extends NeuesDTO<?>,
-	V extends AktualisiertesDTO<?>,
-	W extends GeloeschtesDTO<?>,
-	X extends PaginationRequest<?>,
-	Y extends PaginationResponse<?>>
+	T extends GespeichertesDTO<T>,
+	U extends NeuesDTO<U>,
+	V extends AktualisiertesDTO<V>,
+	W extends GeloeschtesDTO<W>>
 {
-	Y findeAlle(@NonNull X paginationRequest);
+	PaginationResponse<T> findeAlle(@NonNull PaginationRequest<T> paginationRequest);
 
 	T finde(@NonNull String id) throws Exception;
 

@@ -1,6 +1,7 @@
 package de.justinharder.dietharder.persistence;
 
 import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.base.persistence.JpaRepository;
 import de.justinharder.dietharder.domain.model.Hautfaltendicke;
 import de.justinharder.dietharder.domain.repository.HautfaltendickeRepository;
@@ -18,7 +19,7 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 	}
 
 	@Override
-	public List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId, @NonNull Integer page, @NonNull Integer pageSize)
+	public List<Hautfaltendicke> findeAlle(@NonNull ID benutzerId, @NonNull PaginationRequest<?> paginationRequest)
 	{
 		return entityManager.createQuery("""
 					SELECT hautfaltendicke
@@ -26,8 +27,8 @@ public class HautfaltendickeJpaRepository extends JpaRepository<Hautfaltendicke>
 					WHERE hautfaltendicke.benutzer.id = :benutzerId""",
 				Hautfaltendicke.class)
 			.setParameter("benutzerId", benutzerId)
-			.setFirstResult((page - 1) * pageSize)
-			.setMaxResults(pageSize)
+			.setFirstResult((paginationRequest.getPage() - 1) * paginationRequest.getPageSize())
+			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
 }

@@ -2,6 +2,8 @@ package de.justinharder.dietharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.dietharder.domain.model.Messung;
 import de.justinharder.dietharder.domain.model.attribute.KoerperfettAnteil;
 import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
@@ -11,8 +13,6 @@ import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessu
 import de.justinharder.dietharder.domain.services.dto.messung.GeloeschteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
-import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.MessungMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -21,17 +21,13 @@ import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Dependent
 @RequiredArgsConstructor
 public class MessungService implements Service<
 	GespeicherteMessung,
 	NeueMessung,
 	AktualisierteMessung,
-	GeloeschteMessung,
-	MessungPaginationRequest,
-	MessungPaginationResponse>
+	GeloeschteMessung>
 {
 	@NonNull
 	private final MessungRepository messungRepository;
@@ -43,7 +39,8 @@ public class MessungService implements Service<
 	private final MessungMapping messungMapping;
 
 	@Override
-	public MessungPaginationResponse findeAlle(@NonNull MessungPaginationRequest messungPaginationRequest)
+	public PaginationResponse<GespeicherteMessung> findeAlle(
+		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
 		return messungMapping.mappe(messungRepository.findeAlle(
 			messungPaginationRequest.getPage(),
@@ -99,9 +96,9 @@ public class MessungService implements Service<
 		return new GeloeschteMessung(id);
 	}
 
-	public List<GespeicherteMessung> findeAlle(
+	public PaginationResponse<GespeicherteMessung> findeAlle(
 		@NonNull String benutzerId,
-		@NonNull MessungPaginationRequest messungPaginationRequest)
+		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
 		return messungRepository.findeAlle(
 				new ID(benutzerId),

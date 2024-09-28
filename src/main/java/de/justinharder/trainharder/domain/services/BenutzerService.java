@@ -2,6 +2,8 @@ package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.trainharder.domain.model.Benutzer;
 import de.justinharder.trainharder.domain.model.attribute.*;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -10,8 +12,6 @@ import de.justinharder.trainharder.domain.services.dto.benutzer.AktualisierterBe
 import de.justinharder.trainharder.domain.services.dto.benutzer.GeloeschterBenutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.NeuerBenutzer;
-import de.justinharder.trainharder.domain.services.dto.benutzer.pagination.BenutzerPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.benutzer.pagination.BenutzerPaginationResponse;
 import de.justinharder.trainharder.domain.services.mapping.BenutzerMapping;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
@@ -23,9 +23,7 @@ public class BenutzerService implements Service<
 	GespeicherterBenutzer,
 	NeuerBenutzer,
 	AktualisierterBenutzer,
-	GeloeschterBenutzer,
-	BenutzerPaginationRequest,
-	BenutzerPaginationResponse>
+	GeloeschterBenutzer>
 {
 	@NonNull
 	private final BenutzerRepository benutzerRepository;
@@ -34,7 +32,8 @@ public class BenutzerService implements Service<
 	private final BenutzerMapping benutzerMapping;
 
 	@Override
-	public BenutzerPaginationResponse findeAlle(@NonNull BenutzerPaginationRequest benutzerPaginationRequest)
+	public PaginationResponse<GespeicherterBenutzer> findeAlle(
+		@NonNull PaginationRequest<GespeicherterBenutzer> paginationRequest)
 	{
 		return benutzerMapping.mappe(benutzerRepository.findeAlle(
 			benutzerPaginationRequest.getPage(),

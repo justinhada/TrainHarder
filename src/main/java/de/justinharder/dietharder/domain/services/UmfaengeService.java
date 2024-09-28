@@ -2,6 +2,8 @@ package de.justinharder.dietharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.dietharder.domain.model.Umfaenge;
 import de.justinharder.dietharder.domain.model.attribute.umfaenge.*;
 import de.justinharder.dietharder.domain.model.exceptions.UmfaengeException;
@@ -10,8 +12,6 @@ import de.justinharder.dietharder.domain.services.dto.umfaenge.AktualisierteUmfa
 import de.justinharder.dietharder.domain.services.dto.umfaenge.GeloeschteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.GespeicherteUmfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.NeueUmfaenge;
-import de.justinharder.dietharder.domain.services.dto.umfaenge.pagination.UmfaengePaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.umfaenge.pagination.UmfaengePaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.UmfaengeMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -26,9 +26,7 @@ public class UmfaengeService implements Service<
 	GespeicherteUmfaenge,
 	NeueUmfaenge,
 	AktualisierteUmfaenge,
-	GeloeschteUmfaenge,
-	UmfaengePaginationRequest,
-	UmfaengePaginationResponse>
+	GeloeschteUmfaenge>
 {
 	@NonNull
 	private final UmfaengeRepository umfaengeRepository;
@@ -40,7 +38,8 @@ public class UmfaengeService implements Service<
 	private final UmfaengeMapping umfaengeMapping;
 
 	@Override
-	public UmfaengePaginationResponse findeAlle(@NonNull UmfaengePaginationRequest umfaengePaginationRequest)
+	public PaginationResponse<GespeicherteUmfaenge> findeAlle(
+		@NonNull PaginationRequest<GespeicherteUmfaenge> paginationRequest)
 	{
 		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(
 			umfaengePaginationRequest.getPage(),
@@ -121,9 +120,9 @@ public class UmfaengeService implements Service<
 		return new GeloeschteUmfaenge(id);
 	}
 
-	public UmfaengePaginationResponse findeAlle(
+	public PaginationResponse<GespeicherteUmfaenge> findeAlle(
 		@NonNull String benutzerId,
-		@NonNull UmfaengePaginationRequest umfaengePaginationRequest)
+		@NonNull PaginationRequest<GespeicherteUmfaenge> paginationRequest)
 	{
 		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(
 			new ID(benutzerId),

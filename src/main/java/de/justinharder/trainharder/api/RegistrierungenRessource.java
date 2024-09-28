@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.RegistrierungException;
 import de.justinharder.trainharder.domain.services.LoginService;
@@ -9,8 +10,6 @@ import de.justinharder.trainharder.domain.services.dto.registrierung.Aktualisier
 import de.justinharder.trainharder.domain.services.dto.registrierung.GeloeschteRegistrierung;
 import de.justinharder.trainharder.domain.services.dto.registrierung.GespeicherteRegistrierung;
 import de.justinharder.trainharder.domain.services.dto.registrierung.NeueRegistrierung;
-import de.justinharder.trainharder.domain.services.dto.registrierung.pagination.RegistrierungPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.registrierung.pagination.RegistrierungPaginationResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -25,9 +24,7 @@ public class RegistrierungenRessource implements Ressource<
 	GespeicherteRegistrierung,
 	NeueRegistrierung,
 	AktualisierteRegistrierung,
-	GeloeschteRegistrierung,
-	RegistrierungPaginationRequest,
-	RegistrierungPaginationResponse>
+	GeloeschteRegistrierung>
 {
 	@NonNull
 	private final RegistrierungService registrierungService;
@@ -38,10 +35,10 @@ public class RegistrierungenRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull RegistrierungPaginationRequest registrierungPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeicherteRegistrierung> paginationRequest)
 	{
 		return Response
-			.ok(registrierungService.findeAlle(registrierungPaginationRequest))
+			.ok(registrierungService.findeAlle(paginationRequest))
 			.build();
 	}
 

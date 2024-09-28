@@ -2,6 +2,8 @@ package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.trainharder.api.LoginDaten;
 import de.justinharder.trainharder.api.Token;
 import de.justinharder.trainharder.domain.model.Login;
@@ -14,8 +16,6 @@ import de.justinharder.trainharder.domain.services.dto.login.AktualisierterLogin
 import de.justinharder.trainharder.domain.services.dto.login.GeloeschterLogin;
 import de.justinharder.trainharder.domain.services.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.services.dto.login.NeuerLogin;
-import de.justinharder.trainharder.domain.services.dto.login.pagination.LoginPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.login.pagination.LoginPaginationResponse;
 import de.justinharder.trainharder.domain.services.mapping.LoginMapping;
 import de.justinharder.trainharder.utils.TokenUtils;
 import jakarta.enterprise.context.Dependent;
@@ -33,9 +33,7 @@ public class LoginService implements Service<
 	GespeicherterLogin,
 	NeuerLogin,
 	AktualisierterLogin,
-	GeloeschterLogin,
-	LoginPaginationRequest,
-	LoginPaginationResponse>
+	GeloeschterLogin>
 {
 	@NonNull
 	private final LoginRepository loginRepository;
@@ -50,7 +48,8 @@ public class LoginService implements Service<
 	private final MailService mailService;
 
 	@Override
-	public LoginPaginationResponse findeAlle(@NonNull LoginPaginationRequest loginPaginationRequest)
+	public PaginationResponse<GespeicherterLogin> findeAlle(
+		@NonNull PaginationRequest<GespeicherterLogin> paginationRequest)
 	{
 		return loginMapping.mappe(loginRepository.findeAlle(
 			loginPaginationRequest.getPage(),

@@ -3,17 +3,11 @@ package de.justinharder.dietharder.domain.services.mapping;
 import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.dietharder.domain.model.Hautfaltendicke;
 import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.GespeicherteHautfaltendicke;
-import de.justinharder.dietharder.domain.services.dto.hautfaltendicke.pagination.HautfaltendickePaginationResponse;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Dependent
-public class HautfaltendickeMapping implements Mapping<
-	Hautfaltendicke,
-	GespeicherteHautfaltendicke,
-	HautfaltendickePaginationResponse>
+public class HautfaltendickeMapping implements Mapping<Hautfaltendicke, GespeicherteHautfaltendicke>
 {
 	@Override
 	public GespeicherteHautfaltendicke mappe(@NonNull Hautfaltendicke hautfaltendicke)

@@ -6,45 +6,39 @@ import de.justinharder.base.domain.services.dto.GespeichertesDTO;
 import jakarta.annotation.Nullable;
 import lombok.*;
 
-import java.net.URL;
 import java.util.List;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class PaginationResponse<T extends GespeichertesDTO<T>> extends Pagination<T>
+public class PaginationResponse<T extends GespeichertesDTO<T>> extends Pagination<T>
 {
 	@NonNull
-	@JsonProperty(value = "count", required = true)
+	@JsonProperty(required = true)
 	protected final Integer count;
 
 	@Setter
 	@Nullable
-	@JsonProperty(value = "self")
-	protected URL self;
+	protected String self;
 
 	@Setter
 	@Nullable
-	@JsonProperty(value = "first")
-	protected URL first;
+	protected String first;
 
 	@Setter
 	@Nullable
-	@JsonProperty(value = "prev")
-	protected URL prev;
+	protected String prev;
 
 	@Setter
 	@Nullable
-	@JsonProperty(value = "next")
-	protected URL next;
+	protected String next;
 
 	@Setter
 	@Nullable
-	@JsonProperty(value = "last")
-	protected URL last;
+	protected String last;
 
 	@NonNull
-	@JsonProperty(value = "results", required = true)
+	@JsonProperty(required = true)
 	protected final List<T> results;
 }

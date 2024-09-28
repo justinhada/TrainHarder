@@ -3,14 +3,11 @@ package de.justinharder.dietharder.domain.services.mapping;
 import de.justinharder.base.domain.services.mapping.Mapping;
 import de.justinharder.dietharder.domain.model.Umfaenge;
 import de.justinharder.dietharder.domain.services.dto.umfaenge.GespeicherteUmfaenge;
-import de.justinharder.dietharder.domain.services.dto.umfaenge.pagination.UmfaengePaginationResponse;
 import jakarta.enterprise.context.Dependent;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Dependent
-public class UmfaengeMapping implements Mapping<Umfaenge, GespeicherteUmfaenge, UmfaengePaginationResponse>
+public class UmfaengeMapping implements Mapping<Umfaenge, GespeicherteUmfaenge>
 {
 	@Override
 	public GespeicherteUmfaenge mappe(@NonNull Umfaenge umfaenge)

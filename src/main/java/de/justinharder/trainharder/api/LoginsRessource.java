@@ -1,6 +1,7 @@
 package de.justinharder.trainharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.model.exceptions.LoginException;
 import de.justinharder.trainharder.domain.services.LoginService;
@@ -8,8 +9,6 @@ import de.justinharder.trainharder.domain.services.dto.login.AktualisierterLogin
 import de.justinharder.trainharder.domain.services.dto.login.GeloeschterLogin;
 import de.justinharder.trainharder.domain.services.dto.login.GespeicherterLogin;
 import de.justinharder.trainharder.domain.services.dto.login.NeuerLogin;
-import de.justinharder.trainharder.domain.services.dto.login.pagination.LoginPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.login.pagination.LoginPaginationResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,9 +23,7 @@ public class LoginsRessource implements Ressource<
 	GespeicherterLogin,
 	NeuerLogin,
 	AktualisierterLogin,
-	GeloeschterLogin,
-	LoginPaginationRequest,
-	LoginPaginationResponse>
+	GeloeschterLogin>
 {
 	@NonNull
 	private final LoginService loginService;
@@ -34,10 +31,10 @@ public class LoginsRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull LoginPaginationRequest loginPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeicherterLogin> paginationRequest)
 	{
 		return Response
-			.ok(loginService.findeAlle(loginPaginationRequest))
+			.ok(loginService.findeAlle(paginationRequest))
 			.build();
 	}
 

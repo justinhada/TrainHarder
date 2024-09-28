@@ -1,14 +1,13 @@
 package de.justinharder.dietharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.dietharder.domain.model.exceptions.MessungException;
 import de.justinharder.dietharder.domain.services.MessungService;
 import de.justinharder.dietharder.domain.services.dto.messung.AktualisierteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GeloeschteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.GespeicherteMessung;
 import de.justinharder.dietharder.domain.services.dto.messung.NeueMessung;
-import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.messung.pagination.MessungPaginationResponse;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -24,9 +23,7 @@ public class MessungenRessource implements Ressource<
 	GespeicherteMessung,
 	NeueMessung,
 	AktualisierteMessung,
-	GeloeschteMessung,
-	MessungPaginationRequest,
-	MessungPaginationResponse>
+	GeloeschteMessung>
 {
 	@NonNull
 	private final MessungService messungService;
@@ -34,10 +31,10 @@ public class MessungenRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull MessungPaginationRequest messungPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
 		return Response
-			.ok(messungService.findeAlle(messungPaginationRequest))
+			.ok(messungService.findeAlle(paginationRequest))
 			.build();
 	}
 
@@ -86,14 +83,12 @@ public class MessungenRessource implements Ressource<
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response aktualisiere(
-		@PathParam("id") @NonNull String id,
-		@BeanParam @NonNull AktualisierteMessung aktualisierteMessung)
+	public Response aktualisiere(@BeanParam @NonNull AktualisierteMessung aktualisierteMessung)
 	{
 		try
 		{
 			return Response
-				.ok(messungService.aktualisiere(id, aktualisierteMessung))
+				.ok(messungService.aktualisiere(aktualisierteMessung))
 				.build();
 		}
 		catch (MessungException e)
@@ -107,12 +102,12 @@ public class MessungenRessource implements Ressource<
 	@DELETE
 	@Override
 	@Path("/{id}")
-	public Response loesche(@PathParam("id") @NonNull String id)
+	public Response loesche(@BeanParam @NonNull GeloeschteMessung geloeschteMessung)
 	{
 		try
 		{
 			return Response
-				.ok(messungService.loesche(id))
+				.ok(messungService.loesche(geloeschteMessung))
 				.build();
 		}
 		catch (MessungException e)

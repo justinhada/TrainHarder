@@ -2,6 +2,8 @@ package de.justinharder.trainharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.trainharder.domain.model.Registrierung;
 import de.justinharder.trainharder.domain.model.attribute.EMailAdresse;
 import de.justinharder.trainharder.domain.model.attribute.Passwort;
@@ -15,8 +17,6 @@ import de.justinharder.trainharder.domain.services.dto.registrierung.Aktualisier
 import de.justinharder.trainharder.domain.services.dto.registrierung.GeloeschteRegistrierung;
 import de.justinharder.trainharder.domain.services.dto.registrierung.GespeicherteRegistrierung;
 import de.justinharder.trainharder.domain.services.dto.registrierung.NeueRegistrierung;
-import de.justinharder.trainharder.domain.services.dto.registrierung.pagination.RegistrierungPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.registrierung.pagination.RegistrierungPaginationResponse;
 import de.justinharder.trainharder.domain.services.mapping.RegistrierungMapping;
 import jakarta.enterprise.context.Dependent;
 import jakarta.transaction.Transactional;
@@ -29,9 +29,7 @@ public class RegistrierungService implements Service<
 	GespeicherteRegistrierung,
 	NeueRegistrierung,
 	AktualisierteRegistrierung,
-	GeloeschteRegistrierung,
-	RegistrierungPaginationRequest,
-	RegistrierungPaginationResponse>
+	GeloeschteRegistrierung>
 {
 	@NonNull
 	private final RegistrierungRepository registrierungRepository;
@@ -49,8 +47,8 @@ public class RegistrierungService implements Service<
 	private final MailService mailService;
 
 	@Override
-	public RegistrierungPaginationResponse findeAlle(
-		@NonNull RegistrierungPaginationRequest registrierungPaginationRequest)
+	public PaginationResponse<GespeicherteRegistrierung> findeAlle(
+		@NonNull PaginationRequest<GespeicherteRegistrierung> paginationRequest)
 	{
 		return registrierungMapping.mappe(registrierungRepository.findeAlle(
 			registrierungPaginationRequest.getPage(),

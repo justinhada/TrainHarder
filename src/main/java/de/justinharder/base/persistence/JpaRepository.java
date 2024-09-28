@@ -3,6 +3,7 @@ package de.justinharder.base.persistence;
 import de.justinharder.base.domain.model.Entitaet;
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.repository.Repository;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.AccessLevel;
@@ -21,22 +22,14 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	private final Class<T> entitaet;
 
 	@Override
-	public List<T> findeAlle()
+	public List<T> findeAlle(@NonNull PaginationRequest<?> paginationRequest)
 	{
 		entityManager.clear();
-		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entitaet);
-		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet)))
-			.getResultList();
-	}
 
-	@Override
-	public List<T> findeAlle(@NonNull Integer page, @NonNull Integer pageSize)
-	{
-		entityManager.clear();
 		var criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entitaet);
 		return entityManager.createQuery(criteriaQuery.select(criteriaQuery.from(entitaet)))
-			.setFirstResult((page - 1) * pageSize)
-			.setMaxResults(pageSize)
+			.setFirstResult((paginationRequest.getPage() - 1) * paginationRequest.getPageSize())
+			.setMaxResults(paginationRequest.getPageSize())
 			.getResultList();
 	}
 

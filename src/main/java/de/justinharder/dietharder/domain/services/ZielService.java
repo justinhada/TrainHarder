@@ -2,6 +2,8 @@ package de.justinharder.dietharder.domain.services;
 
 import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.base.domain.services.Service;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
+import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import de.justinharder.dietharder.domain.model.Ziel;
 import de.justinharder.dietharder.domain.model.attribute.KoerperfettAnteil;
 import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
@@ -11,8 +13,6 @@ import de.justinharder.dietharder.domain.services.dto.ziel.AktualisiertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GeloeschtesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.GespeichertesZiel;
 import de.justinharder.dietharder.domain.services.dto.ziel.NeuesZiel;
-import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationRequest;
-import de.justinharder.dietharder.domain.services.dto.ziel.pagination.ZielPaginationResponse;
 import de.justinharder.dietharder.domain.services.mapping.ZielMapping;
 import de.justinharder.trainharder.domain.model.attribute.Datum;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
@@ -27,9 +27,7 @@ public class ZielService implements Service<
 	GespeichertesZiel,
 	NeuesZiel,
 	AktualisiertesZiel,
-	GeloeschtesZiel,
-	ZielPaginationRequest,
-	ZielPaginationResponse>
+	GeloeschtesZiel>
 {
 	@NonNull
 	private final ZielRepository zielRepository;
@@ -41,7 +39,8 @@ public class ZielService implements Service<
 	private final ZielMapping zielMapping;
 
 	@Override
-	public ZielPaginationResponse findeAlle(@NonNull ZielPaginationRequest zielPaginationRequest)
+	public PaginationResponse<GespeichertesZiel> findeAlle(
+		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
 		return zielMapping.mappe(zielRepository.findeAlle(
 			zielPaginationRequest.getPage(),
@@ -97,9 +96,9 @@ public class ZielService implements Service<
 		return new GeloeschtesZiel(id);
 	}
 
-	public ZielPaginationResponse findeAlle(
+	public PaginationResponse<GespeichertesZiel> findeAlle(
 		@NonNull String benutzerId,
-		@NonNull ZielPaginationRequest zielPaginationRequest)
+		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
 		return zielMapping.mappe(zielRepository.findeAlle(
 			new ID(benutzerId),

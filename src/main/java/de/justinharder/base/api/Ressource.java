@@ -5,19 +5,16 @@ import de.justinharder.base.domain.services.dto.GeloeschtesDTO;
 import de.justinharder.base.domain.services.dto.GespeichertesDTO;
 import de.justinharder.base.domain.services.dto.NeuesDTO;
 import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
-import de.justinharder.base.domain.services.dto.pagination.PaginationResponse;
 import jakarta.ws.rs.core.Response;
 import lombok.NonNull;
 
 public interface Ressource<
-	T extends GespeichertesDTO<?>,
-	U extends NeuesDTO<?>,
-	V extends AktualisiertesDTO<?>,
-	W extends GeloeschtesDTO<?>,
-	X extends PaginationRequest<?>,
-	Y extends PaginationResponse<?>>
+	T extends GespeichertesDTO<T>,
+	U extends NeuesDTO<U>,
+	V extends AktualisiertesDTO<V>,
+	W extends GeloeschtesDTO<W>>
 {
-	Response findeAlle(@NonNull X paginationRequest);
+	Response findeAlle(@NonNull PaginationRequest<T> paginationRequest);
 
 	Response finde(@NonNull String id);
 

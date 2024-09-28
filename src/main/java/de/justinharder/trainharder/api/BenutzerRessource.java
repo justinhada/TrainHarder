@@ -1,14 +1,13 @@
 package de.justinharder.trainharder.api;
 
 import de.justinharder.base.api.Ressource;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.trainharder.domain.model.exceptions.BenutzerException;
 import de.justinharder.trainharder.domain.services.BenutzerService;
 import de.justinharder.trainharder.domain.services.dto.benutzer.AktualisierterBenutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.GeloeschterBenutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.GespeicherterBenutzer;
 import de.justinharder.trainharder.domain.services.dto.benutzer.NeuerBenutzer;
-import de.justinharder.trainharder.domain.services.dto.benutzer.pagination.BenutzerPaginationRequest;
-import de.justinharder.trainharder.domain.services.dto.benutzer.pagination.BenutzerPaginationResponse;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
@@ -24,9 +23,7 @@ public class BenutzerRessource implements Ressource<
 	GespeicherterBenutzer,
 	NeuerBenutzer,
 	AktualisierterBenutzer,
-	GeloeschterBenutzer,
-	BenutzerPaginationRequest,
-	BenutzerPaginationResponse>
+	GeloeschterBenutzer>
 {
 	@NonNull
 	protected final BenutzerService benutzerService;
@@ -34,10 +31,10 @@ public class BenutzerRessource implements Ressource<
 	@GET
 	@Override
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeAlle(@BeanParam @NonNull BenutzerPaginationRequest benutzerPaginationRequest)
+	public Response findeAlle(@BeanParam @NonNull PaginationRequest<GespeicherterBenutzer> paginationRequest)
 	{
 		return Response
-			.ok(benutzerService.findeAlle(benutzerPaginationRequest))
+			.ok(benutzerService.findeAlle(paginationRequest))
 			.build();
 	}
 
