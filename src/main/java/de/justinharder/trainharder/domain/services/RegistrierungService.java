@@ -50,9 +50,11 @@ public class RegistrierungService implements Service<
 	public PaginationResponse<GespeicherteRegistrierung> findeAlle(
 		@NonNull PaginationRequest<GespeicherteRegistrierung> paginationRequest)
 	{
-		return registrierungMapping.mappe(registrierungRepository.findeAlle(
-			registrierungPaginationRequest.getPage(),
-			registrierungPaginationRequest.getPageSize()));
+		return registrierungMapping.mappe(
+			"registrierungen",
+			registrierungRepository.findeAlle(paginationRequest),
+			registrierungRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override

@@ -16,19 +16,4 @@ public class RegistrierungMapping implements Mapping<Registrierung, Gespeicherte
 			registrierung.getId().toString(),
 			registrierung.getEMailAdresse().getWert());
 	}
-
-	@Override
-	public RegistrierungPaginationResponse mappe(@NonNull List<Registrierung> registrierungen)
-	{
-		return new RegistrierungPaginationResponse(
-			registrierungen.size(),
-			registrierungen.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

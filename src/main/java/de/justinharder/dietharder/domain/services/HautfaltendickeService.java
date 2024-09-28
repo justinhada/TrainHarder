@@ -28,6 +28,8 @@ public class HautfaltendickeService implements Service<
 	AktualisierteHautfaltendicke,
 	GeloeschteHautfaltendicke>
 {
+	private static final String ENDPUNKT = "hautfaltendicken";
+
 	@NonNull
 	private final HautfaltendickeRepository hautfaltendickeRepository;
 
@@ -41,9 +43,11 @@ public class HautfaltendickeService implements Service<
 	public PaginationResponse<GespeicherteHautfaltendicke> findeAlle(
 		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
-		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
-			hautfaltendickePaginationRequest.getPage(),
-			hautfaltendickePaginationRequest.getPageSize()));
+		return hautfaltendickeMapping.mappe(
+			ENDPUNKT,
+			hautfaltendickeRepository.findeAlle(paginationRequest),
+			hautfaltendickeRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override
@@ -98,26 +102,28 @@ public class HautfaltendickeService implements Service<
 
 		hautfaltendickeRepository.speichere(hautfaltendicke);
 
-		return hautfaltendickeMapping.mappe(hautfaltendicke);
+		return aktualisierteHautfaltendicke;
 	}
 
 	@Override
-	public GeloeschteHautfaltendicke loesche(@NonNull String id) throws HautfaltendickeException
+	public GeloeschteHautfaltendicke loesche(@NonNull GeloeschteHautfaltendicke geloeschteHautfaltendicke)
+		throws HautfaltendickeException
 	{
-		hautfaltendickeRepository.loesche(hautfaltendickeRepository.finde(new ID(id))
+		hautfaltendickeRepository.loesche(hautfaltendickeRepository.finde(new ID(geloeschteHautfaltendicke.getId()))
 			.orElseThrow(() -> new HautfaltendickeException(
-				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(id))));
+				"Die Hautfaltendicke mit der ID %s existiert nicht!".formatted(geloeschteHautfaltendicke.getId()))));
 
-		return new GeloeschteHautfaltendicke(id);
+		return geloeschteHautfaltendicke;
 	}
 
 	public PaginationResponse<GespeicherteHautfaltendicke> findeAlle(
 		@NonNull String benutzerId,
 		@NonNull PaginationRequest<GespeicherteHautfaltendicke> paginationRequest)
 	{
-		return hautfaltendickeMapping.mappe(hautfaltendickeRepository.findeAlle(
-			new ID(benutzerId),
-			hautfaltendickePaginationRequest.getPage(),
-			hautfaltendickePaginationRequest.getPageSize()));
+		return hautfaltendickeMapping.mappe(
+			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			hautfaltendickeRepository.findeAlle(new ID(benutzerId), paginationRequest),
+			hautfaltendickeRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
+			paginationRequest);
 	}
 }

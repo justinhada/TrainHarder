@@ -29,19 +29,4 @@ public class UmfaengeMapping implements Mapping<Umfaenge, GespeicherteUmfaenge>
 			umfaenge.getLinkerUnterschenkelUmfang().toString(),
 			umfaenge.getRechterUnterschenkelUmfang().toString());
 	}
-
-	@Override
-	public UmfaengePaginationResponse mappe(@NonNull List<Umfaenge> umfaenge)
-	{
-		return new UmfaengePaginationResponse(
-			umfaenge.size(),
-			umfaenge.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

@@ -17,19 +17,4 @@ public class BenutzerMapping implements Mapping<Benutzer, GespeicherterBenutzer>
 			benutzer.getVorname().getWert(),
 			benutzer.getNachname().getWert());
 	}
-
-	@Override
-	public BenutzerPaginationResponse mappe(@NonNull List<Benutzer> benutzer)
-	{
-		return new BenutzerPaginationResponse(
-			benutzer.size(),
-			benutzer.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

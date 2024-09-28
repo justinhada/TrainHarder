@@ -28,6 +28,8 @@ public class UmfaengeService implements Service<
 	AktualisierteUmfaenge,
 	GeloeschteUmfaenge>
 {
+	private static final String ENDPUNKT = "umfaenge";
+
 	@NonNull
 	private final UmfaengeRepository umfaengeRepository;
 
@@ -41,9 +43,11 @@ public class UmfaengeService implements Service<
 	public PaginationResponse<GespeicherteUmfaenge> findeAlle(
 		@NonNull PaginationRequest<GespeicherteUmfaenge> paginationRequest)
 	{
-		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(
-			umfaengePaginationRequest.getPage(),
-			umfaengePaginationRequest.getPageSize()));
+		return umfaengeMapping.mappe(
+			ENDPUNKT,
+			umfaengeRepository.findeAlle(paginationRequest),
+			umfaengeRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override
@@ -126,9 +130,10 @@ public class UmfaengeService implements Service<
 		@NonNull String benutzerId,
 		@NonNull PaginationRequest<GespeicherteUmfaenge> paginationRequest)
 	{
-		return umfaengeMapping.mappe(umfaengeRepository.findeAlle(
-			new ID(benutzerId),
-			umfaengePaginationRequest.getPage(),
-			umfaengePaginationRequest.getPageSize()));
+		return umfaengeMapping.mappe(
+			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			umfaengeRepository.findeAlle(new ID(benutzerId), paginationRequest),
+			umfaengeRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
+			paginationRequest);
 	}
 }

@@ -17,19 +17,4 @@ public class LoginMapping implements Mapping<Login, GespeicherterLogin>
 			login.getEMailAdresse().getWert(),
 			login.getBenutzername().getWert());
 	}
-
-	@Override
-	public LoginPaginationResponse mappe(@NonNull List<Login> login)
-	{
-		return new LoginPaginationResponse(
-			login.size(),
-			login.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

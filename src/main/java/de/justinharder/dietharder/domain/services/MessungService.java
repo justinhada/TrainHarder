@@ -29,6 +29,8 @@ public class MessungService implements Service<
 	AktualisierteMessung,
 	GeloeschteMessung>
 {
+	private static final String ENDPUNKT = "messungen";
+
 	@NonNull
 	private final MessungRepository messungRepository;
 
@@ -42,9 +44,11 @@ public class MessungService implements Service<
 	public PaginationResponse<GespeicherteMessung> findeAlle(
 		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
-		return messungMapping.mappe(messungRepository.findeAlle(
-			messungPaginationRequest.getPage(),
-			messungPaginationRequest.getPageSize()));
+		return messungMapping.mappe(
+			ENDPUNKT,
+			messungRepository.findeAlle(paginationRequest),
+			messungRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override
@@ -102,11 +106,10 @@ public class MessungService implements Service<
 		@NonNull String benutzerId,
 		@NonNull PaginationRequest<GespeicherteMessung> paginationRequest)
 	{
-		return messungRepository.findeAlle(
-				new ID(benutzerId),
-				messungPaginationRequest.getPage(),
-				messungPaginationRequest.getPageSize()).stream()
-			.map(messungMapping::mappe)
-			.toList();
+		return messungMapping.mappe(
+			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			messungRepository.findeAlle(new ID(benutzerId), paginationRequest),
+			messungRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
+			paginationRequest);
 	}
 }

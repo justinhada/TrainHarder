@@ -18,19 +18,4 @@ public class MessungMapping implements Mapping<Messung, GespeicherteMessung>
 			messung.getKoerpergewicht().toString(),
 			messung.getKoerperfettAnteil().toString());
 	}
-
-	@Override
-	public MessungPaginationResponse mappe(@NonNull List<Messung> messungen)
-	{
-		return new MessungPaginationResponse(
-			messungen.size(),
-			messungen.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

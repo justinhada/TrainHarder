@@ -29,6 +29,8 @@ public class ZielService implements Service<
 	AktualisiertesZiel,
 	GeloeschtesZiel>
 {
+	private static final String ENDPUNKT = "ziele";
+
 	@NonNull
 	private final ZielRepository zielRepository;
 
@@ -42,9 +44,11 @@ public class ZielService implements Service<
 	public PaginationResponse<GespeichertesZiel> findeAlle(
 		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
-		return zielMapping.mappe(zielRepository.findeAlle(
-			zielPaginationRequest.getPage(),
-			zielPaginationRequest.getPageSize()));
+		return zielMapping.mappe(
+			ENDPUNKT,
+			zielRepository.findeAlle(paginationRequest),
+			zielRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override
@@ -101,9 +105,10 @@ public class ZielService implements Service<
 		@NonNull String benutzerId,
 		@NonNull PaginationRequest<GespeichertesZiel> paginationRequest)
 	{
-		return zielMapping.mappe(zielRepository.findeAlle(
-			new ID(benutzerId),
-			zielPaginationRequest.getPage(),
-			zielPaginationRequest.getPageSize()));
+		return zielMapping.mappe(
+			ENDPUNKT, // TODO: erweitere Endpunkt mit BenutzerID
+			zielRepository.findeAlle(new ID(benutzerId), paginationRequest),
+			zielRepository.zaehleAlle(), // TODO: Zähle nur die relevanten
+			paginationRequest);
 	}
 }

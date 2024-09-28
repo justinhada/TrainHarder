@@ -51,9 +51,11 @@ public class LoginService implements Service<
 	public PaginationResponse<GespeicherterLogin> findeAlle(
 		@NonNull PaginationRequest<GespeicherterLogin> paginationRequest)
 	{
-		return loginMapping.mappe(loginRepository.findeAlle(
-			loginPaginationRequest.getPage(),
-			loginPaginationRequest.getPageSize()));
+		return loginMapping.mappe(
+			"logins",
+			loginRepository.findeAlle(paginationRequest),
+			loginRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override

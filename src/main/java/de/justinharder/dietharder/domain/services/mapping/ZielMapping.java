@@ -18,19 +18,4 @@ public class ZielMapping implements Mapping<Ziel, GespeichertesZiel>
 			ziel.getKoerpergewicht().toString(),
 			ziel.getKoerperfettAnteil().toString());
 	}
-
-	@Override
-	public ZielPaginationResponse mappe(@NonNull List<Ziel> ziele)
-	{
-		return new ZielPaginationResponse(
-			ziele.size(),
-			ziele.stream()
-				.map(this::mappe)
-				.toList())
-			.setSelf(null) // TODO: Implementieren, eigene URL
-			.setFirst(null) // TODO: Implementieren, erste URL
-			.setPrev(null) // TODO: Implementieren, vorherige URL
-			.setNext(null) // TODO: Implementieren, nächste URL
-			.setLast(null); // TODO: Implementieren, letzte URL
-	}
 }

@@ -35,9 +35,11 @@ public class BenutzerService implements Service<
 	public PaginationResponse<GespeicherterBenutzer> findeAlle(
 		@NonNull PaginationRequest<GespeicherterBenutzer> paginationRequest)
 	{
-		return benutzerMapping.mappe(benutzerRepository.findeAlle(
-			benutzerPaginationRequest.getPage(),
-			benutzerPaginationRequest.getPageSize()));
+		return benutzerMapping.mappe(
+			"benutzer",
+			benutzerRepository.findeAlle(paginationRequest),
+			benutzerRepository.zaehleAlle(),
+			paginationRequest);
 	}
 
 	@Override
