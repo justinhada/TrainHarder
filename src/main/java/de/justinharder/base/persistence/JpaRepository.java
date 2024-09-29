@@ -19,7 +19,8 @@ public abstract class JpaRepository<T extends Entitaet> implements Repository<T>
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	private final Class<T> entitaet;
+	@NonNull
+	protected final Class<T> entitaet;
 
 	@Override
 	public List<T> findeAlle(@NonNull PaginationRequest<?> paginationRequest)

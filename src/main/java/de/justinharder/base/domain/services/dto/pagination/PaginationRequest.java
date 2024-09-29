@@ -20,23 +20,23 @@ public class PaginationRequest<T extends GespeichertesDTO<T>> extends Pagination
 	@Positive
 	@DefaultValue("1")
 	@QueryParam("page")
-	protected Integer page;
+	private Integer page = 1;
 
 	@NonNull
 	@Positive
 	@DefaultValue("10")
 	@QueryParam("page_size")
-	protected Integer pageSize;
+	private Integer pageSize = 10;
 
 	@Valid
 	@Nullable
-	protected Ordering<T> ordering; // TODO: Wie genau soll das implementiert werden?
+	private Ordering<T> ordering; // TODO: Wie genau soll das implementiert werden?
 
 	@Valid
 	@Nullable
-	protected Filtering<T> filtering; // TODO: Wie genau soll das implementiert werden?
+	private Filtering<T> filtering; // TODO: Wie genau soll das implementiert werden?
 
 	@Valid
 	@Nullable
-	protected Searching<T> searching;  // TODO: Wie genau soll das implementiert werden?
+	private Searching<T> searching;  // TODO: Wie genau soll das implementiert werden?
 }
