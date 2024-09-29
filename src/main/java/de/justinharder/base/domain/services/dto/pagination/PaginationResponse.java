@@ -12,7 +12,7 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaginationResponse<T extends GespeichertesDTO<T>> extends Pagination<T>
+public class PaginationResponse<T extends GespeichertesDTO<T>>
 {
 	@NonNull
 	@JsonProperty(required = true)
