@@ -21,6 +21,7 @@ dependencies {
             "io.quarkus:quarkus-agroal",
             "io.quarkus:quarkus-mailer",
             "io.quarkus:quarkus-rest",
+            "io.quarkus:quarkus-rest-jackson",
             "io.quarkus:quarkus-smallrye-openapi",
             "io.quarkus:quarkus-smallrye-jwt",
             "io.quarkus:quarkus-smallrye-jwt-build",
