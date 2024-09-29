@@ -62,7 +62,7 @@ public class ZieleRessource implements Ressource<
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeuesZiel neuesZiel)
+	public Response erstelle(@NonNull NeuesZiel neuesZiel)
 	{
 		try
 		{

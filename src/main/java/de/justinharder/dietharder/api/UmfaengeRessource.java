@@ -62,7 +62,7 @@ public class UmfaengeRessource implements Ressource<
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeueUmfaenge neueUmfaenge)
+	public Response erstelle(@NonNull NeueUmfaenge neueUmfaenge)
 	{
 		try
 		{

@@ -118,21 +118,21 @@ public class LoginsRessource implements Ressource<
 		}
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findeMitEMailAdresse(@QueryParam("eMailAdresse") @NonNull String eMailAdresse)
-	{
-		try
-		{
-			return Response
-				.ok(loginService.findeMitEMailAdresse(eMailAdresse))
-				.build();
-		}
-		catch (LoginException e)
-		{
-			return Response
-				.status(Response.Status.NOT_FOUND)
-				.build();
-		}
-	}
+	//	@GET
+	//	@Produces(MediaType.APPLICATION_JSON)
+	//	public Response findeMitEMailAdresse(@QueryParam("eMailAdresse") @NonNull String eMailAdresse)
+	//	{
+	//		try
+	//		{
+	//			return Response
+	//				.ok(loginService.findeMitEMailAdresse(eMailAdresse))
+	//				.build();
+	//		}
+	//		catch (LoginException e)
+	//		{
+	//			return Response
+	//				.status(Response.Status.NOT_FOUND)
+	//				.build();
+	//		}
+	//	}
 }

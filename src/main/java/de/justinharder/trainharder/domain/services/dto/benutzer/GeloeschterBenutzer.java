@@ -7,9 +7,4 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GeloeschterBenutzer extends GeloeschtesDTO<GeloeschterBenutzer>
-{
-	public GeloeschterBenutzer(String id)
-	{
-		super(id);
-	}
-}
+{}

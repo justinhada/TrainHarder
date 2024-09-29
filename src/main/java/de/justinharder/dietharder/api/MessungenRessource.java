@@ -62,7 +62,7 @@ public class MessungenRessource implements Ressource<
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeueMessung neueMessung)
+	public Response erstelle(@NonNull NeueMessung neueMessung)
 	{
 		try
 		{

@@ -7,9 +7,4 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GeloeschteMessung extends GeloeschtesDTO<GeloeschteMessung>
-{
-	public GeloeschteMessung(String id)
-	{
-		super(id);
-	}
-}
+{}

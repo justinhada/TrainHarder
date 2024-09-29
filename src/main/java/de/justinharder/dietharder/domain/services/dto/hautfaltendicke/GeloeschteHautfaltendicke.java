@@ -7,9 +7,4 @@ import lombok.ToString;
 @Getter
 @ToString(callSuper = true)
 public class GeloeschteHautfaltendicke extends GeloeschtesDTO<GeloeschteHautfaltendicke>
-{
-	public GeloeschteHautfaltendicke(String id)
-	{
-		super(id);
-	}
-}
+{}

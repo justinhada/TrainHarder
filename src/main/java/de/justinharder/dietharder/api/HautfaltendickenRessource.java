@@ -62,7 +62,7 @@ public class HautfaltendickenRessource implements Ressource<
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeueHautfaltendicke neueHautfaltendicke)
+	public Response erstelle(@NonNull NeueHautfaltendicke neueHautfaltendicke)
 	{
 		try
 		{

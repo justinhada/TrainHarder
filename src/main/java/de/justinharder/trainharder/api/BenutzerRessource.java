@@ -62,7 +62,7 @@ public class BenutzerRessource implements Ressource<
 	@Override
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response erstelle(@BeanParam @NonNull NeuerBenutzer neuerBenutzer)
+	public Response erstelle(@NonNull NeuerBenutzer neuerBenutzer)
 	{
 		return Response
 			.ok(benutzerService.erstelle(neuerBenutzer))
