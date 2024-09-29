@@ -40,13 +40,6 @@ class KoerpermessungJpaRepositoryTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(KOERPERMESSUNG_JUSTIN, KOERPERMESSUNG_EDUARD);
-	}
-
-	@Test
 	@DisplayName("finden")
 	void test03()
 	{

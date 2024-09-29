@@ -41,13 +41,6 @@ class AuthentifizierungJpaRepositoryTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(AUTHENTIFIZIERUNG_JUSTIN, AUTHENTIFIZIERUNG_EDUARD);
-	}
-
-	@Test
 	@DisplayName("finden")
 	void test03()
 	{

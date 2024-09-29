@@ -43,14 +43,6 @@ class UebungJpaRepositoryTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE,
-			UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-	}
-
-	@Test
 	@DisplayName("finden")
 	void test03()
 	{

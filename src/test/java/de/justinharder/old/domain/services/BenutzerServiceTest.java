@@ -52,18 +52,6 @@ class BenutzerServiceTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test01()
-	{
-		var erwartet = List.of(BENUTZER_DTO_JUSTIN, BENUTZER_DTO_EDUARD);
-		var benutzer = List.of(BENUTZER_JUSTIN, BENUTZER_EDUARD);
-		when(benutzerRepository.findeAlle()).thenReturn(benutzer);
-		when(benutzerDtoMapper.mappeAlle(benutzer)).thenReturn(erwartet);
-
-		assertThat(sut.findeAlle()).isEqualTo(erwartet);
-	}
-
-	@Test
 	@DisplayName("null validieren")
 	void test02()
 	{

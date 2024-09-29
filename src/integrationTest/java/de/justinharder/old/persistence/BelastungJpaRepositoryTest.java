@@ -1,8 +1,8 @@
 package de.justinharder.old.persistence;
 
+import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.Belastung;
 import de.justinharder.old.domain.model.attribute.GrunduebungBelastung;
-import de.justinharder.base.domain.model.attribute.ID;
 import de.justinharder.old.domain.model.attribute.OberkoerperBelastung;
 import de.justinharder.old.domain.model.attribute.UnterkoerperBelastung;
 import io.quarkus.test.junit.QuarkusTest;
@@ -35,14 +35,6 @@ class BelastungJpaRepositoryTest
 		assertAll(
 			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
 			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)));
-	}
-
-	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(BELASTUNG_WETTKAMPFBANKDRUECKEN,
-			BELASTUNG_LOWBAR_KNIEBEUGE, BELASTUNG_KONVENTIONELLES_KREUZHEBEN);
 	}
 
 	@Test

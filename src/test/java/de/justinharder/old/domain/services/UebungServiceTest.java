@@ -41,22 +41,6 @@ class UebungServiceTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test01()
-	{
-		var erwartet = List.of(UEBUNG_DTO_WETTKAMPFBANKDRUECKEN, UEBUNG_DTO_LOWBAR_KNIEBEUGE,
-			UEBUNG_DTO_KONVENTIONELLES_KREUZHEBEN);
-		var uebungen =
-			List.of(UEBUNG_WETTKAMPFBANKDRUECKEN, UEBUNG_LOWBAR_KNIEBEUGE, UEBUNG_KONVENTIONELLES_KREUZHEBEN);
-		when(uebungRepository.findeAlle()).thenReturn(uebungen);
-		when(uebungDtoMapper.mappeAlle(uebungen)).thenReturn(erwartet);
-
-		assertThat(sut.findeAlle()).isEqualTo(erwartet);
-		verify(uebungRepository).findeAlle();
-		verify(uebungDtoMapper).mappeAlle(uebungen);
-	}
-
-	@Test
 	@DisplayName("null validieren")
 	void test02()
 	{

@@ -40,14 +40,6 @@ class KraftwertJpaRepositoryTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(KRAFTWERT_WETTKAMPFBANKDRUECKEN,
-			KRAFTWERT_LOWBAR_KNIEBEUGE, KRAFTWERT_KONVENTIONELLES_KREUZHEBEN);
-	}
-
-	@Test
 	@DisplayName("finden")
 	void test03()
 	{

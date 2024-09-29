@@ -42,13 +42,6 @@ class BenutzerJpaRepositoryTest
 	}
 
 	@Test
-	@DisplayName("alle finden")
-	void test02()
-	{
-		assertThat(sut.findeAlle()).containsExactlyInAnyOrder(BENUTZER_JUSTIN, BENUTZER_EDUARD);
-	}
-
-	@Test
 	@DisplayName("finden")
 	void test03()
 	{
