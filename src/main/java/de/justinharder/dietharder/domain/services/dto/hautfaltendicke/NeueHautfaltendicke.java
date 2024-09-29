@@ -2,15 +2,14 @@ package de.justinharder.dietharder.domain.services.dto.hautfaltendicke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.justinharder.base.domain.services.dto.NeuesDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class NeueHautfaltendicke extends NeuesDTO<NeueHautfaltendicke>
 {
 	@JsonProperty(value = "datum", required = true)

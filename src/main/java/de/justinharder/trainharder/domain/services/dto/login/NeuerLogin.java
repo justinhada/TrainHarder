@@ -11,9 +11,10 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class NeuerLogin extends NeuesDTO<NeuerLogin>
 {
 	private EMailAdresse eMailAdresse;

@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class GespeichertesDTO<T extends GespeichertesDTO<T>> extends DTO<T>

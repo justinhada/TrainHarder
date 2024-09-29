@@ -9,6 +9,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class NeuerBenutzer extends NeuesDTO<NeuerBenutzer>
 {
 	@JsonProperty(value = "vorname", required = true)

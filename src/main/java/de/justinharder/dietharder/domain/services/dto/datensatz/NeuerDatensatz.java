@@ -2,15 +2,14 @@ package de.justinharder.dietharder.domain.services.dto.datensatz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.justinharder.base.domain.services.dto.NeuesDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public abstract class NeuerDatensatz<T extends NeuerDatensatz<T>> extends NeuesDTO<T>
 {
 	@JsonProperty(value = "datum", required = true)
