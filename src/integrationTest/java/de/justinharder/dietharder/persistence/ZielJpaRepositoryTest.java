@@ -1,6 +1,5 @@
 package de.justinharder.dietharder.persistence;
 
-import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
@@ -9,15 +8,28 @@ import org.junit.jupiter.api.Test;
 import static de.justinharder.Testdaten.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 @DisplayName("ZielJpaRepository sollte")
 class ZielJpaRepositoryTest
 {
-	private static final PaginationRequest<?> PAGINATION_REQUEST = new PaginationRequest<>();
-
 	@Inject
 	ZielJpaRepository sut;
+
+	@Test
+	@DisplayName("null validieren")
+	void test01()
+	{
+		assertAll(
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlle(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlle(null, PAGINATION_REQUEST)),
+			() -> assertThrows(NullPointerException.class, () -> sut.findeAlle(BENUTZER_1.getId(), null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.zaehleAlle(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.finde(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.speichere(null)),
+			() -> assertThrows(NullPointerException.class, () -> sut.loesche(null)));
+	}
 
 	@Test
 	@DisplayName("alle finden")

@@ -1,6 +1,7 @@
 package de.justinharder;
 
 import de.justinharder.base.domain.model.attribute.ID;
+import de.justinharder.base.domain.services.dto.pagination.PaginationRequest;
 import de.justinharder.dietharder.domain.model.Ziel;
 import de.justinharder.dietharder.domain.model.attribute.KoerperfettAnteil;
 import de.justinharder.dietharder.domain.model.attribute.Koerpergewicht;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Testdaten
 {
+	public static final PaginationRequest<?> PAGINATION_REQUEST = new PaginationRequest<>();
+
 	public static final Benutzer BENUTZER_1 = new Benutzer(
 		new ID("82f4bf94-9f6e-43f7-a6c2-867949e7d4f7"),
 		new Nachname("Harder"),
