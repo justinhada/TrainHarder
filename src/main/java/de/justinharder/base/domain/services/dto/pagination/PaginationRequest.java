@@ -29,13 +29,16 @@ public class PaginationRequest<T extends GespeichertesDTO<T>>
 
 	@Valid
 	@Nullable
-	private Ordering<T> ordering; // TODO: Wie genau soll das implementiert werden?
+	@QueryParam("search_query")
+	private String query;
 
 	@Valid
 	@Nullable
-	private Filtering<T> filtering; // TODO: Wie genau soll das implementiert werden?
+	@QueryParam("filter")
+	private String filter;
 
 	@Valid
 	@Nullable
-	private Searching<T> searching;  // TODO: Wie genau soll das implementiert werden?
+	@QueryParam("order")
+	private String order;
 }
