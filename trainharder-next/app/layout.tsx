@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import ThemeProvider from "@/components/theme/theme-provider";
+import { Roboto } from "next/font/google";
+import AppHeader from "@/components/layout/app-header";
+import AppSidebar from "@/components/layout/sidebar/app-sidebar";
+
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,7 +16,24 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <html lang="de" suppressHydrationWarning>
-    <body>{children}</body>
+    <body className={roboto.className}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <SidebarProvider>
+          <AppSidebar />
+
+          <SidebarInset>
+            <AppHeader />
+
+            <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+          </SidebarInset>
+        </SidebarProvider>
+      </ThemeProvider>
+    </body>
   </html>
 );
 
