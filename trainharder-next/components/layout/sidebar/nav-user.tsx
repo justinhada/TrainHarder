@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { Bell, ChevronsUpDown, LogOut, Sparkles, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -26,16 +19,14 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const NavUser = ({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) => {
+const NavUser = () => {
   const { isMobile } = useSidebar();
+
+  const user = {
+    name: "harder",
+    email: "justinharder@t-online.de",
+    avatar: "",
+  };
 
   return (
     <SidebarMenu>
@@ -88,7 +79,8 @@ const NavUser = ({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
-                Upgrade to Pro
+
+                <span>Upgrade to Pro</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 
@@ -96,21 +88,15 @@ const NavUser = ({
 
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
+                <User />
 
-                <span>Account</span>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <CreditCard />
-
-                <span>Billing</span>
+                <span>Benutzer</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem>
                 <Bell />
 
-                <span>Notifications</span>
+                <span>Mitteilungen</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 
@@ -119,7 +105,7 @@ const NavUser = ({
             <DropdownMenuItem>
               <LogOut />
 
-              <span>Log out</span>
+              <span>Logout</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
